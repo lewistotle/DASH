@@ -20,6 +20,7 @@ enum {
 // Normally putting a variable is a header file isn't done, but it's ok in this case
 // since each state machine will have it's own source file.
 
+static unsigned char	stateMachineID ;
 static unsigned char	previousState ;
 static unsigned char	currentState ;
 static unsigned char	nextState ;
@@ -28,9 +29,12 @@ static unsigned char	nextState ;
 
 
 #if configSTATE_MACHINE_DEBUGGING_ENABLED
-	void outputStateMachineDebugData(	unsigned char subState) ;
+	// Note that this function is not static. It should be defined once, and only once,
+	// somewhere in the code if this functionality is to be used.
+
+	void outputStateMachineDebugData(	unsigned char machineID, unsigned char subState) ;
 #else
-	#define outputStateMachineDebugData(a)
+	#define outputStateMachineDebugData(a, b)
 #endif
 
 
@@ -90,7 +94,8 @@ static unsigned char	nextState ;
 
 
 
-#define STATE_MACHINE_INIT()					previousState	= STATE_UNKNOWN ;		\
+#define STATE_MACHINE_INIT(newMachineID)		stateMachineID	= newMachineID ;		\
+												previousState	= STATE_UNKNOWN ;		\
 												currentState	= STATE_MACHINE_INIT ;	\
 												nextState		= STATE_MACHINE_INIT ;	\
 												STATE_MACHINE_SETUP_MILLISECOND_TICK ;
@@ -101,54 +106,54 @@ static unsigned char	nextState ;
 
 
 
-#define STATE_ENTRY_ACTION						if(currentState != previousState)					\
-												{													\
-													outputStateMachineDebugData(SUBSTATE_ENTRY) ;	\
+#define STATE_ENTRY_ACTION						if(currentState != previousState)										\
+												{																		\
+													outputStateMachineDebugData(stateMachineID, SUBSTATE_ENTRY) ;		\
 
 													// app code goes here
 
-#define STATE_DO_ACTION_EXCLUSIVE					previousState = currentState ;					\
-												}													\
-												else if(nextState == currentState)					\
-												{													\
-													outputStateMachineDebugData(SUBSTATE_DO) ;		\
+#define STATE_DO_ACTION_EXCLUSIVE					previousState = currentState ;										\
+												}																		\
+												else if(nextState == currentState)										\
+												{																		\
+													outputStateMachineDebugData(stateMachineID, SUBSTATE_DO) ;			\
 
 													// app code goes here
 
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
-	#define STATE_TIMEOUT_ACTION_ms(to)				}													\
-													if(millisecondsInState >= to)						\
-													{													\
-														STATE_RESET_TIMEOUT_COUNTER() ;					\
-														outputStateMachineDebugData(SUBSTATE_TIMEOUT) ;	\
+	#define STATE_TIMEOUT_ACTION_ms(to)				}																	\
+													if(millisecondsInState >= to)										\
+													{																	\
+														STATE_RESET_TIMEOUT_COUNTER() ;									\
+														outputStateMachineDebugData(stateMachineID, SUBSTATE_TIMEOUT) ;	\
 
 														// app code goes here
 #endif
 
-#define STATE_EXIT_ACTION_EXCLUSIVE				}													\
-												else if(nextState != currentState)					\
-												{													\
-													outputStateMachineDebugData(SUBSTATE_EXIT) ;
+#define STATE_EXIT_ACTION_EXCLUSIVE				}																		\
+												else if(nextState != currentState)										\
+												{																		\
+													outputStateMachineDebugData(stateMachineID, SUBSTATE_EXIT) ;
 
 													// app code goes here
 
-#define STATE_END									currentState = nextState ;						\
+#define STATE_END									currentState = nextState ;											\
 												}
 
 
 
 
 
-#define STATE_DO_ACTION_IMMEDIATE					previousState = currentState ;					\
-												}													\
-												if(nextState == currentState)						\
-												{													\
-													outputStateMachineDebugData(SUBSTATE_DO) ;		\
+#define STATE_DO_ACTION_IMMEDIATE					previousState = currentState ;										\
+												}																		\
+												if(nextState == currentState)											\
+												{																		\
+													outputStateMachineDebugData(stateMachineID, SUBSTATE_DO) ;			\
 
-#define STATE_EXIT_ACTION_IMMEDIATE				}													\
-												if(nextState != currentState)						\
-												{													\
-													outputStateMachineDebugData(SUBSTATE_EXIT) ;
+#define STATE_EXIT_ACTION_IMMEDIATE				}																		\
+												if(nextState != currentState)											\
+												{																		\
+													outputStateMachineDebugData(stateMachineID, SUBSTATE_EXIT) ;
 
 
 #if configSTATE_MACHINE_ACTIONS_ARE_IMMEDIATE_BY_DEFAULT
@@ -174,9 +179,9 @@ STATE_MACHINE_ITERATOR() ;
 
 #define DEFAULT_STATE_MACHINE_CASE				default:											\
 												{													\
-													previousState	= STATE_UNKNOWN ;				\
-													currentState	= STATE_MACHINE_INIT ;			\
-													nextState		= STATE_MACHINE_INIT ;			\
+													/*previousState	= STATE_UNKNOWN ;*/				\
+													currentState	= STATE_UNKNOWN ;				\
+													/*nextState		= STATE_MACHINE_INIT ;*/		\
 												}
 
 #define STATE_MACHINE_HANDLER(state)			handler_##state()
