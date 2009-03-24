@@ -32,9 +32,9 @@ static unsigned char	nextState ;
 	// Note that this function is not static. It should be defined once, and only once,
 	// somewhere in the code if this functionality is to be used.
 
-	void outputStateMachineDebugData(	unsigned char machineID, unsigned char subState) ;
+	void outputStateMachineDebugData(	unsigned char machineID, unsigned char state, unsigned char subState) ;
 #else
-	#define outputStateMachineDebugData(a, b)
+	#define outputStateMachineDebugData(a, b, c)
 #endif
 
 
@@ -106,54 +106,54 @@ static unsigned char	nextState ;
 
 
 
-#define STATE_ENTRY_ACTION						if(currentState != previousState)										\
-												{																		\
-													outputStateMachineDebugData(stateMachineID, SUBSTATE_ENTRY) ;		\
+#define STATE_ENTRY_ACTION						if(currentState != previousState)														\
+												{																						\
+													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_ENTRY) ;			\
 
 													// app code goes here
 
-#define STATE_DO_ACTION_EXCLUSIVE					previousState = currentState ;										\
-												}																		\
-												else if(nextState == currentState)										\
-												{																		\
-													outputStateMachineDebugData(stateMachineID, SUBSTATE_DO) ;			\
+#define STATE_DO_ACTION_EXCLUSIVE					previousState = currentState ;														\
+												}																						\
+												else if(nextState == currentState)														\
+												{																						\
+													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_DO) ;			\
 
 													// app code goes here
 
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
-	#define STATE_TIMEOUT_ACTION_ms(to)				}																	\
-													if(millisecondsInState >= to)										\
-													{																	\
-														STATE_RESET_TIMEOUT_COUNTER() ;									\
-														outputStateMachineDebugData(stateMachineID, SUBSTATE_TIMEOUT) ;	\
+	#define STATE_TIMEOUT_ACTION_ms(to)				}																					\
+													if(millisecondsInState >= to)														\
+													{																					\
+														STATE_RESET_TIMEOUT_COUNTER() ;													\
+														outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_TIMEOUT) ;	\
 
 														// app code goes here
 #endif
 
-#define STATE_EXIT_ACTION_EXCLUSIVE				}																		\
-												else if(nextState != currentState)										\
-												{																		\
-													outputStateMachineDebugData(stateMachineID, SUBSTATE_EXIT) ;
+#define STATE_EXIT_ACTION_EXCLUSIVE				}																						\
+												else if(nextState != currentState)														\
+												{																						\
+													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_EXIT) ;
 
 													// app code goes here
 
-#define STATE_END									currentState = nextState ;											\
+#define STATE_END									currentState = nextState ;															\
 												}
 
 
 
 
 
-#define STATE_DO_ACTION_IMMEDIATE					previousState = currentState ;										\
-												}																		\
-												if(nextState == currentState)											\
-												{																		\
-													outputStateMachineDebugData(stateMachineID, SUBSTATE_DO) ;			\
+#define STATE_DO_ACTION_IMMEDIATE					previousState = currentState ;														\
+												}																						\
+												if(nextState == currentState)															\
+												{																						\
+													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_DO) ;			\
 
-#define STATE_EXIT_ACTION_IMMEDIATE				}																		\
-												if(nextState != currentState)											\
-												{																		\
-													outputStateMachineDebugData(stateMachineID, SUBSTATE_EXIT) ;
+#define STATE_EXIT_ACTION_IMMEDIATE				}																						\
+												if(nextState != currentState)															\
+												{																						\
+													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_EXIT) ;
 
 
 #if configSTATE_MACHINE_ACTIONS_ARE_IMMEDIATE_BY_DEFAULT
