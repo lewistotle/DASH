@@ -6,7 +6,7 @@
 
 enum {	
 		STATE_UNKNOWN,
-		STATE_MACHINE_INIT
+		STATE_INIT
 	 } ;
 
 enum {
@@ -96,8 +96,8 @@ static unsigned char	nextState ;
 
 #define STATE_MACHINE_INIT(newMachineID)		stateMachineID	= newMachineID ;		\
 												previousState	= STATE_UNKNOWN ;		\
-												currentState	= STATE_MACHINE_INIT ;	\
-												nextState		= STATE_MACHINE_INIT ;	\
+												currentState	= STATE_INIT ;			\
+												nextState		= STATE_INIT ;			\
 												STATE_MACHINE_SETUP_MILLISECOND_TICK ;
 
 
