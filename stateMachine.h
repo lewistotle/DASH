@@ -1,31 +1,80 @@
+
 #ifndef _STATE_MACHINE_H_
 #define _STATE_MACHINE_H_
+
+typedef void	(*call_state_type)(void) ;
+
+
+#define ENUMERATE_STATES()
+//#define END_ENUMERATE_STATES()
+
+#define END_ENUMERATE_STATES(		)				static void END_ENUMERATE_STATES_SKIN(STATE_MACHINE_NAME)(void) ;
+
+#define END_ENUMERATE_STATES_SKIN(	sm)				END_ENUMERATE_STATES_GUTS(sm)
+
+#define END_ENUMERATE_STATES_GUTS(	sm)				stIt##_##sm##_##iterator
+
+
+
+
+#define DEFINE_ITERATOR(		)					DEFINE_ITERATOR_SKIN(STATE_MACHINE_NAME)
+
+#define DEFINE_ITERATOR_SKIN(	sm)					DEFINE_ITERATOR_GUTS(sm)
+
+#define DEFINE_ITERATOR_GUTS(	sm)					static void stIt##_##sm##_##iterator(void) {
+
+#define END_ITERATOR()								currentState() ; }
+
+char* stateName = "unknown" ;
+
+#define GET_STATE(				newStateName)		GET_STATE_SKIN(STATE_MACHINE_NAME, newStateName)
+
+#define GET_STATE_SKIN(			sm, newStateName)	GET_STATE_GUTS(sm, newStateName)
+
+#define GET_STATE_GUTS(			sm, newStateName)	stFn##_##sm##_##newStateName
+
+#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(void) ;							\
+													static call_state_type	previousState = 0 ;							\
+													static call_state_type currentState = GET_STATE(newStateName) ;		\
+													static call_state_type	nextState = GET_STATE(newStateName) ;
+
+#define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(void) ;
+
+#define DEFINE_STATE(			newStateName)		DEFINE_STATE_SKIN(STATE_MACHINE_NAME, newStateName)
+
+#define DEFINE_STATE_SKIN(		sm, newStateName)	DEFINE_STATE_GUTS(sm, newStateName)
+
+#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(void)								\
+													{																	\
+													stateName = "stFn_" #sm "_" #newStateName ;							\
+													{
+
+
+#define END_STATE()									} }
 
 // A couple of states that all state machines MUST have. Others will be defined in the specific
 // instance of the state machine. The first two enums in each state machine must be the two below
 
 enum {
-		STATE_UNKNOWN = 0,
+		STATE_UNKNOWN,
 		STATE_INIT
 	 } ;
 
 enum {
-		SUBSTATE_ENTRY = 0,
+		SUBSTATE_ENTRY,
 		SUBSTATE_DO,
 		SUBSTATE_TIMEOUT,
-		SUBSTATE_EXIT,
-		SUBSTATE_GET_INFO,
-		IMMEDIATE_CHANGE_FLAG
+		SUBSTATE_EXIT
 	 } ;
 
 
 // Normally putting a variable is a header file isn't done, but it's ok in this case
 // since each state machine will have it's own source file.
 
-static uint16_t	stateMachineID ;
-static uint16_t	previousState ;
-static uint16_t	currentState ;
-static uint16_t	nextState ;
+static unsigned char	stateMachineID ;
+//static call_state_type	previousState ;
+//static call_state_type	currentState ;
+//static call_state_type	nextState ;
 
 
 
@@ -34,7 +83,7 @@ static uint16_t	nextState ;
 	// Note that this function is not static. It should be defined once, and only once,
 	// somewhere in the code if this functionality is to be used.
 
-	void outputStateMachineDebugData(	uint16_t machineID, uint16_t state, uint16_t subState) ;
+	void outputStateMachineDebugData(	unsigned char machineID, call_state_type state, unsigned char subState) ;
 #else
 	#define outputStateMachineDebugData(a, b, c)
 #endif
@@ -44,15 +93,14 @@ static uint16_t	nextState ;
 
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
 	#if		configSTATE_MACHINE_USE_SHORT_FOR_MILLISECOND_TIMER
-		typedef uint16_t	millisecondTimerType ;
+		typedef unsigned short	millisecondTimerType ;
 	#elif	configSTATE_MACHINE_USE_LONG_FOR_MILLISECOND_TIMER
-		typedef uint32_t	millisecondTimerType ;
-	
+		typedef unsigned long	millisecondTimerType ;
 	#else
 		#error No type given for millisecondInState variable
 	#endif
 
-	static millisecondTimerType					millisecondsInState ;
+	static millisecondTimerType	millisecondsInState ;
 
 	#define STATE_MACHINE_TIME_IN_STATE_ms		millisecondsInState
 
@@ -171,7 +219,9 @@ static uint16_t	nextState ;
 
 
 
-#define ITERATE_STATE_MACHINE()					iterateStateMachine() ;
+//#define ITERATE_STATE_MACHINE()					iterateStateMachine() ;
+#define ITERATE_STATE_MACHINE()					END_ENUMERATE_STATES_SKIN(STATE_MACHINE_NAME)()
+
 
 #define STATE_MACHINE_ITERATOR()				static void iterateStateMachine(	void)
 
@@ -191,7 +241,7 @@ STATE_MACHINE_ITERATOR() ;
 
 #define STATE_MACHINE_HANDLER_FUNCTION(state)	static void handler_##state(	void)
 
-#define CHANGE_STATE_TO(newState)				nextState = newState
+#define CHANGE_STATE_TO(newState)				nextState = &GET_STATE(newState)
 
 
 #define STATE_MACHINE_GET_PREVIOUS_STATE()		previousState
@@ -200,3 +250,10 @@ STATE_MACHINE_ITERATOR() ;
 
 
 #endif /* _STATE_MACHINE_H_ */
+
+
+
+
+
+
+
