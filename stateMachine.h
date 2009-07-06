@@ -4,28 +4,59 @@
 
 typedef void	(*call_state_type)(void) ;
 
+#define NO_ITERATOR_PRE_OR_POST_PROCESSING			static void END_ENUMERATE_STATES_SKIN_PRE(STATE_MACHINE_NAME)(void) { }	\
+													static void END_ENUMERATE_STATES_SKIN_POST(STATE_MACHINE_NAME)(void) { }
 
-#define ENUMERATE_STATES()
-//#define END_ENUMERATE_STATES()
+#define ITERATOR_PRE_PROCESSING_ONLY				static void END_ENUMERATE_STATES_SKIN_PRE(STATE_MACHINE_NAME)(void) ;		\
+													static void END_ENUMERATE_STATES_SKIN_POST(STATE_MACHINE_NAME)(void) { }
 
-#define END_ENUMERATE_STATES(		)				static void END_ENUMERATE_STATES_SKIN(STATE_MACHINE_NAME)(void) ;
+#define ITERATOR_POST_PROCESSING_ONLY				static void END_ENUMERATE_STATES_SKIN_PRE(STATE_MACHINE_NAME)(void) { }	\
+													static void END_ENUMERATE_STATES_SKIN_POST(STATE_MACHINE_NAME)(void)
+
+#define ITERATOR_PRE_AND_POST_PROCESSING			static void END_ENUMERATE_STATES_SKIN_PRE(STATE_MACHINE_NAME)(void) ;		\
+													static void END_ENUMERATE_STATES_SKIN_POST(STATE_MACHINE_NAME)(void) ;
+
+
+#define ENUMERATE_STATES(			iterationModes)	iterationModes ;
+
+uint8_t	stateMachineInitialized = false ;
+
+#define END_ENUMERATE_STATES(		)				static void END_ENUMERATE_STATES_SKIN(STATE_MACHINE_NAME)(void)	\
+													{																	\
+														if(!stateMachineInitialized)									\
+														{																\
+															stateMachineInitialized = true ;							\
+															STATE_MACHINE_SETUP_MILLISECOND_TICK ;						\
+														}																\
+														END_ENUMERATE_STATES_SKIN_PRE(	STATE_MACHINE_NAME)() ;			\
+														if(currentState) { currentState() ;	}							\
+														END_ENUMERATE_STATES_SKIN_POST(	STATE_MACHINE_NAME)() ;			\
+													}
 
 #define END_ENUMERATE_STATES_SKIN(	sm)				END_ENUMERATE_STATES_GUTS(sm)
+#define END_ENUMERATE_STATES_SKIN_PRE(	sm)			END_ENUMERATE_STATES_GUTS_PRE(sm)
+#define END_ENUMERATE_STATES_SKIN_POST(	sm)			END_ENUMERATE_STATES_GUTS_POST(sm)
 
-#define END_ENUMERATE_STATES_GUTS(	sm)				stIt##_##sm##_##iterator
+#define END_ENUMERATE_STATES_GUTS(	sm)				stIt_iterator_##sm
+#define END_ENUMERATE_STATES_GUTS_PRE(	sm)			stIt_pre_iterator_##sm
+#define END_ENUMERATE_STATES_GUTS_POST(	sm)			stIt_post_iterator_##sm
 
 
 
 
-#define DEFINE_ITERATOR(		)					DEFINE_ITERATOR_SKIN(STATE_MACHINE_NAME)
+#define DEFINE_ITERATOR_PRE_PROCESS(		)		DEFINE_ITERATOR_SKIN_PRE(STATE_MACHINE_NAME)
+#define DEFINE_ITERATOR_POST_PROCESS(		)		DEFINE_ITERATOR_SKIN_POST(STATE_MACHINE_NAME)
 
-#define DEFINE_ITERATOR_SKIN(	sm)					DEFINE_ITERATOR_GUTS(sm)
+#define DEFINE_ITERATOR_SKIN_PRE(	sm)				DEFINE_ITERATOR_GUTS_PRE(sm)
+#define DEFINE_ITERATOR_SKIN_POST(	sm)				DEFINE_ITERATOR_GUTS_POST(sm)
 
-#define DEFINE_ITERATOR_GUTS(	sm)					static void stIt##_##sm##_##iterator(void) {
+#define DEFINE_ITERATOR_GUTS_PRE(	sm)				static void stIt_pre_iterator_##sm (void) {
+#define DEFINE_ITERATOR_GUTS_POST(	sm)				static void stIt_post_iterator_##sm (void) {
 
-#define END_ITERATOR()								currentState() ; }
+#define END_ITERATOR_PRE_PROCESS()					}
+#define END_ITERATOR_POST_PROCESS()					}
 
-char* stateName = "unknown" ;
+char* currentStateName = "unknown" ;
 
 #define GET_STATE(				newStateName)		GET_STATE_SKIN(STATE_MACHINE_NAME, newStateName)
 
@@ -33,7 +64,7 @@ char* stateName = "unknown" ;
 
 #define GET_STATE_GUTS(			sm, newStateName)	stFn##_##sm##_##newStateName
 
-#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(void) ;							\
+#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(void) ;						\
 													static call_state_type	previousState = 0 ;							\
 													static call_state_type currentState = GET_STATE(newStateName) ;		\
 													static call_state_type	nextState = GET_STATE(newStateName) ;
@@ -44,13 +75,19 @@ char* stateName = "unknown" ;
 
 #define DEFINE_STATE_SKIN(		sm, newStateName)	DEFINE_STATE_GUTS(sm, newStateName)
 
-#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(void)								\
+#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(void)							\
 													{																	\
-													stateName = "stFn_" #sm "_" #newStateName ;							\
-													{
+														currentStateName = "stFn_" #sm "_" #newStateName ;				\
+														{
 
 
-#define END_STATE()									} }
+#define END_STATE()										}																\
+													}
+
+
+#define PREVIOUS_STATE(			)					previousState
+#define NEXT_STATE(				)					nextState
+
 
 // A couple of states that all state machines MUST have. Others will be defined in the specific
 // instance of the state machine. The first two enums in each state machine must be the two below
@@ -83,9 +120,9 @@ static unsigned char	stateMachineID ;
 	// Note that this function is not static. It should be defined once, and only once,
 	// somewhere in the code if this functionality is to be used.
 
-	void outputStateMachineDebugData(	unsigned char machineID, call_state_type state, unsigned char subState) ;
+	void outputStateMachineDebugData(	unsigned char machineID, call_state_type state, unsigned char subState, char* stateName) ;
 #else
-	#define outputStateMachineDebugData(a, b, c)
+	#define outputStateMachineDebugData(a, b, c, d)
 #endif
 
 
@@ -157,38 +194,38 @@ static unsigned char	stateMachineID ;
 
 
 
-#define STATE_ENTRY_ACTION						if(currentState != previousState)														\
-												{																						\
-													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_ENTRY) ;			\
+#define STATE_ENTRY_ACTION						if(currentState != previousState)																			\
+												{																											\
+													outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_ENTRY, currentStateName) ;			\
 
 													// app code goes here
 
-#define STATE_DO_ACTION_EXCLUSIVE					previousState = currentState ;														\
-												}																						\
-												else if(nextState == currentState)														\
-												{																						\
-													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_DO) ;			\
+#define STATE_DO_ACTION_EXCLUSIVE					previousState = currentState ;																			\
+												}																											\
+												else if(nextState == currentState)																			\
+												{																											\
+													outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_DO, currentStateName) ;			\
 
 													// app code goes here
 
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
-	#define STATE_TIMEOUT_ACTION_ms(to)				}																					\
-													if(millisecondsInState >= to)														\
-													{																					\
-														STATE_RESET_TIMEOUT_COUNTER() ;													\
-														outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_TIMEOUT) ;	\
+	#define STATE_TIMEOUT_ACTION_ms(to)				}																										\
+													if(millisecondsInState >= to)																			\
+													{																										\
+														STATE_RESET_TIMEOUT_COUNTER() ;																		\
+														outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_TIMEOUT, currentStateName) ;	\
 
 														// app code goes here
 #endif
 
-#define STATE_EXIT_ACTION_EXCLUSIVE				}																						\
-												else if(nextState != currentState)														\
-												{																						\
-													outputStateMachineDebugData(stateMachineID, currentState, SUBSTATE_EXIT) ;
+#define STATE_EXIT_ACTION_EXCLUSIVE				}																											\
+												else if(nextState != currentState)																			\
+												{																											\
+													outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_EXIT, currentStateName) ;
 
 													// app code goes here
 
-#define STATE_END									currentState = nextState ;															\
+#define STATE_END									currentState = nextState ;																				\
 												}
 
 
