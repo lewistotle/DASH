@@ -210,8 +210,13 @@ static char*					currentStateName = "unknown" ;
 
 
 
-#define QUEUED_CHANGE_STATE_TO(newState)		nextState = &GET_STATE(newState)
-#define IMMEDIATE_CHANGE_STATE_TO(newState)		nextState = &GET_STATE(newState) ; immediateChangePending = true ;
+#define CHANGE_STATE_TO(newState)					nextState = &GET_STATE(newState)
+
+#if configSTATE_MACHINE_FORCE_IMMEDIATE_CHANGES_TO_QUEUED
+	#define IMMEDIATE_CHANGE_STATE_TO(newState)		nextState = &GET_STATE(newState) ;
+#else
+	#define IMMEDIATE_CHANGE_STATE_TO(newState)		nextState = &GET_STATE(newState) ; immediateChangePending = true ;
+#endif
 
 
 
