@@ -9,9 +9,7 @@
 #define STATEMACHINE_G3_H_
 
 
-//#include <stdint.h>
-typedef unsigned char uint8_t ;
-typedef unsigned char	boolean ;
+#include <stdint.h>
 typedef uint8_t			substate_t ;
 
 typedef void	(*call_state_type)(uint8_t subState) ;
@@ -30,9 +28,9 @@ enum {
 	// Note that this function is not static. It should be defined once, and only once,
 	// somewhere in the code if this functionality is to be used.
 
-	void outputStateMachineDebugData(	unsigned char machineID, call_state_type state, unsigned char subState, char* stateName) ;
+	void outputStateMachineDebugData_G3(	unsigned char machineID, call_state_type state, unsigned char subState, char* stateName) ;
 #else
-	#define outputStateMachineDebugData(a, b, c, d)
+	#define outputStateMachineDebugData_G3(a, b, c, d)
 #endif
 
 
@@ -104,9 +102,9 @@ enum {
 #define ENUMERATE_STATES(			iterationModes)	iterationModes
 
 static uint8_t					stateMachineInitialized = false ;
-static boolean					stateTimeoutEnabled ;
-static boolean					stateTimeoutProcessed ;
-static boolean					immediateChangePending ;
+static uint8_t					stateTimeoutEnabled ;
+static uint8_t					stateTimeoutProcessed ;
+static uint8_t					immediateChangePending ;
 static millisecondTimerType		stateTimeoutPeriod ;
 static char*					currentStateName = "unknown" ;
 
@@ -127,28 +125,28 @@ static char*					currentStateName = "unknown" ;
 																stateTimeoutEnabled		= false ;																		\
 																stateTimeoutProcessed	= false ;																		\
 																millisecondsInState		= 0 ;																			\
-																outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_ENTRY, currentStateName) ;			\
+																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_ENTRY, currentStateName) ;			\
 																currentState(SUBSTATE_ENTRY) ;																			\
 																previousState = currentState ;																			\
 															}																											\
 															else if(stateTimeoutEnabled && (millisecondsInState >= stateTimeoutPeriod) && (!stateTimeoutProcessed))		\
 															{																											\
-																outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_TIMEOUT, currentStateName) ;		\
+																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_TIMEOUT, currentStateName) ;		\
 																currentState(SUBSTATE_TIMEOUT) ;																		\
 															}																											\
 															else if(nextState == currentState)																			\
 															{																											\
 																immediateChangePending = false ;																		\
-																outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_DO, currentStateName) ;			\
+																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_DO, currentStateName) ;			\
 																currentState(SUBSTATE_DO) ;																				\
 															}																											\
 															else if(nextState != currentState)																			\
 															{																											\
-																outputStateMachineDebugData(STATE_MACHINE_ID, currentState, SUBSTATE_EXIT, currentStateName) ;			\
+																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_EXIT, currentStateName) ;			\
 																currentState(SUBSTATE_EXIT) ;																			\
 																currentState = nextState ;																				\
 															}																											\
-															if(immediateChangePending) { printf("\tIMMEDIATE CHANGE ") ; }	\
+															if(immediateChangePending) { sprintf(buffer, "\tIMMEDIATE ") ; task_UART_puts(0, buffer) ; }	\
 														} while(immediateChangePending) ;																				\
 														STATE_MACHINE_ITERATOR_SKIN_POST(	STATE_MACHINE_NAME)() ;														\
 													}
@@ -185,9 +183,9 @@ static char*					currentStateName = "unknown" ;
 #define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;			\
 													static call_state_type	previousState	= 0 ;						\
 													static call_state_type currentState		= GET_STATE(newStateName) ;	\
-													static call_state_type	nextState		= GET_STATE(newStateName) ;
+													static call_state_type	nextState		= GET_STATE(newStateName)
 
-#define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;
+#define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(uint8_t subState)
 
 #define DEFINE_STATE(			newStateName)		DEFINE_STATE_SKIN(STATE_MACHINE_NAME, newStateName)
 
@@ -237,7 +235,7 @@ static char*					currentStateName = "unknown" ;
 
 
 
-
+#define NO_STATE_SUB_ACTIONS()					(void)subState ;
 
 #define STATE_ENTRY_ACTION_START				if(subState == SUBSTATE_ENTRY)		\
 												{
@@ -264,7 +262,7 @@ static char*					currentStateName = "unknown" ;
 #define STATE_EXIT_ACTION_END					}
 
 
-
+#define FORCE_EARLY_TIMEOUT()					millisecondsInState = stateTimeoutPeriod + 1 ;
 
 
 #endif /* STATEMACHINE_G3_H_ */
