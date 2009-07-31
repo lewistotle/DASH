@@ -8,11 +8,14 @@
 #ifndef STATEMACHINE_G3_H_
 #define STATEMACHINE_G3_H_
 
+#ifdef __CDT_PARSER__
+#define __reentrant
+#endif
 
 #include <stdint.h>
 typedef uint8_t			substate_t ;
 
-typedef void	(*call_state_type)(uint8_t subState) ;
+typedef void	(* call_state_type)(uint8_t subState) ;
 
 
 enum {
@@ -20,7 +23,8 @@ enum {
 		SUBSTATE_ENTRY,
 		SUBSTATE_DO,
 		SUBSTATE_TIMEOUT,
-		SUBSTATE_EXIT
+		SUBSTATE_EXIT,
+		IMMEDIATE_CHANGE_FLAG
 	 } ;
 
 
@@ -54,6 +58,8 @@ enum {
 	#if configSTATE_MACHINE_TIME_IN_STATE_VARIABLE_BASED
 
 		#ifdef configSTATE_MACHINE_TIME_IN_STATE_VARIABLE_REGISTRY_FUNCTION
+			void configSTATE_MACHINE_TIME_IN_STATE_VARIABLE_REGISTRY_FUNCTION(millisecondTimerType* pointerToIncrement) ;
+
 			#define STATE_MACHINE_SETUP_MILLISECOND_TICK	configSTATE_MACHINE_TIME_IN_STATE_VARIABLE_REGISTRY_FUNCTION(&millisecondsInState)
 		#else
 			#error State machine configured to use variable registry function, but none defined
@@ -110,45 +116,48 @@ static char*					currentStateName = "unknown" ;
 
 
 
-#define END_ENUMERATE_STATES(		)				static void STATE_MACHINE_ITERATOR_SKIN(STATE_MACHINE_NAME)(void)													\
-													{																													\
-														if(!stateMachineInitialized)																					\
-														{																												\
-															stateMachineInitialized = true ;																			\
-															STATE_MACHINE_SETUP_MILLISECOND_TICK ;																		\
-														}																												\
-														STATE_MACHINE_ITERATOR_SKIN_PRE(	STATE_MACHINE_NAME)() ;														\
-														do																												\
-														{																												\
-															if(currentState != previousState)																			\
-															{																											\
-																stateTimeoutEnabled		= false ;																		\
-																stateTimeoutProcessed	= false ;																		\
-																millisecondsInState		= 0 ;																			\
+#define END_ENUMERATE_STATES(		)				static void STATE_MACHINE_ITERATOR_SKIN(STATE_MACHINE_NAME)(void)														\
+													{																														\
+														if(!stateMachineInitialized)																						\
+														{																													\
+															stateMachineInitialized = true ;																				\
+															STATE_MACHINE_SETUP_MILLISECOND_TICK ;																			\
+														}																													\
+														STATE_MACHINE_ITERATOR_SKIN_PRE(	STATE_MACHINE_NAME)() ;															\
+														do																													\
+														{																													\
+															if(currentState != previousState)																				\
+															{																												\
+																stateTimeoutEnabled		= false ;																			\
+																stateTimeoutProcessed	= false ;																			\
+																millisecondsInState		= 0 ;																				\
 																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_ENTRY, currentStateName) ;			\
-																currentState(SUBSTATE_ENTRY) ;																			\
-																previousState = currentState ;																			\
-															}																											\
-															else if(stateTimeoutEnabled && (millisecondsInState >= stateTimeoutPeriod) && (!stateTimeoutProcessed))		\
-															{																											\
+																currentState(SUBSTATE_ENTRY) ;																				\
+																previousState = currentState ;																				\
+															}																												\
+															else if(stateTimeoutEnabled && (millisecondsInState >= stateTimeoutPeriod) && (!stateTimeoutProcessed))			\
+															{																												\
 																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_TIMEOUT, currentStateName) ;		\
-																currentState(SUBSTATE_TIMEOUT) ;																		\
-															}																											\
-															else if(nextState == currentState)																			\
-															{																											\
-																immediateChangePending = false ;																		\
-																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_DO, currentStateName) ;			\
-																currentState(SUBSTATE_DO) ;																				\
-															}																											\
-															else if(nextState != currentState)																			\
-															{																											\
+																currentState(SUBSTATE_TIMEOUT) ;																			\
+															}																												\
+															else if(nextState == currentState)																				\
+															{																												\
+																immediateChangePending = false ;																			\
+																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_DO, currentStateName) ;				\
+																currentState(SUBSTATE_DO) ;																					\
+															}																												\
+															else if(nextState != currentState)																				\
+															{																												\
 																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_EXIT, currentStateName) ;			\
-																currentState(SUBSTATE_EXIT) ;																			\
-																currentState = nextState ;																				\
-															}																											\
-															if(immediateChangePending) { sprintf(buffer, "\tIMMEDIATE ") ; task_UART_puts(0, buffer) ; }	\
-														} while(immediateChangePending) ;																				\
-														STATE_MACHINE_ITERATOR_SKIN_POST(	STATE_MACHINE_NAME)() ;														\
+																currentState(SUBSTATE_EXIT) ;																				\
+																currentState = nextState ;																					\
+															}																												\
+															if(immediateChangePending)																						\
+															{																												\
+																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, IMMEDIATE_CHANGE_FLAG, currentStateName) ;	\
+															}																												\
+														} while(immediateChangePending) ;																					\
+														STATE_MACHINE_ITERATOR_SKIN_POST(	STATE_MACHINE_NAME)() ;															\
 													}
 
 #define STATE_MACHINE_ITERATOR_SKIN(		sm)		STATE_MACHINE_ITERATOR_GUTS(sm)
@@ -191,7 +200,7 @@ static char*					currentStateName = "unknown" ;
 
 #define DEFINE_STATE_SKIN(		sm, newStateName)	DEFINE_STATE_GUTS(sm, newStateName)
 
-#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(uint8_t subState)				\
+#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(uint8_t subState) __reentrant				\
 													{																	\
 														currentStateName = "stFn_" #sm "_" #newStateName ;				\
 														if(subState > SUBSTATE_GET_INFO)								\
