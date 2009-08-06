@@ -51,7 +51,7 @@ enum {
 
 	#define STATE_MACHINE_TIME_IN_STATE_ms		millisecondsInState
 
-	#define STATE_RESET_TIMEOUT_COUNTER()		millisecondsInState = 0
+	#define STATE_RESET_TIMEOUT_COUNTER()		millisecondsInState = 0 ; stateTimeoutProcessed = false
 
 	#define STATE_INCREMENT_TIMEOUT_COUNTER()	millisecondsInState++ ;
 
@@ -266,9 +266,9 @@ static char*					currentStateName = "unknown" ;
 													stateTimeoutEnabled = true ;	\
 												}									\
 												if(subState == SUBSTATE_TIMEOUT)	\
-												{
-#define STATE_TIMEOUT_ACTION_END					stateTimeoutProcessed = true ;	\
-												}
+												{									\
+													stateTimeoutProcessed = true ;
+#define STATE_TIMEOUT_ACTION_END				}
 
 
 #define STATE_EXIT_ACTION_START					if(subState == SUBSTATE_EXIT)		\
