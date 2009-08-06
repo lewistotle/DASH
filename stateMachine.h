@@ -190,6 +190,7 @@ static char*					currentStateName = "unknown" ;
 #define GET_STATE_GUTS(			sm, newStateName)	stFn##_##sm##_##newStateName
 
 #define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;			\
+													static call_state_type	callingState	= 0 ;						\
 													static call_state_type	previousState	= 0 ;						\
 													static call_state_type currentState		= GET_STATE(newStateName) ;	\
 													static call_state_type	nextState		= GET_STATE(newStateName)
@@ -219,15 +220,15 @@ static char*					currentStateName = "unknown" ;
 
 
 
-#define CHANGE_STATE_TO(newState)					nextState = &GET_STATE(newState)
+#define CHANGE_STATE_TO(newState)					callingState = currentState ; nextState = &GET_STATE(newState) ;
 
 #if configSTATE_MACHINE_FORCE_IMMEDIATE_CHANGES_TO_QUEUED
-	#define IMMEDIATE_CHANGE_STATE_TO(newState)		nextState = &GET_STATE(newState) ;
+	#define IMMEDIATE_CHANGE_STATE_TO(newState)		callingState = currentState ; nextState = &GET_STATE(newState) ;
 #else
-	#define IMMEDIATE_CHANGE_STATE_TO(newState)		nextState = &GET_STATE(newState) ; immediateChangePending = true ;
+	#define IMMEDIATE_CHANGE_STATE_TO(newState)		callingState = currentState ; nextState = &GET_STATE(newState) ; immediateChangePending = true ;
 #endif
 
-
+#define RETRY_STATE()								previousState = callingState ;
 
 
 
