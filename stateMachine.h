@@ -108,6 +108,7 @@ enum {
 #define ENUMERATE_STATES(			iterationModes)	iterationModes
 
 static uint8_t					stateMachineInitialized = false ;
+static uint16_t					stateRetryCount ;
 static uint8_t					stateTimeoutEnabled ;
 static uint8_t					stateTimeoutProcessed ;
 static uint8_t					immediateChangePending ;
@@ -121,6 +122,7 @@ static char*					currentStateName = "unknown" ;
 														if(!stateMachineInitialized)																						\
 														{																													\
 															stateMachineInitialized = true ;																				\
+															stateRetryCount			= 0 ;																					\
 															STATE_MACHINE_SETUP_MILLISECOND_TICK ;																			\
 														}																													\
 														STATE_MACHINE_ITERATOR_SKIN_PRE(	STATE_MACHINE_NAME)() ;															\
@@ -151,6 +153,7 @@ static char*					currentStateName = "unknown" ;
 																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_EXIT, currentStateName) ;			\
 																currentState(SUBSTATE_EXIT) ;																				\
 																currentState = nextState ;																					\
+																stateRetryCount = 0 ;																						\
 															}																												\
 															if(immediateChangePending)																						\
 															{																												\
@@ -228,7 +231,15 @@ static char*					currentStateName = "unknown" ;
 	#define IMMEDIATE_CHANGE_STATE_TO(newState)		callingState = currentState ; nextState = &GET_STATE(newState) ; immediateChangePending = true ;
 #endif
 
-#define RETRY_STATE()								previousState = callingState ;
+#define RETRY_STATE(mx, bs)							stateRetryCount++ ;					\
+													if(stateRetryCount < mx)			\
+													{									\
+														previousState = callingState ;	\
+													}									\
+													else								\
+													{									\
+														CHANGE_STATE_TO(bs) ;			\
+													}
 
 
 
