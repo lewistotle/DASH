@@ -12,6 +12,12 @@
 #define __reentrant
 #endif
 
+
+#ifdef __TS7800__
+	#define __reentrant
+#endif
+
+
 #include <stdint.h>
 typedef uint8_t			substate_t ;
 
@@ -113,7 +119,6 @@ static uint8_t					stateTimeoutEnabled ;
 static uint8_t					stateTimeoutProcessed ;
 static uint8_t					immediateChangePending ;
 static millisecondTimerType		stateTimeoutPeriod ;
-static char*					currentStateName = "unknown" ;
 
 
 
@@ -130,6 +135,7 @@ static char*					currentStateName = "unknown" ;
 														{																													\
 															if(currentState != previousState)																				\
 															{																												\
+																currentState(SUBSTATE_GET_INFO) ;																			\
 																stateTimeoutEnabled		= false ;																			\
 																stateTimeoutProcessed	= false ;																			\
 																millisecondsInState		= 0 ;																				\
@@ -192,11 +198,12 @@ static char*					currentStateName = "unknown" ;
 
 #define GET_STATE_GUTS(			sm, newStateName)	stFn##_##sm##_##newStateName
 
-#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;			\
-													static call_state_type	callingState	= 0 ;						\
-													static call_state_type	previousState	= 0 ;						\
-													static call_state_type currentState		= GET_STATE(newStateName) ;	\
-													static call_state_type	nextState		= GET_STATE(newStateName)
+#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;					\
+													static call_state_type	callingState		= 0 ;						\
+													static call_state_type	previousState		= 0 ;						\
+													static call_state_type	currentState		= GET_STATE(newStateName) ;	\
+													static call_state_type	nextState			= GET_STATE(newStateName) ;	\
+													static char*			currentStateName	= "" # newStateName
 
 #define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(uint8_t subState)
 
