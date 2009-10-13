@@ -44,6 +44,21 @@ enum {
 #endif
 
 
+#ifdef __TS7800__
+	#include <sys/time.h>
+
+	static struct timeval	currentTime ;
+	static double			stateEntryTime ;
+
+	#define TIME_IN_STATE_INIT_HELPER()		{ gettimeofday(&currentTime, NULL) ; stateEntryTime = ((double)currentTime.tv_sec) + ((double)currentTime.tv_usec / 1000000.0) ; }
+	#define TIME_IN_STATE_ENTRY_HELPER()	{ gettimeofday(&currentTime, NULL) ; stateEntryTime = ((double)currentTime.tv_sec) + ((double)currentTime.tv_usec / 1000000.0) ; }
+	#define TIME_IN_STATE_HELPER()			{ gettimeofday(&currentTime, NULL) ; millisecondsInState = ((((double)currentTime.tv_sec) + ((double)currentTime.tv_usec / 1000000.0)) - stateEntryTime) * 1000.0 ; }
+#else
+	#define TIME_IN_STATE_INIT_HELPER()
+	#define TIME_IN_STATE_ENTRY_HELPER()
+	#define TIME_IN_STATE_HELPER()
+#endif
+
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
 	#if		configSTATE_MACHINE_USE_SHORT_FOR_MILLISECOND_TIMER
 		typedef unsigned short	millisecondTimerType ;
@@ -57,7 +72,7 @@ enum {
 
 	#define STATE_MACHINE_TIME_IN_STATE_ms		millisecondsInState
 
-	#define STATE_RESET_TIMEOUT_COUNTER()		millisecondsInState = 0 ; stateTimeoutProcessed = false
+	#define STATE_RESET_TIMEOUT_COUNTER()		millisecondsInState = 0 ; stateTimeoutProcessed = false ; TIME_IN_STATE_ENTRY_HELPER()
 
 	#define STATE_INCREMENT_TIMEOUT_COUNTER()	millisecondsInState++ ;
 
@@ -121,7 +136,6 @@ static uint8_t					immediateChangePending ;
 static millisecondTimerType		stateTimeoutPeriod ;
 
 
-
 #define END_ENUMERATE_STATES(		)				static void STATE_MACHINE_ITERATOR_SKIN(STATE_MACHINE_NAME)(void)														\
 													{																														\
 														if(!stateMachineInitialized)																						\
@@ -129,15 +143,18 @@ static millisecondTimerType		stateTimeoutPeriod ;
 															stateMachineInitialized = true ;																				\
 															stateRetryCount			= 0 ;																					\
 															STATE_MACHINE_SETUP_MILLISECOND_TICK ;																			\
+															TIME_IN_STATE_INIT_HELPER() ;																					\
 														}																													\
 														STATE_MACHINE_ITERATOR_SKIN_PRE(	STATE_MACHINE_NAME)() ;															\
 														do																													\
 														{																													\
+															TIME_IN_STATE_HELPER() ;																						\
 															if(currentState != previousState)																				\
 															{																												\
 																currentState(SUBSTATE_GET_INFO) ;																			\
 																stateTimeoutEnabled		= false ;																			\
 																stateTimeoutProcessed	= false ;																			\
+																TIME_IN_STATE_ENTRY_HELPER() ;																				\
 																millisecondsInState		= 0 ;																				\
 																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_ENTRY, currentStateName) ;			\
 																currentState(SUBSTATE_ENTRY) ;																				\
@@ -146,6 +163,7 @@ static millisecondTimerType		stateTimeoutPeriod ;
 															else if(stateTimeoutEnabled && (millisecondsInState >= stateTimeoutPeriod) && (!stateTimeoutProcessed))			\
 															{																												\
 																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_TIMEOUT, currentStateName) ;		\
+																/*printf("\t{smtimeout=%dms} ", millisecondsInState) ;*/													\
 																currentState(SUBSTATE_TIMEOUT) ;																			\
 															}																												\
 															else if(nextState == currentState)																				\
