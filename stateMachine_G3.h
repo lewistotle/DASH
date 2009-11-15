@@ -34,16 +34,6 @@ enum {
 	 } ;
 
 
-#if configSTATE_MACHINE_DEBUGGING_ENABLED
-	// Note that this function is not static. It should be defined once, and only once,
-	// somewhere in the code if this functionality is to be used.
-
-	void outputStateMachineDebugData_G3(	unsigned char machineID, call_state_type state, unsigned char subState, char* stateName) ;
-#else
-	#define outputStateMachineDebugData_G3(a, b, c, d)
-#endif
-
-
 #ifdef __TS7800__
 	#include <sys/time.h>
 
@@ -126,6 +116,20 @@ enum {
 													static void STATE_MACHINE_ITERATOR_SKIN_POST(STATE_MACHINE_NAME)(void) ;
 
 
+
+
+#if configSTATE_MACHINE_DEBUGGING_ENABLED
+	// Note that this function is not static. It should be defined once, and only once,
+	// somewhere in the code if this functionality is to be used.
+
+	void outputStateMachineDebugData_G3(	call_state_type state, unsigned char subState, char* stateName, unsigned long millisecondsInState, uint8_t stateTimeoutForced) ;
+#else
+	#define outputStateMachineDebugData_G3(a, b, c, d, e)
+#endif
+
+
+
+
 #define ENUMERATE_STATES(			iterationModes)	iterationModes
 
 static uint8_t					stateMachineInitialized = false ;
@@ -134,6 +138,7 @@ static uint8_t					stateTimeoutEnabled ;
 static uint8_t					stateTimeoutProcessed ;
 static uint8_t					immediateChangePending ;
 static millisecondTimerType		stateTimeoutPeriod ;
+static uint8_t					stateTimeoutForced ;
 
 
 #define END_ENUMERATE_STATES(		)				static void STATE_MACHINE_ITERATOR_SKIN(STATE_MACHINE_NAME)(void)														\
@@ -148,40 +153,41 @@ static millisecondTimerType		stateTimeoutPeriod ;
 														STATE_MACHINE_ITERATOR_SKIN_PRE(	STATE_MACHINE_NAME)() ;															\
 														do																													\
 														{																													\
-															TIME_IN_STATE_HELPER() ;																						\
 															if(currentState != previousState)																				\
 															{																												\
 																currentState(SUBSTATE_GET_INFO) ;																			\
 																stateTimeoutEnabled		= false ;																			\
 																stateTimeoutProcessed	= false ;																			\
+																stateTimeoutForced		= false ;																			\
 																TIME_IN_STATE_ENTRY_HELPER() ;																				\
 																millisecondsInState		= 0 ;																				\
-																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_ENTRY, currentStateName) ;			\
+																outputStateMachineDebugData_G3(currentState, SUBSTATE_ENTRY, currentStateName, millisecondsInState, stateTimeoutForced) ;		\
 																currentState(SUBSTATE_ENTRY) ;																				\
 																previousState = currentState ;																				\
 															}																												\
-															else if(stateTimeoutEnabled && (millisecondsInState >= stateTimeoutPeriod) && (!stateTimeoutProcessed))			\
+															else if(stateTimeoutEnabled && (stateTimeoutForced || (millisecondsInState >= stateTimeoutPeriod)) && (!stateTimeoutProcessed))			\
 															{																												\
-																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_TIMEOUT, currentStateName) ;		\
-																/*printf("\t{smtimeout=%dms} ", millisecondsInState) ;*/													\
+																outputStateMachineDebugData_G3(currentState, SUBSTATE_TIMEOUT, currentStateName, millisecondsInState, stateTimeoutForced) ;		\
 																currentState(SUBSTATE_TIMEOUT) ;																			\
+																stateTimeoutForced = false ;																				\
 															}																												\
 															else if(nextState == currentState)																				\
 															{																												\
 																immediateChangePending = false ;																			\
-																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_DO, currentStateName) ;				\
+																TIME_IN_STATE_HELPER() ;																					\
+																outputStateMachineDebugData_G3(currentState, SUBSTATE_DO, currentStateName, millisecondsInState, stateTimeoutForced) ;			\
 																currentState(SUBSTATE_DO) ;																					\
 															}																												\
 															else if(nextState != currentState)																				\
 															{																												\
-																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, SUBSTATE_EXIT, currentStateName) ;			\
+																outputStateMachineDebugData_G3(currentState, SUBSTATE_EXIT, currentStateName, millisecondsInState, stateTimeoutForced) ;		\
 																currentState(SUBSTATE_EXIT) ;																				\
 																currentState = nextState ;																					\
 																stateRetryCount = 0 ;																						\
 															}																												\
 															if(immediateChangePending)																						\
 															{																												\
-																outputStateMachineDebugData_G3(STATE_MACHINE_ID, currentState, IMMEDIATE_CHANGE_FLAG, currentStateName) ;	\
+																outputStateMachineDebugData_G3(currentState, IMMEDIATE_CHANGE_FLAG, currentStateName, millisecondsInState, stateTimeoutForced) ;\
 															}																												\
 														} while(immediateChangePending) ;																					\
 														STATE_MACHINE_ITERATOR_SKIN_POST(	STATE_MACHINE_NAME)() ;															\
@@ -313,7 +319,7 @@ static millisecondTimerType		stateTimeoutPeriod ;
 #define STATE_EXIT_ACTION_END					}
 
 
-#define FORCE_EARLY_TIMEOUT()					millisecondsInState = stateTimeoutPeriod + 1 ;
+#define FORCE_EARLY_TIMEOUT()					stateTimeoutForced = true ;
 
 
 #endif /* STATEMACHINE_G3_H_ */
