@@ -15,13 +15,13 @@
 #include <stdint.h>
 
 #define true	1
-typedef uint8_t	bool ;
 
 #include "stateMachine_G4.h"
 
-#include "sm_test_machine_a.h"
-#include "sm_test_machine_b.h"
-#include "sm_test_machine_c.h"
+#include "sm_test_timeBomb.h"
+
+//#include "sm_test_calculator.h"
+//#include "sm_test_machine_c.h"
 
 #define puts(s)		puts(s) ; fflush(stdout) ;
 
@@ -68,13 +68,13 @@ int main()
 		exit(EXIT_FAILURE) ;
 	}
 
-	REGISTER_STATE_MACHINE(test_a) ;
+//	REGISTER_STATE_MACHINE(timeBomb) ;
 //	REGISTER_STATE_MACHINE(b) ;
 //	REGISTER_STATE_MACHINE(c) ;
 
 //	while(ok)
 	{
-		ITERATE_ALL_STATE_MACHINES() ;
+//		ITERATE_ALL_STATE_MACHINES() ;
 	}
 
 	pthread_join(ISR_threadHandle, &ISR_threadStatus) ;

@@ -12,10 +12,56 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "stateMachine_G4.h"
 
 
+
+stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes)
+{
+	stateMachine_t*	instance = malloc(sizeInBytes) ;
+
+	if(instance)
+	{
+		memset((char*)instance, 0, sizeInBytes) ;
+	}
+
+	return instance ;
+}
+
+
+void deallocateStateMachineMemory(				stateMachine_t* instance)
+{
+	if(instance != 0)
+	{
+		free((char*)instance) ;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
 
 #define configMAXIMUM_NUMBER_OF_STATE_MACHINES		50
@@ -24,6 +70,19 @@ sm_t*	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
 
 
 void iterateStateMachine(	sm_t* sm) ;
+
+
+
+
+sm_t* createStateMachineInstance(	uint16_t memSizeInBytes)
+{
+#ifdef __gcc__
+#endif
+}
+
+
+
+
 
 
 bool registerStateMachine(			sm_t* sm)
@@ -101,3 +160,4 @@ void outputStateMachineDebugData_G4(sm_t* sm)
 {
 	(void)sm ;
 }
+#endif

@@ -1,0 +1,16 @@
+-myuxi
+-Y
+-b HOME = 0x0000
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k D:\EiqEnergy\Projects\Software\_SoftwareLibraries\SDCC\bin\..\lib\large
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+./src/stateMachines_G4/stateMachine_G4.rel
+./src/main_C8051F040.rel
+./src/sm_test_machine_a.rel
+
+-e
