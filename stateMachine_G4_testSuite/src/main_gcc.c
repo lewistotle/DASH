@@ -19,8 +19,8 @@
 #include "stateMachine_G4.h"
 
 #include "sm_test_timeBomb.h"
+#include "sm_test_calculator.h"
 
-//#include "sm_test_calculator.h"
 //#include "sm_test_machine_c.h"
 
 #define puts(s)		puts(s) ; fflush(stdout) ;
@@ -31,7 +31,9 @@ void* ISR_thread(	void* threadID)
 
 	puts("ISR thread started.") ;
 
-	while(iterations < 5000)
+	usleep(10000) ;
+
+//	while(iterations < 5000)
 	{
 		iterations++ ;
 
@@ -52,10 +54,12 @@ void* ISR_thread(	void* threadID)
 
 int main()
 {
-	int			rc ;
-	pthread_t	ISR_threadHandle ;
-	void*		ISR_threadStatus ;
-//	bool		ok = true ;
+	int				rc ;
+	pthread_t		ISR_threadHandle ;
+	void*			ISR_threadStatus ;
+	bool			ok = true ;
+	stateMachine_t*	bomb ;
+	stateMachine_t*	calculator ;
 
 	puts("\n4th Generation state machine test started.\n") ;
 
@@ -68,16 +72,54 @@ int main()
 		exit(EXIT_FAILURE) ;
 	}
 
-//	REGISTER_STATE_MACHINE(timeBomb) ;
-//	REGISTER_STATE_MACHINE(b) ;
-//	REGISTER_STATE_MACHINE(c) ;
+	puts("Generating timebomb") ;
+
+	bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+
+	if(bomb)
+	{
+//		REGISTER_STATE_MACHINE(bomb) ;
+	}
+
+	puts("Generating calculator") ;
+
+	calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
+
+	if(calculator)
+	{
+		puts("Registering calculator") ;
+
+		REGISTER_STATE_MACHINE(calculator) ;
+	}
+
+	puts("Iterating state machines") ;
 
 //	while(ok)
 	{
-//		ITERATE_ALL_STATE_MACHINES() ;
+		puts("loop") ;
+
+		ITERATE_ALL_STATE_MACHINES() ;
 	}
 
 	pthread_join(ISR_threadHandle, &ISR_threadStatus) ;
+
+	if(calculator)
+	{
+		UNREGISTER_STATE_MACHINE(calculator) ;
+
+		STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
+
+		calculator = 0 ;
+	}
+
+	if(bomb)
+	{
+		UNREGISTER_STATE_MACHINE(bomb) ;
+
+		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
+
+		bomb = 0 ;
+	}
 
 	puts("\n4th Generation state machine test done.") ;
 

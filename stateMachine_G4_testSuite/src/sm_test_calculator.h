@@ -10,15 +10,26 @@
 
 #include "stateMachine_G4.h"
 
-#if 0
-enum
+DECLARE_STATE_MACHINE(calculator) ;
+
+DECLARE_STATE_MACHINE_EVENTS(calculator)
+
+	CLEAR,
+	CLEAR_ENTRY,
+	DIGIT_0,
+	DIGIT_1_9,
+	POINT,
+	OPERATION,
+	EQUALS,
+	OFF
+
+END_STATE_MACHINE_EVENTS()
+
+typedef struct
 {
-	REQUIRED_STATE_MACHINE_EVENTS,
-	testEvent
-} ;
+	PARENT_CLASS(event_t) ;
 
-
-DECLARE_STATE_MACHINE(test_a)
-#endif
+	uint8_t	key ;
+} keyEvent_t ;
 
 #endif /* SM_TEST_CALCULATOR_H_ */
