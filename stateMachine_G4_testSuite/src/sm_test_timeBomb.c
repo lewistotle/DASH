@@ -45,7 +45,7 @@ CREATE_STATE_MACHINE_INSTANCE()
 
 	initializeEventQueue(&timeBombMachine.parent.eventQueue, &eventQueue[0], configEVENT_QUEUE_DEPTH) ;
 
-	timeBombMachine.parent.currentState = &timeBomb_TOP ;
+	timeBombMachine.parent.currentState = (void*)&timeBomb_TOP ;
 
 	return (stateMachine_t*)&timeBombMachine ;
 }

@@ -60,7 +60,7 @@ void main(	void)
 
 	while(true)
 	{
-		static int delayTimer ;
+		static bool processed = false ;
 
 		if(timeForTickProcessing)
 		{
@@ -68,9 +68,9 @@ void main(	void)
 
 //			task_UART_core(0) ;
 
-			if(delayTimer++ > 500)
+			if(!processed)
 			{
-				delayTimer = 0 ;
+				processed = true ;
 
 				puts("loop") ;
 
@@ -78,26 +78,6 @@ void main(	void)
 			}
 		}
 	}
-
-	if(calculator)
-	{
-		UNREGISTER_STATE_MACHINE(calculator) ;
-
-		STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
-
-		calculator = 0 ;
-	}
-
-	if(bomb)
-	{
-		UNREGISTER_STATE_MACHINE(bomb) ;
-
-		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
-
-		bomb = 0 ;
-	}
-
-	puts("\n4th Generation state machine test done.") ;
 }
 
 

@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Mon Dec 28 02:58:58 2009
+; This file was generated Mon Dec 28 03:43:05 2009
 ;--------------------------------------------------------
 	.module main_C8051F040
 	.optsdcc -mmcs51 --model-large
@@ -853,6 +853,8 @@ __start__stack:
 	.area BSEG    (BIT)
 _timeForTickProcessing:
 	.ds 1
+_main_processed_2_4:
+	.ds 1
 _pwm_init_projectSpecific_initialized_1_1:
 	.ds 1
 _task_UART_init_projectSpecific_timer1initialized_1_1:
@@ -867,8 +869,6 @@ _task_UART_isLineReady_sloc0_1_0:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_main_delayTimer_2_4:
-	.ds 2
 _pwm_init_projectSpecific_channelNumber_1_1:
 	.ds 1
 _pwm_setDutyCycle_projectSpecific_PARM_2:
@@ -986,6 +986,14 @@ __interrupt_vect:
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;bomb                      Allocated with name '_main_bomb_1_1'
+;calculator                Allocated with name '_main_calculator_1_1'
+;------------------------------------------------------------
+;	../src/main_C8051F040.c:63: static bool processed = false ;
+	clr	_main_processed_2_4
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'task_UART_init_projectSpecific'
 ;------------------------------------------------------------
 ;channelNumber             Allocated with name '_task_UART_init_projectSpecific_channelNumber_1_1'
@@ -1014,7 +1022,6 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;bomb                      Allocated with name '_main_bomb_1_1'
 ;calculator                Allocated with name '_main_calculator_1_1'
-;delayTimer                Allocated with name '_main_delayTimer_2_4'
 ;------------------------------------------------------------
 ;	../src/main_C8051F040.c:27: void main(	void)
 ;	-----------------------------------------
@@ -1074,56 +1081,30 @@ _main:
 00108$:
 ;	../src/main_C8051F040.c:65: if(timeForTickProcessing)
 ;	../src/main_C8051F040.c:67: timeForTickProcessing = false ;
-	jbc	_timeForTickProcessing,00121$
+	jbc	_timeForTickProcessing,00117$
 	sjmp	00108$
-00121$:
-;	../src/main_C8051F040.c:71: if(delayTimer++ > 500)
-	mov	dptr,#_main_delayTimer_2_4
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	mov	dptr,#_main_delayTimer_2_4
-	mov	a,#0x01
-	add	a,r2
-	movx	@dptr,a
-	clr	a
-	addc	a,r3
-	inc	dptr
-	movx	@dptr,a
-	clr	c
-	mov	a,#0xF4
-	subb	a,r2
-	mov	a,#(0x01 ^ 0x80)
-	mov	b,r3
-	xrl	b,#0x80
-	subb	a,b
-	jnc	00108$
-;	../src/main_C8051F040.c:73: delayTimer = 0 ;
-	mov	dptr,#_main_delayTimer_2_4
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
+00117$:
+;	../src/main_C8051F040.c:71: if(!processed)
+	jb	_main_processed_2_4,00108$
+;	../src/main_C8051F040.c:73: processed = true ;
+	setb	_main_processed_2_4
 ;	../src/main_C8051F040.c:75: puts("loop") ;
 	mov	dptr,#__str_1
 	mov	b,#0x80
 	lcall	_puts
 ;	../src/main_C8051F040.c:77: ITERATE_ALL_STATE_MACHINES() ;
 	lcall	_iterateAllStateMachines
-;	../src/main_C8051F040.c:100: puts("\n4th Generation state machine test done.") ;
 	sjmp	00108$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'taskSwitcherTickHook'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	../src/main_C8051F040.c:104: void taskSwitcherTickHook(	void)
+;	../src/main_C8051F040.c:84: void taskSwitcherTickHook(	void)
 ;	-----------------------------------------
 ;	 function taskSwitcherTickHook
 ;	-----------------------------------------
 _taskSwitcherTickHook:
-;	../src/main_C8051F040.c:106: timeForTickProcessing = true ;
+;	../src/main_C8051F040.c:86: timeForTickProcessing = true ;
 	setb	_timeForTickProcessing
 	ret
 ;------------------------------------------------------------
@@ -3167,10 +3148,6 @@ __str_0:
 	.db 0x00
 __str_1:
 	.ascii "loop"
-	.db 0x00
-__str_2:
-	.db 0x0A
-	.ascii "4th Generation state machine test done."
 	.db 0x00
 	.area XINIT   (CODE)
 __xinit__countdown:

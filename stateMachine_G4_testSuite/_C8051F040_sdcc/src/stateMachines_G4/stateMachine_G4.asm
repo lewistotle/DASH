@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Mon Dec 28 02:24:58 2009
+; This file was generated Mon Dec 28 03:35:58 2009
 ;--------------------------------------------------------
 	.module stateMachine_G4
 	.optsdcc -mmcs51 --model-large
