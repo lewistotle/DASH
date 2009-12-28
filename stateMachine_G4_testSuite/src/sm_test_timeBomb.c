@@ -36,7 +36,7 @@ DEFINE_STATE_MACHINE() ;
 
 	ADD_SUB_STATE(TOP, BOOM) ;
 
-END_STATE_MACHINE_DEFINITION() ;
+END_STATE_MACHINE_DEFINITION()
 
 
 CREATE_STATE_MACHINE_INSTANCE()
@@ -53,12 +53,14 @@ CREATE_STATE_MACHINE_INSTANCE()
 
 DESTROY_STATE_MACHINE_INSTANCE()
 {
+	(void)instance ;
 	// Nothing to do here since I am only working with a static instance
 }
 
 
 void updateDisplay(	uint8_t value)
 {
+	(void)value ;
 //	printf("%d ", value) ;
 }
 

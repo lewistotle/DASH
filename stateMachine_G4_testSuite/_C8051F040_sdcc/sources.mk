@@ -14,4 +14,5 @@ EXECUTABLES :=
 SUBDIRS := \
 src/stateMachines_G4 \
 src \
+src/HAL \
 

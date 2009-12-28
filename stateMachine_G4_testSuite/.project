@@ -18,10 +18,6 @@
 					<value>true</value>
 				</dictionary>
 				<dictionary>
-					<key>org.eclipse.cdt.make.core.autoBuildTarget</key>
-					<value>all</value>
-				</dictionary>
-				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
 					<value></value>
 				</dictionary>
@@ -31,11 +27,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/stateMachine_G4_testSuite/Debug}</value>
-				</dictionary>
-				<dictionary>
-					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
-					<value>clean</value>
+					<value>${workspace_loc:/stateMachine_G4_testSuite/_cygwin_gcc}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>
@@ -52,10 +44,6 @@
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.enableFullBuild</key>
 					<value>true</value>
-				</dictionary>
-				<dictionary>
-					<key>org.eclipse.cdt.make.core.fullBuildTarget</key>
-					<value>all</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.stopOnError</key>
@@ -80,6 +68,26 @@
 		<nature>de.innot.avreclipse.core.avrnature</nature>
 	</natures>
 	<linkedResources>
+		<link>
+			<name>src/HAL/pwm_C8051F040.c</name>
+			<type>1</type>
+			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c</location>
+		</link>
+		<link>
+			<name>src/HAL/task_UART.c</name>
+			<type>1</type>
+			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c</location>
+		</link>
+		<link>
+			<name>src/stateMachines_G4/StateMachine_G4_eventQueue.c</name>
+			<type>1</type>
+			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c</location>
+		</link>
+		<link>
+			<name>src/stateMachines_G4/StateMachine_G4_eventQueue.h</name>
+			<type>1</type>
+			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.h</location>
+		</link>
 		<link>
 			<name>src/stateMachines_G4/stateMachine_G4.c</name>
 			<type>1</type>

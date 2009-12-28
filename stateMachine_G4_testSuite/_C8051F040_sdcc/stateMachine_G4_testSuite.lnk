@@ -9,8 +9,12 @@
 -l libint
 -l liblong
 -l libfloat
+./src/stateMachines_G4/StateMachine_G4_eventQueue.rel
 ./src/stateMachines_G4/stateMachine_G4.rel
 ./src/main_C8051F040.rel
-./src/sm_test_machine_a.rel
+./src/sm_test_calculator.rel
+./src/sm_test_timeBomb.rel
+./src/HAL/pwm_C8051F040.rel
+./src/HAL/task_UART.rel
 
 -e

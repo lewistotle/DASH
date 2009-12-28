@@ -44,7 +44,7 @@ DEFINE_STATE_MACHINE() ;
 			ADD_SUB_STATE(operand2, zero2) ;
 			ADD_SUB_STATE(operand2, int2) ;
 			ADD_SUB_STATE(operand2, frac2) ;
-END_STATE_MACHINE_DEFINITION() ;
+END_STATE_MACHINE_DEFINITION()
 
 
 CREATE_STATE_MACHINE_INSTANCE()
@@ -59,6 +59,7 @@ CREATE_STATE_MACHINE_INSTANCE()
 
 DESTROY_STATE_MACHINE_INSTANCE()
 {
+	(void)instance ;
 	// Nothing to do here since I am only working with a static instance
 }
 
@@ -179,7 +180,7 @@ DEFINE_STATE(negated2)
 END_DEFINE_STATE()
 
 
-bool doCalculation(	uint8_t type)
+uint8_t doCalculation(	uint8_t type)
 {
 	switch(type)
 	{
@@ -201,7 +202,7 @@ DEFINE_STATE(operand2)
 		EVENT(OPERATION)
 		EVENT(EQUALS)
 		{
-			bool goodCalc = doCalculation(EVENT_IS(keyEvent_t)->key) ;
+			uint8_t goodCalc = doCalculation(EVENT_IS(keyEvent_t)->key) ;
 
 			if(goodCalc)
 			{

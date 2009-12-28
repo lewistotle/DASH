@@ -170,6 +170,473 @@ Symbol Table
     TR1                                                            008E 
     TR2                                                            00CA 
     TXD                                                            00B1 
+    _AA                                                         =  00C2 G
+    _AC                                                         =  00D6 G
+    _ACC                                                        =  00E0 G
+    _AD0BUSY                                                    =  00EC G
+    _AD0CM0                                                     =  00EA G
+    _AD0CM1                                                     =  00EB G
+    _AD0EN                                                      =  00EF G
+    _AD0INT                                                     =  00ED G
+    _AD0LJST                                                    =  00E8 G
+    _AD0TM                                                      =  00EE G
+    _AD0WINT                                                    =  00E9 G
+    _AD2BUSY                                                    =  00EC G
+    _AD2CM0                                                     =  00E9 G
+    _AD2CM1                                                     =  00EA G
+    _AD2CM2                                                     =  00EB G
+    _AD2EN                                                      =  00EF G
+    _AD2INT                                                     =  00ED G
+    _AD2TM                                                      =  00EE G
+    _AD2WINT                                                    =  00E8 G
+    _ADC0CF                                                     =  00BC G
+    _ADC0CN                                                     =  00E8 G
+    _ADC0GTH                                                    =  00C5 G
+    _ADC0GTL                                                    =  00C4 G
+    _ADC0H                                                      =  00BF G
+    _ADC0L                                                      =  00BE G
+    _ADC0LTH                                                    =  00C7 G
+    _ADC0LTL                                                    =  00C6 G
+    _ADC2                                                       =  00BE G
+    _ADC2CF                                                     =  00BC G
+    _ADC2CN                                                     =  00E8 G
+    _ADC2GT                                                     =  00C4 G
+    _ADC2LT                                                     =  00C6 G
+    _AMX0CF                                                     =  00BA G
+    _AMX0PRT                                                    =  00BD G
+    _AMX0SL                                                     =  00BB G
+    _AMX2CF                                                     =  00BA G
+    _AMX2SL                                                     =  00BB G
+    _B                                                          =  00F0 G
+    _BUSY                                                       =  00C7 G
+    _CAN0ADR                                                    =  00DA G
+    _CAN0CN                                                     =  00F8 G
+    _CAN0DATH                                                   =  00D9 G
+    _CAN0DATL                                                   =  00D8 G
+    _CAN0STA                                                    =  00C0 G
+    _CAN0TST                                                    =  00DB G
+    _CANBOFF                                                    =  00C7 G
+    _CANCCE                                                     =  00FE G
+    _CANDAR                                                     =  00FD G
+    _CANEIE                                                     =  00FB G
+    _CANEPASS                                                   =  00C5 G
+    _CANEWARN                                                   =  00C6 G
+    _CANIE                                                      =  00F9 G
+    _CANIF                                                      =  00FC G
+    _CANINIT                                                    =  00F8 G
+    _CANRXOK                                                    =  00C4 G
+    _CANSIE                                                     =  00FA G
+    _CANTEST                                                    =  00FF G
+    _CANTXOK                                                    =  00C3 G
+    _CCF0                                                       =  00D8 G
+    _CCF1                                                       =  00D9 G
+    _CCF2                                                       =  00DA G
+    _CCF3                                                       =  00DB G
+    _CCF4                                                       =  00DC G
+    _CCF5                                                       =  00DD G
+    _CF                                                         =  00DF G
+    _CKCON                                                      =  008E G
+    _CLKSEL                                                     =  0097 G
+    _CP0EN                                                      =  008F G
+    _CP0FIF                                                     =  008C G
+    _CP0HYN0                                                    =  0088 G
+    _CP0HYN1                                                    =  0089 G
+    _CP0HYP0                                                    =  008A G
+    _CP0HYP1                                                    =  008B G
+    _CP0OUT                                                     =  008E G
+    _CP0RIF                                                     =  008D G
+    _CP1EN                                                      =  008F G
+    _CP1FIF                                                     =  008C G
+    _CP1HYN0                                                    =  0088 G
+    _CP1HYN1                                                    =  0089 G
+    _CP1HYP0                                                    =  008A G
+    _CP1HYP1                                                    =  008B G
+    _CP1OUT                                                     =  008E G
+    _CP1RIF                                                     =  008D G
+    _CP2EN                                                      =  008F G
+    _CP2FIF                                                     =  008C G
+    _CP2HYN0                                                    =  0088 G
+    _CP2HYN1                                                    =  0089 G
+    _CP2HYP0                                                    =  008A G
+    _CP2HYP1                                                    =  008B G
+    _CP2OUT                                                     =  008E G
+    _CP2RIF                                                     =  008D G
+    _CPRL2                                                      =  00C8 G
+    _CPRL3                                                      =  00C8 G
+    _CPRL4                                                      =  00C8 G
+    _CPT0CN                                                     =  0088 G
+    _CPT0MD                                                     =  0089 G
+    _CPT1CN                                                     =  0088 G
+    _CPT1MD                                                     =  0089 G
+    _CPT2CN                                                     =  0088 G
+    _CPT2MD                                                     =  0089 G
+    _CR                                                         =  00DE G
+    _CT2                                                        =  00C9 G
+    _CT3                                                        =  00C9 G
+    _CT4                                                        =  00C9 G
+    _CY                                                         =  00D7 G
+    _DAC0CN                                                     =  00D4 G
+    _DAC0H                                                      =  00D3 G
+    _DAC0L                                                      =  00D2 G
+    _DAC1CN                                                     =  00D4 G
+    _DAC1H                                                      =  00D3 G
+    _DAC1L                                                      =  00D2 G
+    _DPH                                                        =  0083 G
+    _DPL                                                        =  0082 G
+    _EA                                                         =  00AF G
+    _EIE1                                                       =  00E6 G
+    _EIE2                                                       =  00E7 G
+    _EIP1                                                       =  00F6 G
+    _EIP2                                                       =  00F7 G
+    _EMI0CF                                                     =  00A3 G
+    _EMI0CN                                                     =  00A2 G
+    _EMI0TC                                                     =  00A1 G
+    _ENSMB                                                      =  00C6 G
+    _ES                                                         =  00AC G
+    _ES0                                                        =  00AC G
+    _ET0                                                        =  00A9 G
+    _ET1                                                        =  00AB G
+    _ET2                                                        =  00AD G
+    _EX0                                                        =  00A8 G
+    _EX1                                                        =  00AA G
+    _EXEN2                                                      =  00CB G
+    _EXEN3                                                      =  00CB G
+    _EXEN4                                                      =  00CB G
+    _EXF2                                                       =  00CE G
+    _EXF3                                                       =  00CE G
+    _EXF4                                                       =  00CE G
+    _F0                                                         =  00D5 G
+    _F1                                                         =  00D1 G
+    _FLACL                                                      =  00B7 G
+    _FLSCL                                                      =  00B7 G
+    _HVA0CN                                                     =  00D6 G
+    _IE                                                         =  00A8 G
+    _IE0                                                        =  0089 G
+    _IE1                                                        =  008B G
+    _IP                                                         =  00B8 G
+    _IT0                                                        =  0088 G
+    _IT1                                                        =  008A G
+ 17 _IsEmpty                                                       0164 GR
+  B _IsEmpty_Q_1_1                                                 0452 R
+ 17 _IsFull                                                        01A0 GR
+  B _IsFull_Q_1_1                                                  0455 R
+    _MCE1                                                       =  009D G
+    _MODF                                                       =  00FD G
+    _NSSMD0                                                     =  00FA G
+    _NSSMD1                                                     =  00FB G
+    _OSCICL                                                     =  008B G
+    _OSCICN                                                     =  008A G
+    _OSCXCN                                                     =  008C G
+    _OV                                                         =  00D2 G
+    _P                                                          =  00D0 G
+    _P0                                                         =  0080 G
+    _P0MDOUT                                                    =  00A4 G
+    _P0_0                                                       =  0080 G
+    _P0_1                                                       =  0081 G
+    _P0_2                                                       =  0082 G
+    _P0_3                                                       =  0083 G
+    _P0_4                                                       =  0084 G
+    _P0_5                                                       =  0085 G
+    _P0_6                                                       =  0086 G
+    _P0_7                                                       =  0087 G
+    _P1                                                         =  0090 G
+    _P1MDIN                                                     =  00AD G
+    _P1MDOUT                                                    =  00A5 G
+    _P1_0                                                       =  0090 G
+    _P1_1                                                       =  0091 G
+    _P1_2                                                       =  0092 G
+    _P1_3                                                       =  0093 G
+    _P1_4                                                       =  0094 G
+    _P1_5                                                       =  0095 G
+    _P1_6                                                       =  0096 G
+    _P1_7                                                       =  0097 G
+    _P2                                                         =  00A0 G
+    _P2MDIN                                                     =  00AE G
+    _P2MDOUT                                                    =  00A6 G
+    _P2_0                                                       =  00A0 G
+    _P2_1                                                       =  00A1 G
+    _P2_2                                                       =  00A2 G
+    _P2_3                                                       =  00A3 G
+    _P2_4                                                       =  00A4 G
+    _P2_5                                                       =  00A5 G
+    _P2_6                                                       =  00A6 G
+    _P2_7                                                       =  00A7 G
+    _P3                                                         =  00B0 G
+    _P3MDIN                                                     =  00AF G
+    _P3MDOUT                                                    =  00A7 G
+    _P3_0                                                       =  00B0 G
+    _P3_1                                                       =  00B1 G
+    _P3_2                                                       =  00B2 G
+    _P3_3                                                       =  00B3 G
+    _P3_4                                                       =  00B4 G
+    _P3_5                                                       =  00B5 G
+    _P3_6                                                       =  00B6 G
+    _P3_7                                                       =  00B7 G
+    _P4                                                         =  00C8 G
+    _P4MDOUT                                                    =  009C G
+    _P4_0                                                       =  00C8 G
+    _P4_1                                                       =  00C9 G
+    _P4_2                                                       =  00CA G
+    _P4_3                                                       =  00CB G
+    _P4_4                                                       =  00CC G
+    _P4_5                                                       =  00CD G
+    _P4_6                                                       =  00CE G
+    _P4_7                                                       =  00CF G
+    _P5                                                         =  00D8 G
+    _P5MDOUT                                                    =  009D G
+    _P5_0                                                       =  00D8 G
+    _P5_1                                                       =  00D9 G
+    _P5_2                                                       =  00DA G
+    _P5_3                                                       =  00DB G
+    _P5_4                                                       =  00DC G
+    _P5_5                                                       =  00DD G
+    _P5_6                                                       =  00DE G
+    _P5_7                                                       =  00DF G
+    _P6                                                         =  00E8 G
+    _P6MDOUT                                                    =  009E G
+    _P6_0                                                       =  00E8 G
+    _P6_1                                                       =  00E9 G
+    _P6_2                                                       =  00EA G
+    _P6_3                                                       =  00EB G
+    _P6_4                                                       =  00EC G
+    _P6_5                                                       =  00ED G
+    _P6_6                                                       =  00EE G
+    _P6_7                                                       =  00EF G
+    _P7                                                         =  00F8 G
+    _P7MDOUT                                                    =  009F G
+    _P7_0                                                       =  00F8 G
+    _P7_1                                                       =  00F9 G
+    _P7_2                                                       =  00FA G
+    _P7_3                                                       =  00FB G
+    _P7_4                                                       =  00FC G
+    _P7_5                                                       =  00FD G
+    _P7_6                                                       =  00FE G
+    _P7_7                                                       =  00FF G
+    _PCA0CN                                                     =  00D8 G
+    _PCA0CPH0                                                   =  00FC G
+    _PCA0CPH1                                                   =  00FE G
+    _PCA0CPH2                                                   =  00EA G
+    _PCA0CPH3                                                   =  00EC G
+    _PCA0CPH4                                                   =  00EE G
+    _PCA0CPH5                                                   =  00E2 G
+    _PCA0CPL0                                                   =  00FB G
+    _PCA0CPL1                                                   =  00FD G
+    _PCA0CPL2                                                   =  00E9 G
+    _PCA0CPL3                                                   =  00EB G
+    _PCA0CPL4                                                   =  00ED G
+    _PCA0CPL5                                                   =  00E1 G
+    _PCA0CPM0                                                   =  00DA G
+    _PCA0CPM1                                                   =  00DB G
+    _PCA0CPM2                                                   =  00DC G
+    _PCA0CPM3                                                   =  00DD G
+    _PCA0CPM4                                                   =  00DE G
+    _PCA0CPM5                                                   =  00DF G
+    _PCA0H                                                      =  00FA G
+    _PCA0L                                                      =  00F9 G
+    _PCA0MD                                                     =  00D9 G
+    _PCON                                                       =  0087 G
+    _PS                                                         =  00BC G
+    _PS0                                                        =  00BC G
+    _PSCTL                                                      =  008F G
+    _PSW                                                        =  00D0 G
+    _PT0                                                        =  00B9 G
+    _PT1                                                        =  00BB G
+    _PT2                                                        =  00BD G
+    _PX0                                                        =  00B8 G
+    _PX1                                                        =  00BA G
+    _RB80                                                       =  009A G
+    _RB81                                                       =  009A G
+    _RCAP2H                                                     =  00CB G
+    _RCAP2L                                                     =  00CA G
+    _RCAP3H                                                     =  00CB G
+    _RCAP3L                                                     =  00CA G
+    _RCAP4H                                                     =  00CB G
+    _RCAP4L                                                     =  00CA G
+    _REF0CN                                                     =  00D1 G
+    _REN                                                        =  009C G
+    _REN0                                                       =  009C G
+    _REN1                                                       =  009C G
+    _RI                                                         =  0098 G
+    _RI0                                                        =  0098 G
+    _RI1                                                        =  0098 G
+    _RS0                                                        =  00D3 G
+    _RS1                                                        =  00D4 G
+    _RSTSRC                                                     =  00EF G
+    _RXOVRN                                                     =  00FC G
+    _S1MODE                                                     =  009F G
+    _SADDR0                                                     =  00A9 G
+    _SADEN0                                                     =  00B9 G
+    _SBUF                                                       =  0099 G
+    _SBUF0                                                      =  0099 G
+    _SBUF1                                                      =  0099 G
+    _SCON                                                       =  0098 G
+    _SCON0                                                      =  0098 G
+    _SCON1                                                      =  0098 G
+    _SFRLAST                                                    =  0086 G
+    _SFRNEXT                                                    =  0085 G
+    _SFRPAGE                                                    =  0084 G
+    _SFRPGCN                                                    =  0096 G
+    _SI                                                         =  00C3 G
+    _SM00                                                       =  009F G
+    _SM10                                                       =  009E G
+    _SM20                                                       =  009D G
+    _SMB0ADR                                                    =  00C3 G
+    _SMB0CN                                                     =  00C0 G
+    _SMB0CR                                                     =  00CF G
+    _SMB0DAT                                                    =  00C2 G
+    _SMB0STA                                                    =  00C1 G
+    _SMBFTE                                                     =  00C1 G
+    _SMBTOE                                                     =  00C0 G
+    _SP                                                         =  0081 G
+    _SPI0CFG                                                    =  009A G
+    _SPI0CKR                                                    =  009D G
+    _SPI0CN                                                     =  00F8 G
+    _SPI0DAT                                                    =  009B G
+    _SPIEN                                                      =  00F8 G
+    _SPIF                                                       =  00FF G
+    _SSTA0                                                      =  0091 G
+    _STA                                                        =  00C5 G
+    _STO                                                        =  00C4 G
+ 17 _Succ                                                          01F2 R
+  B _Succ_PARM_2                                                   0458 GR
+  B _Succ_Value_1_1                                                045B R
+    _TB80                                                       =  009B G
+    _TB81                                                       =  009B G
+    _TCON                                                       =  0088 G
+    _TF0                                                        =  008D G
+    _TF1                                                        =  008F G
+    _TF2                                                        =  00CF G
+    _TF3                                                        =  00CF G
+    _TF4                                                        =  00CF G
+    _TH0                                                        =  008C G
+    _TH1                                                        =  008D G
+    _TH2                                                        =  00CD G
+    _TI                                                         =  0099 G
+    _TI0                                                        =  0099 G
+    _TI1                                                        =  0099 G
+    _TL0                                                        =  008A G
+    _TL1                                                        =  008B G
+    _TL2                                                        =  00CC G
+    _TMOD                                                       =  0089 G
+    _TMR2CF                                                     =  00C9 G
+    _TMR2CN                                                     =  00C8 G
+    _TMR2H                                                      =  00CD G
+    _TMR2L                                                      =  00CC G
+    _TMR3CF                                                     =  00C9 G
+    _TMR3CN                                                     =  00C8 G
+    _TMR3H                                                      =  00CD G
+    _TMR3L                                                      =  00CC G
+    _TMR4CF                                                     =  00C9 G
+    _TMR4CN                                                     =  00C8 G
+    _TMR4H                                                      =  00CD G
+    _TMR4L                                                      =  00CC G
+    _TR0                                                        =  008C G
+    _TR1                                                        =  008E G
+    _TR2                                                        =  00CA G
+    _TR3                                                        =  00CA G
+    _TR4                                                        =  00CA G
+    _TXBMT                                                      =  00F9 G
+ 17 _UART0_Init                                                    093F GR
+ 17 _UART1_Init                                                    094D GR
+  B _UARTtempBuffer                                                0006 GR
+    _WCOL                                                       =  00FE G
+    _WDTCN                                                      =  00FF G
+    _XBR0                                                       =  00E1 G
+    _XBR1                                                       =  00E2 G
+    _XBR2                                                       =  00E3 G
+    _XBR3                                                       =  00E4 G
+    __XPAGE                                                     =  00A2 G
+    __gptrget                                                      **** GX
+    __gptrput                                                      **** GX
+  E __interrupt_vect                                               0000 R
+    __mcs51_genRAMCLEAR                                            **** GX
+    __mcs51_genXINIT                                               **** GX
+    __mcs51_genXRAMCLEAR                                           **** GX
+    __sdcc_gsinit_startup                                          **** GX
+  E __sdcc_program_startup                                         002E GR
+  6 __start__stack                                                 0000 GR
+ 18 __str_0                                                        0000 R
+ 18 __str_1                                                        002B R
+ 18 __str_2                                                        0030 R
+ 19 __xinit__countdown                                             0000 R
+ 17 _addTickCounter                                                09D9 GR
+  B _addTickCounter_pointerToIncrement_1_1                         0906 R
+  5 _addTickCounter_sloc0_1_0                                      0000 GR
+  B _charSent                                                      08CB R
+  D _countdown                                                     0000 R
+    _createInstanceOf_calculator                                   **** GX
+    _createInstanceOf_timeBomb                                     **** GX
+ 17 _gpio_init_projectSpecific                                     0082 GR
+    _iterateAllStateMachines                                       **** GX
+  B _lineReady                                                     08CC R
+ 17 _main                                                          0000 GR
+  B _main_delayTimer_2_4                                           0000 R
+ 17 _prvSetupSystemClock                                           0980 R
+ 17 _prvSetupTimerInterrupt                                        099F R
+  B _prvSetupTimerInterrupt_ucOriginalSFRPage_1_1                  08E7 R
+ 17 _putchar                                                       0958 GR
+  B _putchar_c_1_1                                                 08E6 R
+    _puts                                                          **** GX
+ 17 _pwm_adjustDutyCycle_projectSpecific                           015E GR
+  B _pwm_adjustDutyCycle_projectSpecific_PARM_2                    0004 GR
+ 17 _pwm_decrementDutyCycle_projectSpecific                        0158 GR
+ 17 _pwm_getDutyCycleAsPercentage_projectSpecific                  0160 GR
+ 17 _pwm_getDutyCycle_projectSpecific                              0159 GR
+ 17 _pwm_incrementDutyCycle_projectSpecific                        0157 GR
+    _pwm_init                                                      **** GX
+ 17 _pwm_init_projectSpecific                                      0108 GR
+  B _pwm_init_projectSpecific_channelNumber_1_1                    0002 R
+  9 _pwm_init_projectSpecific_initialized_1_1                      0001 R
+ 17 _pwm_setDutyCycleAsPercentage_projectSpecific                  015F GR
+  B _pwm_setDutyCycleAsPercentage_projectSpecific_PARM_2           0005 GR
+ 17 _pwm_setDutyCycle_projectSpecific                              015D GR
+  B _pwm_setDutyCycle_projectSpecific_PARM_2                       0003 GR
+  B _receiveBuffer                                                 08AA R
+  B _receiveBuffers                                                08C0 R
+    _registerStateMachine                                          **** GX
+ 17 _taskSwitcherTickHook                                          007F GR
+    _task_UART_core                                                **** GX
+ 17 _task_UART_core_projectSpecific                                03A2 GR
+  B _task_UART_core_projectSpecific_Q_4_4                          08CF R
+  B _task_UART_core_projectSpecific_channelNumber_1_1              08CE R
+  4 _task_UART_core_projectSpecific_sloc0_1_0                      0000 R
+  4 _task_UART_core_projectSpecific_sloc1_1_0                      0001 R
+  4 _task_UART_core_projectSpecific_sloc2_1_0                      0004 R
+  4 _task_UART_core_projectSpecific_sloc3_1_0                      0006 R
+    _task_UART_getchar                                             **** GX
+ 17 _task_UART_getchar_projectSpecific                             07A0 GR
+  B _task_UART_getchar_projectSpecific_Q_2_2                       08DC R
+  B _task_UART_getchar_projectSpecific_channelNumber_1_1           08DB R
+  4 _task_UART_getchar_projectSpecific_sloc0_1_0                   0009 R
+  4 _task_UART_getchar_projectSpecific_sloc1_1_0                   000C R
+  4 _task_UART_getchar_projectSpecific_sloc2_1_0                   000E R
+ 17 _task_UART_gets_projectSpecific                                089B GR
+  B _task_UART_gets_projectSpecific_PARM_2                         08DF GR
+  B _task_UART_gets_projectSpecific_PARM_3                         08E2 GR
+  B _task_UART_gets_projectSpecific_channelNumber_1_1              08E4 R
+  4 _task_UART_gets_projectSpecific_sloc0_1_0                      0011 R
+  4 _task_UART_gets_projectSpecific_sloc1_1_0                      0012 R
+    _task_UART_init                                                **** GX
+ 17 _task_UART_init_projectSpecific                                0246 GR
+  B _task_UART_init_projectSpecific_channelNumber_1_1              08CD R
+  9 _task_UART_init_projectSpecific_timer1initialized_1_1          0002 R
+ 17 _task_UART_isLineReady                                         0926 GR
+  B _task_UART_isLineReady_channelNumber_1_1                       08E5 R
+  9 _task_UART_isLineReady_sloc0_1_0                               0003 R
+    _task_UART_putchar                                             **** GX
+    _task_UART_putchar_PARM_2                                      **** GX
+ 17 _task_UART_putchar_projectSpecific                             0606 GR
+  B _task_UART_putchar_projectSpecific_PARM_2                      08D2 GR
+  B _task_UART_putchar_projectSpecific_Q_2_2                       08D4 R
+  B _task_UART_putchar_projectSpecific_channelNumber_1_1           08D3 R
+ 17 _task_UART_puts_projectSpecific                                0723 GR
+  B _task_UART_puts_projectSpecific_PARM_2                         08D7 GR
+  B _task_UART_puts_projectSpecific_channelNumber_1_1              08DA R
+  B _tickCounterToIncrement                                        08E8 GR
+  9 _timeForTickProcessing                                         0000 R
+  B _transmitBuffer                                                045D R
+  B _transmitBuffers                                               08B5 R
+ 17 _vTimer2ISR                                                    0A3C GR
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -181,6 +648,14 @@ Symbol Table
     acc.5                                                          00E5 
     acc.6                                                          00E6 
     acc.7                                                          00E7 
+    ar0                                                         =  0000 
+    ar1                                                         =  0001 
+    ar2                                                         =  0002 
+    ar3                                                         =  0003 
+    ar4                                                         =  0004 
+    ar5                                                         =  0005 
+    ar6                                                         =  0006 
+    ar7                                                         =  0007 
     b                                                              00F0 
     b.0                                                            00F0 
     b.1                                                            00F1 
@@ -190,6 +665,15 @@ Symbol Table
     b.5                                                            00F5 
     b.6                                                            00F6 
     b.7                                                            00F7 
+  3 b0                                                          =  8000 R
+  3 b1                                                          =  8100 R
+  3 b2                                                          =  8200 R
+  3 b3                                                          =  8300 R
+  3 b4                                                          =  8400 R
+  3 b5                                                          =  8500 R
+  3 b6                                                          =  8600 R
+  3 b7                                                          =  8700 R
+  3 bits                                                           0000 R
     cprl2                                                          00C8 
     ct2                                                            00C9 
     cy                                                             00D7 
@@ -346,25 +830,27 @@ Area Table
    0 _CODE                                                                              size    0   flags 0
    1 RSEG                                                                               size    0   flags 0
    2 REG_BANK_0                                                                         size    8   flags 4
-   3 DSEG                                                                               size    0   flags 0
-   4 OSEG                                                                               size    0   flags 4
-   5 ISEG                                                                               size    0   flags 0
-   6 IABS                                                                               size    0   flags 8
-   7 BSEG                                                                               size    0   flags 80
-   8 PSEG                                                                               size    0   flags 50
-   9 XSEG                                                                               size    0   flags 40
-   A XABS                                                                               size    0   flags 48
-   B XISEG                                                                              size    0   flags 40
-   C HOME                                                                               size    0   flags 20
-   D GSINIT0                                                                            size    0   flags 20
-   E GSINIT1                                                                            size    0   flags 20
-   F GSINIT2                                                                            size    0   flags 20
-  10 GSINIT3                                                                            size    0   flags 20
-  11 GSINIT4                                                                            size    0   flags 20
-  12 GSINIT5                                                                            size    0   flags 20
-  13 GSINIT                                                                             size    0   flags 20
-  14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size    0   flags 20
-  16 CONST                                                                              size    0   flags 20
-  17 XINIT                                                                              size    0   flags 20
-  18 CABS                                                                               size    0   flags 28
+   3 BIT_BANK                                                                           size    1   flags 4
+   4 DSEG                                                                               size   14   flags 0
+   5 OSEG                                                                               size    3   flags 4
+   6 SSEG                                                                               size    1   flags 0
+   7 ISEG                                                                               size    0   flags 0
+   8 IABS                                                                               size    0   flags 8
+   9 BSEG                                                                               size    4   flags 80
+   A PSEG                                                                               size    0   flags 50
+   B XSEG                                                                               size  909   flags 40
+   C XABS                                                                               size    0   flags 48
+   D XISEG                                                                              size    2   flags 40
+   E HOME                                                                               size   33   flags 20
+   F GSINIT0                                                                            size    0   flags 20
+  10 GSINIT1                                                                            size    0   flags 20
+  11 GSINIT2                                                                            size    0   flags 20
+  12 GSINIT3                                                                            size    0   flags 20
+  13 GSINIT4                                                                            size    0   flags 20
+  14 GSINIT5                                                                            size    0   flags 20
+  15 GSINIT                                                                             size    2   flags 20
+  16 GSFINAL                                                                            size    3   flags 20
+  17 CSEG                                                                               size  AC6   flags 20
+  18 CONST                                                                              size   59   flags 20
+  19 XINIT                                                                              size    2   flags 20
+  1A CABS                                                                               size    0   flags 28

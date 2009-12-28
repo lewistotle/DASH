@@ -52,7 +52,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -1010,7 +1010,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="hex" artifactName="stateMachine_G4_testSuite" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.768398382.1284226346.20398114" name="_C8051F040_sdcc" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug">
+<configuration artifactExtension="hex" artifactName="stateMachine_G4_testSuite" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.768398382.1284226346.20398114" name="_C8051F040_sdcc" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postbuildStep="../../../FlashUtilCL/bin/FlashUtilCL.exe downloadUSB -R ./stateMachine_G4_testSuite.hex EC300019758">
 <folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.768398382.1284226346.20398114." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.sdcc.exe.release.533491510" name="SDCC Tool Chain" superClass="cdt.managedbuild.toolchain.sdcc.exe.release">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.sdcc.platform.exe.release.1269036217" name="Release Platform" osList="solaris,linux,hpux,aix,qnx,win32" superClass="cdt.managedbuild.target.sdcc.platform.exe.release"/>
@@ -1019,8 +1019,16 @@
 <option id="sdcc.c.compiler.option.include.paths.1465504294" name="Include paths (-I)" superClass="sdcc.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;..\..\..\StateMachines&quot;"/>
 <listOptionValue builtIn="false" value="&quot;..\..\..\_SoftwareLibraries\SDCC\include&quot;"/>
+<listOptionValue builtIn="false" value="&quot;..\..\..\HardwareAbstractionLayer&quot;"/>
+<listOptionValue builtIn="false" value="&quot;..\..\..\Common&quot;"/>
 </option>
 <option id="sdcc.c.compiler.category.other.memorymodel.1799278661" name="Memory Model" superClass="sdcc.c.compiler.category.other.memorymodel" value="sdcc.c.compiler.category.other.memorymodel.large" valueType="enumerated"/>
+<option id="sdcc.c.compiler.option.preprocessor.def.symbols.1851303569" name="Defined symbols (-D)" superClass="sdcc.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+<listOptionValue builtIn="false" value="__c8051f040__"/>
+</option>
+<option id="sdcc.c.compiler.option.warnings.pedantic.error.957988552" name="Pedantic warnings as errors (-pedantic-errors)" superClass="sdcc.c.compiler.option.warnings.pedantic.error" value="false" valueType="boolean"/>
+<option id="sdcc.c.compiler.option.warnings.allwarn.243651862" name="All warnings (-Wall)" superClass="sdcc.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+<option id="sdcc.c.compiler.option.warnings.pedantic.1229374487" name="Pedantic (-pedantic)" superClass="sdcc.c.compiler.option.warnings.pedantic" value="true" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.sdcc.c.compiler.input.954249510" superClass="cdt.managedbuild.tool.sdcc.c.compiler.input"/>
 </tool>
 <tool command="sdcc --model-large" id="cdt.managedbuild.tool.sdcc.c.linker.exe.release.1964566846" name="SDCC Linker" superClass="cdt.managedbuild.tool.sdcc.c.linker.exe.release"/>
@@ -1030,7 +1038,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -2024,7 +2032,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -2999,6 +3007,7 @@
 <option id="gnu.c.compiler.option.include.paths.938425456" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;..\..\&quot;"/>
 </option>
+<option id="gnu.c.compiler.option.preprocessor.preprocess.1982250364" name="Preprocess only (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1218576782" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
 </tool>
 <tool command="gcc-3" id="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug.1303799529" name="Cygwin C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug">
@@ -3029,7 +3038,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>

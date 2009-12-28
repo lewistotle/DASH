@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/main_avr.c \
-../src/sm_test_machine_a.c 
+../src/sm_test_calculator.c \
+../src/sm_test_timeBomb.c 
 
 OBJS += \
 ./src/main_avr.o \
-./src/sm_test_machine_a.o 
+./src/sm_test_calculator.o \
+./src/sm_test_timeBomb.o 
 
 C_DEPS += \
 ./src/main_avr.d \
-./src/sm_test_machine_a.d 
+./src/sm_test_calculator.d \
+./src/sm_test_timeBomb.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

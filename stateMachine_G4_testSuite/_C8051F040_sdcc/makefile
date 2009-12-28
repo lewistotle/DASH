@@ -11,6 +11,7 @@ RM := rm -rf
 -include subdir.mk
 -include src/stateMachines_G4/subdir.mk
 -include src/subdir.mk
+-include src/HAL/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -33,13 +34,18 @@ stateMachine_G4_testSuite.hex: $(RELS) $(USER_OBJS)
 	sdcc --model-large  -o"stateMachine_G4_testSuite.hex" $(RELS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+	$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
 	-$(RM) $(C_DEPS)$(RELS)$(EXECUTABLES) stateMachine_G4_testSuite.hex
 	-@echo ' '
 
+post-build:
+	-../../../FlashUtilCL/bin/FlashUtilCL.exe downloadUSB -R ./stateMachine_G4_testSuite.hex EC300019758
+	-@echo ' '
+
 .PHONY: all clean dependents
-.SECONDARY:
+.SECONDARY: post-build
 
 -include ../makefile.targets
