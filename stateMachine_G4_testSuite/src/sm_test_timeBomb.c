@@ -10,7 +10,6 @@
 
 #include "sm_test_timeBomb.h"
 
-//#include <stdio.h>
 
 
 #define STATE_MACHINE_NAME			timeBomb
@@ -54,14 +53,13 @@ CREATE_STATE_MACHINE_INSTANCE()
 DESTROY_STATE_MACHINE_INSTANCE()
 {
 	(void)instance ;
-	// Nothing to do here since I am only working with a static instance
+	/* Nothing to do here since I am only working with a static instance */
 }
 
 
 void updateDisplay(	uint8_t value)
 {
 	(void)value ;
-//	printf("%d ", value) ;
 }
 
 
@@ -73,7 +71,7 @@ DEFINE_TOP_STATE()
 	{
 		EXIT
 		{
-			// BOOM
+			/* BOOM */
 		}
 		EXIT_HANDLED
 	}
@@ -155,7 +153,7 @@ DEFINE_STATE(BOOM)
 	{
 		ENTER
 		{
-			// BOOM
+			/* BOOM */
 
 			TRANSITION_TO(STATE_MACHINE_EXIT, NO_ACTION) ;
 		}

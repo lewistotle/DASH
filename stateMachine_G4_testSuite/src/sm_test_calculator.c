@@ -60,7 +60,7 @@ CREATE_STATE_MACHINE_INSTANCE()
 DESTROY_STATE_MACHINE_INSTANCE()
 {
 	(void)instance ;
-	// Nothing to do here since I am only working with a static instance
+	/* Nothing to do here since I am only working with a static instance */
 }
 
 
@@ -98,7 +98,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(begin)
 {
-	// This will cause a loop in the state machine, but for testing purposes, it tests a couple of cases
+	/* This will cause a loop in the state machine, but for testing purposes, it tests a couple of cases */
 	INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
 
 	TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;

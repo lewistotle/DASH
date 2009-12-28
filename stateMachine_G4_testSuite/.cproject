@@ -3008,6 +3008,7 @@
 <listOptionValue builtIn="false" value="&quot;..\..\&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.preprocessor.preprocess.1982250364" name="Preprocess only (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" value="false" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.pedantic.1524263525" name="Pedantic (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="true" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1218576782" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
 </tool>
 <tool command="gcc-3" id="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug.1303799529" name="Cygwin C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug">

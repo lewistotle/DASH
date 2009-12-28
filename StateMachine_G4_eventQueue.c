@@ -5,6 +5,8 @@
  *      Author: jlewis
  */
 
+#include <stdio.h>
+
 #include "stateMachine_G4.h"
 #include "stateMachine_G4_eventQueue.h"
 

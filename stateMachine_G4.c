@@ -122,7 +122,7 @@ stateHandlerResponse_t callStateHandler(stateMachine_t* sm, state_t* state, even
 
 	if(response == TRANSITION)
 	{
-		printf("to %s ", sm->nextState->stateName) ;
+		printf("to %s ", ((state_t*)(sm->nextState))->stateName) ;
 	}
 
 	printf("\n") ;
@@ -136,32 +136,45 @@ void iterateStateMachine(	stateMachine_t* sm)
 	static event_t	initialTransitionEvent	= { SUBSTATE_INITIAL_TRANSITION } ;
 	static event_t	enterEvent				= { SUBSTATE_ENTRY } ;
 	static event_t	exitEvent				= { SUBSTATE_EXIT } ;
+	bool			forceTransition			= false ;
 	static int iterationMax = 10 ;
 
 	printf("\titerating %s\n", sm->stateMachineName) ;
 
-	// First of all, is the machine initialized? If not, take care of that.
+	/* First of all, is the machine initialized? If not, take care of that. */
 
 	if(!sm->stateMachineInitialized)
 	{
 		printf("\t\tinitializing...\n") ;
 
-		NormalInsert(&sm->eventQueue, &enterEvent) ;
-		NormalInsert(&sm->eventQueue, &initialTransitionEvent) ;
+		sm->currentState = (state_t*)sm->topState ;
 
-		sm->currentState			= (state_t*)sm->topState ;
-		sm->stateMachineInitialized	= true ;
+		callStateHandler(sm, sm->currentState, &enterEvent) ;
+
+		sm->stateMachineInitialized = true ;
+
+		forceTransition = true ;
 	}
 
-	// Any pending events?
+	/* Any pending events? */
 
-	while(!isEmpty(&sm->eventQueue))
+	while((!isEmpty(&sm->eventQueue)) || (forceTransition))
 	{
-		event_t*				eventToProcess		= Remove(&sm->eventQueue) ;
+		event_t*				eventToProcess ;//		= Remove(&sm->eventQueue) ;
 		state_t*				stateBeingProcessed	= sm->currentState ;
 		stateHandlerResponse_t	action ;
 
-		sm->nextState = (state_t*)0 ;	// just a little housecleaning
+		if(forceTransition)
+		{
+			forceTransition = false ;
+			eventToProcess = &initialTransitionEvent ;
+		}
+		else
+		{
+			eventToProcess = Remove(&sm->eventQueue) ; ;
+		}
+
+		sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
 
 		if(iterationMax-- == 0)
 		{
@@ -170,15 +183,11 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 		printf("\t\tProcessing event...\n") ;
 
-//		printf("\t\t\tcurrent state: %p\n", stateBeingProcessed) ; fflush(stdout) ;
-//		printf("\t\t\tcurrent statename: %s\n", stateBeingProcessed->stateName) ; fflush(stdout) ;
-//		printf("\t\t\tcurrent state handler: %p\n", stateBeingProcessed->handler) ; fflush(stdout) ;
-
-		// Now run the event through the hierarchy starting at the current state
-		// and going all the way to the top looking for either the event to be
-		// handled or a transition taken. If the event is not one of the required
-		// state machine events and it is ignored, move up to the parent state
-		// and try again. When the top is reached, bail...
+		/* Now run the event through the hierarchy starting at the current state
+		 * and going all the way to the top looking for either the event to be
+		 * handled or a transition taken. If the event is not one of the required
+		 * state machine events and it is ignored, move up to the parent state
+		 * and try again. When the top is reached, bail... */
 
 		do
 		{
@@ -186,34 +195,31 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 			if((action == IGNORED) && (eventToProcess->eventType > SUBSTATE_EXIT))
 			{
-				stateBeingProcessed = stateBeingProcessed->parent ;
-				printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
+				stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+
+				printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ;
 			}
 			else
 			{
-				// The event was handled or a transition was taken.
-				// In either case, no need to continue up the chain.
+				/* The event was handled or a transition was taken.
+				 * In either case, no need to continue up the chain. */
 
 				break ;
 			}
 		} while(stateBeingProcessed) ;
-
-//		printf("\t\t\tresponse: %d from state %s\n", action, stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
 
 		if(action == TRANSITION)
 		{
 			state_t*	source	= sm->currentState ;
 			state_t*	target	= sm->nextState ;
 
-//			printf("\t\t\t\tTransitioning from %s to %s\n", source->stateName, target->stateName) ;
-
-			// There are 8 different cases here. They are handled in case of complexity...
+			/* There are 8 different cases here. They are handled in case of complexity... */
 
 			if(source == target)
 			{
 				printf("\t\t\t\tSelf transition.\n") ;
 
-				// Self transition. Exit and then re-enter the same state
+				/* Self transition. Exit and then re-enter the same state */
 
 				callStateHandler(sm, source, &exitEvent) ;
 				sm->currentState = target ;
@@ -223,8 +229,8 @@ void iterateStateMachine(	stateMachine_t* sm)
 			{
 				printf("\t\t\t\tTransition to direct child.\n") ;
 
-				// target is a direct child of the source. Only need to enter
-				// the target here without having to exit the source.
+				/* target is a direct child of the source. Only need to enter
+				 * the target here without having to exit the source. */
 
 				sm->currentState = target ;
 				callStateHandler(sm, target, &enterEvent) ;
@@ -233,8 +239,8 @@ void iterateStateMachine(	stateMachine_t* sm)
 			{
 				printf("\t\t\t\tTransition to direct peer.\n") ;
 
-				// A direct peer transition within the same parent state.
-				// Exit the source and then enter the target.
+				/* A direct peer transition within the same parent state.
+				 * Exit the source and then enter the target. */
 
 				callStateHandler(sm, source, &exitEvent) ;
 				sm->currentState = target ;
@@ -244,9 +250,9 @@ void iterateStateMachine(	stateMachine_t* sm)
 			{
 				printf("\t\t\t\tTransition to direct parent.\n") ;
 
-				// target is the direct parent of the source. Only need to exit
-				// the source without having to re-enter the target since it
-				// was already active.
+				/* target is the direct parent of the source. Only need to exit
+				 * the source without having to re-enter the target since it
+				 * was already active. */
 
 				sm->currentState = target ;
 				callStateHandler(sm, source, &exitEvent) ;
@@ -261,11 +267,12 @@ void iterateStateMachine(	stateMachine_t* sm)
 				uint8_t		entryIndex ;
 				uint8_t		exitIndex ;
 
-				// This is where things start to get complicated...
+				/* This is where things start to get complicated... */
 
 				printf("\t\t\t\tScanning source hierarchy...\n") ;
 
 				sourceIndex			= 0 ;
+				targetIndex			= 0 ;
 				stateBeingProcessed	= source ;
 
 				do
@@ -296,7 +303,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 						break ;
 					}
 
-					stateBeingProcessed = stateBeingProcessed->parent ;
+					stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 				} while(stateBeingProcessed) ;
 
 				if(sm->currentState != target)
@@ -328,7 +335,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 						}
 
 						targetIndex++ ;
-						stateBeingProcessed = stateBeingProcessed->parent ;
+						stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 					} while(stateBeingProcessed) ;
 				}
 
@@ -337,9 +344,10 @@ void iterateStateMachine(	stateMachine_t* sm)
 					uint8_t	LCAindex = 0 ;
 
 					printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ;
+					LCA			= 0 ;
 					entryIndex	= targetIndex - 1 ;
 					exitIndex	= sourceIndex - 1 ;
-					printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ; fflush(stdout) ;
+					printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
 
 					while(sourceHierarchy[exitIndex] == targetHierarchy[entryIndex])
 					{
@@ -348,13 +356,13 @@ void iterateStateMachine(	stateMachine_t* sm)
 						entryIndex-- ;
 						exitIndex-- ;
 
-						printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ; fflush(stdout) ;
+						printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ;
 
 						LCAindex++ ;
 					}
 
 					printf("\t\t\t\t\tLCA of %s and %s is: %s\n", source->stateName, target->stateName, LCA->stateName) ;
-					printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ; fflush(stdout) ;
+					printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
 
 					sourceIndex	= exitIndex + 1 ;
 					exitIndex	= 0 ;
@@ -380,71 +388,13 @@ void iterateStateMachine(	stateMachine_t* sm)
 				}
 			}
 
-			// Now insert an initial transition event that will cause the
-			// target state to execute any initial transactions it might
-			// have so the next iteration through this loop will catch it.
+			/* Now force an initial transition event that will cause the
+			 * target state to execute any initial transactions it might
+			 * have so the next iteration through this loop will catch it. */
 
-			NormalInsert(&sm->eventQueue, &initialTransitionEvent) ;
+			forceTransition = true ;
 		}
 	}
 
 	printf("\t\tEvent queue empty.\n") ;
-
-#if 0
-	if(!sm->stateMachineInitialized)
-	{
-		sm->stateMachineInitialized = true ;
-		sm->stateRetryCount			= 0 ;
-//		STATE_MACHINE_SETUP_MILLISECOND_TICK ;
-//		TIME_IN_STATE_INIT_HELPER() ;
-	}
-//	STATE_MACHINE_ITERATOR_SKIN_PRE(	STATE_MACHINE_NAME)() ;
-	do
-	{
-		if(sm->currentState != sm->previousState)
-		{
-			sm->currentState(SUBSTATE_GET_INFO) ;
-			sm->stateTimeoutEnabled		= false ;
-			sm->stateTimeoutProcessed	= false ;
-			sm->stateTimeoutForced		= false ;
-//			TIME_IN_STATE_ENTRY_HELPER() ;
-			sm->millisecondsInState		= 0 ;
-			outputStateMachineDebugData_G4(sm) ;
-			sm->currentState(SUBSTATE_ENTRY) ;
-			sm->previousState = sm->currentState ;
-		}
-		else if(sm->stateTimeoutEnabled && (sm->stateTimeoutForced || (sm->millisecondsInState >= sm->stateTimeoutPeriod)) && (!sm->stateTimeoutProcessed))
-		{
-			outputStateMachineDebugData_G4(sm) ;
-			sm->currentState(SUBSTATE_TIMEOUT) ;
-			sm->stateTimeoutForced = false ;
-		}
-		else if(sm->nextState == sm->currentState)
-		{
-			sm->immediateChangePending = false ;
-//			TIME_IN_STATE_HELPER() ;
-			outputStateMachineDebugData_G4(sm) ;
-			sm->currentState(SUBSTATE_DO) ;
-		}
-		else if(sm->nextState != sm->currentState)
-		{
-			outputStateMachineDebugData_G4(sm) ;
-			sm->currentState(SUBSTATE_EXIT) ;
-			sm->currentState = sm->nextState ;
-			sm->stateRetryCount = 0 ;
-		}
-		if(sm->immediateChangePending)
-		{
-			outputStateMachineDebugData_G4(sm) ;
-		}
-	} while(sm->immediateChangePending) ;
-//	STATE_MACHINE_ITERATOR_SKIN_POST(	STATE_MACHINE_NAME)() ;
-#endif
 }
-
-#if 0
-void outputStateMachineDebugData_G4(sm_t* sm)
-{
-	(void)sm ;
-}
-#endif
