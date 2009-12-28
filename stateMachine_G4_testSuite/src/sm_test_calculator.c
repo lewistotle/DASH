@@ -53,8 +53,6 @@ CREATE_STATE_MACHINE_INSTANCE()
 
 	initializeEventQueue(&calculatorMachine.parent.eventQueue, &eventQueue[0], configEVENT_QUEUE_DEPTH) ;
 
-	calculatorMachine.parent.currentState = &calculator_TOP ;
-
 	return (stateMachine_t*)&calculatorMachine ;
 }
 
@@ -67,7 +65,7 @@ DESTROY_STATE_MACHINE_INSTANCE()
 
 DEFINE_TOP_STATE()
 {
-	INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
+	INITIAL_TRANSITION(TO(begin),																	NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -84,7 +82,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(ready)
 {
-	INITIAL_TRANSITION(TO(begin),																NO_ACTION) ;
+	INITIAL_TRANSITION(TO(zero1),																NO_ACTION) ;
 
 	TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
 }
@@ -99,6 +97,9 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(begin)
 {
+	// This will cause a loop in the state machine, but for testing purposes, it tests a couple of cases
+	INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
+
 	TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
 	TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
@@ -128,6 +129,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(zero1)
 {
+	INITIAL_TRANSITION(TO(zero2),																NO_ACTION) ;
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
 	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
@@ -151,6 +153,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(error)
 {
+	INITIAL_TRANSITION(TO(frac2),																NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -219,6 +222,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(zero2)
 {
+	INITIAL_TRANSITION(TO(negated1),															NO_ACTION) ;
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
 	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;

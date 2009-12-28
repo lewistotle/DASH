@@ -61,7 +61,7 @@ int main()
 	stateMachine_t*	bomb ;
 	stateMachine_t*	calculator ;
 
-	puts("\n4th Generation state machine test started.\n") ;
+	puts("4th Generation state machine test started.") ;
 
 	rc = pthread_create(&ISR_threadHandle, NULL, ISR_thread, (void*)&ISR_threadStatus) ;
 
