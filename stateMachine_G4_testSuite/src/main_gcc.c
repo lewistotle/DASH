@@ -60,6 +60,7 @@ int main()
 	bool			ok = true ;
 	stateMachine_t*	bomb ;
 	stateMachine_t*	calculator ;
+	static int iterationMax = 10 ;
 
 	puts("4th Generation state machine test started.") ;
 
@@ -78,7 +79,7 @@ int main()
 
 	if(bomb)
 	{
-//		REGISTER_STATE_MACHINE(bomb) ;
+		REGISTER_STATE_MACHINE(bomb) ;
 	}
 
 	puts("Generating calculator") ;
@@ -94,8 +95,13 @@ int main()
 
 	puts("Iterating state machines") ;
 
-//	while(ok)
+	while(ok)
 	{
+		if(iterationMax-- == 0)
+		{
+			ok = false ;
+		}
+
 		puts("loop") ;
 
 		ITERATE_ALL_STATE_MACHINES() ;

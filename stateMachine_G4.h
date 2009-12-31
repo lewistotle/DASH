@@ -39,15 +39,6 @@ enum STATE_HANDLER_RESPONSES { IGNORED, HANDLED, TRANSITION } ;
 typedef uint8_t	stateHandlerResponse_t ;
 
 
-#if 0
-typedef struct
-{
-	void*					parent ;
-	uint8_t					type ;
-	void*					handler ;
-	state_t*				regions ;
-} orthogonalRegion_t ;
-#endif
 typedef struct
 {
 #ifdef __c8051f040__
@@ -64,25 +55,16 @@ typedef struct
 	eventQueue_t			eventQueue ;
 
 	uint8_t					stateMachineInitialized ;
-
-#if 0
-	uint16_t				stateRetryCount ;
-	uint8_t					stateTimeoutEnabled ;
-	uint8_t					stateTimeoutProcessed ;
-	uint8_t					immediateChangePending ;
-	millisecondTimerType	stateTimeoutPeriod ;
-	uint8_t					stateTimeoutForced ;
-
-	state_t*				callingState ;
-	state_t*				previousState ;
-#endif
+	uint8_t					forceTransition ;
 } stateMachine_t ;
 
 typedef stateHandlerResponse_t (* callStateHandler_t)(stateMachine_t* self, event_t* event) __reentrant ;
+typedef void (* stateMachineConstructor_t)(stateMachine_t* self) __reentrant ;
+typedef void (* stateMachineDestructor_t)(stateMachine_t* self) __reentrant ;
 
 typedef struct
 {
-	const void*					parent ;
+	const void*				parent ;
 	uint8_t					type ;
 #ifdef __c8051f040__
 	callStateHandler_t		handler ;
@@ -92,14 +74,17 @@ typedef struct
 	const char*				stateName ;
 } state_t ;
 
+typedef struct
+{
+	state_t					parent ;
+	callStateHandler_t		historyHandler ;
+} state_with_history_t ;
+
 
 void outputStateMachineDebugData_G4(stateMachine_t* sm) ;
 
 
 #define STATE_MACHINE_TOP(sm)					sm##_TOP
-
-#define DECLARE_STATE_MACHINE(sm)				stateMachine_t* createInstanceOf_##sm(	void) ;		\
-												void destroyInstanceOf_##sm(			stateMachine_t* instance)
 
 enum REQUIRED_STATE_MACHINE_EVENTS				{	SUBSTATE_GET_INFO,
 													SUBSTATE_ENTRY,
@@ -107,7 +92,12 @@ enum REQUIRED_STATE_MACHINE_EVENTS				{	SUBSTATE_GET_INFO,
 													SUBSTATE_EXIT
 												} ;
 
-#define DECLARE_STATE_MACHINE_EVENTS(sm)		enum sm##_EVENTS														\
+#define DECLARE_STATE_MACHINE_EVENTS(sm)		uint16_t sm##_getMachineSize(		void) ;								\
+												uint16_t sm##_getEventQueueDepth(	void) ;								\
+												uint16_t sm##_getHistoryQueueDepth(	void) ;								\
+												void sm##_constructor(				stateMachine_t* self) ;				\
+												void sm##_destructor(				stateMachine_t* self) ;				\
+												enum sm##_EVENTS														\
 												{																		\
 													sm##_SUBSTATE_GET_INFO				= SUBSTATE_GET_INFO,			\
 													sm##_SUBSTATE_ENTRY					= SUBSTATE_ENTRY,				\
@@ -117,40 +107,77 @@ enum REQUIRED_STATE_MACHINE_EVENTS				{	SUBSTATE_GET_INFO,
 #define END_STATE_MACHINE_EVENTS()				} ;
 
 
-#define DECLARE_STATE_MACHINE_VARIABLES()		typedef struct {
-	#define PARENT_CLASS(thing)						thing	parent
-#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;
+#define PARENT_STATE(par)						par
+#define PARENT_STATE_MACHINE(par)				par
+#define PARENT_CLASS(par)						par parent
+
+#define DEFINE_STATE_MACHINE_2(sm)				static const char* sm##_name = #sm
+#define DEFINE_STATE_MACHINE_1(sm)				DEFINE_STATE_MACHINE_2(sm)
+#define DEFINE_STATE_MACHINE()					DEFINE_STATE_MACHINE_1(STATE_MACHINE_NAME)
+
+#define SET_EVENT_QUEUE_DEPTH(n)				uint16_t sm##_getEventQueueDepth(	void) { return n ; } uint16_t sm##_getEventQueueDepth(	void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+
+#define DECLARE_STATE_MACHINE_VARIABLES()		typedef struct { stateMachine_t parent
+#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																						\
+												static stateHandlerResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;		\
+												static const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" }
 #define END_STATE_MACHINE_VARIABLES_1(sm)		END_STATE_MACHINE_VARIABLES_2(sm)
 #define END_STATE_MACHINE_VARIABLES()			END_STATE_MACHINE_VARIABLES_1(STATE_MACHINE_NAME)
 
-#define DEFINE_STATE_MACHINE_2(sm)				static stateHandlerResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-												static const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;				\
-												static sm##Machine_t sm##Machine = { { (void*)&sm##_TOP, 0, #sm } }
-#define DEFINE_STATE_MACHINE_1(sm)				DEFINE_STATE_MACHINE_2(sm)
-#define DEFINE_STATE_MACHINE()					DEFINE_STATE_MACHINE_1(STATE_MACHINE_NAME)
+
 
 #define ADD_SUB_STATE_2(sm, ps, ss)				static stateHandlerResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
 												static const state_t sm##_##ss = { VOID_CAST(&sm##_##ps), 0, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
 #define ADD_SUB_STATE_1(sm, ps, ss)				ADD_SUB_STATE_2(sm, ps, ss)
-#define ADD_SUB_STATE(ps, ss)					ADD_SUB_STATE_1(STATE_MACHINE_NAME, ps, ss)
+#define ADD_SUB_STATE(ss, ps)					ADD_SUB_STATE_1(STATE_MACHINE_NAME, ps, ss)
 
-#define ADD_ORTHOGONAL_REGION(sm, ps, or)		orthogonalRegion_t sm##_##or	= { &sm##_##ps, 0 }
 
-#define END_STATE_MACHINE_DEFINITION()
+#define HISTORY_TRACKER_FOR_STATE(ht)			state_t*	ht_historyState
+#define HISTORICAL_DEFAULT_STATE(hd)			hd
+#define DEEP_HIST0RY_OF(hs)						hs
+#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss, hd)	static stateHandlerResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+															static stateHandlerResponse_t sm##_##ss##_historyHandler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+															static const state_with_history_t sm##_##ss = { { VOID_CAST(&sm##_##ps), 1, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }, CALLSTATEHANDLER_CAST(&sm##_##ss##_historyHandler) }
+#define ADD_SUB_STATE_WITH_DEEP_HISTORY_1(sm, ps, ss, hd)	ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss, hd)
+#define ADD_SUB_STATE_WITH_DEEP_HISTORY(ss, ps, hd)			ADD_SUB_STATE_WITH_DEEP_HISTORY_1(STATE_MACHINE_NAME, ps, ss, hd)
 
-stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes) ;
-void deallocateStateMachineMemory(				stateMachine_t* instance) ;
+#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss, hd)	static stateHandlerResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																static stateHandlerResponse_t sm##_##ss##_historyHandler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																static const state_with_history_t sm##_##ss = { { VOID_CAST(&sm##_##ps), 2, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }, CALLSTATEHANDLER_CAST(&sm##_##ss##_historyHandler) }
+#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(sm, ps, ss, hd)	ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss, hd)
+#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY(ss, ps, hd)			ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(STATE_MACHINE_NAME, ps, ss, hd)
 
-#define CREATE_STATE_MACHINE_INSTANCE_2(sm)		stateMachine_t* createInstanceOf_##sm(	void)
-#define CREATE_STATE_MACHINE_INSTANCE_1(sm)		CREATE_STATE_MACHINE_INSTANCE_2(sm)
-#define CREATE_STATE_MACHINE_INSTANCE()			CREATE_STATE_MACHINE_INSTANCE_1(STATE_MACHINE_NAME)
 
-#define DESTROY_STATE_MACHINE_INSTANCE_2(sm)	void destroyInstanceOf_##sm(			stateMachine_t* instance)
-#define DESTROY_STATE_MACHINE_INSTANCE_1(sm)	DESTROY_STATE_MACHINE_INSTANCE_2(sm)
-#define DESTROY_STATE_MACHINE_INSTANCE()		DESTROY_STATE_MACHINE_INSTANCE_1(STATE_MACHINE_NAME)
+stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes, uint16_t eventQueueDepth, stateMachineConstructor_t constructor) ;
+void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachineDestructor_t destructor) ;
 
-#define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	createInstanceOf_##sm()
-#define STATE_MACHINE_DESTROY_INSTANCE_OF(sm, inst)	destroyInstanceOf_##sm(inst)
+
+/* Just too keep a compiler warning about semicolons outside of something from happening */
+#define END_STATE_MACHINE_DEFINITION_2(sm)		void sm##_constructor2(	sm##Machine_t* self) ;												\
+												void sm##_destructor2(	sm##Machine_t* self) ;												\
+												void sm##_constructor(	stateMachine_t* base)												\
+												{																							\
+													base->currentState			= (void*)&sm##_TOP ;										\
+													base->type					= 0 ;														\
+													base->stateMachineName		= (const char*)(&sm##_name) ;								\
+													sm##_constructor2((sm##Machine_t*)base) ;												\
+												}																							\
+												void sm##_destructor(	stateMachine_t* self) { sm##_destructor2((sm##Machine_t*)self) ; }	\
+												uint16_t sm##_getMachineSize(		void) { return sizeof(sm##Machine_t) ; }				\
+												uint16_t sm##_getMachineSize(		void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+#define END_STATE_MACHINE_DEFINITION_1(sm)		END_STATE_MACHINE_DEFINITION_2(sm)
+#define END_STATE_MACHINE_DEFINITION()			END_STATE_MACHINE_DEFINITION_1(STATE_MACHINE_NAME)
+
+#define STATE_MACHINE_CONSTRUCTOR_2(sm)			void sm##_constructor2(	sm##Machine_t* self)
+#define STATE_MACHINE_CONSTRUCTOR_1(sm)			STATE_MACHINE_CONSTRUCTOR_2(sm)
+#define STATE_MACHINE_CONSTRUCTOR()				STATE_MACHINE_CONSTRUCTOR_1(STATE_MACHINE_NAME)
+
+#define STATE_MACHINE_DESTRUCTOR_2(sm)			void sm##_destructor2(	sm##Machine_t* self)
+#define STATE_MACHINE_DESTRUCTOR_1(sm)			STATE_MACHINE_DESTRUCTOR_2(sm)
+#define STATE_MACHINE_DESTRUCTOR()				STATE_MACHINE_DESTRUCTOR_1(STATE_MACHINE_NAME)
+
+#define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	allocateStateMachineMemory(sm##_getMachineSize(), sm##_getEventQueueDepth(), sm##_constructor)
+#define STATE_MACHINE_DESTROY_INSTANCE_OF(sm, inst)	deallocateStateMachineMemory(inst, sm##_destructor)
 
 #define DEFINE_TOP_STATE_2(sm)					static stateHandlerResponse_t sm##_TOP_handler(			sm##Machine_t* self, event_t* event) __reentrant
 #define DEFINE_TOP_STATE_1(sm)					DEFINE_TOP_STATE_2(sm)
@@ -192,6 +219,9 @@ void deallocateStateMachineMemory(				stateMachine_t* instance) ;
 														/*return IGNORED ;*/								\
 													}													\
 												}
+
+#define ON_ENTRY(act)							if(event->eventType == SUBSTATE_ENTRY) { act ; }
+#define ON_EXIT(act)							if(event->eventType == SUBSTATE_ENTRY) { act ; }
 
 #define END_DEFINE_STATE()						(void)self ; (void)event ; return stateResponseCode ; }
 

@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Mon Dec 28 11:21:21 2009
+; This file was generated Wed Dec 30 15:11:44 2009
 ;--------------------------------------------------------
 	.module main_C8051F040
 	.optsdcc -mmcs51 --model-large
@@ -869,6 +869,8 @@ _task_UART_isLineReady_sloc0_1_0:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
+_main_iterationMax_1_1:
+	.ds 2
 _pwm_init_projectSpecific_channelNumber_1_1:
 	.ds 1
 _pwm_setDutyCycle_projectSpecific_PARM_2:
@@ -990,8 +992,16 @@ __interrupt_vect:
 ;------------------------------------------------------------
 ;bomb                      Allocated with name '_main_bomb_1_1'
 ;calculator                Allocated with name '_main_calculator_1_1'
+;iterationMax              Allocated with name '_main_iterationMax_1_1'
 ;------------------------------------------------------------
-;	../src/main_C8051F040.c:63: static bool processed = false ;
+;	../src/main_C8051F040.c:32: static int iterationMax = 10 ;
+	mov	dptr,#_main_iterationMax_1_1
+	mov	a,#0x0A
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+;	../src/main_C8051F040.c:64: static bool processed = false ;
 	clr	_main_processed_2_4
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'task_UART_init_projectSpecific'
@@ -1022,6 +1032,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;bomb                      Allocated with name '_main_bomb_1_1'
 ;calculator                Allocated with name '_main_calculator_1_1'
+;iterationMax              Allocated with name '_main_iterationMax_1_1'
 ;------------------------------------------------------------
 ;	../src/main_C8051F040.c:27: void main(	void)
 ;	-----------------------------------------
@@ -1036,75 +1047,145 @@ _main:
 	ar7 = 0x07
 	ar0 = 0x00
 	ar1 = 0x01
-;	../src/main_C8051F040.c:33: WDTCN = 0xDE ;	// Disable the watchdog timer
+;	../src/main_C8051F040.c:34: WDTCN = 0xDE ;	// Disable the watchdog timer
 	mov	_WDTCN,#0xDE
-;	../src/main_C8051F040.c:34: WDTCN = 0xAD ;
+;	../src/main_C8051F040.c:35: WDTCN = 0xAD ;
 	mov	_WDTCN,#0xAD
-;	../src/main_C8051F040.c:35: WDTCN = 0xFF ;	// Disable any future ability to modify the watchdog timer
+;	../src/main_C8051F040.c:36: WDTCN = 0xFF ;	// Disable any future ability to modify the watchdog timer
 	mov	_WDTCN,#0xFF
-;	../src/main_C8051F040.c:37: prvSetupSystemClock() ;
+;	../src/main_C8051F040.c:38: prvSetupSystemClock() ;
 	lcall	_prvSetupSystemClock
-;	../src/main_C8051F040.c:38: gpio_init() ;
+;	../src/main_C8051F040.c:39: gpio_init() ;
 	lcall	_gpio_init_projectSpecific
-;	../src/main_C8051F040.c:39: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
+;	../src/main_C8051F040.c:40: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
 	mov	dpl,#0x00
 	lcall	_pwm_init
-;	../src/main_C8051F040.c:40: prvSetupTimerInterrupt() ;
+;	../src/main_C8051F040.c:41: prvSetupTimerInterrupt() ;
 	lcall	_prvSetupTimerInterrupt
-;	../src/main_C8051F040.c:41: task_UART_init(0) ;
+;	../src/main_C8051F040.c:42: task_UART_init(0) ;
 	mov	dpl,#0x00
 	lcall	_task_UART_init
-;	../src/main_C8051F040.c:43: portENABLE_INTERRUPTS() ;
+;	../src/main_C8051F040.c:44: portENABLE_INTERRUPTS() ;
 	setb	_EA
-;	../src/main_C8051F040.c:45: puts("4th Generation state machine test started.") ;
+;	../src/main_C8051F040.c:46: puts("4th Generation state machine test started.") ;
 	mov	dptr,#__str_0
 	mov	b,#0x80
 	lcall	_puts
-;	../src/main_C8051F040.c:47: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
-	lcall	_createInstanceOf_timeBomb
-;	../src/main_C8051F040.c:54: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
-	lcall	_createInstanceOf_calculator
+;	../src/main_C8051F040.c:48: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+	lcall	_timeBomb_getMachineSize
+	mov	r2,dpl
+	mov	r3,dph
+	push	ar2
+	push	ar3
+	lcall	_timeBomb_getEventQueueDepth
+	mov	r4,dpl
+	mov	r5,dph
+	pop	ar3
+	pop	ar2
+	mov	dptr,#_allocateStateMachineMemory_PARM_2
+	mov	a,r4
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r5
+	movx	@dptr,a
+	mov	dptr,#_allocateStateMachineMemory_PARM_3
+	mov	a,#_timeBomb_constructor
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_timeBomb_constructor >> 8)
+	movx	@dptr,a
+	mov	dpl,r2
+	mov	dph,r3
+	lcall	_allocateStateMachineMemory
+;	../src/main_C8051F040.c:55: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
+	lcall	_calculator_getMachineSize
+	mov	r2,dpl
+	mov	r3,dph
+	push	ar2
+	push	ar3
+	lcall	_calculator_getEventQueueDepth
+	mov	r4,dpl
+	mov	r5,dph
+	pop	ar3
+	pop	ar2
+	mov	dptr,#_allocateStateMachineMemory_PARM_2
+	mov	a,r4
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r5
+	movx	@dptr,a
+	mov	dptr,#_allocateStateMachineMemory_PARM_3
+	mov	a,#_calculator_constructor
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_calculator_constructor >> 8)
+	movx	@dptr,a
+	mov	dpl,r2
+	mov	dph,r3
+	lcall	_allocateStateMachineMemory
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-;	../src/main_C8051F040.c:56: if(calculator)
+;	../src/main_C8051F040.c:57: if(calculator)
 	mov	a,r2
 	orl	a,r3
 	orl	a,r4
-	jz	00108$
-;	../src/main_C8051F040.c:58: REGISTER_STATE_MACHINE(calculator) ;
+	jz	00110$
+;	../src/main_C8051F040.c:59: REGISTER_STATE_MACHINE(calculator) ;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
 	lcall	_registerStateMachine
-;	../src/main_C8051F040.c:61: while(true)
-00108$:
-;	../src/main_C8051F040.c:65: if(timeForTickProcessing)
-;	../src/main_C8051F040.c:67: timeForTickProcessing = false ;
-	jbc	_timeForTickProcessing,00117$
-	sjmp	00108$
-00117$:
-;	../src/main_C8051F040.c:71: if(!processed)
-	jb	_main_processed_2_4,00108$
-;	../src/main_C8051F040.c:73: processed = true ;
-	setb	_main_processed_2_4
-;	../src/main_C8051F040.c:75: puts("loop") ;
+;	../src/main_C8051F040.c:62: while(true)
+00110$:
+;	../src/main_C8051F040.c:66: if(timeForTickProcessing)
+;	../src/main_C8051F040.c:68: timeForTickProcessing = false ;
+	jbc	_timeForTickProcessing,00120$
+	sjmp	00110$
+00120$:
+;	../src/main_C8051F040.c:72: if(!processed)
+	jb	_main_processed_2_4,00110$
+;	../src/main_C8051F040.c:76: if(iterationMax-- == 0)
+	mov	dptr,#_main_iterationMax_1_1
+	movx	a,@dptr
+	mov	r2,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r3,a
+	mov	a,r2
+	add	a,#0xff
+	mov	r4,a
+	mov	a,r3
+	addc	a,#0xff
+	mov	r5,a
+	mov	dptr,#_main_iterationMax_1_1
+	mov	a,r4
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r5
+	movx	@dptr,a
+	mov	a,r2
+	orl	a,r3
+	jz	00112$
+;	../src/main_C8051F040.c:81: puts("loop") ;
 	mov	dptr,#__str_1
 	mov	b,#0x80
 	lcall	_puts
-;	../src/main_C8051F040.c:77: ITERATE_ALL_STATE_MACHINES() ;
+;	../src/main_C8051F040.c:83: ITERATE_ALL_STATE_MACHINES() ;
 	lcall	_iterateAllStateMachines
-	sjmp	00108$
+	sjmp	00110$
+00112$:
+	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'taskSwitcherTickHook'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	../src/main_C8051F040.c:84: void taskSwitcherTickHook(	void)
+;	../src/main_C8051F040.c:90: void taskSwitcherTickHook(	void)
 ;	-----------------------------------------
 ;	 function taskSwitcherTickHook
 ;	-----------------------------------------
 _taskSwitcherTickHook:
-;	../src/main_C8051F040.c:86: timeForTickProcessing = true ;
+;	../src/main_C8051F040.c:92: timeForTickProcessing = true ;
 	setb	_timeForTickProcessing
 	ret
 ;------------------------------------------------------------

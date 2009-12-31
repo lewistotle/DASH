@@ -10,57 +10,52 @@
 
 #include "sm_test_calculator.h"
 
-#define STATE_MACHINE_NAME			calculator
-#define configEVENT_QUEUE_DEPTH		16
+#define config_CalcEVENT_QUEUE_DEPTH		16
 
 
-DECLARE_STATE_MACHINE_VARIABLES()
-	PARENT_CLASS(stateMachine_t) ;
-
-	uint32_t	result ;
-END_STATE_MACHINE_VARIABLES()
-
+#define STATE_MACHINE_NAME calculator
 
 DEFINE_STATE_MACHINE() ;
-	ADD_SUB_STATE(TOP, on) ;
-		ADD_SUB_STATE(on, ready) ;
-			ADD_SUB_STATE(ready, result) ;
-			ADD_SUB_STATE(ready, begin) ;
+	DECLARE_STATE_MACHINE_VARIABLES() ;
+		uint32_t	result ;
+	END_STATE_MACHINE_VARIABLES() ;
 
-		ADD_SUB_STATE(on, negated1) ;
+	SET_EVENT_QUEUE_DEPTH(config_CalcEVENT_QUEUE_DEPTH) ;
 
-		ADD_SUB_STATE(on, operand1) ;
-			ADD_SUB_STATE(operand1, zero1) ;
-			ADD_SUB_STATE(operand1, int1) ;
-			ADD_SUB_STATE(operand1, frac1) ;
+	ADD_SUB_STATE(on, PARENT_STATE(TOP)) ;
+		ADD_SUB_STATE(ready, PARENT_STATE(on)) ;
+			ADD_SUB_STATE(result, PARENT_STATE(ready)) ;
+			ADD_SUB_STATE(begin, PARENT_STATE(ready)) ;
 
-		ADD_SUB_STATE(on, error) ;
+		ADD_SUB_STATE(negated1, PARENT_STATE(on)) ;
 
-		ADD_SUB_STATE(on, opEntered) ;
+		ADD_SUB_STATE(operand1, PARENT_STATE(on)) ;
+			ADD_SUB_STATE(zero1, PARENT_STATE(operand1)) ;
+			ADD_SUB_STATE(int1, PARENT_STATE(operand1)) ;
+			ADD_SUB_STATE(frac1, PARENT_STATE(operand1)) ;
 
-		ADD_SUB_STATE(on, negated2) ;
+		ADD_SUB_STATE(error, PARENT_STATE(on)) ;
 
-		ADD_SUB_STATE(on, operand2) ;
-			ADD_SUB_STATE(operand2, zero2) ;
-			ADD_SUB_STATE(operand2, int2) ;
-			ADD_SUB_STATE(operand2, frac2) ;
-END_STATE_MACHINE_DEFINITION()
+		ADD_SUB_STATE(opEntered, PARENT_STATE(on)) ;
+
+		ADD_SUB_STATE(negated2, PARENT_STATE(on)) ;
+
+		ADD_SUB_STATE(operand2, PARENT_STATE(on)) ;
+			ADD_SUB_STATE(zero2, PARENT_STATE(operand2)) ;
+			ADD_SUB_STATE(int2, PARENT_STATE(operand2)) ;
+			ADD_SUB_STATE(frac2, PARENT_STATE(operand2)) ;
+END_STATE_MACHINE_DEFINITION() ;
 
 
-CREATE_STATE_MACHINE_INSTANCE()
+STATE_MACHINE_CONSTRUCTOR()
 {
-	static event_t*	eventQueue[configEVENT_QUEUE_DEPTH] ;
-
-	initializeEventQueue(&calculatorMachine.parent.eventQueue, &eventQueue[0], configEVENT_QUEUE_DEPTH) ;
-
-	return (stateMachine_t*)&calculatorMachine ;
+	self->result = 0 ;
 }
 
 
-DESTROY_STATE_MACHINE_INSTANCE()
+STATE_MACHINE_DESTRUCTOR()
 {
-	(void)instance ;
-	/* Nothing to do here since I am only working with a static instance */
+	(void)self ;	/* Nothing to do here */
 }
 
 

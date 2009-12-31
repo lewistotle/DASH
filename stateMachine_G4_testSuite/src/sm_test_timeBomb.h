@@ -10,8 +10,6 @@
 
 #include "stateMachine_G4.h"
 
-DECLARE_STATE_MACHINE(timeBomb) ;
-
 DECLARE_STATE_MACHINE_EVENTS(timeBomb)
 
 	UP,

@@ -52,7 +52,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/sm_test_toaster.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -1038,7 +1038,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/sm_test_toaster.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -2012,6 +2012,10 @@
 </option>
 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1273267525" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.option.debugging.level.1000995476" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.warnings.pedantic.82029400" name="Pedantic (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.preprocessor.def.symbols.1028223545" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+<listOptionValue builtIn="false" value="__TS7800__"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1524260839" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool command="arm-none-linux-gnueabi-gcc.exe" id="cdt.managedbuild.tool.gnu.c.linker.base.1811540613" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base">
@@ -2020,6 +2024,8 @@
 <listOptionValue builtIn="false" value="gcc"/>
 <listOptionValue builtIn="false" value="pthread"/>
 </option>
+<option id="gnu.c.link.option.strip.1131891576" name="Omit all symbol information (-s)" superClass="gnu.c.link.option.strip" value="true" valueType="boolean"/>
+<option id="gnu.c.link.option.noshared.1204446858" name="No shared libraries (-static)" superClass="gnu.c.link.option.noshared" value="true" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1547250363" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -2032,7 +2038,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/sm_test_toaster.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -3015,6 +3021,7 @@
 <option id="gnu.c.link.option.paths.1354120515" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
 <listOptionValue builtIn="false" value="&quot;D:\EiqEnergy\Projects\_Utilities\eclipse\devel-tools\crosstool-win\arm-none-linux-gnueabi\lib&quot;"/>
 </option>
+<option id="gnu.c.link.option.ldflags.1755371697" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-Wl,-Map,foo.map.txt" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.562329471" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -3039,7 +3046,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/sm_test_toaster.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>

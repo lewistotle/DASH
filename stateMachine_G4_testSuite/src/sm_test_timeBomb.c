@@ -12,48 +12,41 @@
 
 
 
-#define STATE_MACHINE_NAME			timeBomb
-#define configEVENT_QUEUE_DEPTH		16
+#define config_tbEVENT_QUEUE_DEPTH		16
 
 #define INIT_TIMEOUT	30
 
-
-DECLARE_STATE_MACHINE_VARIABLES()
-	PARENT_CLASS(stateMachine_t) ;
-
-	uint8_t		timeout ;
-	uint8_t		codeBeingEntered ;
-	uint8_t		disarmCode ;
-END_STATE_MACHINE_VARIABLES()
-
+#define STATE_MACHINE_NAME timeBomb
 
 DEFINE_STATE_MACHINE() ;
+	DECLARE_STATE_MACHINE_VARIABLES() ;
+		uint8_t		timeout ;
+		uint8_t		codeBeingEntered ;
+		uint8_t		disarmCode ;
+	END_STATE_MACHINE_VARIABLES() ;
 
-	ADD_SUB_STATE(TOP, setting) ;
+	SET_EVENT_QUEUE_DEPTH(config_tbEVENT_QUEUE_DEPTH) ;
 
-	ADD_SUB_STATE(TOP, timing) ;
+	ADD_SUB_STATE(setting, PARENT_STATE(TOP)) ;
 
-	ADD_SUB_STATE(TOP, BOOM) ;
+	ADD_SUB_STATE(timing, PARENT_STATE(TOP)) ;
 
-END_STATE_MACHINE_DEFINITION()
+	ADD_SUB_STATE(BOOM, PARENT_STATE(TOP)) ;
+
+END_STATE_MACHINE_DEFINITION() ;
 
 
-CREATE_STATE_MACHINE_INSTANCE()
+STATE_MACHINE_CONSTRUCTOR()
 {
-	static event_t*	eventQueue[configEVENT_QUEUE_DEPTH] ;
-
-	initializeEventQueue(&timeBombMachine.parent.eventQueue, &eventQueue[0], configEVENT_QUEUE_DEPTH) ;
-
-	timeBombMachine.parent.currentState = (void*)&timeBomb_TOP ;
-
-	return (stateMachine_t*)&timeBombMachine ;
+	self->timeout			= 0 ;
+	self->codeBeingEntered	= 0 ;
+	self->disarmCode		= 0 ;
 }
 
 
-DESTROY_STATE_MACHINE_INSTANCE()
+STATE_MACHINE_DESTRUCTOR()
 {
-	(void)instance ;
-	/* Nothing to do here since I am only working with a static instance */
+	(void)self ;	/* Nothing to do here */
 }
 
 

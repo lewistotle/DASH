@@ -29,6 +29,7 @@ void main(	void)
 	bool			ok = true ;
 	stateMachine_t*	bomb ;
 	stateMachine_t*	calculator ;
+	static int iterationMax = 10 ;
 
 	WDTCN = 0xDE ;	// Disable the watchdog timer
 	WDTCN = 0xAD ;
@@ -70,7 +71,12 @@ void main(	void)
 
 			if(!processed)
 			{
-				processed = true ;
+//				processed = true ;
+
+				if(iterationMax-- == 0)
+				{
+					break ;
+				}
 
 				puts("loop") ;
 

@@ -29,23 +29,37 @@ stateMachine_t*	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
 void iterateStateMachine(	stateMachine_t* sm) ;
 
 
-stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes)
+stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes,
+												uint16_t eventQueueDepth,
+												stateMachineConstructor_t constructor)
 {
 	stateMachine_t*	instance = malloc(sizeInBytes) ;
 
 	if(instance)
 	{
-		memset((char*)instance, 0, sizeInBytes) ;
+		event_t** eventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
+
+		if(eventQueue)
+		{
+			initializeEventQueue(&instance->eventQueue, eventQueue, eventQueueDepth) ;
+
+			memset((char*)instance,		0, sizeInBytes) ;
+			memset((char*)eventQueue,	0, eventQueueDepth * sizeof(event_t*)) ;
+
+			constructor(instance) ;
+		}
 	}
 
 	return instance ;
 }
 
 
-void deallocateStateMachineMemory(				stateMachine_t* instance)
+void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachineDestructor_t destructor)
 {
 	if(instance != 0)
 	{
+		destructor(instance) ;
+
 		free((char*)instance) ;
 	}
 }
@@ -136,8 +150,6 @@ void iterateStateMachine(	stateMachine_t* sm)
 	static event_t	initialTransitionEvent	= { SUBSTATE_INITIAL_TRANSITION } ;
 	static event_t	enterEvent				= { SUBSTATE_ENTRY } ;
 	static event_t	exitEvent				= { SUBSTATE_EXIT } ;
-	bool			forceTransition			= false ;
-	static int iterationMax = 10 ;
 
 	printf("\titerating %s\n", sm->stateMachineName) ;
 
@@ -151,23 +163,22 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 		callStateHandler(sm, sm->currentState, &enterEvent) ;
 
-		sm->stateMachineInitialized = true ;
-
-		forceTransition = true ;
+		sm->stateMachineInitialized	= true ;
+		sm->forceTransition			= true ;
 	}
 
 	/* Any pending events? */
 
-	while((!isEmpty(&sm->eventQueue)) || (forceTransition))
+	if((!isEmpty(&sm->eventQueue)) || (sm->forceTransition))
 	{
-		event_t*				eventToProcess ;//		= Remove(&sm->eventQueue) ;
+		event_t*				eventToProcess ;
 		state_t*				stateBeingProcessed	= sm->currentState ;
 		stateHandlerResponse_t	action ;
 
-		if(forceTransition)
+		if(sm->forceTransition)
 		{
-			forceTransition = false ;
-			eventToProcess = &initialTransitionEvent ;
+			sm->forceTransition	= false ;
+			eventToProcess		= &initialTransitionEvent ;
 		}
 		else
 		{
@@ -175,11 +186,6 @@ void iterateStateMachine(	stateMachine_t* sm)
 		}
 
 		sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
-
-		if(iterationMax-- == 0)
-		{
-			break ;
-		}
 
 		printf("\t\tProcessing event...\n") ;
 
@@ -392,7 +398,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 			 * target state to execute any initial transactions it might
 			 * have so the next iteration through this loop will catch it. */
 
-			forceTransition = true ;
+			sm->forceTransition = true ;
 		}
 	}
 
