@@ -52,7 +52,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/sm_test_toaster.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -1038,7 +1038,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/sm_test_toaster.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -2038,7 +2038,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/sm_test_toaster.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -3046,7 +3046,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/sm_test_toaster.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>

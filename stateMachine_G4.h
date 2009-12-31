@@ -115,7 +115,9 @@ enum REQUIRED_STATE_MACHINE_EVENTS				{	SUBSTATE_GET_INFO,
 #define DEFINE_STATE_MACHINE_1(sm)				DEFINE_STATE_MACHINE_2(sm)
 #define DEFINE_STATE_MACHINE()					DEFINE_STATE_MACHINE_1(STATE_MACHINE_NAME)
 
-#define SET_EVENT_QUEUE_DEPTH(n)				uint16_t sm##_getEventQueueDepth(	void) { return n ; } uint16_t sm##_getEventQueueDepth(	void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+#define SET_EVENT_QUEUE_DEPTH_2(sm, n)			uint16_t sm##_getEventQueueDepth(	void) { return n ; } uint16_t sm##_getEventQueueDepth(	void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+#define SET_EVENT_QUEUE_DEPTH_1(sm, n)			SET_EVENT_QUEUE_DEPTH_2(sm, n)
+#define SET_EVENT_QUEUE_DEPTH(n)				SET_EVENT_QUEUE_DEPTH_1(STATE_MACHINE_NAME, n)
 
 #define DECLARE_STATE_MACHINE_VARIABLES()		typedef struct { stateMachine_t parent
 #define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																						\

@@ -173,93 +173,66 @@ Symbol Table
     _Remove                                                        **** GX
     __gptrget                                                      **** GX
     __gptrput                                                      **** GX
+    __mulint                                                       **** GX
+    __mulint_PARM_2                                                **** GX
  16 __str_0                                                        0000 R
- 16 __str_1                                                        0022 R
- 16 __str_10                                                       00A3 R
- 16 __str_11                                                       00B9 R
- 16 __str_12                                                       00DA R
- 16 __str_13                                                       00FA R
- 16 __str_14                                                       011C R
- 16 __str_15                                                       013E R
- 16 __str_16                                                       015D R
- 16 __str_17                                                       0187 R
- 16 __str_18                                                       018C R
- 16 __str_19                                                       01AE R
- 16 __str_2                                                        002F R
- 16 __str_20                                                       01CD R
- 16 __str_21                                                       01F7 R
- 16 __str_22                                                       0232 R
- 16 __str_23                                                       0258 R
- 16 __str_24                                                       0278 R
- 16 __str_25                                                       0296 R
- 16 __str_26                                                       02AC R
- 16 __str_27                                                       02BE R
- 16 __str_28                                                       02CD R
- 16 __str_29                                                       02E9 R
+ 16 __str_1                                                        0012 R
+ 16 __str_2                                                        0021 R
  16 __str_3                                                        003D R
- 16 __str_30                                                       02F7 R
- 16 __str_31                                                       02FF R
- 16 __str_32                                                       0307 R
- 16 __str_4                                                        0044 R
- 16 __str_5                                                        0046 R
- 16 __str_6                                                        0055 R
- 16 __str_7                                                        0068 R
- 16 __str_8                                                        007F R
- 16 __str_9                                                        009C R
+ 16 __str_4                                                        004B R
+ 16 __str_5                                                        0053 R
+ 16 __str_6                                                        005B R
  17 __xinit__eventTypes                                            0000 R
  17 __xinit__responseTypes                                         000C R
  15 _allocateStateMachineMemory                                    0000 GR
-  9 _allocateStateMachineMemory_sizeInBytes_1_1                    0096 R
- 15 _callStateHandler                                              0185 GR
-  9 _callStateHandler_PARM_2                                       00A1 GR
-  9 _callStateHandler_PARM_3                                       00A4 GR
-  3 _callStateHandler_sloc0_1_0                                    0000 R
-  3 _callStateHandler_sloc1_1_0                                    0003 R
-  9 _callStateHandler_sm_1_1                                       00A7 R
- 15 _deallocateStateMachineMemory                                  0056 GR
-  9 _deallocateStateMachineMemory_instance_1_1                     0098 R
+  9 _allocateStateMachineMemory_PARM_2                             0096 GR
+  9 _allocateStateMachineMemory_PARM_3                             0098 GR
+  9 _allocateStateMachineMemory_sizeInBytes_1_1                    009A R
+  3 _allocateStateMachineMemory_sloc0_1_0                          0000 R
+  3 _allocateStateMachineMemory_sloc1_1_0                          0002 R
+  3 _allocateStateMachineMemory_sloc2_1_0                          0005 R
+  3 _allocateStateMachineMemory_sloc3_1_0                          0007 R
+ 15 _callStateHandler                                              0297 GR
+  9 _callStateHandler_PARM_2                                       00A7 GR
+  9 _callStateHandler_PARM_3                                       00AA GR
+  9 _callStateHandler_sm_1_1                                       00AD R
+ 15 _deallocateStateMachineMemory                                  0144 GR
+  9 _deallocateStateMachineMemory_PARM_2                           009C GR
+  9 _deallocateStateMachineMemory_instance_1_1                     009E R
   B _eventTypes                                                    0000 GR
     _free                                                          **** GX
+    _initializeEventQueue                                          **** GX
+    _initializeEventQueue_PARM_2                                   **** GX
+    _initializeEventQueue_PARM_3                                   **** GX
     _isEmpty                                                       **** GX
- 15 _iterateAllStateMachines                                       014C GR
- 15 _iterateStateMachine                                           0334 GR
-  9 _iterateStateMachine_LCA_4_15                                  011A R
-  9 _iterateStateMachine_enterEvent_1_1                            00AE R
-  9 _iterateStateMachine_entryIndex_4_15                           011D R
-  9 _iterateStateMachine_eventToProcess_2_3                        00B2 R
-  9 _iterateStateMachine_exitEvent_1_1                             00AF R
-  7 _iterateStateMachine_forceTransition_1_1                       0000 R
-  9 _iterateStateMachine_initialTransitionEvent_1_1                00AD R
-  9 _iterateStateMachine_iterationMax_1_1                          00B0 R
-  3 _iterateStateMachine_sloc0_1_0                                 0006 R
-  3 _iterateStateMachine_sloc10_1_0                                0024 R
-  3 _iterateStateMachine_sloc11_1_0                                0027 R
-  3 _iterateStateMachine_sloc1_1_0                                 0009 R
-  3 _iterateStateMachine_sloc2_1_0                                 000C R
-  3 _iterateStateMachine_sloc3_1_0                                 000F R
-  3 _iterateStateMachine_sloc4_1_0                                 0012 R
-  3 _iterateStateMachine_sloc5_1_0                                 0015 R
-  3 _iterateStateMachine_sloc6_1_0                                 0018 R
-  3 _iterateStateMachine_sloc7_1_0                                 001B R
-  3 _iterateStateMachine_sloc8_1_0                                 001E R
-  3 _iterateStateMachine_sloc9_1_0                                 0021 R
-  9 _iterateStateMachine_sm_1_1                                    00AA R
-  9 _iterateStateMachine_sourceHierarchy_4_15                      00B8 R
-  9 _iterateStateMachine_sourceIndex_4_15                          00E8 R
-  9 _iterateStateMachine_stateBeingProcessed_2_3                   00B5 R
-  9 _iterateStateMachine_targetHierarchy_4_15                      00E9 R
-  9 _iterateStateMachine_targetIndex_4_15                          0119 R
+ 15 _iterateAllStateMachines                                       025E GR
+ 15 _iterateStateMachine                                           0303 GR
+  9 _iterateStateMachine_enterEvent_1_1                            00B4 R
+  9 _iterateStateMachine_entryIndex_4_14                           011E R
+  9 _iterateStateMachine_eventToProcess_2_3                        00B6 R
+  9 _iterateStateMachine_exitEvent_1_1                             00B5 R
+  9 _iterateStateMachine_initialTransitionEvent_1_1                00B3 R
+  3 _iterateStateMachine_sloc0_1_0                                 000A R
+  3 _iterateStateMachine_sloc1_1_0                                 000D R
+  3 _iterateStateMachine_sloc2_1_0                                 0010 R
+  3 _iterateStateMachine_sloc3_1_0                                 0013 R
+  3 _iterateStateMachine_sloc4_1_0                                 0016 R
+  9 _iterateStateMachine_sm_1_1                                    00B0 R
+  9 _iterateStateMachine_sourceHierarchy_4_14                      00BC R
+  9 _iterateStateMachine_sourceIndex_4_14                          00EC R
+  9 _iterateStateMachine_stateBeingProcessed_2_3                   00B9 R
+  9 _iterateStateMachine_targetHierarchy_4_14                      00ED R
+  9 _iterateStateMachine_targetIndex_4_14                          011D R
     _malloc                                                        **** GX
     _memset                                                        **** GX
     _memset_PARM_2                                                 **** GX
     _memset_PARM_3                                                 **** GX
-    _printf                                                        **** GX
- 15 _registerStateMachine                                          0080 GR
-  9 _registerStateMachine_sm_1_1                                   009B R
+ 15 _registerStateMachine                                          0192 GR
+  9 _registerStateMachine_sm_1_1                                   00A1 R
   B _responseTypes                                                 000C GR
   9 _stateMachines                                                 0000 GR
- 15 _unregisterStateMachine                                        00E6 GR
-  9 _unregisterStateMachine_sm_1_1                                 009E R
+ 15 _unregisterStateMachine                                        01F8 GR
+  9 _unregisterStateMachine_sm_1_1                                 00A4 R
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -444,13 +417,13 @@ Area Table
    0 _CODE                                                                              size    0   flags 0
    1 RSEG                                                                               size    0   flags 0
    2 REG_BANK_0                                                                         size    8   flags 4
-   3 DSEG                                                                               size   28   flags 0
+   3 DSEG                                                                               size   19   flags 0
    4 OSEG                                                                               size    0   flags 4
    5 ISEG                                                                               size    0   flags 0
    6 IABS                                                                               size    0   flags 8
-   7 BSEG                                                                               size    1   flags 80
+   7 BSEG                                                                               size    0   flags 80
    8 PSEG                                                                               size    0   flags 50
-   9 XSEG                                                                               size  11E   flags 40
+   9 XSEG                                                                               size  11F   flags 40
    A XABS                                                                               size    0   flags 48
    B XISEG                                                                              size   15   flags 40
    C HOME                                                                               size    0   flags 20
@@ -460,9 +433,9 @@ Area Table
   10 GSINIT3                                                                            size    0   flags 20
   11 GSINIT4                                                                            size    0   flags 20
   12 GSINIT5                                                                            size    0   flags 20
-  13 GSINIT                                                                             size   1B   flags 20
+  13 GSINIT                                                                             size   12   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size 11FB   flags 20
-  16 CONST                                                                              size  312   flags 20
+  15 CSEG                                                                               size  B87   flags 20
+  16 CONST                                                                              size   66   flags 20
   17 XINIT                                                                              size   15   flags 20
   18 CABS                                                                               size    0   flags 28

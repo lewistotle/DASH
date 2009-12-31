@@ -128,7 +128,8 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(doorOpen)
 {
-	DEFER_EVENT(BAKE) ;
+//	DEFER_EVENT(BAKE) ;
+//	DEFER_EVENT(TOAST) ;
 
 	ON_ENTRY(	lampOn()) ;
 	ON_EXIT(	lampOff()) ;

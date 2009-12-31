@@ -14,6 +14,7 @@
 ./src/main_C8051F040.rel
 ./src/sm_test_calculator.rel
 ./src/sm_test_timeBomb.rel
+./src/sm_test_toaster.rel
 ./src/HAL/pwm_C8051F040.rel
 ./src/HAL/task_UART.rel
 
