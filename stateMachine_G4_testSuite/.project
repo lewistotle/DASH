@@ -69,32 +69,32 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>HAL/pwm_C8051F040.c</name>
+			<name>_SoftwareLibraries/HAL/pwm_C8051F040.c</name>
 			<type>1</type>
 			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c</location>
 		</link>
 		<link>
-			<name>HAL/task_UART.c</name>
+			<name>_SoftwareLibraries/HAL/task_UART.c</name>
 			<type>1</type>
 			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c</location>
 		</link>
 		<link>
-			<name>stateMachines_G4/StateMachine_G4_eventQueue.c</name>
+			<name>_SoftwareLibraries/stateMachines_G4/StateMachine_G4_eventQueue.c</name>
 			<type>1</type>
 			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c</location>
 		</link>
 		<link>
-			<name>stateMachines_G4/StateMachine_G4_eventQueue.h</name>
+			<name>_SoftwareLibraries/stateMachines_G4/StateMachine_G4_eventQueue.h</name>
 			<type>1</type>
 			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.h</location>
 		</link>
 		<link>
-			<name>stateMachines_G4/stateMachine_G4.c</name>
+			<name>_SoftwareLibraries/stateMachines_G4/stateMachine_G4.c</name>
 			<type>1</type>
 			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c</location>
 		</link>
 		<link>
-			<name>stateMachines_G4/stateMachine_G4.h</name>
+			<name>_SoftwareLibraries/stateMachines_G4/stateMachine_G4.h</name>
 			<type>1</type>
 			<location>D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.h</location>
 		</link>

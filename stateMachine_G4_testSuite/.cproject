@@ -3030,7 +3030,7 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.cygwin.exe.debug.1542630040" name="Cygwin C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.cygwin.exe.debug"/>
 </toolChain>
 </folderInfo>
-<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.768398382.1227812880.1166530327" name="/" resourcePath="stateMachines_G4">
+<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.768398382.1227812880.1166530327" name="/" resourcePath="_SoftwareLibraries/stateMachines_G4">
 <toolChain id="cdt.managedbuild.toolchain.gnu.cygwin.exe.debug.1954285028" name="Cygwin GCC" superClass="cdt.managedbuild.toolchain.gnu.cygwin.exe.debug" unusedChildren="">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.cygwin.exe.debug" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.cygwin.exe.debug"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.debug.1818638160" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.debug.1986290216">
