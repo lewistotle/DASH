@@ -1,0 +1,980 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
+                              4 ; This file was generated Wed Dec 30 22:11:48 2009
+                              5 ;--------------------------------------------------------
+                              6 	.module sm_test_timeBomb
+                              7 	.optsdcc -mmcs51 --model-large
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _updateDisplay
+                             13 	.globl _timeBomb_getEventQueueDepth
+                             14 	.globl _timeBomb_constructor
+                             15 	.globl _timeBomb_destructor
+                             16 	.globl _timeBomb_getMachineSize
+                             17 	.globl _timeBomb_constructor2
+                             18 	.globl _timeBomb_destructor2
+                             19 ;--------------------------------------------------------
+                             20 ; special function registers
+                             21 ;--------------------------------------------------------
+                             22 	.area RSEG    (DATA)
+                             23 ;--------------------------------------------------------
+                             24 ; special function bits
+                             25 ;--------------------------------------------------------
+                             26 	.area RSEG    (DATA)
+                             27 ;--------------------------------------------------------
+                             28 ; overlayable register banks
+                             29 ;--------------------------------------------------------
+                             30 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                      31 	.ds 8
+                             32 ;--------------------------------------------------------
+                             33 ; internal ram data
+                             34 ;--------------------------------------------------------
+                             35 	.area DSEG    (DATA)
+   0000                      36 _timeBomb_constructor_sloc0_1_0:
+   0000                      37 	.ds 3
+                             38 ;--------------------------------------------------------
+                             39 ; overlayable items in internal ram 
+                             40 ;--------------------------------------------------------
+                             41 	.area OSEG    (OVR,DATA)
+                             42 ;--------------------------------------------------------
+                             43 ; indirectly addressable internal ram data
+                             44 ;--------------------------------------------------------
+                             45 	.area ISEG    (DATA)
+                             46 ;--------------------------------------------------------
+                             47 ; absolute internal ram data
+                             48 ;--------------------------------------------------------
+                             49 	.area IABS    (ABS,DATA)
+                             50 	.area IABS    (ABS,DATA)
+                             51 ;--------------------------------------------------------
+                             52 ; bit data
+                             53 ;--------------------------------------------------------
+                             54 	.area BSEG    (BIT)
+                             55 ;--------------------------------------------------------
+                             56 ; paged external ram data
+                             57 ;--------------------------------------------------------
+                             58 	.area PSEG    (PAG,XDATA)
+                             59 ;--------------------------------------------------------
+                             60 ; external ram data
+                             61 ;--------------------------------------------------------
+                             62 	.area XSEG    (XDATA)
+   0000                      63 _timeBomb_constructor_base_1_1:
+   0000                      64 	.ds 3
+   0003                      65 _timeBomb_destructor_self_1_1:
+   0003                      66 	.ds 3
+   0006                      67 _timeBomb_constructor2_self_1_1:
+   0006                      68 	.ds 3
+                             69 ;--------------------------------------------------------
+                             70 ; absolute external ram data
+                             71 ;--------------------------------------------------------
+                             72 	.area XABS    (ABS,XDATA)
+                             73 ;--------------------------------------------------------
+                             74 ; external initialized ram data
+                             75 ;--------------------------------------------------------
+                             76 	.area XISEG   (XDATA)
+   0000                      77 _timeBomb_name:
+   0000                      78 	.ds 3
+                             79 	.area HOME    (CODE)
+                             80 	.area GSINIT0 (CODE)
+                             81 	.area GSINIT1 (CODE)
+                             82 	.area GSINIT2 (CODE)
+                             83 	.area GSINIT3 (CODE)
+                             84 	.area GSINIT4 (CODE)
+                             85 	.area GSINIT5 (CODE)
+                             86 	.area GSINIT  (CODE)
+                             87 	.area GSFINAL (CODE)
+                             88 	.area CSEG    (CODE)
+                             89 ;--------------------------------------------------------
+                             90 ; global & static initialisations
+                             91 ;--------------------------------------------------------
+                             92 	.area HOME    (CODE)
+                             93 	.area GSINIT  (CODE)
+                             94 	.area GSFINAL (CODE)
+                             95 	.area GSINIT  (CODE)
+                             96 ;--------------------------------------------------------
+                             97 ; Home
+                             98 ;--------------------------------------------------------
+                             99 	.area HOME    (CODE)
+                            100 	.area HOME    (CODE)
+                            101 ;--------------------------------------------------------
+                            102 ; code
+                            103 ;--------------------------------------------------------
+                            104 	.area CSEG    (CODE)
+                            105 ;------------------------------------------------------------
+                            106 ;Allocation info for local variables in function 'timeBomb_getEventQueueDepth'
+                            107 ;------------------------------------------------------------
+                            108 ;------------------------------------------------------------
+                            109 ;	../sm_test_timeBomb.c:28: SET_EVENT_QUEUE_DEPTH(config_tbEVENT_QUEUE_DEPTH) ;
+                            110 ;	-----------------------------------------
+                            111 ;	 function timeBomb_getEventQueueDepth
+                            112 ;	-----------------------------------------
+   0000                     113 _timeBomb_getEventQueueDepth:
+                    0002    114 	ar2 = 0x02
+                    0003    115 	ar3 = 0x03
+                    0004    116 	ar4 = 0x04
+                    0005    117 	ar5 = 0x05
+                    0006    118 	ar6 = 0x06
+                    0007    119 	ar7 = 0x07
+                    0000    120 	ar0 = 0x00
+                    0001    121 	ar1 = 0x01
+   0000 90 00 10            122 	mov	dptr,#0x0010
+   0003 22                  123 	ret
+                            124 ;------------------------------------------------------------
+                            125 ;Allocation info for local variables in function 'timeBomb_constructor'
+                            126 ;------------------------------------------------------------
+                            127 ;sloc0                     Allocated with name '_timeBomb_constructor_sloc0_1_0'
+                            128 ;base                      Allocated with name '_timeBomb_constructor_base_1_1'
+                            129 ;------------------------------------------------------------
+                            130 ;	../sm_test_timeBomb.c:36: END_STATE_MACHINE_DEFINITION() ;
+                            131 ;	-----------------------------------------
+                            132 ;	 function timeBomb_constructor
+                            133 ;	-----------------------------------------
+   0004                     134 _timeBomb_constructor:
+   0004 AA F0               135 	mov	r2,b
+   0006 AB 83               136 	mov	r3,dph
+   0008 E5 82               137 	mov	a,dpl
+   000A 90s00r00            138 	mov	dptr,#_timeBomb_constructor_base_1_1
+   000D F0                  139 	movx	@dptr,a
+   000E A3                  140 	inc	dptr
+   000F EB                  141 	mov	a,r3
+   0010 F0                  142 	movx	@dptr,a
+   0011 A3                  143 	inc	dptr
+   0012 EA                  144 	mov	a,r2
+   0013 F0                  145 	movx	@dptr,a
+   0014 90s00r00            146 	mov	dptr,#_timeBomb_constructor_base_1_1
+   0017 E0                  147 	movx	a,@dptr
+   0018 FA                  148 	mov	r2,a
+   0019 A3                  149 	inc	dptr
+   001A E0                  150 	movx	a,@dptr
+   001B FB                  151 	mov	r3,a
+   001C A3                  152 	inc	dptr
+   001D E0                  153 	movx	a,@dptr
+   001E FC                  154 	mov	r4,a
+   001F 8A 82               155 	mov	dpl,r2
+   0021 8B 83               156 	mov	dph,r3
+   0023 8C F0               157 	mov	b,r4
+   0025 74r00               158 	mov	a,#_timeBomb_TOP
+   0027 12s00r00            159 	lcall	__gptrput
+   002A A3                  160 	inc	dptr
+   002B 74s00               161 	mov	a,#(_timeBomb_TOP >> 8)
+   002D 12s00r00            162 	lcall	__gptrput
+   0030 74 06               163 	mov	a,#0x06
+   0032 2A                  164 	add	a,r2
+   0033 FD                  165 	mov	r5,a
+   0034 E4                  166 	clr	a
+   0035 3B                  167 	addc	a,r3
+   0036 FE                  168 	mov	r6,a
+   0037 8C 07               169 	mov	ar7,r4
+   0039 8D 82               170 	mov	dpl,r5
+   003B 8E 83               171 	mov	dph,r6
+   003D 8F F0               172 	mov	b,r7
+   003F 74r00               173 	mov	a,#_timeBomb_TOP
+   0041 12s00r00            174 	lcall	__gptrput
+   0044 A3                  175 	inc	dptr
+   0045 74s00               176 	mov	a,#(_timeBomb_TOP >> 8)
+   0047 12s00r00            177 	lcall	__gptrput
+   004A A3                  178 	inc	dptr
+   004B 74 80               179 	mov	a,#0x80
+   004D 12s00r00            180 	lcall	__gptrput
+   0050 74 02               181 	mov	a,#0x02
+   0052 2A                  182 	add	a,r2
+   0053 FD                  183 	mov	r5,a
+   0054 E4                  184 	clr	a
+   0055 3B                  185 	addc	a,r3
+   0056 FE                  186 	mov	r6,a
+   0057 8C 07               187 	mov	ar7,r4
+   0059 8D 82               188 	mov	dpl,r5
+   005B 8E 83               189 	mov	dph,r6
+   005D 8F F0               190 	mov	b,r7
+   005F E4                  191 	clr	a
+   0060 12s00r00            192 	lcall	__gptrput
+   0063 74 03               193 	mov	a,#0x03
+   0065 2A                  194 	add	a,r2
+   0066 F5*00               195 	mov	_timeBomb_constructor_sloc0_1_0,a
+   0068 E4                  196 	clr	a
+   0069 3B                  197 	addc	a,r3
+   006A F5*01               198 	mov	(_timeBomb_constructor_sloc0_1_0 + 1),a
+   006C 8C*02               199 	mov	(_timeBomb_constructor_sloc0_1_0 + 2),r4
+   006E 90s00r00            200 	mov	dptr,#_timeBomb_name
+   0071 E0                  201 	movx	a,@dptr
+   0072 F8                  202 	mov	r0,a
+   0073 A3                  203 	inc	dptr
+   0074 E0                  204 	movx	a,@dptr
+   0075 F9                  205 	mov	r1,a
+   0076 A3                  206 	inc	dptr
+   0077 E0                  207 	movx	a,@dptr
+   0078 FD                  208 	mov	r5,a
+   0079 85*00 82            209 	mov	dpl,_timeBomb_constructor_sloc0_1_0
+   007C 85*01 83            210 	mov	dph,(_timeBomb_constructor_sloc0_1_0 + 1)
+   007F 85*02 F0            211 	mov	b,(_timeBomb_constructor_sloc0_1_0 + 2)
+   0082 E8                  212 	mov	a,r0
+   0083 12s00r00            213 	lcall	__gptrput
+   0086 A3                  214 	inc	dptr
+   0087 E9                  215 	mov	a,r1
+   0088 12s00r00            216 	lcall	__gptrput
+   008B A3                  217 	inc	dptr
+   008C ED                  218 	mov	a,r5
+   008D 12s00r00            219 	lcall	__gptrput
+   0090 8A 82               220 	mov	dpl,r2
+   0092 8B 83               221 	mov	dph,r3
+   0094 8C F0               222 	mov	b,r4
+   0096 02s00rC1            223 	ljmp	_timeBomb_constructor2
+                            224 ;------------------------------------------------------------
+                            225 ;Allocation info for local variables in function 'timeBomb_destructor'
+                            226 ;------------------------------------------------------------
+                            227 ;self                      Allocated with name '_timeBomb_destructor_self_1_1'
+                            228 ;------------------------------------------------------------
+                            229 ;	../sm_test_timeBomb.c:36: 
+                            230 ;	-----------------------------------------
+                            231 ;	 function timeBomb_destructor
+                            232 ;	-----------------------------------------
+   0099                     233 _timeBomb_destructor:
+   0099 AA F0               234 	mov	r2,b
+   009B AB 83               235 	mov	r3,dph
+   009D E5 82               236 	mov	a,dpl
+   009F 90s00r03            237 	mov	dptr,#_timeBomb_destructor_self_1_1
+   00A2 F0                  238 	movx	@dptr,a
+   00A3 A3                  239 	inc	dptr
+   00A4 EB                  240 	mov	a,r3
+   00A5 F0                  241 	movx	@dptr,a
+   00A6 A3                  242 	inc	dptr
+   00A7 EA                  243 	mov	a,r2
+   00A8 F0                  244 	movx	@dptr,a
+   00A9 90s00r03            245 	mov	dptr,#_timeBomb_destructor_self_1_1
+   00AC E0                  246 	movx	a,@dptr
+   00AD FA                  247 	mov	r2,a
+   00AE A3                  248 	inc	dptr
+   00AF E0                  249 	movx	a,@dptr
+   00B0 FB                  250 	mov	r3,a
+   00B1 A3                  251 	inc	dptr
+   00B2 E0                  252 	movx	a,@dptr
+   00B3 FC                  253 	mov	r4,a
+   00B4 8A 82               254 	mov	dpl,r2
+   00B6 8B 83               255 	mov	dph,r3
+   00B8 8C F0               256 	mov	b,r4
+   00BA 02s01r13            257 	ljmp	_timeBomb_destructor2
+                            258 ;------------------------------------------------------------
+                            259 ;Allocation info for local variables in function 'timeBomb_getMachineSize'
+                            260 ;------------------------------------------------------------
+                            261 ;------------------------------------------------------------
+                            262 ;	../sm_test_timeBomb.c:36: END_STATE_MACHINE_DEFINITION() ;
+                            263 ;	-----------------------------------------
+                            264 ;	 function timeBomb_getMachineSize
+                            265 ;	-----------------------------------------
+   00BD                     266 _timeBomb_getMachineSize:
+   00BD 90 00 18            267 	mov	dptr,#0x0018
+   00C0 22                  268 	ret
+                            269 ;------------------------------------------------------------
+                            270 ;Allocation info for local variables in function 'timeBomb_constructor2'
+                            271 ;------------------------------------------------------------
+                            272 ;self                      Allocated with name '_timeBomb_constructor2_self_1_1'
+                            273 ;------------------------------------------------------------
+                            274 ;	../sm_test_timeBomb.c:39: STATE_MACHINE_CONSTRUCTOR()
+                            275 ;	-----------------------------------------
+                            276 ;	 function timeBomb_constructor2
+                            277 ;	-----------------------------------------
+   00C1                     278 _timeBomb_constructor2:
+   00C1 AA F0               279 	mov	r2,b
+   00C3 AB 83               280 	mov	r3,dph
+   00C5 E5 82               281 	mov	a,dpl
+   00C7 90s00r06            282 	mov	dptr,#_timeBomb_constructor2_self_1_1
+   00CA F0                  283 	movx	@dptr,a
+   00CB A3                  284 	inc	dptr
+   00CC EB                  285 	mov	a,r3
+   00CD F0                  286 	movx	@dptr,a
+   00CE A3                  287 	inc	dptr
+   00CF EA                  288 	mov	a,r2
+   00D0 F0                  289 	movx	@dptr,a
+                            290 ;	../sm_test_timeBomb.c:41: self->timeout			= 0 ;
+   00D1 90s00r06            291 	mov	dptr,#_timeBomb_constructor2_self_1_1
+   00D4 E0                  292 	movx	a,@dptr
+   00D5 FA                  293 	mov	r2,a
+   00D6 A3                  294 	inc	dptr
+   00D7 E0                  295 	movx	a,@dptr
+   00D8 FB                  296 	mov	r3,a
+   00D9 A3                  297 	inc	dptr
+   00DA E0                  298 	movx	a,@dptr
+   00DB FC                  299 	mov	r4,a
+   00DC 74 15               300 	mov	a,#0x15
+   00DE 2A                  301 	add	a,r2
+   00DF FD                  302 	mov	r5,a
+   00E0 E4                  303 	clr	a
+   00E1 3B                  304 	addc	a,r3
+   00E2 FE                  305 	mov	r6,a
+   00E3 8C 07               306 	mov	ar7,r4
+   00E5 8D 82               307 	mov	dpl,r5
+   00E7 8E 83               308 	mov	dph,r6
+   00E9 8F F0               309 	mov	b,r7
+   00EB E4                  310 	clr	a
+   00EC 12s00r00            311 	lcall	__gptrput
+                            312 ;	../sm_test_timeBomb.c:42: self->codeBeingEntered	= 0 ;
+   00EF 74 16               313 	mov	a,#0x16
+   00F1 2A                  314 	add	a,r2
+   00F2 FD                  315 	mov	r5,a
+   00F3 E4                  316 	clr	a
+   00F4 3B                  317 	addc	a,r3
+   00F5 FE                  318 	mov	r6,a
+   00F6 8C 07               319 	mov	ar7,r4
+   00F8 8D 82               320 	mov	dpl,r5
+   00FA 8E 83               321 	mov	dph,r6
+   00FC 8F F0               322 	mov	b,r7
+   00FE E4                  323 	clr	a
+   00FF 12s00r00            324 	lcall	__gptrput
+                            325 ;	../sm_test_timeBomb.c:43: self->disarmCode		= 0 ;
+   0102 74 17               326 	mov	a,#0x17
+   0104 2A                  327 	add	a,r2
+   0105 FA                  328 	mov	r2,a
+   0106 E4                  329 	clr	a
+   0107 3B                  330 	addc	a,r3
+   0108 FB                  331 	mov	r3,a
+   0109 8A 82               332 	mov	dpl,r2
+   010B 8B 83               333 	mov	dph,r3
+   010D 8C F0               334 	mov	b,r4
+   010F E4                  335 	clr	a
+   0110 02s00r00            336 	ljmp	__gptrput
+                            337 ;------------------------------------------------------------
+                            338 ;Allocation info for local variables in function 'timeBomb_destructor2'
+                            339 ;------------------------------------------------------------
+                            340 ;self                      Allocated with name '_timeBomb_destructor2_self_1_1'
+                            341 ;------------------------------------------------------------
+                            342 ;	../sm_test_timeBomb.c:47: STATE_MACHINE_DESTRUCTOR()
+                            343 ;	-----------------------------------------
+                            344 ;	 function timeBomb_destructor2
+                            345 ;	-----------------------------------------
+   0113                     346 _timeBomb_destructor2:
+                            347 ;	../sm_test_timeBomb.c:49: (void)self ;	/* Nothing to do here */
+   0113 22                  348 	ret
+                            349 ;------------------------------------------------------------
+                            350 ;Allocation info for local variables in function 'updateDisplay'
+                            351 ;------------------------------------------------------------
+                            352 ;value                     Allocated with name '_updateDisplay_value_1_1'
+                            353 ;------------------------------------------------------------
+                            354 ;	../sm_test_timeBomb.c:53: void updateDisplay(	uint8_t value)
+                            355 ;	-----------------------------------------
+                            356 ;	 function updateDisplay
+                            357 ;	-----------------------------------------
+   0114                     358 _updateDisplay:
+                            359 ;	../sm_test_timeBomb.c:55: (void)value ;
+   0114 22                  360 	ret
+                            361 ;------------------------------------------------------------
+                            362 ;Allocation info for local variables in function 'timeBomb_TOP_handler'
+                            363 ;------------------------------------------------------------
+                            364 ;event                     Allocated to stack - offset -5
+                            365 ;self                      Allocated to stack - offset 1
+                            366 ;stateResponseCode         Allocated to registers 
+                            367 ;------------------------------------------------------------
+                            368 ;	../sm_test_timeBomb.c:59: DEFINE_TOP_STATE()
+                            369 ;	-----------------------------------------
+                            370 ;	 function timeBomb_TOP_handler
+                            371 ;	-----------------------------------------
+   0115                     372 _timeBomb_TOP_handler:
+   0115 C0*00               373 	push	_bp
+   0117 85 81*00            374 	mov	_bp,sp
+   011A C0 82               375 	push	dpl
+   011C C0 83               376 	push	dph
+   011E C0 F0               377 	push	b
+                            378 ;	../sm_test_timeBomb.c:61: INITIAL_TRANSITION(TO(setting), ACTION(self->timeout = INIT_TIMEOUT)) ;
+   0120 E5*00               379 	mov	a,_bp
+   0122 24 FB               380 	add	a,#0xfb
+   0124 F8                  381 	mov	r0,a
+   0125 86 05               382 	mov	ar5,@r0
+   0127 08                  383 	inc	r0
+   0128 86 06               384 	mov	ar6,@r0
+   012A 08                  385 	inc	r0
+   012B 86 07               386 	mov	ar7,@r0
+   012D 8D 82               387 	mov	dpl,r5
+   012F 8E 83               388 	mov	dph,r6
+   0131 8F F0               389 	mov	b,r7
+   0133 12s00r00            390 	lcall	__gptrget
+   0136 FD                  391 	mov	r5,a
+   0137 BD 02 43            392 	cjne	r5,#0x02,00102$
+   013A A8*00               393 	mov	r0,_bp
+   013C 08                  394 	inc	r0
+   013D 74 15               395 	mov	a,#0x15
+   013F 26                  396 	add	a,@r0
+   0140 FE                  397 	mov	r6,a
+   0141 E4                  398 	clr	a
+   0142 08                  399 	inc	r0
+   0143 36                  400 	addc	a,@r0
+   0144 FF                  401 	mov	r7,a
+   0145 08                  402 	inc	r0
+   0146 86 02               403 	mov	ar2,@r0
+   0148 8E 82               404 	mov	dpl,r6
+   014A 8F 83               405 	mov	dph,r7
+   014C 8A F0               406 	mov	b,r2
+   014E 74 1E               407 	mov	a,#0x1E
+   0150 12s00r00            408 	lcall	__gptrput
+   0153 A8*00               409 	mov	r0,_bp
+   0155 08                  410 	inc	r0
+   0156 74 09               411 	mov	a,#0x09
+   0158 26                  412 	add	a,@r0
+   0159 FA                  413 	mov	r2,a
+   015A E4                  414 	clr	a
+   015B 08                  415 	inc	r0
+   015C 36                  416 	addc	a,@r0
+   015D FB                  417 	mov	r3,a
+   015E 08                  418 	inc	r0
+   015F 86 04               419 	mov	ar4,@r0
+   0161 8A 82               420 	mov	dpl,r2
+   0163 8B 83               421 	mov	dph,r3
+   0165 8C F0               422 	mov	b,r4
+   0167 74r09               423 	mov	a,#_timeBomb_setting
+   0169 12s00r00            424 	lcall	__gptrput
+   016C A3                  425 	inc	dptr
+   016D 74s00               426 	mov	a,#(_timeBomb_setting >> 8)
+   016F 12s00r00            427 	lcall	__gptrput
+   0172 A3                  428 	inc	dptr
+   0173 74 80               429 	mov	a,#0x80
+   0175 12s00r00            430 	lcall	__gptrput
+   0178 75 82 02            431 	mov	dpl,#0x02
+   017B 80 0B               432 	sjmp	00106$
+   017D                     433 00102$:
+                            434 ;	../sm_test_timeBomb.c:63: HANDLE_STATE_EVENTS
+   017D BD 03 05            435 	cjne	r5,#0x03,00105$
+                            436 ;	../sm_test_timeBomb.c:69: EXIT_HANDLED
+   0180 75 82 01            437 	mov	dpl,#0x01
+                            438 ;	../sm_test_timeBomb.c:71: HANDLE_STATE_EVENTS_DONE
+   0183 80 03               439 	sjmp	00106$
+   0185                     440 00105$:
+                            441 ;	../sm_test_timeBomb.c:73: END_DEFINE_STATE()
+   0185 75 82 00            442 	mov	dpl,#0x00
+   0188                     443 00106$:
+   0188 85*00 81            444 	mov	sp,_bp
+   018B D0*00               445 	pop	_bp
+   018D 22                  446 	ret
+                            447 ;------------------------------------------------------------
+                            448 ;Allocation info for local variables in function 'timeBomb_setting_handler'
+                            449 ;------------------------------------------------------------
+                            450 ;event                     Allocated to stack - offset -5
+                            451 ;self                      Allocated to stack - offset 1
+                            452 ;stateResponseCode         Allocated to registers 
+                            453 ;------------------------------------------------------------
+                            454 ;	../sm_test_timeBomb.c:76: DEFINE_STATE(setting)
+                            455 ;	-----------------------------------------
+                            456 ;	 function timeBomb_setting_handler
+                            457 ;	-----------------------------------------
+   018E                     458 _timeBomb_setting_handler:
+   018E C0*00               459 	push	_bp
+   0190 85 81*00            460 	mov	_bp,sp
+   0193 C0 82               461 	push	dpl
+   0195 C0 83               462 	push	dph
+   0197 C0 F0               463 	push	b
+                            464 ;	../sm_test_timeBomb.c:78: TRANSITION_ON(ARM, UNCONDITIONALLY, TO(timing), ACTION(self->codeBeingEntered = 0)) ;
+   0199 E5*00               465 	mov	a,_bp
+   019B 24 FB               466 	add	a,#0xfb
+   019D F8                  467 	mov	r0,a
+   019E 86 05               468 	mov	ar5,@r0
+   01A0 08                  469 	inc	r0
+   01A1 86 06               470 	mov	ar6,@r0
+   01A3 08                  471 	inc	r0
+   01A4 86 07               472 	mov	ar7,@r0
+   01A6 8D 82               473 	mov	dpl,r5
+   01A8 8E 83               474 	mov	dph,r6
+   01AA 8F F0               475 	mov	b,r7
+   01AC 12s00r00            476 	lcall	__gptrget
+   01AF FD                  477 	mov	r5,a
+   01B0 BD 06 42            478 	cjne	r5,#0x06,00102$
+   01B3 A8*00               479 	mov	r0,_bp
+   01B5 08                  480 	inc	r0
+   01B6 74 16               481 	mov	a,#0x16
+   01B8 26                  482 	add	a,@r0
+   01B9 FE                  483 	mov	r6,a
+   01BA E4                  484 	clr	a
+   01BB 08                  485 	inc	r0
+   01BC 36                  486 	addc	a,@r0
+   01BD FF                  487 	mov	r7,a
+   01BE 08                  488 	inc	r0
+   01BF 86 02               489 	mov	ar2,@r0
+   01C1 8E 82               490 	mov	dpl,r6
+   01C3 8F 83               491 	mov	dph,r7
+   01C5 8A F0               492 	mov	b,r2
+   01C7 E4                  493 	clr	a
+   01C8 12s00r00            494 	lcall	__gptrput
+   01CB A8*00               495 	mov	r0,_bp
+   01CD 08                  496 	inc	r0
+   01CE 74 09               497 	mov	a,#0x09
+   01D0 26                  498 	add	a,@r0
+   01D1 FA                  499 	mov	r2,a
+   01D2 E4                  500 	clr	a
+   01D3 08                  501 	inc	r0
+   01D4 36                  502 	addc	a,@r0
+   01D5 FB                  503 	mov	r3,a
+   01D6 08                  504 	inc	r0
+   01D7 86 04               505 	mov	ar4,@r0
+   01D9 8A 82               506 	mov	dpl,r2
+   01DB 8B 83               507 	mov	dph,r3
+   01DD 8C F0               508 	mov	b,r4
+   01DF 74r12               509 	mov	a,#_timeBomb_timing
+   01E1 12s00r00            510 	lcall	__gptrput
+   01E4 A3                  511 	inc	dptr
+   01E5 74s00               512 	mov	a,#(_timeBomb_timing >> 8)
+   01E7 12s00r00            513 	lcall	__gptrput
+   01EA A3                  514 	inc	dptr
+   01EB 74 80               515 	mov	a,#0x80
+   01ED 12s00r00            516 	lcall	__gptrput
+   01F0 75 82 02            517 	mov	dpl,#0x02
+   01F3 80 70               518 	sjmp	00112$
+   01F5                     519 00102$:
+                            520 ;	../sm_test_timeBomb.c:80: HANDLE_STATE_EVENTS
+   01F5 BD 04 02            521 	cjne	r5,#0x04,00121$
+   01F8 80 05               522 	sjmp	00104$
+   01FA                     523 00121$:
+                            524 ;	../sm_test_timeBomb.c:82: EVENT(UP)
+   01FA BD 05 65            525 	cjne	r5,#0x05,00111$
+   01FD 80 32               526 	sjmp	00107$
+   01FF                     527 00104$:
+                            528 ;	../sm_test_timeBomb.c:84: if(self->timeout < 60)
+   01FF A8*00               529 	mov	r0,_bp
+   0201 08                  530 	inc	r0
+   0202 74 15               531 	mov	a,#0x15
+   0204 26                  532 	add	a,@r0
+   0205 FA                  533 	mov	r2,a
+   0206 E4                  534 	clr	a
+   0207 08                  535 	inc	r0
+   0208 36                  536 	addc	a,@r0
+   0209 FB                  537 	mov	r3,a
+   020A 08                  538 	inc	r0
+   020B 86 04               539 	mov	ar4,@r0
+   020D 8A 82               540 	mov	dpl,r2
+   020F 8B 83               541 	mov	dph,r3
+   0211 8C F0               542 	mov	b,r4
+   0213 12s00r00            543 	lcall	__gptrget
+   0216 FD                  544 	mov	r5,a
+   0217 BD 3C 00            545 	cjne	r5,#0x3C,00123$
+   021A                     546 00123$:
+   021A 50 10               547 	jnc	00106$
+                            548 ;	../sm_test_timeBomb.c:86: self->timeout++ ;
+   021C 0D                  549 	inc	r5
+   021D 8A 82               550 	mov	dpl,r2
+   021F 8B 83               551 	mov	dph,r3
+   0221 8C F0               552 	mov	b,r4
+   0223 ED                  553 	mov	a,r5
+   0224 12s00r00            554 	lcall	__gptrput
+                            555 ;	../sm_test_timeBomb.c:88: updateDisplay(self->timeout) ;
+   0227 8D 82               556 	mov	dpl,r5
+   0229 12s01r14            557 	lcall	_updateDisplay
+   022C                     558 00106$:
+                            559 ;	../sm_test_timeBomb.c:91: EVENT_HANDLED
+   022C 75 82 01            560 	mov	dpl,#0x01
+                            561 ;	../sm_test_timeBomb.c:93: EVENT(DOWN)
+   022F 80 34               562 	sjmp	00112$
+   0231                     563 00107$:
+                            564 ;	../sm_test_timeBomb.c:95: if(self->timeout > 1)
+   0231 A8*00               565 	mov	r0,_bp
+   0233 08                  566 	inc	r0
+   0234 74 15               567 	mov	a,#0x15
+   0236 26                  568 	add	a,@r0
+   0237 FA                  569 	mov	r2,a
+   0238 E4                  570 	clr	a
+   0239 08                  571 	inc	r0
+   023A 36                  572 	addc	a,@r0
+   023B FB                  573 	mov	r3,a
+   023C 08                  574 	inc	r0
+   023D 86 04               575 	mov	ar4,@r0
+   023F 8A 82               576 	mov	dpl,r2
+   0241 8B 83               577 	mov	dph,r3
+   0243 8C F0               578 	mov	b,r4
+   0245 12s00r00            579 	lcall	__gptrget
+   0248 FD                  580 	mov  r5,a
+   0249 24 FE               581 	add	a,#0xff - 0x01
+   024B 50 10               582 	jnc	00109$
+                            583 ;	../sm_test_timeBomb.c:97: self->timeout-- ;
+   024D 1D                  584 	dec	r5
+   024E 8A 82               585 	mov	dpl,r2
+   0250 8B 83               586 	mov	dph,r3
+   0252 8C F0               587 	mov	b,r4
+   0254 ED                  588 	mov	a,r5
+   0255 12s00r00            589 	lcall	__gptrput
+                            590 ;	../sm_test_timeBomb.c:99: updateDisplay(self->timeout) ;
+   0258 8D 82               591 	mov	dpl,r5
+   025A 12s01r14            592 	lcall	_updateDisplay
+   025D                     593 00109$:
+                            594 ;	../sm_test_timeBomb.c:102: EVENT_HANDLED
+   025D 75 82 01            595 	mov	dpl,#0x01
+                            596 ;	../sm_test_timeBomb.c:104: HANDLE_STATE_EVENTS_DONE
+   0260 80 03               597 	sjmp	00112$
+   0262                     598 00111$:
+                            599 ;	../sm_test_timeBomb.c:106: END_DEFINE_STATE()
+   0262 75 82 00            600 	mov	dpl,#0x00
+   0265                     601 00112$:
+   0265 85*00 81            602 	mov	sp,_bp
+   0268 D0*00               603 	pop	_bp
+   026A 22                  604 	ret
+                            605 ;------------------------------------------------------------
+                            606 ;Allocation info for local variables in function 'timeBomb_timing_handler'
+                            607 ;------------------------------------------------------------
+                            608 ;event                     Allocated to stack - offset -5
+                            609 ;self                      Allocated to stack - offset 1
+                            610 ;stateResponseCode         Allocated to registers 
+                            611 ;------------------------------------------------------------
+                            612 ;	../sm_test_timeBomb.c:109: DEFINE_STATE(timing)
+                            613 ;	-----------------------------------------
+                            614 ;	 function timeBomb_timing_handler
+                            615 ;	-----------------------------------------
+   026B                     616 _timeBomb_timing_handler:
+   026B C0*00               617 	push	_bp
+   026D 85 81*00            618 	mov	_bp,sp
+   0270 C0 82               619 	push	dpl
+   0272 C0 83               620 	push	dph
+   0274 C0 F0               621 	push	b
+                            622 ;	../sm_test_timeBomb.c:111: TRANSITION_ON(ARM, IF(self->codeBeingEntered == self->disarmCode), TO(setting), ACTION(updateDisplay(self->timeout))) ;
+   0276 E5*00               623 	mov	a,_bp
+   0278 24 FB               624 	add	a,#0xfb
+   027A F8                  625 	mov	r0,a
+   027B 86 05               626 	mov	ar5,@r0
+   027D 08                  627 	inc	r0
+   027E 86 06               628 	mov	ar6,@r0
+   0280 08                  629 	inc	r0
+   0281 86 07               630 	mov	ar7,@r0
+   0283 8D 82               631 	mov	dpl,r5
+   0285 8E 83               632 	mov	dph,r6
+   0287 8F F0               633 	mov	b,r7
+   0289 12s00r00            634 	lcall	__gptrget
+   028C FD                  635 	mov	r5,a
+   028D BD 06 02            636 	cjne	r5,#0x06,00119$
+   0290 80 03               637 	sjmp	00120$
+   0292                     638 00119$:
+   0292 02s03r1A            639 	ljmp	00102$
+   0295                     640 00120$:
+   0295 C0 05               641 	push	ar5
+   0297 A8*00               642 	mov	r0,_bp
+   0299 08                  643 	inc	r0
+   029A 74 16               644 	mov	a,#0x16
+   029C 26                  645 	add	a,@r0
+   029D FE                  646 	mov	r6,a
+   029E E4                  647 	clr	a
+   029F 08                  648 	inc	r0
+   02A0 36                  649 	addc	a,@r0
+   02A1 FF                  650 	mov	r7,a
+   02A2 08                  651 	inc	r0
+   02A3 86 05               652 	mov	ar5,@r0
+   02A5 8E 82               653 	mov	dpl,r6
+   02A7 8F 83               654 	mov	dph,r7
+   02A9 8D F0               655 	mov	b,r5
+   02AB 12s00r00            656 	lcall	__gptrget
+   02AE FE                  657 	mov	r6,a
+   02AF A8*00               658 	mov	r0,_bp
+   02B1 08                  659 	inc	r0
+   02B2 74 17               660 	mov	a,#0x17
+   02B4 26                  661 	add	a,@r0
+   02B5 FD                  662 	mov	r5,a
+   02B6 E4                  663 	clr	a
+   02B7 08                  664 	inc	r0
+   02B8 36                  665 	addc	a,@r0
+   02B9 FF                  666 	mov	r7,a
+   02BA 08                  667 	inc	r0
+   02BB 86 02               668 	mov	ar2,@r0
+   02BD 8D 82               669 	mov	dpl,r5
+   02BF 8F 83               670 	mov	dph,r7
+   02C1 8A F0               671 	mov	b,r2
+   02C3 12s00r00            672 	lcall	__gptrget
+   02C6 FD                  673 	mov	r5,a
+   02C7 EE                  674 	mov	a,r6
+   02C8 B5 05 02            675 	cjne	a,ar5,00121$
+   02CB 80 04               676 	sjmp	00122$
+   02CD                     677 00121$:
+   02CD D0 05               678 	pop	ar5
+   02CF 80 49               679 	sjmp	00102$
+   02D1                     680 00122$:
+   02D1 D0 05               681 	pop	ar5
+   02D3 A8*00               682 	mov	r0,_bp
+   02D5 08                  683 	inc	r0
+   02D6 74 15               684 	mov	a,#0x15
+   02D8 26                  685 	add	a,@r0
+   02D9 FA                  686 	mov	r2,a
+   02DA E4                  687 	clr	a
+   02DB 08                  688 	inc	r0
+   02DC 36                  689 	addc	a,@r0
+   02DD FB                  690 	mov	r3,a
+   02DE 08                  691 	inc	r0
+   02DF 86 04               692 	mov	ar4,@r0
+   02E1 8A 82               693 	mov	dpl,r2
+   02E3 8B 83               694 	mov	dph,r3
+   02E5 8C F0               695 	mov	b,r4
+   02E7 12s00r00            696 	lcall	__gptrget
+   02EA F5 82               697 	mov	dpl,a
+   02EC 12s01r14            698 	lcall	_updateDisplay
+   02EF A8*00               699 	mov	r0,_bp
+   02F1 08                  700 	inc	r0
+   02F2 74 09               701 	mov	a,#0x09
+   02F4 26                  702 	add	a,@r0
+   02F5 FA                  703 	mov	r2,a
+   02F6 E4                  704 	clr	a
+   02F7 08                  705 	inc	r0
+   02F8 36                  706 	addc	a,@r0
+   02F9 FB                  707 	mov	r3,a
+   02FA 08                  708 	inc	r0
+   02FB 86 04               709 	mov	ar4,@r0
+   02FD 8A 82               710 	mov	dpl,r2
+   02FF 8B 83               711 	mov	dph,r3
+   0301 8C F0               712 	mov	b,r4
+   0303 74r09               713 	mov	a,#_timeBomb_setting
+   0305 12s00r00            714 	lcall	__gptrput
+   0308 A3                  715 	inc	dptr
+   0309 74s00               716 	mov	a,#(_timeBomb_setting >> 8)
+   030B 12s00r00            717 	lcall	__gptrput
+   030E A3                  718 	inc	dptr
+   030F 74 80               719 	mov	a,#0x80
+   0311 12s00r00            720 	lcall	__gptrput
+   0314 75 82 02            721 	mov	dpl,#0x02
+   0317 02s03rFB            722 	ljmp	00111$
+   031A                     723 00102$:
+                            724 ;	../sm_test_timeBomb.c:113: HANDLE_STATE_EVENTS
+   031A BD 04 02            725 	cjne	r5,#0x04,00123$
+   031D 80 0D               726 	sjmp	00104$
+   031F                     727 00123$:
+   031F BD 05 02            728 	cjne	r5,#0x05,00124$
+   0322 80 3E               729 	sjmp	00105$
+   0324                     730 00124$:
+   0324 BD 07 02            731 	cjne	r5,#0x07,00125$
+   0327 80 61               732 	sjmp	00106$
+   0329                     733 00125$:
+   0329 02s03rF8            734 	ljmp	00110$
+                            735 ;	../sm_test_timeBomb.c:115: EVENT(UP)
+   032C                     736 00104$:
+                            737 ;	../sm_test_timeBomb.c:117: self->codeBeingEntered <<= 1 ;
+   032C A8*00               738 	mov	r0,_bp
+   032E 08                  739 	inc	r0
+   032F 74 16               740 	mov	a,#0x16
+   0331 26                  741 	add	a,@r0
+   0332 FA                  742 	mov	r2,a
+   0333 E4                  743 	clr	a
+   0334 08                  744 	inc	r0
+   0335 36                  745 	addc	a,@r0
+   0336 FB                  746 	mov	r3,a
+   0337 08                  747 	inc	r0
+   0338 86 04               748 	mov	ar4,@r0
+   033A 8A 82               749 	mov	dpl,r2
+   033C 8B 83               750 	mov	dph,r3
+   033E 8C F0               751 	mov	b,r4
+   0340 12s00r00            752 	lcall	__gptrget
+   0343 25 E0               753 	add	a,acc
+   0345 FD                  754 	mov	r5,a
+   0346 8A 82               755 	mov	dpl,r2
+   0348 8B 83               756 	mov	dph,r3
+   034A 8C F0               757 	mov	b,r4
+   034C 12s00r00            758 	lcall	__gptrput
+                            759 ;	../sm_test_timeBomb.c:118: self->codeBeingEntered |= 1 ;
+   034F 43 05 01            760 	orl	ar5,#0x01
+   0352 8A 82               761 	mov	dpl,r2
+   0354 8B 83               762 	mov	dph,r3
+   0356 8C F0               763 	mov	b,r4
+   0358 ED                  764 	mov	a,r5
+   0359 12s00r00            765 	lcall	__gptrput
+                            766 ;	../sm_test_timeBomb.c:120: EVENT_HANDLED
+   035C 75 82 01            767 	mov	dpl,#0x01
+   035F 02s03rFB            768 	ljmp	00111$
+                            769 ;	../sm_test_timeBomb.c:122: EVENT(DOWN)
+   0362                     770 00105$:
+                            771 ;	../sm_test_timeBomb.c:124: self->codeBeingEntered <<= 1 ;
+   0362 A8*00               772 	mov	r0,_bp
+   0364 08                  773 	inc	r0
+   0365 74 16               774 	mov	a,#0x16
+   0367 26                  775 	add	a,@r0
+   0368 FA                  776 	mov	r2,a
+   0369 E4                  777 	clr	a
+   036A 08                  778 	inc	r0
+   036B 36                  779 	addc	a,@r0
+   036C FB                  780 	mov	r3,a
+   036D 08                  781 	inc	r0
+   036E 86 04               782 	mov	ar4,@r0
+   0370 8A 82               783 	mov	dpl,r2
+   0372 8B 83               784 	mov	dph,r3
+   0374 8C F0               785 	mov	b,r4
+   0376 12s00r00            786 	lcall	__gptrget
+   0379 25 E0               787 	add	a,acc
+   037B FD                  788 	mov	r5,a
+   037C 8A 82               789 	mov	dpl,r2
+   037E 8B 83               790 	mov	dph,r3
+   0380 8C F0               791 	mov	b,r4
+   0382 12s00r00            792 	lcall	__gptrput
+                            793 ;	../sm_test_timeBomb.c:126: EVENT_HANDLED
+   0385 75 82 01            794 	mov	dpl,#0x01
+                            795 ;	../sm_test_timeBomb.c:128: EVENT(TICK)
+   0388 80 71               796 	sjmp	00111$
+   038A                     797 00106$:
+                            798 ;	../sm_test_timeBomb.c:130: self->timeout-- ;
+   038A A8*00               799 	mov	r0,_bp
+   038C 08                  800 	inc	r0
+   038D 74 15               801 	mov	a,#0x15
+   038F 26                  802 	add	a,@r0
+   0390 FA                  803 	mov	r2,a
+   0391 E4                  804 	clr	a
+   0392 08                  805 	inc	r0
+   0393 36                  806 	addc	a,@r0
+   0394 FB                  807 	mov	r3,a
+   0395 08                  808 	inc	r0
+   0396 86 04               809 	mov	ar4,@r0
+   0398 8A 82               810 	mov	dpl,r2
+   039A 8B 83               811 	mov	dph,r3
+   039C 8C F0               812 	mov	b,r4
+   039E 12s00r00            813 	lcall	__gptrget
+   03A1 FD                  814 	mov	r5,a
+   03A2 1D                  815 	dec	r5
+   03A3 8A 82               816 	mov	dpl,r2
+   03A5 8B 83               817 	mov	dph,r3
+   03A7 8C F0               818 	mov	b,r4
+   03A9 ED                  819 	mov	a,r5
+   03AA 12s00r00            820 	lcall	__gptrput
+                            821 ;	../sm_test_timeBomb.c:132: updateDisplay(self->timeout) ;
+   03AD 8D 82               822 	mov	dpl,r5
+   03AF C0 02               823 	push	ar2
+   03B1 C0 03               824 	push	ar3
+   03B3 C0 04               825 	push	ar4
+   03B5 12s01r14            826 	lcall	_updateDisplay
+   03B8 D0 04               827 	pop	ar4
+   03BA D0 03               828 	pop	ar3
+   03BC D0 02               829 	pop	ar2
+                            830 ;	../sm_test_timeBomb.c:134: TRANSITION_IF(self->timeout == 0, TO(BOOM), NO_ACTION)
+   03BE 8A 82               831 	mov	dpl,r2
+   03C0 8B 83               832 	mov	dph,r3
+   03C2 8C F0               833 	mov	b,r4
+   03C4 12s00r00            834 	lcall	__gptrget
+   03C7 70 2A               835 	jnz	00108$
+   03C9 A8*00               836 	mov	r0,_bp
+   03CB 08                  837 	inc	r0
+   03CC 74 09               838 	mov	a,#0x09
+   03CE 26                  839 	add	a,@r0
+   03CF FA                  840 	mov	r2,a
+   03D0 E4                  841 	clr	a
+   03D1 08                  842 	inc	r0
+   03D2 36                  843 	addc	a,@r0
+   03D3 FB                  844 	mov	r3,a
+   03D4 08                  845 	inc	r0
+   03D5 86 04               846 	mov	ar4,@r0
+   03D7 8A 82               847 	mov	dpl,r2
+   03D9 8B 83               848 	mov	dph,r3
+   03DB 8C F0               849 	mov	b,r4
+   03DD 74r1B               850 	mov	a,#_timeBomb_BOOM
+   03DF 12s00r00            851 	lcall	__gptrput
+   03E2 A3                  852 	inc	dptr
+   03E3 74s00               853 	mov	a,#(_timeBomb_BOOM >> 8)
+   03E5 12s00r00            854 	lcall	__gptrput
+   03E8 A3                  855 	inc	dptr
+   03E9 74 80               856 	mov	a,#0x80
+   03EB 12s00r00            857 	lcall	__gptrput
+   03EE 75 82 02            858 	mov	dpl,#0x02
+   03F1 80 08               859 	sjmp	00111$
+   03F3                     860 00108$:
+                            861 ;	../sm_test_timeBomb.c:136: EVENT_HANDLED
+   03F3 75 82 01            862 	mov	dpl,#0x01
+                            863 ;	../sm_test_timeBomb.c:138: HANDLE_STATE_EVENTS_DONE
+   03F6 80 03               864 	sjmp	00111$
+   03F8                     865 00110$:
+                            866 ;	../sm_test_timeBomb.c:140: END_DEFINE_STATE()
+   03F8 75 82 00            867 	mov	dpl,#0x00
+   03FB                     868 00111$:
+   03FB 85*00 81            869 	mov	sp,_bp
+   03FE D0*00               870 	pop	_bp
+   0400 22                  871 	ret
+                            872 ;------------------------------------------------------------
+                            873 ;Allocation info for local variables in function 'timeBomb_BOOM_handler'
+                            874 ;------------------------------------------------------------
+                            875 ;event                     Allocated to stack - offset -5
+                            876 ;self                      Allocated to registers r2 r3 r4 
+                            877 ;stateResponseCode         Allocated to registers 
+                            878 ;------------------------------------------------------------
+                            879 ;	../sm_test_timeBomb.c:143: DEFINE_STATE(BOOM)
+                            880 ;	-----------------------------------------
+                            881 ;	 function timeBomb_BOOM_handler
+                            882 ;	-----------------------------------------
+   0401                     883 _timeBomb_BOOM_handler:
+   0401 C0*00               884 	push	_bp
+   0403 85 81*00            885 	mov	_bp,sp
+   0406 AA 82               886 	mov	r2,dpl
+   0408 AB 83               887 	mov	r3,dph
+   040A AC F0               888 	mov	r4,b
+                            889 ;	../sm_test_timeBomb.c:145: HANDLE_STATE_EVENTS
+   040C E5*00               890 	mov	a,_bp
+   040E 24 FB               891 	add	a,#0xfb
+   0410 F8                  892 	mov	r0,a
+   0411 86 05               893 	mov	ar5,@r0
+   0413 08                  894 	inc	r0
+   0414 86 06               895 	mov	ar6,@r0
+   0416 08                  896 	inc	r0
+   0417 86 07               897 	mov	ar7,@r0
+   0419 8D 82               898 	mov	dpl,r5
+   041B 8E 83               899 	mov	dph,r6
+   041D 8F F0               900 	mov	b,r7
+   041F 12s00r00            901 	lcall	__gptrget
+   0422 FD                  902 	mov	r5,a
+   0423 BD 01 23            903 	cjne	r5,#0x01,00103$
+                            904 ;	../sm_test_timeBomb.c:151: TRANSITION_TO(STATE_MACHINE_EXIT, NO_ACTION) ;
+   0426 74 09               905 	mov	a,#0x09
+   0428 2A                  906 	add	a,r2
+   0429 FA                  907 	mov	r2,a
+   042A E4                  908 	clr	a
+   042B 3B                  909 	addc	a,r3
+   042C FB                  910 	mov	r3,a
+   042D 8A 82               911 	mov	dpl,r2
+   042F 8B 83               912 	mov	dph,r3
+   0431 8C F0               913 	mov	b,r4
+   0433 74r00               914 	mov	a,#_timeBomb_TOP
+   0435 12s00r00            915 	lcall	__gptrput
+   0438 A3                  916 	inc	dptr
+   0439 74s00               917 	mov	a,#(_timeBomb_TOP >> 8)
+   043B 12s00r00            918 	lcall	__gptrput
+   043E A3                  919 	inc	dptr
+   043F 74 80               920 	mov	a,#0x80
+   0441 12s00r00            921 	lcall	__gptrput
+   0444 75 82 02            922 	mov	dpl,#0x02
+                            923 ;	../sm_test_timeBomb.c:155: HANDLE_STATE_EVENTS_DONE
+   0447 80 03               924 	sjmp	00104$
+   0449                     925 00103$:
+                            926 ;	../sm_test_timeBomb.c:157: END_DEFINE_STATE()
+   0449 75 82 00            927 	mov	dpl,#0x00
+   044C                     928 00104$:
+   044C D0*00               929 	pop	_bp
+   044E 22                  930 	ret
+                            931 	.area CSEG    (CODE)
+                            932 	.area CONST   (CODE)
+   0000                     933 _timeBomb_TOP:
+                            934 ; generic printIvalPtr
+   0000 00 00 00            935 	.byte #0x00,#0x00,#0x00
+   0003 00                  936 	.db #0x00
+   0004r15s01               937 	.byte _timeBomb_TOP_handler,(_timeBomb_TOP_handler >> 8)
+   0006r2Ds00 80            938 	.byte _str_1,(_str_1 >> 8),#0x80
+   0009                     939 _timeBomb_setting:
+   0009r00s00 80            940 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
+   000C 00                  941 	.db #0x00
+   000Dr8Es01               942 	.byte _timeBomb_setting_handler,(_timeBomb_setting_handler >> 8)
+   000Fr3As00 80            943 	.byte _str_2,(_str_2 >> 8),#0x80
+   0012                     944 _timeBomb_timing:
+   0012r00s00 80            945 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
+   0015 00                  946 	.db #0x00
+   0016r6Bs02               947 	.byte _timeBomb_timing_handler,(_timeBomb_timing_handler >> 8)
+   0018r4Bs00 80            948 	.byte _str_3,(_str_3 >> 8),#0x80
+   001B                     949 _timeBomb_BOOM:
+   001Br00s00 80            950 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
+   001E 00                  951 	.db #0x00
+   001Fr01s04               952 	.byte _timeBomb_BOOM_handler,(_timeBomb_BOOM_handler >> 8)
+   0021r5Bs00 80            953 	.byte _str_4,(_str_4 >> 8),#0x80
+   0024                     954 __str_0:
+   0024 74 69 6D 65 42 6F   955 	.ascii "timeBomb"
+        6D 62
+   002C 00                  956 	.db 0x00
+   002D                     957 _str_1:
+   002D 74 69 6D 65 42 6F   958 	.ascii "timeBomb_TOP"
+        6D 62 5F 54 4F 50
+   0039 00                  959 	.db 0x00
+   003A                     960 _str_2:
+   003A 74 69 6D 65 42 6F   961 	.ascii "timeBomb_setting"
+        6D 62 5F 73 65 74
+        74 69 6E 67
+   004A 00                  962 	.db 0x00
+   004B                     963 _str_3:
+   004B 74 69 6D 65 42 6F   964 	.ascii "timeBomb_timing"
+        6D 62 5F 74 69 6D
+        69 6E 67
+   005A 00                  965 	.db 0x00
+   005B                     966 _str_4:
+   005B 74 69 6D 65 42 6F   967 	.ascii "timeBomb_BOOM"
+        6D 62 5F 42 4F 4F
+        4D
+   0068 00                  968 	.db 0x00
+                            969 	.area XINIT   (CODE)
+   0000                     970 __xinit__timeBomb_name:
+   0000r24s00 80            971 	.byte __str_0,(__str_0 >> 8),#0x80
+                            972 	.area CABS    (ABS,CODE)

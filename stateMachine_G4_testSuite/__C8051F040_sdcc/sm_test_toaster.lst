@@ -1,0 +1,895 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
+                              4 ; This file was generated Wed Dec 30 22:11:49 2009
+                              5 ;--------------------------------------------------------
+                              6 	.module sm_test_toaster
+                              7 	.optsdcc -mmcs51 --model-large
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _lampOff
+                             13 	.globl _lampOn
+                             14 	.globl _heaterOff
+                             15 	.globl _heaterOn
+                             16 	.globl _toaster_getEventQueueDepth
+                             17 	.globl _toaster_constructor
+                             18 	.globl _toaster_destructor
+                             19 	.globl _toaster_getMachineSize
+                             20 	.globl _toaster_constructor2
+                             21 	.globl _toaster_destructor2
+                             22 ;--------------------------------------------------------
+                             23 ; special function registers
+                             24 ;--------------------------------------------------------
+                             25 	.area RSEG    (DATA)
+                             26 ;--------------------------------------------------------
+                             27 ; special function bits
+                             28 ;--------------------------------------------------------
+                             29 	.area RSEG    (DATA)
+                             30 ;--------------------------------------------------------
+                             31 ; overlayable register banks
+                             32 ;--------------------------------------------------------
+                             33 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                      34 	.ds 8
+                             35 ;--------------------------------------------------------
+                             36 ; internal ram data
+                             37 ;--------------------------------------------------------
+                             38 	.area DSEG    (DATA)
+   0000                      39 _toaster_constructor_sloc0_1_0:
+   0000                      40 	.ds 3
+                             41 ;--------------------------------------------------------
+                             42 ; overlayable items in internal ram 
+                             43 ;--------------------------------------------------------
+                             44 	.area OSEG    (OVR,DATA)
+                             45 ;--------------------------------------------------------
+                             46 ; indirectly addressable internal ram data
+                             47 ;--------------------------------------------------------
+                             48 	.area ISEG    (DATA)
+                             49 ;--------------------------------------------------------
+                             50 ; absolute internal ram data
+                             51 ;--------------------------------------------------------
+                             52 	.area IABS    (ABS,DATA)
+                             53 	.area IABS    (ABS,DATA)
+                             54 ;--------------------------------------------------------
+                             55 ; bit data
+                             56 ;--------------------------------------------------------
+                             57 	.area BSEG    (BIT)
+                             58 ;--------------------------------------------------------
+                             59 ; paged external ram data
+                             60 ;--------------------------------------------------------
+                             61 	.area PSEG    (PAG,XDATA)
+                             62 ;--------------------------------------------------------
+                             63 ; external ram data
+                             64 ;--------------------------------------------------------
+                             65 	.area XSEG    (XDATA)
+   0000                      66 _toaster_constructor_base_1_1:
+   0000                      67 	.ds 3
+   0003                      68 _toaster_destructor_self_1_1:
+   0003                      69 	.ds 3
+   0006                      70 _toaster_constructor2_self_1_1:
+   0006                      71 	.ds 3
+                             72 ;--------------------------------------------------------
+                             73 ; absolute external ram data
+                             74 ;--------------------------------------------------------
+                             75 	.area XABS    (ABS,XDATA)
+                             76 ;--------------------------------------------------------
+                             77 ; external initialized ram data
+                             78 ;--------------------------------------------------------
+                             79 	.area XISEG   (XDATA)
+   0000                      80 _toaster_name:
+   0000                      81 	.ds 3
+                             82 	.area HOME    (CODE)
+                             83 	.area GSINIT0 (CODE)
+                             84 	.area GSINIT1 (CODE)
+                             85 	.area GSINIT2 (CODE)
+                             86 	.area GSINIT3 (CODE)
+                             87 	.area GSINIT4 (CODE)
+                             88 	.area GSINIT5 (CODE)
+                             89 	.area GSINIT  (CODE)
+                             90 	.area GSFINAL (CODE)
+                             91 	.area CSEG    (CODE)
+                             92 ;--------------------------------------------------------
+                             93 ; global & static initialisations
+                             94 ;--------------------------------------------------------
+                             95 	.area HOME    (CODE)
+                             96 	.area GSINIT  (CODE)
+                             97 	.area GSFINAL (CODE)
+                             98 	.area GSINIT  (CODE)
+                             99 ;--------------------------------------------------------
+                            100 ; Home
+                            101 ;--------------------------------------------------------
+                            102 	.area HOME    (CODE)
+                            103 	.area HOME    (CODE)
+                            104 ;--------------------------------------------------------
+                            105 ; code
+                            106 ;--------------------------------------------------------
+                            107 	.area CSEG    (CODE)
+                            108 ;------------------------------------------------------------
+                            109 ;Allocation info for local variables in function 'toaster_getEventQueueDepth'
+                            110 ;------------------------------------------------------------
+                            111 ;------------------------------------------------------------
+                            112 ;	../sm_test_toaster.c:29: SET_EVENT_QUEUE_DEPTH(config_toastEVENT_QUEUE_DEPTH) ;
+                            113 ;	-----------------------------------------
+                            114 ;	 function toaster_getEventQueueDepth
+                            115 ;	-----------------------------------------
+   0000                     116 _toaster_getEventQueueDepth:
+                    0002    117 	ar2 = 0x02
+                    0003    118 	ar3 = 0x03
+                    0004    119 	ar4 = 0x04
+                    0005    120 	ar5 = 0x05
+                    0006    121 	ar6 = 0x06
+                    0007    122 	ar7 = 0x07
+                    0000    123 	ar0 = 0x00
+                    0001    124 	ar1 = 0x01
+   0000 90 00 08            125 	mov	dptr,#0x0008
+   0003 22                  126 	ret
+                            127 ;------------------------------------------------------------
+                            128 ;Allocation info for local variables in function 'toaster_constructor'
+                            129 ;------------------------------------------------------------
+                            130 ;sloc0                     Allocated with name '_toaster_constructor_sloc0_1_0'
+                            131 ;base                      Allocated with name '_toaster_constructor_base_1_1'
+                            132 ;------------------------------------------------------------
+                            133 ;	../sm_test_toaster.c:45: END_STATE_MACHINE_DEFINITION() ;
+                            134 ;	-----------------------------------------
+                            135 ;	 function toaster_constructor
+                            136 ;	-----------------------------------------
+   0004                     137 _toaster_constructor:
+   0004 AA F0               138 	mov	r2,b
+   0006 AB 83               139 	mov	r3,dph
+   0008 E5 82               140 	mov	a,dpl
+   000A 90s00r00            141 	mov	dptr,#_toaster_constructor_base_1_1
+   000D F0                  142 	movx	@dptr,a
+   000E A3                  143 	inc	dptr
+   000F EB                  144 	mov	a,r3
+   0010 F0                  145 	movx	@dptr,a
+   0011 A3                  146 	inc	dptr
+   0012 EA                  147 	mov	a,r2
+   0013 F0                  148 	movx	@dptr,a
+   0014 90s00r00            149 	mov	dptr,#_toaster_constructor_base_1_1
+   0017 E0                  150 	movx	a,@dptr
+   0018 FA                  151 	mov	r2,a
+   0019 A3                  152 	inc	dptr
+   001A E0                  153 	movx	a,@dptr
+   001B FB                  154 	mov	r3,a
+   001C A3                  155 	inc	dptr
+   001D E0                  156 	movx	a,@dptr
+   001E FC                  157 	mov	r4,a
+   001F 8A 82               158 	mov	dpl,r2
+   0021 8B 83               159 	mov	dph,r3
+   0023 8C F0               160 	mov	b,r4
+   0025 74r00               161 	mov	a,#_toaster_TOP
+   0027 12s00r00            162 	lcall	__gptrput
+   002A A3                  163 	inc	dptr
+   002B 74s00               164 	mov	a,#(_toaster_TOP >> 8)
+   002D 12s00r00            165 	lcall	__gptrput
+   0030 74 06               166 	mov	a,#0x06
+   0032 2A                  167 	add	a,r2
+   0033 FD                  168 	mov	r5,a
+   0034 E4                  169 	clr	a
+   0035 3B                  170 	addc	a,r3
+   0036 FE                  171 	mov	r6,a
+   0037 8C 07               172 	mov	ar7,r4
+   0039 8D 82               173 	mov	dpl,r5
+   003B 8E 83               174 	mov	dph,r6
+   003D 8F F0               175 	mov	b,r7
+   003F 74r00               176 	mov	a,#_toaster_TOP
+   0041 12s00r00            177 	lcall	__gptrput
+   0044 A3                  178 	inc	dptr
+   0045 74s00               179 	mov	a,#(_toaster_TOP >> 8)
+   0047 12s00r00            180 	lcall	__gptrput
+   004A A3                  181 	inc	dptr
+   004B 74 80               182 	mov	a,#0x80
+   004D 12s00r00            183 	lcall	__gptrput
+   0050 74 02               184 	mov	a,#0x02
+   0052 2A                  185 	add	a,r2
+   0053 FD                  186 	mov	r5,a
+   0054 E4                  187 	clr	a
+   0055 3B                  188 	addc	a,r3
+   0056 FE                  189 	mov	r6,a
+   0057 8C 07               190 	mov	ar7,r4
+   0059 8D 82               191 	mov	dpl,r5
+   005B 8E 83               192 	mov	dph,r6
+   005D 8F F0               193 	mov	b,r7
+   005F E4                  194 	clr	a
+   0060 12s00r00            195 	lcall	__gptrput
+   0063 74 03               196 	mov	a,#0x03
+   0065 2A                  197 	add	a,r2
+   0066 F5*00               198 	mov	_toaster_constructor_sloc0_1_0,a
+   0068 E4                  199 	clr	a
+   0069 3B                  200 	addc	a,r3
+   006A F5*01               201 	mov	(_toaster_constructor_sloc0_1_0 + 1),a
+   006C 8C*02               202 	mov	(_toaster_constructor_sloc0_1_0 + 2),r4
+   006E 90s00r00            203 	mov	dptr,#_toaster_name
+   0071 E0                  204 	movx	a,@dptr
+   0072 F8                  205 	mov	r0,a
+   0073 A3                  206 	inc	dptr
+   0074 E0                  207 	movx	a,@dptr
+   0075 F9                  208 	mov	r1,a
+   0076 A3                  209 	inc	dptr
+   0077 E0                  210 	movx	a,@dptr
+   0078 FD                  211 	mov	r5,a
+   0079 85*00 82            212 	mov	dpl,_toaster_constructor_sloc0_1_0
+   007C 85*01 83            213 	mov	dph,(_toaster_constructor_sloc0_1_0 + 1)
+   007F 85*02 F0            214 	mov	b,(_toaster_constructor_sloc0_1_0 + 2)
+   0082 E8                  215 	mov	a,r0
+   0083 12s00r00            216 	lcall	__gptrput
+   0086 A3                  217 	inc	dptr
+   0087 E9                  218 	mov	a,r1
+   0088 12s00r00            219 	lcall	__gptrput
+   008B A3                  220 	inc	dptr
+   008C ED                  221 	mov	a,r5
+   008D 12s00r00            222 	lcall	__gptrput
+   0090 8A 82               223 	mov	dpl,r2
+   0092 8B 83               224 	mov	dph,r3
+   0094 8C F0               225 	mov	b,r4
+   0096 02s00rC1            226 	ljmp	_toaster_constructor2
+                            227 ;------------------------------------------------------------
+                            228 ;Allocation info for local variables in function 'toaster_destructor'
+                            229 ;------------------------------------------------------------
+                            230 ;self                      Allocated with name '_toaster_destructor_self_1_1'
+                            231 ;------------------------------------------------------------
+                            232 ;	../sm_test_toaster.c:45: 
+                            233 ;	-----------------------------------------
+                            234 ;	 function toaster_destructor
+                            235 ;	-----------------------------------------
+   0099                     236 _toaster_destructor:
+   0099 AA F0               237 	mov	r2,b
+   009B AB 83               238 	mov	r3,dph
+   009D E5 82               239 	mov	a,dpl
+   009F 90s00r03            240 	mov	dptr,#_toaster_destructor_self_1_1
+   00A2 F0                  241 	movx	@dptr,a
+   00A3 A3                  242 	inc	dptr
+   00A4 EB                  243 	mov	a,r3
+   00A5 F0                  244 	movx	@dptr,a
+   00A6 A3                  245 	inc	dptr
+   00A7 EA                  246 	mov	a,r2
+   00A8 F0                  247 	movx	@dptr,a
+   00A9 90s00r03            248 	mov	dptr,#_toaster_destructor_self_1_1
+   00AC E0                  249 	movx	a,@dptr
+   00AD FA                  250 	mov	r2,a
+   00AE A3                  251 	inc	dptr
+   00AF E0                  252 	movx	a,@dptr
+   00B0 FB                  253 	mov	r3,a
+   00B1 A3                  254 	inc	dptr
+   00B2 E0                  255 	movx	a,@dptr
+   00B3 FC                  256 	mov	r4,a
+   00B4 8A 82               257 	mov	dpl,r2
+   00B6 8B 83               258 	mov	dph,r3
+   00B8 8C F0               259 	mov	b,r4
+   00BA 02s01r13            260 	ljmp	_toaster_destructor2
+                            261 ;------------------------------------------------------------
+                            262 ;Allocation info for local variables in function 'toaster_getMachineSize'
+                            263 ;------------------------------------------------------------
+                            264 ;------------------------------------------------------------
+                            265 ;	../sm_test_toaster.c:45: END_STATE_MACHINE_DEFINITION() ;
+                            266 ;	-----------------------------------------
+                            267 ;	 function toaster_getMachineSize
+                            268 ;	-----------------------------------------
+   00BD                     269 _toaster_getMachineSize:
+   00BD 90 00 18            270 	mov	dptr,#0x0018
+   00C0 22                  271 	ret
+                            272 ;------------------------------------------------------------
+                            273 ;Allocation info for local variables in function 'toaster_constructor2'
+                            274 ;------------------------------------------------------------
+                            275 ;self                      Allocated with name '_toaster_constructor2_self_1_1'
+                            276 ;------------------------------------------------------------
+                            277 ;	../sm_test_toaster.c:48: STATE_MACHINE_CONSTRUCTOR()
+                            278 ;	-----------------------------------------
+                            279 ;	 function toaster_constructor2
+                            280 ;	-----------------------------------------
+   00C1                     281 _toaster_constructor2:
+   00C1 AA F0               282 	mov	r2,b
+   00C3 AB 83               283 	mov	r3,dph
+   00C5 E5 82               284 	mov	a,dpl
+   00C7 90s00r06            285 	mov	dptr,#_toaster_constructor2_self_1_1
+   00CA F0                  286 	movx	@dptr,a
+   00CB A3                  287 	inc	dptr
+   00CC EB                  288 	mov	a,r3
+   00CD F0                  289 	movx	@dptr,a
+   00CE A3                  290 	inc	dptr
+   00CF EA                  291 	mov	a,r2
+   00D0 F0                  292 	movx	@dptr,a
+                            293 ;	../sm_test_toaster.c:50: self->cookingTime_hours		= 0 ;
+   00D1 90s00r06            294 	mov	dptr,#_toaster_constructor2_self_1_1
+   00D4 E0                  295 	movx	a,@dptr
+   00D5 FA                  296 	mov	r2,a
+   00D6 A3                  297 	inc	dptr
+   00D7 E0                  298 	movx	a,@dptr
+   00D8 FB                  299 	mov	r3,a
+   00D9 A3                  300 	inc	dptr
+   00DA E0                  301 	movx	a,@dptr
+   00DB FC                  302 	mov	r4,a
+   00DC 74 15               303 	mov	a,#0x15
+   00DE 2A                  304 	add	a,r2
+   00DF FD                  305 	mov	r5,a
+   00E0 E4                  306 	clr	a
+   00E1 3B                  307 	addc	a,r3
+   00E2 FE                  308 	mov	r6,a
+   00E3 8C 07               309 	mov	ar7,r4
+   00E5 8D 82               310 	mov	dpl,r5
+   00E7 8E 83               311 	mov	dph,r6
+   00E9 8F F0               312 	mov	b,r7
+   00EB E4                  313 	clr	a
+   00EC 12s00r00            314 	lcall	__gptrput
+                            315 ;	../sm_test_toaster.c:51: self->cookingTime_minutes	= 0 ;
+   00EF 74 16               316 	mov	a,#0x16
+   00F1 2A                  317 	add	a,r2
+   00F2 FD                  318 	mov	r5,a
+   00F3 E4                  319 	clr	a
+   00F4 3B                  320 	addc	a,r3
+   00F5 FE                  321 	mov	r6,a
+   00F6 8C 07               322 	mov	ar7,r4
+   00F8 8D 82               323 	mov	dpl,r5
+   00FA 8E 83               324 	mov	dph,r6
+   00FC 8F F0               325 	mov	b,r7
+   00FE E4                  326 	clr	a
+   00FF 12s00r00            327 	lcall	__gptrput
+                            328 ;	../sm_test_toaster.c:52: self->cookingTime_seconds	= 0 ;
+   0102 74 17               329 	mov	a,#0x17
+   0104 2A                  330 	add	a,r2
+   0105 FA                  331 	mov	r2,a
+   0106 E4                  332 	clr	a
+   0107 3B                  333 	addc	a,r3
+   0108 FB                  334 	mov	r3,a
+   0109 8A 82               335 	mov	dpl,r2
+   010B 8B 83               336 	mov	dph,r3
+   010D 8C F0               337 	mov	b,r4
+   010F E4                  338 	clr	a
+   0110 02s00r00            339 	ljmp	__gptrput
+                            340 ;------------------------------------------------------------
+                            341 ;Allocation info for local variables in function 'toaster_destructor2'
+                            342 ;------------------------------------------------------------
+                            343 ;self                      Allocated with name '_toaster_destructor2_self_1_1'
+                            344 ;------------------------------------------------------------
+                            345 ;	../sm_test_toaster.c:56: STATE_MACHINE_DESTRUCTOR()
+                            346 ;	-----------------------------------------
+                            347 ;	 function toaster_destructor2
+                            348 ;	-----------------------------------------
+   0113                     349 _toaster_destructor2:
+                            350 ;	../sm_test_toaster.c:58: (void)self ;	/* Nothing to do here */
+   0113 22                  351 	ret
+                            352 ;------------------------------------------------------------
+                            353 ;Allocation info for local variables in function 'heaterOn'
+                            354 ;------------------------------------------------------------
+                            355 ;------------------------------------------------------------
+                            356 ;	../sm_test_toaster.c:62: void heaterOn(	void)
+                            357 ;	-----------------------------------------
+                            358 ;	 function heaterOn
+                            359 ;	-----------------------------------------
+   0114                     360 _heaterOn:
+                            361 ;	../sm_test_toaster.c:64: }
+   0114 22                  362 	ret
+                            363 ;------------------------------------------------------------
+                            364 ;Allocation info for local variables in function 'heaterOff'
+                            365 ;------------------------------------------------------------
+                            366 ;------------------------------------------------------------
+                            367 ;	../sm_test_toaster.c:67: void heaterOff(	void)
+                            368 ;	-----------------------------------------
+                            369 ;	 function heaterOff
+                            370 ;	-----------------------------------------
+   0115                     371 _heaterOff:
+                            372 ;	../sm_test_toaster.c:69: }
+   0115 22                  373 	ret
+                            374 ;------------------------------------------------------------
+                            375 ;Allocation info for local variables in function 'lampOn'
+                            376 ;------------------------------------------------------------
+                            377 ;------------------------------------------------------------
+                            378 ;	../sm_test_toaster.c:71: void lampOn(	void)
+                            379 ;	-----------------------------------------
+                            380 ;	 function lampOn
+                            381 ;	-----------------------------------------
+   0116                     382 _lampOn:
+                            383 ;	../sm_test_toaster.c:73: }
+   0116 22                  384 	ret
+                            385 ;------------------------------------------------------------
+                            386 ;Allocation info for local variables in function 'lampOff'
+                            387 ;------------------------------------------------------------
+                            388 ;------------------------------------------------------------
+                            389 ;	../sm_test_toaster.c:75: void lampOff(	void)
+                            390 ;	-----------------------------------------
+                            391 ;	 function lampOff
+                            392 ;	-----------------------------------------
+   0117                     393 _lampOff:
+                            394 ;	../sm_test_toaster.c:77: }
+   0117 22                  395 	ret
+                            396 ;------------------------------------------------------------
+                            397 ;Allocation info for local variables in function 'toaster_TOP_handler'
+                            398 ;------------------------------------------------------------
+                            399 ;event                     Allocated to stack - offset -5
+                            400 ;self                      Allocated to registers r2 r3 r4 
+                            401 ;stateResponseCode         Allocated to registers 
+                            402 ;------------------------------------------------------------
+                            403 ;	../sm_test_toaster.c:80: DEFINE_TOP_STATE()
+                            404 ;	-----------------------------------------
+                            405 ;	 function toaster_TOP_handler
+                            406 ;	-----------------------------------------
+   0118                     407 _toaster_TOP_handler:
+   0118 C0*00               408 	push	_bp
+   011A 85 81*00            409 	mov	_bp,sp
+   011D AA 82               410 	mov	r2,dpl
+   011F AB 83               411 	mov	r3,dph
+   0121 AC F0               412 	mov	r4,b
+                            413 ;	../sm_test_toaster.c:82: self->cookingTime_hours		= 0 ;
+   0123 74 15               414 	mov	a,#0x15
+   0125 2A                  415 	add	a,r2
+   0126 FD                  416 	mov	r5,a
+   0127 E4                  417 	clr	a
+   0128 3B                  418 	addc	a,r3
+   0129 FE                  419 	mov	r6,a
+   012A 8C 07               420 	mov	ar7,r4
+   012C 8D 82               421 	mov	dpl,r5
+   012E 8E 83               422 	mov	dph,r6
+   0130 8F F0               423 	mov	b,r7
+   0132 E4                  424 	clr	a
+   0133 12s00r00            425 	lcall	__gptrput
+                            426 ;	../sm_test_toaster.c:83: self->cookingTime_minutes	= 0 ;
+   0136 74 16               427 	mov	a,#0x16
+   0138 2A                  428 	add	a,r2
+   0139 FD                  429 	mov	r5,a
+   013A E4                  430 	clr	a
+   013B 3B                  431 	addc	a,r3
+   013C FE                  432 	mov	r6,a
+   013D 8C 07               433 	mov	ar7,r4
+   013F 8D 82               434 	mov	dpl,r5
+   0141 8E 83               435 	mov	dph,r6
+   0143 8F F0               436 	mov	b,r7
+   0145 E4                  437 	clr	a
+   0146 12s00r00            438 	lcall	__gptrput
+                            439 ;	../sm_test_toaster.c:84: self->cookingTime_seconds	= 0 ;
+   0149 74 17               440 	mov	a,#0x17
+   014B 2A                  441 	add	a,r2
+   014C FD                  442 	mov	r5,a
+   014D E4                  443 	clr	a
+   014E 3B                  444 	addc	a,r3
+   014F FE                  445 	mov	r6,a
+   0150 8C 07               446 	mov	ar7,r4
+   0152 8D 82               447 	mov	dpl,r5
+   0154 8E 83               448 	mov	dph,r6
+   0156 8F F0               449 	mov	b,r7
+   0158 E4                  450 	clr	a
+   0159 12s00r00            451 	lcall	__gptrput
+                            452 ;	../sm_test_toaster.c:86: INITIAL_TRANSITION(TO(doorClosed),						NO_ACTION) ;
+   015C E5*00               453 	mov	a,_bp
+   015E 24 FB               454 	add	a,#0xfb
+   0160 F8                  455 	mov	r0,a
+   0161 86 05               456 	mov	ar5,@r0
+   0163 08                  457 	inc	r0
+   0164 86 06               458 	mov	ar6,@r0
+   0166 08                  459 	inc	r0
+   0167 86 07               460 	mov	ar7,@r0
+   0169 8D 82               461 	mov	dpl,r5
+   016B 8E 83               462 	mov	dph,r6
+   016D 8F F0               463 	mov	b,r7
+   016F 12s00r00            464 	lcall	__gptrget
+   0172 FD                  465 	mov	r5,a
+   0173 BD 02 23            466 	cjne	r5,#0x02,00102$
+   0176 74 09               467 	mov	a,#0x09
+   0178 2A                  468 	add	a,r2
+   0179 FA                  469 	mov	r2,a
+   017A E4                  470 	clr	a
+   017B 3B                  471 	addc	a,r3
+   017C FB                  472 	mov	r3,a
+   017D 8A 82               473 	mov	dpl,r2
+   017F 8B 83               474 	mov	dph,r3
+   0181 8C F0               475 	mov	b,r4
+   0183 74r09               476 	mov	a,#_toaster_doorClosed
+   0185 12s00r00            477 	lcall	__gptrput
+   0188 A3                  478 	inc	dptr
+   0189 74s00               479 	mov	a,#(_toaster_doorClosed >> 8)
+   018B 12s00r00            480 	lcall	__gptrput
+   018E A3                  481 	inc	dptr
+   018F 74 80               482 	mov	a,#0x80
+   0191 12s00r00            483 	lcall	__gptrput
+   0194 75 82 02            484 	mov	dpl,#0x02
+   0197 80 03               485 	sjmp	00103$
+   0199                     486 00102$:
+                            487 ;	../sm_test_toaster.c:88: END_DEFINE_STATE()
+   0199 75 82 00            488 	mov	dpl,#0x00
+   019C                     489 00103$:
+   019C D0*00               490 	pop	_bp
+   019E 22                  491 	ret
+                            492 ;------------------------------------------------------------
+                            493 ;Allocation info for local variables in function 'toaster_doorClosed_handler'
+                            494 ;------------------------------------------------------------
+                            495 ;event                     Allocated to stack - offset -5
+                            496 ;self                      Allocated to stack - offset 1
+                            497 ;stateResponseCode         Allocated to registers 
+                            498 ;------------------------------------------------------------
+                            499 ;	../sm_test_toaster.c:91: DEFINE_STATE(doorClosed)
+                            500 ;	-----------------------------------------
+                            501 ;	 function toaster_doorClosed_handler
+                            502 ;	-----------------------------------------
+   019F                     503 _toaster_doorClosed_handler:
+   019F C0*00               504 	push	_bp
+   01A1 85 81*00            505 	mov	_bp,sp
+   01A4 C0 82               506 	push	dpl
+   01A6 C0 83               507 	push	dph
+   01A8 C0 F0               508 	push	b
+                            509 ;	../sm_test_toaster.c:93: INITIAL_TRANSITION(TO(off),								NO_ACTION) ;
+   01AA E5*00               510 	mov	a,_bp
+   01AC 24 FB               511 	add	a,#0xfb
+   01AE F8                  512 	mov	r0,a
+   01AF 86 05               513 	mov	ar5,@r0
+   01B1 08                  514 	inc	r0
+   01B2 86 06               515 	mov	ar6,@r0
+   01B4 08                  516 	inc	r0
+   01B5 86 07               517 	mov	ar7,@r0
+   01B7 8D 82               518 	mov	dpl,r5
+   01B9 8E 83               519 	mov	dph,r6
+   01BB 8F F0               520 	mov	b,r7
+   01BD 12s00r00            521 	lcall	__gptrget
+   01C0 FD                  522 	mov	r5,a
+   01C1 BD 02 2B            523 	cjne	r5,#0x02,00102$
+   01C4 A8*00               524 	mov	r0,_bp
+   01C6 08                  525 	inc	r0
+   01C7 74 09               526 	mov	a,#0x09
+   01C9 26                  527 	add	a,@r0
+   01CA FE                  528 	mov	r6,a
+   01CB E4                  529 	clr	a
+   01CC 08                  530 	inc	r0
+   01CD 36                  531 	addc	a,@r0
+   01CE FF                  532 	mov	r7,a
+   01CF 08                  533 	inc	r0
+   01D0 86 02               534 	mov	ar2,@r0
+   01D2 8E 82               535 	mov	dpl,r6
+   01D4 8F 83               536 	mov	dph,r7
+   01D6 8A F0               537 	mov	b,r2
+   01D8 74r2D               538 	mov	a,#_toaster_off
+   01DA 12s00r00            539 	lcall	__gptrput
+   01DD A3                  540 	inc	dptr
+   01DE 74s00               541 	mov	a,#(_toaster_off >> 8)
+   01E0 12s00r00            542 	lcall	__gptrput
+   01E3 A3                  543 	inc	dptr
+   01E4 74 80               544 	mov	a,#0x80
+   01E6 12s00r00            545 	lcall	__gptrput
+   01E9 75 82 02            546 	mov	dpl,#0x02
+   01EC 02s02rA7            547 	ljmp	00115$
+   01EF                     548 00102$:
+                            549 ;	../sm_test_toaster.c:95: TRANSITION_ON(BAKE,		UNCONDITIONALLY, TO(baking),	NO_ACTION) ;
+   01EF BD 04 2B            550 	cjne	r5,#0x04,00104$
+   01F2 A8*00               551 	mov	r0,_bp
+   01F4 08                  552 	inc	r0
+   01F5 74 09               553 	mov	a,#0x09
+   01F7 26                  554 	add	a,@r0
+   01F8 FA                  555 	mov	r2,a
+   01F9 E4                  556 	clr	a
+   01FA 08                  557 	inc	r0
+   01FB 36                  558 	addc	a,@r0
+   01FC FB                  559 	mov	r3,a
+   01FD 08                  560 	inc	r0
+   01FE 86 04               561 	mov	ar4,@r0
+   0200 8A 82               562 	mov	dpl,r2
+   0202 8B 83               563 	mov	dph,r3
+   0204 8C F0               564 	mov	b,r4
+   0206 74r1B               565 	mov	a,#_toaster_baking
+   0208 12s00r00            566 	lcall	__gptrput
+   020B A3                  567 	inc	dptr
+   020C 74s00               568 	mov	a,#(_toaster_baking >> 8)
+   020E 12s00r00            569 	lcall	__gptrput
+   0211 A3                  570 	inc	dptr
+   0212 74 80               571 	mov	a,#0x80
+   0214 12s00r00            572 	lcall	__gptrput
+   0217 75 82 02            573 	mov	dpl,#0x02
+   021A 02s02rA7            574 	ljmp	00115$
+   021D                     575 00104$:
+                            576 ;	../sm_test_toaster.c:96: TRANSITION_ON(TOAST,	UNCONDITIONALLY, TO(toasting),	NO_ACTION) ;
+   021D BD 05 2A            577 	cjne	r5,#0x05,00107$
+   0220 A8*00               578 	mov	r0,_bp
+   0222 08                  579 	inc	r0
+   0223 74 09               580 	mov	a,#0x09
+   0225 26                  581 	add	a,@r0
+   0226 FA                  582 	mov	r2,a
+   0227 E4                  583 	clr	a
+   0228 08                  584 	inc	r0
+   0229 36                  585 	addc	a,@r0
+   022A FB                  586 	mov	r3,a
+   022B 08                  587 	inc	r0
+   022C 86 04               588 	mov	ar4,@r0
+   022E 8A 82               589 	mov	dpl,r2
+   0230 8B 83               590 	mov	dph,r3
+   0232 8C F0               591 	mov	b,r4
+   0234 74r24               592 	mov	a,#_toaster_toasting
+   0236 12s00r00            593 	lcall	__gptrput
+   0239 A3                  594 	inc	dptr
+   023A 74s00               595 	mov	a,#(_toaster_toasting >> 8)
+   023C 12s00r00            596 	lcall	__gptrput
+   023F A3                  597 	inc	dptr
+   0240 74 80               598 	mov	a,#0x80
+   0242 12s00r00            599 	lcall	__gptrput
+   0245 75 82 02            600 	mov	dpl,#0x02
+   0248 80 5D               601 	sjmp	00115$
+   024A                     602 00107$:
+                            603 ;	../sm_test_toaster.c:97: TRANSITION_ON(OFF,		UNCONDITIONALLY, TO(off),		NO_ACTION) ;
+   024A BD 06 2A            604 	cjne	r5,#0x06,00110$
+   024D A8*00               605 	mov	r0,_bp
+   024F 08                  606 	inc	r0
+   0250 74 09               607 	mov	a,#0x09
+   0252 26                  608 	add	a,@r0
+   0253 FA                  609 	mov	r2,a
+   0254 E4                  610 	clr	a
+   0255 08                  611 	inc	r0
+   0256 36                  612 	addc	a,@r0
+   0257 FB                  613 	mov	r3,a
+   0258 08                  614 	inc	r0
+   0259 86 04               615 	mov	ar4,@r0
+   025B 8A 82               616 	mov	dpl,r2
+   025D 8B 83               617 	mov	dph,r3
+   025F 8C F0               618 	mov	b,r4
+   0261 74r2D               619 	mov	a,#_toaster_off
+   0263 12s00r00            620 	lcall	__gptrput
+   0266 A3                  621 	inc	dptr
+   0267 74s00               622 	mov	a,#(_toaster_off >> 8)
+   0269 12s00r00            623 	lcall	__gptrput
+   026C A3                  624 	inc	dptr
+   026D 74 80               625 	mov	a,#0x80
+   026F 12s00r00            626 	lcall	__gptrput
+   0272 75 82 02            627 	mov	dpl,#0x02
+   0275 80 30               628 	sjmp	00115$
+   0277                     629 00110$:
+                            630 ;	../sm_test_toaster.c:98: TRANSITION_ON(OPEN,		UNCONDITIONALLY, TO(off),		NO_ACTION) ;
+   0277 BD 07 2A            631 	cjne	r5,#0x07,00113$
+   027A A8*00               632 	mov	r0,_bp
+   027C 08                  633 	inc	r0
+   027D 74 09               634 	mov	a,#0x09
+   027F 26                  635 	add	a,@r0
+   0280 FA                  636 	mov	r2,a
+   0281 E4                  637 	clr	a
+   0282 08                  638 	inc	r0
+   0283 36                  639 	addc	a,@r0
+   0284 FB                  640 	mov	r3,a
+   0285 08                  641 	inc	r0
+   0286 86 04               642 	mov	ar4,@r0
+   0288 8A 82               643 	mov	dpl,r2
+   028A 8B 83               644 	mov	dph,r3
+   028C 8C F0               645 	mov	b,r4
+   028E 74r2D               646 	mov	a,#_toaster_off
+   0290 12s00r00            647 	lcall	__gptrput
+   0293 A3                  648 	inc	dptr
+   0294 74s00               649 	mov	a,#(_toaster_off >> 8)
+   0296 12s00r00            650 	lcall	__gptrput
+   0299 A3                  651 	inc	dptr
+   029A 74 80               652 	mov	a,#0x80
+   029C 12s00r00            653 	lcall	__gptrput
+   029F 75 82 02            654 	mov	dpl,#0x02
+   02A2 80 03               655 	sjmp	00115$
+   02A4                     656 00113$:
+                            657 ;	../sm_test_toaster.c:100: END_DEFINE_STATE()
+   02A4 75 82 00            658 	mov	dpl,#0x00
+   02A7                     659 00115$:
+   02A7 85*00 81            660 	mov	sp,_bp
+   02AA D0*00               661 	pop	_bp
+   02AC 22                  662 	ret
+                            663 ;------------------------------------------------------------
+                            664 ;Allocation info for local variables in function 'toaster_heating_handler'
+                            665 ;------------------------------------------------------------
+                            666 ;event                     Allocated to stack - offset -5
+                            667 ;self                      Allocated to registers 
+                            668 ;stateResponseCode         Allocated to registers 
+                            669 ;------------------------------------------------------------
+                            670 ;	../sm_test_toaster.c:103: DEFINE_STATE(heating)
+                            671 ;	-----------------------------------------
+                            672 ;	 function toaster_heating_handler
+                            673 ;	-----------------------------------------
+   02AD                     674 _toaster_heating_handler:
+   02AD C0*00               675 	push	_bp
+   02AF 85 81*00            676 	mov	_bp,sp
+                            677 ;	../sm_test_toaster.c:105: ON_ENTRY(	heaterOn()) ;
+   02B2 E5*00               678 	mov	a,_bp
+   02B4 24 FB               679 	add	a,#0xfb
+   02B6 F8                  680 	mov	r0,a
+   02B7 86 02               681 	mov	ar2,@r0
+   02B9 08                  682 	inc	r0
+   02BA 86 03               683 	mov	ar3,@r0
+   02BC 08                  684 	inc	r0
+   02BD 86 04               685 	mov	ar4,@r0
+   02BF 8A 82               686 	mov	dpl,r2
+   02C1 8B 83               687 	mov	dph,r3
+   02C3 8C F0               688 	mov	b,r4
+   02C5 12s00r00            689 	lcall	__gptrget
+   02C8 FD                  690 	mov	r5,a
+   02C9 BD 01 0F            691 	cjne	r5,#0x01,00102$
+   02CC C0 02               692 	push	ar2
+   02CE C0 03               693 	push	ar3
+   02D0 C0 04               694 	push	ar4
+   02D2 12s01r14            695 	lcall	_heaterOn
+   02D5 D0 04               696 	pop	ar4
+   02D7 D0 03               697 	pop	ar3
+   02D9 D0 02               698 	pop	ar2
+   02DB                     699 00102$:
+                            700 ;	../sm_test_toaster.c:106: ON_EXIT(	heaterOff()) ;
+   02DB 8A 82               701 	mov	dpl,r2
+   02DD 8B 83               702 	mov	dph,r3
+   02DF 8C F0               703 	mov	b,r4
+   02E1 12s00r00            704 	lcall	__gptrget
+   02E4 FA                  705 	mov	r2,a
+   02E5 BA 01 03            706 	cjne	r2,#0x01,00104$
+   02E8 12s01r15            707 	lcall	_heaterOff
+   02EB                     708 00104$:
+                            709 ;	../sm_test_toaster.c:108: END_DEFINE_STATE()
+   02EB 75 82 00            710 	mov	dpl,#0x00
+   02EE D0*00               711 	pop	_bp
+   02F0 22                  712 	ret
+                            713 ;------------------------------------------------------------
+                            714 ;Allocation info for local variables in function 'toaster_baking_handler'
+                            715 ;------------------------------------------------------------
+                            716 ;event                     Allocated to stack - offset -5
+                            717 ;self                      Allocated to registers 
+                            718 ;stateResponseCode         Allocated to registers 
+                            719 ;------------------------------------------------------------
+                            720 ;	../sm_test_toaster.c:111: DEFINE_STATE(baking)
+                            721 ;	-----------------------------------------
+                            722 ;	 function toaster_baking_handler
+                            723 ;	-----------------------------------------
+   02F1                     724 _toaster_baking_handler:
+   02F1 C0*00               725 	push	_bp
+   02F3 85 81*00            726 	mov	_bp,sp
+                            727 ;	../sm_test_toaster.c:114: END_DEFINE_STATE()
+   02F6 75 82 00            728 	mov	dpl,#0x00
+   02F9 D0*00               729 	pop	_bp
+   02FB 22                  730 	ret
+                            731 ;------------------------------------------------------------
+                            732 ;Allocation info for local variables in function 'toaster_toasting_handler'
+                            733 ;------------------------------------------------------------
+                            734 ;event                     Allocated to stack - offset -5
+                            735 ;self                      Allocated to registers 
+                            736 ;stateResponseCode         Allocated to registers 
+                            737 ;------------------------------------------------------------
+                            738 ;	../sm_test_toaster.c:117: DEFINE_STATE(toasting)
+                            739 ;	-----------------------------------------
+                            740 ;	 function toaster_toasting_handler
+                            741 ;	-----------------------------------------
+   02FC                     742 _toaster_toasting_handler:
+   02FC C0*00               743 	push	_bp
+   02FE 85 81*00            744 	mov	_bp,sp
+                            745 ;	../sm_test_toaster.c:120: END_DEFINE_STATE()
+   0301 75 82 00            746 	mov	dpl,#0x00
+   0304 D0*00               747 	pop	_bp
+   0306 22                  748 	ret
+                            749 ;------------------------------------------------------------
+                            750 ;Allocation info for local variables in function 'toaster_off_handler'
+                            751 ;------------------------------------------------------------
+                            752 ;event                     Allocated to stack - offset -5
+                            753 ;self                      Allocated to registers 
+                            754 ;stateResponseCode         Allocated to registers 
+                            755 ;------------------------------------------------------------
+                            756 ;	../sm_test_toaster.c:123: DEFINE_STATE(off)
+                            757 ;	-----------------------------------------
+                            758 ;	 function toaster_off_handler
+                            759 ;	-----------------------------------------
+   0307                     760 _toaster_off_handler:
+   0307 C0*00               761 	push	_bp
+   0309 85 81*00            762 	mov	_bp,sp
+                            763 ;	../sm_test_toaster.c:126: END_DEFINE_STATE()
+   030C 75 82 00            764 	mov	dpl,#0x00
+   030F D0*00               765 	pop	_bp
+   0311 22                  766 	ret
+                            767 ;------------------------------------------------------------
+                            768 ;Allocation info for local variables in function 'toaster_doorOpen_handler'
+                            769 ;------------------------------------------------------------
+                            770 ;event                     Allocated to stack - offset -5
+                            771 ;self                      Allocated to registers 
+                            772 ;stateResponseCode         Allocated to registers 
+                            773 ;------------------------------------------------------------
+                            774 ;	../sm_test_toaster.c:129: DEFINE_STATE(doorOpen)
+                            775 ;	-----------------------------------------
+                            776 ;	 function toaster_doorOpen_handler
+                            777 ;	-----------------------------------------
+   0312                     778 _toaster_doorOpen_handler:
+   0312 C0*00               779 	push	_bp
+   0314 85 81*00            780 	mov	_bp,sp
+                            781 ;	../sm_test_toaster.c:134: ON_ENTRY(	lampOn()) ;
+   0317 E5*00               782 	mov	a,_bp
+   0319 24 FB               783 	add	a,#0xfb
+   031B F8                  784 	mov	r0,a
+   031C 86 02               785 	mov	ar2,@r0
+   031E 08                  786 	inc	r0
+   031F 86 03               787 	mov	ar3,@r0
+   0321 08                  788 	inc	r0
+   0322 86 04               789 	mov	ar4,@r0
+   0324 8A 82               790 	mov	dpl,r2
+   0326 8B 83               791 	mov	dph,r3
+   0328 8C F0               792 	mov	b,r4
+   032A 12s00r00            793 	lcall	__gptrget
+   032D FD                  794 	mov	r5,a
+   032E BD 01 0F            795 	cjne	r5,#0x01,00102$
+   0331 C0 02               796 	push	ar2
+   0333 C0 03               797 	push	ar3
+   0335 C0 04               798 	push	ar4
+   0337 12s01r16            799 	lcall	_lampOn
+   033A D0 04               800 	pop	ar4
+   033C D0 03               801 	pop	ar3
+   033E D0 02               802 	pop	ar2
+   0340                     803 00102$:
+                            804 ;	../sm_test_toaster.c:135: ON_EXIT(	lampOff()) ;
+   0340 8A 82               805 	mov	dpl,r2
+   0342 8B 83               806 	mov	dph,r3
+   0344 8C F0               807 	mov	b,r4
+   0346 12s00r00            808 	lcall	__gptrget
+   0349 FA                  809 	mov	r2,a
+   034A BA 01 03            810 	cjne	r2,#0x01,00104$
+   034D 12s01r17            811 	lcall	_lampOff
+   0350                     812 00104$:
+                            813 ;	../sm_test_toaster.c:139: END_DEFINE_STATE()
+   0350 75 82 00            814 	mov	dpl,#0x00
+   0353 D0*00               815 	pop	_bp
+   0355 22                  816 	ret
+                            817 	.area CSEG    (CODE)
+                            818 	.area CONST   (CODE)
+   0000                     819 _toaster_TOP:
+                            820 ; generic printIvalPtr
+   0000 00 00 00            821 	.byte #0x00,#0x00,#0x00
+   0003 00                  822 	.db #0x00
+   0004r18s01               823 	.byte _toaster_TOP_handler,(_toaster_TOP_handler >> 8)
+   0006r47s00 80            824 	.byte _str_1,(_str_1 >> 8),#0x80
+   0009                     825 _toaster_doorClosed:
+   0009r00s00 80            826 	.byte _toaster_TOP,(_toaster_TOP >> 8),#0x80
+   000C 00                  827 	.db #0x00
+   000Dr9Fs01               828 	.byte _toaster_doorClosed_handler,(_toaster_doorClosed_handler >> 8)
+   000Fr53s00 80            829 	.byte _str_2,(_str_2 >> 8),#0x80
+   0012                     830 _toaster_heating:
+   0012r09s00 80            831 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
+   0015 00                  832 	.db #0x00
+   0016rADs02               833 	.byte _toaster_heating_handler,(_toaster_heating_handler >> 8)
+   0018r66s00 80            834 	.byte _str_3,(_str_3 >> 8),#0x80
+   001B                     835 _toaster_baking:
+   001Br09s00 80            836 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
+   001E 00                  837 	.db #0x00
+   001FrF1s02               838 	.byte _toaster_baking_handler,(_toaster_baking_handler >> 8)
+   0021r76s00 80            839 	.byte _str_4,(_str_4 >> 8),#0x80
+   0024                     840 _toaster_toasting:
+   0024r09s00 80            841 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
+   0027 00                  842 	.db #0x00
+   0028rFCs02               843 	.byte _toaster_toasting_handler,(_toaster_toasting_handler >> 8)
+   002Ar85s00 80            844 	.byte _str_5,(_str_5 >> 8),#0x80
+   002D                     845 _toaster_off:
+   002Dr09s00 80            846 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
+   0030 00                  847 	.db #0x00
+   0031r07s03               848 	.byte _toaster_off_handler,(_toaster_off_handler >> 8)
+   0033r96s00 80            849 	.byte _str_6,(_str_6 >> 8),#0x80
+   0036                     850 _toaster_doorOpen:
+   0036r00s00 80            851 	.byte _toaster_TOP,(_toaster_TOP >> 8),#0x80
+   0039 00                  852 	.db #0x00
+   003Ar12s03               853 	.byte _toaster_doorOpen_handler,(_toaster_doorOpen_handler >> 8)
+   003CrA2s00 80            854 	.byte _str_7,(_str_7 >> 8),#0x80
+   003F                     855 __str_0:
+   003F 74 6F 61 73 74 65   856 	.ascii "toaster"
+        72
+   0046 00                  857 	.db 0x00
+   0047                     858 _str_1:
+   0047 74 6F 61 73 74 65   859 	.ascii "toaster_TOP"
+        72 5F 54 4F 50
+   0052 00                  860 	.db 0x00
+   0053                     861 _str_2:
+   0053 74 6F 61 73 74 65   862 	.ascii "toaster_doorClosed"
+        72 5F 64 6F 6F 72
+        43 6C 6F 73 65 64
+   0065 00                  863 	.db 0x00
+   0066                     864 _str_3:
+   0066 74 6F 61 73 74 65   865 	.ascii "toaster_heating"
+        72 5F 68 65 61 74
+        69 6E 67
+   0075 00                  866 	.db 0x00
+   0076                     867 _str_4:
+   0076 74 6F 61 73 74 65   868 	.ascii "toaster_baking"
+        72 5F 62 61 6B 69
+        6E 67
+   0084 00                  869 	.db 0x00
+   0085                     870 _str_5:
+   0085 74 6F 61 73 74 65   871 	.ascii "toaster_toasting"
+        72 5F 74 6F 61 73
+        74 69 6E 67
+   0095 00                  872 	.db 0x00
+   0096                     873 _str_6:
+   0096 74 6F 61 73 74 65   874 	.ascii "toaster_off"
+        72 5F 6F 66 66
+   00A1 00                  875 	.db 0x00
+   00A2                     876 _str_7:
+   00A2 74 6F 61 73 74 65   877 	.ascii "toaster_doorOpen"
+        72 5F 64 6F 6F 72
+        4F 70 65 6E
+   00B2 00                  878 	.db 0x00
+                            879 	.area XINIT   (CODE)
+   0000                     880 __xinit__toaster_name:
+   0000r3Fs00 80            881 	.byte __str_0,(__str_0 >> 8),#0x80
+                            882 	.area CABS    (ABS,CODE)

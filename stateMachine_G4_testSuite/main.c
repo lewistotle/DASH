@@ -8,11 +8,18 @@
  ============================================================================
  */
 
+#if defined(__TS7800__) || defined(__cygwin__)
 #include <pthread.h>
 #include <unistd.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+
+#ifdef __AVR_ARCH__
+#define EXIT_SUCCESS	0
+#endif
 
 #define true	1
 
@@ -24,7 +31,7 @@
 //#include "sm_test_machine_c.h"
 
 
-#ifdef __TS7800__
+#if defined(__TS7800__) || defined(__cygwin__)
 #define puts(s)		puts(s) ; fflush(stdout) ;
 
 void* ISR_thread(	void* threadID)
@@ -69,23 +76,25 @@ static void prvSetupTimerInterrupt(	void ) ;
 static volatile bool		timeForTickProcessing ;				// set in an ISR so volatile is needed
 #endif
 
-#ifdef __c8051f040__
-void main(	void)
-#else
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
 int main()
+#else
+void main(	void)
 #endif
 {
+#if defined(__TS7800__) || defined(__cygwin__)
 	int				rc ;
 	pthread_t		ISR_threadHandle ;
 	void*			ISR_threadStatus ;
+#endif
 	bool			ok = true ;
 	stateMachine_t*	bomb ;
 	stateMachine_t*	calculator ;
 	static int iterationMax = 10 ;
 
 	puts("4th Generation state machine test started.") ;
-
-#ifdef __TS7800__
+#if 1
+#if defined(__TS7800__) || defined(__cygwin__)
 	rc = pthread_create(&ISR_threadHandle, NULL, ISR_thread, (void*)&ISR_threadStatus) ;
 
 	if (rc != 0)
@@ -143,7 +152,7 @@ int main()
 		ITERATE_ALL_STATE_MACHINES() ;
 	}
 
-#ifdef __TS7800__
+#if defined(__TS7800__) || defined(__cygwin__)
 	pthread_join(ISR_threadHandle, &ISR_threadStatus) ;
 #endif
 
@@ -164,10 +173,10 @@ int main()
 
 		bomb = 0 ;
 	}
-
+#endif
 	puts("\n4th Generation state machine test done.") ;
 
-#ifdef __TS7800__
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
 	return EXIT_SUCCESS ;
 #endif
 }

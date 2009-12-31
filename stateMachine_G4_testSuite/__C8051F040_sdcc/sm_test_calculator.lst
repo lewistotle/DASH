@@ -1,0 +1,2270 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
+                              4 ; This file was generated Wed Dec 30 22:11:48 2009
+                              5 ;--------------------------------------------------------
+                              6 	.module sm_test_calculator
+                              7 	.optsdcc -mmcs51 --model-large
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _doCalculation
+                             13 	.globl _calculator_getEventQueueDepth
+                             14 	.globl _calculator_constructor
+                             15 	.globl _calculator_destructor
+                             16 	.globl _calculator_getMachineSize
+                             17 	.globl _calculator_constructor2
+                             18 	.globl _calculator_destructor2
+                             19 ;--------------------------------------------------------
+                             20 ; special function registers
+                             21 ;--------------------------------------------------------
+                             22 	.area RSEG    (DATA)
+                             23 ;--------------------------------------------------------
+                             24 ; special function bits
+                             25 ;--------------------------------------------------------
+                             26 	.area RSEG    (DATA)
+                             27 ;--------------------------------------------------------
+                             28 ; overlayable register banks
+                             29 ;--------------------------------------------------------
+                             30 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                      31 	.ds 8
+                             32 ;--------------------------------------------------------
+                             33 ; internal ram data
+                             34 ;--------------------------------------------------------
+                             35 	.area DSEG    (DATA)
+   0000                      36 _calculator_constructor_sloc0_1_0:
+   0000                      37 	.ds 3
+                             38 ;--------------------------------------------------------
+                             39 ; overlayable items in internal ram 
+                             40 ;--------------------------------------------------------
+                             41 	.area OSEG    (OVR,DATA)
+                             42 ;--------------------------------------------------------
+                             43 ; indirectly addressable internal ram data
+                             44 ;--------------------------------------------------------
+                             45 	.area ISEG    (DATA)
+                             46 ;--------------------------------------------------------
+                             47 ; absolute internal ram data
+                             48 ;--------------------------------------------------------
+                             49 	.area IABS    (ABS,DATA)
+                             50 	.area IABS    (ABS,DATA)
+                             51 ;--------------------------------------------------------
+                             52 ; bit data
+                             53 ;--------------------------------------------------------
+                             54 	.area BSEG    (BIT)
+                             55 ;--------------------------------------------------------
+                             56 ; paged external ram data
+                             57 ;--------------------------------------------------------
+                             58 	.area PSEG    (PAG,XDATA)
+                             59 ;--------------------------------------------------------
+                             60 ; external ram data
+                             61 ;--------------------------------------------------------
+                             62 	.area XSEG    (XDATA)
+   0000                      63 _calculator_constructor_base_1_1:
+   0000                      64 	.ds 3
+   0003                      65 _calculator_destructor_self_1_1:
+   0003                      66 	.ds 3
+   0006                      67 _calculator_constructor2_self_1_1:
+   0006                      68 	.ds 3
+   0009                      69 _doCalculation_type_1_1:
+   0009                      70 	.ds 1
+                             71 ;--------------------------------------------------------
+                             72 ; absolute external ram data
+                             73 ;--------------------------------------------------------
+                             74 	.area XABS    (ABS,XDATA)
+                             75 ;--------------------------------------------------------
+                             76 ; external initialized ram data
+                             77 ;--------------------------------------------------------
+                             78 	.area XISEG   (XDATA)
+   0000                      79 _calculator_name:
+   0000                      80 	.ds 3
+                             81 	.area HOME    (CODE)
+                             82 	.area GSINIT0 (CODE)
+                             83 	.area GSINIT1 (CODE)
+                             84 	.area GSINIT2 (CODE)
+                             85 	.area GSINIT3 (CODE)
+                             86 	.area GSINIT4 (CODE)
+                             87 	.area GSINIT5 (CODE)
+                             88 	.area GSINIT  (CODE)
+                             89 	.area GSFINAL (CODE)
+                             90 	.area CSEG    (CODE)
+                             91 ;--------------------------------------------------------
+                             92 ; global & static initialisations
+                             93 ;--------------------------------------------------------
+                             94 	.area HOME    (CODE)
+                             95 	.area GSINIT  (CODE)
+                             96 	.area GSFINAL (CODE)
+                             97 	.area GSINIT  (CODE)
+                             98 ;--------------------------------------------------------
+                             99 ; Home
+                            100 ;--------------------------------------------------------
+                            101 	.area HOME    (CODE)
+                            102 	.area HOME    (CODE)
+                            103 ;--------------------------------------------------------
+                            104 ; code
+                            105 ;--------------------------------------------------------
+                            106 	.area CSEG    (CODE)
+                            107 ;------------------------------------------------------------
+                            108 ;Allocation info for local variables in function 'calculator_getEventQueueDepth'
+                            109 ;------------------------------------------------------------
+                            110 ;------------------------------------------------------------
+                            111 ;	../sm_test_calculator.c:23: SET_EVENT_QUEUE_DEPTH(config_CalcEVENT_QUEUE_DEPTH) ;
+                            112 ;	-----------------------------------------
+                            113 ;	 function calculator_getEventQueueDepth
+                            114 ;	-----------------------------------------
+   0000                     115 _calculator_getEventQueueDepth:
+                    0002    116 	ar2 = 0x02
+                    0003    117 	ar3 = 0x03
+                    0004    118 	ar4 = 0x04
+                    0005    119 	ar5 = 0x05
+                    0006    120 	ar6 = 0x06
+                    0007    121 	ar7 = 0x07
+                    0000    122 	ar0 = 0x00
+                    0001    123 	ar1 = 0x01
+   0000 90 00 10            124 	mov	dptr,#0x0010
+   0003 22                  125 	ret
+                            126 ;------------------------------------------------------------
+                            127 ;Allocation info for local variables in function 'calculator_constructor'
+                            128 ;------------------------------------------------------------
+                            129 ;sloc0                     Allocated with name '_calculator_constructor_sloc0_1_0'
+                            130 ;base                      Allocated with name '_calculator_constructor_base_1_1'
+                            131 ;------------------------------------------------------------
+                            132 ;	../sm_test_calculator.c:47: END_STATE_MACHINE_DEFINITION() ;
+                            133 ;	-----------------------------------------
+                            134 ;	 function calculator_constructor
+                            135 ;	-----------------------------------------
+   0004                     136 _calculator_constructor:
+   0004 AA F0               137 	mov	r2,b
+   0006 AB 83               138 	mov	r3,dph
+   0008 E5 82               139 	mov	a,dpl
+   000A 90s00r00            140 	mov	dptr,#_calculator_constructor_base_1_1
+   000D F0                  141 	movx	@dptr,a
+   000E A3                  142 	inc	dptr
+   000F EB                  143 	mov	a,r3
+   0010 F0                  144 	movx	@dptr,a
+   0011 A3                  145 	inc	dptr
+   0012 EA                  146 	mov	a,r2
+   0013 F0                  147 	movx	@dptr,a
+   0014 90s00r00            148 	mov	dptr,#_calculator_constructor_base_1_1
+   0017 E0                  149 	movx	a,@dptr
+   0018 FA                  150 	mov	r2,a
+   0019 A3                  151 	inc	dptr
+   001A E0                  152 	movx	a,@dptr
+   001B FB                  153 	mov	r3,a
+   001C A3                  154 	inc	dptr
+   001D E0                  155 	movx	a,@dptr
+   001E FC                  156 	mov	r4,a
+   001F 8A 82               157 	mov	dpl,r2
+   0021 8B 83               158 	mov	dph,r3
+   0023 8C F0               159 	mov	b,r4
+   0025 74r00               160 	mov	a,#_calculator_TOP
+   0027 12s00r00            161 	lcall	__gptrput
+   002A A3                  162 	inc	dptr
+   002B 74s00               163 	mov	a,#(_calculator_TOP >> 8)
+   002D 12s00r00            164 	lcall	__gptrput
+   0030 74 06               165 	mov	a,#0x06
+   0032 2A                  166 	add	a,r2
+   0033 FD                  167 	mov	r5,a
+   0034 E4                  168 	clr	a
+   0035 3B                  169 	addc	a,r3
+   0036 FE                  170 	mov	r6,a
+   0037 8C 07               171 	mov	ar7,r4
+   0039 8D 82               172 	mov	dpl,r5
+   003B 8E 83               173 	mov	dph,r6
+   003D 8F F0               174 	mov	b,r7
+   003F 74r00               175 	mov	a,#_calculator_TOP
+   0041 12s00r00            176 	lcall	__gptrput
+   0044 A3                  177 	inc	dptr
+   0045 74s00               178 	mov	a,#(_calculator_TOP >> 8)
+   0047 12s00r00            179 	lcall	__gptrput
+   004A A3                  180 	inc	dptr
+   004B 74 80               181 	mov	a,#0x80
+   004D 12s00r00            182 	lcall	__gptrput
+   0050 74 02               183 	mov	a,#0x02
+   0052 2A                  184 	add	a,r2
+   0053 FD                  185 	mov	r5,a
+   0054 E4                  186 	clr	a
+   0055 3B                  187 	addc	a,r3
+   0056 FE                  188 	mov	r6,a
+   0057 8C 07               189 	mov	ar7,r4
+   0059 8D 82               190 	mov	dpl,r5
+   005B 8E 83               191 	mov	dph,r6
+   005D 8F F0               192 	mov	b,r7
+   005F E4                  193 	clr	a
+   0060 12s00r00            194 	lcall	__gptrput
+   0063 74 03               195 	mov	a,#0x03
+   0065 2A                  196 	add	a,r2
+   0066 F5*00               197 	mov	_calculator_constructor_sloc0_1_0,a
+   0068 E4                  198 	clr	a
+   0069 3B                  199 	addc	a,r3
+   006A F5*01               200 	mov	(_calculator_constructor_sloc0_1_0 + 1),a
+   006C 8C*02               201 	mov	(_calculator_constructor_sloc0_1_0 + 2),r4
+   006E 90s00r00            202 	mov	dptr,#_calculator_name
+   0071 E0                  203 	movx	a,@dptr
+   0072 F8                  204 	mov	r0,a
+   0073 A3                  205 	inc	dptr
+   0074 E0                  206 	movx	a,@dptr
+   0075 F9                  207 	mov	r1,a
+   0076 A3                  208 	inc	dptr
+   0077 E0                  209 	movx	a,@dptr
+   0078 FD                  210 	mov	r5,a
+   0079 85*00 82            211 	mov	dpl,_calculator_constructor_sloc0_1_0
+   007C 85*01 83            212 	mov	dph,(_calculator_constructor_sloc0_1_0 + 1)
+   007F 85*02 F0            213 	mov	b,(_calculator_constructor_sloc0_1_0 + 2)
+   0082 E8                  214 	mov	a,r0
+   0083 12s00r00            215 	lcall	__gptrput
+   0086 A3                  216 	inc	dptr
+   0087 E9                  217 	mov	a,r1
+   0088 12s00r00            218 	lcall	__gptrput
+   008B A3                  219 	inc	dptr
+   008C ED                  220 	mov	a,r5
+   008D 12s00r00            221 	lcall	__gptrput
+   0090 8A 82               222 	mov	dpl,r2
+   0092 8B 83               223 	mov	dph,r3
+   0094 8C F0               224 	mov	b,r4
+   0096 02s00rC1            225 	ljmp	_calculator_constructor2
+                            226 ;------------------------------------------------------------
+                            227 ;Allocation info for local variables in function 'calculator_destructor'
+                            228 ;------------------------------------------------------------
+                            229 ;self                      Allocated with name '_calculator_destructor_self_1_1'
+                            230 ;------------------------------------------------------------
+                            231 ;	../sm_test_calculator.c:47: 
+                            232 ;	-----------------------------------------
+                            233 ;	 function calculator_destructor
+                            234 ;	-----------------------------------------
+   0099                     235 _calculator_destructor:
+   0099 AA F0               236 	mov	r2,b
+   009B AB 83               237 	mov	r3,dph
+   009D E5 82               238 	mov	a,dpl
+   009F 90s00r03            239 	mov	dptr,#_calculator_destructor_self_1_1
+   00A2 F0                  240 	movx	@dptr,a
+   00A3 A3                  241 	inc	dptr
+   00A4 EB                  242 	mov	a,r3
+   00A5 F0                  243 	movx	@dptr,a
+   00A6 A3                  244 	inc	dptr
+   00A7 EA                  245 	mov	a,r2
+   00A8 F0                  246 	movx	@dptr,a
+   00A9 90s00r03            247 	mov	dptr,#_calculator_destructor_self_1_1
+   00AC E0                  248 	movx	a,@dptr
+   00AD FA                  249 	mov	r2,a
+   00AE A3                  250 	inc	dptr
+   00AF E0                  251 	movx	a,@dptr
+   00B0 FB                  252 	mov	r3,a
+   00B1 A3                  253 	inc	dptr
+   00B2 E0                  254 	movx	a,@dptr
+   00B3 FC                  255 	mov	r4,a
+   00B4 8A 82               256 	mov	dpl,r2
+   00B6 8B 83               257 	mov	dph,r3
+   00B8 8C F0               258 	mov	b,r4
+   00BA 02s00rFC            259 	ljmp	_calculator_destructor2
+                            260 ;------------------------------------------------------------
+                            261 ;Allocation info for local variables in function 'calculator_getMachineSize'
+                            262 ;------------------------------------------------------------
+                            263 ;------------------------------------------------------------
+                            264 ;	../sm_test_calculator.c:47: END_STATE_MACHINE_DEFINITION() ;
+                            265 ;	-----------------------------------------
+                            266 ;	 function calculator_getMachineSize
+                            267 ;	-----------------------------------------
+   00BD                     268 _calculator_getMachineSize:
+   00BD 90 00 19            269 	mov	dptr,#0x0019
+   00C0 22                  270 	ret
+                            271 ;------------------------------------------------------------
+                            272 ;Allocation info for local variables in function 'calculator_constructor2'
+                            273 ;------------------------------------------------------------
+                            274 ;self                      Allocated with name '_calculator_constructor2_self_1_1'
+                            275 ;------------------------------------------------------------
+                            276 ;	../sm_test_calculator.c:50: STATE_MACHINE_CONSTRUCTOR()
+                            277 ;	-----------------------------------------
+                            278 ;	 function calculator_constructor2
+                            279 ;	-----------------------------------------
+   00C1                     280 _calculator_constructor2:
+   00C1 AA F0               281 	mov	r2,b
+   00C3 AB 83               282 	mov	r3,dph
+   00C5 E5 82               283 	mov	a,dpl
+   00C7 90s00r06            284 	mov	dptr,#_calculator_constructor2_self_1_1
+   00CA F0                  285 	movx	@dptr,a
+   00CB A3                  286 	inc	dptr
+   00CC EB                  287 	mov	a,r3
+   00CD F0                  288 	movx	@dptr,a
+   00CE A3                  289 	inc	dptr
+   00CF EA                  290 	mov	a,r2
+   00D0 F0                  291 	movx	@dptr,a
+                            292 ;	../sm_test_calculator.c:52: self->result = 0 ;
+   00D1 90s00r06            293 	mov	dptr,#_calculator_constructor2_self_1_1
+   00D4 E0                  294 	movx	a,@dptr
+   00D5 FA                  295 	mov	r2,a
+   00D6 A3                  296 	inc	dptr
+   00D7 E0                  297 	movx	a,@dptr
+   00D8 FB                  298 	mov	r3,a
+   00D9 A3                  299 	inc	dptr
+   00DA E0                  300 	movx	a,@dptr
+   00DB FC                  301 	mov	r4,a
+   00DC 74 15               302 	mov	a,#0x15
+   00DE 2A                  303 	add	a,r2
+   00DF FA                  304 	mov	r2,a
+   00E0 E4                  305 	clr	a
+   00E1 3B                  306 	addc	a,r3
+   00E2 FB                  307 	mov	r3,a
+   00E3 8A 82               308 	mov	dpl,r2
+   00E5 8B 83               309 	mov	dph,r3
+   00E7 8C F0               310 	mov	b,r4
+   00E9 E4                  311 	clr	a
+   00EA 12s00r00            312 	lcall	__gptrput
+   00ED A3                  313 	inc	dptr
+   00EE E4                  314 	clr	a
+   00EF 12s00r00            315 	lcall	__gptrput
+   00F2 A3                  316 	inc	dptr
+   00F3 E4                  317 	clr	a
+   00F4 12s00r00            318 	lcall	__gptrput
+   00F7 A3                  319 	inc	dptr
+   00F8 E4                  320 	clr	a
+   00F9 02s00r00            321 	ljmp	__gptrput
+                            322 ;------------------------------------------------------------
+                            323 ;Allocation info for local variables in function 'calculator_destructor2'
+                            324 ;------------------------------------------------------------
+                            325 ;self                      Allocated with name '_calculator_destructor2_self_1_1'
+                            326 ;------------------------------------------------------------
+                            327 ;	../sm_test_calculator.c:56: STATE_MACHINE_DESTRUCTOR()
+                            328 ;	-----------------------------------------
+                            329 ;	 function calculator_destructor2
+                            330 ;	-----------------------------------------
+   00FC                     331 _calculator_destructor2:
+                            332 ;	../sm_test_calculator.c:58: (void)self ;	/* Nothing to do here */
+   00FC 22                  333 	ret
+                            334 ;------------------------------------------------------------
+                            335 ;Allocation info for local variables in function 'calculator_TOP_handler'
+                            336 ;------------------------------------------------------------
+                            337 ;event                     Allocated to stack - offset -5
+                            338 ;self                      Allocated to registers r2 r3 r4 
+                            339 ;stateResponseCode         Allocated to registers 
+                            340 ;------------------------------------------------------------
+                            341 ;	../sm_test_calculator.c:62: DEFINE_TOP_STATE()
+                            342 ;	-----------------------------------------
+                            343 ;	 function calculator_TOP_handler
+                            344 ;	-----------------------------------------
+   00FD                     345 _calculator_TOP_handler:
+   00FD C0*00               346 	push	_bp
+   00FF 85 81*00            347 	mov	_bp,sp
+   0102 AA 82               348 	mov	r2,dpl
+   0104 AB 83               349 	mov	r3,dph
+   0106 AC F0               350 	mov	r4,b
+                            351 ;	../sm_test_calculator.c:64: INITIAL_TRANSITION(TO(begin),																	NO_ACTION) ;
+   0108 E5*00               352 	mov	a,_bp
+   010A 24 FB               353 	add	a,#0xfb
+   010C F8                  354 	mov	r0,a
+   010D 86 05               355 	mov	ar5,@r0
+   010F 08                  356 	inc	r0
+   0110 86 06               357 	mov	ar6,@r0
+   0112 08                  358 	inc	r0
+   0113 86 07               359 	mov	ar7,@r0
+   0115 8D 82               360 	mov	dpl,r5
+   0117 8E 83               361 	mov	dph,r6
+   0119 8F F0               362 	mov	b,r7
+   011B 12s00r00            363 	lcall	__gptrget
+   011E FD                  364 	mov	r5,a
+   011F BD 02 23            365 	cjne	r5,#0x02,00102$
+   0122 74 09               366 	mov	a,#0x09
+   0124 2A                  367 	add	a,r2
+   0125 FA                  368 	mov	r2,a
+   0126 E4                  369 	clr	a
+   0127 3B                  370 	addc	a,r3
+   0128 FB                  371 	mov	r3,a
+   0129 8A 82               372 	mov	dpl,r2
+   012B 8B 83               373 	mov	dph,r3
+   012D 8C F0               374 	mov	b,r4
+   012F 74r24               375 	mov	a,#_calculator_begin
+   0131 12s00r00            376 	lcall	__gptrput
+   0134 A3                  377 	inc	dptr
+   0135 74s00               378 	mov	a,#(_calculator_begin >> 8)
+   0137 12s00r00            379 	lcall	__gptrput
+   013A A3                  380 	inc	dptr
+   013B 74 80               381 	mov	a,#0x80
+   013D 12s00r00            382 	lcall	__gptrput
+   0140 75 82 02            383 	mov	dpl,#0x02
+   0143 80 03               384 	sjmp	00103$
+   0145                     385 00102$:
+                            386 ;	../sm_test_calculator.c:66: END_DEFINE_STATE()
+   0145 75 82 00            387 	mov	dpl,#0x00
+   0148                     388 00103$:
+   0148 D0*00               389 	pop	_bp
+   014A 22                  390 	ret
+                            391 ;------------------------------------------------------------
+                            392 ;Allocation info for local variables in function 'calculator_on_handler'
+                            393 ;------------------------------------------------------------
+                            394 ;event                     Allocated to stack - offset -5
+                            395 ;self                      Allocated to stack - offset 1
+                            396 ;stateResponseCode         Allocated to registers 
+                            397 ;------------------------------------------------------------
+                            398 ;	../sm_test_calculator.c:69: DEFINE_STATE(on)
+                            399 ;	-----------------------------------------
+                            400 ;	 function calculator_on_handler
+                            401 ;	-----------------------------------------
+   014B                     402 _calculator_on_handler:
+   014B C0*00               403 	push	_bp
+   014D 85 81*00            404 	mov	_bp,sp
+   0150 C0 82               405 	push	dpl
+   0152 C0 83               406 	push	dph
+   0154 C0 F0               407 	push	b
+                            408 ;	../sm_test_calculator.c:71: INITIAL_TRANSITION(TO(ready),																NO_ACTION) ;
+   0156 E5*00               409 	mov	a,_bp
+   0158 24 FB               410 	add	a,#0xfb
+   015A F8                  411 	mov	r0,a
+   015B 86 05               412 	mov	ar5,@r0
+   015D 08                  413 	inc	r0
+   015E 86 06               414 	mov	ar6,@r0
+   0160 08                  415 	inc	r0
+   0161 86 07               416 	mov	ar7,@r0
+   0163 8D 82               417 	mov	dpl,r5
+   0165 8E 83               418 	mov	dph,r6
+   0167 8F F0               419 	mov	b,r7
+   0169 12s00r00            420 	lcall	__gptrget
+   016C FD                  421 	mov	r5,a
+   016D BD 02 2A            422 	cjne	r5,#0x02,00102$
+   0170 A8*00               423 	mov	r0,_bp
+   0172 08                  424 	inc	r0
+   0173 74 09               425 	mov	a,#0x09
+   0175 26                  426 	add	a,@r0
+   0176 FE                  427 	mov	r6,a
+   0177 E4                  428 	clr	a
+   0178 08                  429 	inc	r0
+   0179 36                  430 	addc	a,@r0
+   017A FF                  431 	mov	r7,a
+   017B 08                  432 	inc	r0
+   017C 86 02               433 	mov	ar2,@r0
+   017E 8E 82               434 	mov	dpl,r6
+   0180 8F 83               435 	mov	dph,r7
+   0182 8A F0               436 	mov	b,r2
+   0184 74r12               437 	mov	a,#_calculator_ready
+   0186 12s00r00            438 	lcall	__gptrput
+   0189 A3                  439 	inc	dptr
+   018A 74s00               440 	mov	a,#(_calculator_ready >> 8)
+   018C 12s00r00            441 	lcall	__gptrput
+   018F A3                  442 	inc	dptr
+   0190 74 80               443 	mov	a,#0x80
+   0192 12s00r00            444 	lcall	__gptrput
+   0195 75 82 02            445 	mov	dpl,#0x02
+   0198 80 5D               446 	sjmp	00109$
+   019A                     447 00102$:
+                            448 ;	../sm_test_calculator.c:73: TRANSITION_ON(CLEAR,		UNCONDITIONALLY,						TO(on),					NO_ACTION) ;
+   019A BD 04 2A            449 	cjne	r5,#0x04,00104$
+   019D A8*00               450 	mov	r0,_bp
+   019F 08                  451 	inc	r0
+   01A0 74 09               452 	mov	a,#0x09
+   01A2 26                  453 	add	a,@r0
+   01A3 FA                  454 	mov	r2,a
+   01A4 E4                  455 	clr	a
+   01A5 08                  456 	inc	r0
+   01A6 36                  457 	addc	a,@r0
+   01A7 FB                  458 	mov	r3,a
+   01A8 08                  459 	inc	r0
+   01A9 86 04               460 	mov	ar4,@r0
+   01AB 8A 82               461 	mov	dpl,r2
+   01AD 8B 83               462 	mov	dph,r3
+   01AF 8C F0               463 	mov	b,r4
+   01B1 74r09               464 	mov	a,#_calculator_on
+   01B3 12s00r00            465 	lcall	__gptrput
+   01B6 A3                  466 	inc	dptr
+   01B7 74s00               467 	mov	a,#(_calculator_on >> 8)
+   01B9 12s00r00            468 	lcall	__gptrput
+   01BC A3                  469 	inc	dptr
+   01BD 74 80               470 	mov	a,#0x80
+   01BF 12s00r00            471 	lcall	__gptrput
+   01C2 75 82 02            472 	mov	dpl,#0x02
+   01C5 80 30               473 	sjmp	00109$
+   01C7                     474 00104$:
+                            475 ;	../sm_test_calculator.c:74: TRANSITION_ON(OFF,			UNCONDITIONALLY,						TO(STATE_MACHINE_EXIT),	NO_ACTION) ;
+   01C7 BD 0B 2A            476 	cjne	r5,#0x0B,00107$
+   01CA A8*00               477 	mov	r0,_bp
+   01CC 08                  478 	inc	r0
+   01CD 74 09               479 	mov	a,#0x09
+   01CF 26                  480 	add	a,@r0
+   01D0 FA                  481 	mov	r2,a
+   01D1 E4                  482 	clr	a
+   01D2 08                  483 	inc	r0
+   01D3 36                  484 	addc	a,@r0
+   01D4 FB                  485 	mov	r3,a
+   01D5 08                  486 	inc	r0
+   01D6 86 04               487 	mov	ar4,@r0
+   01D8 8A 82               488 	mov	dpl,r2
+   01DA 8B 83               489 	mov	dph,r3
+   01DC 8C F0               490 	mov	b,r4
+   01DE 74r00               491 	mov	a,#_calculator_TOP
+   01E0 12s00r00            492 	lcall	__gptrput
+   01E3 A3                  493 	inc	dptr
+   01E4 74s00               494 	mov	a,#(_calculator_TOP >> 8)
+   01E6 12s00r00            495 	lcall	__gptrput
+   01E9 A3                  496 	inc	dptr
+   01EA 74 80               497 	mov	a,#0x80
+   01EC 12s00r00            498 	lcall	__gptrput
+   01EF 75 82 02            499 	mov	dpl,#0x02
+   01F2 80 03               500 	sjmp	00109$
+   01F4                     501 00107$:
+                            502 ;	../sm_test_calculator.c:76: END_DEFINE_STATE()
+   01F4 75 82 00            503 	mov	dpl,#0x00
+   01F7                     504 00109$:
+   01F7 85*00 81            505 	mov	sp,_bp
+   01FA D0*00               506 	pop	_bp
+   01FC 22                  507 	ret
+                            508 ;------------------------------------------------------------
+                            509 ;Allocation info for local variables in function 'calculator_ready_handler'
+                            510 ;------------------------------------------------------------
+                            511 ;event                     Allocated to stack - offset -5
+                            512 ;self                      Allocated to stack - offset 1
+                            513 ;stateResponseCode         Allocated to registers 
+                            514 ;------------------------------------------------------------
+                            515 ;	../sm_test_calculator.c:79: DEFINE_STATE(ready)
+                            516 ;	-----------------------------------------
+                            517 ;	 function calculator_ready_handler
+                            518 ;	-----------------------------------------
+   01FD                     519 _calculator_ready_handler:
+   01FD C0*00               520 	push	_bp
+   01FF 85 81*00            521 	mov	_bp,sp
+   0202 C0 82               522 	push	dpl
+   0204 C0 83               523 	push	dph
+   0206 C0 F0               524 	push	b
+                            525 ;	../sm_test_calculator.c:81: INITIAL_TRANSITION(TO(zero1),																NO_ACTION) ;
+   0208 E5*00               526 	mov	a,_bp
+   020A 24 FB               527 	add	a,#0xfb
+   020C F8                  528 	mov	r0,a
+   020D 86 05               529 	mov	ar5,@r0
+   020F 08                  530 	inc	r0
+   0210 86 06               531 	mov	ar6,@r0
+   0212 08                  532 	inc	r0
+   0213 86 07               533 	mov	ar7,@r0
+   0215 8D 82               534 	mov	dpl,r5
+   0217 8E 83               535 	mov	dph,r6
+   0219 8F F0               536 	mov	b,r7
+   021B 12s00r00            537 	lcall	__gptrget
+   021E FD                  538 	mov	r5,a
+   021F BD 02 2A            539 	cjne	r5,#0x02,00102$
+   0222 A8*00               540 	mov	r0,_bp
+   0224 08                  541 	inc	r0
+   0225 74 09               542 	mov	a,#0x09
+   0227 26                  543 	add	a,@r0
+   0228 FE                  544 	mov	r6,a
+   0229 E4                  545 	clr	a
+   022A 08                  546 	inc	r0
+   022B 36                  547 	addc	a,@r0
+   022C FF                  548 	mov	r7,a
+   022D 08                  549 	inc	r0
+   022E 86 02               550 	mov	ar2,@r0
+   0230 8E 82               551 	mov	dpl,r6
+   0232 8F 83               552 	mov	dph,r7
+   0234 8A F0               553 	mov	b,r2
+   0236 74r3F               554 	mov	a,#_calculator_zero1
+   0238 12s00r00            555 	lcall	__gptrput
+   023B A3                  556 	inc	dptr
+   023C 74s00               557 	mov	a,#(_calculator_zero1 >> 8)
+   023E 12s00r00            558 	lcall	__gptrput
+   0241 A3                  559 	inc	dptr
+   0242 74 80               560 	mov	a,#0x80
+   0244 12s00r00            561 	lcall	__gptrput
+   0247 75 82 02            562 	mov	dpl,#0x02
+   024A 80 30               563 	sjmp	00106$
+   024C                     564 00102$:
+                            565 ;	../sm_test_calculator.c:83: TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+   024C BD 09 2A            566 	cjne	r5,#0x09,00104$
+   024F A8*00               567 	mov	r0,_bp
+   0251 08                  568 	inc	r0
+   0252 74 09               569 	mov	a,#0x09
+   0254 26                  570 	add	a,@r0
+   0255 FA                  571 	mov	r2,a
+   0256 E4                  572 	clr	a
+   0257 08                  573 	inc	r0
+   0258 36                  574 	addc	a,@r0
+   0259 FB                  575 	mov	r3,a
+   025A 08                  576 	inc	r0
+   025B 86 04               577 	mov	ar4,@r0
+   025D 8A 82               578 	mov	dpl,r2
+   025F 8B 83               579 	mov	dph,r3
+   0261 8C F0               580 	mov	b,r4
+   0263 74r63               581 	mov	a,#_calculator_opEntered
+   0265 12s00r00            582 	lcall	__gptrput
+   0268 A3                  583 	inc	dptr
+   0269 74s00               584 	mov	a,#(_calculator_opEntered >> 8)
+   026B 12s00r00            585 	lcall	__gptrput
+   026E A3                  586 	inc	dptr
+   026F 74 80               587 	mov	a,#0x80
+   0271 12s00r00            588 	lcall	__gptrput
+   0274 75 82 02            589 	mov	dpl,#0x02
+   0277 80 03               590 	sjmp	00106$
+   0279                     591 00104$:
+                            592 ;	../sm_test_calculator.c:85: END_DEFINE_STATE()
+   0279 75 82 00            593 	mov	dpl,#0x00
+   027C                     594 00106$:
+   027C 85*00 81            595 	mov	sp,_bp
+   027F D0*00               596 	pop	_bp
+   0281 22                  597 	ret
+                            598 ;------------------------------------------------------------
+                            599 ;Allocation info for local variables in function 'calculator_result_handler'
+                            600 ;------------------------------------------------------------
+                            601 ;event                     Allocated to stack - offset -5
+                            602 ;self                      Allocated to registers 
+                            603 ;stateResponseCode         Allocated to registers 
+                            604 ;------------------------------------------------------------
+                            605 ;	../sm_test_calculator.c:88: DEFINE_STATE(result)
+                            606 ;	-----------------------------------------
+                            607 ;	 function calculator_result_handler
+                            608 ;	-----------------------------------------
+   0282                     609 _calculator_result_handler:
+   0282 C0*00               610 	push	_bp
+   0284 85 81*00            611 	mov	_bp,sp
+                            612 ;	../sm_test_calculator.c:91: END_DEFINE_STATE()
+   0287 75 82 00            613 	mov	dpl,#0x00
+   028A D0*00               614 	pop	_bp
+   028C 22                  615 	ret
+                            616 ;------------------------------------------------------------
+                            617 ;Allocation info for local variables in function 'calculator_begin_handler'
+                            618 ;------------------------------------------------------------
+                            619 ;event                     Allocated to stack - offset -5
+                            620 ;self                      Allocated to stack - offset 1
+                            621 ;stateResponseCode         Allocated to registers 
+                            622 ;sloc0                     Allocated to stack - offset 5
+                            623 ;------------------------------------------------------------
+                            624 ;	../sm_test_calculator.c:94: DEFINE_STATE(begin)
+                            625 ;	-----------------------------------------
+                            626 ;	 function calculator_begin_handler
+                            627 ;	-----------------------------------------
+   028D                     628 _calculator_begin_handler:
+   028D C0*00               629 	push	_bp
+   028F 85 81*00            630 	mov	_bp,sp
+   0292 C0 82               631 	push	dpl
+   0294 C0 83               632 	push	dph
+   0296 C0 F0               633 	push	b
+                            634 ;	../sm_test_calculator.c:97: INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
+   0298 E5*00               635 	mov	a,_bp
+   029A 24 FB               636 	add	a,#0xfb
+   029C F8                  637 	mov	r0,a
+   029D 86 05               638 	mov	ar5,@r0
+   029F 08                  639 	inc	r0
+   02A0 86 06               640 	mov	ar6,@r0
+   02A2 08                  641 	inc	r0
+   02A3 86 07               642 	mov	ar7,@r0
+   02A5 8D 82               643 	mov	dpl,r5
+   02A7 8E 83               644 	mov	dph,r6
+   02A9 8F F0               645 	mov	b,r7
+   02AB 12s00r00            646 	lcall	__gptrget
+   02AE FA                  647 	mov	r2,a
+   02AF BA 02 2B            648 	cjne	r2,#0x02,00102$
+   02B2 A8*00               649 	mov	r0,_bp
+   02B4 08                  650 	inc	r0
+   02B5 74 09               651 	mov	a,#0x09
+   02B7 26                  652 	add	a,@r0
+   02B8 FA                  653 	mov	r2,a
+   02B9 E4                  654 	clr	a
+   02BA 08                  655 	inc	r0
+   02BB 36                  656 	addc	a,@r0
+   02BC FB                  657 	mov	r3,a
+   02BD 08                  658 	inc	r0
+   02BE 86 04               659 	mov	ar4,@r0
+   02C0 8A 82               660 	mov	dpl,r2
+   02C2 8B 83               661 	mov	dph,r3
+   02C4 8C F0               662 	mov	b,r4
+   02C6 74r09               663 	mov	a,#_calculator_on
+   02C8 12s00r00            664 	lcall	__gptrput
+   02CB A3                  665 	inc	dptr
+   02CC 74s00               666 	mov	a,#(_calculator_on >> 8)
+   02CE 12s00r00            667 	lcall	__gptrput
+   02D1 A3                  668 	inc	dptr
+   02D2 74 80               669 	mov	a,#0x80
+   02D4 12s00r00            670 	lcall	__gptrput
+   02D7 75 82 02            671 	mov	dpl,#0x02
+   02DA 02s03rA7            672 	ljmp	00115$
+   02DD                     673 00102$:
+                            674 ;	../sm_test_calculator.c:99: TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
+   02DD BA 09 3D            675 	cjne	r2,#0x09,00104$
+   02E0 0D                  676 	inc	r5
+   02E1 BD 00 01            677 	cjne	r5,#0x00,00127$
+   02E4 0E                  678 	inc	r6
+   02E5                     679 00127$:
+   02E5 8D 82               680 	mov	dpl,r5
+   02E7 8E 83               681 	mov	dph,r6
+   02E9 8F F0               682 	mov	b,r7
+   02EB 12s00r00            683 	lcall	__gptrget
+   02EE FD                  684 	mov	r5,a
+   02EF BD 2D 2B            685 	cjne	r5,#0x2D,00104$
+   02F2 A8*00               686 	mov	r0,_bp
+   02F4 08                  687 	inc	r0
+   02F5 74 09               688 	mov	a,#0x09
+   02F7 26                  689 	add	a,@r0
+   02F8 FA                  690 	mov	r2,a
+   02F9 E4                  691 	clr	a
+   02FA 08                  692 	inc	r0
+   02FB 36                  693 	addc	a,@r0
+   02FC FB                  694 	mov	r3,a
+   02FD 08                  695 	inc	r0
+   02FE 86 04               696 	mov	ar4,@r0
+   0300 8A 82               697 	mov	dpl,r2
+   0302 8B 83               698 	mov	dph,r3
+   0304 8C F0               699 	mov	b,r4
+   0306 74r2D               700 	mov	a,#_calculator_negated1
+   0308 12s00r00            701 	lcall	__gptrput
+   030B A3                  702 	inc	dptr
+   030C 74s00               703 	mov	a,#(_calculator_negated1 >> 8)
+   030E 12s00r00            704 	lcall	__gptrput
+   0311 A3                  705 	inc	dptr
+   0312 74 80               706 	mov	a,#0x80
+   0314 12s00r00            707 	lcall	__gptrput
+   0317 75 82 02            708 	mov	dpl,#0x02
+   031A 02s03rA7            709 	ljmp	00115$
+   031D                     710 00104$:
+                            711 ;	../sm_test_calculator.c:100: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
+   031D BA 06 2A            712 	cjne	r2,#0x06,00107$
+   0320 A8*00               713 	mov	r0,_bp
+   0322 08                  714 	inc	r0
+   0323 74 09               715 	mov	a,#0x09
+   0325 26                  716 	add	a,@r0
+   0326 FA                  717 	mov	r2,a
+   0327 E4                  718 	clr	a
+   0328 08                  719 	inc	r0
+   0329 36                  720 	addc	a,@r0
+   032A FB                  721 	mov	r3,a
+   032B 08                  722 	inc	r0
+   032C 86 04               723 	mov	ar4,@r0
+   032E 8A 82               724 	mov	dpl,r2
+   0330 8B 83               725 	mov	dph,r3
+   0332 8C F0               726 	mov	b,r4
+   0334 74r3F               727 	mov	a,#_calculator_zero1
+   0336 12s00r00            728 	lcall	__gptrput
+   0339 A3                  729 	inc	dptr
+   033A 74s00               730 	mov	a,#(_calculator_zero1 >> 8)
+   033C 12s00r00            731 	lcall	__gptrput
+   033F A3                  732 	inc	dptr
+   0340 74 80               733 	mov	a,#0x80
+   0342 12s00r00            734 	lcall	__gptrput
+   0345 75 82 02            735 	mov	dpl,#0x02
+   0348 80 5D               736 	sjmp	00115$
+   034A                     737 00107$:
+                            738 ;	../sm_test_calculator.c:101: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
+   034A BA 07 2A            739 	cjne	r2,#0x07,00110$
+   034D A8*00               740 	mov	r0,_bp
+   034F 08                  741 	inc	r0
+   0350 74 09               742 	mov	a,#0x09
+   0352 26                  743 	add	a,@r0
+   0353 FA                  744 	mov	r2,a
+   0354 E4                  745 	clr	a
+   0355 08                  746 	inc	r0
+   0356 36                  747 	addc	a,@r0
+   0357 FB                  748 	mov	r3,a
+   0358 08                  749 	inc	r0
+   0359 86 04               750 	mov	ar4,@r0
+   035B 8A 82               751 	mov	dpl,r2
+   035D 8B 83               752 	mov	dph,r3
+   035F 8C F0               753 	mov	b,r4
+   0361 74r48               754 	mov	a,#_calculator_int1
+   0363 12s00r00            755 	lcall	__gptrput
+   0366 A3                  756 	inc	dptr
+   0367 74s00               757 	mov	a,#(_calculator_int1 >> 8)
+   0369 12s00r00            758 	lcall	__gptrput
+   036C A3                  759 	inc	dptr
+   036D 74 80               760 	mov	a,#0x80
+   036F 12s00r00            761 	lcall	__gptrput
+   0372 75 82 02            762 	mov	dpl,#0x02
+   0375 80 30               763 	sjmp	00115$
+   0377                     764 00110$:
+                            765 ;	../sm_test_calculator.c:102: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+   0377 BA 08 2A            766 	cjne	r2,#0x08,00113$
+   037A A8*00               767 	mov	r0,_bp
+   037C 08                  768 	inc	r0
+   037D 74 09               769 	mov	a,#0x09
+   037F 26                  770 	add	a,@r0
+   0380 FA                  771 	mov	r2,a
+   0381 E4                  772 	clr	a
+   0382 08                  773 	inc	r0
+   0383 36                  774 	addc	a,@r0
+   0384 FB                  775 	mov	r3,a
+   0385 08                  776 	inc	r0
+   0386 86 04               777 	mov	ar4,@r0
+   0388 8A 82               778 	mov	dpl,r2
+   038A 8B 83               779 	mov	dph,r3
+   038C 8C F0               780 	mov	b,r4
+   038E 74r51               781 	mov	a,#_calculator_frac1
+   0390 12s00r00            782 	lcall	__gptrput
+   0393 A3                  783 	inc	dptr
+   0394 74s00               784 	mov	a,#(_calculator_frac1 >> 8)
+   0396 12s00r00            785 	lcall	__gptrput
+   0399 A3                  786 	inc	dptr
+   039A 74 80               787 	mov	a,#0x80
+   039C 12s00r00            788 	lcall	__gptrput
+   039F 75 82 02            789 	mov	dpl,#0x02
+   03A2 80 03               790 	sjmp	00115$
+   03A4                     791 00113$:
+                            792 ;	../sm_test_calculator.c:104: END_DEFINE_STATE()
+   03A4 75 82 00            793 	mov	dpl,#0x00
+   03A7                     794 00115$:
+   03A7 85*00 81            795 	mov	sp,_bp
+   03AA D0*00               796 	pop	_bp
+   03AC 22                  797 	ret
+                            798 ;------------------------------------------------------------
+                            799 ;Allocation info for local variables in function 'calculator_negated1_handler'
+                            800 ;------------------------------------------------------------
+                            801 ;event                     Allocated to stack - offset -5
+                            802 ;self                      Allocated to stack - offset 1
+                            803 ;stateResponseCode         Allocated to registers 
+                            804 ;sloc0                     Allocated to stack - offset 5
+                            805 ;------------------------------------------------------------
+                            806 ;	../sm_test_calculator.c:107: DEFINE_STATE(negated1)
+                            807 ;	-----------------------------------------
+                            808 ;	 function calculator_negated1_handler
+                            809 ;	-----------------------------------------
+   03AD                     810 _calculator_negated1_handler:
+   03AD C0*00               811 	push	_bp
+   03AF 85 81*00            812 	mov	_bp,sp
+   03B2 C0 82               813 	push	dpl
+   03B4 C0 83               814 	push	dph
+   03B6 C0 F0               815 	push	b
+                            816 ;	../sm_test_calculator.c:109: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(begin),				NO_ACTION) ;
+   03B8 E5*00               817 	mov	a,_bp
+   03BA 24 FB               818 	add	a,#0xfb
+   03BC F8                  819 	mov	r0,a
+   03BD 86 05               820 	mov	ar5,@r0
+   03BF 08                  821 	inc	r0
+   03C0 86 06               822 	mov	ar6,@r0
+   03C2 08                  823 	inc	r0
+   03C3 86 07               824 	mov	ar7,@r0
+   03C5 8D 82               825 	mov	dpl,r5
+   03C7 8E 83               826 	mov	dph,r6
+   03C9 8F F0               827 	mov	b,r7
+   03CB 12s00r00            828 	lcall	__gptrget
+   03CE FA                  829 	mov	r2,a
+   03CF BA 05 2B            830 	cjne	r2,#0x05,00102$
+   03D2 A8*00               831 	mov	r0,_bp
+   03D4 08                  832 	inc	r0
+   03D5 74 09               833 	mov	a,#0x09
+   03D7 26                  834 	add	a,@r0
+   03D8 FA                  835 	mov	r2,a
+   03D9 E4                  836 	clr	a
+   03DA 08                  837 	inc	r0
+   03DB 36                  838 	addc	a,@r0
+   03DC FB                  839 	mov	r3,a
+   03DD 08                  840 	inc	r0
+   03DE 86 04               841 	mov	ar4,@r0
+   03E0 8A 82               842 	mov	dpl,r2
+   03E2 8B 83               843 	mov	dph,r3
+   03E4 8C F0               844 	mov	b,r4
+   03E6 74r24               845 	mov	a,#_calculator_begin
+   03E8 12s00r00            846 	lcall	__gptrput
+   03EB A3                  847 	inc	dptr
+   03EC 74s00               848 	mov	a,#(_calculator_begin >> 8)
+   03EE 12s00r00            849 	lcall	__gptrput
+   03F1 A3                  850 	inc	dptr
+   03F2 74 80               851 	mov	a,#0x80
+   03F4 12s00r00            852 	lcall	__gptrput
+   03F7 75 82 02            853 	mov	dpl,#0x02
+   03FA 02s04rA2            854 	ljmp	00116$
+   03FD                     855 00102$:
+                            856 ;	../sm_test_calculator.c:110: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
+   03FD BA 06 2B            857 	cjne	r2,#0x06,00105$
+   0400 A8*00               858 	mov	r0,_bp
+   0402 08                  859 	inc	r0
+   0403 74 09               860 	mov	a,#0x09
+   0405 26                  861 	add	a,@r0
+   0406 FA                  862 	mov	r2,a
+   0407 E4                  863 	clr	a
+   0408 08                  864 	inc	r0
+   0409 36                  865 	addc	a,@r0
+   040A FB                  866 	mov	r3,a
+   040B 08                  867 	inc	r0
+   040C 86 04               868 	mov	ar4,@r0
+   040E 8A 82               869 	mov	dpl,r2
+   0410 8B 83               870 	mov	dph,r3
+   0412 8C F0               871 	mov	b,r4
+   0414 74r3F               872 	mov	a,#_calculator_zero1
+   0416 12s00r00            873 	lcall	__gptrput
+   0419 A3                  874 	inc	dptr
+   041A 74s00               875 	mov	a,#(_calculator_zero1 >> 8)
+   041C 12s00r00            876 	lcall	__gptrput
+   041F A3                  877 	inc	dptr
+   0420 74 80               878 	mov	a,#0x80
+   0422 12s00r00            879 	lcall	__gptrput
+   0425 75 82 02            880 	mov	dpl,#0x02
+   0428 02s04rA2            881 	ljmp	00116$
+   042B                     882 00105$:
+                            883 ;	../sm_test_calculator.c:111: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
+   042B BA 07 2A            884 	cjne	r2,#0x07,00108$
+   042E A8*00               885 	mov	r0,_bp
+   0430 08                  886 	inc	r0
+   0431 74 09               887 	mov	a,#0x09
+   0433 26                  888 	add	a,@r0
+   0434 FA                  889 	mov	r2,a
+   0435 E4                  890 	clr	a
+   0436 08                  891 	inc	r0
+   0437 36                  892 	addc	a,@r0
+   0438 FB                  893 	mov	r3,a
+   0439 08                  894 	inc	r0
+   043A 86 04               895 	mov	ar4,@r0
+   043C 8A 82               896 	mov	dpl,r2
+   043E 8B 83               897 	mov	dph,r3
+   0440 8C F0               898 	mov	b,r4
+   0442 74r48               899 	mov	a,#_calculator_int1
+   0444 12s00r00            900 	lcall	__gptrput
+   0447 A3                  901 	inc	dptr
+   0448 74s00               902 	mov	a,#(_calculator_int1 >> 8)
+   044A 12s00r00            903 	lcall	__gptrput
+   044D A3                  904 	inc	dptr
+   044E 74 80               905 	mov	a,#0x80
+   0450 12s00r00            906 	lcall	__gptrput
+   0453 75 82 02            907 	mov	dpl,#0x02
+   0456 80 4A               908 	sjmp	00116$
+   0458                     909 00108$:
+                            910 ;	../sm_test_calculator.c:112: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+   0458 BA 08 2A            911 	cjne	r2,#0x08,00111$
+   045B A8*00               912 	mov	r0,_bp
+   045D 08                  913 	inc	r0
+   045E 74 09               914 	mov	a,#0x09
+   0460 26                  915 	add	a,@r0
+   0461 FA                  916 	mov	r2,a
+   0462 E4                  917 	clr	a
+   0463 08                  918 	inc	r0
+   0464 36                  919 	addc	a,@r0
+   0465 FB                  920 	mov	r3,a
+   0466 08                  921 	inc	r0
+   0467 86 04               922 	mov	ar4,@r0
+   0469 8A 82               923 	mov	dpl,r2
+   046B 8B 83               924 	mov	dph,r3
+   046D 8C F0               925 	mov	b,r4
+   046F 74r51               926 	mov	a,#_calculator_frac1
+   0471 12s00r00            927 	lcall	__gptrput
+   0474 A3                  928 	inc	dptr
+   0475 74s00               929 	mov	a,#(_calculator_frac1 >> 8)
+   0477 12s00r00            930 	lcall	__gptrput
+   047A A3                  931 	inc	dptr
+   047B 74 80               932 	mov	a,#0x80
+   047D 12s00r00            933 	lcall	__gptrput
+   0480 75 82 02            934 	mov	dpl,#0x02
+   0483 80 1D               935 	sjmp	00116$
+   0485                     936 00111$:
+                            937 ;	../sm_test_calculator.c:113: CONSUME_EVENT_IF(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),							NO_ACTION) ;
+   0485 BA 09 17            938 	cjne	r2,#0x09,00114$
+   0488 0D                  939 	inc	r5
+   0489 BD 00 01            940 	cjne	r5,#0x00,00134$
+   048C 0E                  941 	inc	r6
+   048D                     942 00134$:
+   048D 8D 82               943 	mov	dpl,r5
+   048F 8E 83               944 	mov	dph,r6
+   0491 8F F0               945 	mov	b,r7
+   0493 12s00r00            946 	lcall	__gptrget
+   0496 FD                  947 	mov	r5,a
+   0497 BD 2D 05            948 	cjne	r5,#0x2D,00114$
+   049A 75 82 01            949 	mov	dpl,#0x01
+   049D 80 03               950 	sjmp	00116$
+   049F                     951 00114$:
+                            952 ;	../sm_test_calculator.c:115: END_DEFINE_STATE()
+   049F 75 82 00            953 	mov	dpl,#0x00
+   04A2                     954 00116$:
+   04A2 85*00 81            955 	mov	sp,_bp
+   04A5 D0*00               956 	pop	_bp
+   04A7 22                  957 	ret
+                            958 ;------------------------------------------------------------
+                            959 ;Allocation info for local variables in function 'calculator_operand1_handler'
+                            960 ;------------------------------------------------------------
+                            961 ;event                     Allocated to stack - offset -5
+                            962 ;self                      Allocated to stack - offset 1
+                            963 ;stateResponseCode         Allocated to registers 
+                            964 ;------------------------------------------------------------
+                            965 ;	../sm_test_calculator.c:118: DEFINE_STATE(operand1)
+                            966 ;	-----------------------------------------
+                            967 ;	 function calculator_operand1_handler
+                            968 ;	-----------------------------------------
+   04A8                     969 _calculator_operand1_handler:
+   04A8 C0*00               970 	push	_bp
+   04AA 85 81*00            971 	mov	_bp,sp
+   04AD C0 82               972 	push	dpl
+   04AF C0 83               973 	push	dph
+   04B1 C0 F0               974 	push	b
+                            975 ;	../sm_test_calculator.c:120: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(ready),				NO_ACTION) ;
+   04B3 E5*00               976 	mov	a,_bp
+   04B5 24 FB               977 	add	a,#0xfb
+   04B7 F8                  978 	mov	r0,a
+   04B8 86 05               979 	mov	ar5,@r0
+   04BA 08                  980 	inc	r0
+   04BB 86 06               981 	mov	ar6,@r0
+   04BD 08                  982 	inc	r0
+   04BE 86 07               983 	mov	ar7,@r0
+   04C0 8D 82               984 	mov	dpl,r5
+   04C2 8E 83               985 	mov	dph,r6
+   04C4 8F F0               986 	mov	b,r7
+   04C6 12s00r00            987 	lcall	__gptrget
+   04C9 FD                  988 	mov	r5,a
+   04CA BD 05 2A            989 	cjne	r5,#0x05,00102$
+   04CD A8*00               990 	mov	r0,_bp
+   04CF 08                  991 	inc	r0
+   04D0 74 09               992 	mov	a,#0x09
+   04D2 26                  993 	add	a,@r0
+   04D3 FE                  994 	mov	r6,a
+   04D4 E4                  995 	clr	a
+   04D5 08                  996 	inc	r0
+   04D6 36                  997 	addc	a,@r0
+   04D7 FF                  998 	mov	r7,a
+   04D8 08                  999 	inc	r0
+   04D9 86 02              1000 	mov	ar2,@r0
+   04DB 8E 82              1001 	mov	dpl,r6
+   04DD 8F 83              1002 	mov	dph,r7
+   04DF 8A F0              1003 	mov	b,r2
+   04E1 74r12              1004 	mov	a,#_calculator_ready
+   04E3 12s00r00           1005 	lcall	__gptrput
+   04E6 A3                 1006 	inc	dptr
+   04E7 74s00              1007 	mov	a,#(_calculator_ready >> 8)
+   04E9 12s00r00           1008 	lcall	__gptrput
+   04EC A3                 1009 	inc	dptr
+   04ED 74 80              1010 	mov	a,#0x80
+   04EF 12s00r00           1011 	lcall	__gptrput
+   04F2 75 82 02           1012 	mov	dpl,#0x02
+   04F5 80 30              1013 	sjmp	00107$
+   04F7                    1014 00102$:
+                           1015 ;	../sm_test_calculator.c:121: TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+   04F7 BD 09 2A           1016 	cjne	r5,#0x09,00105$
+   04FA A8*00              1017 	mov	r0,_bp
+   04FC 08                 1018 	inc	r0
+   04FD 74 09              1019 	mov	a,#0x09
+   04FF 26                 1020 	add	a,@r0
+   0500 FA                 1021 	mov	r2,a
+   0501 E4                 1022 	clr	a
+   0502 08                 1023 	inc	r0
+   0503 36                 1024 	addc	a,@r0
+   0504 FB                 1025 	mov	r3,a
+   0505 08                 1026 	inc	r0
+   0506 86 04              1027 	mov	ar4,@r0
+   0508 8A 82              1028 	mov	dpl,r2
+   050A 8B 83              1029 	mov	dph,r3
+   050C 8C F0              1030 	mov	b,r4
+   050E 74r63              1031 	mov	a,#_calculator_opEntered
+   0510 12s00r00           1032 	lcall	__gptrput
+   0513 A3                 1033 	inc	dptr
+   0514 74s00              1034 	mov	a,#(_calculator_opEntered >> 8)
+   0516 12s00r00           1035 	lcall	__gptrput
+   0519 A3                 1036 	inc	dptr
+   051A 74 80              1037 	mov	a,#0x80
+   051C 12s00r00           1038 	lcall	__gptrput
+   051F 75 82 02           1039 	mov	dpl,#0x02
+   0522 80 03              1040 	sjmp	00107$
+   0524                    1041 00105$:
+                           1042 ;	../sm_test_calculator.c:123: END_DEFINE_STATE()
+   0524 75 82 00           1043 	mov	dpl,#0x00
+   0527                    1044 00107$:
+   0527 85*00 81           1045 	mov	sp,_bp
+   052A D0*00              1046 	pop	_bp
+   052C 22                 1047 	ret
+                           1048 ;------------------------------------------------------------
+                           1049 ;Allocation info for local variables in function 'calculator_zero1_handler'
+                           1050 ;------------------------------------------------------------
+                           1051 ;event                     Allocated to stack - offset -5
+                           1052 ;self                      Allocated to stack - offset 1
+                           1053 ;stateResponseCode         Allocated to registers 
+                           1054 ;------------------------------------------------------------
+                           1055 ;	../sm_test_calculator.c:126: DEFINE_STATE(zero1)
+                           1056 ;	-----------------------------------------
+                           1057 ;	 function calculator_zero1_handler
+                           1058 ;	-----------------------------------------
+   052D                    1059 _calculator_zero1_handler:
+   052D C0*00              1060 	push	_bp
+   052F 85 81*00           1061 	mov	_bp,sp
+   0532 C0 82              1062 	push	dpl
+   0534 C0 83              1063 	push	dph
+   0536 C0 F0              1064 	push	b
+                           1065 ;	../sm_test_calculator.c:128: INITIAL_TRANSITION(TO(zero2),																NO_ACTION) ;
+   0538 E5*00              1066 	mov	a,_bp
+   053A 24 FB              1067 	add	a,#0xfb
+   053C F8                 1068 	mov	r0,a
+   053D 86 05              1069 	mov	ar5,@r0
+   053F 08                 1070 	inc	r0
+   0540 86 06              1071 	mov	ar6,@r0
+   0542 08                 1072 	inc	r0
+   0543 86 07              1073 	mov	ar7,@r0
+   0545 8D 82              1074 	mov	dpl,r5
+   0547 8E 83              1075 	mov	dph,r6
+   0549 8F F0              1076 	mov	b,r7
+   054B 12s00r00           1077 	lcall	__gptrget
+   054E FD                 1078 	mov	r5,a
+   054F BD 02 2A           1079 	cjne	r5,#0x02,00102$
+   0552 A8*00              1080 	mov	r0,_bp
+   0554 08                 1081 	inc	r0
+   0555 74 09              1082 	mov	a,#0x09
+   0557 26                 1083 	add	a,@r0
+   0558 FE                 1084 	mov	r6,a
+   0559 E4                 1085 	clr	a
+   055A 08                 1086 	inc	r0
+   055B 36                 1087 	addc	a,@r0
+   055C FF                 1088 	mov	r7,a
+   055D 08                 1089 	inc	r0
+   055E 86 02              1090 	mov	ar2,@r0
+   0560 8E 82              1091 	mov	dpl,r6
+   0562 8F 83              1092 	mov	dph,r7
+   0564 8A F0              1093 	mov	b,r2
+   0566 74r7E              1094 	mov	a,#_calculator_zero2
+   0568 12s00r00           1095 	lcall	__gptrput
+   056B A3                 1096 	inc	dptr
+   056C 74s00              1097 	mov	a,#(_calculator_zero2 >> 8)
+   056E 12s00r00           1098 	lcall	__gptrput
+   0571 A3                 1099 	inc	dptr
+   0572 74 80              1100 	mov	a,#0x80
+   0574 12s00r00           1101 	lcall	__gptrput
+   0577 75 82 02           1102 	mov	dpl,#0x02
+   057A 80 65              1103 	sjmp	00111$
+   057C                    1104 00102$:
+                           1105 ;	../sm_test_calculator.c:129: CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
+   057C BD 06 05           1106 	cjne	r5,#0x06,00104$
+   057F 75 82 01           1107 	mov	dpl,#0x01
+   0582 80 5D              1108 	sjmp	00111$
+   0584                    1109 00104$:
+                           1110 ;	../sm_test_calculator.c:130: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
+   0584 BD 07 2A           1111 	cjne	r5,#0x07,00106$
+   0587 A8*00              1112 	mov	r0,_bp
+   0589 08                 1113 	inc	r0
+   058A 74 09              1114 	mov	a,#0x09
+   058C 26                 1115 	add	a,@r0
+   058D FA                 1116 	mov	r2,a
+   058E E4                 1117 	clr	a
+   058F 08                 1118 	inc	r0
+   0590 36                 1119 	addc	a,@r0
+   0591 FB                 1120 	mov	r3,a
+   0592 08                 1121 	inc	r0
+   0593 86 04              1122 	mov	ar4,@r0
+   0595 8A 82              1123 	mov	dpl,r2
+   0597 8B 83              1124 	mov	dph,r3
+   0599 8C F0              1125 	mov	b,r4
+   059B 74r48              1126 	mov	a,#_calculator_int1
+   059D 12s00r00           1127 	lcall	__gptrput
+   05A0 A3                 1128 	inc	dptr
+   05A1 74s00              1129 	mov	a,#(_calculator_int1 >> 8)
+   05A3 12s00r00           1130 	lcall	__gptrput
+   05A6 A3                 1131 	inc	dptr
+   05A7 74 80              1132 	mov	a,#0x80
+   05A9 12s00r00           1133 	lcall	__gptrput
+   05AC 75 82 02           1134 	mov	dpl,#0x02
+   05AF 80 30              1135 	sjmp	00111$
+   05B1                    1136 00106$:
+                           1137 ;	../sm_test_calculator.c:131: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+   05B1 BD 08 2A           1138 	cjne	r5,#0x08,00109$
+   05B4 A8*00              1139 	mov	r0,_bp
+   05B6 08                 1140 	inc	r0
+   05B7 74 09              1141 	mov	a,#0x09
+   05B9 26                 1142 	add	a,@r0
+   05BA FA                 1143 	mov	r2,a
+   05BB E4                 1144 	clr	a
+   05BC 08                 1145 	inc	r0
+   05BD 36                 1146 	addc	a,@r0
+   05BE FB                 1147 	mov	r3,a
+   05BF 08                 1148 	inc	r0
+   05C0 86 04              1149 	mov	ar4,@r0
+   05C2 8A 82              1150 	mov	dpl,r2
+   05C4 8B 83              1151 	mov	dph,r3
+   05C6 8C F0              1152 	mov	b,r4
+   05C8 74r51              1153 	mov	a,#_calculator_frac1
+   05CA 12s00r00           1154 	lcall	__gptrput
+   05CD A3                 1155 	inc	dptr
+   05CE 74s00              1156 	mov	a,#(_calculator_frac1 >> 8)
+   05D0 12s00r00           1157 	lcall	__gptrput
+   05D3 A3                 1158 	inc	dptr
+   05D4 74 80              1159 	mov	a,#0x80
+   05D6 12s00r00           1160 	lcall	__gptrput
+   05D9 75 82 02           1161 	mov	dpl,#0x02
+   05DC 80 03              1162 	sjmp	00111$
+   05DE                    1163 00109$:
+                           1164 ;	../sm_test_calculator.c:133: END_DEFINE_STATE()
+   05DE 75 82 00           1165 	mov	dpl,#0x00
+   05E1                    1166 00111$:
+   05E1 85*00 81           1167 	mov	sp,_bp
+   05E4 D0*00              1168 	pop	_bp
+   05E6 22                 1169 	ret
+                           1170 ;------------------------------------------------------------
+                           1171 ;Allocation info for local variables in function 'calculator_int1_handler'
+                           1172 ;------------------------------------------------------------
+                           1173 ;event                     Allocated to stack - offset -5
+                           1174 ;self                      Allocated to registers r2 r3 r4 
+                           1175 ;stateResponseCode         Allocated to registers 
+                           1176 ;------------------------------------------------------------
+                           1177 ;	../sm_test_calculator.c:136: DEFINE_STATE(int1)
+                           1178 ;	-----------------------------------------
+                           1179 ;	 function calculator_int1_handler
+                           1180 ;	-----------------------------------------
+   05E7                    1181 _calculator_int1_handler:
+   05E7 C0*00              1182 	push	_bp
+   05E9 85 81*00           1183 	mov	_bp,sp
+   05EC AA 82              1184 	mov	r2,dpl
+   05EE AB 83              1185 	mov	r3,dph
+   05F0 AC F0              1186 	mov	r4,b
+                           1187 ;	../sm_test_calculator.c:138: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+   05F2 E5*00              1188 	mov	a,_bp
+   05F4 24 FB              1189 	add	a,#0xfb
+   05F6 F8                 1190 	mov	r0,a
+   05F7 86 05              1191 	mov	ar5,@r0
+   05F9 08                 1192 	inc	r0
+   05FA 86 06              1193 	mov	ar6,@r0
+   05FC 08                 1194 	inc	r0
+   05FD 86 07              1195 	mov	ar7,@r0
+   05FF 8D 82              1196 	mov	dpl,r5
+   0601 8E 83              1197 	mov	dph,r6
+   0603 8F F0              1198 	mov	b,r7
+   0605 12s00r00           1199 	lcall	__gptrget
+   0608 FD                 1200 	mov	r5,a
+   0609 BD 08 23           1201 	cjne	r5,#0x08,00102$
+   060C 74 09              1202 	mov	a,#0x09
+   060E 2A                 1203 	add	a,r2
+   060F FA                 1204 	mov	r2,a
+   0610 E4                 1205 	clr	a
+   0611 3B                 1206 	addc	a,r3
+   0612 FB                 1207 	mov	r3,a
+   0613 8A 82              1208 	mov	dpl,r2
+   0615 8B 83              1209 	mov	dph,r3
+   0617 8C F0              1210 	mov	b,r4
+   0619 74r51              1211 	mov	a,#_calculator_frac1
+   061B 12s00r00           1212 	lcall	__gptrput
+   061E A3                 1213 	inc	dptr
+   061F 74s00              1214 	mov	a,#(_calculator_frac1 >> 8)
+   0621 12s00r00           1215 	lcall	__gptrput
+   0624 A3                 1216 	inc	dptr
+   0625 74 80              1217 	mov	a,#0x80
+   0627 12s00r00           1218 	lcall	__gptrput
+   062A 75 82 02           1219 	mov	dpl,#0x02
+   062D 80 03              1220 	sjmp	00104$
+   062F                    1221 00102$:
+                           1222 ;	../sm_test_calculator.c:140: END_DEFINE_STATE()
+   062F 75 82 00           1223 	mov	dpl,#0x00
+   0632                    1224 00104$:
+   0632 D0*00              1225 	pop	_bp
+   0634 22                 1226 	ret
+                           1227 ;------------------------------------------------------------
+                           1228 ;Allocation info for local variables in function 'calculator_frac1_handler'
+                           1229 ;------------------------------------------------------------
+                           1230 ;event                     Allocated to stack - offset -5
+                           1231 ;self                      Allocated to registers 
+                           1232 ;stateResponseCode         Allocated to registers 
+                           1233 ;------------------------------------------------------------
+                           1234 ;	../sm_test_calculator.c:143: DEFINE_STATE(frac1)
+                           1235 ;	-----------------------------------------
+                           1236 ;	 function calculator_frac1_handler
+                           1237 ;	-----------------------------------------
+   0635                    1238 _calculator_frac1_handler:
+   0635 C0*00              1239 	push	_bp
+   0637 85 81*00           1240 	mov	_bp,sp
+                           1241 ;	../sm_test_calculator.c:145: CONSUME_EVENT(POINT,																		NO_ACTION) ;
+   063A E5*00              1242 	mov	a,_bp
+   063C 24 FB              1243 	add	a,#0xfb
+   063E F8                 1244 	mov	r0,a
+   063F 86 02              1245 	mov	ar2,@r0
+   0641 08                 1246 	inc	r0
+   0642 86 03              1247 	mov	ar3,@r0
+   0644 08                 1248 	inc	r0
+   0645 86 04              1249 	mov	ar4,@r0
+   0647 8A 82              1250 	mov	dpl,r2
+   0649 8B 83              1251 	mov	dph,r3
+   064B 8C F0              1252 	mov	b,r4
+   064D 12s00r00           1253 	lcall	__gptrget
+   0650 FA                 1254 	mov	r2,a
+   0651 BA 08 05           1255 	cjne	r2,#0x08,00102$
+   0654 75 82 01           1256 	mov	dpl,#0x01
+   0657 80 03              1257 	sjmp	00103$
+   0659                    1258 00102$:
+                           1259 ;	../sm_test_calculator.c:147: END_DEFINE_STATE()
+   0659 75 82 00           1260 	mov	dpl,#0x00
+   065C                    1261 00103$:
+   065C D0*00              1262 	pop	_bp
+   065E 22                 1263 	ret
+                           1264 ;------------------------------------------------------------
+                           1265 ;Allocation info for local variables in function 'calculator_error_handler'
+                           1266 ;------------------------------------------------------------
+                           1267 ;event                     Allocated to stack - offset -5
+                           1268 ;self                      Allocated to registers r2 r3 r4 
+                           1269 ;stateResponseCode         Allocated to registers 
+                           1270 ;------------------------------------------------------------
+                           1271 ;	../sm_test_calculator.c:150: DEFINE_STATE(error)
+                           1272 ;	-----------------------------------------
+                           1273 ;	 function calculator_error_handler
+                           1274 ;	-----------------------------------------
+   065F                    1275 _calculator_error_handler:
+   065F C0*00              1276 	push	_bp
+   0661 85 81*00           1277 	mov	_bp,sp
+   0664 AA 82              1278 	mov	r2,dpl
+   0666 AB 83              1279 	mov	r3,dph
+   0668 AC F0              1280 	mov	r4,b
+                           1281 ;	../sm_test_calculator.c:152: INITIAL_TRANSITION(TO(frac2),																NO_ACTION) ;
+   066A E5*00              1282 	mov	a,_bp
+   066C 24 FB              1283 	add	a,#0xfb
+   066E F8                 1284 	mov	r0,a
+   066F 86 05              1285 	mov	ar5,@r0
+   0671 08                 1286 	inc	r0
+   0672 86 06              1287 	mov	ar6,@r0
+   0674 08                 1288 	inc	r0
+   0675 86 07              1289 	mov	ar7,@r0
+   0677 8D 82              1290 	mov	dpl,r5
+   0679 8E 83              1291 	mov	dph,r6
+   067B 8F F0              1292 	mov	b,r7
+   067D 12s00r00           1293 	lcall	__gptrget
+   0680 FD                 1294 	mov	r5,a
+   0681 BD 02 23           1295 	cjne	r5,#0x02,00102$
+   0684 74 09              1296 	mov	a,#0x09
+   0686 2A                 1297 	add	a,r2
+   0687 FA                 1298 	mov	r2,a
+   0688 E4                 1299 	clr	a
+   0689 3B                 1300 	addc	a,r3
+   068A FB                 1301 	mov	r3,a
+   068B 8A 82              1302 	mov	dpl,r2
+   068D 8B 83              1303 	mov	dph,r3
+   068F 8C F0              1304 	mov	b,r4
+   0691 74r90              1305 	mov	a,#_calculator_frac2
+   0693 12s00r00           1306 	lcall	__gptrput
+   0696 A3                 1307 	inc	dptr
+   0697 74s00              1308 	mov	a,#(_calculator_frac2 >> 8)
+   0699 12s00r00           1309 	lcall	__gptrput
+   069C A3                 1310 	inc	dptr
+   069D 74 80              1311 	mov	a,#0x80
+   069F 12s00r00           1312 	lcall	__gptrput
+   06A2 75 82 02           1313 	mov	dpl,#0x02
+   06A5 80 03              1314 	sjmp	00103$
+   06A7                    1315 00102$:
+                           1316 ;	../sm_test_calculator.c:154: END_DEFINE_STATE()
+   06A7 75 82 00           1317 	mov	dpl,#0x00
+   06AA                    1318 00103$:
+   06AA D0*00              1319 	pop	_bp
+   06AC 22                 1320 	ret
+                           1321 ;------------------------------------------------------------
+                           1322 ;Allocation info for local variables in function 'calculator_opEntered_handler'
+                           1323 ;------------------------------------------------------------
+                           1324 ;event                     Allocated to stack - offset -5
+                           1325 ;self                      Allocated to registers r2 r3 r4 
+                           1326 ;stateResponseCode         Allocated to registers 
+                           1327 ;sloc0                     Allocated to stack - offset 1
+                           1328 ;------------------------------------------------------------
+                           1329 ;	../sm_test_calculator.c:157: DEFINE_STATE(opEntered)
+                           1330 ;	-----------------------------------------
+                           1331 ;	 function calculator_opEntered_handler
+                           1332 ;	-----------------------------------------
+   06AD                    1333 _calculator_opEntered_handler:
+   06AD C0*00              1334 	push	_bp
+   06AF 85 81*00           1335 	mov	_bp,sp
+   06B2 05 81              1336 	inc	sp
+   06B4 AA 82              1337 	mov	r2,dpl
+   06B6 AB 83              1338 	mov	r3,dph
+   06B8 AC F0              1339 	mov	r4,b
+                           1340 ;	../sm_test_calculator.c:159: TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated2),			NO_ACTION) ;
+   06BA E5*00              1341 	mov	a,_bp
+   06BC 24 FB              1342 	add	a,#0xfb
+   06BE F8                 1343 	mov	r0,a
+   06BF 86 05              1344 	mov	ar5,@r0
+   06C1 08                 1345 	inc	r0
+   06C2 86 06              1346 	mov	ar6,@r0
+   06C4 08                 1347 	inc	r0
+   06C5 86 07              1348 	mov	ar7,@r0
+   06C7 8D 82              1349 	mov	dpl,r5
+   06C9 8E 83              1350 	mov	dph,r6
+   06CB 8F F0              1351 	mov	b,r7
+   06CD A8*00              1352 	mov	r0,_bp
+   06CF 08                 1353 	inc	r0
+   06D0 12s00r00           1354 	lcall	__gptrget
+   06D3 F6                 1355 	mov	@r0,a
+   06D4 A8*00              1356 	mov	r0,_bp
+   06D6 08                 1357 	inc	r0
+   06D7 B6 09 38           1358 	cjne	@r0,#0x09,00102$
+   06DA 0D                 1359 	inc	r5
+   06DB BD 00 01           1360 	cjne	r5,#0x00,00122$
+   06DE 0E                 1361 	inc	r6
+   06DF                    1362 00122$:
+   06DF 8D 82              1363 	mov	dpl,r5
+   06E1 8E 83              1364 	mov	dph,r6
+   06E3 8F F0              1365 	mov	b,r7
+   06E5 12s00r00           1366 	lcall	__gptrget
+   06E8 FD                 1367 	mov	r5,a
+   06E9 BD 2D 26           1368 	cjne	r5,#0x2D,00102$
+   06EC 74 09              1369 	mov	a,#0x09
+   06EE 2A                 1370 	add	a,r2
+   06EF FD                 1371 	mov	r5,a
+   06F0 E4                 1372 	clr	a
+   06F1 3B                 1373 	addc	a,r3
+   06F2 FE                 1374 	mov	r6,a
+   06F3 8C 07              1375 	mov	ar7,r4
+   06F5 8D 82              1376 	mov	dpl,r5
+   06F7 8E 83              1377 	mov	dph,r6
+   06F9 8F F0              1378 	mov	b,r7
+   06FB 74r6C              1379 	mov	a,#_calculator_negated2
+   06FD 12s00r00           1380 	lcall	__gptrput
+   0700 A3                 1381 	inc	dptr
+   0701 74s00              1382 	mov	a,#(_calculator_negated2 >> 8)
+   0703 12s00r00           1383 	lcall	__gptrput
+   0706 A3                 1384 	inc	dptr
+   0707 74 80              1385 	mov	a,#0x80
+   0709 12s00r00           1386 	lcall	__gptrput
+   070C 75 82 02           1387 	mov	dpl,#0x02
+   070F 02s07r94           1388 	ljmp	00113$
+   0712                    1389 00102$:
+                           1390 ;	../sm_test_calculator.c:160: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero2),				NO_ACTION) ;
+   0712 A8*00              1391 	mov	r0,_bp
+   0714 08                 1392 	inc	r0
+   0715 B6 06 25           1393 	cjne	@r0,#0x06,00105$
+   0718 74 09              1394 	mov	a,#0x09
+   071A 2A                 1395 	add	a,r2
+   071B FD                 1396 	mov	r5,a
+   071C E4                 1397 	clr	a
+   071D 3B                 1398 	addc	a,r3
+   071E FE                 1399 	mov	r6,a
+   071F 8C 07              1400 	mov	ar7,r4
+   0721 8D 82              1401 	mov	dpl,r5
+   0723 8E 83              1402 	mov	dph,r6
+   0725 8F F0              1403 	mov	b,r7
+   0727 74r7E              1404 	mov	a,#_calculator_zero2
+   0729 12s00r00           1405 	lcall	__gptrput
+   072C A3                 1406 	inc	dptr
+   072D 74s00              1407 	mov	a,#(_calculator_zero2 >> 8)
+   072F 12s00r00           1408 	lcall	__gptrput
+   0732 A3                 1409 	inc	dptr
+   0733 74 80              1410 	mov	a,#0x80
+   0735 12s00r00           1411 	lcall	__gptrput
+   0738 75 82 02           1412 	mov	dpl,#0x02
+   073B 80 57              1413 	sjmp	00113$
+   073D                    1414 00105$:
+                           1415 ;	../sm_test_calculator.c:161: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
+   073D A8*00              1416 	mov	r0,_bp
+   073F 08                 1417 	inc	r0
+   0740 B6 07 25           1418 	cjne	@r0,#0x07,00108$
+   0743 74 09              1419 	mov	a,#0x09
+   0745 2A                 1420 	add	a,r2
+   0746 FD                 1421 	mov	r5,a
+   0747 E4                 1422 	clr	a
+   0748 3B                 1423 	addc	a,r3
+   0749 FE                 1424 	mov	r6,a
+   074A 8C 07              1425 	mov	ar7,r4
+   074C 8D 82              1426 	mov	dpl,r5
+   074E 8E 83              1427 	mov	dph,r6
+   0750 8F F0              1428 	mov	b,r7
+   0752 74r87              1429 	mov	a,#_calculator_int2
+   0754 12s00r00           1430 	lcall	__gptrput
+   0757 A3                 1431 	inc	dptr
+   0758 74s00              1432 	mov	a,#(_calculator_int2 >> 8)
+   075A 12s00r00           1433 	lcall	__gptrput
+   075D A3                 1434 	inc	dptr
+   075E 74 80              1435 	mov	a,#0x80
+   0760 12s00r00           1436 	lcall	__gptrput
+   0763 75 82 02           1437 	mov	dpl,#0x02
+   0766 80 2C              1438 	sjmp	00113$
+   0768                    1439 00108$:
+                           1440 ;	../sm_test_calculator.c:162: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+   0768 A8*00              1441 	mov	r0,_bp
+   076A 08                 1442 	inc	r0
+   076B B6 08 23           1443 	cjne	@r0,#0x08,00111$
+   076E 74 09              1444 	mov	a,#0x09
+   0770 2A                 1445 	add	a,r2
+   0771 FA                 1446 	mov	r2,a
+   0772 E4                 1447 	clr	a
+   0773 3B                 1448 	addc	a,r3
+   0774 FB                 1449 	mov	r3,a
+   0775 8A 82              1450 	mov	dpl,r2
+   0777 8B 83              1451 	mov	dph,r3
+   0779 8C F0              1452 	mov	b,r4
+   077B 74r90              1453 	mov	a,#_calculator_frac2
+   077D 12s00r00           1454 	lcall	__gptrput
+   0780 A3                 1455 	inc	dptr
+   0781 74s00              1456 	mov	a,#(_calculator_frac2 >> 8)
+   0783 12s00r00           1457 	lcall	__gptrput
+   0786 A3                 1458 	inc	dptr
+   0787 74 80              1459 	mov	a,#0x80
+   0789 12s00r00           1460 	lcall	__gptrput
+   078C 75 82 02           1461 	mov	dpl,#0x02
+   078F 80 03              1462 	sjmp	00113$
+   0791                    1463 00111$:
+                           1464 ;	../sm_test_calculator.c:164: END_DEFINE_STATE()
+   0791 75 82 00           1465 	mov	dpl,#0x00
+   0794                    1466 00113$:
+   0794 85*00 81           1467 	mov	sp,_bp
+   0797 D0*00              1468 	pop	_bp
+   0799 22                 1469 	ret
+                           1470 ;------------------------------------------------------------
+                           1471 ;Allocation info for local variables in function 'calculator_negated2_handler'
+                           1472 ;------------------------------------------------------------
+                           1473 ;event                     Allocated to stack - offset -5
+                           1474 ;self                      Allocated to stack - offset 1
+                           1475 ;stateResponseCode         Allocated to registers 
+                           1476 ;sloc0                     Allocated to stack - offset 5
+                           1477 ;------------------------------------------------------------
+                           1478 ;	../sm_test_calculator.c:167: DEFINE_STATE(negated2)
+                           1479 ;	-----------------------------------------
+                           1480 ;	 function calculator_negated2_handler
+                           1481 ;	-----------------------------------------
+   079A                    1482 _calculator_negated2_handler:
+   079A C0*00              1483 	push	_bp
+   079C 85 81*00           1484 	mov	_bp,sp
+   079F C0 82              1485 	push	dpl
+   07A1 C0 83              1486 	push	dph
+   07A3 C0 F0              1487 	push	b
+                           1488 ;	../sm_test_calculator.c:169: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+   07A5 E5*00              1489 	mov	a,_bp
+   07A7 24 FB              1490 	add	a,#0xfb
+   07A9 F8                 1491 	mov	r0,a
+   07AA 86 05              1492 	mov	ar5,@r0
+   07AC 08                 1493 	inc	r0
+   07AD 86 06              1494 	mov	ar6,@r0
+   07AF 08                 1495 	inc	r0
+   07B0 86 07              1496 	mov	ar7,@r0
+   07B2 8D 82              1497 	mov	dpl,r5
+   07B4 8E 83              1498 	mov	dph,r6
+   07B6 8F F0              1499 	mov	b,r7
+   07B8 12s00r00           1500 	lcall	__gptrget
+   07BB FA                 1501 	mov	r2,a
+   07BC BA 05 2B           1502 	cjne	r2,#0x05,00102$
+   07BF A8*00              1503 	mov	r0,_bp
+   07C1 08                 1504 	inc	r0
+   07C2 74 09              1505 	mov	a,#0x09
+   07C4 26                 1506 	add	a,@r0
+   07C5 FA                 1507 	mov	r2,a
+   07C6 E4                 1508 	clr	a
+   07C7 08                 1509 	inc	r0
+   07C8 36                 1510 	addc	a,@r0
+   07C9 FB                 1511 	mov	r3,a
+   07CA 08                 1512 	inc	r0
+   07CB 86 04              1513 	mov	ar4,@r0
+   07CD 8A 82              1514 	mov	dpl,r2
+   07CF 8B 83              1515 	mov	dph,r3
+   07D1 8C F0              1516 	mov	b,r4
+   07D3 74r63              1517 	mov	a,#_calculator_opEntered
+   07D5 12s00r00           1518 	lcall	__gptrput
+   07D8 A3                 1519 	inc	dptr
+   07D9 74s00              1520 	mov	a,#(_calculator_opEntered >> 8)
+   07DB 12s00r00           1521 	lcall	__gptrput
+   07DE A3                 1522 	inc	dptr
+   07DF 74 80              1523 	mov	a,#0x80
+   07E1 12s00r00           1524 	lcall	__gptrput
+   07E4 75 82 02           1525 	mov	dpl,#0x02
+   07E7 02s08r8F           1526 	ljmp	00116$
+   07EA                    1527 00102$:
+                           1528 ;	../sm_test_calculator.c:170: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero2),				NO_ACTION) ;
+   07EA BA 06 2B           1529 	cjne	r2,#0x06,00105$
+   07ED A8*00              1530 	mov	r0,_bp
+   07EF 08                 1531 	inc	r0
+   07F0 74 09              1532 	mov	a,#0x09
+   07F2 26                 1533 	add	a,@r0
+   07F3 FA                 1534 	mov	r2,a
+   07F4 E4                 1535 	clr	a
+   07F5 08                 1536 	inc	r0
+   07F6 36                 1537 	addc	a,@r0
+   07F7 FB                 1538 	mov	r3,a
+   07F8 08                 1539 	inc	r0
+   07F9 86 04              1540 	mov	ar4,@r0
+   07FB 8A 82              1541 	mov	dpl,r2
+   07FD 8B 83              1542 	mov	dph,r3
+   07FF 8C F0              1543 	mov	b,r4
+   0801 74r7E              1544 	mov	a,#_calculator_zero2
+   0803 12s00r00           1545 	lcall	__gptrput
+   0806 A3                 1546 	inc	dptr
+   0807 74s00              1547 	mov	a,#(_calculator_zero2 >> 8)
+   0809 12s00r00           1548 	lcall	__gptrput
+   080C A3                 1549 	inc	dptr
+   080D 74 80              1550 	mov	a,#0x80
+   080F 12s00r00           1551 	lcall	__gptrput
+   0812 75 82 02           1552 	mov	dpl,#0x02
+   0815 02s08r8F           1553 	ljmp	00116$
+   0818                    1554 00105$:
+                           1555 ;	../sm_test_calculator.c:171: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
+   0818 BA 07 2A           1556 	cjne	r2,#0x07,00108$
+   081B A8*00              1557 	mov	r0,_bp
+   081D 08                 1558 	inc	r0
+   081E 74 09              1559 	mov	a,#0x09
+   0820 26                 1560 	add	a,@r0
+   0821 FA                 1561 	mov	r2,a
+   0822 E4                 1562 	clr	a
+   0823 08                 1563 	inc	r0
+   0824 36                 1564 	addc	a,@r0
+   0825 FB                 1565 	mov	r3,a
+   0826 08                 1566 	inc	r0
+   0827 86 04              1567 	mov	ar4,@r0
+   0829 8A 82              1568 	mov	dpl,r2
+   082B 8B 83              1569 	mov	dph,r3
+   082D 8C F0              1570 	mov	b,r4
+   082F 74r87              1571 	mov	a,#_calculator_int2
+   0831 12s00r00           1572 	lcall	__gptrput
+   0834 A3                 1573 	inc	dptr
+   0835 74s00              1574 	mov	a,#(_calculator_int2 >> 8)
+   0837 12s00r00           1575 	lcall	__gptrput
+   083A A3                 1576 	inc	dptr
+   083B 74 80              1577 	mov	a,#0x80
+   083D 12s00r00           1578 	lcall	__gptrput
+   0840 75 82 02           1579 	mov	dpl,#0x02
+   0843 80 4A              1580 	sjmp	00116$
+   0845                    1581 00108$:
+                           1582 ;	../sm_test_calculator.c:172: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+   0845 BA 08 2A           1583 	cjne	r2,#0x08,00111$
+   0848 A8*00              1584 	mov	r0,_bp
+   084A 08                 1585 	inc	r0
+   084B 74 09              1586 	mov	a,#0x09
+   084D 26                 1587 	add	a,@r0
+   084E FA                 1588 	mov	r2,a
+   084F E4                 1589 	clr	a
+   0850 08                 1590 	inc	r0
+   0851 36                 1591 	addc	a,@r0
+   0852 FB                 1592 	mov	r3,a
+   0853 08                 1593 	inc	r0
+   0854 86 04              1594 	mov	ar4,@r0
+   0856 8A 82              1595 	mov	dpl,r2
+   0858 8B 83              1596 	mov	dph,r3
+   085A 8C F0              1597 	mov	b,r4
+   085C 74r90              1598 	mov	a,#_calculator_frac2
+   085E 12s00r00           1599 	lcall	__gptrput
+   0861 A3                 1600 	inc	dptr
+   0862 74s00              1601 	mov	a,#(_calculator_frac2 >> 8)
+   0864 12s00r00           1602 	lcall	__gptrput
+   0867 A3                 1603 	inc	dptr
+   0868 74 80              1604 	mov	a,#0x80
+   086A 12s00r00           1605 	lcall	__gptrput
+   086D 75 82 02           1606 	mov	dpl,#0x02
+   0870 80 1D              1607 	sjmp	00116$
+   0872                    1608 00111$:
+                           1609 ;	../sm_test_calculator.c:173: CONSUME_EVENT_IF(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),							NO_ACTION) ;
+   0872 BA 09 17           1610 	cjne	r2,#0x09,00114$
+   0875 0D                 1611 	inc	r5
+   0876 BD 00 01           1612 	cjne	r5,#0x00,00134$
+   0879 0E                 1613 	inc	r6
+   087A                    1614 00134$:
+   087A 8D 82              1615 	mov	dpl,r5
+   087C 8E 83              1616 	mov	dph,r6
+   087E 8F F0              1617 	mov	b,r7
+   0880 12s00r00           1618 	lcall	__gptrget
+   0883 FD                 1619 	mov	r5,a
+   0884 BD 2D 05           1620 	cjne	r5,#0x2D,00114$
+   0887 75 82 01           1621 	mov	dpl,#0x01
+   088A 80 03              1622 	sjmp	00116$
+   088C                    1623 00114$:
+                           1624 ;	../sm_test_calculator.c:175: END_DEFINE_STATE()
+   088C 75 82 00           1625 	mov	dpl,#0x00
+   088F                    1626 00116$:
+   088F 85*00 81           1627 	mov	sp,_bp
+   0892 D0*00              1628 	pop	_bp
+   0894 22                 1629 	ret
+                           1630 ;------------------------------------------------------------
+                           1631 ;Allocation info for local variables in function 'doCalculation'
+                           1632 ;------------------------------------------------------------
+                           1633 ;type                      Allocated with name '_doCalculation_type_1_1'
+                           1634 ;------------------------------------------------------------
+                           1635 ;	../sm_test_calculator.c:178: uint8_t doCalculation(	uint8_t type)
+                           1636 ;	-----------------------------------------
+                           1637 ;	 function doCalculation
+                           1638 ;	-----------------------------------------
+   0895                    1639 _doCalculation:
+   0895 E5 82              1640 	mov	a,dpl
+   0897 90s00r09           1641 	mov	dptr,#_doCalculation_type_1_1
+   089A F0                 1642 	movx	@dptr,a
+                           1643 ;	../sm_test_calculator.c:180: switch(type)
+   089B 90s00r09           1644 	mov	dptr,#_doCalculation_type_1_1
+   089E E0                 1645 	movx	a,@dptr
+   089F FA                 1646 	mov	r2,a
+   08A0 BA 2A 02           1647 	cjne	r2,#0x2A,00113$
+   08A3 80 17              1648 	sjmp	00103$
+   08A5                    1649 00113$:
+   08A5 BA 2B 02           1650 	cjne	r2,#0x2B,00114$
+   08A8 80 0A              1651 	sjmp	00101$
+   08AA                    1652 00114$:
+   08AA BA 2D 02           1653 	cjne	r2,#0x2D,00115$
+   08AD 80 09              1654 	sjmp	00102$
+   08AF                    1655 00115$:
+                           1656 ;	../sm_test_calculator.c:182: case '+': { return true ; }
+   08AF BA 2F 12           1657 	cjne	r2,#0x2F,00105$
+   08B2 80 0C              1658 	sjmp	00104$
+   08B4                    1659 00101$:
+   08B4 75 82 01           1660 	mov	dpl,#0x01
+                           1661 ;	../sm_test_calculator.c:183: case '-': { return true ; }
+   08B7 22                 1662 	ret
+   08B8                    1663 00102$:
+   08B8 75 82 01           1664 	mov	dpl,#0x01
+                           1665 ;	../sm_test_calculator.c:184: case '*': { return true ; }
+   08BB 22                 1666 	ret
+   08BC                    1667 00103$:
+   08BC 75 82 01           1668 	mov	dpl,#0x01
+                           1669 ;	../sm_test_calculator.c:185: case '/': { return true ; }
+   08BF 22                 1670 	ret
+   08C0                    1671 00104$:
+   08C0 75 82 01           1672 	mov	dpl,#0x01
+                           1673 ;	../sm_test_calculator.c:186: default:  { return false ; }
+                           1674 ;	../sm_test_calculator.c:187: }
+   08C3 22                 1675 	ret
+   08C4                    1676 00105$:
+   08C4 75 82 00           1677 	mov	dpl,#0x00
+   08C7 22                 1678 	ret
+                           1679 ;------------------------------------------------------------
+                           1680 ;Allocation info for local variables in function 'calculator_operand2_handler'
+                           1681 ;------------------------------------------------------------
+                           1682 ;event                     Allocated to stack - offset -5
+                           1683 ;self                      Allocated to stack - offset 1
+                           1684 ;stateResponseCode         Allocated to registers 
+                           1685 ;goodCalc                  Allocated to registers r2 
+                           1686 ;sloc0                     Allocated to stack - offset 6
+                           1687 ;------------------------------------------------------------
+                           1688 ;	../sm_test_calculator.c:191: DEFINE_STATE(operand2)
+                           1689 ;	-----------------------------------------
+                           1690 ;	 function calculator_operand2_handler
+                           1691 ;	-----------------------------------------
+   08C8                    1692 _calculator_operand2_handler:
+   08C8 C0*00              1693 	push	_bp
+   08CA 85 81*00           1694 	mov	_bp,sp
+   08CD C0 82              1695 	push	dpl
+   08CF C0 83              1696 	push	dph
+   08D1 C0 F0              1697 	push	b
+                           1698 ;	../sm_test_calculator.c:193: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+   08D3 E5*00              1699 	mov	a,_bp
+   08D5 24 FB              1700 	add	a,#0xfb
+   08D7 F8                 1701 	mov	r0,a
+   08D8 86 05              1702 	mov	ar5,@r0
+   08DA 08                 1703 	inc	r0
+   08DB 86 06              1704 	mov	ar6,@r0
+   08DD 08                 1705 	inc	r0
+   08DE 86 07              1706 	mov	ar7,@r0
+   08E0 8D 82              1707 	mov	dpl,r5
+   08E2 8E 83              1708 	mov	dph,r6
+   08E4 8F F0              1709 	mov	b,r7
+   08E6 12s00r00           1710 	lcall	__gptrget
+   08E9 FA                 1711 	mov	r2,a
+   08EA BA 05 2B           1712 	cjne	r2,#0x05,00102$
+   08ED A8*00              1713 	mov	r0,_bp
+   08EF 08                 1714 	inc	r0
+   08F0 74 09              1715 	mov	a,#0x09
+   08F2 26                 1716 	add	a,@r0
+   08F3 FA                 1717 	mov	r2,a
+   08F4 E4                 1718 	clr	a
+   08F5 08                 1719 	inc	r0
+   08F6 36                 1720 	addc	a,@r0
+   08F7 FB                 1721 	mov	r3,a
+   08F8 08                 1722 	inc	r0
+   08F9 86 04              1723 	mov	ar4,@r0
+   08FB 8A 82              1724 	mov	dpl,r2
+   08FD 8B 83              1725 	mov	dph,r3
+   08FF 8C F0              1726 	mov	b,r4
+   0901 74r63              1727 	mov	a,#_calculator_opEntered
+   0903 12s00r00           1728 	lcall	__gptrput
+   0906 A3                 1729 	inc	dptr
+   0907 74s00              1730 	mov	a,#(_calculator_opEntered >> 8)
+   0909 12s00r00           1731 	lcall	__gptrput
+   090C A3                 1732 	inc	dptr
+   090D 74 80              1733 	mov	a,#0x80
+   090F 12s00r00           1734 	lcall	__gptrput
+   0912 75 82 02           1735 	mov	dpl,#0x02
+   0915 02s09rE3           1736 	ljmp	00117$
+   0918                    1737 00102$:
+                           1738 ;	../sm_test_calculator.c:195: HANDLE_STATE_EVENTS
+   0918 BA 09 02           1739 	cjne	r2,#0x09,00126$
+   091B 80 08              1740 	sjmp	00105$
+   091D                    1741 00126$:
+   091D BA 0A 02           1742 	cjne	r2,#0x0A,00127$
+   0920 80 03              1743 	sjmp	00128$
+   0922                    1744 00127$:
+   0922 02s09rE0           1745 	ljmp	00116$
+   0925                    1746 00128$:
+                           1747 ;	../sm_test_calculator.c:198: EVENT(EQUALS)
+   0925                    1748 00105$:
+                           1749 ;	../sm_test_calculator.c:200: uint8_t goodCalc = doCalculation(EVENT_IS(keyEvent_t)->key) ;
+   0925 74 01              1750 	mov	a,#0x01
+   0927 2D                 1751 	add	a,r5
+   0928 FA                 1752 	mov	r2,a
+   0929 E4                 1753 	clr	a
+   092A 3E                 1754 	addc	a,r6
+   092B FB                 1755 	mov	r3,a
+   092C 8F 04              1756 	mov	ar4,r7
+   092E 8A 82              1757 	mov	dpl,r2
+   0930 8B 83              1758 	mov	dph,r3
+   0932 8C F0              1759 	mov	b,r4
+   0934 12s00r00           1760 	lcall	__gptrget
+   0937 F5 82              1761 	mov	dpl,a
+   0939 C0 05              1762 	push	ar5
+   093B C0 06              1763 	push	ar6
+   093D C0 07              1764 	push	ar7
+   093F 12s08r95           1765 	lcall	_doCalculation
+   0942 AA 82              1766 	mov	r2,dpl
+   0944 D0 07              1767 	pop	ar7
+   0946 D0 06              1768 	pop	ar6
+   0948 D0 05              1769 	pop	ar5
+                           1770 ;	../sm_test_calculator.c:202: if(goodCalc)
+   094A EA                 1771 	mov	a,r2
+   094B 60 64              1772 	jz	00113$
+                           1773 ;	../sm_test_calculator.c:204: TRANSITION_ON(OPERATION,	UNCONDITIONALLY,			TO(opEntered),			NO_ACTION) ;
+   094D 8D 82              1774 	mov	dpl,r5
+   094F 8E 83              1775 	mov	dph,r6
+   0951 8F F0              1776 	mov	b,r7
+   0953 12s00r00           1777 	lcall	__gptrget
+   0956 FA                 1778 	mov	r2,a
+   0957 BA 09 2A           1779 	cjne	r2,#0x09,00107$
+   095A A8*00              1780 	mov	r0,_bp
+   095C 08                 1781 	inc	r0
+   095D 74 09              1782 	mov	a,#0x09
+   095F 26                 1783 	add	a,@r0
+   0960 FB                 1784 	mov	r3,a
+   0961 E4                 1785 	clr	a
+   0962 08                 1786 	inc	r0
+   0963 36                 1787 	addc	a,@r0
+   0964 FC                 1788 	mov	r4,a
+   0965 08                 1789 	inc	r0
+   0966 86 05              1790 	mov	ar5,@r0
+   0968 8B 82              1791 	mov	dpl,r3
+   096A 8C 83              1792 	mov	dph,r4
+   096C 8D F0              1793 	mov	b,r5
+   096E 74r63              1794 	mov	a,#_calculator_opEntered
+   0970 12s00r00           1795 	lcall	__gptrput
+   0973 A3                 1796 	inc	dptr
+   0974 74s00              1797 	mov	a,#(_calculator_opEntered >> 8)
+   0976 12s00r00           1798 	lcall	__gptrput
+   0979 A3                 1799 	inc	dptr
+   097A 74 80              1800 	mov	a,#0x80
+   097C 12s00r00           1801 	lcall	__gptrput
+   097F 75 82 02           1802 	mov	dpl,#0x02
+   0982 80 5F              1803 	sjmp	00117$
+   0984                    1804 00107$:
+                           1805 ;	../sm_test_calculator.c:205: TRANSITION_ON(EQUALS,		UNCONDITIONALLY,			TO(result),				NO_ACTION) ;
+   0984 BA 0A 54           1806 	cjne	r2,#0x0A,00114$
+   0987 A8*00              1807 	mov	r0,_bp
+   0989 08                 1808 	inc	r0
+   098A 74 09              1809 	mov	a,#0x09
+   098C 26                 1810 	add	a,@r0
+   098D FA                 1811 	mov	r2,a
+   098E E4                 1812 	clr	a
+   098F 08                 1813 	inc	r0
+   0990 36                 1814 	addc	a,@r0
+   0991 FB                 1815 	mov	r3,a
+   0992 08                 1816 	inc	r0
+   0993 86 04              1817 	mov	ar4,@r0
+   0995 8A 82              1818 	mov	dpl,r2
+   0997 8B 83              1819 	mov	dph,r3
+   0999 8C F0              1820 	mov	b,r4
+   099B 74r1B              1821 	mov	a,#_calculator_result
+   099D 12s00r00           1822 	lcall	__gptrput
+   09A0 A3                 1823 	inc	dptr
+   09A1 74s00              1824 	mov	a,#(_calculator_result >> 8)
+   09A3 12s00r00           1825 	lcall	__gptrput
+   09A6 A3                 1826 	inc	dptr
+   09A7 74 80              1827 	mov	a,#0x80
+   09A9 12s00r00           1828 	lcall	__gptrput
+   09AC 75 82 02           1829 	mov	dpl,#0x02
+   09AF 80 32              1830 	sjmp	00117$
+   09B1                    1831 00113$:
+                           1832 ;	../sm_test_calculator.c:209: TRANSITION_TO(error, NO_ACTION) ;
+   09B1 A8*00              1833 	mov	r0,_bp
+   09B3 08                 1834 	inc	r0
+   09B4 74 09              1835 	mov	a,#0x09
+   09B6 26                 1836 	add	a,@r0
+   09B7 FA                 1837 	mov	r2,a
+   09B8 E4                 1838 	clr	a
+   09B9 08                 1839 	inc	r0
+   09BA 36                 1840 	addc	a,@r0
+   09BB FB                 1841 	mov	r3,a
+   09BC 08                 1842 	inc	r0
+   09BD 86 04              1843 	mov	ar4,@r0
+   09BF 8A 82              1844 	mov	dpl,r2
+   09C1 8B 83              1845 	mov	dph,r3
+   09C3 8C F0              1846 	mov	b,r4
+   09C5 74r5A              1847 	mov	a,#_calculator_error
+   09C7 12s00r00           1848 	lcall	__gptrput
+   09CA A3                 1849 	inc	dptr
+   09CB 74s00              1850 	mov	a,#(_calculator_error >> 8)
+   09CD 12s00r00           1851 	lcall	__gptrput
+   09D0 A3                 1852 	inc	dptr
+   09D1 74 80              1853 	mov	a,#0x80
+   09D3 12s00r00           1854 	lcall	__gptrput
+   09D6 75 82 02           1855 	mov	dpl,#0x02
+   09D9 80 08              1856 	sjmp	00117$
+   09DB                    1857 00114$:
+                           1858 ;	../sm_test_calculator.c:212: EVENT_HANDLED
+   09DB 75 82 01           1859 	mov	dpl,#0x01
+                           1860 ;	../sm_test_calculator.c:214: HANDLE_STATE_EVENTS_DONE
+   09DE 80 03              1861 	sjmp	00117$
+   09E0                    1862 00116$:
+                           1863 ;	../sm_test_calculator.c:216: END_DEFINE_STATE()
+   09E0 75 82 00           1864 	mov	dpl,#0x00
+   09E3                    1865 00117$:
+   09E3 85*00 81           1866 	mov	sp,_bp
+   09E6 D0*00              1867 	pop	_bp
+   09E8 22                 1868 	ret
+                           1869 ;------------------------------------------------------------
+                           1870 ;Allocation info for local variables in function 'calculator_zero2_handler'
+                           1871 ;------------------------------------------------------------
+                           1872 ;event                     Allocated to stack - offset -5
+                           1873 ;self                      Allocated to stack - offset 1
+                           1874 ;stateResponseCode         Allocated to registers 
+                           1875 ;------------------------------------------------------------
+                           1876 ;	../sm_test_calculator.c:219: DEFINE_STATE(zero2)
+                           1877 ;	-----------------------------------------
+                           1878 ;	 function calculator_zero2_handler
+                           1879 ;	-----------------------------------------
+   09E9                    1880 _calculator_zero2_handler:
+   09E9 C0*00              1881 	push	_bp
+   09EB 85 81*00           1882 	mov	_bp,sp
+   09EE C0 82              1883 	push	dpl
+   09F0 C0 83              1884 	push	dph
+   09F2 C0 F0              1885 	push	b
+                           1886 ;	../sm_test_calculator.c:221: INITIAL_TRANSITION(TO(negated1),															NO_ACTION) ;
+   09F4 E5*00              1887 	mov	a,_bp
+   09F6 24 FB              1888 	add	a,#0xfb
+   09F8 F8                 1889 	mov	r0,a
+   09F9 86 05              1890 	mov	ar5,@r0
+   09FB 08                 1891 	inc	r0
+   09FC 86 06              1892 	mov	ar6,@r0
+   09FE 08                 1893 	inc	r0
+   09FF 86 07              1894 	mov	ar7,@r0
+   0A01 8D 82              1895 	mov	dpl,r5
+   0A03 8E 83              1896 	mov	dph,r6
+   0A05 8F F0              1897 	mov	b,r7
+   0A07 12s00r00           1898 	lcall	__gptrget
+   0A0A FD                 1899 	mov	r5,a
+   0A0B BD 02 2A           1900 	cjne	r5,#0x02,00102$
+   0A0E A8*00              1901 	mov	r0,_bp
+   0A10 08                 1902 	inc	r0
+   0A11 74 09              1903 	mov	a,#0x09
+   0A13 26                 1904 	add	a,@r0
+   0A14 FE                 1905 	mov	r6,a
+   0A15 E4                 1906 	clr	a
+   0A16 08                 1907 	inc	r0
+   0A17 36                 1908 	addc	a,@r0
+   0A18 FF                 1909 	mov	r7,a
+   0A19 08                 1910 	inc	r0
+   0A1A 86 02              1911 	mov	ar2,@r0
+   0A1C 8E 82              1912 	mov	dpl,r6
+   0A1E 8F 83              1913 	mov	dph,r7
+   0A20 8A F0              1914 	mov	b,r2
+   0A22 74r2D              1915 	mov	a,#_calculator_negated1
+   0A24 12s00r00           1916 	lcall	__gptrput
+   0A27 A3                 1917 	inc	dptr
+   0A28 74s00              1918 	mov	a,#(_calculator_negated1 >> 8)
+   0A2A 12s00r00           1919 	lcall	__gptrput
+   0A2D A3                 1920 	inc	dptr
+   0A2E 74 80              1921 	mov	a,#0x80
+   0A30 12s00r00           1922 	lcall	__gptrput
+   0A33 75 82 02           1923 	mov	dpl,#0x02
+   0A36 80 65              1924 	sjmp	00111$
+   0A38                    1925 00102$:
+                           1926 ;	../sm_test_calculator.c:222: CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
+   0A38 BD 06 05           1927 	cjne	r5,#0x06,00104$
+   0A3B 75 82 01           1928 	mov	dpl,#0x01
+   0A3E 80 5D              1929 	sjmp	00111$
+   0A40                    1930 00104$:
+                           1931 ;	../sm_test_calculator.c:223: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
+   0A40 BD 07 2A           1932 	cjne	r5,#0x07,00106$
+   0A43 A8*00              1933 	mov	r0,_bp
+   0A45 08                 1934 	inc	r0
+   0A46 74 09              1935 	mov	a,#0x09
+   0A48 26                 1936 	add	a,@r0
+   0A49 FA                 1937 	mov	r2,a
+   0A4A E4                 1938 	clr	a
+   0A4B 08                 1939 	inc	r0
+   0A4C 36                 1940 	addc	a,@r0
+   0A4D FB                 1941 	mov	r3,a
+   0A4E 08                 1942 	inc	r0
+   0A4F 86 04              1943 	mov	ar4,@r0
+   0A51 8A 82              1944 	mov	dpl,r2
+   0A53 8B 83              1945 	mov	dph,r3
+   0A55 8C F0              1946 	mov	b,r4
+   0A57 74r87              1947 	mov	a,#_calculator_int2
+   0A59 12s00r00           1948 	lcall	__gptrput
+   0A5C A3                 1949 	inc	dptr
+   0A5D 74s00              1950 	mov	a,#(_calculator_int2 >> 8)
+   0A5F 12s00r00           1951 	lcall	__gptrput
+   0A62 A3                 1952 	inc	dptr
+   0A63 74 80              1953 	mov	a,#0x80
+   0A65 12s00r00           1954 	lcall	__gptrput
+   0A68 75 82 02           1955 	mov	dpl,#0x02
+   0A6B 80 30              1956 	sjmp	00111$
+   0A6D                    1957 00106$:
+                           1958 ;	../sm_test_calculator.c:224: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+   0A6D BD 08 2A           1959 	cjne	r5,#0x08,00109$
+   0A70 A8*00              1960 	mov	r0,_bp
+   0A72 08                 1961 	inc	r0
+   0A73 74 09              1962 	mov	a,#0x09
+   0A75 26                 1963 	add	a,@r0
+   0A76 FA                 1964 	mov	r2,a
+   0A77 E4                 1965 	clr	a
+   0A78 08                 1966 	inc	r0
+   0A79 36                 1967 	addc	a,@r0
+   0A7A FB                 1968 	mov	r3,a
+   0A7B 08                 1969 	inc	r0
+   0A7C 86 04              1970 	mov	ar4,@r0
+   0A7E 8A 82              1971 	mov	dpl,r2
+   0A80 8B 83              1972 	mov	dph,r3
+   0A82 8C F0              1973 	mov	b,r4
+   0A84 74r90              1974 	mov	a,#_calculator_frac2
+   0A86 12s00r00           1975 	lcall	__gptrput
+   0A89 A3                 1976 	inc	dptr
+   0A8A 74s00              1977 	mov	a,#(_calculator_frac2 >> 8)
+   0A8C 12s00r00           1978 	lcall	__gptrput
+   0A8F A3                 1979 	inc	dptr
+   0A90 74 80              1980 	mov	a,#0x80
+   0A92 12s00r00           1981 	lcall	__gptrput
+   0A95 75 82 02           1982 	mov	dpl,#0x02
+   0A98 80 03              1983 	sjmp	00111$
+   0A9A                    1984 00109$:
+                           1985 ;	../sm_test_calculator.c:226: END_DEFINE_STATE()
+   0A9A 75 82 00           1986 	mov	dpl,#0x00
+   0A9D                    1987 00111$:
+   0A9D 85*00 81           1988 	mov	sp,_bp
+   0AA0 D0*00              1989 	pop	_bp
+   0AA2 22                 1990 	ret
+                           1991 ;------------------------------------------------------------
+                           1992 ;Allocation info for local variables in function 'calculator_int2_handler'
+                           1993 ;------------------------------------------------------------
+                           1994 ;event                     Allocated to stack - offset -5
+                           1995 ;self                      Allocated to registers r2 r3 r4 
+                           1996 ;stateResponseCode         Allocated to registers 
+                           1997 ;------------------------------------------------------------
+                           1998 ;	../sm_test_calculator.c:229: DEFINE_STATE(int2)
+                           1999 ;	-----------------------------------------
+                           2000 ;	 function calculator_int2_handler
+                           2001 ;	-----------------------------------------
+   0AA3                    2002 _calculator_int2_handler:
+   0AA3 C0*00              2003 	push	_bp
+   0AA5 85 81*00           2004 	mov	_bp,sp
+   0AA8 AA 82              2005 	mov	r2,dpl
+   0AAA AB 83              2006 	mov	r3,dph
+   0AAC AC F0              2007 	mov	r4,b
+                           2008 ;	../sm_test_calculator.c:231: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+   0AAE E5*00              2009 	mov	a,_bp
+   0AB0 24 FB              2010 	add	a,#0xfb
+   0AB2 F8                 2011 	mov	r0,a
+   0AB3 86 05              2012 	mov	ar5,@r0
+   0AB5 08                 2013 	inc	r0
+   0AB6 86 06              2014 	mov	ar6,@r0
+   0AB8 08                 2015 	inc	r0
+   0AB9 86 07              2016 	mov	ar7,@r0
+   0ABB 8D 82              2017 	mov	dpl,r5
+   0ABD 8E 83              2018 	mov	dph,r6
+   0ABF 8F F0              2019 	mov	b,r7
+   0AC1 12s00r00           2020 	lcall	__gptrget
+   0AC4 FD                 2021 	mov	r5,a
+   0AC5 BD 08 23           2022 	cjne	r5,#0x08,00102$
+   0AC8 74 09              2023 	mov	a,#0x09
+   0ACA 2A                 2024 	add	a,r2
+   0ACB FA                 2025 	mov	r2,a
+   0ACC E4                 2026 	clr	a
+   0ACD 3B                 2027 	addc	a,r3
+   0ACE FB                 2028 	mov	r3,a
+   0ACF 8A 82              2029 	mov	dpl,r2
+   0AD1 8B 83              2030 	mov	dph,r3
+   0AD3 8C F0              2031 	mov	b,r4
+   0AD5 74r90              2032 	mov	a,#_calculator_frac2
+   0AD7 12s00r00           2033 	lcall	__gptrput
+   0ADA A3                 2034 	inc	dptr
+   0ADB 74s00              2035 	mov	a,#(_calculator_frac2 >> 8)
+   0ADD 12s00r00           2036 	lcall	__gptrput
+   0AE0 A3                 2037 	inc	dptr
+   0AE1 74 80              2038 	mov	a,#0x80
+   0AE3 12s00r00           2039 	lcall	__gptrput
+   0AE6 75 82 02           2040 	mov	dpl,#0x02
+   0AE9 80 03              2041 	sjmp	00104$
+   0AEB                    2042 00102$:
+                           2043 ;	../sm_test_calculator.c:233: END_DEFINE_STATE()
+   0AEB 75 82 00           2044 	mov	dpl,#0x00
+   0AEE                    2045 00104$:
+   0AEE D0*00              2046 	pop	_bp
+   0AF0 22                 2047 	ret
+                           2048 ;------------------------------------------------------------
+                           2049 ;Allocation info for local variables in function 'calculator_frac2_handler'
+                           2050 ;------------------------------------------------------------
+                           2051 ;event                     Allocated to stack - offset -5
+                           2052 ;self                      Allocated to registers 
+                           2053 ;stateResponseCode         Allocated to registers 
+                           2054 ;------------------------------------------------------------
+                           2055 ;	../sm_test_calculator.c:236: DEFINE_STATE(frac2)
+                           2056 ;	-----------------------------------------
+                           2057 ;	 function calculator_frac2_handler
+                           2058 ;	-----------------------------------------
+   0AF1                    2059 _calculator_frac2_handler:
+   0AF1 C0*00              2060 	push	_bp
+   0AF3 85 81*00           2061 	mov	_bp,sp
+                           2062 ;	../sm_test_calculator.c:238: CONSUME_EVENT(POINT,																		NO_ACTION) ;
+   0AF6 E5*00              2063 	mov	a,_bp
+   0AF8 24 FB              2064 	add	a,#0xfb
+   0AFA F8                 2065 	mov	r0,a
+   0AFB 86 02              2066 	mov	ar2,@r0
+   0AFD 08                 2067 	inc	r0
+   0AFE 86 03              2068 	mov	ar3,@r0
+   0B00 08                 2069 	inc	r0
+   0B01 86 04              2070 	mov	ar4,@r0
+   0B03 8A 82              2071 	mov	dpl,r2
+   0B05 8B 83              2072 	mov	dph,r3
+   0B07 8C F0              2073 	mov	b,r4
+   0B09 12s00r00           2074 	lcall	__gptrget
+   0B0C FA                 2075 	mov	r2,a
+   0B0D BA 08 05           2076 	cjne	r2,#0x08,00102$
+   0B10 75 82 01           2077 	mov	dpl,#0x01
+   0B13 80 03              2078 	sjmp	00103$
+   0B15                    2079 00102$:
+                           2080 ;	../sm_test_calculator.c:240: END_DEFINE_STATE()
+   0B15 75 82 00           2081 	mov	dpl,#0x00
+   0B18                    2082 00103$:
+   0B18 D0*00              2083 	pop	_bp
+   0B1A 22                 2084 	ret
+                           2085 	.area CSEG    (CODE)
+                           2086 	.area CONST   (CODE)
+   0000                    2087 _calculator_TOP:
+                           2088 ; generic printIvalPtr
+   0000 00 00 00           2089 	.byte #0x00,#0x00,#0x00
+   0003 00                 2090 	.db #0x00
+   0004rFDs00              2091 	.byte _calculator_TOP_handler,(_calculator_TOP_handler >> 8)
+   0006rA4s00 80           2092 	.byte _str_1,(_str_1 >> 8),#0x80
+   0009                    2093 _calculator_on:
+   0009r00s00 80           2094 	.byte _calculator_TOP,(_calculator_TOP >> 8),#0x80
+   000C 00                 2095 	.db #0x00
+   000Dr4Bs01              2096 	.byte _calculator_on_handler,(_calculator_on_handler >> 8)
+   000FrB3s00 80           2097 	.byte _str_2,(_str_2 >> 8),#0x80
+   0012                    2098 _calculator_ready:
+   0012r09s00 80           2099 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   0015 00                 2100 	.db #0x00
+   0016rFDs01              2101 	.byte _calculator_ready_handler,(_calculator_ready_handler >> 8)
+   0018rC1s00 80           2102 	.byte _str_3,(_str_3 >> 8),#0x80
+   001B                    2103 _calculator_result:
+   001Br12s00 80           2104 	.byte _calculator_ready,(_calculator_ready >> 8),#0x80
+   001E 00                 2105 	.db #0x00
+   001Fr82s02              2106 	.byte _calculator_result_handler,(_calculator_result_handler >> 8)
+   0021rD2s00 80           2107 	.byte _str_4,(_str_4 >> 8),#0x80
+   0024                    2108 _calculator_begin:
+   0024r12s00 80           2109 	.byte _calculator_ready,(_calculator_ready >> 8),#0x80
+   0027 00                 2110 	.db #0x00
+   0028r8Ds02              2111 	.byte _calculator_begin_handler,(_calculator_begin_handler >> 8)
+   002ArE4s00 80           2112 	.byte _str_5,(_str_5 >> 8),#0x80
+   002D                    2113 _calculator_negated1:
+   002Dr09s00 80           2114 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   0030 00                 2115 	.db #0x00
+   0031rADs03              2116 	.byte _calculator_negated1_handler,(_calculator_negated1_handler >> 8)
+   0033rF5s00 80           2117 	.byte _str_6,(_str_6 >> 8),#0x80
+   0036                    2118 _calculator_operand1:
+   0036r09s00 80           2119 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   0039 00                 2120 	.db #0x00
+   003ArA8s04              2121 	.byte _calculator_operand1_handler,(_calculator_operand1_handler >> 8)
+   003Cr09s01 80           2122 	.byte _str_7,(_str_7 >> 8),#0x80
+   003F                    2123 _calculator_zero1:
+   003Fr36s00 80           2124 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
+   0042 00                 2125 	.db #0x00
+   0043r2Ds05              2126 	.byte _calculator_zero1_handler,(_calculator_zero1_handler >> 8)
+   0045r1Ds01 80           2127 	.byte _str_8,(_str_8 >> 8),#0x80
+   0048                    2128 _calculator_int1:
+   0048r36s00 80           2129 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
+   004B 00                 2130 	.db #0x00
+   004CrE7s05              2131 	.byte _calculator_int1_handler,(_calculator_int1_handler >> 8)
+   004Er2Es01 80           2132 	.byte _str_9,(_str_9 >> 8),#0x80
+   0051                    2133 _calculator_frac1:
+   0051r36s00 80           2134 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
+   0054 00                 2135 	.db #0x00
+   0055r35s06              2136 	.byte _calculator_frac1_handler,(_calculator_frac1_handler >> 8)
+   0057r3Es01 80           2137 	.byte _str_10,(_str_10 >> 8),#0x80
+   005A                    2138 _calculator_error:
+   005Ar09s00 80           2139 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   005D 00                 2140 	.db #0x00
+   005Er5Fs06              2141 	.byte _calculator_error_handler,(_calculator_error_handler >> 8)
+   0060r4Fs01 80           2142 	.byte _str_11,(_str_11 >> 8),#0x80
+   0063                    2143 _calculator_opEntered:
+   0063r09s00 80           2144 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   0066 00                 2145 	.db #0x00
+   0067rADs06              2146 	.byte _calculator_opEntered_handler,(_calculator_opEntered_handler >> 8)
+   0069r60s01 80           2147 	.byte _str_12,(_str_12 >> 8),#0x80
+   006C                    2148 _calculator_negated2:
+   006Cr09s00 80           2149 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   006F 00                 2150 	.db #0x00
+   0070r9As07              2151 	.byte _calculator_negated2_handler,(_calculator_negated2_handler >> 8)
+   0072r75s01 80           2152 	.byte _str_13,(_str_13 >> 8),#0x80
+   0075                    2153 _calculator_operand2:
+   0075r09s00 80           2154 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   0078 00                 2155 	.db #0x00
+   0079rC8s08              2156 	.byte _calculator_operand2_handler,(_calculator_operand2_handler >> 8)
+   007Br89s01 80           2157 	.byte _str_14,(_str_14 >> 8),#0x80
+   007E                    2158 _calculator_zero2:
+   007Er75s00 80           2159 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
+   0081 00                 2160 	.db #0x00
+   0082rE9s09              2161 	.byte _calculator_zero2_handler,(_calculator_zero2_handler >> 8)
+   0084r9Ds01 80           2162 	.byte _str_15,(_str_15 >> 8),#0x80
+   0087                    2163 _calculator_int2:
+   0087r75s00 80           2164 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
+   008A 00                 2165 	.db #0x00
+   008BrA3s0A              2166 	.byte _calculator_int2_handler,(_calculator_int2_handler >> 8)
+   008DrAEs01 80           2167 	.byte _str_16,(_str_16 >> 8),#0x80
+   0090                    2168 _calculator_frac2:
+   0090r75s00 80           2169 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
+   0093 00                 2170 	.db #0x00
+   0094rF1s0A              2171 	.byte _calculator_frac2_handler,(_calculator_frac2_handler >> 8)
+   0096rBEs01 80           2172 	.byte _str_17,(_str_17 >> 8),#0x80
+   0099                    2173 __str_0:
+   0099 63 61 6C 63 75 6C  2174 	.ascii "calculator"
+        61 74 6F 72
+   00A3 00                 2175 	.db 0x00
+   00A4                    2176 _str_1:
+   00A4 63 61 6C 63 75 6C  2177 	.ascii "calculator_TOP"
+        61 74 6F 72 5F 54
+        4F 50
+   00B2 00                 2178 	.db 0x00
+   00B3                    2179 _str_2:
+   00B3 63 61 6C 63 75 6C  2180 	.ascii "calculator_on"
+        61 74 6F 72 5F 6F
+        6E
+   00C0 00                 2181 	.db 0x00
+   00C1                    2182 _str_3:
+   00C1 63 61 6C 63 75 6C  2183 	.ascii "calculator_ready"
+        61 74 6F 72 5F 72
+        65 61 64 79
+   00D1 00                 2184 	.db 0x00
+   00D2                    2185 _str_4:
+   00D2 63 61 6C 63 75 6C  2186 	.ascii "calculator_result"
+        61 74 6F 72 5F 72
+        65 73 75 6C 74
+   00E3 00                 2187 	.db 0x00
+   00E4                    2188 _str_5:
+   00E4 63 61 6C 63 75 6C  2189 	.ascii "calculator_begin"
+        61 74 6F 72 5F 62
+        65 67 69 6E
+   00F4 00                 2190 	.db 0x00
+   00F5                    2191 _str_6:
+   00F5 63 61 6C 63 75 6C  2192 	.ascii "calculator_negated1"
+        61 74 6F 72 5F 6E
+        65 67 61 74 65 64
+        31
+   0108 00                 2193 	.db 0x00
+   0109                    2194 _str_7:
+   0109 63 61 6C 63 75 6C  2195 	.ascii "calculator_operand1"
+        61 74 6F 72 5F 6F
+        70 65 72 61 6E 64
+        31
+   011C 00                 2196 	.db 0x00
+   011D                    2197 _str_8:
+   011D 63 61 6C 63 75 6C  2198 	.ascii "calculator_zero1"
+        61 74 6F 72 5F 7A
+        65 72 6F 31
+   012D 00                 2199 	.db 0x00
+   012E                    2200 _str_9:
+   012E 63 61 6C 63 75 6C  2201 	.ascii "calculator_int1"
+        61 74 6F 72 5F 69
+        6E 74 31
+   013D 00                 2202 	.db 0x00
+   013E                    2203 _str_10:
+   013E 63 61 6C 63 75 6C  2204 	.ascii "calculator_frac1"
+        61 74 6F 72 5F 66
+        72 61 63 31
+   014E 00                 2205 	.db 0x00
+   014F                    2206 _str_11:
+   014F 63 61 6C 63 75 6C  2207 	.ascii "calculator_error"
+        61 74 6F 72 5F 65
+        72 72 6F 72
+   015F 00                 2208 	.db 0x00
+   0160                    2209 _str_12:
+   0160 63 61 6C 63 75 6C  2210 	.ascii "calculator_opEntered"
+        61 74 6F 72 5F 6F
+        70 45 6E 74 65 72
+        65 64
+   0174 00                 2211 	.db 0x00
+   0175                    2212 _str_13:
+   0175 63 61 6C 63 75 6C  2213 	.ascii "calculator_negated2"
+        61 74 6F 72 5F 6E
+        65 67 61 74 65 64
+        32
+   0188 00                 2214 	.db 0x00
+   0189                    2215 _str_14:
+   0189 63 61 6C 63 75 6C  2216 	.ascii "calculator_operand2"
+        61 74 6F 72 5F 6F
+        70 65 72 61 6E 64
+        32
+   019C 00                 2217 	.db 0x00
+   019D                    2218 _str_15:
+   019D 63 61 6C 63 75 6C  2219 	.ascii "calculator_zero2"
+        61 74 6F 72 5F 7A
+        65 72 6F 32
+   01AD 00                 2220 	.db 0x00
+   01AE                    2221 _str_16:
+   01AE 63 61 6C 63 75 6C  2222 	.ascii "calculator_int2"
+        61 74 6F 72 5F 69
+        6E 74 32
+   01BD 00                 2223 	.db 0x00
+   01BE                    2224 _str_17:
+   01BE 63 61 6C 63 75 6C  2225 	.ascii "calculator_frac2"
+        61 74 6F 72 5F 66
+        72 61 63 32
+   01CE 00                 2226 	.db 0x00
+                           2227 	.area XINIT   (CODE)
+   0000                    2228 __xinit__calculator_name:
+   0000r99s00 80           2229 	.byte __str_0,(__str_0 >> 8),#0x80
+                           2230 	.area CABS    (ABS,CODE)
