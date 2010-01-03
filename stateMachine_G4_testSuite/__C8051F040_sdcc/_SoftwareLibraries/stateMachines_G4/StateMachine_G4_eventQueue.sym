@@ -170,36 +170,54 @@ Symbol Table
     TR1                                                            008E 
     TR2                                                            00CA 
     TXD                                                            00B1 
- 15 _NormalInsert                                                  0195 GR
-  9 _NormalInsert_PARM_2                                           0014 GR
-  9 _NormalInsert_Q_1_1                                            0017 R
- 15 _PriorityInsert                                                02D3 GR
-  9 _PriorityInsert_PARM_2                                         001A GR
-  9 _PriorityInsert_Q_1_1                                          001D R
- 15 _Remove                                                        03C1 GR
-  9 _Remove_Q_1_1                                                  0020 R
-  3 _Remove_sloc0_1_0                                              0000 R
-  3 _Remove_sloc1_1_0                                              0003 R
-  3 _Remove_sloc2_1_0                                              0004 R
     __gptrget                                                      **** GX
     __gptrput                                                      **** GX
  16 __str_0                                                        0000 R
  16 __str_1                                                        001B R
- 15 _clearQueue                                                    008A GR
-  9 _clearQueue_Q_1_1                                              0007 R
+ 15 _addToDeferredTypeList                                         0391 GR
+  9 _addToDeferredTypeList_PARM_2                                  001A GR
+  4 _addToDeferredTypeList_sloc0_1_0                               0000 GR
+  9 _addToDeferredTypeList_sm_1_1                                  001B R
+ 15 _eventQueue_initialize                                         0000 GR
+  9 _eventQueue_initialize_PARM_2                                  0000 GR
+  9 _eventQueue_initialize_PARM_3                                  0003 GR
+  9 _eventQueue_initialize_Q_1_1                                   0004 R
+ 15 _eventQueue_insert                                             0142 GR
+  9 _eventQueue_insert_PARM_2                                      0011 GR
+  9 _eventQueue_insert_Q_1_1                                       0014 R
+ 15 _eventQueue_isEmpty                                            008A GR
+  9 _eventQueue_isEmpty_Q_1_1                                      0007 R
+ 15 _eventQueue_isFull                                             00BE GR
+  9 _eventQueue_isFull_Q_1_1                                       000A R
+ 15 _eventQueue_remove                                             0298 GR
+  9 _eventQueue_remove_Q_1_1                                       0017 R
+  3 _eventQueue_remove_sloc0_1_0                                   0000 R
+  3 _eventQueue_remove_sloc1_1_0                                   0003 R
+  3 _eventQueue_remove_sloc2_1_0                                   0004 R
     _eventTypes                                                    **** GX
- 15 _initializeEventQueue                                          0000 GR
-  9 _initializeEventQueue_PARM_2                                   0000 GR
-  9 _initializeEventQueue_PARM_3                                   0003 GR
-  9 _initializeEventQueue_Q_1_1                                    0004 R
- 15 _isEmpty                                                       00DD GR
-  9 _isEmpty_Q_1_1                                                 000A R
- 15 _isFull                                                        0111 GR
-  9 _isFull_Q_1_1                                                  000D R
- 15 _nextLocationFromPoint                                         0155 R
-  9 _nextLocationFromPoint_PARM_2                                  0010 GR
-  9 _nextLocationFromPoint_Q_1_1                                   0011 R
+ 15 _isEventTypeDeferred                                           0422 GR
+  9 _isEventTypeDeferred_PARM_2                                    001E GR
+  4 _isEventTypeDeferred_sloc0_1_0                                 0000 GR
+  9 _isEventTypeDeferred_sm_1_1                                    001F R
+ 15 _nextLocationFromPoint                                         0102 R
+  9 _nextLocationFromPoint_PARM_2                                  000D GR
+  9 _nextLocationFromPoint_Q_1_1                                   000E R
+ 15 _postEventToStateMachine                                       0767 GR
+  9 _postEventToStateMachine_PARM_2                                002A GR
+  7 _postEventToStateMachine_sloc0_1_0                             0001 R
+  9 _postEventToStateMachine_sm_1_1                                002D R
     _printf                                                        **** GX
+ 15 _removeFromDeferredTypeList                                    04AE GR
+  9 _removeFromDeferredTypeList_PARM_2                             0022 GR
+  9 _removeFromDeferredTypeList_currentEvent_3_5                   0027 R
+  7 _removeFromDeferredTypeList_found_2_2                          0000 R
+  9 _removeFromDeferredTypeList_i_2_2                              0026 R
+  3 _removeFromDeferredTypeList_sloc0_1_0                          0007 R
+  3 _removeFromDeferredTypeList_sloc1_1_0                          0008 R
+  3 _removeFromDeferredTypeList_sloc2_1_0                          0009 R
+  3 _removeFromDeferredTypeList_sloc3_1_0                          000C R
+  3 _removeFromDeferredTypeList_sloc4_1_0                          000F R
+  9 _removeFromDeferredTypeList_sm_1_1                             0023 R
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -384,13 +402,13 @@ Area Table
    0 _CODE                                                                              size    0   flags 0
    1 RSEG                                                                               size    0   flags 0
    2 REG_BANK_0                                                                         size    8   flags 4
-   3 DSEG                                                                               size    7   flags 0
-   4 OSEG                                                                               size    0   flags 4
+   3 DSEG                                                                               size   12   flags 0
+   4 OSEG                                                                               size    3   flags 4
    5 ISEG                                                                               size    0   flags 0
    6 IABS                                                                               size    0   flags 8
-   7 BSEG                                                                               size    0   flags 80
+   7 BSEG                                                                               size    2   flags 80
    8 PSEG                                                                               size    0   flags 50
-   9 XSEG                                                                               size   23   flags 40
+   9 XSEG                                                                               size   30   flags 40
    A XABS                                                                               size    0   flags 48
    B XISEG                                                                              size    0   flags 40
    C HOME                                                                               size    0   flags 20
@@ -402,7 +420,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size  4A2   flags 20
+  15 CSEG                                                                               size  803   flags 20
   16 CONST                                                                              size   28   flags 20
   17 XINIT                                                                              size    0   flags 20
   18 CABS                                                                               size    0   flags 28

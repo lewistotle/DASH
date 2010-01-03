@@ -176,51 +176,52 @@ Symbol Table
  17 __xinit__calculator_name                                       0000 R
     _bp                                                            **** GX
  16 _calculator_TOP                                                0000 R
- 15 _calculator_TOP_handler                                        00FD R
+ 15 _calculator_TOP_handler                                        00EE R
  16 _calculator_begin                                              0024 R
- 15 _calculator_begin_handler                                      028D R
+ 15 _calculator_begin_handler                                      027E R
  15 _calculator_constructor                                        0004 GR
- 15 _calculator_constructor2                                       00C1 GR
+ 15 _calculator_constructor2                                       00B2 GR
   9 _calculator_constructor2_self_1_1                              0006 R
   9 _calculator_constructor_base_1_1                               0000 R
   3 _calculator_constructor_sloc0_1_0                              0000 R
- 15 _calculator_destructor                                         0099 GR
- 15 _calculator_destructor2                                        00FC GR
+ 15 _calculator_destructor                                         0086 GR
+ 15 _calculator_destructor2                                        00ED GR
   9 _calculator_destructor_self_1_1                                0003 R
  16 _calculator_error                                              005A R
- 15 _calculator_error_handler                                      065F R
+ 15 _calculator_error_handler                                      0650 R
  16 _calculator_frac1                                              0051 R
- 15 _calculator_frac1_handler                                      0635 R
+ 15 _calculator_frac1_handler                                      0626 R
  16 _calculator_frac2                                              0090 R
- 15 _calculator_frac2_handler                                      0AF1 R
+ 15 _calculator_frac2_handler                                      0AE2 R
  15 _calculator_getEventQueueDepth                                 0000 GR
- 15 _calculator_getMachineSize                                     00BD GR
+ 15 _calculator_getHistoryQueueDepth                               00AA GR
+ 15 _calculator_getMachineSize                                     00AE GR
  16 _calculator_int1                                               0048 R
- 15 _calculator_int1_handler                                       05E7 R
+ 15 _calculator_int1_handler                                       05D8 R
  16 _calculator_int2                                               0087 R
- 15 _calculator_int2_handler                                       0AA3 R
+ 15 _calculator_int2_handler                                       0A94 R
   B _calculator_name                                               0000 R
  16 _calculator_negated1                                           002D R
- 15 _calculator_negated1_handler                                   03AD R
+ 15 _calculator_negated1_handler                                   039E R
  16 _calculator_negated2                                           006C R
- 15 _calculator_negated2_handler                                   079A R
+ 15 _calculator_negated2_handler                                   078B R
  16 _calculator_on                                                 0009 R
- 15 _calculator_on_handler                                         014B R
+ 15 _calculator_on_handler                                         013C R
  16 _calculator_opEntered                                          0063 R
- 15 _calculator_opEntered_handler                                  06AD R
+ 15 _calculator_opEntered_handler                                  069E R
  16 _calculator_operand1                                           0036 R
- 15 _calculator_operand1_handler                                   04A8 R
+ 15 _calculator_operand1_handler                                   0499 R
  16 _calculator_operand2                                           0075 R
- 15 _calculator_operand2_handler                                   08C8 R
+ 15 _calculator_operand2_handler                                   08B9 R
  16 _calculator_ready                                              0012 R
- 15 _calculator_ready_handler                                      01FD R
+ 15 _calculator_ready_handler                                      01EE R
  16 _calculator_result                                             001B R
- 15 _calculator_result_handler                                     0282 R
+ 15 _calculator_result_handler                                     0273 R
  16 _calculator_zero1                                              003F R
- 15 _calculator_zero1_handler                                      052D R
+ 15 _calculator_zero1_handler                                      051E R
  16 _calculator_zero2                                              007E R
- 15 _calculator_zero2_handler                                      09E9 R
- 15 _doCalculation                                                 0895 GR
+ 15 _calculator_zero2_handler                                      09DA R
+ 15 _doCalculation                                                 0886 GR
   9 _doCalculation_type_1_1                                        0009 R
  16 _str_1                                                         00A4 R
  16 _str_10                                                        013E R
@@ -441,7 +442,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size  B1B   flags 20
+  15 CSEG                                                                               size  B0C   flags 20
   16 CONST                                                                              size  1CF   flags 20
   17 XINIT                                                                              size    3   flags 20
   18 CABS                                                                               size    0   flags 28

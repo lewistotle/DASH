@@ -661,8 +661,8 @@
 <parser enabled="true"/>
 </buildOutputProvider>
 <scannerInfoProvider id="specsFile">
-<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc" useDefault="true"/>
-<parser enabled="false"/>
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc-3" useDefault="true"/>
+<parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
 <profile id="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC">
@@ -1647,8 +1647,8 @@
 <parser enabled="true"/>
 </buildOutputProvider>
 <scannerInfoProvider id="specsFile">
-<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc" useDefault="true"/>
-<parser enabled="false"/>
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc-3" useDefault="true"/>
+<parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
 <profile id="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC">
@@ -2647,8 +2647,8 @@
 <parser enabled="true"/>
 </buildOutputProvider>
 <scannerInfoProvider id="specsFile">
-<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc" useDefault="true"/>
-<parser enabled="false"/>
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc-3" useDefault="true"/>
+<parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
 <profile id="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC">
@@ -3011,11 +3011,11 @@
 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.cygwin.exe.debug.option.optimization.level.1888931356" name="Optimization Level" superClass="gnu.c.compiler.cygwin.exe.debug.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.cygwin.exe.debug.option.debugging.level.1895418860" name="Debug Level" superClass="gnu.c.compiler.cygwin.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 <option id="gnu.c.compiler.option.include.paths.938425456" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;..\..\&quot;"/>
+<listOptionValue builtIn="false" value="../../"/>
 </option>
 <option id="gnu.c.compiler.option.preprocessor.preprocess.1982250364" name="Preprocess only (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" value="false" valueType="boolean"/>
 <option id="gnu.c.compiler.option.warnings.pedantic.1524263525" name="Pedantic (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="true" valueType="boolean"/>
-<option id="gnu.c.compiler.option.preprocessor.def.symbols.1297563117" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+<option id="gnu.c.compiler.option.preprocessor.def.symbols.1297563117" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="__cygwin__"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1218576782" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
@@ -3049,7 +3049,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="_SoftwareLibraries/HAL/task_UART.c|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="_SoftwareLibraries/HAL/task_UART.c|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -3658,8 +3658,8 @@
 <parser enabled="true"/>
 </buildOutputProvider>
 <scannerInfoProvider id="specsFile">
-<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc" useDefault="true"/>
-<parser enabled="false"/>
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc-3" useDefault="true"/>
+<parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
 <profile id="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC">

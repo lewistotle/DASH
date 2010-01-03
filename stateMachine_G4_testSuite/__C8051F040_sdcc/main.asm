@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Wed Dec 30 22:15:30 2009
+; This file was generated Sat Jan 02 19:24:42 2010
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-large
@@ -994,7 +994,7 @@ __interrupt_vect:
 ;calculator                Allocated with name '_main_calculator_1_1'
 ;iterationMax              Allocated with name '_main_iterationMax_1_1'
 ;------------------------------------------------------------
-;	../main.c:89: static int iterationMax = 10 ;
+;	../main.c:94: static int iterationMax = 10 ;
 	mov	dptr,#_main_iterationMax_1_1
 	mov	a,#0x0A
 	movx	@dptr,a
@@ -1032,7 +1032,7 @@ __sdcc_program_startup:
 ;calculator                Allocated with name '_main_calculator_1_1'
 ;iterationMax              Allocated with name '_main_iterationMax_1_1'
 ;------------------------------------------------------------
-;	../main.c:78: void main(	void)
+;	../main.c:83: void main(	void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -1045,54 +1045,41 @@ _main:
 	ar7 = 0x07
 	ar0 = 0x00
 	ar1 = 0x01
-;	../main.c:86: bool			ok = true ;
+;	../main.c:91: bool			ok = true ;
 	setb	_main_ok_1_1
-;	../main.c:91: puts("4th Generation state machine test started.") ;
+;	../main.c:96: puts("4th Generation state machine test started.") ;
 	mov	dptr,#__str_0
 	mov	b,#0x80
 	lcall	_puts
-;	../main.c:104: WDTCN = 0xDE ;	// Disable the watchdog timer
+;	../main.c:109: WDTCN = 0xDE ;	/* Disable the watchdog timer */
 	mov	_WDTCN,#0xDE
-;	../main.c:105: WDTCN = 0xAD ;
+;	../main.c:110: WDTCN = 0xAD ;
 	mov	_WDTCN,#0xAD
-;	../main.c:106: WDTCN = 0xFF ;	// Disable any future ability to modify the watchdog timer
+;	../main.c:111: WDTCN = 0xFF ;	/* Disable any future ability to modify the watchdog timer */
 	mov	_WDTCN,#0xFF
-;	../main.c:108: prvSetupSystemClock() ;
+;	../main.c:113: prvSetupSystemClock() ;
 	lcall	_prvSetupSystemClock
-;	../main.c:109: gpio_init() ;
+;	../main.c:114: gpio_init() ;
 	lcall	_gpio_init_projectSpecific
-;	../main.c:110: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
+;	../main.c:115: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
 	mov	dpl,#0x00
 	lcall	_pwm_init
-;	../main.c:111: prvSetupTimerInterrupt() ;
+;	../main.c:116: prvSetupTimerInterrupt() ;
 	lcall	_prvSetupTimerInterrupt
-;	../main.c:112: task_UART_init(0) ;
+;	../main.c:117: task_UART_init(0) ;
 	mov	dpl,#0x00
 	lcall	_task_UART_init
-;	../main.c:114: portENABLE_INTERRUPTS() ;
+;	../main.c:119: portENABLE_INTERRUPTS() ;
 	setb	_EA
-;	../main.c:117: puts("Generating timebomb") ;
+;	../main.c:122: puts("Generating timebomb") ;
 	mov	dptr,#__str_1
 	mov	b,#0x80
 	lcall	_puts
-;	../main.c:119: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
-	lcall	_timeBomb_getMachineSize
+;	../main.c:124: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+	lcall	_timeBomb_getEventQueueDepth
 	mov	r2,dpl
 	mov	r3,dph
-	push	ar2
-	push	ar3
-	lcall	_timeBomb_getEventQueueDepth
-	mov	r4,dpl
-	mov	r5,dph
-	pop	ar3
-	pop	ar2
 	mov	dptr,#_allocateStateMachineMemory_PARM_2
-	mov	a,r4
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r5
-	movx	@dptr,a
-	mov	dptr,#_allocateStateMachineMemory_PARM_3
 	mov	a,#_timeBomb_constructor
 	movx	@dptr,a
 	inc	dptr
@@ -1104,48 +1091,18 @@ _main:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-;	../main.c:121: if(bomb)
-	mov	a,r2
-	orl	a,r3
-	orl	a,r4
-	jz	00102$
-;	../main.c:123: REGISTER_STATE_MACHINE(bomb) ;
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	push	ar2
-	push	ar3
-	push	ar4
-	lcall	_registerStateMachine
-	pop	ar4
-	pop	ar3
-	pop	ar2
-00102$:
-;	../main.c:126: puts("Generating calculator") ;
+;	../main.c:131: puts("Generating calculator") ;
 	mov	dptr,#__str_2
 	mov	b,#0x80
 	push	ar2
 	push	ar3
 	push	ar4
 	lcall	_puts
-;	../main.c:128: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
-	lcall	_calculator_getMachineSize
+;	../main.c:133: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
+	lcall	_calculator_getEventQueueDepth
 	mov	r5,dpl
 	mov	r6,dph
-	push	ar5
-	push	ar6
-	lcall	_calculator_getEventQueueDepth
-	mov	r7,dpl
-	mov	r0,dph
-	pop	ar6
-	pop	ar5
 	mov	dptr,#_allocateStateMachineMemory_PARM_2
-	mov	a,r7
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r0
-	movx	@dptr,a
-	mov	dptr,#_allocateStateMachineMemory_PARM_3
 	mov	a,#_calculator_constructor
 	movx	@dptr,a
 	inc	dptr
@@ -1160,12 +1117,12 @@ _main:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	../main.c:130: if(calculator)
+;	../main.c:135: if(calculator)
 	mov	a,r5
 	orl	a,r6
 	orl	a,r7
-	jz	00104$
-;	../main.c:132: puts("Registering calculator") ;
+	jz	00102$
+;	../main.c:137: puts("Registering calculator") ;
 	mov	dptr,#__str_3
 	mov	b,#0x80
 	push	ar2
@@ -1178,7 +1135,7 @@ _main:
 	pop	ar7
 	pop	ar6
 	pop	ar5
-;	../main.c:134: REGISTER_STATE_MACHINE(calculator) ;
+;	../main.c:139: REGISTER_STATE_MACHINE(calculator) ;
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
@@ -1192,8 +1149,8 @@ _main:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-00104$:
-;	../main.c:137: puts("Iterating state machines") ;
+00102$:
+;	../main.c:142: puts("Iterating state machines") ;
 	mov	dptr,#__str_4
 	mov	b,#0x80
 	push	ar2
@@ -1209,13 +1166,13 @@ _main:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	../main.c:139: while(ok)
-00107$:
-	jnb	_main_ok_1_1,00109$
-;	../main.c:141: if(iterationMax-- == 0)
-	push	ar5
-	push	ar6
-	push	ar7
+;	../main.c:144: while(ok)
+00105$:
+	jnb	_main_ok_1_1,00107$
+;	../main.c:146: if(iterationMax-- == 0)
+	push	ar2
+	push	ar3
+	push	ar4
 	mov	dptr,#_main_iterationMax_1_1
 	movx	a,@dptr
 	mov	r0,a
@@ -1224,26 +1181,26 @@ _main:
 	mov	r1,a
 	mov	a,r0
 	add	a,#0xff
-	mov	r5,a
+	mov	r2,a
 	mov	a,r1
 	addc	a,#0xff
-	mov	r6,a
+	mov	r3,a
 	mov	dptr,#_main_iterationMax_1_1
-	mov	a,r5
+	mov	a,r2
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r6
+	mov	a,r3
 	movx	@dptr,a
-	pop	ar7
-	pop	ar6
-	pop	ar5
+	pop	ar4
+	pop	ar3
+	pop	ar2
 	mov	a,r0
 	orl	a,r1
-	jnz	00106$
-;	../main.c:143: ok = false ;
+	jnz	00104$
+;	../main.c:148: ok = false ;
 	clr	_main_ok_1_1
-00106$:
-;	../main.c:146: puts("loop") ;
+00104$:
+;	../main.c:151: puts("loop") ;
 	mov	dptr,#__str_5
 	mov	b,#0x80
 	push	ar2
@@ -1253,7 +1210,7 @@ _main:
 	push	ar6
 	push	ar7
 	lcall	_puts
-;	../main.c:148: ITERATE_ALL_STATE_MACHINES() ;
+;	../main.c:153: ITERATE_ALL_STATE_MACHINES() ;
 	lcall	_iterateAllStateMachines
 	pop	ar7
 	pop	ar6
@@ -1261,14 +1218,14 @@ _main:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-	sjmp	00107$
-00109$:
-;	../main.c:155: if(calculator)
+	sjmp	00105$
+00107$:
+;	../main.c:160: if(calculator)
 	mov	a,r5
 	orl	a,r6
 	orl	a,r7
-	jz	00111$
-;	../main.c:157: UNREGISTER_STATE_MACHINE(calculator) ;
+	jz	00109$
+;	../main.c:162: UNREGISTER_STATE_MACHINE(calculator) ;
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
@@ -1282,7 +1239,7 @@ _main:
 	pop	ar7
 	pop	ar6
 	pop	ar5
-;	../main.c:159: STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
+;	../main.c:164: STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
 	mov	a,#_calculator_destructor
 	movx	@dptr,a
@@ -1296,14 +1253,14 @@ _main:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	../main.c:161: calculator = 0 ;
-00111$:
-;	../main.c:164: if(bomb)
+;	../main.c:166: calculator = 0 ;
+00109$:
+;	../main.c:169: if(bomb)
 	mov	a,r2
 	orl	a,r3
 	orl	a,r4
-	jz	00113$
-;	../main.c:166: UNREGISTER_STATE_MACHINE(bomb) ;
+	jz	00111$
+;	../main.c:171: UNREGISTER_STATE_MACHINE(bomb) ;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
@@ -1314,7 +1271,7 @@ _main:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	../main.c:168: STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
+;	../main.c:173: STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
 	mov	a,#_timeBomb_destructor
 	movx	@dptr,a
@@ -1325,9 +1282,9 @@ _main:
 	mov	dph,r3
 	mov	b,r4
 	lcall	_deallocateStateMachineMemory
-;	../main.c:170: bomb = 0 ;
-00113$:
-;	../main.c:173: puts("\n4th Generation state machine test done.") ;
+;	../main.c:175: bomb = 0 ;
+00111$:
+;	../main.c:178: puts("\n4th Generation state machine test done.") ;
 	mov	dptr,#__str_6
 	mov	b,#0x80
 	ljmp	_puts
@@ -1335,12 +1292,12 @@ _main:
 ;Allocation info for local variables in function 'taskSwitcherTickHook'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	../main.c:182: void taskSwitcherTickHook(	void)
+;	../main.c:187: void taskSwitcherTickHook(	void)
 ;	-----------------------------------------
 ;	 function taskSwitcherTickHook
 ;	-----------------------------------------
 _taskSwitcherTickHook:
-;	../main.c:184: timeForTickProcessing = true ;
+;	../main.c:189: timeForTickProcessing = true ;
 	setb	_timeForTickProcessing
 	ret
 ;------------------------------------------------------------

@@ -316,9 +316,9 @@ Symbol Table
     _IP                                                         =  00B8 G
     _IT0                                                        =  0088 G
     _IT1                                                        =  008A G
- 17 _IsEmpty                                                       02D0 GR
+ 17 _IsEmpty                                                       0288 GR
   B _IsEmpty_Q_1_1                                                 0452 R
- 17 _IsFull                                                        030C GR
+ 17 _IsFull                                                        02C4 GR
   B _IsFull_Q_1_1                                                  0455 R
     _MCE1                                                       =  009D G
     _MODF                                                       =  00FD G
@@ -497,7 +497,7 @@ Symbol Table
     _SSTA0                                                      =  0091 G
     _STA                                                        =  00C5 G
     _STO                                                        =  00C4 G
- 17 _Succ                                                          035E R
+ 17 _Succ                                                          0316 R
   B _Succ_PARM_2                                                   0458 GR
   B _Succ_Value_1_1                                                045B R
     _TB80                                                       =  009B G
@@ -536,8 +536,8 @@ Symbol Table
     _TR3                                                        =  00CA G
     _TR4                                                        =  00CA G
     _TXBMT                                                      =  00F9 G
- 17 _UART0_Init                                                    0AAB GR
- 17 _UART1_Init                                                    0AB9 GR
+ 17 _UART0_Init                                                    0A63 GR
+ 17 _UART1_Init                                                    0A71 GR
   B _UARTtempBuffer                                                0006 GR
     _WCOL                                                       =  00FE G
     _WDTCN                                                      =  00FF G
@@ -563,52 +563,50 @@ Symbol Table
  18 __str_5                                                        0085 R
  18 __str_6                                                        008A R
  19 __xinit__countdown                                             0000 R
- 17 _addTickCounter                                                0B45 GR
+ 17 _addTickCounter                                                0AFD GR
   B _addTickCounter_pointerToIncrement_1_1                         0906 R
   5 _addTickCounter_sloc0_1_0                                      0000 GR
     _allocateStateMachineMemory                                    **** GX
     _allocateStateMachineMemory_PARM_2                             **** GX
-    _allocateStateMachineMemory_PARM_3                             **** GX
     _calculator_constructor                                        **** GX
     _calculator_destructor                                         **** GX
     _calculator_getEventQueueDepth                                 **** GX
-    _calculator_getMachineSize                                     **** GX
   B _charSent                                                      08CB R
   D _countdown                                                     0000 R
     _deallocateStateMachineMemory                                  **** GX
     _deallocateStateMachineMemory_PARM_2                           **** GX
- 17 _gpio_init_projectSpecific                                     01EE GR
+ 17 _gpio_init_projectSpecific                                     01A6 GR
     _iterateAllStateMachines                                       **** GX
   B _lineReady                                                     08CC R
  17 _main                                                          0000 GR
   B _main_iterationMax_1_1                                         0000 R
   9 _main_ok_1_1                                                   0001 R
- 17 _prvSetupSystemClock                                           0AEC R
- 17 _prvSetupTimerInterrupt                                        0B0B R
+ 17 _prvSetupSystemClock                                           0AA4 R
+ 17 _prvSetupTimerInterrupt                                        0AC3 R
   B _prvSetupTimerInterrupt_ucOriginalSFRPage_1_1                  08E7 R
- 17 _putchar                                                       0AC4 GR
+ 17 _putchar                                                       0A7C GR
   B _putchar_c_1_1                                                 08E6 R
     _puts                                                          **** GX
- 17 _pwm_adjustDutyCycle_projectSpecific                           02CA GR
+ 17 _pwm_adjustDutyCycle_projectSpecific                           0282 GR
   B _pwm_adjustDutyCycle_projectSpecific_PARM_2                    0004 GR
- 17 _pwm_decrementDutyCycle_projectSpecific                        02C4 GR
- 17 _pwm_getDutyCycleAsPercentage_projectSpecific                  02CC GR
- 17 _pwm_getDutyCycle_projectSpecific                              02C5 GR
- 17 _pwm_incrementDutyCycle_projectSpecific                        02C3 GR
+ 17 _pwm_decrementDutyCycle_projectSpecific                        027C GR
+ 17 _pwm_getDutyCycleAsPercentage_projectSpecific                  0284 GR
+ 17 _pwm_getDutyCycle_projectSpecific                              027D GR
+ 17 _pwm_incrementDutyCycle_projectSpecific                        027B GR
     _pwm_init                                                      **** GX
- 17 _pwm_init_projectSpecific                                      0274 GR
+ 17 _pwm_init_projectSpecific                                      022C GR
   B _pwm_init_projectSpecific_channelNumber_1_1                    0002 R
   9 _pwm_init_projectSpecific_initialized_1_1                      0002 R
- 17 _pwm_setDutyCycleAsPercentage_projectSpecific                  02CB GR
+ 17 _pwm_setDutyCycleAsPercentage_projectSpecific                  0283 GR
   B _pwm_setDutyCycleAsPercentage_projectSpecific_PARM_2           0005 GR
- 17 _pwm_setDutyCycle_projectSpecific                              02C9 GR
+ 17 _pwm_setDutyCycle_projectSpecific                              0281 GR
   B _pwm_setDutyCycle_projectSpecific_PARM_2                       0003 GR
   B _receiveBuffer                                                 08AA R
   B _receiveBuffers                                                08C0 R
     _registerStateMachine                                          **** GX
- 17 _taskSwitcherTickHook                                          01EB GR
+ 17 _taskSwitcherTickHook                                          01A3 GR
     _task_UART_core                                                **** GX
- 17 _task_UART_core_projectSpecific                                050E GR
+ 17 _task_UART_core_projectSpecific                                04C6 GR
   B _task_UART_core_projectSpecific_Q_4_4                          08CF R
   B _task_UART_core_projectSpecific_channelNumber_1_1              08CE R
   4 _task_UART_core_projectSpecific_sloc0_1_0                      0000 R
@@ -616,44 +614,43 @@ Symbol Table
   4 _task_UART_core_projectSpecific_sloc2_1_0                      0004 R
   4 _task_UART_core_projectSpecific_sloc3_1_0                      0006 R
     _task_UART_getchar                                             **** GX
- 17 _task_UART_getchar_projectSpecific                             090C GR
+ 17 _task_UART_getchar_projectSpecific                             08C4 GR
   B _task_UART_getchar_projectSpecific_Q_2_2                       08DC R
   B _task_UART_getchar_projectSpecific_channelNumber_1_1           08DB R
   4 _task_UART_getchar_projectSpecific_sloc0_1_0                   0009 R
   4 _task_UART_getchar_projectSpecific_sloc1_1_0                   000C R
   4 _task_UART_getchar_projectSpecific_sloc2_1_0                   000E R
- 17 _task_UART_gets_projectSpecific                                0A07 GR
+ 17 _task_UART_gets_projectSpecific                                09BF GR
   B _task_UART_gets_projectSpecific_PARM_2                         08DF GR
   B _task_UART_gets_projectSpecific_PARM_3                         08E2 GR
   B _task_UART_gets_projectSpecific_channelNumber_1_1              08E4 R
   4 _task_UART_gets_projectSpecific_sloc0_1_0                      0011 R
   4 _task_UART_gets_projectSpecific_sloc1_1_0                      0012 R
     _task_UART_init                                                **** GX
- 17 _task_UART_init_projectSpecific                                03B2 GR
+ 17 _task_UART_init_projectSpecific                                036A GR
   B _task_UART_init_projectSpecific_channelNumber_1_1              08CD R
   9 _task_UART_init_projectSpecific_timer1initialized_1_1          0003 R
- 17 _task_UART_isLineReady                                         0A92 GR
+ 17 _task_UART_isLineReady                                         0A4A GR
   B _task_UART_isLineReady_channelNumber_1_1                       08E5 R
   9 _task_UART_isLineReady_sloc0_1_0                               0004 R
     _task_UART_putchar                                             **** GX
     _task_UART_putchar_PARM_2                                      **** GX
- 17 _task_UART_putchar_projectSpecific                             0772 GR
+ 17 _task_UART_putchar_projectSpecific                             072A GR
   B _task_UART_putchar_projectSpecific_PARM_2                      08D2 GR
   B _task_UART_putchar_projectSpecific_Q_2_2                       08D4 R
   B _task_UART_putchar_projectSpecific_channelNumber_1_1           08D3 R
- 17 _task_UART_puts_projectSpecific                                088F GR
+ 17 _task_UART_puts_projectSpecific                                0847 GR
   B _task_UART_puts_projectSpecific_PARM_2                         08D7 GR
   B _task_UART_puts_projectSpecific_channelNumber_1_1              08DA R
   B _tickCounterToIncrement                                        08E8 GR
     _timeBomb_constructor                                          **** GX
     _timeBomb_destructor                                           **** GX
     _timeBomb_getEventQueueDepth                                   **** GX
-    _timeBomb_getMachineSize                                       **** GX
   9 _timeForTickProcessing                                         0000 R
   B _transmitBuffer                                                045D R
   B _transmitBuffers                                               08B5 R
     _unregisterStateMachine                                        **** GX
- 17 _vTimer2ISR                                                    0BA8 GR
+ 17 _vTimer2ISR                                                    0B60 GR
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -867,7 +864,7 @@ Area Table
   14 GSINIT5                                                                            size    0   flags 20
   15 GSINIT                                                                             size    B   flags 20
   16 GSFINAL                                                                            size    3   flags 20
-  17 CSEG                                                                               size  C32   flags 20
+  17 CSEG                                                                               size  BEA   flags 20
   18 CONST                                                                              size   B3   flags 20
   19 XINIT                                                                              size    2   flags 20
   1A CABS                                                                               size    0   flags 28

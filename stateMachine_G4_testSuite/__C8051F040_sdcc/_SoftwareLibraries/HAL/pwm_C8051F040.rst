@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-                              4 ; This file was generated Wed Dec 30 22:11:51 2009
+                              4 ; This file was generated Sat Jan 02 12:04:43 2010
                               5 ;--------------------------------------------------------
                               6 	.module pwm_C8051F040
                               7 	.optsdcc -mmcs51 --model-large
@@ -794,28 +794,28 @@
                             794 ; external ram data
                             795 ;--------------------------------------------------------
                             796 	.area XSEG    (XDATA)
-   0A67                     797 _pwm_init_channelNumber_1_1:
-   0A67                     798 	.ds 1
-   0A68                     799 _pwm_incrementDutyCycle_channelNumber_1_1:
-   0A68                     800 	.ds 1
-   0A69                     801 _pwm_decrementDutyCycle_channelNumber_1_1:
-   0A69                     802 	.ds 1
-   0A6A                     803 _pwm_getDutyCycle_channelNumber_1_1:
-   0A6A                     804 	.ds 1
-   0A6B                     805 _pwm_setDutyCycle_PARM_2:
-   0A6B                     806 	.ds 1
-   0A6C                     807 _pwm_setDutyCycle_channelNumber_1_1:
-   0A6C                     808 	.ds 1
-   0A6D                     809 _pwm_adjustDutyCycle_PARM_2:
-   0A6D                     810 	.ds 1
-   0A6E                     811 _pwm_adjustDutyCycle_channelNumber_1_1:
-   0A6E                     812 	.ds 1
-   0A6F                     813 _pwm_setDutyCycleAsPercentage_PARM_2:
-   0A6F                     814 	.ds 1
-   0A70                     815 _pwm_setDutyCycleAsPercentage_channelNumber_1_1:
-   0A70                     816 	.ds 1
-   0A71                     817 _pwm_getDutyCycleAsPercentage_channelNumber_1_1:
-   0A71                     818 	.ds 1
+   0A74                     797 _pwm_init_channelNumber_1_1:
+   0A74                     798 	.ds 1
+   0A75                     799 _pwm_incrementDutyCycle_channelNumber_1_1:
+   0A75                     800 	.ds 1
+   0A76                     801 _pwm_decrementDutyCycle_channelNumber_1_1:
+   0A76                     802 	.ds 1
+   0A77                     803 _pwm_getDutyCycle_channelNumber_1_1:
+   0A77                     804 	.ds 1
+   0A78                     805 _pwm_setDutyCycle_PARM_2:
+   0A78                     806 	.ds 1
+   0A79                     807 _pwm_setDutyCycle_channelNumber_1_1:
+   0A79                     808 	.ds 1
+   0A7A                     809 _pwm_adjustDutyCycle_PARM_2:
+   0A7A                     810 	.ds 1
+   0A7B                     811 _pwm_adjustDutyCycle_channelNumber_1_1:
+   0A7B                     812 	.ds 1
+   0A7C                     813 _pwm_setDutyCycleAsPercentage_PARM_2:
+   0A7C                     814 	.ds 1
+   0A7D                     815 _pwm_setDutyCycleAsPercentage_channelNumber_1_1:
+   0A7D                     816 	.ds 1
+   0A7E                     817 _pwm_getDutyCycleAsPercentage_channelNumber_1_1:
+   0A7E                     818 	.ds 1
                             819 ;--------------------------------------------------------
                             820 ; absolute external ram data
                             821 ;--------------------------------------------------------
@@ -859,7 +859,7 @@
                             859 ;	-----------------------------------------
                             860 ;	 function pwm_init
                             861 ;	-----------------------------------------
-   3538                     862 _pwm_init:
+   3E3D                     862 _pwm_init:
                     0002    863 	ar2 = 0x02
                     0003    864 	ar3 = 0x03
                     0004    865 	ar4 = 0x04
@@ -868,14 +868,14 @@
                     0007    868 	ar7 = 0x07
                     0000    869 	ar0 = 0x00
                     0001    870 	ar1 = 0x01
-   3538 E5 82               871 	mov	a,dpl
-   353A 90 0A 67            872 	mov	dptr,#_pwm_init_channelNumber_1_1
-   353D F0                  873 	movx	@dptr,a
+   3E3D E5 82               871 	mov	a,dpl
+   3E3F 90 0A 74            872 	mov	dptr,#_pwm_init_channelNumber_1_1
+   3E42 F0                  873 	movx	@dptr,a
                             874 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:7: pwm_init_projectSpecific(channelNumber) ;
-   353E 90 0A 67            875 	mov	dptr,#_pwm_init_channelNumber_1_1
-   3541 E0                  876 	movx	a,@dptr
-   3542 F5 82               877 	mov	dpl,a
-   3544 02 03 0E            878 	ljmp	_pwm_init_projectSpecific
+   3E43 90 0A 74            875 	mov	dptr,#_pwm_init_channelNumber_1_1
+   3E46 E0                  876 	movx	a,@dptr
+   3E47 F5 82               877 	mov	dpl,a
+   3E49 02 02 C6            878 	ljmp	_pwm_init_projectSpecific
                             879 ;------------------------------------------------------------
                             880 ;Allocation info for local variables in function 'pwm_incrementDutyCycle'
                             881 ;------------------------------------------------------------
@@ -885,15 +885,15 @@
                             885 ;	-----------------------------------------
                             886 ;	 function pwm_incrementDutyCycle
                             887 ;	-----------------------------------------
-   3547                     888 _pwm_incrementDutyCycle:
-   3547 E5 82               889 	mov	a,dpl
-   3549 90 0A 68            890 	mov	dptr,#_pwm_incrementDutyCycle_channelNumber_1_1
-   354C F0                  891 	movx	@dptr,a
+   3E4C                     888 _pwm_incrementDutyCycle:
+   3E4C E5 82               889 	mov	a,dpl
+   3E4E 90 0A 75            890 	mov	dptr,#_pwm_incrementDutyCycle_channelNumber_1_1
+   3E51 F0                  891 	movx	@dptr,a
                             892 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:13: pwm_incrementDutyCycle_projectSpecific(channelNumber) ;
-   354D 90 0A 68            893 	mov	dptr,#_pwm_incrementDutyCycle_channelNumber_1_1
-   3550 E0                  894 	movx	a,@dptr
-   3551 F5 82               895 	mov	dpl,a
-   3553 02 03 5D            896 	ljmp	_pwm_incrementDutyCycle_projectSpecific
+   3E52 90 0A 75            893 	mov	dptr,#_pwm_incrementDutyCycle_channelNumber_1_1
+   3E55 E0                  894 	movx	a,@dptr
+   3E56 F5 82               895 	mov	dpl,a
+   3E58 02 03 15            896 	ljmp	_pwm_incrementDutyCycle_projectSpecific
                             897 ;------------------------------------------------------------
                             898 ;Allocation info for local variables in function 'pwm_decrementDutyCycle'
                             899 ;------------------------------------------------------------
@@ -903,15 +903,15 @@
                             903 ;	-----------------------------------------
                             904 ;	 function pwm_decrementDutyCycle
                             905 ;	-----------------------------------------
-   3556                     906 _pwm_decrementDutyCycle:
-   3556 E5 82               907 	mov	a,dpl
-   3558 90 0A 69            908 	mov	dptr,#_pwm_decrementDutyCycle_channelNumber_1_1
-   355B F0                  909 	movx	@dptr,a
+   3E5B                     906 _pwm_decrementDutyCycle:
+   3E5B E5 82               907 	mov	a,dpl
+   3E5D 90 0A 76            908 	mov	dptr,#_pwm_decrementDutyCycle_channelNumber_1_1
+   3E60 F0                  909 	movx	@dptr,a
                             910 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:19: pwm_decrementDutyCycle_projectSpecific(channelNumber) ;
-   355C 90 0A 69            911 	mov	dptr,#_pwm_decrementDutyCycle_channelNumber_1_1
-   355F E0                  912 	movx	a,@dptr
-   3560 F5 82               913 	mov	dpl,a
-   3562 02 03 5E            914 	ljmp	_pwm_decrementDutyCycle_projectSpecific
+   3E61 90 0A 76            911 	mov	dptr,#_pwm_decrementDutyCycle_channelNumber_1_1
+   3E64 E0                  912 	movx	a,@dptr
+   3E65 F5 82               913 	mov	dpl,a
+   3E67 02 03 16            914 	ljmp	_pwm_decrementDutyCycle_projectSpecific
                             915 ;------------------------------------------------------------
                             916 ;Allocation info for local variables in function 'pwm_getDutyCycle'
                             917 ;------------------------------------------------------------
@@ -921,15 +921,15 @@
                             921 ;	-----------------------------------------
                             922 ;	 function pwm_getDutyCycle
                             923 ;	-----------------------------------------
-   3565                     924 _pwm_getDutyCycle:
-   3565 E5 82               925 	mov	a,dpl
-   3567 90 0A 6A            926 	mov	dptr,#_pwm_getDutyCycle_channelNumber_1_1
-   356A F0                  927 	movx	@dptr,a
+   3E6A                     924 _pwm_getDutyCycle:
+   3E6A E5 82               925 	mov	a,dpl
+   3E6C 90 0A 77            926 	mov	dptr,#_pwm_getDutyCycle_channelNumber_1_1
+   3E6F F0                  927 	movx	@dptr,a
                             928 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:25: return pwm_getDutyCycle_projectSpecific(channelNumber) ;
-   356B 90 0A 6A            929 	mov	dptr,#_pwm_getDutyCycle_channelNumber_1_1
-   356E E0                  930 	movx	a,@dptr
-   356F F5 82               931 	mov	dpl,a
-   3571 02 03 5F            932 	ljmp	_pwm_getDutyCycle_projectSpecific
+   3E70 90 0A 77            929 	mov	dptr,#_pwm_getDutyCycle_channelNumber_1_1
+   3E73 E0                  930 	movx	a,@dptr
+   3E74 F5 82               931 	mov	dpl,a
+   3E76 02 03 17            932 	ljmp	_pwm_getDutyCycle_projectSpecific
                             933 ;------------------------------------------------------------
                             934 ;Allocation info for local variables in function 'pwm_setDutyCycle'
                             935 ;------------------------------------------------------------
@@ -940,20 +940,20 @@
                             940 ;	-----------------------------------------
                             941 ;	 function pwm_setDutyCycle
                             942 ;	-----------------------------------------
-   3574                     943 _pwm_setDutyCycle:
-   3574 E5 82               944 	mov	a,dpl
-   3576 90 0A 6C            945 	mov	dptr,#_pwm_setDutyCycle_channelNumber_1_1
-   3579 F0                  946 	movx	@dptr,a
+   3E79                     943 _pwm_setDutyCycle:
+   3E79 E5 82               944 	mov	a,dpl
+   3E7B 90 0A 79            945 	mov	dptr,#_pwm_setDutyCycle_channelNumber_1_1
+   3E7E F0                  946 	movx	@dptr,a
                             947 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:31: pwm_setDutyCycle_projectSpecific(channelNumber, newDutyCycle) ;
-   357A 90 0A 6C            948 	mov	dptr,#_pwm_setDutyCycle_channelNumber_1_1
-   357D E0                  949 	movx	a,@dptr
-   357E FA                  950 	mov	r2,a
-   357F 90 0A 6B            951 	mov	dptr,#_pwm_setDutyCycle_PARM_2
-   3582 E0                  952 	movx	a,@dptr
-   3583 90 00 03            953 	mov	dptr,#_pwm_setDutyCycle_projectSpecific_PARM_2
-   3586 F0                  954 	movx	@dptr,a
-   3587 8A 82               955 	mov	dpl,r2
-   3589 02 03 63            956 	ljmp	_pwm_setDutyCycle_projectSpecific
+   3E7F 90 0A 79            948 	mov	dptr,#_pwm_setDutyCycle_channelNumber_1_1
+   3E82 E0                  949 	movx	a,@dptr
+   3E83 FA                  950 	mov	r2,a
+   3E84 90 0A 78            951 	mov	dptr,#_pwm_setDutyCycle_PARM_2
+   3E87 E0                  952 	movx	a,@dptr
+   3E88 90 00 03            953 	mov	dptr,#_pwm_setDutyCycle_projectSpecific_PARM_2
+   3E8B F0                  954 	movx	@dptr,a
+   3E8C 8A 82               955 	mov	dpl,r2
+   3E8E 02 03 1B            956 	ljmp	_pwm_setDutyCycle_projectSpecific
                             957 ;------------------------------------------------------------
                             958 ;Allocation info for local variables in function 'pwm_adjustDutyCycle'
                             959 ;------------------------------------------------------------
@@ -964,20 +964,20 @@
                             964 ;	-----------------------------------------
                             965 ;	 function pwm_adjustDutyCycle
                             966 ;	-----------------------------------------
-   358C                     967 _pwm_adjustDutyCycle:
-   358C E5 82               968 	mov	a,dpl
-   358E 90 0A 6E            969 	mov	dptr,#_pwm_adjustDutyCycle_channelNumber_1_1
-   3591 F0                  970 	movx	@dptr,a
+   3E91                     967 _pwm_adjustDutyCycle:
+   3E91 E5 82               968 	mov	a,dpl
+   3E93 90 0A 7B            969 	mov	dptr,#_pwm_adjustDutyCycle_channelNumber_1_1
+   3E96 F0                  970 	movx	@dptr,a
                             971 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:37: pwm_adjustDutyCycle_projectSpecific(channelNumber, dutyCycleAdjustment) ;
-   3592 90 0A 6E            972 	mov	dptr,#_pwm_adjustDutyCycle_channelNumber_1_1
-   3595 E0                  973 	movx	a,@dptr
-   3596 FA                  974 	mov	r2,a
-   3597 90 0A 6D            975 	mov	dptr,#_pwm_adjustDutyCycle_PARM_2
-   359A E0                  976 	movx	a,@dptr
-   359B 90 00 04            977 	mov	dptr,#_pwm_adjustDutyCycle_projectSpecific_PARM_2
-   359E F0                  978 	movx	@dptr,a
-   359F 8A 82               979 	mov	dpl,r2
-   35A1 02 03 64            980 	ljmp	_pwm_adjustDutyCycle_projectSpecific
+   3E97 90 0A 7B            972 	mov	dptr,#_pwm_adjustDutyCycle_channelNumber_1_1
+   3E9A E0                  973 	movx	a,@dptr
+   3E9B FA                  974 	mov	r2,a
+   3E9C 90 0A 7A            975 	mov	dptr,#_pwm_adjustDutyCycle_PARM_2
+   3E9F E0                  976 	movx	a,@dptr
+   3EA0 90 00 04            977 	mov	dptr,#_pwm_adjustDutyCycle_projectSpecific_PARM_2
+   3EA3 F0                  978 	movx	@dptr,a
+   3EA4 8A 82               979 	mov	dpl,r2
+   3EA6 02 03 1C            980 	ljmp	_pwm_adjustDutyCycle_projectSpecific
                             981 ;------------------------------------------------------------
                             982 ;Allocation info for local variables in function 'pwm_setDutyCycleAsPercentage'
                             983 ;------------------------------------------------------------
@@ -988,20 +988,20 @@
                             988 ;	-----------------------------------------
                             989 ;	 function pwm_setDutyCycleAsPercentage
                             990 ;	-----------------------------------------
-   35A4                     991 _pwm_setDutyCycleAsPercentage:
-   35A4 E5 82               992 	mov	a,dpl
-   35A6 90 0A 70            993 	mov	dptr,#_pwm_setDutyCycleAsPercentage_channelNumber_1_1
-   35A9 F0                  994 	movx	@dptr,a
+   3EA9                     991 _pwm_setDutyCycleAsPercentage:
+   3EA9 E5 82               992 	mov	a,dpl
+   3EAB 90 0A 7D            993 	mov	dptr,#_pwm_setDutyCycleAsPercentage_channelNumber_1_1
+   3EAE F0                  994 	movx	@dptr,a
                             995 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:43: pwm_setDutyCycleAsPercentage_projectSpecific(channelNumber, newDutyCycle) ;
-   35AA 90 0A 70            996 	mov	dptr,#_pwm_setDutyCycleAsPercentage_channelNumber_1_1
-   35AD E0                  997 	movx	a,@dptr
-   35AE FA                  998 	mov	r2,a
-   35AF 90 0A 6F            999 	mov	dptr,#_pwm_setDutyCycleAsPercentage_PARM_2
-   35B2 E0                 1000 	movx	a,@dptr
-   35B3 90 00 05           1001 	mov	dptr,#_pwm_setDutyCycleAsPercentage_projectSpecific_PARM_2
-   35B6 F0                 1002 	movx	@dptr,a
-   35B7 8A 82              1003 	mov	dpl,r2
-   35B9 02 03 65           1004 	ljmp	_pwm_setDutyCycleAsPercentage_projectSpecific
+   3EAF 90 0A 7D            996 	mov	dptr,#_pwm_setDutyCycleAsPercentage_channelNumber_1_1
+   3EB2 E0                  997 	movx	a,@dptr
+   3EB3 FA                  998 	mov	r2,a
+   3EB4 90 0A 7C            999 	mov	dptr,#_pwm_setDutyCycleAsPercentage_PARM_2
+   3EB7 E0                 1000 	movx	a,@dptr
+   3EB8 90 00 05           1001 	mov	dptr,#_pwm_setDutyCycleAsPercentage_projectSpecific_PARM_2
+   3EBB F0                 1002 	movx	@dptr,a
+   3EBC 8A 82              1003 	mov	dpl,r2
+   3EBE 02 03 1D           1004 	ljmp	_pwm_setDutyCycleAsPercentage_projectSpecific
                            1005 ;------------------------------------------------------------
                            1006 ;Allocation info for local variables in function 'pwm_getDutyCycleAsPercentage'
                            1007 ;------------------------------------------------------------
@@ -1011,15 +1011,15 @@
                            1011 ;	-----------------------------------------
                            1012 ;	 function pwm_getDutyCycleAsPercentage
                            1013 ;	-----------------------------------------
-   35BC                    1014 _pwm_getDutyCycleAsPercentage:
-   35BC E5 82              1015 	mov	a,dpl
-   35BE 90 0A 71           1016 	mov	dptr,#_pwm_getDutyCycleAsPercentage_channelNumber_1_1
-   35C1 F0                 1017 	movx	@dptr,a
+   3EC1                    1014 _pwm_getDutyCycleAsPercentage:
+   3EC1 E5 82              1015 	mov	a,dpl
+   3EC3 90 0A 7E           1016 	mov	dptr,#_pwm_getDutyCycleAsPercentage_channelNumber_1_1
+   3EC6 F0                 1017 	movx	@dptr,a
                            1018 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/HardwareAbstractionLayer/cpu_specific/pwm_C8051F040.c:49: return pwm_getDutyCycleAsPercentage_projectSpecific(channelNumber) ;
-   35C2 90 0A 71           1019 	mov	dptr,#_pwm_getDutyCycleAsPercentage_channelNumber_1_1
-   35C5 E0                 1020 	movx	a,@dptr
-   35C6 F5 82              1021 	mov	dpl,a
-   35C8 02 03 66           1022 	ljmp	_pwm_getDutyCycleAsPercentage_projectSpecific
+   3EC7 90 0A 7E           1019 	mov	dptr,#_pwm_getDutyCycleAsPercentage_channelNumber_1_1
+   3ECA E0                 1020 	movx	a,@dptr
+   3ECB F5 82              1021 	mov	dpl,a
+   3ECD 02 03 1E           1022 	ljmp	_pwm_getDutyCycleAsPercentage_projectSpecific
                            1023 	.area CSEG    (CODE)
                            1024 	.area CONST   (CODE)
                            1025 	.area XINIT   (CODE)

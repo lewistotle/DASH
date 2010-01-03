@@ -18,6 +18,10 @@
 
 #include "stateMachine_G4.h"
 
+
+#define TRACING_ENABLED
+
+
 #define configMAXIMUM_NUMBER_OF_STATE_MACHINES		50
 #define configMAXIMUM_STATE_HIERARCHY_DEPTH			16
 
@@ -29,24 +33,46 @@ stateMachine_t*	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
 void iterateStateMachine(	stateMachine_t* sm) ;
 
 
-stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes,
-												uint16_t eventQueueDepth,
-												stateMachineConstructor_t constructor)
+stateMachine_t* allocateStateMachineMemory(		uint16_t eventQueueDepth,
+												stateMachine_constructor_t constructor)
 {
-	stateMachine_t*	instance = malloc(sizeInBytes) ;
+	stateMachine_t*	instance = malloc(sizeof(stateMachine_t)) ;
 
 	if(instance)
 	{
-		event_t** eventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
+		event_t** eventQueue ;
+
+		memset((char*)instance, 0, sizeof(stateMachine_t)) ;
+
+		eventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
 
 		if(eventQueue)
 		{
-			initializeEventQueue(&instance->eventQueue, eventQueue, eventQueueDepth) ;
+			eventType_t* typesOfEventsToDefer ;
 
-			memset((char*)instance,		0, sizeInBytes) ;
-			memset((char*)eventQueue,	0, eventQueueDepth * sizeof(event_t*)) ;
+			memset((char*)eventQueue, 0, eventQueueDepth * sizeof(event_t*)) ;
+			eventQueue_initialize(&instance->eventQueue, eventQueue, eventQueueDepth) ;
 
-			constructor(instance) ;
+			typesOfEventsToDefer = (eventType_t*)malloc(eventQueueDepth * sizeof(eventType_t*)) ;
+
+			if(typesOfEventsToDefer)
+			{
+				event_t** deferredEventQueue ;
+
+				instance->maxDepthOfEventsToDeferList		= eventQueueDepth ;
+				instance->currentDepthOfEventsToDeferList	= 0 ;
+				instance->typesOfEventsToDefer				= typesOfEventsToDefer ;
+
+				deferredEventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
+
+				if(deferredEventQueue)
+				{
+					memset((char*)deferredEventQueue, 0, eventQueueDepth * sizeof(event_t*)) ;
+					eventQueue_initialize(&instance->deferredEventQueue, deferredEventQueue, eventQueueDepth) ;
+
+					constructor(instance) ;
+				}
+			}
 		}
 	}
 
@@ -54,7 +80,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t sizeInBytes,
 }
 
 
-void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachineDestructor_t destructor)
+void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachine_destructor_t destructor)
 {
 	if(instance != 0)
 	{
@@ -120,22 +146,52 @@ void iterateAllStateMachines(	void)
 }
 
 
-char*			eventTypes[]			= { "SUBSTATE_GET_INFO", "SUBSTATE_ENTRY", "SUBSTATE_INITIAL_TRANSITION", "SUBSTATE_EXIT" } ;
-char*			responseTypes[]			= { "IGNORED", "HANDLED", "TRANSITION" } ;
+char*			eventTypes[]			= { "SUBSTATE_GET_INFO", "SUBSTATE_ENTRY", "SUBSTATE_INITIAL_TRANSITION", "SUBSTATE_JUMP_TO_HISTORY_DEFAULT", "SUBSTATE_DO", "SUBSTATE_EXIT" } ;
+char*			responseTypes[]			= { "IGNORED", "HANDLED", "TRANSITION", "TRANSITION_TO_HISTORY" } ;
 static event_t	initialTransitionEvent	= { SUBSTATE_INITIAL_TRANSITION } ;
+static event_t	jumpToHistoryEvent		= { SUBSTATE_JUMP_TO_HISTORY_DEFAULT } ;
 static event_t	enterEvent				= { SUBSTATE_ENTRY } ;
 static event_t	exitEvent				= { SUBSTATE_EXIT } ;
 
 
-stateHandlerResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
+stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
 {
-	stateHandlerResponse_t	response ;
+	stateMachine_stateResponse_t	response ;
 
 #ifdef TRACING_ENABLED
 	printf("\t\t\tCalling state: %s, event: %s, ", state->stateName, event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
 #endif
 
-	response = ((callStateHandler_t)(state->handler))(sm, event) ;
+	if(state->type == CHOICE_PSUEDOSTATE)
+	{
+		response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
+	}
+	else
+	{
+		if(event == &enterEvent)
+		{
+			sm->mostRecentlyEnteredState = state ;
+		}
+		if(event == &exitEvent)
+		{
+			if(state->type == STATE_WITH_SHALLOW_HISTORY)
+			{
+				/* Store only most recent direct child state */
+
+				sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyExitedState ;
+			}
+			else if(state->type == STATE_WITH_DEEP_HISTORY)
+			{
+				/* store child state that was active before starting transition sequence */
+
+				sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
+			}
+
+			sm->mostRecentlyExitedState = (void*)state ;
+		}
+
+		response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
+	}
 
 #ifdef TRACING_ENABLED
 	printf("response: %s ", responseTypes[response]) ;
@@ -162,6 +218,8 @@ void iterateStateMachine(	stateMachine_t* sm)
 	printf("\titerating %s\n", sm->stateMachineName) ;
 #endif
 
+#warning, put in basic sanity checking for sm, sm->currentState, sm->nextState, etc.
+
 	/* First of all, is the machine initialized? If not, take care of that. */
 
 	if(!sm->stateMachineInitialized)
@@ -180,11 +238,11 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 	/* Any pending events? */
 
-	if((!isEmpty(&sm->eventQueue)) || (sm->forceTransition))
+	if((!eventQueue_isEmpty(&sm->eventQueue)) || (sm->forceTransition))
 	{
-		event_t*				eventToProcess ;
-		state_t*				stateBeingProcessed	= sm->currentState ;
-		stateHandlerResponse_t	action ;
+		event_t*						eventToProcess ;
+		state_t*						stateBeingProcessed	= sm->currentState ;
+		stateMachine_stateResponse_t	action ;
 
 		if(sm->forceTransition)
 		{
@@ -193,7 +251,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 		}
 		else
 		{
-			eventToProcess = Remove(&sm->eventQueue) ; ;
+			eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
 		}
 
 		sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
@@ -206,7 +264,8 @@ void iterateStateMachine(	stateMachine_t* sm)
 		 * and going all the way to the top looking for either the event to be
 		 * handled or a transition taken. If the event is not one of the required
 		 * state machine events and it is ignored, move up to the parent state
-		 * and try again. When the top is reached, bail... */
+		 * and try again. When the top is reached, bail...
+		 */
 
 		do
 		{
@@ -228,6 +287,57 @@ void iterateStateMachine(	stateMachine_t* sm)
 				break ;
 			}
 		} while(stateBeingProcessed) ;
+
+		while(action == TRANSITION_TO_HISTORY)
+		{
+			if(		(((state_t*)(sm->nextState))->type != STATE_WITH_SHALLOW_HISTORY)
+				&&	(((state_t*)(sm->nextState))->type != STATE_WITH_DEEP_HISTORY))
+			{
+				/* The target is not a state that has history so bail
+				 * now and treat it as a normal transition instead.
+				 */
+
+				break ;
+			}
+			else
+			{
+				state_t* nextState = sm->historicalMarkers[((state_with_history_t*)(sm->nextState))->historyMarkerIndex] ;
+
+				/* The target must be a state with history so see if it has some
+				 */
+
+				if(nextState != (void*)0)
+				{
+					/* Found a state that has some history tracking information so
+					 * set the next state to that and then bail this loop so that
+					 * the transition occurs normally.
+					 */
+
+					sm->nextState = nextState ;
+				}
+				else
+				{
+					/* No history for the target state so turn the event into a
+					 * HISTORY_DEFAULT event and then jump to the target so that
+					 * the new target can be set. Note it it technically possible
+					 * for the SET_HISTORY_DEFAULT_STATE() call in the state handler
+					 * to return another TRANSITION_TO_HISTORY which is why this
+					 * code is in a loop. Go through any sugh list until either a
+					 * state without history is reached, a state that has history
+					 * that has actually been filled in is reached OR a normal
+					 * TRANSITION is returned from the following call.
+					 */
+
+					action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
+				}
+			}
+
+			/* regardless of which condition clause gets executed above,
+			 * a transition needs to happen to make sure it does.
+			 */
+
+			action = TRANSITION ;
+		}
 
 		if(action == TRANSITION)
 		{

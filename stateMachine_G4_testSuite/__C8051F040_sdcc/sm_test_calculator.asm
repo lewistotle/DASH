@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Wed Dec 30 22:11:48 2009
+; This file was generated Sat Jan 02 19:24:43 2010
 ;--------------------------------------------------------
 	.module sm_test_calculator
 	.optsdcc -mmcs51 --model-large
@@ -13,6 +13,7 @@
 	.globl _calculator_getEventQueueDepth
 	.globl _calculator_constructor
 	.globl _calculator_destructor
+	.globl _calculator_getHistoryQueueDepth
 	.globl _calculator_getMachineSize
 	.globl _calculator_constructor2
 	.globl _calculator_destructor2
@@ -162,7 +163,7 @@ _calculator_constructor:
 	inc	dptr
 	mov	a,#(_calculator_TOP >> 8)
 	lcall	__gptrput
-	mov	a,#0x06
+	mov	a,#0x05
 	add	a,r2
 	mov	r5,a
 	clr	a
@@ -181,18 +182,6 @@ _calculator_constructor:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	a,#0x02
-	add	a,r2
-	mov	r5,a
-	clr	a
-	addc	a,r3
-	mov	r6,a
-	mov	ar7,r4
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	clr	a
-	lcall	__gptrput
-	mov	a,#0x03
 	add	a,r2
 	mov	_calculator_constructor_sloc0_1_0,a
 	clr	a
@@ -258,15 +247,26 @@ _calculator_destructor:
 	mov	b,r4
 	ljmp	_calculator_destructor2
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'calculator_getMachineSize'
+;Allocation info for local variables in function 'calculator_getHistoryQueueDepth'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:47: END_STATE_MACHINE_DEFINITION() ;
 ;	-----------------------------------------
+;	 function calculator_getHistoryQueueDepth
+;	-----------------------------------------
+_calculator_getHistoryQueueDepth:
+	mov	dptr,#0x004E
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'calculator_getMachineSize'
+;------------------------------------------------------------
+;------------------------------------------------------------
+;	../sm_test_calculator.c:47: 
+;	-----------------------------------------
 ;	 function calculator_getMachineSize
 ;	-----------------------------------------
 _calculator_getMachineSize:
-	mov	dptr,#0x0019
+	mov	dptr,#0x002F
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'calculator_constructor2'
@@ -299,7 +299,7 @@ _calculator_constructor2:
 	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	mov	a,#0x15
+	mov	a,#0x2B
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -363,7 +363,7 @@ _calculator_TOP_handler:
 	lcall	__gptrget
 	mov	r5,a
 	cjne	r5,#0x02,00102$
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -394,6 +394,8 @@ _calculator_TOP_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:69: DEFINE_STATE(on)
 ;	-----------------------------------------
@@ -422,7 +424,7 @@ _calculator_on_handler:
 	cjne	r5,#0x02,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -443,13 +445,13 @@ _calculator_on_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00109$
+	sjmp	00107$
 00102$:
-;	../sm_test_calculator.c:73: TRANSITION_ON(CLEAR,		UNCONDITIONALLY,						TO(on),					NO_ACTION) ;
-	cjne	r5,#0x04,00104$
+;	../sm_test_calculator.c:73: TRANSITION_ON(CLEAR,												TO(on),					NO_ACTION) ;
+	cjne	r5,#0x06,00104$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -470,13 +472,13 @@ _calculator_on_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00109$
+	sjmp	00107$
 00104$:
-;	../sm_test_calculator.c:74: TRANSITION_ON(OFF,			UNCONDITIONALLY,						TO(STATE_MACHINE_EXIT),	NO_ACTION) ;
-	cjne	r5,#0x0B,00107$
+;	../sm_test_calculator.c:74: TRANSITION_ON(OFF,													TO(STATE_MACHINE_EXIT),	NO_ACTION) ;
+	cjne	r5,#0x0D,00106$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -497,11 +499,11 @@ _calculator_on_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00109$
-00107$:
+	sjmp	00107$
+00106$:
 ;	../sm_test_calculator.c:76: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00109$:
+00107$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -510,6 +512,7 @@ _calculator_on_handler:
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
+;stateResponseCode         Allocated to registers 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:79: DEFINE_STATE(ready)
@@ -539,7 +542,7 @@ _calculator_ready_handler:
 	cjne	r5,#0x02,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -560,13 +563,13 @@ _calculator_ready_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00106$
+	sjmp	00105$
 00102$:
-;	../sm_test_calculator.c:83: TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
-	cjne	r5,#0x09,00104$
+;	../sm_test_calculator.c:83: TRANSITION_ON(OPERATION,											TO(opEntered),			NO_ACTION) ;
+	cjne	r5,#0x0B,00104$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -587,11 +590,11 @@ _calculator_ready_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00106$
+	sjmp	00105$
 00104$:
 ;	../sm_test_calculator.c:85: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00106$:
+00105$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -619,7 +622,11 @@ _calculator_result_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
-;sloc0                     Allocated to stack - offset 5
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;sloc0                     Allocated to stack - offset 9
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:94: DEFINE_STATE(begin)
 ;	-----------------------------------------
@@ -648,7 +655,7 @@ _calculator_begin_handler:
 	cjne	r2,#0x02,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -669,14 +676,14 @@ _calculator_begin_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00115$
+	ljmp	00112$
 00102$:
-;	../sm_test_calculator.c:99: TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
-	cjne	r2,#0x09,00104$
+;	../sm_test_calculator.c:99: TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
+	cjne	r2,#0x0B,00104$
 	inc	r5
-	cjne	r5,#0x00,00127$
+	cjne	r5,#0x00,00124$
 	inc	r6
-00127$:
+00124$:
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
@@ -685,7 +692,7 @@ _calculator_begin_handler:
 	cjne	r5,#0x2D,00104$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -706,13 +713,13 @@ _calculator_begin_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00115$
+	ljmp	00112$
 00104$:
-;	../sm_test_calculator.c:100: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
-	cjne	r2,#0x06,00107$
+;	../sm_test_calculator.c:100: TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
+	cjne	r2,#0x08,00107$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -733,13 +740,13 @@ _calculator_begin_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00115$
+	sjmp	00112$
 00107$:
-;	../sm_test_calculator.c:101: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
-	cjne	r2,#0x07,00110$
+;	../sm_test_calculator.c:101: TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	cjne	r2,#0x09,00109$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -760,13 +767,13 @@ _calculator_begin_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00115$
-00110$:
-;	../sm_test_calculator.c:102: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
-	cjne	r2,#0x08,00113$
+	sjmp	00112$
+00109$:
+;	../sm_test_calculator.c:102: TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
+	cjne	r2,#0x0A,00111$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -787,11 +794,11 @@ _calculator_begin_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00115$
-00113$:
+	sjmp	00112$
+00111$:
 ;	../sm_test_calculator.c:104: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00115$:
+00112$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -801,7 +808,11 @@ _calculator_begin_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
-;sloc0                     Allocated to stack - offset 5
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;sloc0                     Allocated to stack - offset 9
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:107: DEFINE_STATE(negated1)
 ;	-----------------------------------------
@@ -813,7 +824,7 @@ _calculator_negated1_handler:
 	push	dpl
 	push	dph
 	push	b
-;	../sm_test_calculator.c:109: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(begin),				NO_ACTION) ;
+;	../sm_test_calculator.c:109: TRANSITION_ON(CLEAR_ENTRY,											TO(begin),				NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -827,10 +838,10 @@ _calculator_negated1_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r2,a
-	cjne	r2,#0x05,00102$
+	cjne	r2,#0x07,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -851,13 +862,13 @@ _calculator_negated1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00116$
+	ljmp	00112$
 00102$:
-;	../sm_test_calculator.c:110: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
-	cjne	r2,#0x06,00105$
+;	../sm_test_calculator.c:110: TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
+	cjne	r2,#0x08,00104$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -878,13 +889,13 @@ _calculator_negated1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00116$
-00105$:
-;	../sm_test_calculator.c:111: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
-	cjne	r2,#0x07,00108$
+	ljmp	00112$
+00104$:
+;	../sm_test_calculator.c:111: TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	cjne	r2,#0x09,00106$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -905,13 +916,13 @@ _calculator_negated1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00116$
-00108$:
-;	../sm_test_calculator.c:112: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
-	cjne	r2,#0x08,00111$
+	sjmp	00112$
+00106$:
+;	../sm_test_calculator.c:112: TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
+	cjne	r2,#0x0A,00108$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -932,26 +943,26 @@ _calculator_negated1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00116$
-00111$:
-;	../sm_test_calculator.c:113: CONSUME_EVENT_IF(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),							NO_ACTION) ;
-	cjne	r2,#0x09,00114$
+	sjmp	00112$
+00108$:
+;	../sm_test_calculator.c:113: CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							NO_ACTION) ;
+	cjne	r2,#0x0B,00110$
 	inc	r5
-	cjne	r5,#0x00,00134$
+	cjne	r5,#0x00,00130$
 	inc	r6
-00134$:
+00130$:
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x2D,00114$
+	cjne	r5,#0x2D,00110$
 	mov	dpl,#0x01
-	sjmp	00116$
-00114$:
+	sjmp	00112$
+00110$:
 ;	../sm_test_calculator.c:115: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00116$:
+00112$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -960,6 +971,8 @@ _calculator_negated1_handler:
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:118: DEFINE_STATE(operand1)
@@ -972,7 +985,7 @@ _calculator_operand1_handler:
 	push	dpl
 	push	dph
 	push	b
-;	../sm_test_calculator.c:120: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(ready),				NO_ACTION) ;
+;	../sm_test_calculator.c:120: TRANSITION_ON(CLEAR_ENTRY,											TO(ready),				NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -986,10 +999,10 @@ _calculator_operand1_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x05,00102$
+	cjne	r5,#0x07,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -1010,13 +1023,13 @@ _calculator_operand1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00107$
+	sjmp	00105$
 00102$:
-;	../sm_test_calculator.c:121: TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
-	cjne	r5,#0x09,00105$
+;	../sm_test_calculator.c:121: TRANSITION_ON(OPERATION,											TO(opEntered),			NO_ACTION) ;
+	cjne	r5,#0x0B,00104$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1037,11 +1050,11 @@ _calculator_operand1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00107$
-00105$:
+	sjmp	00105$
+00104$:
 ;	../sm_test_calculator.c:123: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00107$:
+00105$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1050,6 +1063,8 @@ _calculator_operand1_handler:
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:126: DEFINE_STATE(zero1)
@@ -1079,7 +1094,7 @@ _calculator_zero1_handler:
 	cjne	r5,#0x02,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -1100,18 +1115,18 @@ _calculator_zero1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00111$
+	sjmp	00109$
 00102$:
 ;	../sm_test_calculator.c:129: CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	cjne	r5,#0x06,00104$
+	cjne	r5,#0x08,00104$
 	mov	dpl,#0x01
-	sjmp	00111$
+	sjmp	00109$
 00104$:
-;	../sm_test_calculator.c:130: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
-	cjne	r5,#0x07,00106$
+;	../sm_test_calculator.c:130: TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	cjne	r5,#0x09,00106$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1132,13 +1147,13 @@ _calculator_zero1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00111$
+	sjmp	00109$
 00106$:
-;	../sm_test_calculator.c:131: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
-	cjne	r5,#0x08,00109$
+;	../sm_test_calculator.c:131: TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
+	cjne	r5,#0x0A,00108$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1159,11 +1174,11 @@ _calculator_zero1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00111$
-00109$:
+	sjmp	00109$
+00108$:
 ;	../sm_test_calculator.c:133: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00111$:
+00109$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1172,6 +1187,7 @@ _calculator_zero1_handler:
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to registers r2 r3 r4 
+;stateResponseCode         Allocated to registers 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:136: DEFINE_STATE(int1)
@@ -1184,7 +1200,7 @@ _calculator_int1_handler:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-;	../sm_test_calculator.c:138: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+;	../sm_test_calculator.c:138: TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -1198,8 +1214,8 @@ _calculator_int1_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x08,00102$
-	mov	a,#0x09
+	cjne	r5,#0x0A,00102$
+	mov	a,#0x08
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1217,11 +1233,11 @@ _calculator_int1_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00104$
+	sjmp	00103$
 00102$:
 ;	../sm_test_calculator.c:140: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00104$:
+00103$:
 	pop	_bp
 	ret
 ;------------------------------------------------------------
@@ -1252,7 +1268,7 @@ _calculator_frac1_handler:
 	mov	b,r4
 	lcall	__gptrget
 	mov	r2,a
-	cjne	r2,#0x08,00102$
+	cjne	r2,#0x0A,00102$
 	mov	dpl,#0x01
 	sjmp	00103$
 00102$:
@@ -1293,7 +1309,7 @@ _calculator_error_handler:
 	lcall	__gptrget
 	mov	r5,a
 	cjne	r5,#0x02,00102$
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1324,6 +1340,10 @@ _calculator_error_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to registers r2 r3 r4 
 ;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
 ;sloc0                     Allocated to stack - offset 1
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:157: DEFINE_STATE(opEntered)
@@ -1337,7 +1357,7 @@ _calculator_opEntered_handler:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-;	../sm_test_calculator.c:159: TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated2),			NO_ACTION) ;
+;	../sm_test_calculator.c:159: TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated2),			NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -1355,18 +1375,18 @@ _calculator_opEntered_handler:
 	mov	@r0,a
 	mov	r0,_bp
 	inc	r0
-	cjne	@r0,#0x09,00102$
+	cjne	@r0,#0x0B,00102$
 	inc	r5
-	cjne	r5,#0x00,00122$
+	cjne	r5,#0x00,00119$
 	inc	r6
-00122$:
+00119$:
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
 	cjne	r5,#0x2D,00102$
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,r2
 	mov	r5,a
 	clr	a
@@ -1385,13 +1405,13 @@ _calculator_opEntered_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00113$
+	ljmp	00110$
 00102$:
-;	../sm_test_calculator.c:160: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero2),				NO_ACTION) ;
+;	../sm_test_calculator.c:160: TRANSITION_ON(DIGIT_0,												TO(zero2),				NO_ACTION) ;
 	mov	r0,_bp
 	inc	r0
-	cjne	@r0,#0x06,00105$
-	mov	a,#0x09
+	cjne	@r0,#0x08,00105$
+	mov	a,#0x08
 	add	a,r2
 	mov	r5,a
 	clr	a
@@ -1410,13 +1430,13 @@ _calculator_opEntered_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00113$
+	sjmp	00110$
 00105$:
-;	../sm_test_calculator.c:161: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
+;	../sm_test_calculator.c:161: TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
 	mov	r0,_bp
 	inc	r0
-	cjne	@r0,#0x07,00108$
-	mov	a,#0x09
+	cjne	@r0,#0x09,00107$
+	mov	a,#0x08
 	add	a,r2
 	mov	r5,a
 	clr	a
@@ -1435,13 +1455,13 @@ _calculator_opEntered_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00113$
-00108$:
-;	../sm_test_calculator.c:162: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+	sjmp	00110$
+00107$:
+;	../sm_test_calculator.c:162: TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
 	mov	r0,_bp
 	inc	r0
-	cjne	@r0,#0x08,00111$
-	mov	a,#0x09
+	cjne	@r0,#0x0A,00109$
+	mov	a,#0x08
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1459,11 +1479,11 @@ _calculator_opEntered_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00113$
-00111$:
+	sjmp	00110$
+00109$:
 ;	../sm_test_calculator.c:164: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00113$:
+00110$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1473,7 +1493,11 @@ _calculator_opEntered_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
-;sloc0                     Allocated to stack - offset 5
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;sloc0                     Allocated to stack - offset 9
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:167: DEFINE_STATE(negated2)
 ;	-----------------------------------------
@@ -1485,7 +1509,7 @@ _calculator_negated2_handler:
 	push	dpl
 	push	dph
 	push	b
-;	../sm_test_calculator.c:169: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+;	../sm_test_calculator.c:169: TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -1499,10 +1523,10 @@ _calculator_negated2_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r2,a
-	cjne	r2,#0x05,00102$
+	cjne	r2,#0x07,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1523,13 +1547,13 @@ _calculator_negated2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00116$
+	ljmp	00112$
 00102$:
-;	../sm_test_calculator.c:170: TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero2),				NO_ACTION) ;
-	cjne	r2,#0x06,00105$
+;	../sm_test_calculator.c:170: TRANSITION_ON(DIGIT_0,												TO(zero2),				NO_ACTION) ;
+	cjne	r2,#0x08,00104$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1550,13 +1574,13 @@ _calculator_negated2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00116$
-00105$:
-;	../sm_test_calculator.c:171: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
-	cjne	r2,#0x07,00108$
+	ljmp	00112$
+00104$:
+;	../sm_test_calculator.c:171: TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
+	cjne	r2,#0x09,00106$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1577,13 +1601,13 @@ _calculator_negated2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00116$
-00108$:
-;	../sm_test_calculator.c:172: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
-	cjne	r2,#0x08,00111$
+	sjmp	00112$
+00106$:
+;	../sm_test_calculator.c:172: TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
+	cjne	r2,#0x0A,00108$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1604,26 +1628,26 @@ _calculator_negated2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00116$
-00111$:
-;	../sm_test_calculator.c:173: CONSUME_EVENT_IF(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),							NO_ACTION) ;
-	cjne	r2,#0x09,00114$
+	sjmp	00112$
+00108$:
+;	../sm_test_calculator.c:173: CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							NO_ACTION) ;
+	cjne	r2,#0x0B,00110$
 	inc	r5
-	cjne	r5,#0x00,00134$
+	cjne	r5,#0x00,00130$
 	inc	r6
-00134$:
+00130$:
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x2D,00114$
+	cjne	r5,#0x2D,00110$
 	mov	dpl,#0x01
-	sjmp	00116$
-00114$:
+	sjmp	00112$
+00110$:
 ;	../sm_test_calculator.c:175: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00116$:
+00112$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1682,8 +1706,12 @@ _doCalculation:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
 ;goodCalc                  Allocated to registers r2 
-;sloc0                     Allocated to stack - offset 6
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
+;sloc0                     Allocated to stack - offset 10
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:191: DEFINE_STATE(operand2)
 ;	-----------------------------------------
@@ -1695,7 +1723,7 @@ _calculator_operand2_handler:
 	push	dpl
 	push	dph
 	push	b
-;	../sm_test_calculator.c:193: TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+;	../sm_test_calculator.c:193: TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -1709,10 +1737,10 @@ _calculator_operand2_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r2,a
-	cjne	r2,#0x05,00102$
+	cjne	r2,#0x07,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1733,20 +1761,20 @@ _calculator_operand2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	ljmp	00117$
+	ljmp	00114$
 00102$:
 ;	../sm_test_calculator.c:195: HANDLE_STATE_EVENTS
-	cjne	r2,#0x09,00126$
-	sjmp	00105$
-00126$:
-	cjne	r2,#0x0A,00127$
-	sjmp	00128$
-00127$:
-	ljmp	00116$
-00128$:
+	cjne	r2,#0x0B,00123$
+	sjmp	00104$
+00123$:
+	cjne	r2,#0x0C,00124$
+	sjmp	00125$
+00124$:
+	ljmp	00113$
+00125$:
 ;	../sm_test_calculator.c:198: EVENT(EQUALS)
-00105$:
-;	../sm_test_calculator.c:200: uint8_t goodCalc = doCalculation(EVENT_IS(keyEvent_t)->key) ;
+00104$:
+;	../sm_test_calculator.c:200: uint8_t goodCalc = doCalculation(CAST_EVENT(keyEvent_t)->key) ;
 	mov	a,#0x01
 	add	a,r5
 	mov	r2,a
@@ -1769,17 +1797,17 @@ _calculator_operand2_handler:
 	pop	ar5
 ;	../sm_test_calculator.c:202: if(goodCalc)
 	mov	a,r2
-	jz	00113$
-;	../sm_test_calculator.c:204: TRANSITION_ON(OPERATION,	UNCONDITIONALLY,			TO(opEntered),			NO_ACTION) ;
+	jz	00110$
+;	../sm_test_calculator.c:204: TRANSITION_ON(OPERATION,								TO(opEntered),			NO_ACTION) ;
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
 	mov	r2,a
-	cjne	r2,#0x09,00107$
+	cjne	r2,#0x0B,00106$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r3,a
 	clr	a
@@ -1800,13 +1828,13 @@ _calculator_operand2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00117$
-00107$:
-;	../sm_test_calculator.c:205: TRANSITION_ON(EQUALS,		UNCONDITIONALLY,			TO(result),				NO_ACTION) ;
-	cjne	r2,#0x0A,00114$
+	sjmp	00114$
+00106$:
+;	../sm_test_calculator.c:205: TRANSITION_ON(EQUALS,									TO(result),				NO_ACTION) ;
+	cjne	r2,#0x0C,00111$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1827,12 +1855,12 @@ _calculator_operand2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00117$
-00113$:
+	sjmp	00114$
+00110$:
 ;	../sm_test_calculator.c:209: TRANSITION_TO(error, NO_ACTION) ;
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1853,16 +1881,16 @@ _calculator_operand2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00117$
-00114$:
+	sjmp	00114$
+00111$:
 ;	../sm_test_calculator.c:212: EVENT_HANDLED
 	mov	dpl,#0x01
 ;	../sm_test_calculator.c:214: HANDLE_STATE_EVENTS_DONE
-	sjmp	00117$
-00116$:
+	sjmp	00114$
+00113$:
 ;	../sm_test_calculator.c:216: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00117$:
+00114$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1871,6 +1899,8 @@ _calculator_operand2_handler:
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
+;stateResponseCode         Allocated to registers 
+;stateResponseCode         Allocated to registers 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:219: DEFINE_STATE(zero2)
@@ -1900,7 +1930,7 @@ _calculator_zero2_handler:
 	cjne	r5,#0x02,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -1921,18 +1951,18 @@ _calculator_zero2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00111$
+	sjmp	00109$
 00102$:
 ;	../sm_test_calculator.c:222: CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	cjne	r5,#0x06,00104$
+	cjne	r5,#0x08,00104$
 	mov	dpl,#0x01
-	sjmp	00111$
+	sjmp	00109$
 00104$:
-;	../sm_test_calculator.c:223: TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
-	cjne	r5,#0x07,00106$
+;	../sm_test_calculator.c:223: TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
+	cjne	r5,#0x09,00106$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1953,13 +1983,13 @@ _calculator_zero2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00111$
+	sjmp	00109$
 00106$:
-;	../sm_test_calculator.c:224: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
-	cjne	r5,#0x08,00109$
+;	../sm_test_calculator.c:224: TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
+	cjne	r5,#0x0A,00108$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x09
+	mov	a,#0x08
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1980,11 +2010,11 @@ _calculator_zero2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00111$
-00109$:
+	sjmp	00109$
+00108$:
 ;	../sm_test_calculator.c:226: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00111$:
+00109$:
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1993,6 +2023,7 @@ _calculator_zero2_handler:
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to registers r2 r3 r4 
+;stateResponseCode         Allocated to registers 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
 ;	../sm_test_calculator.c:229: DEFINE_STATE(int2)
@@ -2005,7 +2036,7 @@ _calculator_int2_handler:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-;	../sm_test_calculator.c:231: TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+;	../sm_test_calculator.c:231: TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -2019,8 +2050,8 @@ _calculator_int2_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x08,00102$
-	mov	a,#0x09
+	cjne	r5,#0x0A,00102$
+	mov	a,#0x08
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -2038,11 +2069,11 @@ _calculator_int2_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-	sjmp	00104$
+	sjmp	00103$
 00102$:
 ;	../sm_test_calculator.c:233: END_DEFINE_STATE()
 	mov	dpl,#0x00
-00104$:
+00103$:
 	pop	_bp
 	ret
 ;------------------------------------------------------------
@@ -2073,7 +2104,7 @@ _calculator_frac2_handler:
 	mov	b,r4
 	lcall	__gptrget
 	mov	r2,a
-	cjne	r2,#0x08,00102$
+	cjne	r2,#0x0A,00102$
 	mov	dpl,#0x01
 	sjmp	00103$
 00102$:

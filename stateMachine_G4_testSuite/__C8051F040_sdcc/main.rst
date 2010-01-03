@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-                              4 ; This file was generated Wed Dec 30 22:15:30 2009
+                              4 ; This file was generated Sat Jan 02 19:24:42 2010
                               5 ;--------------------------------------------------------
                               6 	.module main
                               7 	.optsdcc -mmcs51 --model-large
@@ -793,8 +793,8 @@
                             793 ; overlayable bit register bank
                             794 ;--------------------------------------------------------
                             795 	.area BIT_BANK	(REL,OVR,DATA)
-   0022                     796 bits:
-   0022                     797 	.ds 1
+   0023                     796 bits:
+   0023                     797 	.ds 1
                     8000    798 	b0 = bits[0]
                     8100    799 	b1 = bits[1]
                     8200    800 	b2 = bits[2]
@@ -829,14 +829,14 @@
                             829 ; overlayable items in internal ram 
                             830 ;--------------------------------------------------------
                             831 	.area	OSEG    (OVR,DATA)
-   0057                     832 _addTickCounter_sloc0_1_0::
-   0057                     833 	.ds 3
+   0060                     832 _addTickCounter_sloc0_1_0::
+   0060                     833 	.ds 3
                             834 ;--------------------------------------------------------
                             835 ; Stack segment in internal ram 
                             836 ;--------------------------------------------------------
                             837 	.area	SSEG	(DATA)
-   005A                     838 __start__stack:
-   005A                     839 	.ds	1
+   0063                     838 __start__stack:
+   0063                     839 	.ds	1
                             840 
                             841 ;--------------------------------------------------------
                             842 ; indirectly addressable internal ram data
@@ -945,8 +945,8 @@
                             945 ; external initialized ram data
                             946 ;--------------------------------------------------------
                             947 	.area XISEG   (XDATA)
-   0ED7                     948 _countdown:
-   0ED7                     949 	.ds 2
+   0EE4                     948 _countdown:
+   0EE4                     949 	.ds 2
                             950 	.area HOME    (CODE)
                             951 	.area GSINIT0 (CODE)
                             952 	.area GSINIT1 (CODE)
@@ -973,7 +973,7 @@
    001C                     973 	.ds	7
    0023 32                  974 	reti
    0024                     975 	.ds	7
-   002B 02 0C 42            976 	ljmp	_vTimer2ISR
+   002B 02 0B FA            976 	ljmp	_vTimer2ISR
                             977 ;--------------------------------------------------------
                             978 ; global & static initialisations
                             979 ;--------------------------------------------------------
@@ -994,7 +994,7 @@
                             994 ;calculator                Allocated with name '_main_calculator_1_1'
                             995 ;iterationMax              Allocated with name '_main_iterationMax_1_1'
                             996 ;------------------------------------------------------------
-                            997 ;	../main.c:89: static int iterationMax = 10 ;
+                            997 ;	../main.c:94: static int iterationMax = 10 ;
    008C 90 00 00            998 	mov	dptr,#_main_iterationMax_1_1
    008F 74 0A               999 	mov	a,#0x0A
    0091 F0                 1000 	movx	@dptr,a
@@ -1032,7 +1032,7 @@
                            1032 ;calculator                Allocated with name '_main_calculator_1_1'
                            1033 ;iterationMax              Allocated with name '_main_iterationMax_1_1'
                            1034 ;------------------------------------------------------------
-                           1035 ;	../main.c:78: void main(	void)
+                           1035 ;	../main.c:83: void main(	void)
                            1036 ;	-----------------------------------------
                            1037 ;	 function main
                            1038 ;	-----------------------------------------
@@ -1045,2387 +1045,2344 @@
                     0007   1045 	ar7 = 0x07
                     0000   1046 	ar0 = 0x00
                     0001   1047 	ar1 = 0x01
-                           1048 ;	../main.c:86: bool			ok = true ;
+                           1048 ;	../main.c:91: bool			ok = true ;
    009A D2 01              1049 	setb	_main_ok_1_1
-                           1050 ;	../main.c:91: puts("4th Generation state machine test started.") ;
-   009C 90 44 57           1051 	mov	dptr,#__str_0
+                           1050 ;	../main.c:96: puts("4th Generation state machine test started.") ;
+   009C 90 4D 5C           1051 	mov	dptr,#__str_0
    009F 75 F0 80           1052 	mov	b,#0x80
-   00A2 12 3B 23           1053 	lcall	_puts
-                           1054 ;	../main.c:104: WDTCN = 0xDE ;	// Disable the watchdog timer
+   00A2 12 44 28           1053 	lcall	_puts
+                           1054 ;	../main.c:109: WDTCN = 0xDE ;	/* Disable the watchdog timer */
    00A5 75 FF DE           1055 	mov	_WDTCN,#0xDE
-                           1056 ;	../main.c:105: WDTCN = 0xAD ;
+                           1056 ;	../main.c:110: WDTCN = 0xAD ;
    00A8 75 FF AD           1057 	mov	_WDTCN,#0xAD
-                           1058 ;	../main.c:106: WDTCN = 0xFF ;	// Disable any future ability to modify the watchdog timer
+                           1058 ;	../main.c:111: WDTCN = 0xFF ;	/* Disable any future ability to modify the watchdog timer */
    00AB 75 FF FF           1059 	mov	_WDTCN,#0xFF
-                           1060 ;	../main.c:108: prvSetupSystemClock() ;
-   00AE 12 0B 86           1061 	lcall	_prvSetupSystemClock
-                           1062 ;	../main.c:109: gpio_init() ;
-   00B1 12 02 88           1063 	lcall	_gpio_init_projectSpecific
-                           1064 ;	../main.c:110: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
+                           1060 ;	../main.c:113: prvSetupSystemClock() ;
+   00AE 12 0B 3E           1061 	lcall	_prvSetupSystemClock
+                           1062 ;	../main.c:114: gpio_init() ;
+   00B1 12 02 40           1063 	lcall	_gpio_init_projectSpecific
+                           1064 ;	../main.c:115: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
    00B4 75 82 00           1065 	mov	dpl,#0x00
-   00B7 12 35 38           1066 	lcall	_pwm_init
-                           1067 ;	../main.c:111: prvSetupTimerInterrupt() ;
-   00BA 12 0B A5           1068 	lcall	_prvSetupTimerInterrupt
-                           1069 ;	../main.c:112: task_UART_init(0) ;
+   00B7 12 3E 3D           1066 	lcall	_pwm_init
+                           1067 ;	../main.c:116: prvSetupTimerInterrupt() ;
+   00BA 12 0B 5D           1068 	lcall	_prvSetupTimerInterrupt
+                           1069 ;	../main.c:117: task_UART_init(0) ;
    00BD 75 82 00           1070 	mov	dpl,#0x00
-   00C0 12 35 CB           1071 	lcall	_task_UART_init
-                           1072 ;	../main.c:114: portENABLE_INTERRUPTS() ;
+   00C0 12 3E D0           1071 	lcall	_task_UART_init
+                           1072 ;	../main.c:119: portENABLE_INTERRUPTS() ;
    00C3 D2 AF              1073 	setb	_EA
-                           1074 ;	../main.c:117: puts("Generating timebomb") ;
-   00C5 90 44 82           1075 	mov	dptr,#__str_1
+                           1074 ;	../main.c:122: puts("Generating timebomb") ;
+   00C5 90 4D 87           1075 	mov	dptr,#__str_1
    00C8 75 F0 80           1076 	mov	b,#0x80
-   00CB 12 3B 23           1077 	lcall	_puts
-                           1078 ;	../main.c:119: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
-   00CE 12 18 A4           1079 	lcall	_timeBomb_getMachineSize
+   00CB 12 44 28           1077 	lcall	_puts
+                           1078 ;	../main.c:124: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+   00CE 12 17 90           1079 	lcall	_timeBomb_getEventQueueDepth
    00D1 AA 82              1080 	mov	r2,dpl
    00D3 AB 83              1081 	mov	r3,dph
-   00D5 C0 02              1082 	push	ar2
-   00D7 C0 03              1083 	push	ar3
-   00D9 12 17 E7           1084 	lcall	_timeBomb_getEventQueueDepth
-   00DC AC 82              1085 	mov	r4,dpl
-   00DE AD 83              1086 	mov	r5,dph
-   00E0 D0 03              1087 	pop	ar3
-   00E2 D0 02              1088 	pop	ar2
-   00E4 90 09 DE           1089 	mov	dptr,#_allocateStateMachineMemory_PARM_2
-   00E7 EC                 1090 	mov	a,r4
-   00E8 F0                 1091 	movx	@dptr,a
-   00E9 A3                 1092 	inc	dptr
-   00EA ED                 1093 	mov	a,r5
-   00EB F0                 1094 	movx	@dptr,a
-   00EC 90 09 E0           1095 	mov	dptr,#_allocateStateMachineMemory_PARM_3
-   00EF 74 EB              1096 	mov	a,#_timeBomb_constructor
-   00F1 F0                 1097 	movx	@dptr,a
-   00F2 A3                 1098 	inc	dptr
-   00F3 74 17              1099 	mov	a,#(_timeBomb_constructor >> 8)
-   00F5 F0                 1100 	movx	@dptr,a
-   00F6 8A 82              1101 	mov	dpl,r2
-   00F8 8B 83              1102 	mov	dph,r3
-   00FA 12 24 2E           1103 	lcall	_allocateStateMachineMemory
-   00FD AA 82              1104 	mov	r2,dpl
-   00FF AB 83              1105 	mov	r3,dph
-   0101 AC F0              1106 	mov	r4,b
-                           1107 ;	../main.c:121: if(bomb)
-   0103 EA                 1108 	mov	a,r2
-   0104 4B                 1109 	orl	a,r3
-   0105 4C                 1110 	orl	a,r4
-   0106 60 15              1111 	jz	00102$
-                           1112 ;	../main.c:123: REGISTER_STATE_MACHINE(bomb) ;
-   0108 8A 82              1113 	mov	dpl,r2
-   010A 8B 83              1114 	mov	dph,r3
-   010C 8C F0              1115 	mov	b,r4
-   010E C0 02              1116 	push	ar2
-   0110 C0 03              1117 	push	ar3
-   0112 C0 04              1118 	push	ar4
-   0114 12 25 C0           1119 	lcall	_registerStateMachine
-   0117 D0 04              1120 	pop	ar4
-   0119 D0 03              1121 	pop	ar3
-   011B D0 02              1122 	pop	ar2
-   011D                    1123 00102$:
-                           1124 ;	../main.c:126: puts("Generating calculator") ;
-   011D 90 44 96           1125 	mov	dptr,#__str_2
-   0120 75 F0 80           1126 	mov	b,#0x80
-   0123 C0 02              1127 	push	ar2
-   0125 C0 03              1128 	push	ar3
-   0127 C0 04              1129 	push	ar4
-   0129 12 3B 23           1130 	lcall	_puts
-                           1131 ;	../main.c:128: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
-   012C 12 0D 89           1132 	lcall	_calculator_getMachineSize
-   012F AD 82              1133 	mov	r5,dpl
-   0131 AE 83              1134 	mov	r6,dph
-   0133 C0 05              1135 	push	ar5
-   0135 C0 06              1136 	push	ar6
-   0137 12 0C CC           1137 	lcall	_calculator_getEventQueueDepth
-   013A AF 82              1138 	mov	r7,dpl
-   013C A8 83              1139 	mov	r0,dph
-   013E D0 06              1140 	pop	ar6
-   0140 D0 05              1141 	pop	ar5
-   0142 90 09 DE           1142 	mov	dptr,#_allocateStateMachineMemory_PARM_2
-   0145 EF                 1143 	mov	a,r7
-   0146 F0                 1144 	movx	@dptr,a
-   0147 A3                 1145 	inc	dptr
-   0148 E8                 1146 	mov	a,r0
-   0149 F0                 1147 	movx	@dptr,a
-   014A 90 09 E0           1148 	mov	dptr,#_allocateStateMachineMemory_PARM_3
-   014D 74 D0              1149 	mov	a,#_calculator_constructor
-   014F F0                 1150 	movx	@dptr,a
-   0150 A3                 1151 	inc	dptr
-   0151 74 0C              1152 	mov	a,#(_calculator_constructor >> 8)
-   0153 F0                 1153 	movx	@dptr,a
-   0154 8D 82              1154 	mov	dpl,r5
-   0156 8E 83              1155 	mov	dph,r6
-   0158 12 24 2E           1156 	lcall	_allocateStateMachineMemory
-   015B AD 82              1157 	mov	r5,dpl
-   015D AE 83              1158 	mov	r6,dph
-   015F AF F0              1159 	mov	r7,b
-   0161 D0 04              1160 	pop	ar4
-   0163 D0 03              1161 	pop	ar3
-   0165 D0 02              1162 	pop	ar2
-                           1163 ;	../main.c:130: if(calculator)
-   0167 ED                 1164 	mov	a,r5
-   0168 4E                 1165 	orl	a,r6
-   0169 4F                 1166 	orl	a,r7
-   016A 60 36              1167 	jz	00104$
-                           1168 ;	../main.c:132: puts("Registering calculator") ;
-   016C 90 44 AC           1169 	mov	dptr,#__str_3
-   016F 75 F0 80           1170 	mov	b,#0x80
-   0172 C0 02              1171 	push	ar2
-   0174 C0 03              1172 	push	ar3
-   0176 C0 04              1173 	push	ar4
-   0178 C0 05              1174 	push	ar5
-   017A C0 06              1175 	push	ar6
-   017C C0 07              1176 	push	ar7
-   017E 12 3B 23           1177 	lcall	_puts
-   0181 D0 07              1178 	pop	ar7
-   0183 D0 06              1179 	pop	ar6
-   0185 D0 05              1180 	pop	ar5
-                           1181 ;	../main.c:134: REGISTER_STATE_MACHINE(calculator) ;
-   0187 8D 82              1182 	mov	dpl,r5
-   0189 8E 83              1183 	mov	dph,r6
-   018B 8F F0              1184 	mov	b,r7
-   018D C0 05              1185 	push	ar5
-   018F C0 06              1186 	push	ar6
-   0191 C0 07              1187 	push	ar7
-   0193 12 25 C0           1188 	lcall	_registerStateMachine
-   0196 D0 07              1189 	pop	ar7
-   0198 D0 06              1190 	pop	ar6
-   019A D0 05              1191 	pop	ar5
-   019C D0 04              1192 	pop	ar4
-   019E D0 03              1193 	pop	ar3
-   01A0 D0 02              1194 	pop	ar2
-   01A2                    1195 00104$:
-                           1196 ;	../main.c:137: puts("Iterating state machines") ;
-   01A2 90 44 C3           1197 	mov	dptr,#__str_4
-   01A5 75 F0 80           1198 	mov	b,#0x80
-   01A8 C0 02              1199 	push	ar2
-   01AA C0 03              1200 	push	ar3
-   01AC C0 04              1201 	push	ar4
-   01AE C0 05              1202 	push	ar5
-   01B0 C0 06              1203 	push	ar6
-   01B2 C0 07              1204 	push	ar7
-   01B4 12 3B 23           1205 	lcall	_puts
-   01B7 D0 07              1206 	pop	ar7
-   01B9 D0 06              1207 	pop	ar6
-   01BB D0 05              1208 	pop	ar5
-   01BD D0 04              1209 	pop	ar4
-   01BF D0 03              1210 	pop	ar3
-   01C1 D0 02              1211 	pop	ar2
-                           1212 ;	../main.c:139: while(ok)
-   01C3                    1213 00107$:
-   01C3 30 01 50           1214 	jnb	_main_ok_1_1,00109$
-                           1215 ;	../main.c:141: if(iterationMax-- == 0)
-   01C6 C0 05              1216 	push	ar5
-   01C8 C0 06              1217 	push	ar6
-   01CA C0 07              1218 	push	ar7
-   01CC 90 00 00           1219 	mov	dptr,#_main_iterationMax_1_1
-   01CF E0                 1220 	movx	a,@dptr
-   01D0 F8                 1221 	mov	r0,a
-   01D1 A3                 1222 	inc	dptr
-   01D2 E0                 1223 	movx	a,@dptr
-   01D3 F9                 1224 	mov	r1,a
-   01D4 E8                 1225 	mov	a,r0
-   01D5 24 FF              1226 	add	a,#0xff
-   01D7 FD                 1227 	mov	r5,a
-   01D8 E9                 1228 	mov	a,r1
-   01D9 34 FF              1229 	addc	a,#0xff
-   01DB FE                 1230 	mov	r6,a
-   01DC 90 00 00           1231 	mov	dptr,#_main_iterationMax_1_1
-   01DF ED                 1232 	mov	a,r5
-   01E0 F0                 1233 	movx	@dptr,a
-   01E1 A3                 1234 	inc	dptr
-   01E2 EE                 1235 	mov	a,r6
-   01E3 F0                 1236 	movx	@dptr,a
-   01E4 D0 07              1237 	pop	ar7
-   01E6 D0 06              1238 	pop	ar6
-   01E8 D0 05              1239 	pop	ar5
-   01EA E8                 1240 	mov	a,r0
-   01EB 49                 1241 	orl	a,r1
-   01EC 70 02              1242 	jnz	00106$
-                           1243 ;	../main.c:143: ok = false ;
-   01EE C2 01              1244 	clr	_main_ok_1_1
-   01F0                    1245 00106$:
-                           1246 ;	../main.c:146: puts("loop") ;
-   01F0 90 44 DC           1247 	mov	dptr,#__str_5
-   01F3 75 F0 80           1248 	mov	b,#0x80
-   01F6 C0 02              1249 	push	ar2
-   01F8 C0 03              1250 	push	ar3
-   01FA C0 04              1251 	push	ar4
-   01FC C0 05              1252 	push	ar5
-   01FE C0 06              1253 	push	ar6
-   0200 C0 07              1254 	push	ar7
-   0202 12 3B 23           1255 	lcall	_puts
-                           1256 ;	../main.c:148: ITERATE_ALL_STATE_MACHINES() ;
-   0205 12 26 8C           1257 	lcall	_iterateAllStateMachines
-   0208 D0 07              1258 	pop	ar7
-   020A D0 06              1259 	pop	ar6
-   020C D0 05              1260 	pop	ar5
-   020E D0 04              1261 	pop	ar4
-   0210 D0 03              1262 	pop	ar3
-   0212 D0 02              1263 	pop	ar2
-   0214 80 AD              1264 	sjmp	00107$
-   0216                    1265 00109$:
-                           1266 ;	../main.c:155: if(calculator)
-   0216 ED                 1267 	mov	a,r5
-   0217 4E                 1268 	orl	a,r6
-   0218 4F                 1269 	orl	a,r7
-   0219 60 34              1270 	jz	00111$
-                           1271 ;	../main.c:157: UNREGISTER_STATE_MACHINE(calculator) ;
-   021B 8D 82              1272 	mov	dpl,r5
-   021D 8E 83              1273 	mov	dph,r6
-   021F 8F F0              1274 	mov	b,r7
-   0221 C0 02              1275 	push	ar2
-   0223 C0 03              1276 	push	ar3
-   0225 C0 04              1277 	push	ar4
-   0227 C0 05              1278 	push	ar5
-   0229 C0 06              1279 	push	ar6
-   022B C0 07              1280 	push	ar7
-   022D 12 26 26           1281 	lcall	_unregisterStateMachine
-   0230 D0 07              1282 	pop	ar7
-   0232 D0 06              1283 	pop	ar6
-   0234 D0 05              1284 	pop	ar5
-                           1285 ;	../main.c:159: STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
-   0236 90 09 E4           1286 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
-   0239 74 65              1287 	mov	a,#_calculator_destructor
-   023B F0                 1288 	movx	@dptr,a
-   023C A3                 1289 	inc	dptr
-   023D 74 0D              1290 	mov	a,#(_calculator_destructor >> 8)
-   023F F0                 1291 	movx	@dptr,a
-   0240 8D 82              1292 	mov	dpl,r5
-   0242 8E 83              1293 	mov	dph,r6
-   0244 8F F0              1294 	mov	b,r7
-   0246 12 25 72           1295 	lcall	_deallocateStateMachineMemory
-   0249 D0 04              1296 	pop	ar4
-   024B D0 03              1297 	pop	ar3
-   024D D0 02              1298 	pop	ar2
-                           1299 ;	../main.c:161: calculator = 0 ;
-   024F                    1300 00111$:
-                           1301 ;	../main.c:164: if(bomb)
-   024F EA                 1302 	mov	a,r2
-   0250 4B                 1303 	orl	a,r3
-   0251 4C                 1304 	orl	a,r4
-   0252 60 28              1305 	jz	00113$
-                           1306 ;	../main.c:166: UNREGISTER_STATE_MACHINE(bomb) ;
-   0254 8A 82              1307 	mov	dpl,r2
-   0256 8B 83              1308 	mov	dph,r3
-   0258 8C F0              1309 	mov	b,r4
-   025A C0 02              1310 	push	ar2
-   025C C0 03              1311 	push	ar3
-   025E C0 04              1312 	push	ar4
-   0260 12 26 26           1313 	lcall	_unregisterStateMachine
-   0263 D0 04              1314 	pop	ar4
-   0265 D0 03              1315 	pop	ar3
-   0267 D0 02              1316 	pop	ar2
-                           1317 ;	../main.c:168: STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
-   0269 90 09 E4           1318 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
-   026C 74 80              1319 	mov	a,#_timeBomb_destructor
-   026E F0                 1320 	movx	@dptr,a
-   026F A3                 1321 	inc	dptr
-   0270 74 18              1322 	mov	a,#(_timeBomb_destructor >> 8)
-   0272 F0                 1323 	movx	@dptr,a
-   0273 8A 82              1324 	mov	dpl,r2
-   0275 8B 83              1325 	mov	dph,r3
-   0277 8C F0              1326 	mov	b,r4
-   0279 12 25 72           1327 	lcall	_deallocateStateMachineMemory
-                           1328 ;	../main.c:170: bomb = 0 ;
-   027C                    1329 00113$:
-                           1330 ;	../main.c:173: puts("\n4th Generation state machine test done.") ;
-   027C 90 44 E1           1331 	mov	dptr,#__str_6
-   027F 75 F0 80           1332 	mov	b,#0x80
-   0282 02 3B 23           1333 	ljmp	_puts
-                           1334 ;------------------------------------------------------------
-                           1335 ;Allocation info for local variables in function 'taskSwitcherTickHook'
-                           1336 ;------------------------------------------------------------
-                           1337 ;------------------------------------------------------------
-                           1338 ;	../main.c:182: void taskSwitcherTickHook(	void)
-                           1339 ;	-----------------------------------------
-                           1340 ;	 function taskSwitcherTickHook
-                           1341 ;	-----------------------------------------
-   0285                    1342 _taskSwitcherTickHook:
-                           1343 ;	../main.c:184: timeForTickProcessing = true ;
-   0285 D2 00              1344 	setb	_timeForTickProcessing
-   0287 22                 1345 	ret
-                           1346 ;------------------------------------------------------------
-                           1347 ;Allocation info for local variables in function 'gpio_init_projectSpecific'
-                           1348 ;------------------------------------------------------------
-                           1349 ;SFRPAGE_SAVE              Allocated with name '_gpio_init_projectSpecific_SFRPAGE_SAVE_1_1'
-                           1350 ;------------------------------------------------------------
-                           1351 ;	../projectSpecificHardwareInterface_C8051F040.c:17: void gpio_init_projectSpecific(	void)
-                           1352 ;	-----------------------------------------
-                           1353 ;	 function gpio_init_projectSpecific
-                           1354 ;	-----------------------------------------
-   0288                    1355 _gpio_init_projectSpecific:
-                           1356 ;	../projectSpecificHardwareInterface_C8051F040.c:21: SFRPAGE_SAVE = SFRPAGE ;
-   0288 AA 84              1357 	mov	r2,_SFRPAGE
-                           1358 ;	../projectSpecificHardwareInterface_C8051F040.c:23: SFRPAGE	 = SPI0_PAGE ;
-   028A 75 84 00           1359 	mov	_SFRPAGE,#0x00
-                           1360 ;	../projectSpecificHardwareInterface_C8051F040.c:24: SPI0CN	 = 0x00 ;	// Set the SPI module into 3 pin mode so NSS doesn't get assigned to a pin in the crossbar setup below
-   028D 75 F8 00           1361 	mov	_SPI0CN,#0x00
-                           1362 ;	../projectSpecificHardwareInterface_C8051F040.c:26: SFRPAGE	 = CONFIG_PAGE ;
-   0290 75 84 0F           1363 	mov	_SFRPAGE,#0x0F
-                           1364 ;	../projectSpecificHardwareInterface_C8051F040.c:27: XBR0	 = 0x00 ;	// Start with a clean slate
-   0293 75 E1 00           1365 	mov	_XBR0,#0x00
-                           1366 ;	../projectSpecificHardwareInterface_C8051F040.c:28: XBR1	 = 0x00 ;
-   0296 75 E2 00           1367 	mov	_XBR1,#0x00
-                           1368 ;	../projectSpecificHardwareInterface_C8051F040.c:29: XBR2	 = 0x00 ;
-   0299 75 E3 00           1369 	mov	_XBR2,#0x00
-                           1370 ;	../projectSpecificHardwareInterface_C8051F040.c:30: XBR3	 = 0x00 ;
-   029C 75 E4 00           1371 	mov	_XBR3,#0x00
-                           1372 ;	../projectSpecificHardwareInterface_C8051F040.c:32: XBR0	|= 0x04 ;	// Route UART0 to P0.0-P0.1
-   029F 43 E1 04           1373 	orl	_XBR0,#0x04
-                           1374 ;	../projectSpecificHardwareInterface_C8051F040.c:33: XBR0	|= 0x02 ;	// Route SPI0 to P0.2-P0.4
-   02A2 43 E1 02           1375 	orl	_XBR0,#0x02
-                           1376 ;	../projectSpecificHardwareInterface_C8051F040.c:34: XBR0	|= 0x01 ;	// Route SMB0 to P0.5-P0.6
-   02A5 43 E1 01           1377 	orl	_XBR0,#0x01
-                           1378 ;	../projectSpecificHardwareInterface_C8051F040.c:35: XBR2	|= 0x04 ;	// Route UART1 to P0.7-P1.0
-   02A8 43 E3 04           1379 	orl	_XBR2,#0x04
-                           1380 ;	../projectSpecificHardwareInterface_C8051F040.c:36: XBR0	|= 0x30 ;	// Route CEXn to P1.1-P1.6
-   02AB 43 E1 30           1381 	orl	_XBR0,#0x30
-                           1382 ;	../projectSpecificHardwareInterface_C8051F040.c:37: XBR0	|= 0x80 ;	// Route CP0 to P1.7
-   02AE 43 E1 80           1383 	orl	_XBR0,#0x80
-                           1384 ;	../projectSpecificHardwareInterface_C8051F040.c:38: XBR3	|= 0x08 ;	// Route CP2 to P2.0
-   02B1 43 E4 08           1385 	orl	_XBR3,#0x08
-                           1386 ;	../projectSpecificHardwareInterface_C8051F040.c:39: XBR1	|= 0x04 ;	// Route INT0# to P2.1
-   02B4 43 E2 04           1387 	orl	_XBR1,#0x04
-                           1388 ;	../projectSpecificHardwareInterface_C8051F040.c:40: XBR1	|= 0x20 ;	// Route T2 from P2.2
-   02B7 43 E2 20           1389 	orl	_XBR1,#0x20
-                           1390 ;	../projectSpecificHardwareInterface_C8051F040.c:41: XBR3	|= 0x01 ;	// Route T3 to P2.3
-   02BA 43 E4 01           1391 	orl	_XBR3,#0x01
-                           1392 ;	../projectSpecificHardwareInterface_C8051F040.c:43: P0MDOUT |= 0x01 ;	// Set TX0 (P0.0) to push-pull
-   02BD 43 A4 01           1393 	orl	_P0MDOUT,#0x01
-                           1394 ;	../projectSpecificHardwareInterface_C8051F040.c:45: P1MDOUT	|= 0x02 ;	// Set CEX0 (P1.1) to push-pull
-   02C0 43 A5 02           1395 	orl	_P1MDOUT,#0x02
-                           1396 ;	../projectSpecificHardwareInterface_C8051F040.c:46: P1MDOUT	|= 0x04 ;	// Set CEX1 (P1.2) to push-pull
-   02C3 43 A5 04           1397 	orl	_P1MDOUT,#0x04
-                           1398 ;	../projectSpecificHardwareInterface_C8051F040.c:47: P1MDOUT	|= 0x08 ;	// Set CEX2 (P1.3) to push-pull
-   02C6 43 A5 08           1399 	orl	_P1MDOUT,#0x08
-                           1400 ;	../projectSpecificHardwareInterface_C8051F040.c:48: P1MDOUT	|= 0x10 ;	// Set CEX3 (P1.4) to push-pull
-   02C9 43 A5 10           1401 	orl	_P1MDOUT,#0x10
-                           1402 ;	../projectSpecificHardwareInterface_C8051F040.c:49: P1MDOUT	|= 0x20 ;	// Set CEX4 (P1.5) to push-pull
-   02CC 43 A5 20           1403 	orl	_P1MDOUT,#0x20
-                           1404 ;	../projectSpecificHardwareInterface_C8051F040.c:50: P1MDOUT |= 0x40 ;	// Set CEX5 (P1.6) to push-pull
-   02CF 43 A5 40           1405 	orl	_P1MDOUT,#0x40
-                           1406 ;	../projectSpecificHardwareInterface_C8051F040.c:52: P1MDOUT |= 0x80 ;	// Set TX1 (P1.7) to push-pull
-   02D2 43 A5 80           1407 	orl	_P1MDOUT,#0x80
-                           1408 ;	../projectSpecificHardwareInterface_C8051F040.c:53: P2MDOUT	&= ~0x02 ;	// Set INT0# (P2.1) to be a digital input
-                           1409 ;	../projectSpecificHardwareInterface_C8051F040.c:54: P2MDOUT	&= ~0x04 ;	// Set T2 (P2.2) to be a digital input
-   02D5 53 A6 F9           1410 	anl	_P2MDOUT,#(0xFD&0xFB)
-                           1411 ;	../projectSpecificHardwareInterface_C8051F040.c:55: P2MDOUT	|= 0x08 ;	// Set P2.3 to be the Timer3 output pin
-   02D8 43 A6 08           1412 	orl	_P2MDOUT,#0x08
-                           1413 ;	../projectSpecificHardwareInterface_C8051F040.c:57: P3MDIN	 = 0x00 ;	// Configure as analog inputs. This forces the weak pullup for these pins to be disconnected
-   02DB 75 AF 00           1414 	mov	_P3MDIN,#0x00
-                           1415 ;	../projectSpecificHardwareInterface_C8051F040.c:58: P3MDOUT	 = 0x00 ;	// Force the output driver for these pins to open drain output mode
-   02DE 75 A7 00           1416 	mov	_P3MDOUT,#0x00
-                           1417 ;	../projectSpecificHardwareInterface_C8051F040.c:59: P3		 = 0xFF ;	// Force the input driver for these pins to high impedance
-   02E1 75 B0 FF           1418 	mov	_P3,#0xFF
-                           1419 ;	../projectSpecificHardwareInterface_C8051F040.c:61: XBR3	|= 0x80 ;	// Configure CAN TX pin (CTX) as push-pull digital output
-   02E4 43 E4 80           1420 	orl	_XBR3,#0x80
-                           1421 ;	../projectSpecificHardwareInterface_C8051F040.c:63: P4MDOUT	|= 0xFF ;	// Set LCD drive pins to push-pull
-   02E7 E5 9C              1422 	mov	a,_P4MDOUT
-   02E9 75 9C FF           1423 	mov	_P4MDOUT,#0xFF
-                           1424 ;	../projectSpecificHardwareInterface_C8051F040.c:64: P5MDOUT	|= 0xFF ;	// Set state machine debug pins to push-pull
-   02EC E5 9D              1425 	mov	a,_P5MDOUT
-   02EE 75 9D FF           1426 	mov	_P5MDOUT,#0xFF
-                           1427 ;	../projectSpecificHardwareInterface_C8051F040.c:65: P6MDOUT	|= 0xFF ;	// Set general purpose debug pins to push-pull
-   02F1 E5 9E              1428 	mov	a,_P6MDOUT
-   02F3 75 9E FF           1429 	mov	_P6MDOUT,#0xFF
-                           1430 ;	../projectSpecificHardwareInterface_C8051F040.c:67: P4		 = 0x00 ;	// Set all debugging pins to low
-   02F6 75 C8 00           1431 	mov	_P4,#0x00
-                           1432 ;	../projectSpecificHardwareInterface_C8051F040.c:68: P5		 = 0x00 ;
-   02F9 75 D8 00           1433 	mov	_P5,#0x00
-                           1434 ;	../projectSpecificHardwareInterface_C8051F040.c:69: P6		 = 0x00 ;
-   02FC 75 E8 00           1435 	mov	_P6,#0x00
-                           1436 ;	../projectSpecificHardwareInterface_C8051F040.c:71: P2MDIN	&= 0x0F ;	// set comparator analog inputs up as per Section 17.1.5 of the C8050F040 manual
-   02FF 53 AE 0F           1437 	anl	_P2MDIN,#0x0F
-                           1438 ;	../projectSpecificHardwareInterface_C8051F040.c:72: P2MDOUT	&= 0x0F ;
-   0302 53 A6 0F           1439 	anl	_P2MDOUT,#0x0F
-                           1440 ;	../projectSpecificHardwareInterface_C8051F040.c:73: P2		|= 0xF0 ;
-   0305 43 A0 F0           1441 	orl	_P2,#0xF0
-                           1442 ;	../projectSpecificHardwareInterface_C8051F040.c:78: XBR2	|= 0x40 ;	// Enable Crossbar/low ports and turn on global weak pullups
-   0308 43 E3 40           1443 	orl	_XBR2,#0x40
-                           1444 ;	../projectSpecificHardwareInterface_C8051F040.c:79: SFRPAGE	 = SFRPAGE_SAVE ;
-   030B 8A 84              1445 	mov	_SFRPAGE,r2
-   030D 22                 1446 	ret
-                           1447 ;------------------------------------------------------------
-                           1448 ;Allocation info for local variables in function 'pwm_init_projectSpecific'
-                           1449 ;------------------------------------------------------------
-                           1450 ;channelNumber             Allocated with name '_pwm_init_projectSpecific_channelNumber_1_1'
-                           1451 ;SFRPAGE_save              Allocated with name '_pwm_init_projectSpecific_SFRPAGE_save_1_1'
-                           1452 ;------------------------------------------------------------
-                           1453 ;	../projectSpecificHardwareInterface_C8051F040.c:83: void pwm_init_projectSpecific(								unsigned char channelNumber)
-                           1454 ;	-----------------------------------------
-                           1455 ;	 function pwm_init_projectSpecific
-                           1456 ;	-----------------------------------------
-   030E                    1457 _pwm_init_projectSpecific:
-   030E E5 82              1458 	mov	a,dpl
-   0310 90 00 02           1459 	mov	dptr,#_pwm_init_projectSpecific_channelNumber_1_1
-   0313 F0                 1460 	movx	@dptr,a
-                           1461 ;	../projectSpecificHardwareInterface_C8051F040.c:132: char		SFRPAGE_save = SFRPAGE ;	// Save current SFR Page
-   0314 AA 84              1462 	mov	r2,_SFRPAGE
-                           1463 ;	../projectSpecificHardwareInterface_C8051F040.c:134: SFRPAGE = PCA0_PAGE ;
-   0316 75 84 00           1464 	mov	_SFRPAGE,#0x00
-                           1465 ;	../projectSpecificHardwareInterface_C8051F040.c:136: if(!initialized)
-   0319 20 02 2A           1466 	jb	_pwm_init_projectSpecific_initialized_1_1,00102$
-                           1467 ;	../projectSpecificHardwareInterface_C8051F040.c:138: PCA0CN = 0x00 ;				// Stop counter; clear all flags
-   031C 75 D8 00           1468 	mov	_PCA0CN,#0x00
-                           1469 ;	../projectSpecificHardwareInterface_C8051F040.c:139: PCA0MD = 0x08 ;				// Use SYSCLK as time base
-   031F 75 D9 08           1470 	mov	_PCA0MD,#0x08
-                           1471 ;	../projectSpecificHardwareInterface_C8051F040.c:141: PCA0CPM0 = 0x00 ;			// Module 0 = Off
-   0322 75 DA 00           1472 	mov	_PCA0CPM0,#0x00
-                           1473 ;	../projectSpecificHardwareInterface_C8051F040.c:142: PCA0CPH0 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-   0325 75 FC 00           1474 	mov	_PCA0CPH0,#0x00
-                           1475 ;	../projectSpecificHardwareInterface_C8051F040.c:144: PCA0CPM0 = 0x00 ;			// Module 1 = Off
-   0328 75 DA 00           1476 	mov	_PCA0CPM0,#0x00
-                           1477 ;	../projectSpecificHardwareInterface_C8051F040.c:145: PCA0CPH1 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-   032B 75 FE 00           1478 	mov	_PCA0CPH1,#0x00
-                           1479 ;	../projectSpecificHardwareInterface_C8051F040.c:147: PCA0CPM0 = 0x00 ;			// Module 2 = Off
-   032E 75 DA 00           1480 	mov	_PCA0CPM0,#0x00
-                           1481 ;	../projectSpecificHardwareInterface_C8051F040.c:148: PCA0CPH2 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-   0331 75 EA 00           1482 	mov	_PCA0CPH2,#0x00
-                           1483 ;	../projectSpecificHardwareInterface_C8051F040.c:150: PCA0CPM0 = 0x00 ;			// Module 3 = Off
-   0334 75 DA 00           1484 	mov	_PCA0CPM0,#0x00
-                           1485 ;	../projectSpecificHardwareInterface_C8051F040.c:151: PCA0CPH3 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-   0337 75 EC 00           1486 	mov	_PCA0CPH3,#0x00
-                           1487 ;	../projectSpecificHardwareInterface_C8051F040.c:153: PCA0CPM0 = 0x00 ;			// Module 4 = Off
-   033A 75 DA 00           1488 	mov	_PCA0CPM0,#0x00
-                           1489 ;	../projectSpecificHardwareInterface_C8051F040.c:154: PCA0CPH4 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-   033D 75 EE 00           1490 	mov	_PCA0CPH4,#0x00
-                           1491 ;	../projectSpecificHardwareInterface_C8051F040.c:156: PCA0CPM0 = 0x00 ;			// Module 5 = Off
-   0340 75 DA 00           1492 	mov	_PCA0CPM0,#0x00
-                           1493 ;	../projectSpecificHardwareInterface_C8051F040.c:157: PCA0CPH5 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-   0343 75 E2 00           1494 	mov	_PCA0CPH5,#0x00
-   0346                    1495 00102$:
-                           1496 ;	../projectSpecificHardwareInterface_C8051F040.c:164: if(channelNumber == ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL)
-   0346 90 00 02           1497 	mov	dptr,#_pwm_init_projectSpecific_channelNumber_1_1
-   0349 E0                 1498 	movx	a,@dptr
-   034A FB                 1499 	mov	r3,a
-   034B 70 06              1500 	jnz	00104$
-                           1501 ;	../projectSpecificHardwareInterface_C8051F040.c:170: PWM_B50_MODE		= 0x42 ;						// Module 1 = 8-bit PWM mode
-   034D 75 DA 42           1502 	mov	_PCA0CPM0,#0x42
-                           1503 ;	../projectSpecificHardwareInterface_C8051F040.c:171: PWM_B50_HIGH_BYTE	= FIFTY_PERCENT_DUTY_CYCLE ;	// Configure initial PWM duty cycle = 50%
-   0350 75 FC 80           1504 	mov	_PCA0CPH0,#0x80
-   0353                    1505 00104$:
-                           1506 ;	../projectSpecificHardwareInterface_C8051F040.c:174: if(!initialized)
-   0353 20 02 04           1507 	jb	_pwm_init_projectSpecific_initialized_1_1,00106$
-                           1508 ;	../projectSpecificHardwareInterface_C8051F040.c:176: initialized = true ;
-   0356 D2 02              1509 	setb	_pwm_init_projectSpecific_initialized_1_1
-                           1510 ;	../projectSpecificHardwareInterface_C8051F040.c:178: CR = 1 ;					// Start PCA counter
-   0358 D2 DE              1511 	setb	_CR
-   035A                    1512 00106$:
-                           1513 ;	../projectSpecificHardwareInterface_C8051F040.c:181: SFRPAGE = SFRPAGE_save ;
-   035A 8A 84              1514 	mov	_SFRPAGE,r2
-   035C 22                 1515 	ret
-                           1516 ;------------------------------------------------------------
-                           1517 ;Allocation info for local variables in function 'pwm_incrementDutyCycle_projectSpecific'
-                           1518 ;------------------------------------------------------------
-                           1519 ;channelNumber             Allocated with name '_pwm_incrementDutyCycle_projectSpecific_channelNumber_1_1'
-                           1520 ;------------------------------------------------------------
-                           1521 ;	../projectSpecificHardwareInterface_C8051F040.c:185: void pwm_incrementDutyCycle_projectSpecific(				unsigned char channelNumber)
-                           1522 ;	-----------------------------------------
-                           1523 ;	 function pwm_incrementDutyCycle_projectSpecific
-                           1524 ;	-----------------------------------------
-   035D                    1525 _pwm_incrementDutyCycle_projectSpecific:
-                           1526 ;	../projectSpecificHardwareInterface_C8051F040.c:187: (void)channelNumber ;	// unused at this time
-   035D 22                 1527 	ret
+   00D5 90 09 EB           1082 	mov	dptr,#_allocateStateMachineMemory_PARM_2
+   00D8 74 94              1083 	mov	a,#_timeBomb_constructor
+   00DA F0                 1084 	movx	@dptr,a
+   00DB A3                 1085 	inc	dptr
+   00DC 74 17              1086 	mov	a,#(_timeBomb_constructor >> 8)
+   00DE F0                 1087 	movx	@dptr,a
+   00DF 8A 82              1088 	mov	dpl,r2
+   00E1 8B 83              1089 	mov	dph,r3
+   00E3 12 28 70           1090 	lcall	_allocateStateMachineMemory
+   00E6 AA 82              1091 	mov	r2,dpl
+   00E8 AB 83              1092 	mov	r3,dph
+   00EA AC F0              1093 	mov	r4,b
+                           1094 ;	../main.c:131: puts("Generating calculator") ;
+   00EC 90 4D 9B           1095 	mov	dptr,#__str_2
+   00EF 75 F0 80           1096 	mov	b,#0x80
+   00F2 C0 02              1097 	push	ar2
+   00F4 C0 03              1098 	push	ar3
+   00F6 C0 04              1099 	push	ar4
+   00F8 12 44 28           1100 	lcall	_puts
+                           1101 ;	../main.c:133: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
+   00FB 12 0C 84           1102 	lcall	_calculator_getEventQueueDepth
+   00FE AD 82              1103 	mov	r5,dpl
+   0100 AE 83              1104 	mov	r6,dph
+   0102 90 09 EB           1105 	mov	dptr,#_allocateStateMachineMemory_PARM_2
+   0105 74 88              1106 	mov	a,#_calculator_constructor
+   0107 F0                 1107 	movx	@dptr,a
+   0108 A3                 1108 	inc	dptr
+   0109 74 0C              1109 	mov	a,#(_calculator_constructor >> 8)
+   010B F0                 1110 	movx	@dptr,a
+   010C 8D 82              1111 	mov	dpl,r5
+   010E 8E 83              1112 	mov	dph,r6
+   0110 12 28 70           1113 	lcall	_allocateStateMachineMemory
+   0113 AD 82              1114 	mov	r5,dpl
+   0115 AE 83              1115 	mov	r6,dph
+   0117 AF F0              1116 	mov	r7,b
+   0119 D0 04              1117 	pop	ar4
+   011B D0 03              1118 	pop	ar3
+   011D D0 02              1119 	pop	ar2
+                           1120 ;	../main.c:135: if(calculator)
+   011F ED                 1121 	mov	a,r5
+   0120 4E                 1122 	orl	a,r6
+   0121 4F                 1123 	orl	a,r7
+   0122 60 36              1124 	jz	00102$
+                           1125 ;	../main.c:137: puts("Registering calculator") ;
+   0124 90 4D B1           1126 	mov	dptr,#__str_3
+   0127 75 F0 80           1127 	mov	b,#0x80
+   012A C0 02              1128 	push	ar2
+   012C C0 03              1129 	push	ar3
+   012E C0 04              1130 	push	ar4
+   0130 C0 05              1131 	push	ar5
+   0132 C0 06              1132 	push	ar6
+   0134 C0 07              1133 	push	ar7
+   0136 12 44 28           1134 	lcall	_puts
+   0139 D0 07              1135 	pop	ar7
+   013B D0 06              1136 	pop	ar6
+   013D D0 05              1137 	pop	ar5
+                           1138 ;	../main.c:139: REGISTER_STATE_MACHINE(calculator) ;
+   013F 8D 82              1139 	mov	dpl,r5
+   0141 8E 83              1140 	mov	dph,r6
+   0143 8F F0              1141 	mov	b,r7
+   0145 C0 05              1142 	push	ar5
+   0147 C0 06              1143 	push	ar6
+   0149 C0 07              1144 	push	ar7
+   014B 12 2A C3           1145 	lcall	_registerStateMachine
+   014E D0 07              1146 	pop	ar7
+   0150 D0 06              1147 	pop	ar6
+   0152 D0 05              1148 	pop	ar5
+   0154 D0 04              1149 	pop	ar4
+   0156 D0 03              1150 	pop	ar3
+   0158 D0 02              1151 	pop	ar2
+   015A                    1152 00102$:
+                           1153 ;	../main.c:142: puts("Iterating state machines") ;
+   015A 90 4D C8           1154 	mov	dptr,#__str_4
+   015D 75 F0 80           1155 	mov	b,#0x80
+   0160 C0 02              1156 	push	ar2
+   0162 C0 03              1157 	push	ar3
+   0164 C0 04              1158 	push	ar4
+   0166 C0 05              1159 	push	ar5
+   0168 C0 06              1160 	push	ar6
+   016A C0 07              1161 	push	ar7
+   016C 12 44 28           1162 	lcall	_puts
+   016F D0 07              1163 	pop	ar7
+   0171 D0 06              1164 	pop	ar6
+   0173 D0 05              1165 	pop	ar5
+   0175 D0 04              1166 	pop	ar4
+   0177 D0 03              1167 	pop	ar3
+   0179 D0 02              1168 	pop	ar2
+                           1169 ;	../main.c:144: while(ok)
+   017B                    1170 00105$:
+   017B 30 01 50           1171 	jnb	_main_ok_1_1,00107$
+                           1172 ;	../main.c:146: if(iterationMax-- == 0)
+   017E C0 02              1173 	push	ar2
+   0180 C0 03              1174 	push	ar3
+   0182 C0 04              1175 	push	ar4
+   0184 90 00 00           1176 	mov	dptr,#_main_iterationMax_1_1
+   0187 E0                 1177 	movx	a,@dptr
+   0188 F8                 1178 	mov	r0,a
+   0189 A3                 1179 	inc	dptr
+   018A E0                 1180 	movx	a,@dptr
+   018B F9                 1181 	mov	r1,a
+   018C E8                 1182 	mov	a,r0
+   018D 24 FF              1183 	add	a,#0xff
+   018F FA                 1184 	mov	r2,a
+   0190 E9                 1185 	mov	a,r1
+   0191 34 FF              1186 	addc	a,#0xff
+   0193 FB                 1187 	mov	r3,a
+   0194 90 00 00           1188 	mov	dptr,#_main_iterationMax_1_1
+   0197 EA                 1189 	mov	a,r2
+   0198 F0                 1190 	movx	@dptr,a
+   0199 A3                 1191 	inc	dptr
+   019A EB                 1192 	mov	a,r3
+   019B F0                 1193 	movx	@dptr,a
+   019C D0 04              1194 	pop	ar4
+   019E D0 03              1195 	pop	ar3
+   01A0 D0 02              1196 	pop	ar2
+   01A2 E8                 1197 	mov	a,r0
+   01A3 49                 1198 	orl	a,r1
+   01A4 70 02              1199 	jnz	00104$
+                           1200 ;	../main.c:148: ok = false ;
+   01A6 C2 01              1201 	clr	_main_ok_1_1
+   01A8                    1202 00104$:
+                           1203 ;	../main.c:151: puts("loop") ;
+   01A8 90 4D E1           1204 	mov	dptr,#__str_5
+   01AB 75 F0 80           1205 	mov	b,#0x80
+   01AE C0 02              1206 	push	ar2
+   01B0 C0 03              1207 	push	ar3
+   01B2 C0 04              1208 	push	ar4
+   01B4 C0 05              1209 	push	ar5
+   01B6 C0 06              1210 	push	ar6
+   01B8 C0 07              1211 	push	ar7
+   01BA 12 44 28           1212 	lcall	_puts
+                           1213 ;	../main.c:153: ITERATE_ALL_STATE_MACHINES() ;
+   01BD 12 2B 8F           1214 	lcall	_iterateAllStateMachines
+   01C0 D0 07              1215 	pop	ar7
+   01C2 D0 06              1216 	pop	ar6
+   01C4 D0 05              1217 	pop	ar5
+   01C6 D0 04              1218 	pop	ar4
+   01C8 D0 03              1219 	pop	ar3
+   01CA D0 02              1220 	pop	ar2
+   01CC 80 AD              1221 	sjmp	00105$
+   01CE                    1222 00107$:
+                           1223 ;	../main.c:160: if(calculator)
+   01CE ED                 1224 	mov	a,r5
+   01CF 4E                 1225 	orl	a,r6
+   01D0 4F                 1226 	orl	a,r7
+   01D1 60 34              1227 	jz	00109$
+                           1228 ;	../main.c:162: UNREGISTER_STATE_MACHINE(calculator) ;
+   01D3 8D 82              1229 	mov	dpl,r5
+   01D5 8E 83              1230 	mov	dph,r6
+   01D7 8F F0              1231 	mov	b,r7
+   01D9 C0 02              1232 	push	ar2
+   01DB C0 03              1233 	push	ar3
+   01DD C0 04              1234 	push	ar4
+   01DF C0 05              1235 	push	ar5
+   01E1 C0 06              1236 	push	ar6
+   01E3 C0 07              1237 	push	ar7
+   01E5 12 2B 29           1238 	lcall	_unregisterStateMachine
+   01E8 D0 07              1239 	pop	ar7
+   01EA D0 06              1240 	pop	ar6
+   01EC D0 05              1241 	pop	ar5
+                           1242 ;	../main.c:164: STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
+   01EE 90 09 EF           1243 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
+   01F1 74 0A              1244 	mov	a,#_calculator_destructor
+   01F3 F0                 1245 	movx	@dptr,a
+   01F4 A3                 1246 	inc	dptr
+   01F5 74 0D              1247 	mov	a,#(_calculator_destructor >> 8)
+   01F7 F0                 1248 	movx	@dptr,a
+   01F8 8D 82              1249 	mov	dpl,r5
+   01FA 8E 83              1250 	mov	dph,r6
+   01FC 8F F0              1251 	mov	b,r7
+   01FE 12 2A 75           1252 	lcall	_deallocateStateMachineMemory
+   0201 D0 04              1253 	pop	ar4
+   0203 D0 03              1254 	pop	ar3
+   0205 D0 02              1255 	pop	ar2
+                           1256 ;	../main.c:166: calculator = 0 ;
+   0207                    1257 00109$:
+                           1258 ;	../main.c:169: if(bomb)
+   0207 EA                 1259 	mov	a,r2
+   0208 4B                 1260 	orl	a,r3
+   0209 4C                 1261 	orl	a,r4
+   020A 60 28              1262 	jz	00111$
+                           1263 ;	../main.c:171: UNREGISTER_STATE_MACHINE(bomb) ;
+   020C 8A 82              1264 	mov	dpl,r2
+   020E 8B 83              1265 	mov	dph,r3
+   0210 8C F0              1266 	mov	b,r4
+   0212 C0 02              1267 	push	ar2
+   0214 C0 03              1268 	push	ar3
+   0216 C0 04              1269 	push	ar4
+   0218 12 2B 29           1270 	lcall	_unregisterStateMachine
+   021B D0 04              1271 	pop	ar4
+   021D D0 03              1272 	pop	ar3
+   021F D0 02              1273 	pop	ar2
+                           1274 ;	../main.c:173: STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
+   0221 90 09 EF           1275 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
+   0224 74 16              1276 	mov	a,#_timeBomb_destructor
+   0226 F0                 1277 	movx	@dptr,a
+   0227 A3                 1278 	inc	dptr
+   0228 74 18              1279 	mov	a,#(_timeBomb_destructor >> 8)
+   022A F0                 1280 	movx	@dptr,a
+   022B 8A 82              1281 	mov	dpl,r2
+   022D 8B 83              1282 	mov	dph,r3
+   022F 8C F0              1283 	mov	b,r4
+   0231 12 2A 75           1284 	lcall	_deallocateStateMachineMemory
+                           1285 ;	../main.c:175: bomb = 0 ;
+   0234                    1286 00111$:
+                           1287 ;	../main.c:178: puts("\n4th Generation state machine test done.") ;
+   0234 90 4D E6           1288 	mov	dptr,#__str_6
+   0237 75 F0 80           1289 	mov	b,#0x80
+   023A 02 44 28           1290 	ljmp	_puts
+                           1291 ;------------------------------------------------------------
+                           1292 ;Allocation info for local variables in function 'taskSwitcherTickHook'
+                           1293 ;------------------------------------------------------------
+                           1294 ;------------------------------------------------------------
+                           1295 ;	../main.c:187: void taskSwitcherTickHook(	void)
+                           1296 ;	-----------------------------------------
+                           1297 ;	 function taskSwitcherTickHook
+                           1298 ;	-----------------------------------------
+   023D                    1299 _taskSwitcherTickHook:
+                           1300 ;	../main.c:189: timeForTickProcessing = true ;
+   023D D2 00              1301 	setb	_timeForTickProcessing
+   023F 22                 1302 	ret
+                           1303 ;------------------------------------------------------------
+                           1304 ;Allocation info for local variables in function 'gpio_init_projectSpecific'
+                           1305 ;------------------------------------------------------------
+                           1306 ;SFRPAGE_SAVE              Allocated with name '_gpio_init_projectSpecific_SFRPAGE_SAVE_1_1'
+                           1307 ;------------------------------------------------------------
+                           1308 ;	../projectSpecificHardwareInterface_C8051F040.c:17: void gpio_init_projectSpecific(	void)
+                           1309 ;	-----------------------------------------
+                           1310 ;	 function gpio_init_projectSpecific
+                           1311 ;	-----------------------------------------
+   0240                    1312 _gpio_init_projectSpecific:
+                           1313 ;	../projectSpecificHardwareInterface_C8051F040.c:21: SFRPAGE_SAVE = SFRPAGE ;
+   0240 AA 84              1314 	mov	r2,_SFRPAGE
+                           1315 ;	../projectSpecificHardwareInterface_C8051F040.c:23: SFRPAGE	 = SPI0_PAGE ;
+   0242 75 84 00           1316 	mov	_SFRPAGE,#0x00
+                           1317 ;	../projectSpecificHardwareInterface_C8051F040.c:24: SPI0CN	 = 0x00 ;	// Set the SPI module into 3 pin mode so NSS doesn't get assigned to a pin in the crossbar setup below
+   0245 75 F8 00           1318 	mov	_SPI0CN,#0x00
+                           1319 ;	../projectSpecificHardwareInterface_C8051F040.c:26: SFRPAGE	 = CONFIG_PAGE ;
+   0248 75 84 0F           1320 	mov	_SFRPAGE,#0x0F
+                           1321 ;	../projectSpecificHardwareInterface_C8051F040.c:27: XBR0	 = 0x00 ;	// Start with a clean slate
+   024B 75 E1 00           1322 	mov	_XBR0,#0x00
+                           1323 ;	../projectSpecificHardwareInterface_C8051F040.c:28: XBR1	 = 0x00 ;
+   024E 75 E2 00           1324 	mov	_XBR1,#0x00
+                           1325 ;	../projectSpecificHardwareInterface_C8051F040.c:29: XBR2	 = 0x00 ;
+   0251 75 E3 00           1326 	mov	_XBR2,#0x00
+                           1327 ;	../projectSpecificHardwareInterface_C8051F040.c:30: XBR3	 = 0x00 ;
+   0254 75 E4 00           1328 	mov	_XBR3,#0x00
+                           1329 ;	../projectSpecificHardwareInterface_C8051F040.c:32: XBR0	|= 0x04 ;	// Route UART0 to P0.0-P0.1
+   0257 43 E1 04           1330 	orl	_XBR0,#0x04
+                           1331 ;	../projectSpecificHardwareInterface_C8051F040.c:33: XBR0	|= 0x02 ;	// Route SPI0 to P0.2-P0.4
+   025A 43 E1 02           1332 	orl	_XBR0,#0x02
+                           1333 ;	../projectSpecificHardwareInterface_C8051F040.c:34: XBR0	|= 0x01 ;	// Route SMB0 to P0.5-P0.6
+   025D 43 E1 01           1334 	orl	_XBR0,#0x01
+                           1335 ;	../projectSpecificHardwareInterface_C8051F040.c:35: XBR2	|= 0x04 ;	// Route UART1 to P0.7-P1.0
+   0260 43 E3 04           1336 	orl	_XBR2,#0x04
+                           1337 ;	../projectSpecificHardwareInterface_C8051F040.c:36: XBR0	|= 0x30 ;	// Route CEXn to P1.1-P1.6
+   0263 43 E1 30           1338 	orl	_XBR0,#0x30
+                           1339 ;	../projectSpecificHardwareInterface_C8051F040.c:37: XBR0	|= 0x80 ;	// Route CP0 to P1.7
+   0266 43 E1 80           1340 	orl	_XBR0,#0x80
+                           1341 ;	../projectSpecificHardwareInterface_C8051F040.c:38: XBR3	|= 0x08 ;	// Route CP2 to P2.0
+   0269 43 E4 08           1342 	orl	_XBR3,#0x08
+                           1343 ;	../projectSpecificHardwareInterface_C8051F040.c:39: XBR1	|= 0x04 ;	// Route INT0# to P2.1
+   026C 43 E2 04           1344 	orl	_XBR1,#0x04
+                           1345 ;	../projectSpecificHardwareInterface_C8051F040.c:40: XBR1	|= 0x20 ;	// Route T2 from P2.2
+   026F 43 E2 20           1346 	orl	_XBR1,#0x20
+                           1347 ;	../projectSpecificHardwareInterface_C8051F040.c:41: XBR3	|= 0x01 ;	// Route T3 to P2.3
+   0272 43 E4 01           1348 	orl	_XBR3,#0x01
+                           1349 ;	../projectSpecificHardwareInterface_C8051F040.c:43: P0MDOUT |= 0x01 ;	// Set TX0 (P0.0) to push-pull
+   0275 43 A4 01           1350 	orl	_P0MDOUT,#0x01
+                           1351 ;	../projectSpecificHardwareInterface_C8051F040.c:45: P1MDOUT	|= 0x02 ;	// Set CEX0 (P1.1) to push-pull
+   0278 43 A5 02           1352 	orl	_P1MDOUT,#0x02
+                           1353 ;	../projectSpecificHardwareInterface_C8051F040.c:46: P1MDOUT	|= 0x04 ;	// Set CEX1 (P1.2) to push-pull
+   027B 43 A5 04           1354 	orl	_P1MDOUT,#0x04
+                           1355 ;	../projectSpecificHardwareInterface_C8051F040.c:47: P1MDOUT	|= 0x08 ;	// Set CEX2 (P1.3) to push-pull
+   027E 43 A5 08           1356 	orl	_P1MDOUT,#0x08
+                           1357 ;	../projectSpecificHardwareInterface_C8051F040.c:48: P1MDOUT	|= 0x10 ;	// Set CEX3 (P1.4) to push-pull
+   0281 43 A5 10           1358 	orl	_P1MDOUT,#0x10
+                           1359 ;	../projectSpecificHardwareInterface_C8051F040.c:49: P1MDOUT	|= 0x20 ;	// Set CEX4 (P1.5) to push-pull
+   0284 43 A5 20           1360 	orl	_P1MDOUT,#0x20
+                           1361 ;	../projectSpecificHardwareInterface_C8051F040.c:50: P1MDOUT |= 0x40 ;	// Set CEX5 (P1.6) to push-pull
+   0287 43 A5 40           1362 	orl	_P1MDOUT,#0x40
+                           1363 ;	../projectSpecificHardwareInterface_C8051F040.c:52: P1MDOUT |= 0x80 ;	// Set TX1 (P1.7) to push-pull
+   028A 43 A5 80           1364 	orl	_P1MDOUT,#0x80
+                           1365 ;	../projectSpecificHardwareInterface_C8051F040.c:53: P2MDOUT	&= ~0x02 ;	// Set INT0# (P2.1) to be a digital input
+                           1366 ;	../projectSpecificHardwareInterface_C8051F040.c:54: P2MDOUT	&= ~0x04 ;	// Set T2 (P2.2) to be a digital input
+   028D 53 A6 F9           1367 	anl	_P2MDOUT,#(0xFD&0xFB)
+                           1368 ;	../projectSpecificHardwareInterface_C8051F040.c:55: P2MDOUT	|= 0x08 ;	// Set P2.3 to be the Timer3 output pin
+   0290 43 A6 08           1369 	orl	_P2MDOUT,#0x08
+                           1370 ;	../projectSpecificHardwareInterface_C8051F040.c:57: P3MDIN	 = 0x00 ;	// Configure as analog inputs. This forces the weak pullup for these pins to be disconnected
+   0293 75 AF 00           1371 	mov	_P3MDIN,#0x00
+                           1372 ;	../projectSpecificHardwareInterface_C8051F040.c:58: P3MDOUT	 = 0x00 ;	// Force the output driver for these pins to open drain output mode
+   0296 75 A7 00           1373 	mov	_P3MDOUT,#0x00
+                           1374 ;	../projectSpecificHardwareInterface_C8051F040.c:59: P3		 = 0xFF ;	// Force the input driver for these pins to high impedance
+   0299 75 B0 FF           1375 	mov	_P3,#0xFF
+                           1376 ;	../projectSpecificHardwareInterface_C8051F040.c:61: XBR3	|= 0x80 ;	// Configure CAN TX pin (CTX) as push-pull digital output
+   029C 43 E4 80           1377 	orl	_XBR3,#0x80
+                           1378 ;	../projectSpecificHardwareInterface_C8051F040.c:63: P4MDOUT	|= 0xFF ;	// Set LCD drive pins to push-pull
+   029F E5 9C              1379 	mov	a,_P4MDOUT
+   02A1 75 9C FF           1380 	mov	_P4MDOUT,#0xFF
+                           1381 ;	../projectSpecificHardwareInterface_C8051F040.c:64: P5MDOUT	|= 0xFF ;	// Set state machine debug pins to push-pull
+   02A4 E5 9D              1382 	mov	a,_P5MDOUT
+   02A6 75 9D FF           1383 	mov	_P5MDOUT,#0xFF
+                           1384 ;	../projectSpecificHardwareInterface_C8051F040.c:65: P6MDOUT	|= 0xFF ;	// Set general purpose debug pins to push-pull
+   02A9 E5 9E              1385 	mov	a,_P6MDOUT
+   02AB 75 9E FF           1386 	mov	_P6MDOUT,#0xFF
+                           1387 ;	../projectSpecificHardwareInterface_C8051F040.c:67: P4		 = 0x00 ;	// Set all debugging pins to low
+   02AE 75 C8 00           1388 	mov	_P4,#0x00
+                           1389 ;	../projectSpecificHardwareInterface_C8051F040.c:68: P5		 = 0x00 ;
+   02B1 75 D8 00           1390 	mov	_P5,#0x00
+                           1391 ;	../projectSpecificHardwareInterface_C8051F040.c:69: P6		 = 0x00 ;
+   02B4 75 E8 00           1392 	mov	_P6,#0x00
+                           1393 ;	../projectSpecificHardwareInterface_C8051F040.c:71: P2MDIN	&= 0x0F ;	// set comparator analog inputs up as per Section 17.1.5 of the C8050F040 manual
+   02B7 53 AE 0F           1394 	anl	_P2MDIN,#0x0F
+                           1395 ;	../projectSpecificHardwareInterface_C8051F040.c:72: P2MDOUT	&= 0x0F ;
+   02BA 53 A6 0F           1396 	anl	_P2MDOUT,#0x0F
+                           1397 ;	../projectSpecificHardwareInterface_C8051F040.c:73: P2		|= 0xF0 ;
+   02BD 43 A0 F0           1398 	orl	_P2,#0xF0
+                           1399 ;	../projectSpecificHardwareInterface_C8051F040.c:78: XBR2	|= 0x40 ;	// Enable Crossbar/low ports and turn on global weak pullups
+   02C0 43 E3 40           1400 	orl	_XBR2,#0x40
+                           1401 ;	../projectSpecificHardwareInterface_C8051F040.c:79: SFRPAGE	 = SFRPAGE_SAVE ;
+   02C3 8A 84              1402 	mov	_SFRPAGE,r2
+   02C5 22                 1403 	ret
+                           1404 ;------------------------------------------------------------
+                           1405 ;Allocation info for local variables in function 'pwm_init_projectSpecific'
+                           1406 ;------------------------------------------------------------
+                           1407 ;channelNumber             Allocated with name '_pwm_init_projectSpecific_channelNumber_1_1'
+                           1408 ;SFRPAGE_save              Allocated with name '_pwm_init_projectSpecific_SFRPAGE_save_1_1'
+                           1409 ;------------------------------------------------------------
+                           1410 ;	../projectSpecificHardwareInterface_C8051F040.c:83: void pwm_init_projectSpecific(								unsigned char channelNumber)
+                           1411 ;	-----------------------------------------
+                           1412 ;	 function pwm_init_projectSpecific
+                           1413 ;	-----------------------------------------
+   02C6                    1414 _pwm_init_projectSpecific:
+   02C6 E5 82              1415 	mov	a,dpl
+   02C8 90 00 02           1416 	mov	dptr,#_pwm_init_projectSpecific_channelNumber_1_1
+   02CB F0                 1417 	movx	@dptr,a
+                           1418 ;	../projectSpecificHardwareInterface_C8051F040.c:132: char		SFRPAGE_save = SFRPAGE ;	// Save current SFR Page
+   02CC AA 84              1419 	mov	r2,_SFRPAGE
+                           1420 ;	../projectSpecificHardwareInterface_C8051F040.c:134: SFRPAGE = PCA0_PAGE ;
+   02CE 75 84 00           1421 	mov	_SFRPAGE,#0x00
+                           1422 ;	../projectSpecificHardwareInterface_C8051F040.c:136: if(!initialized)
+   02D1 20 02 2A           1423 	jb	_pwm_init_projectSpecific_initialized_1_1,00102$
+                           1424 ;	../projectSpecificHardwareInterface_C8051F040.c:138: PCA0CN = 0x00 ;				// Stop counter; clear all flags
+   02D4 75 D8 00           1425 	mov	_PCA0CN,#0x00
+                           1426 ;	../projectSpecificHardwareInterface_C8051F040.c:139: PCA0MD = 0x08 ;				// Use SYSCLK as time base
+   02D7 75 D9 08           1427 	mov	_PCA0MD,#0x08
+                           1428 ;	../projectSpecificHardwareInterface_C8051F040.c:141: PCA0CPM0 = 0x00 ;			// Module 0 = Off
+   02DA 75 DA 00           1429 	mov	_PCA0CPM0,#0x00
+                           1430 ;	../projectSpecificHardwareInterface_C8051F040.c:142: PCA0CPH0 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
+   02DD 75 FC 00           1431 	mov	_PCA0CPH0,#0x00
+                           1432 ;	../projectSpecificHardwareInterface_C8051F040.c:144: PCA0CPM0 = 0x00 ;			// Module 1 = Off
+   02E0 75 DA 00           1433 	mov	_PCA0CPM0,#0x00
+                           1434 ;	../projectSpecificHardwareInterface_C8051F040.c:145: PCA0CPH1 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
+   02E3 75 FE 00           1435 	mov	_PCA0CPH1,#0x00
+                           1436 ;	../projectSpecificHardwareInterface_C8051F040.c:147: PCA0CPM0 = 0x00 ;			// Module 2 = Off
+   02E6 75 DA 00           1437 	mov	_PCA0CPM0,#0x00
+                           1438 ;	../projectSpecificHardwareInterface_C8051F040.c:148: PCA0CPH2 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
+   02E9 75 EA 00           1439 	mov	_PCA0CPH2,#0x00
+                           1440 ;	../projectSpecificHardwareInterface_C8051F040.c:150: PCA0CPM0 = 0x00 ;			// Module 3 = Off
+   02EC 75 DA 00           1441 	mov	_PCA0CPM0,#0x00
+                           1442 ;	../projectSpecificHardwareInterface_C8051F040.c:151: PCA0CPH3 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
+   02EF 75 EC 00           1443 	mov	_PCA0CPH3,#0x00
+                           1444 ;	../projectSpecificHardwareInterface_C8051F040.c:153: PCA0CPM0 = 0x00 ;			// Module 4 = Off
+   02F2 75 DA 00           1445 	mov	_PCA0CPM0,#0x00
+                           1446 ;	../projectSpecificHardwareInterface_C8051F040.c:154: PCA0CPH4 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
+   02F5 75 EE 00           1447 	mov	_PCA0CPH4,#0x00
+                           1448 ;	../projectSpecificHardwareInterface_C8051F040.c:156: PCA0CPM0 = 0x00 ;			// Module 5 = Off
+   02F8 75 DA 00           1449 	mov	_PCA0CPM0,#0x00
+                           1450 ;	../projectSpecificHardwareInterface_C8051F040.c:157: PCA0CPH5 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
+   02FB 75 E2 00           1451 	mov	_PCA0CPH5,#0x00
+   02FE                    1452 00102$:
+                           1453 ;	../projectSpecificHardwareInterface_C8051F040.c:164: if(channelNumber == ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL)
+   02FE 90 00 02           1454 	mov	dptr,#_pwm_init_projectSpecific_channelNumber_1_1
+   0301 E0                 1455 	movx	a,@dptr
+   0302 FB                 1456 	mov	r3,a
+   0303 70 06              1457 	jnz	00104$
+                           1458 ;	../projectSpecificHardwareInterface_C8051F040.c:170: PWM_B50_MODE		= 0x42 ;						// Module 1 = 8-bit PWM mode
+   0305 75 DA 42           1459 	mov	_PCA0CPM0,#0x42
+                           1460 ;	../projectSpecificHardwareInterface_C8051F040.c:171: PWM_B50_HIGH_BYTE	= FIFTY_PERCENT_DUTY_CYCLE ;	// Configure initial PWM duty cycle = 50%
+   0308 75 FC 80           1461 	mov	_PCA0CPH0,#0x80
+   030B                    1462 00104$:
+                           1463 ;	../projectSpecificHardwareInterface_C8051F040.c:174: if(!initialized)
+   030B 20 02 04           1464 	jb	_pwm_init_projectSpecific_initialized_1_1,00106$
+                           1465 ;	../projectSpecificHardwareInterface_C8051F040.c:176: initialized = true ;
+   030E D2 02              1466 	setb	_pwm_init_projectSpecific_initialized_1_1
+                           1467 ;	../projectSpecificHardwareInterface_C8051F040.c:178: CR = 1 ;					// Start PCA counter
+   0310 D2 DE              1468 	setb	_CR
+   0312                    1469 00106$:
+                           1470 ;	../projectSpecificHardwareInterface_C8051F040.c:181: SFRPAGE = SFRPAGE_save ;
+   0312 8A 84              1471 	mov	_SFRPAGE,r2
+   0314 22                 1472 	ret
+                           1473 ;------------------------------------------------------------
+                           1474 ;Allocation info for local variables in function 'pwm_incrementDutyCycle_projectSpecific'
+                           1475 ;------------------------------------------------------------
+                           1476 ;channelNumber             Allocated with name '_pwm_incrementDutyCycle_projectSpecific_channelNumber_1_1'
+                           1477 ;------------------------------------------------------------
+                           1478 ;	../projectSpecificHardwareInterface_C8051F040.c:185: void pwm_incrementDutyCycle_projectSpecific(				unsigned char channelNumber)
+                           1479 ;	-----------------------------------------
+                           1480 ;	 function pwm_incrementDutyCycle_projectSpecific
+                           1481 ;	-----------------------------------------
+   0315                    1482 _pwm_incrementDutyCycle_projectSpecific:
+                           1483 ;	../projectSpecificHardwareInterface_C8051F040.c:187: (void)channelNumber ;	// unused at this time
+   0315 22                 1484 	ret
+                           1485 ;------------------------------------------------------------
+                           1486 ;Allocation info for local variables in function 'pwm_decrementDutyCycle_projectSpecific'
+                           1487 ;------------------------------------------------------------
+                           1488 ;channelNumber             Allocated with name '_pwm_decrementDutyCycle_projectSpecific_channelNumber_1_1'
+                           1489 ;------------------------------------------------------------
+                           1490 ;	../projectSpecificHardwareInterface_C8051F040.c:191: void pwm_decrementDutyCycle_projectSpecific(				unsigned char channelNumber)
+                           1491 ;	-----------------------------------------
+                           1492 ;	 function pwm_decrementDutyCycle_projectSpecific
+                           1493 ;	-----------------------------------------
+   0316                    1494 _pwm_decrementDutyCycle_projectSpecific:
+                           1495 ;	../projectSpecificHardwareInterface_C8051F040.c:193: (void)channelNumber ;	// unused at this time
+   0316 22                 1496 	ret
+                           1497 ;------------------------------------------------------------
+                           1498 ;Allocation info for local variables in function 'pwm_getDutyCycle_projectSpecific'
+                           1499 ;------------------------------------------------------------
+                           1500 ;channelNumber             Allocated with name '_pwm_getDutyCycle_projectSpecific_channelNumber_1_1'
+                           1501 ;------------------------------------------------------------
+                           1502 ;	../projectSpecificHardwareInterface_C8051F040.c:197: uint8_t pwm_getDutyCycle_projectSpecific(					unsigned char channelNumber)
+                           1503 ;	-----------------------------------------
+                           1504 ;	 function pwm_getDutyCycle_projectSpecific
+                           1505 ;	-----------------------------------------
+   0317                    1506 _pwm_getDutyCycle_projectSpecific:
+                           1507 ;	../projectSpecificHardwareInterface_C8051F040.c:201: return 0 ;
+   0317 75 82 00           1508 	mov	dpl,#0x00
+   031A 22                 1509 	ret
+                           1510 ;------------------------------------------------------------
+                           1511 ;Allocation info for local variables in function 'pwm_setDutyCycle_projectSpecific'
+                           1512 ;------------------------------------------------------------
+                           1513 ;newDutyCycle              Allocated with name '_pwm_setDutyCycle_projectSpecific_PARM_2'
+                           1514 ;channelNumber             Allocated with name '_pwm_setDutyCycle_projectSpecific_channelNumber_1_1'
+                           1515 ;------------------------------------------------------------
+                           1516 ;	../projectSpecificHardwareInterface_C8051F040.c:205: void pwm_setDutyCycle_projectSpecific(						unsigned char channelNumber, uint8_t newDutyCycle)
+                           1517 ;	-----------------------------------------
+                           1518 ;	 function pwm_setDutyCycle_projectSpecific
+                           1519 ;	-----------------------------------------
+   031B                    1520 _pwm_setDutyCycle_projectSpecific:
+                           1521 ;	../projectSpecificHardwareInterface_C8051F040.c:208: (void)newDutyCycle ;	// unused at this time
+   031B 22                 1522 	ret
+                           1523 ;------------------------------------------------------------
+                           1524 ;Allocation info for local variables in function 'pwm_adjustDutyCycle_projectSpecific'
+                           1525 ;------------------------------------------------------------
+                           1526 ;dutyCycleAdjustment       Allocated with name '_pwm_adjustDutyCycle_projectSpecific_PARM_2'
+                           1527 ;channelNumber             Allocated with name '_pwm_adjustDutyCycle_projectSpecific_channelNumber_1_1'
                            1528 ;------------------------------------------------------------
-                           1529 ;Allocation info for local variables in function 'pwm_decrementDutyCycle_projectSpecific'
-                           1530 ;------------------------------------------------------------
-                           1531 ;channelNumber             Allocated with name '_pwm_decrementDutyCycle_projectSpecific_channelNumber_1_1'
-                           1532 ;------------------------------------------------------------
-                           1533 ;	../projectSpecificHardwareInterface_C8051F040.c:191: void pwm_decrementDutyCycle_projectSpecific(				unsigned char channelNumber)
-                           1534 ;	-----------------------------------------
-                           1535 ;	 function pwm_decrementDutyCycle_projectSpecific
-                           1536 ;	-----------------------------------------
-   035E                    1537 _pwm_decrementDutyCycle_projectSpecific:
-                           1538 ;	../projectSpecificHardwareInterface_C8051F040.c:193: (void)channelNumber ;	// unused at this time
-   035E 22                 1539 	ret
-                           1540 ;------------------------------------------------------------
-                           1541 ;Allocation info for local variables in function 'pwm_getDutyCycle_projectSpecific'
-                           1542 ;------------------------------------------------------------
-                           1543 ;channelNumber             Allocated with name '_pwm_getDutyCycle_projectSpecific_channelNumber_1_1'
-                           1544 ;------------------------------------------------------------
-                           1545 ;	../projectSpecificHardwareInterface_C8051F040.c:197: uint8_t pwm_getDutyCycle_projectSpecific(					unsigned char channelNumber)
-                           1546 ;	-----------------------------------------
-                           1547 ;	 function pwm_getDutyCycle_projectSpecific
-                           1548 ;	-----------------------------------------
-   035F                    1549 _pwm_getDutyCycle_projectSpecific:
-                           1550 ;	../projectSpecificHardwareInterface_C8051F040.c:201: return 0 ;
-   035F 75 82 00           1551 	mov	dpl,#0x00
-   0362 22                 1552 	ret
-                           1553 ;------------------------------------------------------------
-                           1554 ;Allocation info for local variables in function 'pwm_setDutyCycle_projectSpecific'
+                           1529 ;	../projectSpecificHardwareInterface_C8051F040.c:212: void pwm_adjustDutyCycle_projectSpecific(					unsigned char channelNumber, int8_t dutyCycleAdjustment)
+                           1530 ;	-----------------------------------------
+                           1531 ;	 function pwm_adjustDutyCycle_projectSpecific
+                           1532 ;	-----------------------------------------
+   031C                    1533 _pwm_adjustDutyCycle_projectSpecific:
+                           1534 ;	../projectSpecificHardwareInterface_C8051F040.c:215: (void)dutyCycleAdjustment ;	// unused at this time
+   031C 22                 1535 	ret
+                           1536 ;------------------------------------------------------------
+                           1537 ;Allocation info for local variables in function 'pwm_setDutyCycleAsPercentage_projectSpecific'
+                           1538 ;------------------------------------------------------------
+                           1539 ;newDutyCycle              Allocated with name '_pwm_setDutyCycleAsPercentage_projectSpecific_PARM_2'
+                           1540 ;channelNumber             Allocated with name '_pwm_setDutyCycleAsPercentage_projectSpecific_channelNumber_1_1'
+                           1541 ;------------------------------------------------------------
+                           1542 ;	../projectSpecificHardwareInterface_C8051F040.c:219: void pwm_setDutyCycleAsPercentage_projectSpecific(			unsigned char channelNumber, unsigned char newDutyCycle)
+                           1543 ;	-----------------------------------------
+                           1544 ;	 function pwm_setDutyCycleAsPercentage_projectSpecific
+                           1545 ;	-----------------------------------------
+   031D                    1546 _pwm_setDutyCycleAsPercentage_projectSpecific:
+                           1547 ;	../projectSpecificHardwareInterface_C8051F040.c:222: (void)newDutyCycle ;		// unused at this time
+   031D 22                 1548 	ret
+                           1549 ;------------------------------------------------------------
+                           1550 ;Allocation info for local variables in function 'pwm_getDutyCycleAsPercentage_projectSpecific'
+                           1551 ;------------------------------------------------------------
+                           1552 ;channelNumber             Allocated with name '_pwm_getDutyCycleAsPercentage_projectSpecific_channelNumber_1_1'
+                           1553 ;currentPercentage         Allocated with name '_pwm_getDutyCycleAsPercentage_projectSpecific_currentPercentage_1_1'
+                           1554 ;divisor                   Allocated with name '_pwm_getDutyCycleAsPercentage_projectSpecific_divisor_1_1'
                            1555 ;------------------------------------------------------------
-                           1556 ;newDutyCycle              Allocated with name '_pwm_setDutyCycle_projectSpecific_PARM_2'
-                           1557 ;channelNumber             Allocated with name '_pwm_setDutyCycle_projectSpecific_channelNumber_1_1'
-                           1558 ;------------------------------------------------------------
-                           1559 ;	../projectSpecificHardwareInterface_C8051F040.c:205: void pwm_setDutyCycle_projectSpecific(						unsigned char channelNumber, uint8_t newDutyCycle)
-                           1560 ;	-----------------------------------------
-                           1561 ;	 function pwm_setDutyCycle_projectSpecific
-                           1562 ;	-----------------------------------------
-   0363                    1563 _pwm_setDutyCycle_projectSpecific:
-                           1564 ;	../projectSpecificHardwareInterface_C8051F040.c:208: (void)newDutyCycle ;	// unused at this time
-   0363 22                 1565 	ret
+                           1556 ;	../projectSpecificHardwareInterface_C8051F040.c:226: unsigned char pwm_getDutyCycleAsPercentage_projectSpecific(	unsigned char channelNumber)
+                           1557 ;	-----------------------------------------
+                           1558 ;	 function pwm_getDutyCycleAsPercentage_projectSpecific
+                           1559 ;	-----------------------------------------
+   031E                    1560 _pwm_getDutyCycleAsPercentage_projectSpecific:
+                           1561 ;	../projectSpecificHardwareInterface_C8051F040.c:237: return (unsigned char)0 ;//min(currentPercentage, 100) ;
+   031E 75 82 00           1562 	mov	dpl,#0x00
+   0321 22                 1563 	ret
+                           1564 ;------------------------------------------------------------
+                           1565 ;Allocation info for local variables in function 'IsEmpty'
                            1566 ;------------------------------------------------------------
-                           1567 ;Allocation info for local variables in function 'pwm_adjustDutyCycle_projectSpecific'
+                           1567 ;Q                         Allocated with name '_IsEmpty_Q_1_1'
                            1568 ;------------------------------------------------------------
-                           1569 ;dutyCycleAdjustment       Allocated with name '_pwm_adjustDutyCycle_projectSpecific_PARM_2'
-                           1570 ;channelNumber             Allocated with name '_pwm_adjustDutyCycle_projectSpecific_channelNumber_1_1'
-                           1571 ;------------------------------------------------------------
-                           1572 ;	../projectSpecificHardwareInterface_C8051F040.c:212: void pwm_adjustDutyCycle_projectSpecific(					unsigned char channelNumber, int8_t dutyCycleAdjustment)
-                           1573 ;	-----------------------------------------
-                           1574 ;	 function pwm_adjustDutyCycle_projectSpecific
-                           1575 ;	-----------------------------------------
-   0364                    1576 _pwm_adjustDutyCycle_projectSpecific:
-                           1577 ;	../projectSpecificHardwareInterface_C8051F040.c:215: (void)dutyCycleAdjustment ;	// unused at this time
-   0364 22                 1578 	ret
-                           1579 ;------------------------------------------------------------
-                           1580 ;Allocation info for local variables in function 'pwm_setDutyCycleAsPercentage_projectSpecific'
-                           1581 ;------------------------------------------------------------
-                           1582 ;newDutyCycle              Allocated with name '_pwm_setDutyCycleAsPercentage_projectSpecific_PARM_2'
-                           1583 ;channelNumber             Allocated with name '_pwm_setDutyCycleAsPercentage_projectSpecific_channelNumber_1_1'
-                           1584 ;------------------------------------------------------------
-                           1585 ;	../projectSpecificHardwareInterface_C8051F040.c:219: void pwm_setDutyCycleAsPercentage_projectSpecific(			unsigned char channelNumber, unsigned char newDutyCycle)
-                           1586 ;	-----------------------------------------
-                           1587 ;	 function pwm_setDutyCycleAsPercentage_projectSpecific
-                           1588 ;	-----------------------------------------
-   0365                    1589 _pwm_setDutyCycleAsPercentage_projectSpecific:
-                           1590 ;	../projectSpecificHardwareInterface_C8051F040.c:222: (void)newDutyCycle ;		// unused at this time
-   0365 22                 1591 	ret
-                           1592 ;------------------------------------------------------------
-                           1593 ;Allocation info for local variables in function 'pwm_getDutyCycleAsPercentage_projectSpecific'
-                           1594 ;------------------------------------------------------------
-                           1595 ;channelNumber             Allocated with name '_pwm_getDutyCycleAsPercentage_projectSpecific_channelNumber_1_1'
-                           1596 ;currentPercentage         Allocated with name '_pwm_getDutyCycleAsPercentage_projectSpecific_currentPercentage_1_1'
-                           1597 ;divisor                   Allocated with name '_pwm_getDutyCycleAsPercentage_projectSpecific_divisor_1_1'
-                           1598 ;------------------------------------------------------------
-                           1599 ;	../projectSpecificHardwareInterface_C8051F040.c:226: unsigned char pwm_getDutyCycleAsPercentage_projectSpecific(	unsigned char channelNumber)
-                           1600 ;	-----------------------------------------
-                           1601 ;	 function pwm_getDutyCycleAsPercentage_projectSpecific
-                           1602 ;	-----------------------------------------
-   0366                    1603 _pwm_getDutyCycleAsPercentage_projectSpecific:
-                           1604 ;	../projectSpecificHardwareInterface_C8051F040.c:237: return (unsigned char)0 ;//min(currentPercentage, 100) ;
-   0366 75 82 00           1605 	mov	dpl,#0x00
-   0369 22                 1606 	ret
-                           1607 ;------------------------------------------------------------
-                           1608 ;Allocation info for local variables in function 'IsEmpty'
-                           1609 ;------------------------------------------------------------
-                           1610 ;Q                         Allocated with name '_IsEmpty_Q_1_1'
-                           1611 ;------------------------------------------------------------
-                           1612 ;	../projectSpecificHardwareInterface_C8051F040.c:273: unsigned char IsEmpty(QUEUE_TYPE* Q)
-                           1613 ;	-----------------------------------------
-                           1614 ;	 function IsEmpty
-                           1615 ;	-----------------------------------------
-   036A                    1616 _IsEmpty:
-   036A AA F0              1617 	mov	r2,b
-   036C AB 83              1618 	mov	r3,dph
-   036E E5 82              1619 	mov	a,dpl
-   0370 90 04 52           1620 	mov	dptr,#_IsEmpty_Q_1_1
-   0373 F0                 1621 	movx	@dptr,a
-   0374 A3                 1622 	inc	dptr
-   0375 EB                 1623 	mov	a,r3
-   0376 F0                 1624 	movx	@dptr,a
-   0377 A3                 1625 	inc	dptr
-   0378 EA                 1626 	mov	a,r2
-   0379 F0                 1627 	movx	@dptr,a
-                           1628 ;	../projectSpecificHardwareInterface_C8051F040.c:275: return Q->Size == 0 ;
-   037A 90 04 52           1629 	mov	dptr,#_IsEmpty_Q_1_1
-   037D E0                 1630 	movx	a,@dptr
-   037E FA                 1631 	mov	r2,a
-   037F A3                 1632 	inc	dptr
-   0380 E0                 1633 	movx	a,@dptr
-   0381 FB                 1634 	mov	r3,a
-   0382 A3                 1635 	inc	dptr
-   0383 E0                 1636 	movx	a,@dptr
-   0384 FC                 1637 	mov	r4,a
-   0385 74 06              1638 	mov	a,#0x06
-   0387 2A                 1639 	add	a,r2
-   0388 FA                 1640 	mov	r2,a
-   0389 E4                 1641 	clr	a
-   038A 3B                 1642 	addc	a,r3
-   038B FB                 1643 	mov	r3,a
-   038C 8A 82              1644 	mov	dpl,r2
-   038E 8B 83              1645 	mov	dph,r3
-   0390 8C F0              1646 	mov	b,r4
-   0392 12 44 37           1647 	lcall	__gptrget
-   0395 FA                 1648 	mov	r2,a
-   0396 A3                 1649 	inc	dptr
-   0397 12 44 37           1650 	lcall	__gptrget
-   039A FB                 1651 	mov	r3,a
-   039B E4                 1652 	clr	a
-   039C BA 00 04           1653 	cjne	r2,#0x00,00103$
-   039F BB 00 01           1654 	cjne	r3,#0x00,00103$
-   03A2 04                 1655 	inc	a
-   03A3                    1656 00103$:
-   03A3 F5 82              1657 	mov	dpl,a
-   03A5 22                 1658 	ret
-                           1659 ;------------------------------------------------------------
-                           1660 ;Allocation info for local variables in function 'IsFull'
-                           1661 ;------------------------------------------------------------
-                           1662 ;Q                         Allocated with name '_IsFull_Q_1_1'
-                           1663 ;------------------------------------------------------------
-                           1664 ;	../projectSpecificHardwareInterface_C8051F040.c:278: unsigned char IsFull(QUEUE_TYPE* Q)
-                           1665 ;	-----------------------------------------
-                           1666 ;	 function IsFull
-                           1667 ;	-----------------------------------------
-   03A6                    1668 _IsFull:
-   03A6 AA F0              1669 	mov	r2,b
-   03A8 AB 83              1670 	mov	r3,dph
-   03AA E5 82              1671 	mov	a,dpl
-   03AC 90 04 55           1672 	mov	dptr,#_IsFull_Q_1_1
-   03AF F0                 1673 	movx	@dptr,a
-   03B0 A3                 1674 	inc	dptr
-   03B1 EB                 1675 	mov	a,r3
-   03B2 F0                 1676 	movx	@dptr,a
-   03B3 A3                 1677 	inc	dptr
-   03B4 EA                 1678 	mov	a,r2
-   03B5 F0                 1679 	movx	@dptr,a
-                           1680 ;	../projectSpecificHardwareInterface_C8051F040.c:280: return Q->Size == Q->Capacity ;
-   03B6 90 04 55           1681 	mov	dptr,#_IsFull_Q_1_1
-   03B9 E0                 1682 	movx	a,@dptr
-   03BA FA                 1683 	mov	r2,a
-   03BB A3                 1684 	inc	dptr
-   03BC E0                 1685 	movx	a,@dptr
-   03BD FB                 1686 	mov	r3,a
-   03BE A3                 1687 	inc	dptr
-   03BF E0                 1688 	movx	a,@dptr
-   03C0 FC                 1689 	mov	r4,a
-   03C1 74 06              1690 	mov	a,#0x06
-   03C3 2A                 1691 	add	a,r2
-   03C4 FD                 1692 	mov	r5,a
-   03C5 E4                 1693 	clr	a
-   03C6 3B                 1694 	addc	a,r3
-   03C7 FE                 1695 	mov	r6,a
-   03C8 8C 07              1696 	mov	ar7,r4
-   03CA 8D 82              1697 	mov	dpl,r5
-   03CC 8E 83              1698 	mov	dph,r6
-   03CE 8F F0              1699 	mov	b,r7
-   03D0 12 44 37           1700 	lcall	__gptrget
-   03D3 FD                 1701 	mov	r5,a
-   03D4 A3                 1702 	inc	dptr
-   03D5 12 44 37           1703 	lcall	__gptrget
-   03D8 FE                 1704 	mov	r6,a
-   03D9 8A 82              1705 	mov	dpl,r2
-   03DB 8B 83              1706 	mov	dph,r3
-   03DD 8C F0              1707 	mov	b,r4
-   03DF 12 44 37           1708 	lcall	__gptrget
-   03E2 FA                 1709 	mov	r2,a
-   03E3 A3                 1710 	inc	dptr
-   03E4 12 44 37           1711 	lcall	__gptrget
-   03E7 FB                 1712 	mov	r3,a
-   03E8 ED                 1713 	mov	a,r5
-   03E9 B5 02 08           1714 	cjne	a,ar2,00103$
-   03EC EE                 1715 	mov	a,r6
-   03ED B5 03 04           1716 	cjne	a,ar3,00103$
-   03F0 74 01              1717 	mov	a,#0x01
-   03F2 80 01              1718 	sjmp	00104$
-   03F4                    1719 00103$:
-   03F4 E4                 1720 	clr	a
-   03F5                    1721 00104$:
-   03F5 F5 82              1722 	mov	dpl,a
-   03F7 22                 1723 	ret
-                           1724 ;------------------------------------------------------------
-                           1725 ;Allocation info for local variables in function 'Succ'
-                           1726 ;------------------------------------------------------------
-                           1727 ;Q                         Allocated with name '_Succ_PARM_2'
-                           1728 ;Value                     Allocated with name '_Succ_Value_1_1'
-                           1729 ;------------------------------------------------------------
-                           1730 ;	../projectSpecificHardwareInterface_C8051F040.c:283: static unsigned short Succ(unsigned short Value, QUEUE_TYPE* Q)
-                           1731 ;	-----------------------------------------
-                           1732 ;	 function Succ
-                           1733 ;	-----------------------------------------
-   03F8                    1734 _Succ:
-   03F8 AA 83              1735 	mov	r2,dph
-   03FA E5 82              1736 	mov	a,dpl
-   03FC 90 04 5B           1737 	mov	dptr,#_Succ_Value_1_1
-   03FF F0                 1738 	movx	@dptr,a
-   0400 A3                 1739 	inc	dptr
-   0401 EA                 1740 	mov	a,r2
-   0402 F0                 1741 	movx	@dptr,a
-                           1742 ;	../projectSpecificHardwareInterface_C8051F040.c:285: if(++Value == Q->Capacity)
-   0403 90 04 5B           1743 	mov	dptr,#_Succ_Value_1_1
-   0406 E0                 1744 	movx	a,@dptr
-   0407 24 01              1745 	add	a,#0x01
-   0409 F0                 1746 	movx	@dptr,a
-   040A A3                 1747 	inc	dptr
-   040B E0                 1748 	movx	a,@dptr
-   040C 34 00              1749 	addc	a,#0x00
-   040E F0                 1750 	movx	@dptr,a
-   040F 90 04 58           1751 	mov	dptr,#_Succ_PARM_2
-   0412 E0                 1752 	movx	a,@dptr
-   0413 FA                 1753 	mov	r2,a
-   0414 A3                 1754 	inc	dptr
-   0415 E0                 1755 	movx	a,@dptr
-   0416 FB                 1756 	mov	r3,a
-   0417 A3                 1757 	inc	dptr
-   0418 E0                 1758 	movx	a,@dptr
-   0419 FC                 1759 	mov	r4,a
-   041A 8A 82              1760 	mov	dpl,r2
-   041C 8B 83              1761 	mov	dph,r3
-   041E 8C F0              1762 	mov	b,r4
-   0420 12 44 37           1763 	lcall	__gptrget
-   0423 FA                 1764 	mov	r2,a
-   0424 A3                 1765 	inc	dptr
-   0425 12 44 37           1766 	lcall	__gptrget
-   0428 FB                 1767 	mov	r3,a
-   0429 90 04 5B           1768 	mov	dptr,#_Succ_Value_1_1
-   042C E0                 1769 	movx	a,@dptr
-   042D FC                 1770 	mov	r4,a
-   042E A3                 1771 	inc	dptr
-   042F E0                 1772 	movx	a,@dptr
-   0430 FD                 1773 	mov	r5,a
-   0431 EC                 1774 	mov	a,r4
-   0432 B5 02 0B           1775 	cjne	a,ar2,00102$
-   0435 ED                 1776 	mov	a,r5
-   0436 B5 03 07           1777 	cjne	a,ar3,00102$
-                           1778 ;	../projectSpecificHardwareInterface_C8051F040.c:287: Value = 0 ;
-   0439 90 04 5B           1779 	mov	dptr,#_Succ_Value_1_1
-   043C E4                 1780 	clr	a
-   043D F0                 1781 	movx	@dptr,a
-   043E A3                 1782 	inc	dptr
-   043F F0                 1783 	movx	@dptr,a
-   0440                    1784 00102$:
-                           1785 ;	../projectSpecificHardwareInterface_C8051F040.c:290: return Value ;
-   0440 90 04 5B           1786 	mov	dptr,#_Succ_Value_1_1
-   0443 E0                 1787 	movx	a,@dptr
-   0444 FA                 1788 	mov	r2,a
-   0445 A3                 1789 	inc	dptr
-   0446 E0                 1790 	movx	a,@dptr
-   0447 8A 82              1791 	mov	dpl,r2
-   0449 F5 83              1792 	mov	dph,a
-   044B 22                 1793 	ret
-                           1794 ;------------------------------------------------------------
-                           1795 ;Allocation info for local variables in function 'task_UART_init_projectSpecific'
-                           1796 ;------------------------------------------------------------
-                           1797 ;channelNumber             Allocated with name '_task_UART_init_projectSpecific_channelNumber_1_1'
-                           1798 ;Q                         Allocated with name '_task_UART_init_projectSpecific_Q_1_1'
-                           1799 ;SFRPAGE_SAVE              Allocated with name '_task_UART_init_projectSpecific_SFRPAGE_SAVE_3_3'
-                           1800 ;------------------------------------------------------------
-                           1801 ;	../projectSpecificHardwareInterface_C8051F040.c:321: void task_UART_init_projectSpecific(	unsigned char channelNumber)
-                           1802 ;	-----------------------------------------
-                           1803 ;	 function task_UART_init_projectSpecific
-                           1804 ;	-----------------------------------------
-   044C                    1805 _task_UART_init_projectSpecific:
-   044C E5 82              1806 	mov	a,dpl
-   044E 90 08 CD           1807 	mov	dptr,#_task_UART_init_projectSpecific_channelNumber_1_1
-   0451 F0                 1808 	movx	@dptr,a
-                           1809 ;	../projectSpecificHardwareInterface_C8051F040.c:325: QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
-   0452 90 08 CD           1810 	mov	dptr,#_task_UART_init_projectSpecific_channelNumber_1_1
-   0455 E0                 1811 	movx	a,@dptr
-   0456 FA                 1812 	mov	r2,a
-   0457 75 F0 0B           1813 	mov	b,#0x0B
-   045A A4                 1814 	mul	ab
-   045B FB                 1815 	mov	r3,a
-   045C 24 B5              1816 	add	a,#_transmitBuffers
-   045E FC                 1817 	mov	r4,a
-   045F E4                 1818 	clr	a
-   0460 34 08              1819 	addc	a,#(_transmitBuffers >> 8)
-   0462 FD                 1820 	mov	r5,a
-   0463 7E 00              1821 	mov	r6,#0x00
-                           1822 ;	../projectSpecificHardwareInterface_C8051F040.c:327: Q->Capacity	= TRANSMIT_BUFFER_SIZE ;
-   0465 8C 82              1823 	mov	dpl,r4
-   0467 8D 83              1824 	mov	dph,r5
-   0469 8E F0              1825 	mov	b,r6
-   046B 74 4C              1826 	mov	a,#0x4C
-   046D 12 38 0B           1827 	lcall	__gptrput
-   0470 A3                 1828 	inc	dptr
-   0471 74 04              1829 	mov	a,#0x04
-   0473 12 38 0B           1830 	lcall	__gptrput
-                           1831 ;	../projectSpecificHardwareInterface_C8051F040.c:328: Q->Size		= 0 ;
-   0476 74 06              1832 	mov	a,#0x06
-   0478 2C                 1833 	add	a,r4
-   0479 FF                 1834 	mov	r7,a
-   047A E4                 1835 	clr	a
-   047B 3D                 1836 	addc	a,r5
-   047C F8                 1837 	mov	r0,a
-   047D 8E 01              1838 	mov	ar1,r6
-   047F 8F 82              1839 	mov	dpl,r7
-   0481 88 83              1840 	mov	dph,r0
-   0483 89 F0              1841 	mov	b,r1
-   0485 E4                 1842 	clr	a
-   0486 12 38 0B           1843 	lcall	__gptrput
-   0489 A3                 1844 	inc	dptr
-   048A E4                 1845 	clr	a
-   048B 12 38 0B           1846 	lcall	__gptrput
-                           1847 ;	../projectSpecificHardwareInterface_C8051F040.c:329: Q->Front	= 1 ;
-   048E 74 02              1848 	mov	a,#0x02
-   0490 2C                 1849 	add	a,r4
-   0491 FF                 1850 	mov	r7,a
-   0492 E4                 1851 	clr	a
-   0493 3D                 1852 	addc	a,r5
-   0494 F8                 1853 	mov	r0,a
-   0495 8E 01              1854 	mov	ar1,r6
-   0497 8F 82              1855 	mov	dpl,r7
-   0499 88 83              1856 	mov	dph,r0
-   049B 89 F0              1857 	mov	b,r1
-   049D 74 01              1858 	mov	a,#0x01
-   049F 12 38 0B           1859 	lcall	__gptrput
-   04A2 A3                 1860 	inc	dptr
-   04A3 E4                 1861 	clr	a
-   04A4 12 38 0B           1862 	lcall	__gptrput
-                           1863 ;	../projectSpecificHardwareInterface_C8051F040.c:330: Q->Rear		= 0 ;
-   04A7 74 04              1864 	mov	a,#0x04
-   04A9 2C                 1865 	add	a,r4
-   04AA FF                 1866 	mov	r7,a
-   04AB E4                 1867 	clr	a
-   04AC 3D                 1868 	addc	a,r5
-   04AD F8                 1869 	mov	r0,a
-   04AE 8E 01              1870 	mov	ar1,r6
-   04B0 8F 82              1871 	mov	dpl,r7
-   04B2 88 83              1872 	mov	dph,r0
-   04B4 89 F0              1873 	mov	b,r1
-   04B6 E4                 1874 	clr	a
-   04B7 12 38 0B           1875 	lcall	__gptrput
-   04BA A3                 1876 	inc	dptr
-   04BB E4                 1877 	clr	a
-   04BC 12 38 0B           1878 	lcall	__gptrput
-                           1879 ;	../projectSpecificHardwareInterface_C8051F040.c:331: Q->Array	= transmitBuffer[0] ;
-   04BF 74 08              1880 	mov	a,#0x08
-   04C1 2C                 1881 	add	a,r4
-   04C2 FC                 1882 	mov	r4,a
-   04C3 E4                 1883 	clr	a
-   04C4 3D                 1884 	addc	a,r5
-   04C5 FD                 1885 	mov	r5,a
-   04C6 8C 82              1886 	mov	dpl,r4
-   04C8 8D 83              1887 	mov	dph,r5
-   04CA 8E F0              1888 	mov	b,r6
-   04CC 74 5D              1889 	mov	a,#_transmitBuffer
-   04CE 12 38 0B           1890 	lcall	__gptrput
-   04D1 A3                 1891 	inc	dptr
-   04D2 74 04              1892 	mov	a,#(_transmitBuffer >> 8)
-   04D4 12 38 0B           1893 	lcall	__gptrput
-   04D7 A3                 1894 	inc	dptr
-   04D8 E4                 1895 	clr	a
-   04D9 12 38 0B           1896 	lcall	__gptrput
-                           1897 ;	../projectSpecificHardwareInterface_C8051F040.c:333: Q = &receiveBuffers[channelNumber] ;
-   04DC EB                 1898 	mov	a,r3
-   04DD 24 C0              1899 	add	a,#_receiveBuffers
-   04DF FB                 1900 	mov	r3,a
-   04E0 E4                 1901 	clr	a
-   04E1 34 08              1902 	addc	a,#(_receiveBuffers >> 8)
-   04E3 FC                 1903 	mov	r4,a
-   04E4 7D 00              1904 	mov	r5,#0x00
-                           1905 ;	../projectSpecificHardwareInterface_C8051F040.c:335: Q->Capacity	= RECEIVE_BUFFER_SIZE ;
-   04E6 8B 82              1906 	mov	dpl,r3
-   04E8 8C 83              1907 	mov	dph,r4
-   04EA 8D F0              1908 	mov	b,r5
-   04EC 74 0A              1909 	mov	a,#0x0A
-   04EE 12 38 0B           1910 	lcall	__gptrput
-   04F1 A3                 1911 	inc	dptr
-   04F2 E4                 1912 	clr	a
-   04F3 12 38 0B           1913 	lcall	__gptrput
-                           1914 ;	../projectSpecificHardwareInterface_C8051F040.c:336: Q->Size		= 0 ;
-   04F6 74 06              1915 	mov	a,#0x06
-   04F8 2B                 1916 	add	a,r3
-   04F9 FE                 1917 	mov	r6,a
-   04FA E4                 1918 	clr	a
-   04FB 3C                 1919 	addc	a,r4
-   04FC FF                 1920 	mov	r7,a
-   04FD 8D 00              1921 	mov	ar0,r5
-   04FF 8E 82              1922 	mov	dpl,r6
-   0501 8F 83              1923 	mov	dph,r7
-   0503 88 F0              1924 	mov	b,r0
-   0505 E4                 1925 	clr	a
-   0506 12 38 0B           1926 	lcall	__gptrput
-   0509 A3                 1927 	inc	dptr
-   050A E4                 1928 	clr	a
-   050B 12 38 0B           1929 	lcall	__gptrput
-                           1930 ;	../projectSpecificHardwareInterface_C8051F040.c:337: Q->Front	= 1 ;
-   050E 74 02              1931 	mov	a,#0x02
-   0510 2B                 1932 	add	a,r3
-   0511 FE                 1933 	mov	r6,a
-   0512 E4                 1934 	clr	a
-   0513 3C                 1935 	addc	a,r4
-   0514 FF                 1936 	mov	r7,a
-   0515 8D 00              1937 	mov	ar0,r5
-   0517 8E 82              1938 	mov	dpl,r6
-   0519 8F 83              1939 	mov	dph,r7
-   051B 88 F0              1940 	mov	b,r0
-   051D 74 01              1941 	mov	a,#0x01
-   051F 12 38 0B           1942 	lcall	__gptrput
-   0522 A3                 1943 	inc	dptr
-   0523 E4                 1944 	clr	a
-   0524 12 38 0B           1945 	lcall	__gptrput
-                           1946 ;	../projectSpecificHardwareInterface_C8051F040.c:338: Q->Rear		= 0 ;
-   0527 74 04              1947 	mov	a,#0x04
-   0529 2B                 1948 	add	a,r3
-   052A FE                 1949 	mov	r6,a
-   052B E4                 1950 	clr	a
-   052C 3C                 1951 	addc	a,r4
-   052D FF                 1952 	mov	r7,a
-   052E 8D 00              1953 	mov	ar0,r5
-   0530 8E 82              1954 	mov	dpl,r6
-   0532 8F 83              1955 	mov	dph,r7
-   0534 88 F0              1956 	mov	b,r0
-   0536 E4                 1957 	clr	a
-   0537 12 38 0B           1958 	lcall	__gptrput
-   053A A3                 1959 	inc	dptr
-   053B E4                 1960 	clr	a
-   053C 12 38 0B           1961 	lcall	__gptrput
-                           1962 ;	../projectSpecificHardwareInterface_C8051F040.c:339: Q->Array	= receiveBuffer[0] ;
-   053F 74 08              1963 	mov	a,#0x08
-   0541 2B                 1964 	add	a,r3
-   0542 FB                 1965 	mov	r3,a
-   0543 E4                 1966 	clr	a
-   0544 3C                 1967 	addc	a,r4
-   0545 FC                 1968 	mov	r4,a
-   0546 8B 82              1969 	mov	dpl,r3
-   0548 8C 83              1970 	mov	dph,r4
-   054A 8D F0              1971 	mov	b,r5
-   054C 74 AA              1972 	mov	a,#_receiveBuffer
-   054E 12 38 0B           1973 	lcall	__gptrput
-   0551 A3                 1974 	inc	dptr
-   0552 74 08              1975 	mov	a,#(_receiveBuffer >> 8)
-   0554 12 38 0B           1976 	lcall	__gptrput
-   0557 A3                 1977 	inc	dptr
-   0558 E4                 1978 	clr	a
-   0559 12 38 0B           1979 	lcall	__gptrput
-                           1980 ;	../projectSpecificHardwareInterface_C8051F040.c:341: charSent[channelNumber]		= false ;
-   055C EA                 1981 	mov	a,r2
-   055D 24 CB              1982 	add	a,#_charSent
-   055F F5 82              1983 	mov	dpl,a
-   0561 E4                 1984 	clr	a
-   0562 34 08              1985 	addc	a,#(_charSent >> 8)
-   0564 F5 83              1986 	mov	dph,a
-   0566 E4                 1987 	clr	a
-   0567 F0                 1988 	movx	@dptr,a
-                           1989 ;	../projectSpecificHardwareInterface_C8051F040.c:342: lineReady[channelNumber]	= false ;
-   0568 EA                 1990 	mov	a,r2
-   0569 24 CC              1991 	add	a,#_lineReady
-   056B F5 82              1992 	mov	dpl,a
-   056D E4                 1993 	clr	a
-   056E 34 08              1994 	addc	a,#(_lineReady >> 8)
-   0570 F5 83              1995 	mov	dph,a
-   0572 E4                 1996 	clr	a
-   0573 F0                 1997 	movx	@dptr,a
-                           1998 ;	../projectSpecificHardwareInterface_C8051F040.c:344: if(!timer1initialized)
-   0574 20 03 20           1999 	jb	_task_UART_init_projectSpecific_timer1initialized_1_1,00102$
-                           2000 ;	../projectSpecificHardwareInterface_C8051F040.c:346: timer1initialized = true ;
-   0577 D2 03              2001 	setb	_task_UART_init_projectSpecific_timer1initialized_1_1
-                           2002 ;	../projectSpecificHardwareInterface_C8051F040.c:348: portSET_REGISTER_GROUP(TIMER01_PAGE)
-   0579 AA 84              2003 	mov	r2,_SFRPAGE
-   057B 75 84 00           2004 	mov	_SFRPAGE,#0x00
-                           2005 ;	../projectSpecificHardwareInterface_C8051F040.c:351: TMOD &= 0x08 ;
-   057E 53 89 08           2006 	anl	_TMOD,#0x08
-                           2007 ;	../projectSpecificHardwareInterface_C8051F040.c:352: TMOD |= ser8BIT_WITH_RELOAD ;
-   0581 43 89 20           2008 	orl	_TMOD,#0x20
-                           2009 ;	../projectSpecificHardwareInterface_C8051F040.c:353: SSTA0 |= serSMOD ;
-   0584 43 91 10           2010 	orl	_SSTA0,#0x10
-                           2011 ;	../projectSpecificHardwareInterface_C8051F040.c:354: CKCON |= 0x10 ;
-   0587 43 8E 10           2012 	orl	_CKCON,#0x10
-                           2013 ;	../projectSpecificHardwareInterface_C8051F040.c:357: TL1 = ( unsigned char ) 0xB2 ;	// B8 = 9600 BAUD on unmoded eval boards, B2 = 9615 on 24MHz systems
-   058A 75 8B B2           2014 	mov	_TL1,#0xB2
-                           2015 ;	../projectSpecificHardwareInterface_C8051F040.c:358: TH1 = ( unsigned char ) 0xB2 ;
-   058D 75 8D B2           2016 	mov	_TH1,#0xB2
-                           2017 ;	../projectSpecificHardwareInterface_C8051F040.c:360: SCON = ser8_BIT_MODE | serRX_ENABLE ;	/* Setup the control register for standard n, 8, 1 - variable baud rate. */
-   0590 75 98 50           2018 	mov	_SCON,#0x50
-                           2019 ;	../projectSpecificHardwareInterface_C8051F040.c:362: TR1 = 1 ;							/* Start the timer. */
-   0593 D2 8E              2020 	setb	_TR1
-                           2021 ;	../projectSpecificHardwareInterface_C8051F040.c:364: portRESTORE_REGISTER_GROUP()
-   0595 8A 84              2022 	mov	_SFRPAGE,r2
-   0597                    2023 00102$:
-                           2024 ;	../projectSpecificHardwareInterface_C8051F040.c:367: if(channelNumber == 0)
-   0597 90 08 CD           2025 	mov	dptr,#_task_UART_init_projectSpecific_channelNumber_1_1
-   059A E0                 2026 	movx	a,@dptr
-   059B FA                 2027 	mov	r2,a
-   059C 70 03              2028 	jnz	00106$
-                           2029 ;	../projectSpecificHardwareInterface_C8051F040.c:369: UART0_Init() ;
-   059E 02 0B 45           2030 	ljmp	_UART0_Init
-   05A1                    2031 00106$:
-                           2032 ;	../projectSpecificHardwareInterface_C8051F040.c:371: else if(channelNumber == 1)
-   05A1 BA 01 03           2033 	cjne	r2,#0x01,00108$
-                           2034 ;	../projectSpecificHardwareInterface_C8051F040.c:373: UART1_Init() ;
-   05A4 02 0B 53           2035 	ljmp	_UART1_Init
-   05A7                    2036 00108$:
-   05A7 22                 2037 	ret
-                           2038 ;------------------------------------------------------------
-                           2039 ;Allocation info for local variables in function 'task_UART_core_projectSpecific'
-                           2040 ;------------------------------------------------------------
-                           2041 ;sloc0                     Allocated with name '_task_UART_core_projectSpecific_sloc0_1_0'
-                           2042 ;sloc1                     Allocated with name '_task_UART_core_projectSpecific_sloc1_1_0'
-                           2043 ;sloc2                     Allocated with name '_task_UART_core_projectSpecific_sloc2_1_0'
-                           2044 ;sloc3                     Allocated with name '_task_UART_core_projectSpecific_sloc3_1_0'
-                           2045 ;channelNumber             Allocated with name '_task_UART_core_projectSpecific_channelNumber_1_1'
-                           2046 ;SFRPAGE_SAVE              Allocated with name '_task_UART_core_projectSpecific_SFRPAGE_SAVE_3_3'
-                           2047 ;Q                         Allocated with name '_task_UART_core_projectSpecific_Q_4_4'
-                           2048 ;charReceived              Allocated with name '_task_UART_core_projectSpecific_charReceived_6_6'
-                           2049 ;byteToSend                Allocated with name '_task_UART_core_projectSpecific_byteToSend_5_10'
-                           2050 ;------------------------------------------------------------
-                           2051 ;	../projectSpecificHardwareInterface_C8051F040.c:382: void task_UART_core_projectSpecific(	unsigned char channelNumber)
-                           2052 ;	-----------------------------------------
-                           2053 ;	 function task_UART_core_projectSpecific
-                           2054 ;	-----------------------------------------
-   05A8                    2055 _task_UART_core_projectSpecific:
-   05A8 E5 82              2056 	mov	a,dpl
-   05AA 90 08 CE           2057 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
-   05AD F0                 2058 	movx	@dptr,a
-                           2059 ;	../projectSpecificHardwareInterface_C8051F040.c:384: if(channelNumber < NUMBER_OF_UARTS)
-   05AE 90 08 CE           2060 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
-   05B1 E0                 2061 	movx	a,@dptr
-   05B2 FA                 2062 	mov	r2,a
-   05B3 BA 01 00           2063 	cjne	r2,#0x01,00125$
-   05B6                    2064 00125$:
-   05B6 40 01              2065 	jc	00126$
-   05B8 22                 2066 	ret
-   05B9                    2067 00126$:
-                           2068 ;	../projectSpecificHardwareInterface_C8051F040.c:386: portSET_REGISTER_GROUP(UART0_PAGE)
-   05B9 AB 84              2069 	mov	r3,_SFRPAGE
-   05BB 75 84 00           2070 	mov	_SFRPAGE,#0x00
-                           2071 ;	../projectSpecificHardwareInterface_C8051F040.c:388: QUEUE_TYPE*	Q = &receiveBuffers[channelNumber] ;
-   05BE EA                 2072 	mov	a,r2
-   05BF 75 F0 0B           2073 	mov	b,#0x0B
-   05C2 A4                 2074 	mul	ab
-   05C3 24 C0              2075 	add	a,#_receiveBuffers
-   05C5 FC                 2076 	mov	r4,a
-   05C6 E4                 2077 	clr	a
-   05C7 34 08              2078 	addc	a,#(_receiveBuffers >> 8)
-   05C9 FD                 2079 	mov	r5,a
-   05CA 7E 00              2080 	mov	r6,#0x00
-   05CC 90 08 CF           2081 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
-   05CF EC                 2082 	mov	a,r4
-   05D0 F0                 2083 	movx	@dptr,a
-   05D1 A3                 2084 	inc	dptr
-   05D2 ED                 2085 	mov	a,r5
-   05D3 F0                 2086 	movx	@dptr,a
-   05D4 A3                 2087 	inc	dptr
-   05D5 EE                 2088 	mov	a,r6
-   05D6 F0                 2089 	movx	@dptr,a
-                           2090 ;	../projectSpecificHardwareInterface_C8051F040.c:390: if(RI0)
-   05D7 20 98 03           2091 	jb	_RI0,00127$
-   05DA 02 06 ED           2092 	ljmp	00106$
-   05DD                    2093 00127$:
-                           2094 ;	../projectSpecificHardwareInterface_C8051F040.c:392: if(!IsFull(Q))
-   05DD 8C 82              2095 	mov	dpl,r4
-   05DF 8D 83              2096 	mov	dph,r5
-   05E1 8E F0              2097 	mov	b,r6
-   05E3 C0 02              2098 	push	ar2
-   05E5 C0 03              2099 	push	ar3
-   05E7 12 03 A6           2100 	lcall	_IsFull
-   05EA E5 82              2101 	mov	a,dpl
-   05EC D0 03              2102 	pop	ar3
-   05EE D0 02              2103 	pop	ar2
-   05F0 60 03              2104 	jz	00128$
-   05F2 02 06 EB           2105 	ljmp	00104$
-   05F5                    2106 00128$:
-                           2107 ;	../projectSpecificHardwareInterface_C8051F040.c:394: char	charReceived = SBUF0 ;
-   05F5 C0 03              2108 	push	ar3
-   05F7 85 99 08           2109 	mov	_task_UART_core_projectSpecific_sloc0_1_0,_SBUF0
-                           2110 ;	../projectSpecificHardwareInterface_C8051F040.c:396: Q->Size++ ;
-   05FA 90 08 CF           2111 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
-   05FD E0                 2112 	movx	a,@dptr
-   05FE FD                 2113 	mov	r5,a
-   05FF A3                 2114 	inc	dptr
-   0600 E0                 2115 	movx	a,@dptr
-   0601 FE                 2116 	mov	r6,a
-   0602 A3                 2117 	inc	dptr
-   0603 E0                 2118 	movx	a,@dptr
-   0604 FF                 2119 	mov	r7,a
-   0605 74 06              2120 	mov	a,#0x06
-   0607 2D                 2121 	add	a,r5
-   0608 F5 09              2122 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
-   060A E4                 2123 	clr	a
-   060B 3E                 2124 	addc	a,r6
-   060C F5 0A              2125 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
-   060E 8F 0B              2126 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),r7
-   0610 85 09 82           2127 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
-   0613 85 0A 83           2128 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
-   0616 85 0B F0           2129 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   0619 12 44 37           2130 	lcall	__gptrget
-   061C FC                 2131 	mov	r4,a
-   061D A3                 2132 	inc	dptr
-   061E 12 44 37           2133 	lcall	__gptrget
-   0621 FB                 2134 	mov	r3,a
-   0622 0C                 2135 	inc	r4
-   0623 BC 00 01           2136 	cjne	r4,#0x00,00129$
-   0626 0B                 2137 	inc	r3
-   0627                    2138 00129$:
-   0627 85 09 82           2139 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
-   062A 85 0A 83           2140 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
-   062D 85 0B F0           2141 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   0630 EC                 2142 	mov	a,r4
-   0631 12 38 0B           2143 	lcall	__gptrput
-   0634 A3                 2144 	inc	dptr
-   0635 EB                 2145 	mov	a,r3
-   0636 12 38 0B           2146 	lcall	__gptrput
-                           2147 ;	../projectSpecificHardwareInterface_C8051F040.c:397: Q->Rear = Succ(Q->Rear, Q) ;
-   0639 74 04              2148 	mov	a,#0x04
-   063B 2D                 2149 	add	a,r5
-   063C F5 09              2150 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
-   063E E4                 2151 	clr	a
-   063F 3E                 2152 	addc	a,r6
-   0640 F5 0A              2153 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
-   0642 8F 0B              2154 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),r7
-   0644 85 09 82           2155 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
-   0647 85 0A 83           2156 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
-   064A 85 0B F0           2157 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   064D 12 44 37           2158 	lcall	__gptrget
-   0650 F9                 2159 	mov	r1,a
-   0651 A3                 2160 	inc	dptr
-   0652 12 44 37           2161 	lcall	__gptrget
-   0655 FB                 2162 	mov	r3,a
-   0656 90 04 58           2163 	mov	dptr,#_Succ_PARM_2
-   0659 ED                 2164 	mov	a,r5
-   065A F0                 2165 	movx	@dptr,a
-   065B A3                 2166 	inc	dptr
-   065C EE                 2167 	mov	a,r6
-   065D F0                 2168 	movx	@dptr,a
-   065E A3                 2169 	inc	dptr
-   065F EF                 2170 	mov	a,r7
-   0660 F0                 2171 	movx	@dptr,a
-   0661 89 82              2172 	mov	dpl,r1
-   0663 8B 83              2173 	mov	dph,r3
-   0665 C0 02              2174 	push	ar2
-   0667 12 03 F8           2175 	lcall	_Succ
-   066A AB 82              2176 	mov	r3,dpl
-   066C AC 83              2177 	mov	r4,dph
-   066E D0 02              2178 	pop	ar2
-   0670 85 09 82           2179 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
-   0673 85 0A 83           2180 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
-   0676 85 0B F0           2181 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   0679 EB                 2182 	mov	a,r3
-   067A 12 38 0B           2183 	lcall	__gptrput
-   067D A3                 2184 	inc	dptr
-   067E EC                 2185 	mov	a,r4
-   067F 12 38 0B           2186 	lcall	__gptrput
-                           2187 ;	../projectSpecificHardwareInterface_C8051F040.c:398: Q->Array[Q->Rear] = charReceived ;
-   0682 90 08 CF           2188 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
-   0685 E0                 2189 	movx	a,@dptr
-   0686 FB                 2190 	mov	r3,a
-   0687 A3                 2191 	inc	dptr
-   0688 E0                 2192 	movx	a,@dptr
-   0689 FC                 2193 	mov	r4,a
-   068A A3                 2194 	inc	dptr
-   068B E0                 2195 	movx	a,@dptr
-   068C FD                 2196 	mov	r5,a
-   068D 74 08              2197 	mov	a,#0x08
-   068F 2B                 2198 	add	a,r3
-   0690 FE                 2199 	mov	r6,a
-   0691 E4                 2200 	clr	a
-   0692 3C                 2201 	addc	a,r4
-   0693 FF                 2202 	mov	r7,a
-   0694 8D 00              2203 	mov	ar0,r5
-   0696 8E 82              2204 	mov	dpl,r6
-   0698 8F 83              2205 	mov	dph,r7
-   069A 88 F0              2206 	mov	b,r0
-   069C 12 44 37           2207 	lcall	__gptrget
-   069F FE                 2208 	mov	r6,a
-   06A0 A3                 2209 	inc	dptr
-   06A1 12 44 37           2210 	lcall	__gptrget
-   06A4 FF                 2211 	mov	r7,a
-   06A5 A3                 2212 	inc	dptr
-   06A6 12 44 37           2213 	lcall	__gptrget
-   06A9 F8                 2214 	mov	r0,a
-   06AA 74 04              2215 	mov	a,#0x04
-   06AC 2B                 2216 	add	a,r3
-   06AD FB                 2217 	mov	r3,a
-   06AE E4                 2218 	clr	a
-   06AF 3C                 2219 	addc	a,r4
-   06B0 FC                 2220 	mov	r4,a
-   06B1 8B 82              2221 	mov	dpl,r3
-   06B3 8C 83              2222 	mov	dph,r4
-   06B5 8D F0              2223 	mov	b,r5
-   06B7 12 44 37           2224 	lcall	__gptrget
-   06BA FB                 2225 	mov	r3,a
-   06BB A3                 2226 	inc	dptr
-   06BC 12 44 37           2227 	lcall	__gptrget
-   06BF FC                 2228 	mov	r4,a
-   06C0 EB                 2229 	mov	a,r3
-   06C1 2E                 2230 	add	a,r6
-   06C2 FE                 2231 	mov	r6,a
-   06C3 EC                 2232 	mov	a,r4
-   06C4 3F                 2233 	addc	a,r7
-   06C5 FF                 2234 	mov	r7,a
-   06C6 8E 82              2235 	mov	dpl,r6
-   06C8 8F 83              2236 	mov	dph,r7
-   06CA 88 F0              2237 	mov	b,r0
-   06CC E5 08              2238 	mov	a,_task_UART_core_projectSpecific_sloc0_1_0
-   06CE 12 38 0B           2239 	lcall	__gptrput
-                           2240 ;	../projectSpecificHardwareInterface_C8051F040.c:400: if(charReceived == '\n')
-   06D1 74 0A              2241 	mov	a,#0x0A
-   06D3 B5 08 02           2242 	cjne	a,_task_UART_core_projectSpecific_sloc0_1_0,00130$
-   06D6 80 04              2243 	sjmp	00131$
-   06D8                    2244 00130$:
-   06D8 D0 03              2245 	pop	ar3
-   06DA 80 0F              2246 	sjmp	00104$
-   06DC                    2247 00131$:
-   06DC D0 03              2248 	pop	ar3
-                           2249 ;	../projectSpecificHardwareInterface_C8051F040.c:402: lineReady[channelNumber] = true ;
-   06DE EA                 2250 	mov	a,r2
-   06DF 24 CC              2251 	add	a,#_lineReady
-   06E1 F5 82              2252 	mov	dpl,a
-   06E3 E4                 2253 	clr	a
-   06E4 34 08              2254 	addc	a,#(_lineReady >> 8)
-   06E6 F5 83              2255 	mov	dph,a
-   06E8 74 01              2256 	mov	a,#0x01
-   06EA F0                 2257 	movx	@dptr,a
-   06EB                    2258 00104$:
-                           2259 ;	../projectSpecificHardwareInterface_C8051F040.c:406: RI0 = 0 ;
-   06EB C2 98              2260 	clr	_RI0
-   06ED                    2261 00106$:
-                           2262 ;	../projectSpecificHardwareInterface_C8051F040.c:409: Q = &transmitBuffers[channelNumber] ;
-   06ED 90 08 CE           2263 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
-   06F0 E0                 2264 	movx	a,@dptr
-   06F1 FA                 2265 	mov	r2,a
-   06F2 75 F0 0B           2266 	mov	b,#0x0B
-   06F5 A4                 2267 	mul	ab
-   06F6 24 B5              2268 	add	a,#_transmitBuffers
-   06F8 FC                 2269 	mov	r4,a
-   06F9 E4                 2270 	clr	a
-   06FA 34 08              2271 	addc	a,#(_transmitBuffers >> 8)
-   06FC FD                 2272 	mov	r5,a
-   06FD 7E 00              2273 	mov	r6,#0x00
-   06FF 90 08 CF           2274 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
-   0702 EC                 2275 	mov	a,r4
-   0703 F0                 2276 	movx	@dptr,a
-   0704 A3                 2277 	inc	dptr
-   0705 ED                 2278 	mov	a,r5
-   0706 F0                 2279 	movx	@dptr,a
-   0707 A3                 2280 	inc	dptr
-   0708 EE                 2281 	mov	a,r6
-   0709 F0                 2282 	movx	@dptr,a
-                           2283 ;	../projectSpecificHardwareInterface_C8051F040.c:411: if(charSent[channelNumber] == true)
-   070A EA                 2284 	mov	a,r2
-   070B 24 CB              2285 	add	a,#_charSent
-   070D FA                 2286 	mov	r2,a
-   070E E4                 2287 	clr	a
-   070F 34 08              2288 	addc	a,#(_charSent >> 8)
-   0711 FF                 2289 	mov	r7,a
-   0712 8A 82              2290 	mov	dpl,r2
-   0714 8F 83              2291 	mov	dph,r7
-   0716 E0                 2292 	movx	a,@dptr
-   0717 F8                 2293 	mov	r0,a
-   0718 B8 01 09           2294 	cjne	r0,#0x01,00111$
-                           2295 ;	../projectSpecificHardwareInterface_C8051F040.c:413: charSent[channelNumber] = false ;
-   071B 8A 82              2296 	mov	dpl,r2
-   071D 8F 83              2297 	mov	dph,r7
-   071F E4                 2298 	clr	a
-   0720 F0                 2299 	movx	@dptr,a
-                           2300 ;	../projectSpecificHardwareInterface_C8051F040.c:417: while(TI0 == 0) { /* empty loop */} ;
-   0721                    2301 00107$:
-   0721 30 99 FD           2302 	jnb	_TI0,00107$
-   0724                    2303 00111$:
-                           2304 ;	../projectSpecificHardwareInterface_C8051F040.c:420: if(!IsEmpty(Q))
-   0724 8C 82              2305 	mov	dpl,r4
-   0726 8D 83              2306 	mov	dph,r5
-   0728 8E F0              2307 	mov	b,r6
-   072A C0 03              2308 	push	ar3
-   072C 12 03 6A           2309 	lcall	_IsEmpty
-   072F E5 82              2310 	mov	a,dpl
-   0731 D0 03              2311 	pop	ar3
-   0733 60 03              2312 	jz	00135$
-   0735 02 08 09           2313 	ljmp	00113$
-   0738                    2314 00135$:
-                           2315 ;	../projectSpecificHardwareInterface_C8051F040.c:422: unsigned char byteToSend = Q->Array[Q->Front] ;
-   0738 C0 03              2316 	push	ar3
-   073A 90 08 CF           2317 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
-   073D E0                 2318 	movx	a,@dptr
-   073E FA                 2319 	mov	r2,a
-   073F A3                 2320 	inc	dptr
-   0740 E0                 2321 	movx	a,@dptr
-   0741 FC                 2322 	mov	r4,a
-   0742 A3                 2323 	inc	dptr
-   0743 E0                 2324 	movx	a,@dptr
-   0744 FD                 2325 	mov	r5,a
-   0745 74 08              2326 	mov	a,#0x08
-   0747 2A                 2327 	add	a,r2
-   0748 FE                 2328 	mov	r6,a
-   0749 E4                 2329 	clr	a
-   074A 3C                 2330 	addc	a,r4
-   074B FF                 2331 	mov	r7,a
-   074C 8D 00              2332 	mov	ar0,r5
-   074E 8E 82              2333 	mov	dpl,r6
-   0750 8F 83              2334 	mov	dph,r7
-   0752 88 F0              2335 	mov	b,r0
-   0754 12 44 37           2336 	lcall	__gptrget
-   0757 F5 09              2337 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
-   0759 A3                 2338 	inc	dptr
-   075A 12 44 37           2339 	lcall	__gptrget
-   075D F5 0A              2340 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
-   075F A3                 2341 	inc	dptr
-   0760 12 44 37           2342 	lcall	__gptrget
-   0763 F5 0B              2343 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),a
-   0765 74 02              2344 	mov	a,#0x02
-   0767 2A                 2345 	add	a,r2
-   0768 F5 0E              2346 	mov	_task_UART_core_projectSpecific_sloc3_1_0,a
-   076A E4                 2347 	clr	a
-   076B 3C                 2348 	addc	a,r4
-   076C F5 0F              2349 	mov	(_task_UART_core_projectSpecific_sloc3_1_0 + 1),a
-   076E 8D 10              2350 	mov	(_task_UART_core_projectSpecific_sloc3_1_0 + 2),r5
-   0770 85 0E 82           2351 	mov	dpl,_task_UART_core_projectSpecific_sloc3_1_0
-   0773 85 0F 83           2352 	mov	dph,(_task_UART_core_projectSpecific_sloc3_1_0 + 1)
-   0776 85 10 F0           2353 	mov	b,(_task_UART_core_projectSpecific_sloc3_1_0 + 2)
-   0779 12 44 37           2354 	lcall	__gptrget
-   077C F5 0C              2355 	mov	_task_UART_core_projectSpecific_sloc2_1_0,a
-   077E A3                 2356 	inc	dptr
-   077F 12 44 37           2357 	lcall	__gptrget
-   0782 F5 0D              2358 	mov	(_task_UART_core_projectSpecific_sloc2_1_0 + 1),a
-   0784 E5 0C              2359 	mov	a,_task_UART_core_projectSpecific_sloc2_1_0
-   0786 25 09              2360 	add	a,_task_UART_core_projectSpecific_sloc1_1_0
-   0788 FF                 2361 	mov	r7,a
-   0789 E5 0D              2362 	mov	a,(_task_UART_core_projectSpecific_sloc2_1_0 + 1)
-   078B 35 0A              2363 	addc	a,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
-   078D F8                 2364 	mov	r0,a
-   078E AB 0B              2365 	mov	r3,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   0790 8F 82              2366 	mov	dpl,r7
-   0792 88 83              2367 	mov	dph,r0
-   0794 8B F0              2368 	mov	b,r3
-   0796 12 44 37           2369 	lcall	__gptrget
-   0799 F5 09              2370 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
-                           2371 ;	../projectSpecificHardwareInterface_C8051F040.c:424: Q->Size-- ;
-   079B 74 06              2372 	mov	a,#0x06
-   079D 2A                 2373 	add	a,r2
-   079E FB                 2374 	mov	r3,a
-   079F E4                 2375 	clr	a
-   07A0 3C                 2376 	addc	a,r4
-   07A1 FE                 2377 	mov	r6,a
-   07A2 8D 00              2378 	mov	ar0,r5
-   07A4 8B 82              2379 	mov	dpl,r3
-   07A6 8E 83              2380 	mov	dph,r6
-   07A8 88 F0              2381 	mov	b,r0
-   07AA 12 44 37           2382 	lcall	__gptrget
-   07AD F9                 2383 	mov	r1,a
-   07AE A3                 2384 	inc	dptr
-   07AF 12 44 37           2385 	lcall	__gptrget
-   07B2 FF                 2386 	mov	r7,a
-   07B3 19                 2387 	dec	r1
-   07B4 B9 FF 01           2388 	cjne	r1,#0xff,00136$
-   07B7 1F                 2389 	dec	r7
-   07B8                    2390 00136$:
-   07B8 8B 82              2391 	mov	dpl,r3
-   07BA 8E 83              2392 	mov	dph,r6
-   07BC 88 F0              2393 	mov	b,r0
-   07BE E9                 2394 	mov	a,r1
-   07BF 12 38 0B           2395 	lcall	__gptrput
-   07C2 A3                 2396 	inc	dptr
-   07C3 EF                 2397 	mov	a,r7
-   07C4 12 38 0B           2398 	lcall	__gptrput
-                           2399 ;	../projectSpecificHardwareInterface_C8051F040.c:425: Q->Front = Succ(Q->Front, Q) ;
-   07C7 90 04 58           2400 	mov	dptr,#_Succ_PARM_2
-   07CA EA                 2401 	mov	a,r2
-   07CB F0                 2402 	movx	@dptr,a
-   07CC A3                 2403 	inc	dptr
-   07CD EC                 2404 	mov	a,r4
-   07CE F0                 2405 	movx	@dptr,a
-   07CF A3                 2406 	inc	dptr
-   07D0 ED                 2407 	mov	a,r5
-   07D1 F0                 2408 	movx	@dptr,a
-   07D2 85 0C 82           2409 	mov	dpl,_task_UART_core_projectSpecific_sloc2_1_0
-   07D5 85 0D 83           2410 	mov	dph,(_task_UART_core_projectSpecific_sloc2_1_0 + 1)
-   07D8 12 03 F8           2411 	lcall	_Succ
-   07DB AA 82              2412 	mov	r2,dpl
-   07DD AB 83              2413 	mov	r3,dph
-   07DF 85 0E 82           2414 	mov	dpl,_task_UART_core_projectSpecific_sloc3_1_0
-   07E2 85 0F 83           2415 	mov	dph,(_task_UART_core_projectSpecific_sloc3_1_0 + 1)
-   07E5 85 10 F0           2416 	mov	b,(_task_UART_core_projectSpecific_sloc3_1_0 + 2)
-   07E8 EA                 2417 	mov	a,r2
-   07E9 12 38 0B           2418 	lcall	__gptrput
-   07EC A3                 2419 	inc	dptr
-   07ED EB                 2420 	mov	a,r3
-   07EE 12 38 0B           2421 	lcall	__gptrput
-                           2422 ;	../projectSpecificHardwareInterface_C8051F040.c:427: TI0 = 0 ;	// clear it and send the next character
-   07F1 C2 99              2423 	clr	_TI0
-                           2424 ;	../projectSpecificHardwareInterface_C8051F040.c:429: SBUF0 = byteToSend ;
-   07F3 85 09 99           2425 	mov	_SBUF0,_task_UART_core_projectSpecific_sloc1_1_0
-                           2426 ;	../projectSpecificHardwareInterface_C8051F040.c:431: charSent[channelNumber] = true ;
-   07F6 90 08 CE           2427 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
-   07F9 E0                 2428 	movx	a,@dptr
-   07FA FA                 2429 	mov	r2,a
-   07FB 24 CB              2430 	add	a,#_charSent
-   07FD F5 82              2431 	mov	dpl,a
-   07FF E4                 2432 	clr	a
-   0800 34 08              2433 	addc	a,#(_charSent >> 8)
-   0802 F5 83              2434 	mov	dph,a
-   0804 74 01              2435 	mov	a,#0x01
-   0806 F0                 2436 	movx	@dptr,a
-                           2437 ;	../projectSpecificHardwareInterface_C8051F040.c:434: portRESTORE_REGISTER_GROUP()
-   0807 D0 03              2438 	pop	ar3
-                           2439 ;	../projectSpecificHardwareInterface_C8051F040.c:431: charSent[channelNumber] = true ;
-   0809                    2440 00113$:
-                           2441 ;	../projectSpecificHardwareInterface_C8051F040.c:434: portRESTORE_REGISTER_GROUP()
-   0809 8B 84              2442 	mov	_SFRPAGE,r3
-   080B 22                 2443 	ret
-                           2444 ;------------------------------------------------------------
-                           2445 ;Allocation info for local variables in function 'task_UART_putchar_projectSpecific'
-                           2446 ;------------------------------------------------------------
-                           2447 ;charToSend                Allocated with name '_task_UART_putchar_projectSpecific_PARM_2'
-                           2448 ;channelNumber             Allocated with name '_task_UART_putchar_projectSpecific_channelNumber_1_1'
-                           2449 ;Q                         Allocated with name '_task_UART_putchar_projectSpecific_Q_2_2'
-                           2450 ;------------------------------------------------------------
-                           2451 ;	../projectSpecificHardwareInterface_C8051F040.c:439: bool task_UART_putchar_projectSpecific(	unsigned char channelNumber, char charToSend)
-                           2452 ;	-----------------------------------------
-                           2453 ;	 function task_UART_putchar_projectSpecific
-                           2454 ;	-----------------------------------------
-   080C                    2455 _task_UART_putchar_projectSpecific:
-   080C E5 82              2456 	mov	a,dpl
-   080E 90 08 D3           2457 	mov	dptr,#_task_UART_putchar_projectSpecific_channelNumber_1_1
-   0811 F0                 2458 	movx	@dptr,a
-                           2459 ;	../projectSpecificHardwareInterface_C8051F040.c:441: task_UART_core(0) ;
-   0812 75 82 00           2460 	mov	dpl,#0x00
-   0815 12 35 DA           2461 	lcall	_task_UART_core
-                           2462 ;	../projectSpecificHardwareInterface_C8051F040.c:443: portDISABLE_INTERRUPTS() ;
-   0818 C2 AF              2463 	clr	_EA
-                           2464 ;	../projectSpecificHardwareInterface_C8051F040.c:445: if(channelNumber < NUMBER_OF_UARTS)
-   081A 90 08 D3           2465 	mov	dptr,#_task_UART_putchar_projectSpecific_channelNumber_1_1
-   081D E0                 2466 	movx	a,@dptr
-   081E FA                 2467 	mov	r2,a
-   081F BA 01 00           2468 	cjne	r2,#0x01,00109$
-   0822                    2469 00109$:
-   0822 40 03              2470 	jc	00110$
-   0824 02 09 25           2471 	ljmp	00104$
-   0827                    2472 00110$:
-                           2473 ;	../projectSpecificHardwareInterface_C8051F040.c:447: QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
-   0827 EA                 2474 	mov	a,r2
-   0828 75 F0 0B           2475 	mov	b,#0x0B
-   082B A4                 2476 	mul	ab
-   082C 24 B5              2477 	add	a,#_transmitBuffers
-   082E FA                 2478 	mov	r2,a
-   082F E4                 2479 	clr	a
-   0830 34 08              2480 	addc	a,#(_transmitBuffers >> 8)
-   0832 FB                 2481 	mov	r3,a
-   0833 7C 00              2482 	mov	r4,#0x00
-   0835 90 08 D4           2483 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
-   0838 EA                 2484 	mov	a,r2
-   0839 F0                 2485 	movx	@dptr,a
-   083A A3                 2486 	inc	dptr
-   083B EB                 2487 	mov	a,r3
-   083C F0                 2488 	movx	@dptr,a
-   083D A3                 2489 	inc	dptr
-   083E EC                 2490 	mov	a,r4
-   083F F0                 2491 	movx	@dptr,a
-                           2492 ;	../projectSpecificHardwareInterface_C8051F040.c:449: if(!IsFull(Q))
-   0840 8A 82              2493 	mov	dpl,r2
-   0842 8B 83              2494 	mov	dph,r3
-   0844 8C F0              2495 	mov	b,r4
-   0846 12 03 A6           2496 	lcall	_IsFull
-   0849 E5 82              2497 	mov	a,dpl
-   084B 60 03              2498 	jz	00111$
-   084D 02 09 25           2499 	ljmp	00104$
-   0850                    2500 00111$:
-                           2501 ;	../projectSpecificHardwareInterface_C8051F040.c:451: Q->Size++ ;
-   0850 90 08 D4           2502 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
-   0853 E0                 2503 	movx	a,@dptr
-   0854 FA                 2504 	mov	r2,a
-   0855 A3                 2505 	inc	dptr
-   0856 E0                 2506 	movx	a,@dptr
-   0857 FB                 2507 	mov	r3,a
-   0858 A3                 2508 	inc	dptr
-   0859 E0                 2509 	movx	a,@dptr
-   085A FC                 2510 	mov	r4,a
-   085B 74 06              2511 	mov	a,#0x06
-   085D 2A                 2512 	add	a,r2
-   085E FD                 2513 	mov	r5,a
-   085F E4                 2514 	clr	a
-   0860 3B                 2515 	addc	a,r3
-   0861 FE                 2516 	mov	r6,a
-   0862 8C 07              2517 	mov	ar7,r4
-   0864 8D 82              2518 	mov	dpl,r5
-   0866 8E 83              2519 	mov	dph,r6
-   0868 8F F0              2520 	mov	b,r7
-   086A 12 44 37           2521 	lcall	__gptrget
-   086D F8                 2522 	mov	r0,a
-   086E A3                 2523 	inc	dptr
-   086F 12 44 37           2524 	lcall	__gptrget
-   0872 F9                 2525 	mov	r1,a
-   0873 08                 2526 	inc	r0
-   0874 B8 00 01           2527 	cjne	r0,#0x00,00112$
-   0877 09                 2528 	inc	r1
-   0878                    2529 00112$:
-   0878 8D 82              2530 	mov	dpl,r5
-   087A 8E 83              2531 	mov	dph,r6
-   087C 8F F0              2532 	mov	b,r7
-   087E E8                 2533 	mov	a,r0
-   087F 12 38 0B           2534 	lcall	__gptrput
-   0882 A3                 2535 	inc	dptr
-   0883 E9                 2536 	mov	a,r1
-   0884 12 38 0B           2537 	lcall	__gptrput
-                           2538 ;	../projectSpecificHardwareInterface_C8051F040.c:452: Q->Rear = Succ(Q->Rear, Q) ;
-   0887 74 04              2539 	mov	a,#0x04
-   0889 2A                 2540 	add	a,r2
-   088A FD                 2541 	mov	r5,a
-   088B E4                 2542 	clr	a
-   088C 3B                 2543 	addc	a,r3
-   088D FE                 2544 	mov	r6,a
-   088E 8C 07              2545 	mov	ar7,r4
-   0890 8D 82              2546 	mov	dpl,r5
-   0892 8E 83              2547 	mov	dph,r6
-   0894 8F F0              2548 	mov	b,r7
-   0896 12 44 37           2549 	lcall	__gptrget
-   0899 F8                 2550 	mov	r0,a
-   089A A3                 2551 	inc	dptr
-   089B 12 44 37           2552 	lcall	__gptrget
-   089E F9                 2553 	mov	r1,a
-   089F 90 04 58           2554 	mov	dptr,#_Succ_PARM_2
-   08A2 EA                 2555 	mov	a,r2
-   08A3 F0                 2556 	movx	@dptr,a
-   08A4 A3                 2557 	inc	dptr
-   08A5 EB                 2558 	mov	a,r3
-   08A6 F0                 2559 	movx	@dptr,a
-   08A7 A3                 2560 	inc	dptr
-   08A8 EC                 2561 	mov	a,r4
-   08A9 F0                 2562 	movx	@dptr,a
-   08AA 88 82              2563 	mov	dpl,r0
-   08AC 89 83              2564 	mov	dph,r1
-   08AE C0 05              2565 	push	ar5
-   08B0 C0 06              2566 	push	ar6
-   08B2 C0 07              2567 	push	ar7
-   08B4 12 03 F8           2568 	lcall	_Succ
-   08B7 AA 82              2569 	mov	r2,dpl
-   08B9 AB 83              2570 	mov	r3,dph
-   08BB D0 07              2571 	pop	ar7
-   08BD D0 06              2572 	pop	ar6
-   08BF D0 05              2573 	pop	ar5
-   08C1 8D 82              2574 	mov	dpl,r5
-   08C3 8E 83              2575 	mov	dph,r6
-   08C5 8F F0              2576 	mov	b,r7
-   08C7 EA                 2577 	mov	a,r2
-   08C8 12 38 0B           2578 	lcall	__gptrput
-   08CB A3                 2579 	inc	dptr
-   08CC EB                 2580 	mov	a,r3
-   08CD 12 38 0B           2581 	lcall	__gptrput
-                           2582 ;	../projectSpecificHardwareInterface_C8051F040.c:453: Q->Array[Q->Rear] = charToSend ;
-   08D0 90 08 D4           2583 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
-   08D3 E0                 2584 	movx	a,@dptr
-   08D4 FA                 2585 	mov	r2,a
-   08D5 A3                 2586 	inc	dptr
-   08D6 E0                 2587 	movx	a,@dptr
-   08D7 FB                 2588 	mov	r3,a
-   08D8 A3                 2589 	inc	dptr
-   08D9 E0                 2590 	movx	a,@dptr
-   08DA FC                 2591 	mov	r4,a
-   08DB 74 08              2592 	mov	a,#0x08
-   08DD 2A                 2593 	add	a,r2
-   08DE FD                 2594 	mov	r5,a
-   08DF E4                 2595 	clr	a
-   08E0 3B                 2596 	addc	a,r3
-   08E1 FE                 2597 	mov	r6,a
-   08E2 8C 07              2598 	mov	ar7,r4
-   08E4 8D 82              2599 	mov	dpl,r5
-   08E6 8E 83              2600 	mov	dph,r6
-   08E8 8F F0              2601 	mov	b,r7
-   08EA 12 44 37           2602 	lcall	__gptrget
-   08ED FD                 2603 	mov	r5,a
-   08EE A3                 2604 	inc	dptr
-   08EF 12 44 37           2605 	lcall	__gptrget
-   08F2 FE                 2606 	mov	r6,a
-   08F3 A3                 2607 	inc	dptr
-   08F4 12 44 37           2608 	lcall	__gptrget
-   08F7 FF                 2609 	mov	r7,a
-   08F8 74 04              2610 	mov	a,#0x04
-   08FA 2A                 2611 	add	a,r2
-   08FB FA                 2612 	mov	r2,a
-   08FC E4                 2613 	clr	a
-   08FD 3B                 2614 	addc	a,r3
-   08FE FB                 2615 	mov	r3,a
-   08FF 8A 82              2616 	mov	dpl,r2
-   0901 8B 83              2617 	mov	dph,r3
-   0903 8C F0              2618 	mov	b,r4
-   0905 12 44 37           2619 	lcall	__gptrget
-   0908 FA                 2620 	mov	r2,a
-   0909 A3                 2621 	inc	dptr
-   090A 12 44 37           2622 	lcall	__gptrget
-   090D FB                 2623 	mov	r3,a
-   090E EA                 2624 	mov	a,r2
-   090F 2D                 2625 	add	a,r5
-   0910 FD                 2626 	mov	r5,a
-   0911 EB                 2627 	mov	a,r3
-   0912 3E                 2628 	addc	a,r6
-   0913 FE                 2629 	mov	r6,a
-   0914 90 08 D2           2630 	mov	dptr,#_task_UART_putchar_projectSpecific_PARM_2
-   0917 E0                 2631 	movx	a,@dptr
-   0918 8D 82              2632 	mov	dpl,r5
-   091A 8E 83              2633 	mov	dph,r6
-   091C 8F F0              2634 	mov	b,r7
-   091E 12 38 0B           2635 	lcall	__gptrput
-                           2636 ;	../projectSpecificHardwareInterface_C8051F040.c:455: portENABLE_INTERRUPTS() ;
-   0921 D2 AF              2637 	setb	_EA
-                           2638 ;	../projectSpecificHardwareInterface_C8051F040.c:457: return true ;
-   0923 D3                 2639 	setb	c
-   0924 22                 2640 	ret
-   0925                    2641 00104$:
-                           2642 ;	../projectSpecificHardwareInterface_C8051F040.c:461: portENABLE_INTERRUPTS() ;
-   0925 D2 AF              2643 	setb	_EA
-                           2644 ;	../projectSpecificHardwareInterface_C8051F040.c:465: return false ;
-   0927 C3                 2645 	clr	c
-   0928 22                 2646 	ret
-                           2647 ;------------------------------------------------------------
-                           2648 ;Allocation info for local variables in function 'task_UART_puts_projectSpecific'
-                           2649 ;------------------------------------------------------------
-                           2650 ;buffer                    Allocated with name '_task_UART_puts_projectSpecific_PARM_2'
-                           2651 ;channelNumber             Allocated with name '_task_UART_puts_projectSpecific_channelNumber_1_1'
-                           2652 ;myBuffer                  Allocated with name '_task_UART_puts_projectSpecific_myBuffer_2_2'
-                           2653 ;------------------------------------------------------------
-                           2654 ;	../projectSpecificHardwareInterface_C8051F040.c:469: void task_UART_puts_projectSpecific(	unsigned char channelNumber, const char *buffer)
-                           2655 ;	-----------------------------------------
-                           2656 ;	 function task_UART_puts_projectSpecific
-                           2657 ;	-----------------------------------------
-   0929                    2658 _task_UART_puts_projectSpecific:
-   0929 E5 82              2659 	mov	a,dpl
-   092B 90 08 DA           2660 	mov	dptr,#_task_UART_puts_projectSpecific_channelNumber_1_1
-   092E F0                 2661 	movx	@dptr,a
-                           2662 ;	../projectSpecificHardwareInterface_C8051F040.c:471: if(channelNumber < NUMBER_OF_UARTS)
-   092F 90 08 DA           2663 	mov	dptr,#_task_UART_puts_projectSpecific_channelNumber_1_1
-   0932 E0                 2664 	movx	a,@dptr
-   0933 FA                 2665 	mov	r2,a
-   0934 BA 01 00           2666 	cjne	r2,#0x01,00119$
-   0937                    2667 00119$:
-   0937 50 6C              2668 	jnc	00112$
-                           2669 ;	../projectSpecificHardwareInterface_C8051F040.c:473: unsigned char* myBuffer = buffer ;
-   0939 90 08 D7           2670 	mov	dptr,#_task_UART_puts_projectSpecific_PARM_2
-   093C E0                 2671 	movx	a,@dptr
-   093D FB                 2672 	mov	r3,a
-   093E A3                 2673 	inc	dptr
-   093F E0                 2674 	movx	a,@dptr
-   0940 FC                 2675 	mov	r4,a
-   0941 A3                 2676 	inc	dptr
-   0942 E0                 2677 	movx	a,@dptr
-   0943 FD                 2678 	mov	r5,a
-                           2679 ;	../projectSpecificHardwareInterface_C8051F040.c:475: while(*myBuffer)
-   0944 8A 06              2680 	mov	ar6,r2
-   0946                    2681 00107$:
-   0946 8B 82              2682 	mov	dpl,r3
-   0948 8C 83              2683 	mov	dph,r4
-   094A 8D F0              2684 	mov	b,r5
-   094C 12 44 37           2685 	lcall	__gptrget
-   094F FF                 2686 	mov	r7,a
-   0950 60 53              2687 	jz	00112$
-                           2688 ;	../projectSpecificHardwareInterface_C8051F040.c:477: if((*myBuffer) == '\n')
-   0952 BF 0A 21           2689 	cjne	r7,#0x0A,00104$
-                           2690 ;	../projectSpecificHardwareInterface_C8051F040.c:479: if(!task_UART_putchar(channelNumber, '\r'))
-   0955 90 0A 74           2691 	mov	dptr,#_task_UART_putchar_PARM_2
-   0958 74 0D              2692 	mov	a,#0x0D
-   095A F0                 2693 	movx	@dptr,a
-   095B 8E 82              2694 	mov	dpl,r6
-   095D C0 02              2695 	push	ar2
-   095F C0 03              2696 	push	ar3
-   0961 C0 04              2697 	push	ar4
-   0963 C0 05              2698 	push	ar5
-   0965 C0 06              2699 	push	ar6
-   0967 12 35 E9           2700 	lcall	_task_UART_putchar
-   096A D0 06              2701 	pop	ar6
-   096C D0 05              2702 	pop	ar5
-   096E D0 04              2703 	pop	ar4
-   0970 D0 03              2704 	pop	ar3
-   0972 D0 02              2705 	pop	ar2
-   0974 50 2F              2706 	jnc	00112$
-                           2707 ;	../projectSpecificHardwareInterface_C8051F040.c:481: break ;
-   0976                    2708 00104$:
-                           2709 ;	../projectSpecificHardwareInterface_C8051F040.c:485: if(!task_UART_putchar(channelNumber, *myBuffer++))
-   0976 8B 82              2710 	mov	dpl,r3
-   0978 8C 83              2711 	mov	dph,r4
-   097A 8D F0              2712 	mov	b,r5
-   097C 12 44 37           2713 	lcall	__gptrget
-   097F FF                 2714 	mov	r7,a
-   0980 A3                 2715 	inc	dptr
-   0981 AB 82              2716 	mov	r3,dpl
-   0983 AC 83              2717 	mov	r4,dph
-   0985 90 0A 74           2718 	mov	dptr,#_task_UART_putchar_PARM_2
-   0988 EF                 2719 	mov	a,r7
-   0989 F0                 2720 	movx	@dptr,a
-   098A 8A 82              2721 	mov	dpl,r2
-   098C C0 02              2722 	push	ar2
-   098E C0 03              2723 	push	ar3
-   0990 C0 04              2724 	push	ar4
-   0992 C0 05              2725 	push	ar5
-   0994 C0 06              2726 	push	ar6
-   0996 12 35 E9           2727 	lcall	_task_UART_putchar
-   0999 D0 06              2728 	pop	ar6
-   099B D0 05              2729 	pop	ar5
-   099D D0 04              2730 	pop	ar4
-   099F D0 03              2731 	pop	ar3
-   09A1 D0 02              2732 	pop	ar2
-   09A3 40 A1              2733 	jc	00107$
-                           2734 ;	../projectSpecificHardwareInterface_C8051F040.c:487: break ;
-   09A5                    2735 00112$:
-   09A5 22                 2736 	ret
-                           2737 ;------------------------------------------------------------
-                           2738 ;Allocation info for local variables in function 'task_UART_getchar_projectSpecific'
-                           2739 ;------------------------------------------------------------
-                           2740 ;sloc0                     Allocated with name '_task_UART_getchar_projectSpecific_sloc0_1_0'
-                           2741 ;sloc1                     Allocated with name '_task_UART_getchar_projectSpecific_sloc1_1_0'
-                           2742 ;sloc2                     Allocated with name '_task_UART_getchar_projectSpecific_sloc2_1_0'
-                           2743 ;channelNumber             Allocated with name '_task_UART_getchar_projectSpecific_channelNumber_1_1'
-                           2744 ;Q                         Allocated with name '_task_UART_getchar_projectSpecific_Q_2_2'
-                           2745 ;byteReceived              Allocated with name '_task_UART_getchar_projectSpecific_byteReceived_3_3'
-                           2746 ;------------------------------------------------------------
-                           2747 ;	../projectSpecificHardwareInterface_C8051F040.c:494: char task_UART_getchar_projectSpecific(	unsigned char channelNumber)
-                           2748 ;	-----------------------------------------
-                           2749 ;	 function task_UART_getchar_projectSpecific
-                           2750 ;	-----------------------------------------
-   09A6                    2751 _task_UART_getchar_projectSpecific:
-   09A6 E5 82              2752 	mov	a,dpl
-   09A8 90 08 DB           2753 	mov	dptr,#_task_UART_getchar_projectSpecific_channelNumber_1_1
-   09AB F0                 2754 	movx	@dptr,a
-                           2755 ;	../projectSpecificHardwareInterface_C8051F040.c:496: if(channelNumber < NUMBER_OF_UARTS)
-   09AC 90 08 DB           2756 	mov	dptr,#_task_UART_getchar_projectSpecific_channelNumber_1_1
-   09AF E0                 2757 	movx	a,@dptr
-   09B0 FA                 2758 	mov	r2,a
-   09B1 BA 01 00           2759 	cjne	r2,#0x01,00109$
-   09B4                    2760 00109$:
-   09B4 40 03              2761 	jc	00110$
-   09B6 02 0A 9D           2762 	ljmp	00104$
-   09B9                    2763 00110$:
-                           2764 ;	../projectSpecificHardwareInterface_C8051F040.c:498: QUEUE_TYPE*	Q = &receiveBuffers[channelNumber] ;
-   09B9 EA                 2765 	mov	a,r2
-   09BA 75 F0 0B           2766 	mov	b,#0x0B
-   09BD A4                 2767 	mul	ab
-   09BE 24 C0              2768 	add	a,#_receiveBuffers
-   09C0 FA                 2769 	mov	r2,a
-   09C1 E4                 2770 	clr	a
-   09C2 34 08              2771 	addc	a,#(_receiveBuffers >> 8)
-   09C4 FB                 2772 	mov	r3,a
-   09C5 7C 00              2773 	mov	r4,#0x00
-   09C7 90 08 DC           2774 	mov	dptr,#_task_UART_getchar_projectSpecific_Q_2_2
-   09CA EA                 2775 	mov	a,r2
-   09CB F0                 2776 	movx	@dptr,a
-   09CC A3                 2777 	inc	dptr
-   09CD EB                 2778 	mov	a,r3
-   09CE F0                 2779 	movx	@dptr,a
-   09CF A3                 2780 	inc	dptr
-   09D0 EC                 2781 	mov	a,r4
-   09D1 F0                 2782 	movx	@dptr,a
-                           2783 ;	../projectSpecificHardwareInterface_C8051F040.c:500: if(!IsEmpty(Q))
-   09D2 8A 82              2784 	mov	dpl,r2
-   09D4 8B 83              2785 	mov	dph,r3
-   09D6 8C F0              2786 	mov	b,r4
-   09D8 12 03 6A           2787 	lcall	_IsEmpty
-   09DB E5 82              2788 	mov	a,dpl
-   09DD 60 03              2789 	jz	00111$
-   09DF 02 0A 9D           2790 	ljmp	00104$
-   09E2                    2791 00111$:
-                           2792 ;	../projectSpecificHardwareInterface_C8051F040.c:502: unsigned char byteReceived = Q->Array[Q->Front] ;
-   09E2 90 08 DC           2793 	mov	dptr,#_task_UART_getchar_projectSpecific_Q_2_2
-   09E5 E0                 2794 	movx	a,@dptr
-   09E6 FA                 2795 	mov	r2,a
-   09E7 A3                 2796 	inc	dptr
-   09E8 E0                 2797 	movx	a,@dptr
-   09E9 FB                 2798 	mov	r3,a
-   09EA A3                 2799 	inc	dptr
-   09EB E0                 2800 	movx	a,@dptr
-   09EC FC                 2801 	mov	r4,a
-   09ED 74 08              2802 	mov	a,#0x08
-   09EF 2A                 2803 	add	a,r2
-   09F0 FD                 2804 	mov	r5,a
-   09F1 E4                 2805 	clr	a
-   09F2 3B                 2806 	addc	a,r3
-   09F3 FE                 2807 	mov	r6,a
-   09F4 8C 07              2808 	mov	ar7,r4
-   09F6 8D 82              2809 	mov	dpl,r5
-   09F8 8E 83              2810 	mov	dph,r6
-   09FA 8F F0              2811 	mov	b,r7
-   09FC 12 44 37           2812 	lcall	__gptrget
-   09FF F5 11              2813 	mov	_task_UART_getchar_projectSpecific_sloc0_1_0,a
-   0A01 A3                 2814 	inc	dptr
-   0A02 12 44 37           2815 	lcall	__gptrget
-   0A05 F5 12              2816 	mov	(_task_UART_getchar_projectSpecific_sloc0_1_0 + 1),a
-   0A07 A3                 2817 	inc	dptr
-   0A08 12 44 37           2818 	lcall	__gptrget
-   0A0B F5 13              2819 	mov	(_task_UART_getchar_projectSpecific_sloc0_1_0 + 2),a
-   0A0D 74 02              2820 	mov	a,#0x02
-   0A0F 2A                 2821 	add	a,r2
-   0A10 F5 16              2822 	mov	_task_UART_getchar_projectSpecific_sloc2_1_0,a
-   0A12 E4                 2823 	clr	a
-   0A13 3B                 2824 	addc	a,r3
-   0A14 F5 17              2825 	mov	(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1),a
-   0A16 8C 18              2826 	mov	(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2),r4
-   0A18 85 16 82           2827 	mov	dpl,_task_UART_getchar_projectSpecific_sloc2_1_0
-   0A1B 85 17 83           2828 	mov	dph,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1)
-   0A1E 85 18 F0           2829 	mov	b,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2)
-   0A21 12 44 37           2830 	lcall	__gptrget
-   0A24 F5 14              2831 	mov	_task_UART_getchar_projectSpecific_sloc1_1_0,a
-   0A26 A3                 2832 	inc	dptr
-   0A27 12 44 37           2833 	lcall	__gptrget
-   0A2A F5 15              2834 	mov	(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1),a
-   0A2C E5 14              2835 	mov	a,_task_UART_getchar_projectSpecific_sloc1_1_0
-   0A2E 25 11              2836 	add	a,_task_UART_getchar_projectSpecific_sloc0_1_0
-   0A30 FE                 2837 	mov	r6,a
-   0A31 E5 15              2838 	mov	a,(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1)
-   0A33 35 12              2839 	addc	a,(_task_UART_getchar_projectSpecific_sloc0_1_0 + 1)
-   0A35 FF                 2840 	mov	r7,a
-   0A36 AD 13              2841 	mov	r5,(_task_UART_getchar_projectSpecific_sloc0_1_0 + 2)
-   0A38 8E 82              2842 	mov	dpl,r6
-   0A3A 8F 83              2843 	mov	dph,r7
-   0A3C 8D F0              2844 	mov	b,r5
-   0A3E 12 44 37           2845 	lcall	__gptrget
-   0A41 F5 11              2846 	mov	_task_UART_getchar_projectSpecific_sloc0_1_0,a
-                           2847 ;	../projectSpecificHardwareInterface_C8051F040.c:504: Q->Size-- ;
-   0A43 74 06              2848 	mov	a,#0x06
-   0A45 2A                 2849 	add	a,r2
-   0A46 FD                 2850 	mov	r5,a
-   0A47 E4                 2851 	clr	a
-   0A48 3B                 2852 	addc	a,r3
-   0A49 FF                 2853 	mov	r7,a
-   0A4A 8C 00              2854 	mov	ar0,r4
-   0A4C 8D 82              2855 	mov	dpl,r5
-   0A4E 8F 83              2856 	mov	dph,r7
-   0A50 88 F0              2857 	mov	b,r0
-   0A52 12 44 37           2858 	lcall	__gptrget
-   0A55 F9                 2859 	mov	r1,a
-   0A56 A3                 2860 	inc	dptr
-   0A57 12 44 37           2861 	lcall	__gptrget
-   0A5A FE                 2862 	mov	r6,a
-   0A5B 19                 2863 	dec	r1
-   0A5C B9 FF 01           2864 	cjne	r1,#0xff,00112$
-   0A5F 1E                 2865 	dec	r6
-   0A60                    2866 00112$:
-   0A60 8D 82              2867 	mov	dpl,r5
-   0A62 8F 83              2868 	mov	dph,r7
-   0A64 88 F0              2869 	mov	b,r0
-   0A66 E9                 2870 	mov	a,r1
-   0A67 12 38 0B           2871 	lcall	__gptrput
-   0A6A A3                 2872 	inc	dptr
-   0A6B EE                 2873 	mov	a,r6
-   0A6C 12 38 0B           2874 	lcall	__gptrput
-                           2875 ;	../projectSpecificHardwareInterface_C8051F040.c:505: Q->Front = Succ(Q->Front, Q) ;
-   0A6F 90 04 58           2876 	mov	dptr,#_Succ_PARM_2
-   0A72 EA                 2877 	mov	a,r2
-   0A73 F0                 2878 	movx	@dptr,a
-   0A74 A3                 2879 	inc	dptr
-   0A75 EB                 2880 	mov	a,r3
-   0A76 F0                 2881 	movx	@dptr,a
-   0A77 A3                 2882 	inc	dptr
-   0A78 EC                 2883 	mov	a,r4
-   0A79 F0                 2884 	movx	@dptr,a
-   0A7A 85 14 82           2885 	mov	dpl,_task_UART_getchar_projectSpecific_sloc1_1_0
-   0A7D 85 15 83           2886 	mov	dph,(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1)
-   0A80 12 03 F8           2887 	lcall	_Succ
-   0A83 AA 82              2888 	mov	r2,dpl
-   0A85 AB 83              2889 	mov	r3,dph
-   0A87 85 16 82           2890 	mov	dpl,_task_UART_getchar_projectSpecific_sloc2_1_0
-   0A8A 85 17 83           2891 	mov	dph,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1)
-   0A8D 85 18 F0           2892 	mov	b,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2)
-   0A90 EA                 2893 	mov	a,r2
-   0A91 12 38 0B           2894 	lcall	__gptrput
-   0A94 A3                 2895 	inc	dptr
-   0A95 EB                 2896 	mov	a,r3
-   0A96 12 38 0B           2897 	lcall	__gptrput
-                           2898 ;	../projectSpecificHardwareInterface_C8051F040.c:507: return byteReceived ;
-   0A99 85 11 82           2899 	mov	dpl,_task_UART_getchar_projectSpecific_sloc0_1_0
-                           2900 ;	../projectSpecificHardwareInterface_C8051F040.c:511: return -1 ;
-   0A9C 22                 2901 	ret
-   0A9D                    2902 00104$:
-   0A9D 75 82 FF           2903 	mov	dpl,#0xFF
-   0AA0 22                 2904 	ret
-                           2905 ;------------------------------------------------------------
-                           2906 ;Allocation info for local variables in function 'task_UART_gets_projectSpecific'
-                           2907 ;------------------------------------------------------------
-                           2908 ;sloc0                     Allocated with name '_task_UART_gets_projectSpecific_sloc0_1_0'
-                           2909 ;sloc1                     Allocated with name '_task_UART_gets_projectSpecific_sloc1_1_0'
-                           2910 ;buffer                    Allocated with name '_task_UART_gets_projectSpecific_PARM_2'
-                           2911 ;maxBufferLength           Allocated with name '_task_UART_gets_projectSpecific_PARM_3'
-                           2912 ;channelNumber             Allocated with name '_task_UART_gets_projectSpecific_channelNumber_1_1'
-                           2913 ;charsReturned             Allocated with name '_task_UART_gets_projectSpecific_charsReturned_2_2'
-                           2914 ;latestCharInBuffer        Allocated with name '_task_UART_gets_projectSpecific_latestCharInBuffer_3_3'
-                           2915 ;------------------------------------------------------------
-                           2916 ;	../projectSpecificHardwareInterface_C8051F040.c:515: char* task_UART_gets_projectSpecific(	unsigned char channelNumber, char* buffer, unsigned short maxBufferLength)
-                           2917 ;	-----------------------------------------
-                           2918 ;	 function task_UART_gets_projectSpecific
-                           2919 ;	-----------------------------------------
-   0AA1                    2920 _task_UART_gets_projectSpecific:
-   0AA1 E5 82              2921 	mov	a,dpl
-   0AA3 90 08 E4           2922 	mov	dptr,#_task_UART_gets_projectSpecific_channelNumber_1_1
-   0AA6 F0                 2923 	movx	@dptr,a
-                           2924 ;	../projectSpecificHardwareInterface_C8051F040.c:517: if(channelNumber < NUMBER_OF_UARTS)
-   0AA7 90 08 E4           2925 	mov	dptr,#_task_UART_gets_projectSpecific_channelNumber_1_1
-   0AAA E0                 2926 	movx	a,@dptr
-   0AAB FA                 2927 	mov	r2,a
-   0AAC BA 01 00           2928 	cjne	r2,#0x01,00119$
-   0AAF                    2929 00119$:
-   0AAF 50 74              2930 	jnc	00110$
-                           2931 ;	../projectSpecificHardwareInterface_C8051F040.c:521: while(charsReturned < maxBufferLength)
-   0AB1 90 08 E2           2932 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_3
-   0AB4 E0                 2933 	movx	a,@dptr
-   0AB5 F5 1A              2934 	mov	_task_UART_gets_projectSpecific_sloc1_1_0,a
-   0AB7 A3                 2935 	inc	dptr
-   0AB8 E0                 2936 	movx	a,@dptr
-   0AB9 F5 1B              2937 	mov	(_task_UART_gets_projectSpecific_sloc1_1_0 + 1),a
-   0ABB 90 08 DF           2938 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_2
-   0ABE E0                 2939 	movx	a,@dptr
-   0ABF FD                 2940 	mov	r5,a
-   0AC0 A3                 2941 	inc	dptr
-   0AC1 E0                 2942 	movx	a,@dptr
-   0AC2 FE                 2943 	mov	r6,a
-   0AC3 A3                 2944 	inc	dptr
-   0AC4 E0                 2945 	movx	a,@dptr
-   0AC5 FF                 2946 	mov	r7,a
-   0AC6 78 00              2947 	mov	r0,#0x00
-   0AC8 79 00              2948 	mov	r1,#0x00
-   0ACA                    2949 00106$:
-   0ACA C3                 2950 	clr	c
-   0ACB E8                 2951 	mov	a,r0
-   0ACC 95 1A              2952 	subb	a,_task_UART_gets_projectSpecific_sloc1_1_0
-   0ACE E9                 2953 	mov	a,r1
-   0ACF 95 1B              2954 	subb	a,(_task_UART_gets_projectSpecific_sloc1_1_0 + 1)
-   0AD1 50 52              2955 	jnc	00110$
-                           2956 ;	../projectSpecificHardwareInterface_C8051F040.c:523: char latestCharInBuffer = task_UART_getchar(channelNumber) ;
-   0AD3 8A 82              2957 	mov	dpl,r2
-   0AD5 C0 02              2958 	push	ar2
-   0AD7 C0 05              2959 	push	ar5
-   0AD9 C0 06              2960 	push	ar6
-   0ADB C0 07              2961 	push	ar7
-   0ADD C0 00              2962 	push	ar0
-   0ADF C0 01              2963 	push	ar1
-   0AE1 12 36 2A           2964 	lcall	_task_UART_getchar
-   0AE4 85 82 19           2965 	mov	_task_UART_gets_projectSpecific_sloc0_1_0,dpl
-   0AE7 D0 01              2966 	pop	ar1
-   0AE9 D0 00              2967 	pop	ar0
-   0AEB D0 07              2968 	pop	ar7
-   0AED D0 06              2969 	pop	ar6
-   0AEF D0 05              2970 	pop	ar5
-   0AF1 D0 02              2971 	pop	ar2
-                           2972 ;	../projectSpecificHardwareInterface_C8051F040.c:525: if(latestCharInBuffer <= 0)	// break on a NULL or a -1
-   0AF3 C3                 2973 	clr	c
-   0AF4 74 80              2974 	mov	a,#(0x00 ^ 0x80)
-   0AF6 85 19 F0           2975 	mov	b,_task_UART_gets_projectSpecific_sloc0_1_0
-   0AF9 63 F0 80           2976 	xrl	b,#0x80
-   0AFC 95 F0              2977 	subb	a,b
-   0AFE 50 25              2978 	jnc	00110$
-                           2979 ;	../projectSpecificHardwareInterface_C8051F040.c:529: else if(latestCharInBuffer == '\r')	// Skip carriage returns
-   0B00 74 0D              2980 	mov	a,#0x0D
-   0B02 B5 19 02           2981 	cjne	a,_task_UART_gets_projectSpecific_sloc0_1_0,00123$
-   0B05 80 C3              2982 	sjmp	00106$
-   0B07                    2983 00123$:
-                           2984 ;	../projectSpecificHardwareInterface_C8051F040.c:534: buffer[charsReturned] = latestCharInBuffer ;
-   0B07 C0 02              2985 	push	ar2
-   0B09 E8                 2986 	mov	a,r0
-   0B0A 2D                 2987 	add	a,r5
-   0B0B FA                 2988 	mov	r2,a
-   0B0C E9                 2989 	mov	a,r1
-   0B0D 3E                 2990 	addc	a,r6
-   0B0E FB                 2991 	mov	r3,a
-   0B0F 8F 04              2992 	mov	ar4,r7
-   0B11 8A 82              2993 	mov	dpl,r2
-   0B13 8B 83              2994 	mov	dph,r3
-   0B15 8C F0              2995 	mov	b,r4
-   0B17 E5 19              2996 	mov	a,_task_UART_gets_projectSpecific_sloc0_1_0
-   0B19 12 38 0B           2997 	lcall	__gptrput
-                           2998 ;	../projectSpecificHardwareInterface_C8051F040.c:536: charsReturned++ ;
-   0B1C 08                 2999 	inc	r0
-   0B1D B8 00 01           3000 	cjne	r0,#0x00,00124$
-   0B20 09                 3001 	inc	r1
-   0B21                    3002 00124$:
-   0B21 D0 02              3003 	pop	ar2
-   0B23 80 A5              3004 	sjmp	00106$
-   0B25                    3005 00110$:
-                           3006 ;	../projectSpecificHardwareInterface_C8051F040.c:540: return 0 ;
-   0B25 90 00 00           3007 	mov	dptr,#0x0000
-   0B28 75 F0 00           3008 	mov	b,#0x00
-   0B2B 22                 3009 	ret
-                           3010 ;------------------------------------------------------------
-                           3011 ;Allocation info for local variables in function 'task_UART_isLineReady'
-                           3012 ;------------------------------------------------------------
-                           3013 ;channelNumber             Allocated with name '_task_UART_isLineReady_channelNumber_1_1'
-                           3014 ;------------------------------------------------------------
-                           3015 ;	../projectSpecificHardwareInterface_C8051F040.c:544: bool task_UART_isLineReady(	unsigned char channelNumber)
-                           3016 ;	-----------------------------------------
-                           3017 ;	 function task_UART_isLineReady
-                           3018 ;	-----------------------------------------
-   0B2C                    3019 _task_UART_isLineReady:
-   0B2C E5 82              3020 	mov	a,dpl
-   0B2E 90 08 E5           3021 	mov	dptr,#_task_UART_isLineReady_channelNumber_1_1
-   0B31 F0                 3022 	movx	@dptr,a
-                           3023 ;	../projectSpecificHardwareInterface_C8051F040.c:546: return lineReady[channelNumber] ;
-   0B32 90 08 E5           3024 	mov	dptr,#_task_UART_isLineReady_channelNumber_1_1
-   0B35 E0                 3025 	movx	a,@dptr
-   0B36 24 CC              3026 	add	a,#_lineReady
-   0B38 F5 82              3027 	mov	dpl,a
-   0B3A E4                 3028 	clr	a
-   0B3B 34 08              3029 	addc	a,#(_lineReady >> 8)
-   0B3D F5 83              3030 	mov	dph,a
-   0B3F E0                 3031 	movx	a,@dptr
-   0B40 24 FF              3032 	add	a,#0xff
-   0B42 92 04              3033 	mov  _task_UART_isLineReady_sloc0_1_0,c
-   0B44 22                 3034 	ret
+                           1569 ;	../projectSpecificHardwareInterface_C8051F040.c:273: unsigned char IsEmpty(QUEUE_TYPE* Q)
+                           1570 ;	-----------------------------------------
+                           1571 ;	 function IsEmpty
+                           1572 ;	-----------------------------------------
+   0322                    1573 _IsEmpty:
+   0322 AA F0              1574 	mov	r2,b
+   0324 AB 83              1575 	mov	r3,dph
+   0326 E5 82              1576 	mov	a,dpl
+   0328 90 04 52           1577 	mov	dptr,#_IsEmpty_Q_1_1
+   032B F0                 1578 	movx	@dptr,a
+   032C A3                 1579 	inc	dptr
+   032D EB                 1580 	mov	a,r3
+   032E F0                 1581 	movx	@dptr,a
+   032F A3                 1582 	inc	dptr
+   0330 EA                 1583 	mov	a,r2
+   0331 F0                 1584 	movx	@dptr,a
+                           1585 ;	../projectSpecificHardwareInterface_C8051F040.c:275: return Q->Size == 0 ;
+   0332 90 04 52           1586 	mov	dptr,#_IsEmpty_Q_1_1
+   0335 E0                 1587 	movx	a,@dptr
+   0336 FA                 1588 	mov	r2,a
+   0337 A3                 1589 	inc	dptr
+   0338 E0                 1590 	movx	a,@dptr
+   0339 FB                 1591 	mov	r3,a
+   033A A3                 1592 	inc	dptr
+   033B E0                 1593 	movx	a,@dptr
+   033C FC                 1594 	mov	r4,a
+   033D 74 06              1595 	mov	a,#0x06
+   033F 2A                 1596 	add	a,r2
+   0340 FA                 1597 	mov	r2,a
+   0341 E4                 1598 	clr	a
+   0342 3B                 1599 	addc	a,r3
+   0343 FB                 1600 	mov	r3,a
+   0344 8A 82              1601 	mov	dpl,r2
+   0346 8B 83              1602 	mov	dph,r3
+   0348 8C F0              1603 	mov	b,r4
+   034A 12 4D 3C           1604 	lcall	__gptrget
+   034D FA                 1605 	mov	r2,a
+   034E A3                 1606 	inc	dptr
+   034F 12 4D 3C           1607 	lcall	__gptrget
+   0352 FB                 1608 	mov	r3,a
+   0353 E4                 1609 	clr	a
+   0354 BA 00 04           1610 	cjne	r2,#0x00,00103$
+   0357 BB 00 01           1611 	cjne	r3,#0x00,00103$
+   035A 04                 1612 	inc	a
+   035B                    1613 00103$:
+   035B F5 82              1614 	mov	dpl,a
+   035D 22                 1615 	ret
+                           1616 ;------------------------------------------------------------
+                           1617 ;Allocation info for local variables in function 'IsFull'
+                           1618 ;------------------------------------------------------------
+                           1619 ;Q                         Allocated with name '_IsFull_Q_1_1'
+                           1620 ;------------------------------------------------------------
+                           1621 ;	../projectSpecificHardwareInterface_C8051F040.c:278: unsigned char IsFull(QUEUE_TYPE* Q)
+                           1622 ;	-----------------------------------------
+                           1623 ;	 function IsFull
+                           1624 ;	-----------------------------------------
+   035E                    1625 _IsFull:
+   035E AA F0              1626 	mov	r2,b
+   0360 AB 83              1627 	mov	r3,dph
+   0362 E5 82              1628 	mov	a,dpl
+   0364 90 04 55           1629 	mov	dptr,#_IsFull_Q_1_1
+   0367 F0                 1630 	movx	@dptr,a
+   0368 A3                 1631 	inc	dptr
+   0369 EB                 1632 	mov	a,r3
+   036A F0                 1633 	movx	@dptr,a
+   036B A3                 1634 	inc	dptr
+   036C EA                 1635 	mov	a,r2
+   036D F0                 1636 	movx	@dptr,a
+                           1637 ;	../projectSpecificHardwareInterface_C8051F040.c:280: return Q->Size == Q->Capacity ;
+   036E 90 04 55           1638 	mov	dptr,#_IsFull_Q_1_1
+   0371 E0                 1639 	movx	a,@dptr
+   0372 FA                 1640 	mov	r2,a
+   0373 A3                 1641 	inc	dptr
+   0374 E0                 1642 	movx	a,@dptr
+   0375 FB                 1643 	mov	r3,a
+   0376 A3                 1644 	inc	dptr
+   0377 E0                 1645 	movx	a,@dptr
+   0378 FC                 1646 	mov	r4,a
+   0379 74 06              1647 	mov	a,#0x06
+   037B 2A                 1648 	add	a,r2
+   037C FD                 1649 	mov	r5,a
+   037D E4                 1650 	clr	a
+   037E 3B                 1651 	addc	a,r3
+   037F FE                 1652 	mov	r6,a
+   0380 8C 07              1653 	mov	ar7,r4
+   0382 8D 82              1654 	mov	dpl,r5
+   0384 8E 83              1655 	mov	dph,r6
+   0386 8F F0              1656 	mov	b,r7
+   0388 12 4D 3C           1657 	lcall	__gptrget
+   038B FD                 1658 	mov	r5,a
+   038C A3                 1659 	inc	dptr
+   038D 12 4D 3C           1660 	lcall	__gptrget
+   0390 FE                 1661 	mov	r6,a
+   0391 8A 82              1662 	mov	dpl,r2
+   0393 8B 83              1663 	mov	dph,r3
+   0395 8C F0              1664 	mov	b,r4
+   0397 12 4D 3C           1665 	lcall	__gptrget
+   039A FA                 1666 	mov	r2,a
+   039B A3                 1667 	inc	dptr
+   039C 12 4D 3C           1668 	lcall	__gptrget
+   039F FB                 1669 	mov	r3,a
+   03A0 ED                 1670 	mov	a,r5
+   03A1 B5 02 08           1671 	cjne	a,ar2,00103$
+   03A4 EE                 1672 	mov	a,r6
+   03A5 B5 03 04           1673 	cjne	a,ar3,00103$
+   03A8 74 01              1674 	mov	a,#0x01
+   03AA 80 01              1675 	sjmp	00104$
+   03AC                    1676 00103$:
+   03AC E4                 1677 	clr	a
+   03AD                    1678 00104$:
+   03AD F5 82              1679 	mov	dpl,a
+   03AF 22                 1680 	ret
+                           1681 ;------------------------------------------------------------
+                           1682 ;Allocation info for local variables in function 'Succ'
+                           1683 ;------------------------------------------------------------
+                           1684 ;Q                         Allocated with name '_Succ_PARM_2'
+                           1685 ;Value                     Allocated with name '_Succ_Value_1_1'
+                           1686 ;------------------------------------------------------------
+                           1687 ;	../projectSpecificHardwareInterface_C8051F040.c:283: static unsigned short Succ(unsigned short Value, QUEUE_TYPE* Q)
+                           1688 ;	-----------------------------------------
+                           1689 ;	 function Succ
+                           1690 ;	-----------------------------------------
+   03B0                    1691 _Succ:
+   03B0 AA 83              1692 	mov	r2,dph
+   03B2 E5 82              1693 	mov	a,dpl
+   03B4 90 04 5B           1694 	mov	dptr,#_Succ_Value_1_1
+   03B7 F0                 1695 	movx	@dptr,a
+   03B8 A3                 1696 	inc	dptr
+   03B9 EA                 1697 	mov	a,r2
+   03BA F0                 1698 	movx	@dptr,a
+                           1699 ;	../projectSpecificHardwareInterface_C8051F040.c:285: if(++Value == Q->Capacity)
+   03BB 90 04 5B           1700 	mov	dptr,#_Succ_Value_1_1
+   03BE E0                 1701 	movx	a,@dptr
+   03BF 24 01              1702 	add	a,#0x01
+   03C1 F0                 1703 	movx	@dptr,a
+   03C2 A3                 1704 	inc	dptr
+   03C3 E0                 1705 	movx	a,@dptr
+   03C4 34 00              1706 	addc	a,#0x00
+   03C6 F0                 1707 	movx	@dptr,a
+   03C7 90 04 58           1708 	mov	dptr,#_Succ_PARM_2
+   03CA E0                 1709 	movx	a,@dptr
+   03CB FA                 1710 	mov	r2,a
+   03CC A3                 1711 	inc	dptr
+   03CD E0                 1712 	movx	a,@dptr
+   03CE FB                 1713 	mov	r3,a
+   03CF A3                 1714 	inc	dptr
+   03D0 E0                 1715 	movx	a,@dptr
+   03D1 FC                 1716 	mov	r4,a
+   03D2 8A 82              1717 	mov	dpl,r2
+   03D4 8B 83              1718 	mov	dph,r3
+   03D6 8C F0              1719 	mov	b,r4
+   03D8 12 4D 3C           1720 	lcall	__gptrget
+   03DB FA                 1721 	mov	r2,a
+   03DC A3                 1722 	inc	dptr
+   03DD 12 4D 3C           1723 	lcall	__gptrget
+   03E0 FB                 1724 	mov	r3,a
+   03E1 90 04 5B           1725 	mov	dptr,#_Succ_Value_1_1
+   03E4 E0                 1726 	movx	a,@dptr
+   03E5 FC                 1727 	mov	r4,a
+   03E6 A3                 1728 	inc	dptr
+   03E7 E0                 1729 	movx	a,@dptr
+   03E8 FD                 1730 	mov	r5,a
+   03E9 EC                 1731 	mov	a,r4
+   03EA B5 02 0B           1732 	cjne	a,ar2,00102$
+   03ED ED                 1733 	mov	a,r5
+   03EE B5 03 07           1734 	cjne	a,ar3,00102$
+                           1735 ;	../projectSpecificHardwareInterface_C8051F040.c:287: Value = 0 ;
+   03F1 90 04 5B           1736 	mov	dptr,#_Succ_Value_1_1
+   03F4 E4                 1737 	clr	a
+   03F5 F0                 1738 	movx	@dptr,a
+   03F6 A3                 1739 	inc	dptr
+   03F7 F0                 1740 	movx	@dptr,a
+   03F8                    1741 00102$:
+                           1742 ;	../projectSpecificHardwareInterface_C8051F040.c:290: return Value ;
+   03F8 90 04 5B           1743 	mov	dptr,#_Succ_Value_1_1
+   03FB E0                 1744 	movx	a,@dptr
+   03FC FA                 1745 	mov	r2,a
+   03FD A3                 1746 	inc	dptr
+   03FE E0                 1747 	movx	a,@dptr
+   03FF 8A 82              1748 	mov	dpl,r2
+   0401 F5 83              1749 	mov	dph,a
+   0403 22                 1750 	ret
+                           1751 ;------------------------------------------------------------
+                           1752 ;Allocation info for local variables in function 'task_UART_init_projectSpecific'
+                           1753 ;------------------------------------------------------------
+                           1754 ;channelNumber             Allocated with name '_task_UART_init_projectSpecific_channelNumber_1_1'
+                           1755 ;Q                         Allocated with name '_task_UART_init_projectSpecific_Q_1_1'
+                           1756 ;SFRPAGE_SAVE              Allocated with name '_task_UART_init_projectSpecific_SFRPAGE_SAVE_3_3'
+                           1757 ;------------------------------------------------------------
+                           1758 ;	../projectSpecificHardwareInterface_C8051F040.c:321: void task_UART_init_projectSpecific(	unsigned char channelNumber)
+                           1759 ;	-----------------------------------------
+                           1760 ;	 function task_UART_init_projectSpecific
+                           1761 ;	-----------------------------------------
+   0404                    1762 _task_UART_init_projectSpecific:
+   0404 E5 82              1763 	mov	a,dpl
+   0406 90 08 CD           1764 	mov	dptr,#_task_UART_init_projectSpecific_channelNumber_1_1
+   0409 F0                 1765 	movx	@dptr,a
+                           1766 ;	../projectSpecificHardwareInterface_C8051F040.c:325: QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
+   040A 90 08 CD           1767 	mov	dptr,#_task_UART_init_projectSpecific_channelNumber_1_1
+   040D E0                 1768 	movx	a,@dptr
+   040E FA                 1769 	mov	r2,a
+   040F 75 F0 0B           1770 	mov	b,#0x0B
+   0412 A4                 1771 	mul	ab
+   0413 FB                 1772 	mov	r3,a
+   0414 24 B5              1773 	add	a,#_transmitBuffers
+   0416 FC                 1774 	mov	r4,a
+   0417 E4                 1775 	clr	a
+   0418 34 08              1776 	addc	a,#(_transmitBuffers >> 8)
+   041A FD                 1777 	mov	r5,a
+   041B 7E 00              1778 	mov	r6,#0x00
+                           1779 ;	../projectSpecificHardwareInterface_C8051F040.c:327: Q->Capacity	= TRANSMIT_BUFFER_SIZE ;
+   041D 8C 82              1780 	mov	dpl,r4
+   041F 8D 83              1781 	mov	dph,r5
+   0421 8E F0              1782 	mov	b,r6
+   0423 74 4C              1783 	mov	a,#0x4C
+   0425 12 41 10           1784 	lcall	__gptrput
+   0428 A3                 1785 	inc	dptr
+   0429 74 04              1786 	mov	a,#0x04
+   042B 12 41 10           1787 	lcall	__gptrput
+                           1788 ;	../projectSpecificHardwareInterface_C8051F040.c:328: Q->Size		= 0 ;
+   042E 74 06              1789 	mov	a,#0x06
+   0430 2C                 1790 	add	a,r4
+   0431 FF                 1791 	mov	r7,a
+   0432 E4                 1792 	clr	a
+   0433 3D                 1793 	addc	a,r5
+   0434 F8                 1794 	mov	r0,a
+   0435 8E 01              1795 	mov	ar1,r6
+   0437 8F 82              1796 	mov	dpl,r7
+   0439 88 83              1797 	mov	dph,r0
+   043B 89 F0              1798 	mov	b,r1
+   043D E4                 1799 	clr	a
+   043E 12 41 10           1800 	lcall	__gptrput
+   0441 A3                 1801 	inc	dptr
+   0442 E4                 1802 	clr	a
+   0443 12 41 10           1803 	lcall	__gptrput
+                           1804 ;	../projectSpecificHardwareInterface_C8051F040.c:329: Q->Front	= 1 ;
+   0446 74 02              1805 	mov	a,#0x02
+   0448 2C                 1806 	add	a,r4
+   0449 FF                 1807 	mov	r7,a
+   044A E4                 1808 	clr	a
+   044B 3D                 1809 	addc	a,r5
+   044C F8                 1810 	mov	r0,a
+   044D 8E 01              1811 	mov	ar1,r6
+   044F 8F 82              1812 	mov	dpl,r7
+   0451 88 83              1813 	mov	dph,r0
+   0453 89 F0              1814 	mov	b,r1
+   0455 74 01              1815 	mov	a,#0x01
+   0457 12 41 10           1816 	lcall	__gptrput
+   045A A3                 1817 	inc	dptr
+   045B E4                 1818 	clr	a
+   045C 12 41 10           1819 	lcall	__gptrput
+                           1820 ;	../projectSpecificHardwareInterface_C8051F040.c:330: Q->Rear		= 0 ;
+   045F 74 04              1821 	mov	a,#0x04
+   0461 2C                 1822 	add	a,r4
+   0462 FF                 1823 	mov	r7,a
+   0463 E4                 1824 	clr	a
+   0464 3D                 1825 	addc	a,r5
+   0465 F8                 1826 	mov	r0,a
+   0466 8E 01              1827 	mov	ar1,r6
+   0468 8F 82              1828 	mov	dpl,r7
+   046A 88 83              1829 	mov	dph,r0
+   046C 89 F0              1830 	mov	b,r1
+   046E E4                 1831 	clr	a
+   046F 12 41 10           1832 	lcall	__gptrput
+   0472 A3                 1833 	inc	dptr
+   0473 E4                 1834 	clr	a
+   0474 12 41 10           1835 	lcall	__gptrput
+                           1836 ;	../projectSpecificHardwareInterface_C8051F040.c:331: Q->Array	= transmitBuffer[0] ;
+   0477 74 08              1837 	mov	a,#0x08
+   0479 2C                 1838 	add	a,r4
+   047A FC                 1839 	mov	r4,a
+   047B E4                 1840 	clr	a
+   047C 3D                 1841 	addc	a,r5
+   047D FD                 1842 	mov	r5,a
+   047E 8C 82              1843 	mov	dpl,r4
+   0480 8D 83              1844 	mov	dph,r5
+   0482 8E F0              1845 	mov	b,r6
+   0484 74 5D              1846 	mov	a,#_transmitBuffer
+   0486 12 41 10           1847 	lcall	__gptrput
+   0489 A3                 1848 	inc	dptr
+   048A 74 04              1849 	mov	a,#(_transmitBuffer >> 8)
+   048C 12 41 10           1850 	lcall	__gptrput
+   048F A3                 1851 	inc	dptr
+   0490 E4                 1852 	clr	a
+   0491 12 41 10           1853 	lcall	__gptrput
+                           1854 ;	../projectSpecificHardwareInterface_C8051F040.c:333: Q = &receiveBuffers[channelNumber] ;
+   0494 EB                 1855 	mov	a,r3
+   0495 24 C0              1856 	add	a,#_receiveBuffers
+   0497 FB                 1857 	mov	r3,a
+   0498 E4                 1858 	clr	a
+   0499 34 08              1859 	addc	a,#(_receiveBuffers >> 8)
+   049B FC                 1860 	mov	r4,a
+   049C 7D 00              1861 	mov	r5,#0x00
+                           1862 ;	../projectSpecificHardwareInterface_C8051F040.c:335: Q->Capacity	= RECEIVE_BUFFER_SIZE ;
+   049E 8B 82              1863 	mov	dpl,r3
+   04A0 8C 83              1864 	mov	dph,r4
+   04A2 8D F0              1865 	mov	b,r5
+   04A4 74 0A              1866 	mov	a,#0x0A
+   04A6 12 41 10           1867 	lcall	__gptrput
+   04A9 A3                 1868 	inc	dptr
+   04AA E4                 1869 	clr	a
+   04AB 12 41 10           1870 	lcall	__gptrput
+                           1871 ;	../projectSpecificHardwareInterface_C8051F040.c:336: Q->Size		= 0 ;
+   04AE 74 06              1872 	mov	a,#0x06
+   04B0 2B                 1873 	add	a,r3
+   04B1 FE                 1874 	mov	r6,a
+   04B2 E4                 1875 	clr	a
+   04B3 3C                 1876 	addc	a,r4
+   04B4 FF                 1877 	mov	r7,a
+   04B5 8D 00              1878 	mov	ar0,r5
+   04B7 8E 82              1879 	mov	dpl,r6
+   04B9 8F 83              1880 	mov	dph,r7
+   04BB 88 F0              1881 	mov	b,r0
+   04BD E4                 1882 	clr	a
+   04BE 12 41 10           1883 	lcall	__gptrput
+   04C1 A3                 1884 	inc	dptr
+   04C2 E4                 1885 	clr	a
+   04C3 12 41 10           1886 	lcall	__gptrput
+                           1887 ;	../projectSpecificHardwareInterface_C8051F040.c:337: Q->Front	= 1 ;
+   04C6 74 02              1888 	mov	a,#0x02
+   04C8 2B                 1889 	add	a,r3
+   04C9 FE                 1890 	mov	r6,a
+   04CA E4                 1891 	clr	a
+   04CB 3C                 1892 	addc	a,r4
+   04CC FF                 1893 	mov	r7,a
+   04CD 8D 00              1894 	mov	ar0,r5
+   04CF 8E 82              1895 	mov	dpl,r6
+   04D1 8F 83              1896 	mov	dph,r7
+   04D3 88 F0              1897 	mov	b,r0
+   04D5 74 01              1898 	mov	a,#0x01
+   04D7 12 41 10           1899 	lcall	__gptrput
+   04DA A3                 1900 	inc	dptr
+   04DB E4                 1901 	clr	a
+   04DC 12 41 10           1902 	lcall	__gptrput
+                           1903 ;	../projectSpecificHardwareInterface_C8051F040.c:338: Q->Rear		= 0 ;
+   04DF 74 04              1904 	mov	a,#0x04
+   04E1 2B                 1905 	add	a,r3
+   04E2 FE                 1906 	mov	r6,a
+   04E3 E4                 1907 	clr	a
+   04E4 3C                 1908 	addc	a,r4
+   04E5 FF                 1909 	mov	r7,a
+   04E6 8D 00              1910 	mov	ar0,r5
+   04E8 8E 82              1911 	mov	dpl,r6
+   04EA 8F 83              1912 	mov	dph,r7
+   04EC 88 F0              1913 	mov	b,r0
+   04EE E4                 1914 	clr	a
+   04EF 12 41 10           1915 	lcall	__gptrput
+   04F2 A3                 1916 	inc	dptr
+   04F3 E4                 1917 	clr	a
+   04F4 12 41 10           1918 	lcall	__gptrput
+                           1919 ;	../projectSpecificHardwareInterface_C8051F040.c:339: Q->Array	= receiveBuffer[0] ;
+   04F7 74 08              1920 	mov	a,#0x08
+   04F9 2B                 1921 	add	a,r3
+   04FA FB                 1922 	mov	r3,a
+   04FB E4                 1923 	clr	a
+   04FC 3C                 1924 	addc	a,r4
+   04FD FC                 1925 	mov	r4,a
+   04FE 8B 82              1926 	mov	dpl,r3
+   0500 8C 83              1927 	mov	dph,r4
+   0502 8D F0              1928 	mov	b,r5
+   0504 74 AA              1929 	mov	a,#_receiveBuffer
+   0506 12 41 10           1930 	lcall	__gptrput
+   0509 A3                 1931 	inc	dptr
+   050A 74 08              1932 	mov	a,#(_receiveBuffer >> 8)
+   050C 12 41 10           1933 	lcall	__gptrput
+   050F A3                 1934 	inc	dptr
+   0510 E4                 1935 	clr	a
+   0511 12 41 10           1936 	lcall	__gptrput
+                           1937 ;	../projectSpecificHardwareInterface_C8051F040.c:341: charSent[channelNumber]		= false ;
+   0514 EA                 1938 	mov	a,r2
+   0515 24 CB              1939 	add	a,#_charSent
+   0517 F5 82              1940 	mov	dpl,a
+   0519 E4                 1941 	clr	a
+   051A 34 08              1942 	addc	a,#(_charSent >> 8)
+   051C F5 83              1943 	mov	dph,a
+   051E E4                 1944 	clr	a
+   051F F0                 1945 	movx	@dptr,a
+                           1946 ;	../projectSpecificHardwareInterface_C8051F040.c:342: lineReady[channelNumber]	= false ;
+   0520 EA                 1947 	mov	a,r2
+   0521 24 CC              1948 	add	a,#_lineReady
+   0523 F5 82              1949 	mov	dpl,a
+   0525 E4                 1950 	clr	a
+   0526 34 08              1951 	addc	a,#(_lineReady >> 8)
+   0528 F5 83              1952 	mov	dph,a
+   052A E4                 1953 	clr	a
+   052B F0                 1954 	movx	@dptr,a
+                           1955 ;	../projectSpecificHardwareInterface_C8051F040.c:344: if(!timer1initialized)
+   052C 20 03 20           1956 	jb	_task_UART_init_projectSpecific_timer1initialized_1_1,00102$
+                           1957 ;	../projectSpecificHardwareInterface_C8051F040.c:346: timer1initialized = true ;
+   052F D2 03              1958 	setb	_task_UART_init_projectSpecific_timer1initialized_1_1
+                           1959 ;	../projectSpecificHardwareInterface_C8051F040.c:348: portSET_REGISTER_GROUP(TIMER01_PAGE)
+   0531 AA 84              1960 	mov	r2,_SFRPAGE
+   0533 75 84 00           1961 	mov	_SFRPAGE,#0x00
+                           1962 ;	../projectSpecificHardwareInterface_C8051F040.c:351: TMOD &= 0x08 ;
+   0536 53 89 08           1963 	anl	_TMOD,#0x08
+                           1964 ;	../projectSpecificHardwareInterface_C8051F040.c:352: TMOD |= ser8BIT_WITH_RELOAD ;
+   0539 43 89 20           1965 	orl	_TMOD,#0x20
+                           1966 ;	../projectSpecificHardwareInterface_C8051F040.c:353: SSTA0 |= serSMOD ;
+   053C 43 91 10           1967 	orl	_SSTA0,#0x10
+                           1968 ;	../projectSpecificHardwareInterface_C8051F040.c:354: CKCON |= 0x10 ;
+   053F 43 8E 10           1969 	orl	_CKCON,#0x10
+                           1970 ;	../projectSpecificHardwareInterface_C8051F040.c:357: TL1 = ( unsigned char ) 0xB2 ;	// B8 = 9600 BAUD on unmoded eval boards, B2 = 9615 on 24MHz systems
+   0542 75 8B B2           1971 	mov	_TL1,#0xB2
+                           1972 ;	../projectSpecificHardwareInterface_C8051F040.c:358: TH1 = ( unsigned char ) 0xB2 ;
+   0545 75 8D B2           1973 	mov	_TH1,#0xB2
+                           1974 ;	../projectSpecificHardwareInterface_C8051F040.c:360: SCON = ser8_BIT_MODE | serRX_ENABLE ;	/* Setup the control register for standard n, 8, 1 - variable baud rate. */
+   0548 75 98 50           1975 	mov	_SCON,#0x50
+                           1976 ;	../projectSpecificHardwareInterface_C8051F040.c:362: TR1 = 1 ;							/* Start the timer. */
+   054B D2 8E              1977 	setb	_TR1
+                           1978 ;	../projectSpecificHardwareInterface_C8051F040.c:364: portRESTORE_REGISTER_GROUP()
+   054D 8A 84              1979 	mov	_SFRPAGE,r2
+   054F                    1980 00102$:
+                           1981 ;	../projectSpecificHardwareInterface_C8051F040.c:367: if(channelNumber == 0)
+   054F 90 08 CD           1982 	mov	dptr,#_task_UART_init_projectSpecific_channelNumber_1_1
+   0552 E0                 1983 	movx	a,@dptr
+   0553 FA                 1984 	mov	r2,a
+   0554 70 03              1985 	jnz	00106$
+                           1986 ;	../projectSpecificHardwareInterface_C8051F040.c:369: UART0_Init() ;
+   0556 02 0A FD           1987 	ljmp	_UART0_Init
+   0559                    1988 00106$:
+                           1989 ;	../projectSpecificHardwareInterface_C8051F040.c:371: else if(channelNumber == 1)
+   0559 BA 01 03           1990 	cjne	r2,#0x01,00108$
+                           1991 ;	../projectSpecificHardwareInterface_C8051F040.c:373: UART1_Init() ;
+   055C 02 0B 0B           1992 	ljmp	_UART1_Init
+   055F                    1993 00108$:
+   055F 22                 1994 	ret
+                           1995 ;------------------------------------------------------------
+                           1996 ;Allocation info for local variables in function 'task_UART_core_projectSpecific'
+                           1997 ;------------------------------------------------------------
+                           1998 ;sloc0                     Allocated with name '_task_UART_core_projectSpecific_sloc0_1_0'
+                           1999 ;sloc1                     Allocated with name '_task_UART_core_projectSpecific_sloc1_1_0'
+                           2000 ;sloc2                     Allocated with name '_task_UART_core_projectSpecific_sloc2_1_0'
+                           2001 ;sloc3                     Allocated with name '_task_UART_core_projectSpecific_sloc3_1_0'
+                           2002 ;channelNumber             Allocated with name '_task_UART_core_projectSpecific_channelNumber_1_1'
+                           2003 ;SFRPAGE_SAVE              Allocated with name '_task_UART_core_projectSpecific_SFRPAGE_SAVE_3_3'
+                           2004 ;Q                         Allocated with name '_task_UART_core_projectSpecific_Q_4_4'
+                           2005 ;charReceived              Allocated with name '_task_UART_core_projectSpecific_charReceived_6_6'
+                           2006 ;byteToSend                Allocated with name '_task_UART_core_projectSpecific_byteToSend_5_10'
+                           2007 ;------------------------------------------------------------
+                           2008 ;	../projectSpecificHardwareInterface_C8051F040.c:382: void task_UART_core_projectSpecific(	unsigned char channelNumber)
+                           2009 ;	-----------------------------------------
+                           2010 ;	 function task_UART_core_projectSpecific
+                           2011 ;	-----------------------------------------
+   0560                    2012 _task_UART_core_projectSpecific:
+   0560 E5 82              2013 	mov	a,dpl
+   0562 90 08 CE           2014 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
+   0565 F0                 2015 	movx	@dptr,a
+                           2016 ;	../projectSpecificHardwareInterface_C8051F040.c:384: if(channelNumber < NUMBER_OF_UARTS)
+   0566 90 08 CE           2017 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
+   0569 E0                 2018 	movx	a,@dptr
+   056A FA                 2019 	mov	r2,a
+   056B BA 01 00           2020 	cjne	r2,#0x01,00125$
+   056E                    2021 00125$:
+   056E 40 01              2022 	jc	00126$
+   0570 22                 2023 	ret
+   0571                    2024 00126$:
+                           2025 ;	../projectSpecificHardwareInterface_C8051F040.c:386: portSET_REGISTER_GROUP(UART0_PAGE)
+   0571 AB 84              2026 	mov	r3,_SFRPAGE
+   0573 75 84 00           2027 	mov	_SFRPAGE,#0x00
+                           2028 ;	../projectSpecificHardwareInterface_C8051F040.c:388: QUEUE_TYPE*	Q = &receiveBuffers[channelNumber] ;
+   0576 EA                 2029 	mov	a,r2
+   0577 75 F0 0B           2030 	mov	b,#0x0B
+   057A A4                 2031 	mul	ab
+   057B 24 C0              2032 	add	a,#_receiveBuffers
+   057D FC                 2033 	mov	r4,a
+   057E E4                 2034 	clr	a
+   057F 34 08              2035 	addc	a,#(_receiveBuffers >> 8)
+   0581 FD                 2036 	mov	r5,a
+   0582 7E 00              2037 	mov	r6,#0x00
+   0584 90 08 CF           2038 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
+   0587 EC                 2039 	mov	a,r4
+   0588 F0                 2040 	movx	@dptr,a
+   0589 A3                 2041 	inc	dptr
+   058A ED                 2042 	mov	a,r5
+   058B F0                 2043 	movx	@dptr,a
+   058C A3                 2044 	inc	dptr
+   058D EE                 2045 	mov	a,r6
+   058E F0                 2046 	movx	@dptr,a
+                           2047 ;	../projectSpecificHardwareInterface_C8051F040.c:390: if(RI0)
+   058F 20 98 03           2048 	jb	_RI0,00127$
+   0592 02 06 A5           2049 	ljmp	00106$
+   0595                    2050 00127$:
+                           2051 ;	../projectSpecificHardwareInterface_C8051F040.c:392: if(!IsFull(Q))
+   0595 8C 82              2052 	mov	dpl,r4
+   0597 8D 83              2053 	mov	dph,r5
+   0599 8E F0              2054 	mov	b,r6
+   059B C0 02              2055 	push	ar2
+   059D C0 03              2056 	push	ar3
+   059F 12 03 5E           2057 	lcall	_IsFull
+   05A2 E5 82              2058 	mov	a,dpl
+   05A4 D0 03              2059 	pop	ar3
+   05A6 D0 02              2060 	pop	ar2
+   05A8 60 03              2061 	jz	00128$
+   05AA 02 06 A3           2062 	ljmp	00104$
+   05AD                    2063 00128$:
+                           2064 ;	../projectSpecificHardwareInterface_C8051F040.c:394: char	charReceived = SBUF0 ;
+   05AD C0 03              2065 	push	ar3
+   05AF 85 99 08           2066 	mov	_task_UART_core_projectSpecific_sloc0_1_0,_SBUF0
+                           2067 ;	../projectSpecificHardwareInterface_C8051F040.c:396: Q->Size++ ;
+   05B2 90 08 CF           2068 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
+   05B5 E0                 2069 	movx	a,@dptr
+   05B6 FD                 2070 	mov	r5,a
+   05B7 A3                 2071 	inc	dptr
+   05B8 E0                 2072 	movx	a,@dptr
+   05B9 FE                 2073 	mov	r6,a
+   05BA A3                 2074 	inc	dptr
+   05BB E0                 2075 	movx	a,@dptr
+   05BC FF                 2076 	mov	r7,a
+   05BD 74 06              2077 	mov	a,#0x06
+   05BF 2D                 2078 	add	a,r5
+   05C0 F5 09              2079 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
+   05C2 E4                 2080 	clr	a
+   05C3 3E                 2081 	addc	a,r6
+   05C4 F5 0A              2082 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
+   05C6 8F 0B              2083 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),r7
+   05C8 85 09 82           2084 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
+   05CB 85 0A 83           2085 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
+   05CE 85 0B F0           2086 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
+   05D1 12 4D 3C           2087 	lcall	__gptrget
+   05D4 FC                 2088 	mov	r4,a
+   05D5 A3                 2089 	inc	dptr
+   05D6 12 4D 3C           2090 	lcall	__gptrget
+   05D9 FB                 2091 	mov	r3,a
+   05DA 0C                 2092 	inc	r4
+   05DB BC 00 01           2093 	cjne	r4,#0x00,00129$
+   05DE 0B                 2094 	inc	r3
+   05DF                    2095 00129$:
+   05DF 85 09 82           2096 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
+   05E2 85 0A 83           2097 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
+   05E5 85 0B F0           2098 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
+   05E8 EC                 2099 	mov	a,r4
+   05E9 12 41 10           2100 	lcall	__gptrput
+   05EC A3                 2101 	inc	dptr
+   05ED EB                 2102 	mov	a,r3
+   05EE 12 41 10           2103 	lcall	__gptrput
+                           2104 ;	../projectSpecificHardwareInterface_C8051F040.c:397: Q->Rear = Succ(Q->Rear, Q) ;
+   05F1 74 04              2105 	mov	a,#0x04
+   05F3 2D                 2106 	add	a,r5
+   05F4 F5 09              2107 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
+   05F6 E4                 2108 	clr	a
+   05F7 3E                 2109 	addc	a,r6
+   05F8 F5 0A              2110 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
+   05FA 8F 0B              2111 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),r7
+   05FC 85 09 82           2112 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
+   05FF 85 0A 83           2113 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
+   0602 85 0B F0           2114 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
+   0605 12 4D 3C           2115 	lcall	__gptrget
+   0608 F9                 2116 	mov	r1,a
+   0609 A3                 2117 	inc	dptr
+   060A 12 4D 3C           2118 	lcall	__gptrget
+   060D FB                 2119 	mov	r3,a
+   060E 90 04 58           2120 	mov	dptr,#_Succ_PARM_2
+   0611 ED                 2121 	mov	a,r5
+   0612 F0                 2122 	movx	@dptr,a
+   0613 A3                 2123 	inc	dptr
+   0614 EE                 2124 	mov	a,r6
+   0615 F0                 2125 	movx	@dptr,a
+   0616 A3                 2126 	inc	dptr
+   0617 EF                 2127 	mov	a,r7
+   0618 F0                 2128 	movx	@dptr,a
+   0619 89 82              2129 	mov	dpl,r1
+   061B 8B 83              2130 	mov	dph,r3
+   061D C0 02              2131 	push	ar2
+   061F 12 03 B0           2132 	lcall	_Succ
+   0622 AB 82              2133 	mov	r3,dpl
+   0624 AC 83              2134 	mov	r4,dph
+   0626 D0 02              2135 	pop	ar2
+   0628 85 09 82           2136 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
+   062B 85 0A 83           2137 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
+   062E 85 0B F0           2138 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
+   0631 EB                 2139 	mov	a,r3
+   0632 12 41 10           2140 	lcall	__gptrput
+   0635 A3                 2141 	inc	dptr
+   0636 EC                 2142 	mov	a,r4
+   0637 12 41 10           2143 	lcall	__gptrput
+                           2144 ;	../projectSpecificHardwareInterface_C8051F040.c:398: Q->Array[Q->Rear] = charReceived ;
+   063A 90 08 CF           2145 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
+   063D E0                 2146 	movx	a,@dptr
+   063E FB                 2147 	mov	r3,a
+   063F A3                 2148 	inc	dptr
+   0640 E0                 2149 	movx	a,@dptr
+   0641 FC                 2150 	mov	r4,a
+   0642 A3                 2151 	inc	dptr
+   0643 E0                 2152 	movx	a,@dptr
+   0644 FD                 2153 	mov	r5,a
+   0645 74 08              2154 	mov	a,#0x08
+   0647 2B                 2155 	add	a,r3
+   0648 FE                 2156 	mov	r6,a
+   0649 E4                 2157 	clr	a
+   064A 3C                 2158 	addc	a,r4
+   064B FF                 2159 	mov	r7,a
+   064C 8D 00              2160 	mov	ar0,r5
+   064E 8E 82              2161 	mov	dpl,r6
+   0650 8F 83              2162 	mov	dph,r7
+   0652 88 F0              2163 	mov	b,r0
+   0654 12 4D 3C           2164 	lcall	__gptrget
+   0657 FE                 2165 	mov	r6,a
+   0658 A3                 2166 	inc	dptr
+   0659 12 4D 3C           2167 	lcall	__gptrget
+   065C FF                 2168 	mov	r7,a
+   065D A3                 2169 	inc	dptr
+   065E 12 4D 3C           2170 	lcall	__gptrget
+   0661 F8                 2171 	mov	r0,a
+   0662 74 04              2172 	mov	a,#0x04
+   0664 2B                 2173 	add	a,r3
+   0665 FB                 2174 	mov	r3,a
+   0666 E4                 2175 	clr	a
+   0667 3C                 2176 	addc	a,r4
+   0668 FC                 2177 	mov	r4,a
+   0669 8B 82              2178 	mov	dpl,r3
+   066B 8C 83              2179 	mov	dph,r4
+   066D 8D F0              2180 	mov	b,r5
+   066F 12 4D 3C           2181 	lcall	__gptrget
+   0672 FB                 2182 	mov	r3,a
+   0673 A3                 2183 	inc	dptr
+   0674 12 4D 3C           2184 	lcall	__gptrget
+   0677 FC                 2185 	mov	r4,a
+   0678 EB                 2186 	mov	a,r3
+   0679 2E                 2187 	add	a,r6
+   067A FE                 2188 	mov	r6,a
+   067B EC                 2189 	mov	a,r4
+   067C 3F                 2190 	addc	a,r7
+   067D FF                 2191 	mov	r7,a
+   067E 8E 82              2192 	mov	dpl,r6
+   0680 8F 83              2193 	mov	dph,r7
+   0682 88 F0              2194 	mov	b,r0
+   0684 E5 08              2195 	mov	a,_task_UART_core_projectSpecific_sloc0_1_0
+   0686 12 41 10           2196 	lcall	__gptrput
+                           2197 ;	../projectSpecificHardwareInterface_C8051F040.c:400: if(charReceived == '\n')
+   0689 74 0A              2198 	mov	a,#0x0A
+   068B B5 08 02           2199 	cjne	a,_task_UART_core_projectSpecific_sloc0_1_0,00130$
+   068E 80 04              2200 	sjmp	00131$
+   0690                    2201 00130$:
+   0690 D0 03              2202 	pop	ar3
+   0692 80 0F              2203 	sjmp	00104$
+   0694                    2204 00131$:
+   0694 D0 03              2205 	pop	ar3
+                           2206 ;	../projectSpecificHardwareInterface_C8051F040.c:402: lineReady[channelNumber] = true ;
+   0696 EA                 2207 	mov	a,r2
+   0697 24 CC              2208 	add	a,#_lineReady
+   0699 F5 82              2209 	mov	dpl,a
+   069B E4                 2210 	clr	a
+   069C 34 08              2211 	addc	a,#(_lineReady >> 8)
+   069E F5 83              2212 	mov	dph,a
+   06A0 74 01              2213 	mov	a,#0x01
+   06A2 F0                 2214 	movx	@dptr,a
+   06A3                    2215 00104$:
+                           2216 ;	../projectSpecificHardwareInterface_C8051F040.c:406: RI0 = 0 ;
+   06A3 C2 98              2217 	clr	_RI0
+   06A5                    2218 00106$:
+                           2219 ;	../projectSpecificHardwareInterface_C8051F040.c:409: Q = &transmitBuffers[channelNumber] ;
+   06A5 90 08 CE           2220 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
+   06A8 E0                 2221 	movx	a,@dptr
+   06A9 FA                 2222 	mov	r2,a
+   06AA 75 F0 0B           2223 	mov	b,#0x0B
+   06AD A4                 2224 	mul	ab
+   06AE 24 B5              2225 	add	a,#_transmitBuffers
+   06B0 FC                 2226 	mov	r4,a
+   06B1 E4                 2227 	clr	a
+   06B2 34 08              2228 	addc	a,#(_transmitBuffers >> 8)
+   06B4 FD                 2229 	mov	r5,a
+   06B5 7E 00              2230 	mov	r6,#0x00
+   06B7 90 08 CF           2231 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
+   06BA EC                 2232 	mov	a,r4
+   06BB F0                 2233 	movx	@dptr,a
+   06BC A3                 2234 	inc	dptr
+   06BD ED                 2235 	mov	a,r5
+   06BE F0                 2236 	movx	@dptr,a
+   06BF A3                 2237 	inc	dptr
+   06C0 EE                 2238 	mov	a,r6
+   06C1 F0                 2239 	movx	@dptr,a
+                           2240 ;	../projectSpecificHardwareInterface_C8051F040.c:411: if(charSent[channelNumber] == true)
+   06C2 EA                 2241 	mov	a,r2
+   06C3 24 CB              2242 	add	a,#_charSent
+   06C5 FA                 2243 	mov	r2,a
+   06C6 E4                 2244 	clr	a
+   06C7 34 08              2245 	addc	a,#(_charSent >> 8)
+   06C9 FF                 2246 	mov	r7,a
+   06CA 8A 82              2247 	mov	dpl,r2
+   06CC 8F 83              2248 	mov	dph,r7
+   06CE E0                 2249 	movx	a,@dptr
+   06CF F8                 2250 	mov	r0,a
+   06D0 B8 01 09           2251 	cjne	r0,#0x01,00111$
+                           2252 ;	../projectSpecificHardwareInterface_C8051F040.c:413: charSent[channelNumber] = false ;
+   06D3 8A 82              2253 	mov	dpl,r2
+   06D5 8F 83              2254 	mov	dph,r7
+   06D7 E4                 2255 	clr	a
+   06D8 F0                 2256 	movx	@dptr,a
+                           2257 ;	../projectSpecificHardwareInterface_C8051F040.c:417: while(TI0 == 0) { /* empty loop */} ;
+   06D9                    2258 00107$:
+   06D9 30 99 FD           2259 	jnb	_TI0,00107$
+   06DC                    2260 00111$:
+                           2261 ;	../projectSpecificHardwareInterface_C8051F040.c:420: if(!IsEmpty(Q))
+   06DC 8C 82              2262 	mov	dpl,r4
+   06DE 8D 83              2263 	mov	dph,r5
+   06E0 8E F0              2264 	mov	b,r6
+   06E2 C0 03              2265 	push	ar3
+   06E4 12 03 22           2266 	lcall	_IsEmpty
+   06E7 E5 82              2267 	mov	a,dpl
+   06E9 D0 03              2268 	pop	ar3
+   06EB 60 03              2269 	jz	00135$
+   06ED 02 07 C1           2270 	ljmp	00113$
+   06F0                    2271 00135$:
+                           2272 ;	../projectSpecificHardwareInterface_C8051F040.c:422: unsigned char byteToSend = Q->Array[Q->Front] ;
+   06F0 C0 03              2273 	push	ar3
+   06F2 90 08 CF           2274 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
+   06F5 E0                 2275 	movx	a,@dptr
+   06F6 FA                 2276 	mov	r2,a
+   06F7 A3                 2277 	inc	dptr
+   06F8 E0                 2278 	movx	a,@dptr
+   06F9 FC                 2279 	mov	r4,a
+   06FA A3                 2280 	inc	dptr
+   06FB E0                 2281 	movx	a,@dptr
+   06FC FD                 2282 	mov	r5,a
+   06FD 74 08              2283 	mov	a,#0x08
+   06FF 2A                 2284 	add	a,r2
+   0700 FE                 2285 	mov	r6,a
+   0701 E4                 2286 	clr	a
+   0702 3C                 2287 	addc	a,r4
+   0703 FF                 2288 	mov	r7,a
+   0704 8D 00              2289 	mov	ar0,r5
+   0706 8E 82              2290 	mov	dpl,r6
+   0708 8F 83              2291 	mov	dph,r7
+   070A 88 F0              2292 	mov	b,r0
+   070C 12 4D 3C           2293 	lcall	__gptrget
+   070F F5 09              2294 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
+   0711 A3                 2295 	inc	dptr
+   0712 12 4D 3C           2296 	lcall	__gptrget
+   0715 F5 0A              2297 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
+   0717 A3                 2298 	inc	dptr
+   0718 12 4D 3C           2299 	lcall	__gptrget
+   071B F5 0B              2300 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),a
+   071D 74 02              2301 	mov	a,#0x02
+   071F 2A                 2302 	add	a,r2
+   0720 F5 0E              2303 	mov	_task_UART_core_projectSpecific_sloc3_1_0,a
+   0722 E4                 2304 	clr	a
+   0723 3C                 2305 	addc	a,r4
+   0724 F5 0F              2306 	mov	(_task_UART_core_projectSpecific_sloc3_1_0 + 1),a
+   0726 8D 10              2307 	mov	(_task_UART_core_projectSpecific_sloc3_1_0 + 2),r5
+   0728 85 0E 82           2308 	mov	dpl,_task_UART_core_projectSpecific_sloc3_1_0
+   072B 85 0F 83           2309 	mov	dph,(_task_UART_core_projectSpecific_sloc3_1_0 + 1)
+   072E 85 10 F0           2310 	mov	b,(_task_UART_core_projectSpecific_sloc3_1_0 + 2)
+   0731 12 4D 3C           2311 	lcall	__gptrget
+   0734 F5 0C              2312 	mov	_task_UART_core_projectSpecific_sloc2_1_0,a
+   0736 A3                 2313 	inc	dptr
+   0737 12 4D 3C           2314 	lcall	__gptrget
+   073A F5 0D              2315 	mov	(_task_UART_core_projectSpecific_sloc2_1_0 + 1),a
+   073C E5 0C              2316 	mov	a,_task_UART_core_projectSpecific_sloc2_1_0
+   073E 25 09              2317 	add	a,_task_UART_core_projectSpecific_sloc1_1_0
+   0740 FF                 2318 	mov	r7,a
+   0741 E5 0D              2319 	mov	a,(_task_UART_core_projectSpecific_sloc2_1_0 + 1)
+   0743 35 0A              2320 	addc	a,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
+   0745 F8                 2321 	mov	r0,a
+   0746 AB 0B              2322 	mov	r3,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
+   0748 8F 82              2323 	mov	dpl,r7
+   074A 88 83              2324 	mov	dph,r0
+   074C 8B F0              2325 	mov	b,r3
+   074E 12 4D 3C           2326 	lcall	__gptrget
+   0751 F5 09              2327 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
+                           2328 ;	../projectSpecificHardwareInterface_C8051F040.c:424: Q->Size-- ;
+   0753 74 06              2329 	mov	a,#0x06
+   0755 2A                 2330 	add	a,r2
+   0756 FB                 2331 	mov	r3,a
+   0757 E4                 2332 	clr	a
+   0758 3C                 2333 	addc	a,r4
+   0759 FE                 2334 	mov	r6,a
+   075A 8D 00              2335 	mov	ar0,r5
+   075C 8B 82              2336 	mov	dpl,r3
+   075E 8E 83              2337 	mov	dph,r6
+   0760 88 F0              2338 	mov	b,r0
+   0762 12 4D 3C           2339 	lcall	__gptrget
+   0765 F9                 2340 	mov	r1,a
+   0766 A3                 2341 	inc	dptr
+   0767 12 4D 3C           2342 	lcall	__gptrget
+   076A FF                 2343 	mov	r7,a
+   076B 19                 2344 	dec	r1
+   076C B9 FF 01           2345 	cjne	r1,#0xff,00136$
+   076F 1F                 2346 	dec	r7
+   0770                    2347 00136$:
+   0770 8B 82              2348 	mov	dpl,r3
+   0772 8E 83              2349 	mov	dph,r6
+   0774 88 F0              2350 	mov	b,r0
+   0776 E9                 2351 	mov	a,r1
+   0777 12 41 10           2352 	lcall	__gptrput
+   077A A3                 2353 	inc	dptr
+   077B EF                 2354 	mov	a,r7
+   077C 12 41 10           2355 	lcall	__gptrput
+                           2356 ;	../projectSpecificHardwareInterface_C8051F040.c:425: Q->Front = Succ(Q->Front, Q) ;
+   077F 90 04 58           2357 	mov	dptr,#_Succ_PARM_2
+   0782 EA                 2358 	mov	a,r2
+   0783 F0                 2359 	movx	@dptr,a
+   0784 A3                 2360 	inc	dptr
+   0785 EC                 2361 	mov	a,r4
+   0786 F0                 2362 	movx	@dptr,a
+   0787 A3                 2363 	inc	dptr
+   0788 ED                 2364 	mov	a,r5
+   0789 F0                 2365 	movx	@dptr,a
+   078A 85 0C 82           2366 	mov	dpl,_task_UART_core_projectSpecific_sloc2_1_0
+   078D 85 0D 83           2367 	mov	dph,(_task_UART_core_projectSpecific_sloc2_1_0 + 1)
+   0790 12 03 B0           2368 	lcall	_Succ
+   0793 AA 82              2369 	mov	r2,dpl
+   0795 AB 83              2370 	mov	r3,dph
+   0797 85 0E 82           2371 	mov	dpl,_task_UART_core_projectSpecific_sloc3_1_0
+   079A 85 0F 83           2372 	mov	dph,(_task_UART_core_projectSpecific_sloc3_1_0 + 1)
+   079D 85 10 F0           2373 	mov	b,(_task_UART_core_projectSpecific_sloc3_1_0 + 2)
+   07A0 EA                 2374 	mov	a,r2
+   07A1 12 41 10           2375 	lcall	__gptrput
+   07A4 A3                 2376 	inc	dptr
+   07A5 EB                 2377 	mov	a,r3
+   07A6 12 41 10           2378 	lcall	__gptrput
+                           2379 ;	../projectSpecificHardwareInterface_C8051F040.c:427: TI0 = 0 ;	// clear it and send the next character
+   07A9 C2 99              2380 	clr	_TI0
+                           2381 ;	../projectSpecificHardwareInterface_C8051F040.c:429: SBUF0 = byteToSend ;
+   07AB 85 09 99           2382 	mov	_SBUF0,_task_UART_core_projectSpecific_sloc1_1_0
+                           2383 ;	../projectSpecificHardwareInterface_C8051F040.c:431: charSent[channelNumber] = true ;
+   07AE 90 08 CE           2384 	mov	dptr,#_task_UART_core_projectSpecific_channelNumber_1_1
+   07B1 E0                 2385 	movx	a,@dptr
+   07B2 FA                 2386 	mov	r2,a
+   07B3 24 CB              2387 	add	a,#_charSent
+   07B5 F5 82              2388 	mov	dpl,a
+   07B7 E4                 2389 	clr	a
+   07B8 34 08              2390 	addc	a,#(_charSent >> 8)
+   07BA F5 83              2391 	mov	dph,a
+   07BC 74 01              2392 	mov	a,#0x01
+   07BE F0                 2393 	movx	@dptr,a
+                           2394 ;	../projectSpecificHardwareInterface_C8051F040.c:434: portRESTORE_REGISTER_GROUP()
+   07BF D0 03              2395 	pop	ar3
+                           2396 ;	../projectSpecificHardwareInterface_C8051F040.c:431: charSent[channelNumber] = true ;
+   07C1                    2397 00113$:
+                           2398 ;	../projectSpecificHardwareInterface_C8051F040.c:434: portRESTORE_REGISTER_GROUP()
+   07C1 8B 84              2399 	mov	_SFRPAGE,r3
+   07C3 22                 2400 	ret
+                           2401 ;------------------------------------------------------------
+                           2402 ;Allocation info for local variables in function 'task_UART_putchar_projectSpecific'
+                           2403 ;------------------------------------------------------------
+                           2404 ;charToSend                Allocated with name '_task_UART_putchar_projectSpecific_PARM_2'
+                           2405 ;channelNumber             Allocated with name '_task_UART_putchar_projectSpecific_channelNumber_1_1'
+                           2406 ;Q                         Allocated with name '_task_UART_putchar_projectSpecific_Q_2_2'
+                           2407 ;------------------------------------------------------------
+                           2408 ;	../projectSpecificHardwareInterface_C8051F040.c:439: bool task_UART_putchar_projectSpecific(	unsigned char channelNumber, char charToSend)
+                           2409 ;	-----------------------------------------
+                           2410 ;	 function task_UART_putchar_projectSpecific
+                           2411 ;	-----------------------------------------
+   07C4                    2412 _task_UART_putchar_projectSpecific:
+   07C4 E5 82              2413 	mov	a,dpl
+   07C6 90 08 D3           2414 	mov	dptr,#_task_UART_putchar_projectSpecific_channelNumber_1_1
+   07C9 F0                 2415 	movx	@dptr,a
+                           2416 ;	../projectSpecificHardwareInterface_C8051F040.c:441: task_UART_core(0) ;
+   07CA 75 82 00           2417 	mov	dpl,#0x00
+   07CD 12 3E DF           2418 	lcall	_task_UART_core
+                           2419 ;	../projectSpecificHardwareInterface_C8051F040.c:443: portDISABLE_INTERRUPTS() ;
+   07D0 C2 AF              2420 	clr	_EA
+                           2421 ;	../projectSpecificHardwareInterface_C8051F040.c:445: if(channelNumber < NUMBER_OF_UARTS)
+   07D2 90 08 D3           2422 	mov	dptr,#_task_UART_putchar_projectSpecific_channelNumber_1_1
+   07D5 E0                 2423 	movx	a,@dptr
+   07D6 FA                 2424 	mov	r2,a
+   07D7 BA 01 00           2425 	cjne	r2,#0x01,00109$
+   07DA                    2426 00109$:
+   07DA 40 03              2427 	jc	00110$
+   07DC 02 08 DD           2428 	ljmp	00104$
+   07DF                    2429 00110$:
+                           2430 ;	../projectSpecificHardwareInterface_C8051F040.c:447: QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
+   07DF EA                 2431 	mov	a,r2
+   07E0 75 F0 0B           2432 	mov	b,#0x0B
+   07E3 A4                 2433 	mul	ab
+   07E4 24 B5              2434 	add	a,#_transmitBuffers
+   07E6 FA                 2435 	mov	r2,a
+   07E7 E4                 2436 	clr	a
+   07E8 34 08              2437 	addc	a,#(_transmitBuffers >> 8)
+   07EA FB                 2438 	mov	r3,a
+   07EB 7C 00              2439 	mov	r4,#0x00
+   07ED 90 08 D4           2440 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
+   07F0 EA                 2441 	mov	a,r2
+   07F1 F0                 2442 	movx	@dptr,a
+   07F2 A3                 2443 	inc	dptr
+   07F3 EB                 2444 	mov	a,r3
+   07F4 F0                 2445 	movx	@dptr,a
+   07F5 A3                 2446 	inc	dptr
+   07F6 EC                 2447 	mov	a,r4
+   07F7 F0                 2448 	movx	@dptr,a
+                           2449 ;	../projectSpecificHardwareInterface_C8051F040.c:449: if(!IsFull(Q))
+   07F8 8A 82              2450 	mov	dpl,r2
+   07FA 8B 83              2451 	mov	dph,r3
+   07FC 8C F0              2452 	mov	b,r4
+   07FE 12 03 5E           2453 	lcall	_IsFull
+   0801 E5 82              2454 	mov	a,dpl
+   0803 60 03              2455 	jz	00111$
+   0805 02 08 DD           2456 	ljmp	00104$
+   0808                    2457 00111$:
+                           2458 ;	../projectSpecificHardwareInterface_C8051F040.c:451: Q->Size++ ;
+   0808 90 08 D4           2459 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
+   080B E0                 2460 	movx	a,@dptr
+   080C FA                 2461 	mov	r2,a
+   080D A3                 2462 	inc	dptr
+   080E E0                 2463 	movx	a,@dptr
+   080F FB                 2464 	mov	r3,a
+   0810 A3                 2465 	inc	dptr
+   0811 E0                 2466 	movx	a,@dptr
+   0812 FC                 2467 	mov	r4,a
+   0813 74 06              2468 	mov	a,#0x06
+   0815 2A                 2469 	add	a,r2
+   0816 FD                 2470 	mov	r5,a
+   0817 E4                 2471 	clr	a
+   0818 3B                 2472 	addc	a,r3
+   0819 FE                 2473 	mov	r6,a
+   081A 8C 07              2474 	mov	ar7,r4
+   081C 8D 82              2475 	mov	dpl,r5
+   081E 8E 83              2476 	mov	dph,r6
+   0820 8F F0              2477 	mov	b,r7
+   0822 12 4D 3C           2478 	lcall	__gptrget
+   0825 F8                 2479 	mov	r0,a
+   0826 A3                 2480 	inc	dptr
+   0827 12 4D 3C           2481 	lcall	__gptrget
+   082A F9                 2482 	mov	r1,a
+   082B 08                 2483 	inc	r0
+   082C B8 00 01           2484 	cjne	r0,#0x00,00112$
+   082F 09                 2485 	inc	r1
+   0830                    2486 00112$:
+   0830 8D 82              2487 	mov	dpl,r5
+   0832 8E 83              2488 	mov	dph,r6
+   0834 8F F0              2489 	mov	b,r7
+   0836 E8                 2490 	mov	a,r0
+   0837 12 41 10           2491 	lcall	__gptrput
+   083A A3                 2492 	inc	dptr
+   083B E9                 2493 	mov	a,r1
+   083C 12 41 10           2494 	lcall	__gptrput
+                           2495 ;	../projectSpecificHardwareInterface_C8051F040.c:452: Q->Rear = Succ(Q->Rear, Q) ;
+   083F 74 04              2496 	mov	a,#0x04
+   0841 2A                 2497 	add	a,r2
+   0842 FD                 2498 	mov	r5,a
+   0843 E4                 2499 	clr	a
+   0844 3B                 2500 	addc	a,r3
+   0845 FE                 2501 	mov	r6,a
+   0846 8C 07              2502 	mov	ar7,r4
+   0848 8D 82              2503 	mov	dpl,r5
+   084A 8E 83              2504 	mov	dph,r6
+   084C 8F F0              2505 	mov	b,r7
+   084E 12 4D 3C           2506 	lcall	__gptrget
+   0851 F8                 2507 	mov	r0,a
+   0852 A3                 2508 	inc	dptr
+   0853 12 4D 3C           2509 	lcall	__gptrget
+   0856 F9                 2510 	mov	r1,a
+   0857 90 04 58           2511 	mov	dptr,#_Succ_PARM_2
+   085A EA                 2512 	mov	a,r2
+   085B F0                 2513 	movx	@dptr,a
+   085C A3                 2514 	inc	dptr
+   085D EB                 2515 	mov	a,r3
+   085E F0                 2516 	movx	@dptr,a
+   085F A3                 2517 	inc	dptr
+   0860 EC                 2518 	mov	a,r4
+   0861 F0                 2519 	movx	@dptr,a
+   0862 88 82              2520 	mov	dpl,r0
+   0864 89 83              2521 	mov	dph,r1
+   0866 C0 05              2522 	push	ar5
+   0868 C0 06              2523 	push	ar6
+   086A C0 07              2524 	push	ar7
+   086C 12 03 B0           2525 	lcall	_Succ
+   086F AA 82              2526 	mov	r2,dpl
+   0871 AB 83              2527 	mov	r3,dph
+   0873 D0 07              2528 	pop	ar7
+   0875 D0 06              2529 	pop	ar6
+   0877 D0 05              2530 	pop	ar5
+   0879 8D 82              2531 	mov	dpl,r5
+   087B 8E 83              2532 	mov	dph,r6
+   087D 8F F0              2533 	mov	b,r7
+   087F EA                 2534 	mov	a,r2
+   0880 12 41 10           2535 	lcall	__gptrput
+   0883 A3                 2536 	inc	dptr
+   0884 EB                 2537 	mov	a,r3
+   0885 12 41 10           2538 	lcall	__gptrput
+                           2539 ;	../projectSpecificHardwareInterface_C8051F040.c:453: Q->Array[Q->Rear] = charToSend ;
+   0888 90 08 D4           2540 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
+   088B E0                 2541 	movx	a,@dptr
+   088C FA                 2542 	mov	r2,a
+   088D A3                 2543 	inc	dptr
+   088E E0                 2544 	movx	a,@dptr
+   088F FB                 2545 	mov	r3,a
+   0890 A3                 2546 	inc	dptr
+   0891 E0                 2547 	movx	a,@dptr
+   0892 FC                 2548 	mov	r4,a
+   0893 74 08              2549 	mov	a,#0x08
+   0895 2A                 2550 	add	a,r2
+   0896 FD                 2551 	mov	r5,a
+   0897 E4                 2552 	clr	a
+   0898 3B                 2553 	addc	a,r3
+   0899 FE                 2554 	mov	r6,a
+   089A 8C 07              2555 	mov	ar7,r4
+   089C 8D 82              2556 	mov	dpl,r5
+   089E 8E 83              2557 	mov	dph,r6
+   08A0 8F F0              2558 	mov	b,r7
+   08A2 12 4D 3C           2559 	lcall	__gptrget
+   08A5 FD                 2560 	mov	r5,a
+   08A6 A3                 2561 	inc	dptr
+   08A7 12 4D 3C           2562 	lcall	__gptrget
+   08AA FE                 2563 	mov	r6,a
+   08AB A3                 2564 	inc	dptr
+   08AC 12 4D 3C           2565 	lcall	__gptrget
+   08AF FF                 2566 	mov	r7,a
+   08B0 74 04              2567 	mov	a,#0x04
+   08B2 2A                 2568 	add	a,r2
+   08B3 FA                 2569 	mov	r2,a
+   08B4 E4                 2570 	clr	a
+   08B5 3B                 2571 	addc	a,r3
+   08B6 FB                 2572 	mov	r3,a
+   08B7 8A 82              2573 	mov	dpl,r2
+   08B9 8B 83              2574 	mov	dph,r3
+   08BB 8C F0              2575 	mov	b,r4
+   08BD 12 4D 3C           2576 	lcall	__gptrget
+   08C0 FA                 2577 	mov	r2,a
+   08C1 A3                 2578 	inc	dptr
+   08C2 12 4D 3C           2579 	lcall	__gptrget
+   08C5 FB                 2580 	mov	r3,a
+   08C6 EA                 2581 	mov	a,r2
+   08C7 2D                 2582 	add	a,r5
+   08C8 FD                 2583 	mov	r5,a
+   08C9 EB                 2584 	mov	a,r3
+   08CA 3E                 2585 	addc	a,r6
+   08CB FE                 2586 	mov	r6,a
+   08CC 90 08 D2           2587 	mov	dptr,#_task_UART_putchar_projectSpecific_PARM_2
+   08CF E0                 2588 	movx	a,@dptr
+   08D0 8D 82              2589 	mov	dpl,r5
+   08D2 8E 83              2590 	mov	dph,r6
+   08D4 8F F0              2591 	mov	b,r7
+   08D6 12 41 10           2592 	lcall	__gptrput
+                           2593 ;	../projectSpecificHardwareInterface_C8051F040.c:455: portENABLE_INTERRUPTS() ;
+   08D9 D2 AF              2594 	setb	_EA
+                           2595 ;	../projectSpecificHardwareInterface_C8051F040.c:457: return true ;
+   08DB D3                 2596 	setb	c
+   08DC 22                 2597 	ret
+   08DD                    2598 00104$:
+                           2599 ;	../projectSpecificHardwareInterface_C8051F040.c:461: portENABLE_INTERRUPTS() ;
+   08DD D2 AF              2600 	setb	_EA
+                           2601 ;	../projectSpecificHardwareInterface_C8051F040.c:465: return false ;
+   08DF C3                 2602 	clr	c
+   08E0 22                 2603 	ret
+                           2604 ;------------------------------------------------------------
+                           2605 ;Allocation info for local variables in function 'task_UART_puts_projectSpecific'
+                           2606 ;------------------------------------------------------------
+                           2607 ;buffer                    Allocated with name '_task_UART_puts_projectSpecific_PARM_2'
+                           2608 ;channelNumber             Allocated with name '_task_UART_puts_projectSpecific_channelNumber_1_1'
+                           2609 ;myBuffer                  Allocated with name '_task_UART_puts_projectSpecific_myBuffer_2_2'
+                           2610 ;------------------------------------------------------------
+                           2611 ;	../projectSpecificHardwareInterface_C8051F040.c:469: void task_UART_puts_projectSpecific(	unsigned char channelNumber, const char *buffer)
+                           2612 ;	-----------------------------------------
+                           2613 ;	 function task_UART_puts_projectSpecific
+                           2614 ;	-----------------------------------------
+   08E1                    2615 _task_UART_puts_projectSpecific:
+   08E1 E5 82              2616 	mov	a,dpl
+   08E3 90 08 DA           2617 	mov	dptr,#_task_UART_puts_projectSpecific_channelNumber_1_1
+   08E6 F0                 2618 	movx	@dptr,a
+                           2619 ;	../projectSpecificHardwareInterface_C8051F040.c:471: if(channelNumber < NUMBER_OF_UARTS)
+   08E7 90 08 DA           2620 	mov	dptr,#_task_UART_puts_projectSpecific_channelNumber_1_1
+   08EA E0                 2621 	movx	a,@dptr
+   08EB FA                 2622 	mov	r2,a
+   08EC BA 01 00           2623 	cjne	r2,#0x01,00119$
+   08EF                    2624 00119$:
+   08EF 50 6C              2625 	jnc	00112$
+                           2626 ;	../projectSpecificHardwareInterface_C8051F040.c:473: unsigned char* myBuffer = buffer ;
+   08F1 90 08 D7           2627 	mov	dptr,#_task_UART_puts_projectSpecific_PARM_2
+   08F4 E0                 2628 	movx	a,@dptr
+   08F5 FB                 2629 	mov	r3,a
+   08F6 A3                 2630 	inc	dptr
+   08F7 E0                 2631 	movx	a,@dptr
+   08F8 FC                 2632 	mov	r4,a
+   08F9 A3                 2633 	inc	dptr
+   08FA E0                 2634 	movx	a,@dptr
+   08FB FD                 2635 	mov	r5,a
+                           2636 ;	../projectSpecificHardwareInterface_C8051F040.c:475: while(*myBuffer)
+   08FC 8A 06              2637 	mov	ar6,r2
+   08FE                    2638 00107$:
+   08FE 8B 82              2639 	mov	dpl,r3
+   0900 8C 83              2640 	mov	dph,r4
+   0902 8D F0              2641 	mov	b,r5
+   0904 12 4D 3C           2642 	lcall	__gptrget
+   0907 FF                 2643 	mov	r7,a
+   0908 60 53              2644 	jz	00112$
+                           2645 ;	../projectSpecificHardwareInterface_C8051F040.c:477: if((*myBuffer) == '\n')
+   090A BF 0A 21           2646 	cjne	r7,#0x0A,00104$
+                           2647 ;	../projectSpecificHardwareInterface_C8051F040.c:479: if(!task_UART_putchar(channelNumber, '\r'))
+   090D 90 0A 81           2648 	mov	dptr,#_task_UART_putchar_PARM_2
+   0910 74 0D              2649 	mov	a,#0x0D
+   0912 F0                 2650 	movx	@dptr,a
+   0913 8E 82              2651 	mov	dpl,r6
+   0915 C0 02              2652 	push	ar2
+   0917 C0 03              2653 	push	ar3
+   0919 C0 04              2654 	push	ar4
+   091B C0 05              2655 	push	ar5
+   091D C0 06              2656 	push	ar6
+   091F 12 3E EE           2657 	lcall	_task_UART_putchar
+   0922 D0 06              2658 	pop	ar6
+   0924 D0 05              2659 	pop	ar5
+   0926 D0 04              2660 	pop	ar4
+   0928 D0 03              2661 	pop	ar3
+   092A D0 02              2662 	pop	ar2
+   092C 50 2F              2663 	jnc	00112$
+                           2664 ;	../projectSpecificHardwareInterface_C8051F040.c:481: break ;
+   092E                    2665 00104$:
+                           2666 ;	../projectSpecificHardwareInterface_C8051F040.c:485: if(!task_UART_putchar(channelNumber, *myBuffer++))
+   092E 8B 82              2667 	mov	dpl,r3
+   0930 8C 83              2668 	mov	dph,r4
+   0932 8D F0              2669 	mov	b,r5
+   0934 12 4D 3C           2670 	lcall	__gptrget
+   0937 FF                 2671 	mov	r7,a
+   0938 A3                 2672 	inc	dptr
+   0939 AB 82              2673 	mov	r3,dpl
+   093B AC 83              2674 	mov	r4,dph
+   093D 90 0A 81           2675 	mov	dptr,#_task_UART_putchar_PARM_2
+   0940 EF                 2676 	mov	a,r7
+   0941 F0                 2677 	movx	@dptr,a
+   0942 8A 82              2678 	mov	dpl,r2
+   0944 C0 02              2679 	push	ar2
+   0946 C0 03              2680 	push	ar3
+   0948 C0 04              2681 	push	ar4
+   094A C0 05              2682 	push	ar5
+   094C C0 06              2683 	push	ar6
+   094E 12 3E EE           2684 	lcall	_task_UART_putchar
+   0951 D0 06              2685 	pop	ar6
+   0953 D0 05              2686 	pop	ar5
+   0955 D0 04              2687 	pop	ar4
+   0957 D0 03              2688 	pop	ar3
+   0959 D0 02              2689 	pop	ar2
+   095B 40 A1              2690 	jc	00107$
+                           2691 ;	../projectSpecificHardwareInterface_C8051F040.c:487: break ;
+   095D                    2692 00112$:
+   095D 22                 2693 	ret
+                           2694 ;------------------------------------------------------------
+                           2695 ;Allocation info for local variables in function 'task_UART_getchar_projectSpecific'
+                           2696 ;------------------------------------------------------------
+                           2697 ;sloc0                     Allocated with name '_task_UART_getchar_projectSpecific_sloc0_1_0'
+                           2698 ;sloc1                     Allocated with name '_task_UART_getchar_projectSpecific_sloc1_1_0'
+                           2699 ;sloc2                     Allocated with name '_task_UART_getchar_projectSpecific_sloc2_1_0'
+                           2700 ;channelNumber             Allocated with name '_task_UART_getchar_projectSpecific_channelNumber_1_1'
+                           2701 ;Q                         Allocated with name '_task_UART_getchar_projectSpecific_Q_2_2'
+                           2702 ;byteReceived              Allocated with name '_task_UART_getchar_projectSpecific_byteReceived_3_3'
+                           2703 ;------------------------------------------------------------
+                           2704 ;	../projectSpecificHardwareInterface_C8051F040.c:494: char task_UART_getchar_projectSpecific(	unsigned char channelNumber)
+                           2705 ;	-----------------------------------------
+                           2706 ;	 function task_UART_getchar_projectSpecific
+                           2707 ;	-----------------------------------------
+   095E                    2708 _task_UART_getchar_projectSpecific:
+   095E E5 82              2709 	mov	a,dpl
+   0960 90 08 DB           2710 	mov	dptr,#_task_UART_getchar_projectSpecific_channelNumber_1_1
+   0963 F0                 2711 	movx	@dptr,a
+                           2712 ;	../projectSpecificHardwareInterface_C8051F040.c:496: if(channelNumber < NUMBER_OF_UARTS)
+   0964 90 08 DB           2713 	mov	dptr,#_task_UART_getchar_projectSpecific_channelNumber_1_1
+   0967 E0                 2714 	movx	a,@dptr
+   0968 FA                 2715 	mov	r2,a
+   0969 BA 01 00           2716 	cjne	r2,#0x01,00109$
+   096C                    2717 00109$:
+   096C 40 03              2718 	jc	00110$
+   096E 02 0A 55           2719 	ljmp	00104$
+   0971                    2720 00110$:
+                           2721 ;	../projectSpecificHardwareInterface_C8051F040.c:498: QUEUE_TYPE*	Q = &receiveBuffers[channelNumber] ;
+   0971 EA                 2722 	mov	a,r2
+   0972 75 F0 0B           2723 	mov	b,#0x0B
+   0975 A4                 2724 	mul	ab
+   0976 24 C0              2725 	add	a,#_receiveBuffers
+   0978 FA                 2726 	mov	r2,a
+   0979 E4                 2727 	clr	a
+   097A 34 08              2728 	addc	a,#(_receiveBuffers >> 8)
+   097C FB                 2729 	mov	r3,a
+   097D 7C 00              2730 	mov	r4,#0x00
+   097F 90 08 DC           2731 	mov	dptr,#_task_UART_getchar_projectSpecific_Q_2_2
+   0982 EA                 2732 	mov	a,r2
+   0983 F0                 2733 	movx	@dptr,a
+   0984 A3                 2734 	inc	dptr
+   0985 EB                 2735 	mov	a,r3
+   0986 F0                 2736 	movx	@dptr,a
+   0987 A3                 2737 	inc	dptr
+   0988 EC                 2738 	mov	a,r4
+   0989 F0                 2739 	movx	@dptr,a
+                           2740 ;	../projectSpecificHardwareInterface_C8051F040.c:500: if(!IsEmpty(Q))
+   098A 8A 82              2741 	mov	dpl,r2
+   098C 8B 83              2742 	mov	dph,r3
+   098E 8C F0              2743 	mov	b,r4
+   0990 12 03 22           2744 	lcall	_IsEmpty
+   0993 E5 82              2745 	mov	a,dpl
+   0995 60 03              2746 	jz	00111$
+   0997 02 0A 55           2747 	ljmp	00104$
+   099A                    2748 00111$:
+                           2749 ;	../projectSpecificHardwareInterface_C8051F040.c:502: unsigned char byteReceived = Q->Array[Q->Front] ;
+   099A 90 08 DC           2750 	mov	dptr,#_task_UART_getchar_projectSpecific_Q_2_2
+   099D E0                 2751 	movx	a,@dptr
+   099E FA                 2752 	mov	r2,a
+   099F A3                 2753 	inc	dptr
+   09A0 E0                 2754 	movx	a,@dptr
+   09A1 FB                 2755 	mov	r3,a
+   09A2 A3                 2756 	inc	dptr
+   09A3 E0                 2757 	movx	a,@dptr
+   09A4 FC                 2758 	mov	r4,a
+   09A5 74 08              2759 	mov	a,#0x08
+   09A7 2A                 2760 	add	a,r2
+   09A8 FD                 2761 	mov	r5,a
+   09A9 E4                 2762 	clr	a
+   09AA 3B                 2763 	addc	a,r3
+   09AB FE                 2764 	mov	r6,a
+   09AC 8C 07              2765 	mov	ar7,r4
+   09AE 8D 82              2766 	mov	dpl,r5
+   09B0 8E 83              2767 	mov	dph,r6
+   09B2 8F F0              2768 	mov	b,r7
+   09B4 12 4D 3C           2769 	lcall	__gptrget
+   09B7 F5 11              2770 	mov	_task_UART_getchar_projectSpecific_sloc0_1_0,a
+   09B9 A3                 2771 	inc	dptr
+   09BA 12 4D 3C           2772 	lcall	__gptrget
+   09BD F5 12              2773 	mov	(_task_UART_getchar_projectSpecific_sloc0_1_0 + 1),a
+   09BF A3                 2774 	inc	dptr
+   09C0 12 4D 3C           2775 	lcall	__gptrget
+   09C3 F5 13              2776 	mov	(_task_UART_getchar_projectSpecific_sloc0_1_0 + 2),a
+   09C5 74 02              2777 	mov	a,#0x02
+   09C7 2A                 2778 	add	a,r2
+   09C8 F5 16              2779 	mov	_task_UART_getchar_projectSpecific_sloc2_1_0,a
+   09CA E4                 2780 	clr	a
+   09CB 3B                 2781 	addc	a,r3
+   09CC F5 17              2782 	mov	(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1),a
+   09CE 8C 18              2783 	mov	(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2),r4
+   09D0 85 16 82           2784 	mov	dpl,_task_UART_getchar_projectSpecific_sloc2_1_0
+   09D3 85 17 83           2785 	mov	dph,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1)
+   09D6 85 18 F0           2786 	mov	b,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2)
+   09D9 12 4D 3C           2787 	lcall	__gptrget
+   09DC F5 14              2788 	mov	_task_UART_getchar_projectSpecific_sloc1_1_0,a
+   09DE A3                 2789 	inc	dptr
+   09DF 12 4D 3C           2790 	lcall	__gptrget
+   09E2 F5 15              2791 	mov	(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1),a
+   09E4 E5 14              2792 	mov	a,_task_UART_getchar_projectSpecific_sloc1_1_0
+   09E6 25 11              2793 	add	a,_task_UART_getchar_projectSpecific_sloc0_1_0
+   09E8 FE                 2794 	mov	r6,a
+   09E9 E5 15              2795 	mov	a,(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1)
+   09EB 35 12              2796 	addc	a,(_task_UART_getchar_projectSpecific_sloc0_1_0 + 1)
+   09ED FF                 2797 	mov	r7,a
+   09EE AD 13              2798 	mov	r5,(_task_UART_getchar_projectSpecific_sloc0_1_0 + 2)
+   09F0 8E 82              2799 	mov	dpl,r6
+   09F2 8F 83              2800 	mov	dph,r7
+   09F4 8D F0              2801 	mov	b,r5
+   09F6 12 4D 3C           2802 	lcall	__gptrget
+   09F9 F5 11              2803 	mov	_task_UART_getchar_projectSpecific_sloc0_1_0,a
+                           2804 ;	../projectSpecificHardwareInterface_C8051F040.c:504: Q->Size-- ;
+   09FB 74 06              2805 	mov	a,#0x06
+   09FD 2A                 2806 	add	a,r2
+   09FE FD                 2807 	mov	r5,a
+   09FF E4                 2808 	clr	a
+   0A00 3B                 2809 	addc	a,r3
+   0A01 FF                 2810 	mov	r7,a
+   0A02 8C 00              2811 	mov	ar0,r4
+   0A04 8D 82              2812 	mov	dpl,r5
+   0A06 8F 83              2813 	mov	dph,r7
+   0A08 88 F0              2814 	mov	b,r0
+   0A0A 12 4D 3C           2815 	lcall	__gptrget
+   0A0D F9                 2816 	mov	r1,a
+   0A0E A3                 2817 	inc	dptr
+   0A0F 12 4D 3C           2818 	lcall	__gptrget
+   0A12 FE                 2819 	mov	r6,a
+   0A13 19                 2820 	dec	r1
+   0A14 B9 FF 01           2821 	cjne	r1,#0xff,00112$
+   0A17 1E                 2822 	dec	r6
+   0A18                    2823 00112$:
+   0A18 8D 82              2824 	mov	dpl,r5
+   0A1A 8F 83              2825 	mov	dph,r7
+   0A1C 88 F0              2826 	mov	b,r0
+   0A1E E9                 2827 	mov	a,r1
+   0A1F 12 41 10           2828 	lcall	__gptrput
+   0A22 A3                 2829 	inc	dptr
+   0A23 EE                 2830 	mov	a,r6
+   0A24 12 41 10           2831 	lcall	__gptrput
+                           2832 ;	../projectSpecificHardwareInterface_C8051F040.c:505: Q->Front = Succ(Q->Front, Q) ;
+   0A27 90 04 58           2833 	mov	dptr,#_Succ_PARM_2
+   0A2A EA                 2834 	mov	a,r2
+   0A2B F0                 2835 	movx	@dptr,a
+   0A2C A3                 2836 	inc	dptr
+   0A2D EB                 2837 	mov	a,r3
+   0A2E F0                 2838 	movx	@dptr,a
+   0A2F A3                 2839 	inc	dptr
+   0A30 EC                 2840 	mov	a,r4
+   0A31 F0                 2841 	movx	@dptr,a
+   0A32 85 14 82           2842 	mov	dpl,_task_UART_getchar_projectSpecific_sloc1_1_0
+   0A35 85 15 83           2843 	mov	dph,(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1)
+   0A38 12 03 B0           2844 	lcall	_Succ
+   0A3B AA 82              2845 	mov	r2,dpl
+   0A3D AB 83              2846 	mov	r3,dph
+   0A3F 85 16 82           2847 	mov	dpl,_task_UART_getchar_projectSpecific_sloc2_1_0
+   0A42 85 17 83           2848 	mov	dph,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1)
+   0A45 85 18 F0           2849 	mov	b,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2)
+   0A48 EA                 2850 	mov	a,r2
+   0A49 12 41 10           2851 	lcall	__gptrput
+   0A4C A3                 2852 	inc	dptr
+   0A4D EB                 2853 	mov	a,r3
+   0A4E 12 41 10           2854 	lcall	__gptrput
+                           2855 ;	../projectSpecificHardwareInterface_C8051F040.c:507: return byteReceived ;
+   0A51 85 11 82           2856 	mov	dpl,_task_UART_getchar_projectSpecific_sloc0_1_0
+                           2857 ;	../projectSpecificHardwareInterface_C8051F040.c:511: return -1 ;
+   0A54 22                 2858 	ret
+   0A55                    2859 00104$:
+   0A55 75 82 FF           2860 	mov	dpl,#0xFF
+   0A58 22                 2861 	ret
+                           2862 ;------------------------------------------------------------
+                           2863 ;Allocation info for local variables in function 'task_UART_gets_projectSpecific'
+                           2864 ;------------------------------------------------------------
+                           2865 ;sloc0                     Allocated with name '_task_UART_gets_projectSpecific_sloc0_1_0'
+                           2866 ;sloc1                     Allocated with name '_task_UART_gets_projectSpecific_sloc1_1_0'
+                           2867 ;buffer                    Allocated with name '_task_UART_gets_projectSpecific_PARM_2'
+                           2868 ;maxBufferLength           Allocated with name '_task_UART_gets_projectSpecific_PARM_3'
+                           2869 ;channelNumber             Allocated with name '_task_UART_gets_projectSpecific_channelNumber_1_1'
+                           2870 ;charsReturned             Allocated with name '_task_UART_gets_projectSpecific_charsReturned_2_2'
+                           2871 ;latestCharInBuffer        Allocated with name '_task_UART_gets_projectSpecific_latestCharInBuffer_3_3'
+                           2872 ;------------------------------------------------------------
+                           2873 ;	../projectSpecificHardwareInterface_C8051F040.c:515: char* task_UART_gets_projectSpecific(	unsigned char channelNumber, char* buffer, unsigned short maxBufferLength)
+                           2874 ;	-----------------------------------------
+                           2875 ;	 function task_UART_gets_projectSpecific
+                           2876 ;	-----------------------------------------
+   0A59                    2877 _task_UART_gets_projectSpecific:
+   0A59 E5 82              2878 	mov	a,dpl
+   0A5B 90 08 E4           2879 	mov	dptr,#_task_UART_gets_projectSpecific_channelNumber_1_1
+   0A5E F0                 2880 	movx	@dptr,a
+                           2881 ;	../projectSpecificHardwareInterface_C8051F040.c:517: if(channelNumber < NUMBER_OF_UARTS)
+   0A5F 90 08 E4           2882 	mov	dptr,#_task_UART_gets_projectSpecific_channelNumber_1_1
+   0A62 E0                 2883 	movx	a,@dptr
+   0A63 FA                 2884 	mov	r2,a
+   0A64 BA 01 00           2885 	cjne	r2,#0x01,00119$
+   0A67                    2886 00119$:
+   0A67 50 74              2887 	jnc	00110$
+                           2888 ;	../projectSpecificHardwareInterface_C8051F040.c:521: while(charsReturned < maxBufferLength)
+   0A69 90 08 E2           2889 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_3
+   0A6C E0                 2890 	movx	a,@dptr
+   0A6D F5 1A              2891 	mov	_task_UART_gets_projectSpecific_sloc1_1_0,a
+   0A6F A3                 2892 	inc	dptr
+   0A70 E0                 2893 	movx	a,@dptr
+   0A71 F5 1B              2894 	mov	(_task_UART_gets_projectSpecific_sloc1_1_0 + 1),a
+   0A73 90 08 DF           2895 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_2
+   0A76 E0                 2896 	movx	a,@dptr
+   0A77 FD                 2897 	mov	r5,a
+   0A78 A3                 2898 	inc	dptr
+   0A79 E0                 2899 	movx	a,@dptr
+   0A7A FE                 2900 	mov	r6,a
+   0A7B A3                 2901 	inc	dptr
+   0A7C E0                 2902 	movx	a,@dptr
+   0A7D FF                 2903 	mov	r7,a
+   0A7E 78 00              2904 	mov	r0,#0x00
+   0A80 79 00              2905 	mov	r1,#0x00
+   0A82                    2906 00106$:
+   0A82 C3                 2907 	clr	c
+   0A83 E8                 2908 	mov	a,r0
+   0A84 95 1A              2909 	subb	a,_task_UART_gets_projectSpecific_sloc1_1_0
+   0A86 E9                 2910 	mov	a,r1
+   0A87 95 1B              2911 	subb	a,(_task_UART_gets_projectSpecific_sloc1_1_0 + 1)
+   0A89 50 52              2912 	jnc	00110$
+                           2913 ;	../projectSpecificHardwareInterface_C8051F040.c:523: char latestCharInBuffer = task_UART_getchar(channelNumber) ;
+   0A8B 8A 82              2914 	mov	dpl,r2
+   0A8D C0 02              2915 	push	ar2
+   0A8F C0 05              2916 	push	ar5
+   0A91 C0 06              2917 	push	ar6
+   0A93 C0 07              2918 	push	ar7
+   0A95 C0 00              2919 	push	ar0
+   0A97 C0 01              2920 	push	ar1
+   0A99 12 3F 2F           2921 	lcall	_task_UART_getchar
+   0A9C 85 82 19           2922 	mov	_task_UART_gets_projectSpecific_sloc0_1_0,dpl
+   0A9F D0 01              2923 	pop	ar1
+   0AA1 D0 00              2924 	pop	ar0
+   0AA3 D0 07              2925 	pop	ar7
+   0AA5 D0 06              2926 	pop	ar6
+   0AA7 D0 05              2927 	pop	ar5
+   0AA9 D0 02              2928 	pop	ar2
+                           2929 ;	../projectSpecificHardwareInterface_C8051F040.c:525: if(latestCharInBuffer <= 0)	// break on a NULL or a -1
+   0AAB C3                 2930 	clr	c
+   0AAC 74 80              2931 	mov	a,#(0x00 ^ 0x80)
+   0AAE 85 19 F0           2932 	mov	b,_task_UART_gets_projectSpecific_sloc0_1_0
+   0AB1 63 F0 80           2933 	xrl	b,#0x80
+   0AB4 95 F0              2934 	subb	a,b
+   0AB6 50 25              2935 	jnc	00110$
+                           2936 ;	../projectSpecificHardwareInterface_C8051F040.c:529: else if(latestCharInBuffer == '\r')	// Skip carriage returns
+   0AB8 74 0D              2937 	mov	a,#0x0D
+   0ABA B5 19 02           2938 	cjne	a,_task_UART_gets_projectSpecific_sloc0_1_0,00123$
+   0ABD 80 C3              2939 	sjmp	00106$
+   0ABF                    2940 00123$:
+                           2941 ;	../projectSpecificHardwareInterface_C8051F040.c:534: buffer[charsReturned] = latestCharInBuffer ;
+   0ABF C0 02              2942 	push	ar2
+   0AC1 E8                 2943 	mov	a,r0
+   0AC2 2D                 2944 	add	a,r5
+   0AC3 FA                 2945 	mov	r2,a
+   0AC4 E9                 2946 	mov	a,r1
+   0AC5 3E                 2947 	addc	a,r6
+   0AC6 FB                 2948 	mov	r3,a
+   0AC7 8F 04              2949 	mov	ar4,r7
+   0AC9 8A 82              2950 	mov	dpl,r2
+   0ACB 8B 83              2951 	mov	dph,r3
+   0ACD 8C F0              2952 	mov	b,r4
+   0ACF E5 19              2953 	mov	a,_task_UART_gets_projectSpecific_sloc0_1_0
+   0AD1 12 41 10           2954 	lcall	__gptrput
+                           2955 ;	../projectSpecificHardwareInterface_C8051F040.c:536: charsReturned++ ;
+   0AD4 08                 2956 	inc	r0
+   0AD5 B8 00 01           2957 	cjne	r0,#0x00,00124$
+   0AD8 09                 2958 	inc	r1
+   0AD9                    2959 00124$:
+   0AD9 D0 02              2960 	pop	ar2
+   0ADB 80 A5              2961 	sjmp	00106$
+   0ADD                    2962 00110$:
+                           2963 ;	../projectSpecificHardwareInterface_C8051F040.c:540: return 0 ;
+   0ADD 90 00 00           2964 	mov	dptr,#0x0000
+   0AE0 75 F0 00           2965 	mov	b,#0x00
+   0AE3 22                 2966 	ret
+                           2967 ;------------------------------------------------------------
+                           2968 ;Allocation info for local variables in function 'task_UART_isLineReady'
+                           2969 ;------------------------------------------------------------
+                           2970 ;channelNumber             Allocated with name '_task_UART_isLineReady_channelNumber_1_1'
+                           2971 ;------------------------------------------------------------
+                           2972 ;	../projectSpecificHardwareInterface_C8051F040.c:544: bool task_UART_isLineReady(	unsigned char channelNumber)
+                           2973 ;	-----------------------------------------
+                           2974 ;	 function task_UART_isLineReady
+                           2975 ;	-----------------------------------------
+   0AE4                    2976 _task_UART_isLineReady:
+   0AE4 E5 82              2977 	mov	a,dpl
+   0AE6 90 08 E5           2978 	mov	dptr,#_task_UART_isLineReady_channelNumber_1_1
+   0AE9 F0                 2979 	movx	@dptr,a
+                           2980 ;	../projectSpecificHardwareInterface_C8051F040.c:546: return lineReady[channelNumber] ;
+   0AEA 90 08 E5           2981 	mov	dptr,#_task_UART_isLineReady_channelNumber_1_1
+   0AED E0                 2982 	movx	a,@dptr
+   0AEE 24 CC              2983 	add	a,#_lineReady
+   0AF0 F5 82              2984 	mov	dpl,a
+   0AF2 E4                 2985 	clr	a
+   0AF3 34 08              2986 	addc	a,#(_lineReady >> 8)
+   0AF5 F5 83              2987 	mov	dph,a
+   0AF7 E0                 2988 	movx	a,@dptr
+   0AF8 24 FF              2989 	add	a,#0xff
+   0AFA 92 04              2990 	mov  _task_UART_isLineReady_sloc0_1_0,c
+   0AFC 22                 2991 	ret
+                           2992 ;------------------------------------------------------------
+                           2993 ;Allocation info for local variables in function 'UART0_Init'
+                           2994 ;------------------------------------------------------------
+                           2995 ;SFRPAGE_SAVE              Allocated with name '_UART0_Init_SFRPAGE_SAVE_1_1'
+                           2996 ;------------------------------------------------------------
+                           2997 ;	../projectSpecificHardwareInterface_C8051F040.c:550: void UART0_Init(void)
+                           2998 ;	-----------------------------------------
+                           2999 ;	 function UART0_Init
+                           3000 ;	-----------------------------------------
+   0AFD                    3001 _UART0_Init:
+                           3002 ;	../projectSpecificHardwareInterface_C8051F040.c:554: SFRPAGE_SAVE = SFRPAGE;             // Preserve SFRPAGE
+   0AFD AA 84              3003 	mov	r2,_SFRPAGE
+                           3004 ;	../projectSpecificHardwareInterface_C8051F040.c:556: SFRPAGE = UART0_PAGE;
+   0AFF 75 84 00           3005 	mov	_SFRPAGE,#0x00
+                           3006 ;	../projectSpecificHardwareInterface_C8051F040.c:558: SCON0 = 0x52;                       // 8-bit variable baud rate;
+   0B02 75 98 52           3007 	mov	_SCON0,#0x52
+                           3008 ;	../projectSpecificHardwareInterface_C8051F040.c:561: SSTA0 = 0x10;                       // Clear all flags; enable baud rate
+   0B05 75 91 10           3009 	mov	_SSTA0,#0x10
+                           3010 ;	../projectSpecificHardwareInterface_C8051F040.c:568: SFRPAGE = SFRPAGE_SAVE;
+   0B08 8A 84              3011 	mov	_SFRPAGE,r2
+   0B0A 22                 3012 	ret
+                           3013 ;------------------------------------------------------------
+                           3014 ;Allocation info for local variables in function 'UART1_Init'
+                           3015 ;------------------------------------------------------------
+                           3016 ;SFRPAGE_SAVE              Allocated with name '_UART1_Init_SFRPAGE_SAVE_2_2'
+                           3017 ;------------------------------------------------------------
+                           3018 ;	../projectSpecificHardwareInterface_C8051F040.c:589: void UART1_Init(void)
+                           3019 ;	-----------------------------------------
+                           3020 ;	 function UART1_Init
+                           3021 ;	-----------------------------------------
+   0B0B                    3022 _UART1_Init:
+                           3023 ;	../projectSpecificHardwareInterface_C8051F040.c:591: portSET_REGISTER_GROUP(UART1_PAGE)
+   0B0B AA 84              3024 	mov	r2,_SFRPAGE
+   0B0D 75 84 01           3025 	mov	_SFRPAGE,#0x01
+                           3026 ;	../projectSpecificHardwareInterface_C8051F040.c:593: SCON1 = 0x10 ;	// 8-bit variable baud rate;
+   0B10 75 98 10           3027 	mov	_SCON1,#0x10
+                           3028 ;	../projectSpecificHardwareInterface_C8051F040.c:599: portRESTORE_REGISTER_GROUP()
+   0B13 8A 84              3029 	mov	_SFRPAGE,r2
+   0B15 22                 3030 	ret
+                           3031 ;------------------------------------------------------------
+                           3032 ;Allocation info for local variables in function 'putchar'
+                           3033 ;------------------------------------------------------------
+                           3034 ;c                         Allocated with name '_putchar_c_1_1'
                            3035 ;------------------------------------------------------------
-                           3036 ;Allocation info for local variables in function 'UART0_Init'
-                           3037 ;------------------------------------------------------------
-                           3038 ;SFRPAGE_SAVE              Allocated with name '_UART0_Init_SFRPAGE_SAVE_1_1'
-                           3039 ;------------------------------------------------------------
-                           3040 ;	../projectSpecificHardwareInterface_C8051F040.c:550: void UART0_Init(void)
-                           3041 ;	-----------------------------------------
-                           3042 ;	 function UART0_Init
-                           3043 ;	-----------------------------------------
-   0B45                    3044 _UART0_Init:
-                           3045 ;	../projectSpecificHardwareInterface_C8051F040.c:554: SFRPAGE_SAVE = SFRPAGE;             // Preserve SFRPAGE
-   0B45 AA 84              3046 	mov	r2,_SFRPAGE
-                           3047 ;	../projectSpecificHardwareInterface_C8051F040.c:556: SFRPAGE = UART0_PAGE;
-   0B47 75 84 00           3048 	mov	_SFRPAGE,#0x00
-                           3049 ;	../projectSpecificHardwareInterface_C8051F040.c:558: SCON0 = 0x52;                       // 8-bit variable baud rate;
-   0B4A 75 98 52           3050 	mov	_SCON0,#0x52
-                           3051 ;	../projectSpecificHardwareInterface_C8051F040.c:561: SSTA0 = 0x10;                       // Clear all flags; enable baud rate
-   0B4D 75 91 10           3052 	mov	_SSTA0,#0x10
-                           3053 ;	../projectSpecificHardwareInterface_C8051F040.c:568: SFRPAGE = SFRPAGE_SAVE;
-   0B50 8A 84              3054 	mov	_SFRPAGE,r2
-   0B52 22                 3055 	ret
-                           3056 ;------------------------------------------------------------
-                           3057 ;Allocation info for local variables in function 'UART1_Init'
-                           3058 ;------------------------------------------------------------
-                           3059 ;SFRPAGE_SAVE              Allocated with name '_UART1_Init_SFRPAGE_SAVE_2_2'
-                           3060 ;------------------------------------------------------------
-                           3061 ;	../projectSpecificHardwareInterface_C8051F040.c:589: void UART1_Init(void)
-                           3062 ;	-----------------------------------------
-                           3063 ;	 function UART1_Init
-                           3064 ;	-----------------------------------------
-   0B53                    3065 _UART1_Init:
-                           3066 ;	../projectSpecificHardwareInterface_C8051F040.c:591: portSET_REGISTER_GROUP(UART1_PAGE)
-   0B53 AA 84              3067 	mov	r2,_SFRPAGE
-   0B55 75 84 01           3068 	mov	_SFRPAGE,#0x01
-                           3069 ;	../projectSpecificHardwareInterface_C8051F040.c:593: SCON1 = 0x10 ;	// 8-bit variable baud rate;
-   0B58 75 98 10           3070 	mov	_SCON1,#0x10
-                           3071 ;	../projectSpecificHardwareInterface_C8051F040.c:599: portRESTORE_REGISTER_GROUP()
-   0B5B 8A 84              3072 	mov	_SFRPAGE,r2
-   0B5D 22                 3073 	ret
-                           3074 ;------------------------------------------------------------
-                           3075 ;Allocation info for local variables in function 'putchar'
-                           3076 ;------------------------------------------------------------
-                           3077 ;c                         Allocated with name '_putchar_c_1_1'
-                           3078 ;------------------------------------------------------------
-                           3079 ;	../projectSpecificHardwareInterface_C8051F040.c:603: void putchar(char c)
-                           3080 ;	-----------------------------------------
-                           3081 ;	 function putchar
-                           3082 ;	-----------------------------------------
-   0B5E                    3083 _putchar:
-   0B5E E5 82              3084 	mov	a,dpl
-   0B60 90 08 E6           3085 	mov	dptr,#_putchar_c_1_1
-   0B63 F0                 3086 	movx	@dptr,a
-                           3087 ;	../projectSpecificHardwareInterface_C8051F040.c:605: if(c == '\n')
-   0B64 90 08 E6           3088 	mov	dptr,#_putchar_c_1_1
-   0B67 E0                 3089 	movx	a,@dptr
-   0B68 FA                 3090 	mov	r2,a
-   0B69 BA 0A 0C           3091 	cjne	r2,#0x0A,00102$
-                           3092 ;	../projectSpecificHardwareInterface_C8051F040.c:607: task_UART_putchar(0, '\r') ;
-   0B6C 90 0A 74           3093 	mov	dptr,#_task_UART_putchar_PARM_2
-   0B6F 74 0D              3094 	mov	a,#0x0D
-   0B71 F0                 3095 	movx	@dptr,a
-   0B72 75 82 00           3096 	mov	dpl,#0x00
-   0B75 12 35 E9           3097 	lcall	_task_UART_putchar
-   0B78                    3098 00102$:
-                           3099 ;	../projectSpecificHardwareInterface_C8051F040.c:610: task_UART_putchar(0, c) ;
-   0B78 90 08 E6           3100 	mov	dptr,#_putchar_c_1_1
-   0B7B E0                 3101 	movx	a,@dptr
-   0B7C 90 0A 74           3102 	mov	dptr,#_task_UART_putchar_PARM_2
-   0B7F F0                 3103 	movx	@dptr,a
-   0B80 75 82 00           3104 	mov	dpl,#0x00
-   0B83 02 35 E9           3105 	ljmp	_task_UART_putchar
+                           3036 ;	../projectSpecificHardwareInterface_C8051F040.c:603: void putchar(char c)
+                           3037 ;	-----------------------------------------
+                           3038 ;	 function putchar
+                           3039 ;	-----------------------------------------
+   0B16                    3040 _putchar:
+   0B16 E5 82              3041 	mov	a,dpl
+   0B18 90 08 E6           3042 	mov	dptr,#_putchar_c_1_1
+   0B1B F0                 3043 	movx	@dptr,a
+                           3044 ;	../projectSpecificHardwareInterface_C8051F040.c:605: if(c == '\n')
+   0B1C 90 08 E6           3045 	mov	dptr,#_putchar_c_1_1
+   0B1F E0                 3046 	movx	a,@dptr
+   0B20 FA                 3047 	mov	r2,a
+   0B21 BA 0A 0C           3048 	cjne	r2,#0x0A,00102$
+                           3049 ;	../projectSpecificHardwareInterface_C8051F040.c:607: task_UART_putchar(0, '\r') ;
+   0B24 90 0A 81           3050 	mov	dptr,#_task_UART_putchar_PARM_2
+   0B27 74 0D              3051 	mov	a,#0x0D
+   0B29 F0                 3052 	movx	@dptr,a
+   0B2A 75 82 00           3053 	mov	dpl,#0x00
+   0B2D 12 3E EE           3054 	lcall	_task_UART_putchar
+   0B30                    3055 00102$:
+                           3056 ;	../projectSpecificHardwareInterface_C8051F040.c:610: task_UART_putchar(0, c) ;
+   0B30 90 08 E6           3057 	mov	dptr,#_putchar_c_1_1
+   0B33 E0                 3058 	movx	a,@dptr
+   0B34 90 0A 81           3059 	mov	dptr,#_task_UART_putchar_PARM_2
+   0B37 F0                 3060 	movx	@dptr,a
+   0B38 75 82 00           3061 	mov	dpl,#0x00
+   0B3B 02 3E EE           3062 	ljmp	_task_UART_putchar
+                           3063 ;------------------------------------------------------------
+                           3064 ;Allocation info for local variables in function 'prvSetupSystemClock'
+                           3065 ;------------------------------------------------------------
+                           3066 ;n                         Allocated with name '_prvSetupSystemClock_n_1_1'
+                           3067 ;------------------------------------------------------------
+                           3068 ;	../projectSpecificHardwareInterface_C8051F040.c:632: static void prvSetupSystemClock( void )
+                           3069 ;	-----------------------------------------
+                           3070 ;	 function prvSetupSystemClock
+                           3071 ;	-----------------------------------------
+   0B3E                    3072 _prvSetupSystemClock:
+                           3073 ;	../projectSpecificHardwareInterface_C8051F040.c:635: SFRPAGE = CONFIG_PAGE ;			// switch to config page to config oscillator
+   0B3E 75 84 0F           3074 	mov	_SFRPAGE,#0x0F
+                           3075 ;	../projectSpecificHardwareInterface_C8051F040.c:637: OSCXCN = 0x77 ;					// start external oscillator; 24 MHz Crystal
+   0B41 75 8C 77           3076 	mov	_OSCXCN,#0x77
+                           3077 ;	../projectSpecificHardwareInterface_C8051F040.c:641: for( n = 0 ; n < 255 ; n++ ) ;	// delay about 1ms
+   0B44 7A FF              3078 	mov	r2,#0xFF
+   0B46 7B 00              3079 	mov	r3,#0x00
+   0B48                    3080 00106$:
+   0B48 1A                 3081 	dec	r2
+   0B49 BA FF 01           3082 	cjne	r2,#0xff,00114$
+   0B4C 1B                 3083 	dec	r3
+   0B4D                    3084 00114$:
+   0B4D EA                 3085 	mov	a,r2
+   0B4E 4B                 3086 	orl	a,r3
+   0B4F 70 F7              3087 	jnz	00106$
+                           3088 ;	../projectSpecificHardwareInterface_C8051F040.c:642: while((OSCXCN & 0x80) == 0) ;	// wait for oscillator to stabilize
+   0B51                    3089 00101$:
+   0B51 E5 8C              3090 	mov	a,_OSCXCN
+   0B53 30 E7 FB           3091 	jnb	acc.7,00101$
+                           3092 ;	../projectSpecificHardwareInterface_C8051F040.c:644: CLKSEL |= 0x01 ;				// switch to external oscillator
+   0B56 43 97 01           3093 	orl	_CLKSEL,#0x01
+                           3094 ;	../projectSpecificHardwareInterface_C8051F040.c:646: OSCICN = 0xC2 ;					// Turn off the internal oscillator to save a little power
+   0B59 75 8A C2           3095 	mov	_OSCICN,#0xC2
+   0B5C 22                 3096 	ret
+                           3097 ;------------------------------------------------------------
+                           3098 ;Allocation info for local variables in function 'prvSetupTimerInterrupt'
+                           3099 ;------------------------------------------------------------
+                           3100 ;ucOriginalSFRPage         Allocated with name '_prvSetupTimerInterrupt_ucOriginalSFRPage_1_1'
+                           3101 ;ulTicksPerSecond          Allocated with name '_prvSetupTimerInterrupt_ulTicksPerSecond_1_1'
+                           3102 ;ulCaptureTime             Allocated with name '_prvSetupTimerInterrupt_ulCaptureTime_1_1'
+                           3103 ;ulCaptureValue            Allocated with name '_prvSetupTimerInterrupt_ulCaptureValue_1_1'
+                           3104 ;ucLowCaptureByte          Allocated with name '_prvSetupTimerInterrupt_ucLowCaptureByte_1_1'
+                           3105 ;ucHighCaptureByte         Allocated with name '_prvSetupTimerInterrupt_ucHighCaptureByte_1_1'
                            3106 ;------------------------------------------------------------
-                           3107 ;Allocation info for local variables in function 'prvSetupSystemClock'
-                           3108 ;------------------------------------------------------------
-                           3109 ;n                         Allocated with name '_prvSetupSystemClock_n_1_1'
-                           3110 ;------------------------------------------------------------
-                           3111 ;	../projectSpecificHardwareInterface_C8051F040.c:632: static void prvSetupSystemClock( void )
-                           3112 ;	-----------------------------------------
-                           3113 ;	 function prvSetupSystemClock
-                           3114 ;	-----------------------------------------
-   0B86                    3115 _prvSetupSystemClock:
-                           3116 ;	../projectSpecificHardwareInterface_C8051F040.c:635: SFRPAGE = CONFIG_PAGE ;			// switch to config page to config oscillator
-   0B86 75 84 0F           3117 	mov	_SFRPAGE,#0x0F
-                           3118 ;	../projectSpecificHardwareInterface_C8051F040.c:637: OSCXCN = 0x77 ;					// start external oscillator; 24 MHz Crystal
-   0B89 75 8C 77           3119 	mov	_OSCXCN,#0x77
-                           3120 ;	../projectSpecificHardwareInterface_C8051F040.c:641: for( n = 0 ; n < 255 ; n++ ) ;	// delay about 1ms
-   0B8C 7A FF              3121 	mov	r2,#0xFF
-   0B8E 7B 00              3122 	mov	r3,#0x00
-   0B90                    3123 00106$:
-   0B90 1A                 3124 	dec	r2
-   0B91 BA FF 01           3125 	cjne	r2,#0xff,00114$
-   0B94 1B                 3126 	dec	r3
-   0B95                    3127 00114$:
-   0B95 EA                 3128 	mov	a,r2
-   0B96 4B                 3129 	orl	a,r3
-   0B97 70 F7              3130 	jnz	00106$
-                           3131 ;	../projectSpecificHardwareInterface_C8051F040.c:642: while((OSCXCN & 0x80) == 0) ;	// wait for oscillator to stabilize
-   0B99                    3132 00101$:
-   0B99 E5 8C              3133 	mov	a,_OSCXCN
-   0B9B 30 E7 FB           3134 	jnb	acc.7,00101$
-                           3135 ;	../projectSpecificHardwareInterface_C8051F040.c:644: CLKSEL |= 0x01 ;				// switch to external oscillator
-   0B9E 43 97 01           3136 	orl	_CLKSEL,#0x01
-                           3137 ;	../projectSpecificHardwareInterface_C8051F040.c:646: OSCICN = 0xC2 ;					// Turn off the internal oscillator to save a little power
-   0BA1 75 8A C2           3138 	mov	_OSCICN,#0xC2
-   0BA4 22                 3139 	ret
-                           3140 ;------------------------------------------------------------
-                           3141 ;Allocation info for local variables in function 'prvSetupTimerInterrupt'
-                           3142 ;------------------------------------------------------------
-                           3143 ;ucOriginalSFRPage         Allocated with name '_prvSetupTimerInterrupt_ucOriginalSFRPage_1_1'
-                           3144 ;ulTicksPerSecond          Allocated with name '_prvSetupTimerInterrupt_ulTicksPerSecond_1_1'
-                           3145 ;ulCaptureTime             Allocated with name '_prvSetupTimerInterrupt_ulCaptureTime_1_1'
-                           3146 ;ulCaptureValue            Allocated with name '_prvSetupTimerInterrupt_ulCaptureValue_1_1'
-                           3147 ;ucLowCaptureByte          Allocated with name '_prvSetupTimerInterrupt_ucLowCaptureByte_1_1'
-                           3148 ;ucHighCaptureByte         Allocated with name '_prvSetupTimerInterrupt_ucHighCaptureByte_1_1'
-                           3149 ;------------------------------------------------------------
-                           3150 ;	../projectSpecificHardwareInterface_C8051F040.c:650: static void prvSetupTimerInterrupt( void )
-                           3151 ;	-----------------------------------------
-                           3152 ;	 function prvSetupTimerInterrupt
-                           3153 ;	-----------------------------------------
-   0BA5                    3154 _prvSetupTimerInterrupt:
-                           3155 ;	../projectSpecificHardwareInterface_C8051F040.c:664: ucOriginalSFRPage = SFRPAGE;
-   0BA5 90 08 E7           3156 	mov	dptr,#_prvSetupTimerInterrupt_ucOriginalSFRPage_1_1
-   0BA8 E5 84              3157 	mov	a,_SFRPAGE
-   0BAA F0                 3158 	movx	@dptr,a
-                           3159 ;	../projectSpecificHardwareInterface_C8051F040.c:665: SFRPAGE = 0;
-   0BAB 75 84 00           3160 	mov	_SFRPAGE,#0x00
-                           3161 ;	../projectSpecificHardwareInterface_C8051F040.c:668: TMR2CF = ( unsigned char ) 0;
-   0BAE 75 C9 00           3162 	mov	_TMR2CF,#0x00
-                           3163 ;	../projectSpecificHardwareInterface_C8051F040.c:671: RCAP2L = ucLowCaptureByte;
-   0BB1 75 CA D1           3164 	mov	_RCAP2L,#0xD1
-                           3165 ;	../projectSpecificHardwareInterface_C8051F040.c:672: RCAP2H = ucHighCaptureByte;
-   0BB4 75 CB FF           3166 	mov	_RCAP2H,#0xFF
-                           3167 ;	../projectSpecificHardwareInterface_C8051F040.c:675: TMR2L = ucLowCaptureByte;
-   0BB7 75 CC D1           3168 	mov	_TMR2L,#0xD1
-                           3169 ;	../projectSpecificHardwareInterface_C8051F040.c:676: TMR2H = ucHighCaptureByte;
-   0BBA 75 CD FF           3170 	mov	_TMR2H,#0xFF
-                           3171 ;	../projectSpecificHardwareInterface_C8051F040.c:679: IE |= portTIMER_2_INTERRUPT_ENABLE;
-   0BBD 43 A8 20           3172 	orl	_IE,#0x20
-                           3173 ;	../projectSpecificHardwareInterface_C8051F040.c:682: TMR2CN = portENABLE_TIMER ;
-   0BC0 75 C8 06           3174 	mov	_TMR2CN,#0x06
-                           3175 ;	../projectSpecificHardwareInterface_C8051F040.c:685: SFRPAGE	= 1 ;
-   0BC3 75 84 01           3176 	mov	_SFRPAGE,#0x01
-                           3177 ;	../projectSpecificHardwareInterface_C8051F040.c:686: TMR3CF	= 0x0A ;
-   0BC6 75 C9 0A           3178 	mov	_TMR3CF,#0x0A
-                           3179 ;	../projectSpecificHardwareInterface_C8051F040.c:688: RCAP3L	= 0xCE ;	// 120kHz on boost boards
-   0BC9 75 CA CE           3180 	mov	_RCAP3L,#0xCE
-                           3181 ;	../projectSpecificHardwareInterface_C8051F040.c:689: RCAP3H	= 0xFF ;	// 120kHz on boost boards
-   0BCC 75 CB FF           3182 	mov	_RCAP3H,#0xFF
-                           3183 ;	../projectSpecificHardwareInterface_C8051F040.c:691: TMR3L	= 0xF0 ;
-   0BCF 75 CC F0           3184 	mov	_TMR3L,#0xF0
-                           3185 ;	../projectSpecificHardwareInterface_C8051F040.c:692: TMR3H	= 0xFF ;
-   0BD2 75 CD FF           3186 	mov	_TMR3H,#0xFF
-                           3187 ;	../projectSpecificHardwareInterface_C8051F040.c:693: TMR3CN	= 0x04 ;
-   0BD5 75 C8 04           3188 	mov	_TMR3CN,#0x04
-                           3189 ;	../projectSpecificHardwareInterface_C8051F040.c:697: SFRPAGE = ucOriginalSFRPage;
-   0BD8 90 08 E7           3190 	mov	dptr,#_prvSetupTimerInterrupt_ucOriginalSFRPage_1_1
-   0BDB E0                 3191 	movx	a,@dptr
-   0BDC F5 84              3192 	mov	_SFRPAGE,a
-   0BDE 22                 3193 	ret
-                           3194 ;------------------------------------------------------------
-                           3195 ;Allocation info for local variables in function 'addTickCounter'
-                           3196 ;------------------------------------------------------------
-                           3197 ;pointerToIncrement        Allocated with name '_addTickCounter_pointerToIncrement_1_1'
-                           3198 ;i                         Allocated with name '_addTickCounter_i_1_1'
-                           3199 ;sloc0                     Allocated with name '_addTickCounter_sloc0_1_0'
-                           3200 ;------------------------------------------------------------
-                           3201 ;	../projectSpecificHardwareInterface_C8051F040.c:705: void addTickCounter(							unsigned short* pointerToIncrement)
-                           3202 ;	-----------------------------------------
-                           3203 ;	 function addTickCounter
-                           3204 ;	-----------------------------------------
-   0BDF                    3205 _addTickCounter:
-   0BDF AA F0              3206 	mov	r2,b
-   0BE1 AB 83              3207 	mov	r3,dph
-   0BE3 E5 82              3208 	mov	a,dpl
-   0BE5 90 09 06           3209 	mov	dptr,#_addTickCounter_pointerToIncrement_1_1
-   0BE8 F0                 3210 	movx	@dptr,a
-   0BE9 A3                 3211 	inc	dptr
-   0BEA EB                 3212 	mov	a,r3
-   0BEB F0                 3213 	movx	@dptr,a
-   0BEC A3                 3214 	inc	dptr
-   0BED EA                 3215 	mov	a,r2
-   0BEE F0                 3216 	movx	@dptr,a
-                           3217 ;	../projectSpecificHardwareInterface_C8051F040.c:709: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
-   0BEF 7A 00              3218 	mov	r2,#0x00
-   0BF1                    3219 00105$:
-   0BF1 BA 0A 00           3220 	cjne	r2,#0x0A,00115$
-   0BF4                    3221 00115$:
-   0BF4 50 4B              3222 	jnc	00109$
-                           3223 ;	../projectSpecificHardwareInterface_C8051F040.c:713: if(tickCounterToIncrement[i] == pointerToIncrement)
-   0BF6 EA                 3224 	mov	a,r2
-   0BF7 75 F0 03           3225 	mov	b,#0x03
-   0BFA A4                 3226 	mul	ab
-   0BFB 24 E8              3227 	add	a,#_tickCounterToIncrement
-   0BFD FB                 3228 	mov	r3,a
-   0BFE E4                 3229 	clr	a
-   0BFF 34 08              3230 	addc	a,#(_tickCounterToIncrement >> 8)
-   0C01 FC                 3231 	mov	r4,a
-   0C02 8B 82              3232 	mov	dpl,r3
-   0C04 8C 83              3233 	mov	dph,r4
-   0C06 E0                 3234 	movx	a,@dptr
-   0C07 FD                 3235 	mov	r5,a
-   0C08 A3                 3236 	inc	dptr
-   0C09 E0                 3237 	movx	a,@dptr
-   0C0A FE                 3238 	mov	r6,a
-   0C0B A3                 3239 	inc	dptr
-   0C0C E0                 3240 	movx	a,@dptr
-   0C0D FF                 3241 	mov	r7,a
-   0C0E 90 09 06           3242 	mov	dptr,#_addTickCounter_pointerToIncrement_1_1
-   0C11 E0                 3243 	movx	a,@dptr
-   0C12 F5 57              3244 	mov	_addTickCounter_sloc0_1_0,a
-   0C14 A3                 3245 	inc	dptr
-   0C15 E0                 3246 	movx	a,@dptr
-   0C16 F5 58              3247 	mov	(_addTickCounter_sloc0_1_0 + 1),a
-   0C18 A3                 3248 	inc	dptr
-   0C19 E0                 3249 	movx	a,@dptr
-   0C1A F5 59              3250 	mov	(_addTickCounter_sloc0_1_0 + 2),a
-   0C1C ED                 3251 	mov	a,r5
-   0C1D B5 57 09           3252 	cjne	a,_addTickCounter_sloc0_1_0,00117$
-   0C20 EE                 3253 	mov	a,r6
-   0C21 B5 58 05           3254 	cjne	a,(_addTickCounter_sloc0_1_0 + 1),00117$
-   0C24 EF                 3255 	mov	a,r7
-   0C25 B5 59 01           3256 	cjne	a,(_addTickCounter_sloc0_1_0 + 2),00117$
-   0C28 22                 3257 	ret
-   0C29                    3258 00117$:
-                           3259 ;	../projectSpecificHardwareInterface_C8051F040.c:718: if(tickCounterToIncrement[i] == 0)
-   0C29 ED                 3260 	mov	a,r5
-   0C2A 4E                 3261 	orl	a,r6
-   0C2B 4F                 3262 	orl	a,r7
-   0C2C 70 10              3263 	jnz	00107$
-                           3264 ;	../projectSpecificHardwareInterface_C8051F040.c:720: tickCounterToIncrement[i] = pointerToIncrement ;
-   0C2E 8B 82              3265 	mov	dpl,r3
-   0C30 8C 83              3266 	mov	dph,r4
-   0C32 E5 57              3267 	mov	a,_addTickCounter_sloc0_1_0
-   0C34 F0                 3268 	movx	@dptr,a
-   0C35 A3                 3269 	inc	dptr
-   0C36 E5 58              3270 	mov	a,(_addTickCounter_sloc0_1_0 + 1)
-   0C38 F0                 3271 	movx	@dptr,a
-   0C39 A3                 3272 	inc	dptr
-   0C3A E5 59              3273 	mov	a,(_addTickCounter_sloc0_1_0 + 2)
-   0C3C F0                 3274 	movx	@dptr,a
-                           3275 ;	../projectSpecificHardwareInterface_C8051F040.c:722: break ;
-   0C3D 22                 3276 	ret
-   0C3E                    3277 00107$:
-                           3278 ;	../projectSpecificHardwareInterface_C8051F040.c:709: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
-   0C3E 0A                 3279 	inc	r2
-   0C3F 80 B0              3280 	sjmp	00105$
-   0C41                    3281 00109$:
-   0C41 22                 3282 	ret
-                           3283 ;------------------------------------------------------------
-                           3284 ;Allocation info for local variables in function 'vTimer2ISR'
-                           3285 ;------------------------------------------------------------
-                           3286 ;i                         Allocated with name '_vTimer2ISR_i_1_1'
-                           3287 ;------------------------------------------------------------
-                           3288 ;	../projectSpecificHardwareInterface_C8051F040.c:731: void vTimer2ISR( void ) interrupt 5
-                           3289 ;	-----------------------------------------
-                           3290 ;	 function vTimer2ISR
-                           3291 ;	-----------------------------------------
-   0C42                    3292 _vTimer2ISR:
-   0C42 C0 22              3293 	push	bits
-   0C44 C0 E0              3294 	push	acc
-   0C46 C0 F0              3295 	push	b
-   0C48 C0 82              3296 	push	dpl
-   0C4A C0 83              3297 	push	dph
-   0C4C C0 02              3298 	push	(0+2)
-   0C4E C0 03              3299 	push	(0+3)
-   0C50 C0 04              3300 	push	(0+4)
-   0C52 C0 05              3301 	push	(0+5)
-   0C54 C0 06              3302 	push	(0+6)
-   0C56 C0 07              3303 	push	(0+7)
-   0C58 C0 00              3304 	push	(0+0)
-   0C5A C0 01              3305 	push	(0+1)
-   0C5C C0 D0              3306 	push	psw
-   0C5E 75 D0 00           3307 	mov	psw,#0x00
-                           3308 ;	../projectSpecificHardwareInterface_C8051F040.c:735: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
-   0C61 7A 00              3309 	mov	r2,#0x00
-   0C63                    3310 00103$:
-   0C63 BA 0A 00           3311 	cjne	r2,#0x0A,00113$
-   0C66                    3312 00113$:
-   0C66 50 41              3313 	jnc	00106$
-                           3314 ;	../projectSpecificHardwareInterface_C8051F040.c:737: if(tickCounterToIncrement[i])
-   0C68 EA                 3315 	mov	a,r2
-   0C69 75 F0 03           3316 	mov	b,#0x03
-   0C6C A4                 3317 	mul	ab
-   0C6D 24 E8              3318 	add	a,#_tickCounterToIncrement
-   0C6F F5 82              3319 	mov	dpl,a
-   0C71 E4                 3320 	clr	a
-   0C72 34 08              3321 	addc	a,#(_tickCounterToIncrement >> 8)
-   0C74 F5 83              3322 	mov	dph,a
-   0C76 E0                 3323 	movx	a,@dptr
-   0C77 FB                 3324 	mov	r3,a
-   0C78 A3                 3325 	inc	dptr
-   0C79 E0                 3326 	movx	a,@dptr
-   0C7A FC                 3327 	mov	r4,a
-   0C7B A3                 3328 	inc	dptr
-   0C7C E0                 3329 	movx	a,@dptr
-   0C7D FD                 3330 	mov	r5,a
-   0C7E EB                 3331 	mov	a,r3
-   0C7F 4C                 3332 	orl	a,r4
-   0C80 4D                 3333 	orl	a,r5
-   0C81 60 23              3334 	jz	00105$
-                           3335 ;	../projectSpecificHardwareInterface_C8051F040.c:739: *tickCounterToIncrement[i] += 1 ;
-   0C83 8B 82              3336 	mov	dpl,r3
-   0C85 8C 83              3337 	mov	dph,r4
-   0C87 8D F0              3338 	mov	b,r5
-   0C89 12 44 37           3339 	lcall	__gptrget
-   0C8C FE                 3340 	mov	r6,a
-   0C8D A3                 3341 	inc	dptr
-   0C8E 12 44 37           3342 	lcall	__gptrget
-   0C91 FF                 3343 	mov	r7,a
-   0C92 0E                 3344 	inc	r6
-   0C93 BE 00 01           3345 	cjne	r6,#0x00,00116$
-   0C96 0F                 3346 	inc	r7
-   0C97                    3347 00116$:
-   0C97 8B 82              3348 	mov	dpl,r3
-   0C99 8C 83              3349 	mov	dph,r4
-   0C9B 8D F0              3350 	mov	b,r5
-   0C9D EE                 3351 	mov	a,r6
-   0C9E 12 38 0B           3352 	lcall	__gptrput
-   0CA1 A3                 3353 	inc	dptr
-   0CA2 EF                 3354 	mov	a,r7
-   0CA3 12 38 0B           3355 	lcall	__gptrput
-   0CA6                    3356 00105$:
-                           3357 ;	../projectSpecificHardwareInterface_C8051F040.c:735: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
-   0CA6 0A                 3358 	inc	r2
-   0CA7 80 BA              3359 	sjmp	00103$
-   0CA9                    3360 00106$:
-                           3361 ;	../projectSpecificHardwareInterface_C8051F040.c:743: taskSwitcherTickHook() ;
-   0CA9 12 02 85           3362 	lcall	_taskSwitcherTickHook
-                           3363 ;	../projectSpecificHardwareInterface_C8051F040.c:745: portCLEAR_INTERRUPT_FLAG() ;
-   0CAC 53 C8 7F           3364 	anl	_TMR2CN,#0x7F
-   0CAF D0 D0              3365 	pop	psw
-   0CB1 D0 01              3366 	pop	(0+1)
-   0CB3 D0 00              3367 	pop	(0+0)
-   0CB5 D0 07              3368 	pop	(0+7)
-   0CB7 D0 06              3369 	pop	(0+6)
-   0CB9 D0 05              3370 	pop	(0+5)
-   0CBB D0 04              3371 	pop	(0+4)
-   0CBD D0 03              3372 	pop	(0+3)
-   0CBF D0 02              3373 	pop	(0+2)
-   0CC1 D0 83              3374 	pop	dph
-   0CC3 D0 82              3375 	pop	dpl
-   0CC5 D0 F0              3376 	pop	b
-   0CC7 D0 E0              3377 	pop	acc
-   0CC9 D0 22              3378 	pop	bits
-   0CCB 32                 3379 	reti
-                           3380 	.area CSEG    (CODE)
-                           3381 	.area CONST   (CODE)
-   4457                    3382 __str_0:
-   4457 34 74 68 20 47 65  3383 	.ascii "4th Generation state machine test started."
+                           3107 ;	../projectSpecificHardwareInterface_C8051F040.c:650: static void prvSetupTimerInterrupt( void )
+                           3108 ;	-----------------------------------------
+                           3109 ;	 function prvSetupTimerInterrupt
+                           3110 ;	-----------------------------------------
+   0B5D                    3111 _prvSetupTimerInterrupt:
+                           3112 ;	../projectSpecificHardwareInterface_C8051F040.c:664: ucOriginalSFRPage = SFRPAGE;
+   0B5D 90 08 E7           3113 	mov	dptr,#_prvSetupTimerInterrupt_ucOriginalSFRPage_1_1
+   0B60 E5 84              3114 	mov	a,_SFRPAGE
+   0B62 F0                 3115 	movx	@dptr,a
+                           3116 ;	../projectSpecificHardwareInterface_C8051F040.c:665: SFRPAGE = 0;
+   0B63 75 84 00           3117 	mov	_SFRPAGE,#0x00
+                           3118 ;	../projectSpecificHardwareInterface_C8051F040.c:668: TMR2CF = ( unsigned char ) 0;
+   0B66 75 C9 00           3119 	mov	_TMR2CF,#0x00
+                           3120 ;	../projectSpecificHardwareInterface_C8051F040.c:671: RCAP2L = ucLowCaptureByte;
+   0B69 75 CA D1           3121 	mov	_RCAP2L,#0xD1
+                           3122 ;	../projectSpecificHardwareInterface_C8051F040.c:672: RCAP2H = ucHighCaptureByte;
+   0B6C 75 CB FF           3123 	mov	_RCAP2H,#0xFF
+                           3124 ;	../projectSpecificHardwareInterface_C8051F040.c:675: TMR2L = ucLowCaptureByte;
+   0B6F 75 CC D1           3125 	mov	_TMR2L,#0xD1
+                           3126 ;	../projectSpecificHardwareInterface_C8051F040.c:676: TMR2H = ucHighCaptureByte;
+   0B72 75 CD FF           3127 	mov	_TMR2H,#0xFF
+                           3128 ;	../projectSpecificHardwareInterface_C8051F040.c:679: IE |= portTIMER_2_INTERRUPT_ENABLE;
+   0B75 43 A8 20           3129 	orl	_IE,#0x20
+                           3130 ;	../projectSpecificHardwareInterface_C8051F040.c:682: TMR2CN = portENABLE_TIMER ;
+   0B78 75 C8 06           3131 	mov	_TMR2CN,#0x06
+                           3132 ;	../projectSpecificHardwareInterface_C8051F040.c:685: SFRPAGE	= 1 ;
+   0B7B 75 84 01           3133 	mov	_SFRPAGE,#0x01
+                           3134 ;	../projectSpecificHardwareInterface_C8051F040.c:686: TMR3CF	= 0x0A ;
+   0B7E 75 C9 0A           3135 	mov	_TMR3CF,#0x0A
+                           3136 ;	../projectSpecificHardwareInterface_C8051F040.c:688: RCAP3L	= 0xCE ;	// 120kHz on boost boards
+   0B81 75 CA CE           3137 	mov	_RCAP3L,#0xCE
+                           3138 ;	../projectSpecificHardwareInterface_C8051F040.c:689: RCAP3H	= 0xFF ;	// 120kHz on boost boards
+   0B84 75 CB FF           3139 	mov	_RCAP3H,#0xFF
+                           3140 ;	../projectSpecificHardwareInterface_C8051F040.c:691: TMR3L	= 0xF0 ;
+   0B87 75 CC F0           3141 	mov	_TMR3L,#0xF0
+                           3142 ;	../projectSpecificHardwareInterface_C8051F040.c:692: TMR3H	= 0xFF ;
+   0B8A 75 CD FF           3143 	mov	_TMR3H,#0xFF
+                           3144 ;	../projectSpecificHardwareInterface_C8051F040.c:693: TMR3CN	= 0x04 ;
+   0B8D 75 C8 04           3145 	mov	_TMR3CN,#0x04
+                           3146 ;	../projectSpecificHardwareInterface_C8051F040.c:697: SFRPAGE = ucOriginalSFRPage;
+   0B90 90 08 E7           3147 	mov	dptr,#_prvSetupTimerInterrupt_ucOriginalSFRPage_1_1
+   0B93 E0                 3148 	movx	a,@dptr
+   0B94 F5 84              3149 	mov	_SFRPAGE,a
+   0B96 22                 3150 	ret
+                           3151 ;------------------------------------------------------------
+                           3152 ;Allocation info for local variables in function 'addTickCounter'
+                           3153 ;------------------------------------------------------------
+                           3154 ;pointerToIncrement        Allocated with name '_addTickCounter_pointerToIncrement_1_1'
+                           3155 ;i                         Allocated with name '_addTickCounter_i_1_1'
+                           3156 ;sloc0                     Allocated with name '_addTickCounter_sloc0_1_0'
+                           3157 ;------------------------------------------------------------
+                           3158 ;	../projectSpecificHardwareInterface_C8051F040.c:705: void addTickCounter(							unsigned short* pointerToIncrement)
+                           3159 ;	-----------------------------------------
+                           3160 ;	 function addTickCounter
+                           3161 ;	-----------------------------------------
+   0B97                    3162 _addTickCounter:
+   0B97 AA F0              3163 	mov	r2,b
+   0B99 AB 83              3164 	mov	r3,dph
+   0B9B E5 82              3165 	mov	a,dpl
+   0B9D 90 09 06           3166 	mov	dptr,#_addTickCounter_pointerToIncrement_1_1
+   0BA0 F0                 3167 	movx	@dptr,a
+   0BA1 A3                 3168 	inc	dptr
+   0BA2 EB                 3169 	mov	a,r3
+   0BA3 F0                 3170 	movx	@dptr,a
+   0BA4 A3                 3171 	inc	dptr
+   0BA5 EA                 3172 	mov	a,r2
+   0BA6 F0                 3173 	movx	@dptr,a
+                           3174 ;	../projectSpecificHardwareInterface_C8051F040.c:709: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
+   0BA7 7A 00              3175 	mov	r2,#0x00
+   0BA9                    3176 00105$:
+   0BA9 BA 0A 00           3177 	cjne	r2,#0x0A,00115$
+   0BAC                    3178 00115$:
+   0BAC 50 4B              3179 	jnc	00109$
+                           3180 ;	../projectSpecificHardwareInterface_C8051F040.c:713: if(tickCounterToIncrement[i] == pointerToIncrement)
+   0BAE EA                 3181 	mov	a,r2
+   0BAF 75 F0 03           3182 	mov	b,#0x03
+   0BB2 A4                 3183 	mul	ab
+   0BB3 24 E8              3184 	add	a,#_tickCounterToIncrement
+   0BB5 FB                 3185 	mov	r3,a
+   0BB6 E4                 3186 	clr	a
+   0BB7 34 08              3187 	addc	a,#(_tickCounterToIncrement >> 8)
+   0BB9 FC                 3188 	mov	r4,a
+   0BBA 8B 82              3189 	mov	dpl,r3
+   0BBC 8C 83              3190 	mov	dph,r4
+   0BBE E0                 3191 	movx	a,@dptr
+   0BBF FD                 3192 	mov	r5,a
+   0BC0 A3                 3193 	inc	dptr
+   0BC1 E0                 3194 	movx	a,@dptr
+   0BC2 FE                 3195 	mov	r6,a
+   0BC3 A3                 3196 	inc	dptr
+   0BC4 E0                 3197 	movx	a,@dptr
+   0BC5 FF                 3198 	mov	r7,a
+   0BC6 90 09 06           3199 	mov	dptr,#_addTickCounter_pointerToIncrement_1_1
+   0BC9 E0                 3200 	movx	a,@dptr
+   0BCA F5 60              3201 	mov	_addTickCounter_sloc0_1_0,a
+   0BCC A3                 3202 	inc	dptr
+   0BCD E0                 3203 	movx	a,@dptr
+   0BCE F5 61              3204 	mov	(_addTickCounter_sloc0_1_0 + 1),a
+   0BD0 A3                 3205 	inc	dptr
+   0BD1 E0                 3206 	movx	a,@dptr
+   0BD2 F5 62              3207 	mov	(_addTickCounter_sloc0_1_0 + 2),a
+   0BD4 ED                 3208 	mov	a,r5
+   0BD5 B5 60 09           3209 	cjne	a,_addTickCounter_sloc0_1_0,00117$
+   0BD8 EE                 3210 	mov	a,r6
+   0BD9 B5 61 05           3211 	cjne	a,(_addTickCounter_sloc0_1_0 + 1),00117$
+   0BDC EF                 3212 	mov	a,r7
+   0BDD B5 62 01           3213 	cjne	a,(_addTickCounter_sloc0_1_0 + 2),00117$
+   0BE0 22                 3214 	ret
+   0BE1                    3215 00117$:
+                           3216 ;	../projectSpecificHardwareInterface_C8051F040.c:718: if(tickCounterToIncrement[i] == 0)
+   0BE1 ED                 3217 	mov	a,r5
+   0BE2 4E                 3218 	orl	a,r6
+   0BE3 4F                 3219 	orl	a,r7
+   0BE4 70 10              3220 	jnz	00107$
+                           3221 ;	../projectSpecificHardwareInterface_C8051F040.c:720: tickCounterToIncrement[i] = pointerToIncrement ;
+   0BE6 8B 82              3222 	mov	dpl,r3
+   0BE8 8C 83              3223 	mov	dph,r4
+   0BEA E5 60              3224 	mov	a,_addTickCounter_sloc0_1_0
+   0BEC F0                 3225 	movx	@dptr,a
+   0BED A3                 3226 	inc	dptr
+   0BEE E5 61              3227 	mov	a,(_addTickCounter_sloc0_1_0 + 1)
+   0BF0 F0                 3228 	movx	@dptr,a
+   0BF1 A3                 3229 	inc	dptr
+   0BF2 E5 62              3230 	mov	a,(_addTickCounter_sloc0_1_0 + 2)
+   0BF4 F0                 3231 	movx	@dptr,a
+                           3232 ;	../projectSpecificHardwareInterface_C8051F040.c:722: break ;
+   0BF5 22                 3233 	ret
+   0BF6                    3234 00107$:
+                           3235 ;	../projectSpecificHardwareInterface_C8051F040.c:709: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
+   0BF6 0A                 3236 	inc	r2
+   0BF7 80 B0              3237 	sjmp	00105$
+   0BF9                    3238 00109$:
+   0BF9 22                 3239 	ret
+                           3240 ;------------------------------------------------------------
+                           3241 ;Allocation info for local variables in function 'vTimer2ISR'
+                           3242 ;------------------------------------------------------------
+                           3243 ;i                         Allocated with name '_vTimer2ISR_i_1_1'
+                           3244 ;------------------------------------------------------------
+                           3245 ;	../projectSpecificHardwareInterface_C8051F040.c:731: void vTimer2ISR( void ) interrupt 5
+                           3246 ;	-----------------------------------------
+                           3247 ;	 function vTimer2ISR
+                           3248 ;	-----------------------------------------
+   0BFA                    3249 _vTimer2ISR:
+   0BFA C0 23              3250 	push	bits
+   0BFC C0 E0              3251 	push	acc
+   0BFE C0 F0              3252 	push	b
+   0C00 C0 82              3253 	push	dpl
+   0C02 C0 83              3254 	push	dph
+   0C04 C0 02              3255 	push	(0+2)
+   0C06 C0 03              3256 	push	(0+3)
+   0C08 C0 04              3257 	push	(0+4)
+   0C0A C0 05              3258 	push	(0+5)
+   0C0C C0 06              3259 	push	(0+6)
+   0C0E C0 07              3260 	push	(0+7)
+   0C10 C0 00              3261 	push	(0+0)
+   0C12 C0 01              3262 	push	(0+1)
+   0C14 C0 D0              3263 	push	psw
+   0C16 75 D0 00           3264 	mov	psw,#0x00
+                           3265 ;	../projectSpecificHardwareInterface_C8051F040.c:735: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
+   0C19 7A 00              3266 	mov	r2,#0x00
+   0C1B                    3267 00103$:
+   0C1B BA 0A 00           3268 	cjne	r2,#0x0A,00113$
+   0C1E                    3269 00113$:
+   0C1E 50 41              3270 	jnc	00106$
+                           3271 ;	../projectSpecificHardwareInterface_C8051F040.c:737: if(tickCounterToIncrement[i])
+   0C20 EA                 3272 	mov	a,r2
+   0C21 75 F0 03           3273 	mov	b,#0x03
+   0C24 A4                 3274 	mul	ab
+   0C25 24 E8              3275 	add	a,#_tickCounterToIncrement
+   0C27 F5 82              3276 	mov	dpl,a
+   0C29 E4                 3277 	clr	a
+   0C2A 34 08              3278 	addc	a,#(_tickCounterToIncrement >> 8)
+   0C2C F5 83              3279 	mov	dph,a
+   0C2E E0                 3280 	movx	a,@dptr
+   0C2F FB                 3281 	mov	r3,a
+   0C30 A3                 3282 	inc	dptr
+   0C31 E0                 3283 	movx	a,@dptr
+   0C32 FC                 3284 	mov	r4,a
+   0C33 A3                 3285 	inc	dptr
+   0C34 E0                 3286 	movx	a,@dptr
+   0C35 FD                 3287 	mov	r5,a
+   0C36 EB                 3288 	mov	a,r3
+   0C37 4C                 3289 	orl	a,r4
+   0C38 4D                 3290 	orl	a,r5
+   0C39 60 23              3291 	jz	00105$
+                           3292 ;	../projectSpecificHardwareInterface_C8051F040.c:739: *tickCounterToIncrement[i] += 1 ;
+   0C3B 8B 82              3293 	mov	dpl,r3
+   0C3D 8C 83              3294 	mov	dph,r4
+   0C3F 8D F0              3295 	mov	b,r5
+   0C41 12 4D 3C           3296 	lcall	__gptrget
+   0C44 FE                 3297 	mov	r6,a
+   0C45 A3                 3298 	inc	dptr
+   0C46 12 4D 3C           3299 	lcall	__gptrget
+   0C49 FF                 3300 	mov	r7,a
+   0C4A 0E                 3301 	inc	r6
+   0C4B BE 00 01           3302 	cjne	r6,#0x00,00116$
+   0C4E 0F                 3303 	inc	r7
+   0C4F                    3304 00116$:
+   0C4F 8B 82              3305 	mov	dpl,r3
+   0C51 8C 83              3306 	mov	dph,r4
+   0C53 8D F0              3307 	mov	b,r5
+   0C55 EE                 3308 	mov	a,r6
+   0C56 12 41 10           3309 	lcall	__gptrput
+   0C59 A3                 3310 	inc	dptr
+   0C5A EF                 3311 	mov	a,r7
+   0C5B 12 41 10           3312 	lcall	__gptrput
+   0C5E                    3313 00105$:
+                           3314 ;	../projectSpecificHardwareInterface_C8051F040.c:735: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
+   0C5E 0A                 3315 	inc	r2
+   0C5F 80 BA              3316 	sjmp	00103$
+   0C61                    3317 00106$:
+                           3318 ;	../projectSpecificHardwareInterface_C8051F040.c:743: taskSwitcherTickHook() ;
+   0C61 12 02 3D           3319 	lcall	_taskSwitcherTickHook
+                           3320 ;	../projectSpecificHardwareInterface_C8051F040.c:745: portCLEAR_INTERRUPT_FLAG() ;
+   0C64 53 C8 7F           3321 	anl	_TMR2CN,#0x7F
+   0C67 D0 D0              3322 	pop	psw
+   0C69 D0 01              3323 	pop	(0+1)
+   0C6B D0 00              3324 	pop	(0+0)
+   0C6D D0 07              3325 	pop	(0+7)
+   0C6F D0 06              3326 	pop	(0+6)
+   0C71 D0 05              3327 	pop	(0+5)
+   0C73 D0 04              3328 	pop	(0+4)
+   0C75 D0 03              3329 	pop	(0+3)
+   0C77 D0 02              3330 	pop	(0+2)
+   0C79 D0 83              3331 	pop	dph
+   0C7B D0 82              3332 	pop	dpl
+   0C7D D0 F0              3333 	pop	b
+   0C7F D0 E0              3334 	pop	acc
+   0C81 D0 23              3335 	pop	bits
+   0C83 32                 3336 	reti
+                           3337 	.area CSEG    (CODE)
+                           3338 	.area CONST   (CODE)
+   4D5C                    3339 __str_0:
+   4D5C 34 74 68 20 47 65  3340 	.ascii "4th Generation state machine test started."
         6E 65 72 61 74 69
         6F 6E 20 73 74 61
         74 65 20 6D 61 63
         68 69 6E 65 20 74
         65 73 74 20 73 74
         61 72 74 65 64 2E
-   4481 00                 3384 	.db 0x00
-   4482                    3385 __str_1:
-   4482 47 65 6E 65 72 61  3386 	.ascii "Generating timebomb"
+   4D86 00                 3341 	.db 0x00
+   4D87                    3342 __str_1:
+   4D87 47 65 6E 65 72 61  3343 	.ascii "Generating timebomb"
         74 69 6E 67 20 74
         69 6D 65 62 6F 6D
         62
-   4495 00                 3387 	.db 0x00
-   4496                    3388 __str_2:
-   4496 47 65 6E 65 72 61  3389 	.ascii "Generating calculator"
+   4D9A 00                 3344 	.db 0x00
+   4D9B                    3345 __str_2:
+   4D9B 47 65 6E 65 72 61  3346 	.ascii "Generating calculator"
         74 69 6E 67 20 63
         61 6C 63 75 6C 61
         74 6F 72
-   44AB 00                 3390 	.db 0x00
-   44AC                    3391 __str_3:
-   44AC 52 65 67 69 73 74  3392 	.ascii "Registering calculator"
+   4DB0 00                 3347 	.db 0x00
+   4DB1                    3348 __str_3:
+   4DB1 52 65 67 69 73 74  3349 	.ascii "Registering calculator"
         65 72 69 6E 67 20
         63 61 6C 63 75 6C
         61 74 6F 72
-   44C2 00                 3393 	.db 0x00
-   44C3                    3394 __str_4:
-   44C3 49 74 65 72 61 74  3395 	.ascii "Iterating state machines"
+   4DC7 00                 3350 	.db 0x00
+   4DC8                    3351 __str_4:
+   4DC8 49 74 65 72 61 74  3352 	.ascii "Iterating state machines"
         69 6E 67 20 73 74
         61 74 65 20 6D 61
         63 68 69 6E 65 73
-   44DB 00                 3396 	.db 0x00
-   44DC                    3397 __str_5:
-   44DC 6C 6F 6F 70        3398 	.ascii "loop"
-   44E0 00                 3399 	.db 0x00
-   44E1                    3400 __str_6:
-   44E1 0A                 3401 	.db 0x0A
-   44E2 34 74 68 20 47 65  3402 	.ascii "4th Generation state machine test done."
+   4DE0 00                 3353 	.db 0x00
+   4DE1                    3354 __str_5:
+   4DE1 6C 6F 6F 70        3355 	.ascii "loop"
+   4DE5 00                 3356 	.db 0x00
+   4DE6                    3357 __str_6:
+   4DE6 0A                 3358 	.db 0x0A
+   4DE7 34 74 68 20 47 65  3359 	.ascii "4th Generation state machine test done."
         6E 65 72 61 74 69
         6F 6E 20 73 74 61
         74 65 20 6D 61 63
         68 69 6E 65 20 74
         65 73 74 20 64 6F
         6E 65 2E
-   4509 00                 3403 	.db 0x00
-                           3404 	.area XINIT   (CODE)
-   4B45                    3405 __xinit__countdown:
-   4B45 05 00              3406 	.byte #0x05,#0x00
-                           3407 	.area CABS    (ABS,CODE)
+   4E0E 00                 3360 	.db 0x00
+                           3361 	.area XINIT   (CODE)
+   5499                    3362 __xinit__countdown:
+   5499 05 00              3363 	.byte #0x05,#0x00
+                           3364 	.area CABS    (ABS,CODE)

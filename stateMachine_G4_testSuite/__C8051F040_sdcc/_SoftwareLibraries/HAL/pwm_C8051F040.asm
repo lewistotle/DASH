@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Wed Dec 30 22:11:51 2009
+; This file was generated Sat Jan 02 12:04:43 2010
 ;--------------------------------------------------------
 	.module pwm_C8051F040
 	.optsdcc -mmcs51 --model-large

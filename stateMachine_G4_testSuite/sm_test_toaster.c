@@ -21,22 +21,17 @@ DEFINE_STATE_MACHINE() ;
 		uint8_t		cookingTime_hours ;
 		uint8_t		cookingTime_minutes ;
 		uint8_t		cookingTime_seconds ;
-
-//		HISTORY_TRACKER_FOR_STATE(doorClosed) ;
-//		HISTORY_TRACKER_FOR_STATE(heating) ;
 	END_STATE_MACHINE_VARIABLES() ;
 
 	SET_EVENT_QUEUE_DEPTH(config_toastEVENT_QUEUE_DEPTH) ;
 
-	ADD_SUB_STATE(doorClosed, PARENT_STATE(TOP)) ;
-//	ADD_SUB_STATE_WITH_DEEP_HISTORY(doorClosed, PARENT_STATE(TOP), HISTORICAL_DEFAULT_STATE(off)) ;
+	ADD_SUB_STATE_WITH_DEEP_HISTORY(doorClosed, PARENT_STATE(TOP)) ;
 
 		ADD_SUB_STATE(heating, PARENT_STATE(doorClosed)) ;
-//		ADD_SUB_STATE_WITH_SHALLOW_HISTORY(heating, PARENT_STATE(doorClosed), HISTORICAL_DEFAULT_STATE(toasting)) ;
 
-			ADD_SUB_STATE(baking, PARENT_STATE(doorClosed)) ;
+			ADD_SUB_STATE(baking, PARENT_STATE(heating)) ;
 
-			ADD_SUB_STATE(toasting, PARENT_STATE(doorClosed)) ;
+			ADD_SUB_STATE(toasting, PARENT_STATE(heating)) ;
 
 		ADD_SUB_STATE(off, PARENT_STATE(doorClosed)) ;
 
@@ -68,9 +63,11 @@ void heaterOff(	void)
 {
 }
 
+
 void lampOn(	void)
 {
 }
+
 
 void lampOff(	void)
 {
@@ -90,12 +87,15 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(doorClosed)
 {
+	SET_HISTORY_DEFAULT_STATE(off,							NO_ACTION) ;
+	SET_HISTORY_DEFAULT_STATE(HISTORY_OF(off),				NO_ACTION) ;
+
 	INITIAL_TRANSITION(TO(off),								NO_ACTION) ;
 
-	TRANSITION_ON(BAKE,		UNCONDITIONALLY, TO(baking),	NO_ACTION) ;
-	TRANSITION_ON(TOAST,	UNCONDITIONALLY, TO(toasting),	NO_ACTION) ;
-	TRANSITION_ON(OFF,		UNCONDITIONALLY, TO(off),		NO_ACTION) ;
-	TRANSITION_ON(OPEN,		UNCONDITIONALLY, TO(off),		NO_ACTION) ;
+	TRANSITION_ON(BAKE,		TO(baking),	NO_ACTION) ;
+	TRANSITION_ON(TOAST,	TO(toasting),	NO_ACTION) ;
+	TRANSITION_ON(OFF,		TO(off),		NO_ACTION) ;
+	TRANSITION_ON(OPEN,		TO(off),		NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -122,18 +122,20 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(off)
 {
+	heaterOff() ;
+	lampOff() ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(doorOpen)
 {
-//	DEFER_EVENT(BAKE) ;
-//	DEFER_EVENT(TOAST) ;
+	DEFER_EVENT(BAKE) ;
+	DEFER_EVENT(TOAST) ;
 
 	ON_ENTRY(	lampOn()) ;
 	ON_EXIT(	lampOff()) ;
 
-//	TRANSITION_ON(CLOSE,	UNCONDITIONALLY, TO(DEEP_HISTORY_OF(doorClosed)),		NO_ACTION) ;
+	TRANSITION_ON(CLOSE,	HISTORY_OF(doorClosed),		NO_ACTION) ;
 }
 END_DEFINE_STATE()

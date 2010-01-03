@@ -172,45 +172,50 @@ Symbol Table
     TXD                                                            00B1 
     __gptrget                                                      **** GX
     __gptrput                                                      **** GX
- 16 __str_0                                                        003F R
+ 16 __str_0                                                        0041 R
  17 __xinit__toaster_name                                          0000 R
+    _addToDeferredTypeList                                         **** GX
+    _addToDeferredTypeList_PARM_2                                  **** GX
     _bp                                                            **** GX
- 15 _heaterOff                                                     0115 GR
- 15 _heaterOn                                                      0114 GR
- 15 _lampOff                                                       0117 GR
- 15 _lampOn                                                        0116 GR
- 16 _str_1                                                         0047 R
- 16 _str_2                                                         0053 R
- 16 _str_3                                                         0066 R
- 16 _str_4                                                         0076 R
- 16 _str_5                                                         0085 R
- 16 _str_6                                                         0096 R
- 16 _str_7                                                         00A2 R
+ 15 _heaterOff                                                     0106 GR
+ 15 _heaterOn                                                      0105 GR
+ 15 _lampOff                                                       0108 GR
+ 15 _lampOn                                                        0107 GR
+    _removeFromDeferredTypeList                                    **** GX
+    _removeFromDeferredTypeList_PARM_2                             **** GX
+ 16 _str_1                                                         0049 R
+ 16 _str_2                                                         0055 R
+ 16 _str_3                                                         0068 R
+ 16 _str_4                                                         0078 R
+ 16 _str_5                                                         0087 R
+ 16 _str_6                                                         0098 R
+ 16 _str_7                                                         00A4 R
  16 _toaster_TOP                                                   0000 R
- 15 _toaster_TOP_handler                                           0118 R
- 16 _toaster_baking                                                001B R
- 15 _toaster_baking_handler                                        02F1 R
+ 15 _toaster_TOP_handler                                           0109 R
+ 16 _toaster_baking                                                001D R
+ 15 _toaster_baking_handler                                        0337 R
  15 _toaster_constructor                                           0004 GR
- 15 _toaster_constructor2                                          00C1 GR
+ 15 _toaster_constructor2                                          00B2 GR
   9 _toaster_constructor2_self_1_1                                 0006 R
   9 _toaster_constructor_base_1_1                                  0000 R
   3 _toaster_constructor_sloc0_1_0                                 0000 R
- 15 _toaster_destructor                                            0099 GR
- 15 _toaster_destructor2                                           0113 GR
+ 15 _toaster_destructor                                            0086 GR
+ 15 _toaster_destructor2                                           0104 GR
   9 _toaster_destructor_self_1_1                                   0003 R
  16 _toaster_doorClosed                                            0009 R
- 15 _toaster_doorClosed_handler                                    019F R
- 16 _toaster_doorOpen                                              0036 R
- 15 _toaster_doorOpen_handler                                      0312 R
+ 15 _toaster_doorClosed_handler                                    0190 R
+ 16 _toaster_doorOpen                                              0038 R
+ 15 _toaster_doorOpen_handler                                      035E R
  15 _toaster_getEventQueueDepth                                    0000 GR
- 15 _toaster_getMachineSize                                        00BD GR
- 16 _toaster_heating                                               0012 R
- 15 _toaster_heating_handler                                       02AD R
+ 15 _toaster_getHistoryQueueDepth                                  00AA GR
+ 15 _toaster_getMachineSize                                        00AE GR
+ 16 _toaster_heating                                               0014 R
+ 15 _toaster_heating_handler                                       02FF R
   B _toaster_name                                                  0000 R
- 16 _toaster_off                                                   002D R
- 15 _toaster_off_handler                                           0307 R
- 16 _toaster_toasting                                              0024 R
- 15 _toaster_toasting_handler                                      02FC R
+ 16 _toaster_off                                                   002F R
+ 15 _toaster_off_handler                                           034D R
+ 16 _toaster_toasting                                              0026 R
+ 15 _toaster_toasting_handler                                      0342 R
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -413,7 +418,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size  356   flags 20
-  16 CONST                                                                              size   B3   flags 20
+  15 CSEG                                                                               size  499   flags 20
+  16 CONST                                                                              size   B5   flags 20
   17 XINIT                                                                              size    3   flags 20
   18 CABS                                                                               size    0   flags 28

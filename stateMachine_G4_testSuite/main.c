@@ -28,7 +28,6 @@
 #include "sm_test_timeBomb.h"
 #include "sm_test_calculator.h"
 
-//#include "sm_test_machine_c.h"
 
 
 #if defined(__TS7800__) || defined(__cygwin__)
@@ -42,7 +41,9 @@ void* ISR_thread(	void* threadID)
 
 	usleep(10000) ;
 
-//	while(iterations < 5000)
+#if 0
+	while(iterations < 5000)
+#endif
 	{
 		iterations++ ;
 
@@ -73,7 +74,7 @@ void* ISR_thread(	void* threadID)
 static void prvSetupSystemClock(	void ) ;
 static void prvSetupTimerInterrupt(	void ) ;
 
-static volatile bool		timeForTickProcessing ;				// set in an ISR so volatile is needed
+static volatile bool		timeForTickProcessing ;				/* set in an ISR so volatile is needed */
 #endif
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
@@ -105,9 +106,9 @@ void main(	void)
 	}
 #endif
 #ifdef __c8051f040__
-	WDTCN = 0xDE ;	// Disable the watchdog timer
+	WDTCN = 0xDE ;	/* Disable the watchdog timer */
 	WDTCN = 0xAD ;
-	WDTCN = 0xFF ;	// Disable any future ability to modify the watchdog timer
+	WDTCN = 0xFF ;	/* Disable any future ability to modify the watchdog timer */
 
 	prvSetupSystemClock() ;
 	gpio_init() ;
@@ -124,7 +125,7 @@ void main(	void)
 
 	if(bomb)
 	{
-		REGISTER_STATE_MACHINE(bomb) ;
+//		REGISTER_STATE_MACHINE(bomb) ;
 	}
 
 	puts("Generating calculator") ;
@@ -189,10 +190,11 @@ void taskSwitcherTickHook(	void)
 }
 
 
-// Now include the project specific hardware interface C file directly. This
-// is a bit unusual but I'm doing since I want to be able to keep the hardware
-// specific code in one place for code clarity reasons, but the ISRs must be
-// in the same file as main() with this compiler. This gives me both.
+/* Now include the project specific hardware interface C file directly. This
+ * is a bit unusual but I'm doing since I want to be able to keep the hardware
+ * specific code in one place for code clarity reasons, but the ISRs must be
+ * in the same file as main() with this compiler. This gives me both.
+ */
 
 #include "projectSpecificHardwareInterface_C8051F040.c"
 #endif

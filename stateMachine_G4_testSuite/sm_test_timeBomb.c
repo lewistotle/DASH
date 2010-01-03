@@ -31,7 +31,7 @@ DEFINE_STATE_MACHINE() ;
 
 	ADD_SUB_STATE(timing, PARENT_STATE(TOP)) ;
 
-	ADD_SUB_STATE(BOOM, PARENT_STATE(TOP)) ;
+	ADD_CHOICE_PSEUDO_STATE(isTimeToGoBoom, PARENT_STATE(TOP)) ;
 
 END_STATE_MACHINE_DEFINITION() ;
 
@@ -56,6 +56,11 @@ void updateDisplay(	uint8_t value)
 }
 
 
+void goBOOM(		void)
+{
+}
+
+
 DEFINE_TOP_STATE()
 {
 	INITIAL_TRANSITION(TO(setting), ACTION(self->timeout = INIT_TIMEOUT)) ;
@@ -75,7 +80,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(setting)
 {
-	TRANSITION_ON(ARM, UNCONDITIONALLY, TO(timing), ACTION(self->codeBeingEntered = 0)) ;
+	TRANSITION_ON(ARM, TO(timing), ACTION(self->codeBeingEntered = 0)) ;
 
 	HANDLE_STATE_EVENTS
 	{
@@ -108,7 +113,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(timing)
 {
-	TRANSITION_ON(ARM, IF(self->codeBeingEntered == self->disarmCode), TO(setting), ACTION(updateDisplay(self->timeout))) ;
+	TRANSITION_ON_IF(ARM, self->codeBeingEntered == self->disarmCode, TO(setting), ACTION(updateDisplay(self->timeout))) ;
 
 	HANDLE_STATE_EVENTS
 	{
@@ -129,9 +134,7 @@ DEFINE_STATE(timing)
 		{
 			self->timeout-- ;
 
-			updateDisplay(self->timeout) ;
-
-			TRANSITION_IF(self->timeout == 0, TO(BOOM), NO_ACTION)
+			TRANSITION_TO(isTimeToGoBoom, updateDisplay(self->timeout)) ;
 		}
 		EVENT_HANDLED
 	}
@@ -140,18 +143,8 @@ DEFINE_STATE(timing)
 END_DEFINE_STATE()
 
 
-DEFINE_STATE(BOOM)
-{
-	HANDLE_STATE_EVENTS
-	{
-		ENTER
-		{
-			/* BOOM */
+DEFINE_CHOICE_PSEUDO_STATE(	isTimeToGoBoom,
+							IF(self->timeout == 0),				/* condition */
+							TO(STATE_MACHINE_EXIT), goBOOM(),	/* if true */
+							TO(timing), NO_ACTION) ;			/* if false */
 
-			TRANSITION_TO(STATE_MACHINE_EXIT, NO_ACTION) ;
-		}
-		ENTER_HANDLED
-	}
-	HANDLE_STATE_EVENTS_DONE
-}
-END_DEFINE_STATE()

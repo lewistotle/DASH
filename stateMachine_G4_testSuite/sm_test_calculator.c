@@ -70,8 +70,8 @@ DEFINE_STATE(on)
 {
 	INITIAL_TRANSITION(TO(ready),																NO_ACTION) ;
 
-	TRANSITION_ON(CLEAR,		UNCONDITIONALLY,						TO(on),					NO_ACTION) ;
-	TRANSITION_ON(OFF,			UNCONDITIONALLY,						TO(STATE_MACHINE_EXIT),	NO_ACTION) ;
+	TRANSITION_ON(CLEAR,												TO(on),					NO_ACTION) ;
+	TRANSITION_ON(OFF,													TO(STATE_MACHINE_EXIT),	NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -80,7 +80,7 @@ DEFINE_STATE(ready)
 {
 	INITIAL_TRANSITION(TO(zero1),																NO_ACTION) ;
 
-	TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+	TRANSITION_ON(OPERATION,											TO(opEntered),			NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -96,29 +96,29 @@ DEFINE_STATE(begin)
 	/* This will cause a loop in the state machine, but for testing purposes, it tests a couple of cases */
 	INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
 
-	TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
-	TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+	TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
+	TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(negated1)
 {
-	TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(begin),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero1),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
-	CONSUME_EVENT_IF(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),							NO_ACTION) ;
+	TRANSITION_ON(CLEAR_ENTRY,											TO(begin),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
+	CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(operand1)
 {
-	TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(ready),				NO_ACTION) ;
-	TRANSITION_ON(OPERATION,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+	TRANSITION_ON(CLEAR_ENTRY,											TO(ready),				NO_ACTION) ;
+	TRANSITION_ON(OPERATION,											TO(opEntered),			NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -127,15 +127,15 @@ DEFINE_STATE(zero1)
 {
 	INITIAL_TRANSITION(TO(zero2),																NO_ACTION) ;
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int1),				NO_ACTION) ;
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(int1)
 {
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac1),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -156,21 +156,21 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(opEntered)
 {
-	TRANSITION_ON(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),	TO(negated2),			NO_ACTION) ;
-	TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero2),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+	TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated2),			NO_ACTION) ;
+	TRANSITION_ON(DIGIT_0,												TO(zero2),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(negated2)
 {
-	TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
-	TRANSITION_ON(DIGIT_0,		UNCONDITIONALLY,						TO(zero2),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
-	CONSUME_EVENT_IF(OPERATION,	IF(EVENT_IS(keyEvent_t)->key == '-'),							NO_ACTION) ;
+	TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			NO_ACTION) ;
+	TRANSITION_ON(DIGIT_0,												TO(zero2),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
+	CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -190,19 +190,19 @@ uint8_t doCalculation(	uint8_t type)
 
 DEFINE_STATE(operand2)
 {
-	TRANSITION_ON(CLEAR_ENTRY,	UNCONDITIONALLY,						TO(opEntered),			NO_ACTION) ;
+	TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			NO_ACTION) ;
 
 	HANDLE_STATE_EVENTS
 	{
 		EVENT(OPERATION)
 		EVENT(EQUALS)
 		{
-			uint8_t goodCalc = doCalculation(EVENT_IS(keyEvent_t)->key) ;
+			uint8_t goodCalc = doCalculation(CAST_EVENT(keyEvent_t)->key) ;
 
 			if(goodCalc)
 			{
-				TRANSITION_ON(OPERATION,	UNCONDITIONALLY,			TO(opEntered),			NO_ACTION) ;
-				TRANSITION_ON(EQUALS,		UNCONDITIONALLY,			TO(result),				NO_ACTION) ;
+				TRANSITION_ON(OPERATION,								TO(opEntered),			NO_ACTION) ;
+				TRANSITION_ON(EQUALS,									TO(result),				NO_ACTION) ;
 			}
 			else
 			{
@@ -220,15 +220,15 @@ DEFINE_STATE(zero2)
 {
 	INITIAL_TRANSITION(TO(negated1),															NO_ACTION) ;
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,	UNCONDITIONALLY,						TO(int2),				NO_ACTION) ;
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(int2)
 {
-	TRANSITION_ON(POINT,		UNCONDITIONALLY,						TO(frac2),				NO_ACTION) ;
+	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
