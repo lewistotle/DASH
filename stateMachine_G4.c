@@ -57,7 +57,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 	uint8_t		j ;
 	uint8_t*	memoryPoolLocation = (uint8_t*)(sm->startOfEventMemoryPools) ;
 
-	// /* start out by shutting down interrupts. This is a critical section */
+	/* start out by shutting down interrupts. This is a critical section */
 
 	/* Is this a global or local event? */
 
@@ -130,7 +130,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 		}
 	}
 
-	// /* It's ok to re-enable interrupts */
+	 /* It's ok to re-enable interrupts */
 
 	/* Now return the appropriate thing to the caller */
 
@@ -345,46 +345,44 @@ bool unregisterStateMachine(		stateMachine_t* sm)
 uint32_t	uptime_hours ;
 uint32_t	uptime_microseconds ;
 
+#if 0
 static uint32_t	nextTimeout_hours ;
 static uint32_t	nextTimeout_microseconds ;
 
 static stateMachineTimeout_t	timeouts[configMAXIMUM_NUMBER_OF_TIMEOUTS] ;
 static stateMachineWatch_t		watches[configMAXIMUM_NUMBER_OF_WATCH_VARIABLES] ;
+#endif
 
 watchedVariableTransitionEvent_t* getNextWatchEventVariable(	stateMachine_t*	machine)
 {
+#if 0
 	uint8_t		watchVariableIndex ;
 
 	for( watchVariableIndex = 0 ; watchVariableIndex < configMAXIMUM_NUMBER_OF_WATCH_VARIABLES ; watchVariableIndex++ )
 	{
-//		watchedVariableTransitionEvent_t* watch = &watches[watchVariableIndex] ;
-//
-//		if(watch->machine == 0)
-//		{
-//			watch->machine	= machine ;
-//			watch->state	= machine->currentState ;
-//
-//
-//			return watch ;
-//		}
+		watchedVariableTransitionEvent_t* watch = &watches[watchVariableIndex] ;
+
+		if(watch->machine == 0)
+		{
+			watch->machine	= machine ;
+			watch->state	= machine->currentState ;
+
+
+			return watch ;
+		}
 	}
+#endif
 
 	return (watchedVariableTransitionEvent_t*)0 ;
 }
 
-//void registerWatchVariable(		stateMachine_t*	machine,
-//								void* variable,
-//								enum WATCH_VARIABLE_TYPE type)
-//{
-//}
-//#define TRANSITION_WHEN_2(sm, var, value, valSize, valType, dest, act)	if(hsm_getEventType(event) == SUBSTATE_ENTRY) { /* register watch variable with state machine */ }
-
 void iterateAllStateMachines(	void)
 {
 	uint8_t		statetMachineIndex ;
+#if 0
 	uint8_t		timeoutIndex ;
 	uint8_t		watchVariableIndex ;
-#if 0
+
 	/* Go through the list of timeouts and send the appropriate signals if needed */
 
 	if(		(nextTimeout_hours > uptime_hours)
@@ -401,11 +399,11 @@ void iterateAllStateMachines(	void)
 					&&	(timeouts[timeoutIndex].uptime_microseconds_endTime > nextTimeout_microseconds))
 				{
 					/* timeout has occurred so send post the message to the appropriate machine */
+#if 0
+					stateMachineWatch_t*	watch = (stateMachineWatch_t*)hsm_createEvent(watches[watchVariableIndex].machine, SUBSTATE_WATCHED) ;
 
-//					stateMachineWatch_t*	watch = (stateMachineWatch_t*)hsm_createEvent(watches[watchVariableIndex].machine, SUBSTATE_WATCHED) ;
-
-//					hsm_postEvent(watches[watchVariableIndex].machine, &watches[watchVariableIndex]) ;
-
+					hsm_postEvent(watches[watchVariableIndex].machine, &watches[watchVariableIndex]) ;
+#endif
 					/* Now wipe out this timeout so it won't get checked again */
 
 					timeouts[timeoutIndex].uptime_hours_endTime			= 0 ;
@@ -478,9 +476,11 @@ void iterateAllStateMachines(	void)
 
 			if(isWatchVariableNonZero)
 			{
-//				stateMachineWatch_t*	watch = (stateMachineWatch_t*)hsm_createEvent(watches[watchVariableIndex].machine, SUBSTATE_WATCHED) ;
+#if 0
+				stateMachineWatch_t*	watch = (stateMachineWatch_t*)hsm_createEvent(watches[watchVariableIndex].machine, SUBSTATE_WATCHED) ;
 
-//				hsm_postEvent(watches[watchVariableIndex].machine, &watches[watchVariableIndex]) ;
+				hsm_postEvent(watches[watchVariableIndex].machine, &watches[watchVariableIndex]) ;
+#endif
 			}
 		}
 	}

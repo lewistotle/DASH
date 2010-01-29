@@ -72,8 +72,6 @@ STATE_MACHINE_CONSTRUCTOR()
 											"OFF"
 										} ;
 
-//	hsm_setMachinePriority(self, 0) ;
-
 	self->parent.eventNames = eventNames ;
 
 	self->result = 0 ;
@@ -203,7 +201,6 @@ END_DEFINE_STATE()
 
 uint8_t doCalculation(	uint8_t type)
 {
-	printf("type = '%c', ", type) ;
 	switch(type)
 	{
 		case '+': { return true ; }

@@ -113,7 +113,7 @@ void handleKeypress(uint8_t c)
 			else
 			{
 	#endif
-				hsm_postEventToMachine(event, calculator) ;
+				hsm_postEventToMachine((event_t*)event, calculator) ;
 	#if configENABLE_CALC_2
 			}
 	#endif

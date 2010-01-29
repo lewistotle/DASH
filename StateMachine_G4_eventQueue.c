@@ -27,7 +27,7 @@ bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
 #if config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES <= 256
 	return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
 #else
-//	return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
+	return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
 #endif
 }
 
@@ -83,9 +83,9 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 		Q->Size++ ;
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 		Q->Array[Q->Rear] = event ;
-
-//		printf("\t\t\tPosting event type %s to %p\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>", &Q->Array[Q->Rear]) ;
-
+#if 0
+		printf("\t\t\tPosting event type %s to %p\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>", &Q->Array[Q->Rear]) ;
+#endif
 		return true ;
 	}
 	else
@@ -98,13 +98,16 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 
 event_t* eventQueue_remove(	eventQueue_t* Q)
 {
-//	printf("\t\t\t\teventQueue_remove(): Q: %p\n", Q) ;
-
+#if 0
+	printf("\t\t\t\teventQueue_remove(): Q: %p\n", Q) ;
+#endif
 	if(!eventQueue_isEmpty(Q))
 	{
 		event_t* eventReceived = Q->Array[Q->Front] ;
 
-//		printf("\t\t\t\teventQueue_remove(): eventReceived: %p\n", eventReceived) ;
+#if 0
+		printf("\t\t\t\teventQueue_remove(): eventReceived: %p\n", eventReceived) ;
+#endif
 
 		Q->Size-- ;
 		Q->Front = nextLocationFromPoint(Q, Q->Front) ;
@@ -122,7 +125,9 @@ void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefe
 {
 	if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
 	{
-//		sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
+#if 0
+		sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
+#endif
 
 		sm->currentDepthOfEventsToDeferList++ ;
 	}

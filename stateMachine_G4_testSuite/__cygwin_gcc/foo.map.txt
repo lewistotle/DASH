@@ -4,8 +4,6 @@ Archive member included because of file (symbol)
                               main.o (__alloca)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(cygwin_crt0.o)
                               /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../crt0.o (_cygwin_crt0)
-/usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001180.o)
-                              sm_test_calculator.o (_printf)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001554.o)
                               projectSpecificHardwareInterface_cygwin_and_TS7800.o (_usleep)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001217.o)
@@ -40,6 +38,8 @@ Archive member included because of file (symbol)
                               projectSpecificHardwareInterface_cygwin_and_TS7800.o (_tcgetattr)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000054.o)
                               main.o (___main)
+/usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001180.o)
+                              main.o (_printf)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001466.o)
                               _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o (_strncmp)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001462.o)
@@ -57,7 +57,7 @@ Archive member included because of file (symbol)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000772.o)
                               /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(cygwin_crt0.o) (__imp__dll_crt0__FP11per_process)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000000.o)
-                              /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001180.o) (__head_cygwin1_dll)
+                              /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001554.o) (__head_cygwin1_dll)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000327.o)
                               /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(_cygwin_crt0_common.o) (__imp___impure_ptr)
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(pseudo-reloc.o)
@@ -182,7 +182,7 @@ LOAD /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a
                 0x00401392                _timeBomb_constructor
                 0x004013c3                _timeBomb_destructor
                 0x004013d6                _timeBomb_getHistoryArraySize
- .text          0x00401634      0x828 sm_test_calculator.o
+ .text          0x00401634      0x814 sm_test_calculator.o
                 0x0040168c                _calculator_getMachineSize
                 0x00401682                _calculator_getHistoryArraySize
                 0x00401634                _calculator_getMemoryRequirements
@@ -191,158 +191,158 @@ LOAD /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a
                 0x00401696                _calculator_constructor2
                 0x0040163e                _calculator_constructor
                 0x004016af                _calculator_destructor2
- .text          0x00401e5c      0x480 projectSpecificHardwareInterface_cygwin_and_TS7800.o
-                0x00402095                _charInput_thread
-                0x0040223e                _task_TIMER_shutdown
-                0x00401eb7                _close_keyboard
-                0x00401fa6                _readkey
-                0x004021a5                _task_UART_shutdown_projectSpecific
-                0x0040210f                _task_UART_putchar_projectSpecific
-                0x00401e5c                _init_keyboard
-                0x00402087                _task_UART_core_projectSpecific
-                0x004021c8                _task_TIMER_init
-                0x0040213b                _task_UART_puts_projectSpecific
-                0x00402239                _task_TIMER_core
-                0x00401ef7                _kbhit
-                0x0040225b                _timer_thread
-                0x00402164                _task_UART_getchar_projectSpecific
-                0x00402185                _task_UART_gets_projectSpecific
-                0x00402024                _task_UART_init_projectSpecific
- .text          0x004022dc      0x2c8 main.o
-                0x004023ce                _handleTimer
-                0x004023d3                _handleTick
-                0x004022dc                _handleKeypress
-                0x004023d8                _main
- .text          0x004025a4      0xe28 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
-                0x00402c6d                _unregisterStateMachine
-                0x00402bf8                _registerStateMachine
-                0x004025a4                _hsm_malloc
-                0x00402728                _allocateStateMachineMemory
-                0x004025d2                _hsm_createNewEvent
-                0x00402ed2                _iterateStateMachine
-                0x00402cbe                _getNextWatchEventVariable
-                0x00402d16                _callStateHandler
-                0x00402bd4                _deallocateStateMachineMemory
-                0x004025bf                _hsm_free
-                0x00402cdc                _iterateAllStateMachines
- .text          0x004033cc      0x394 _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
-                0x00403518                _eventQueue_remove
-                0x004033cc                _hsm_isEventInMask
-                0x004035a5                _isEventTypeDeferred
-                0x00403418                _eventQueue_initialize
-                0x00403582                _addToDeferredTypeList
-                0x004035f0                _removeFromDeferredTypeList
-                0x00403702                _hsm_postEventToMachine
-                0x004034a1                _eventQueue_insert
-                0x00403452                _eventQueue_isEmpty
-                0x00403464                _eventQueue_isFull
- .text          0x00403760      0x168 _SoftwareLibraries\HAL\task_UART.o
-                0x00403794                _task_UART_shutdown
-                0x004037d9                _task_UART_puts
-                0x00403847                _DEBUG_PRINT_TIME
-                0x00403817                _task_UART_gets
-                0x004037fa                _task_UART_getchar
-                0x00403760                _task_UART_init
-                0x0040377a                _task_UART_core
-                0x004037ae                _task_UART_putchar
- .text          0x004038c8       0x30 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_chkstk.o)
-                0x004038c8                ___chkstk
-                0x004038c8                __alloca
- .text          0x004038f8       0x60 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(cygwin_crt0.o)
-                0x004038f8                _cygwin_crt0
- .text          0x00403958       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001180.o)
-                0x00403958                _printf
- .text          0x00403968       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001554.o)
-                0x00403968                _usleep
- .text          0x00403978       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001217.o)
-                0x00403978                _pthread_join
- .text          0x00403988       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000960.o)
-                0x00403988                _gets
- .text          0x00403998       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000908.o)
-                0x00403998                _getc
- .text          0x004039a8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001260.o)
-                0x004039a8                _putc
- .text          0x004039b8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001212.o)
-                0x004039b8                _pthread_exit
- .text          0x004039c8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000814.o)
-                0x004039c8                _exit
- .text          0x004039d8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001265.o)
-                0x004039d8                _puts
- .text          0x004039e8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001209.o)
-                0x004039e8                _pthread_create
- .text          0x004039f8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001276.o)
-                0x004039f8                _read
- .text          0x00403a08       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001330.o)
-                0x00403a08                _select
- .text          0x00403a18       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000048.o)
-                0x00403a18                ___getreent
- .text          0x00403a28       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000840.o)
-                0x00403a28                _fflush
- .text          0x00403a38       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001509.o)
-                0x00403a38                _tcsetattr
- .text          0x00403a48       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001117.o)
-                0x00403a48                _memcpy
- .text          0x00403a58       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001506.o)
-                0x00403a58                _tcgetattr
- .text          0x00403a68       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000054.o)
-                0x00403a68                ___main
- .text          0x00403a78       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001466.o)
-                0x00403a78                _strncmp
- .text          0x00403a88       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001462.o)
-                0x00403a88                _strlen
- .text          0x00403a98       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001121.o)
-                0x00403a98                _memset
- .text          0x00403aa8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000870.o)
-                0x00403aa8                _free
- .text          0x00403ab8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001100.o)
-                0x00403ab8                _malloc
- .text          0x00403ac8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001438.o)
-                0x00403ac8                _sprintf
- .text          0x00403ad8      0x150 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(_cygwin_crt0_common.o)
-                0x00403ad8                __cygwin_crt0_common@8
- .text          0x00403c28        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000327.o)
- .text          0x00403c28       0x60 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(pseudo-reloc.o)
-                0x00403c58                __pei386_runtime_relocator
-                0x00403c28                _do_pseudo_reloc
- .text          0x00403c88       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000696.o)
-                0x00403c88                _calloc
- .text          0x00403c98       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001281.o)
-                0x00403c98                _realloc
- .text          0x00403ca8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain3.o)
-                0x00403ca8                _cygwin_premain3
- .text          0x00403cb8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain2.o)
-                0x00403cb8                _cygwin_premain2
- .text          0x00403cc8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain1.o)
-                0x00403cc8                _cygwin_premain1
- .text          0x00403cd8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain0.o)
-                0x00403cd8                _cygwin_premain0
- .text          0x00403ce8       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000752.o)
-                0x00403ce8                _cygwin_internal
- .text          0x00403cf8        0x8 /usr/lib/w32api/libkernel32.a(dyuhs00337.o)
-                0x00403cf8                _GetModuleHandleA@4
- .text          0x00403d00        0x0 /usr/lib/w32api/libkernel32.a(dyuhh.o)
- .text          0x00403d00        0x0 /usr/lib/w32api/libkernel32.a(dyuht.o)
- .text          0x00403d00        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_ctors.o)
+ .text          0x00401e48      0x470 projectSpecificHardwareInterface_cygwin_and_TS7800.o
+                0x00402081                _charInput_thread
+                0x0040223d                _task_TIMER_shutdown
+                0x00401ea3                _close_keyboard
+                0x00401f92                _readkey
+                0x004021a4                _task_UART_shutdown_projectSpecific
+                0x004020fb                _task_UART_putchar_projectSpecific
+                0x00401e48                _init_keyboard
+                0x00402073                _task_UART_core_projectSpecific
+                0x004021c7                _task_TIMER_init
+                0x0040213a                _task_UART_puts_projectSpecific
+                0x00402238                _task_TIMER_core
+                0x00401ee3                _kbhit
+                0x0040225a                _timer_thread
+                0x00402163                _task_UART_getchar_projectSpecific
+                0x00402184                _task_UART_gets_projectSpecific
+                0x00402010                _task_UART_init_projectSpecific
+ .text          0x004022b8      0x2bc main.o
+                0x004023aa                _handleTimer
+                0x004023af                _handleTick
+                0x004022b8                _handleKeypress
+                0x004023b4                _main
+ .text          0x00402574      0xe14 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
+                0x00402c3d                _unregisterStateMachine
+                0x00402bc8                _registerStateMachine
+                0x00402574                _hsm_malloc
+                0x004026f8                _allocateStateMachineMemory
+                0x004025a2                _hsm_createNewEvent
+                0x00402e8e                _iterateStateMachine
+                0x00402c8e                _getNextWatchEventVariable
+                0x00402cd2                _callStateHandler
+                0x00402ba4                _deallocateStateMachineMemory
+                0x0040258f                _hsm_free
+                0x00402c98                _iterateAllStateMachines
+ .text          0x00403388      0x394 _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
+                0x004034d4                _eventQueue_remove
+                0x00403388                _hsm_isEventInMask
+                0x00403561                _isEventTypeDeferred
+                0x004033d4                _eventQueue_initialize
+                0x0040353e                _addToDeferredTypeList
+                0x004035ac                _removeFromDeferredTypeList
+                0x004036be                _hsm_postEventToMachine
+                0x0040345d                _eventQueue_insert
+                0x0040340e                _eventQueue_isEmpty
+                0x00403420                _eventQueue_isFull
+ .text          0x0040371c      0x168 _SoftwareLibraries\HAL\task_UART.o
+                0x00403750                _task_UART_shutdown
+                0x00403795                _task_UART_puts
+                0x00403803                _DEBUG_PRINT_TIME
+                0x004037d3                _task_UART_gets
+                0x004037b6                _task_UART_getchar
+                0x0040371c                _task_UART_init
+                0x00403736                _task_UART_core
+                0x0040376a                _task_UART_putchar
+ .text          0x00403884       0x30 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_chkstk.o)
+                0x00403884                ___chkstk
+                0x00403884                __alloca
+ .text          0x004038b4       0x60 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(cygwin_crt0.o)
+                0x004038b4                _cygwin_crt0
+ .text          0x00403914       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001554.o)
+                0x00403914                _usleep
+ .text          0x00403924       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001217.o)
+                0x00403924                _pthread_join
+ .text          0x00403934       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000960.o)
+                0x00403934                _gets
+ .text          0x00403944       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000908.o)
+                0x00403944                _getc
+ .text          0x00403954       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001260.o)
+                0x00403954                _putc
+ .text          0x00403964       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001212.o)
+                0x00403964                _pthread_exit
+ .text          0x00403974       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000814.o)
+                0x00403974                _exit
+ .text          0x00403984       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001265.o)
+                0x00403984                _puts
+ .text          0x00403994       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001209.o)
+                0x00403994                _pthread_create
+ .text          0x004039a4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001276.o)
+                0x004039a4                _read
+ .text          0x004039b4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001330.o)
+                0x004039b4                _select
+ .text          0x004039c4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000048.o)
+                0x004039c4                ___getreent
+ .text          0x004039d4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000840.o)
+                0x004039d4                _fflush
+ .text          0x004039e4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001509.o)
+                0x004039e4                _tcsetattr
+ .text          0x004039f4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001117.o)
+                0x004039f4                _memcpy
+ .text          0x00403a04       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001506.o)
+                0x00403a04                _tcgetattr
+ .text          0x00403a14       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000054.o)
+                0x00403a14                ___main
+ .text          0x00403a24       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001180.o)
+                0x00403a24                _printf
+ .text          0x00403a34       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001466.o)
+                0x00403a34                _strncmp
+ .text          0x00403a44       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001462.o)
+                0x00403a44                _strlen
+ .text          0x00403a54       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001121.o)
+                0x00403a54                _memset
+ .text          0x00403a64       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000870.o)
+                0x00403a64                _free
+ .text          0x00403a74       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001100.o)
+                0x00403a74                _malloc
+ .text          0x00403a84       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001438.o)
+                0x00403a84                _sprintf
+ .text          0x00403a94      0x150 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(_cygwin_crt0_common.o)
+                0x00403a94                __cygwin_crt0_common@8
+ .text          0x00403be4        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000327.o)
+ .text          0x00403be4       0x60 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(pseudo-reloc.o)
+                0x00403c14                __pei386_runtime_relocator
+                0x00403be4                _do_pseudo_reloc
+ .text          0x00403c44       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000696.o)
+                0x00403c44                _calloc
+ .text          0x00403c54       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d001281.o)
+                0x00403c54                _realloc
+ .text          0x00403c64       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain3.o)
+                0x00403c64                _cygwin_premain3
+ .text          0x00403c74       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain2.o)
+                0x00403c74                _cygwin_premain2
+ .text          0x00403c84       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain1.o)
+                0x00403c84                _cygwin_premain1
+ .text          0x00403c94       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain0.o)
+                0x00403c94                _cygwin_premain0
+ .text          0x00403ca4       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(d000752.o)
+                0x00403ca4                _cygwin_internal
+ .text          0x00403cb4        0x8 /usr/lib/w32api/libkernel32.a(dyuhs00337.o)
+                0x00403cb4                _GetModuleHandleA@4
+ .text          0x00403cbc        0x0 /usr/lib/w32api/libkernel32.a(dyuhh.o)
+ .text          0x00403cbc        0x0 /usr/lib/w32api/libkernel32.a(dyuht.o)
+ .text          0x00403cbc        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_ctors.o)
  *(SORT(.text$*))
  *(.glue_7t)
  *(.glue_7)
-                0x00403d00                ___CTOR_LIST__ = .
-                0x00403d00                __CTOR_LIST__ = .
-                0x00403d00        0x4 LONG 0xffffffff
+                0x00403cbc                ___CTOR_LIST__ = .
+                0x00403cbc                __CTOR_LIST__ = .
+                0x00403cbc        0x4 LONG 0xffffffff
  *(.ctors)
  *(.ctor)
  *(SORT(.ctors.*))
-                0x00403d04        0x4 LONG 0x0
-                0x00403d08                ___DTOR_LIST__ = .
-                0x00403d08                __DTOR_LIST__ = .
-                0x00403d08        0x4 LONG 0xffffffff
+                0x00403cc0        0x4 LONG 0x0
+                0x00403cc4                ___DTOR_LIST__ = .
+                0x00403cc4                __DTOR_LIST__ = .
+                0x00403cc4        0x4 LONG 0xffffffff
  *(.dtors)
  *(.dtor)
  *(SORT(.dtors.*))
-                0x00403d0c        0x4 LONG 0x0
+                0x00403cc8        0x4 LONG 0x0
  *(.fini)
  *(.gcc_exc)
-                0x00403d10                PROVIDE (etext, .)
+                0x00403ccc                PROVIDE (etext, .)
  *(.gcc_except_table)
 
 .data           0x00404000      0x200
@@ -382,24 +382,24 @@ LOAD /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a
  *(.rdata)
  .rdata         0x00405000       0xf0 sm_test_toaster.o
  .rdata         0x004050f0       0x94 sm_test_timeBomb.o
- .rdata         0x00405184      0x304 sm_test_calculator.o
- .rdata         0x00405488       0xcc projectSpecificHardwareInterface_cygwin_and_TS7800.o
- .rdata         0x00405554       0xf8 main.o
- .rdata         0x0040564c      0x3a8 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
- .rdata         0x004059f4       0x18 _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
- .rdata         0x00405a0c        0xc _SoftwareLibraries\HAL\task_UART.o
+ .rdata         0x00405184      0x2f4 sm_test_calculator.o
+ .rdata         0x00405478       0xcc projectSpecificHardwareInterface_cygwin_and_TS7800.o
+ .rdata         0x00405544       0xf8 main.o
+ .rdata         0x0040563c      0x3a8 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
+ .rdata         0x004059e4       0x18 _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
+ .rdata         0x004059fc        0xc _SoftwareLibraries\HAL\task_UART.o
  *(SORT(.rdata$*))
  *(.eh_frame)
-                0x00405a18                ___RUNTIME_PSEUDO_RELOC_LIST__ = .
-                0x00405a18                __RUNTIME_PSEUDO_RELOC_LIST__ = .
+                0x00405a08                ___RUNTIME_PSEUDO_RELOC_LIST__ = .
+                0x00405a08                __RUNTIME_PSEUDO_RELOC_LIST__ = .
  *(.rdata_runtime_pseudo_reloc)
-                0x00405a18                ___RUNTIME_PSEUDO_RELOC_LIST_END__ = .
-                0x00405a18                __RUNTIME_PSEUDO_RELOC_LIST_END__ = .
+                0x00405a08                ___RUNTIME_PSEUDO_RELOC_LIST_END__ = .
+                0x00405a08                __RUNTIME_PSEUDO_RELOC_LIST_END__ = .
 
 .pdata
  *(.pdata)
 
-.bss            0x00406000      0xc00
+.bss            0x00406000      0x400
                 0x00406000                __bss_start__ = .
  *(.bss)
  .bss           0x00406000       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../crt0.o
@@ -409,41 +409,41 @@ LOAD /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a
  .bss           0x00406010        0x0 sm_test_calculator.o
  .bss           0x00406010       0x30 projectSpecificHardwareInterface_cygwin_and_TS7800.o
  .bss           0x00406040        0x0 main.o
- .bss           0x00406040      0x800 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
- .bss           0x00406840        0x0 _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
- .bss           0x00406840        0x0 _SoftwareLibraries\HAL\task_UART.o
- .bss           0x00406840        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_chkstk.o)
- .bss           0x00406840        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(cygwin_crt0.o)
- .bss           0x00406840       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(_cygwin_crt0_common.o)
-                0x00406844                _environ
-                0x00406840                __fmode
- .bss           0x00406850        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(pseudo-reloc.o)
- .bss           0x00406850        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain3.o)
- .bss           0x00406850        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain2.o)
- .bss           0x00406850        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain1.o)
- .bss           0x00406850        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain0.o)
- .bss           0x00406850        0x0 /usr/lib/w32api/libkernel32.a(dyuhs00337.o)
- .bss           0x00406850        0x0 /usr/lib/w32api/libkernel32.a(dyuhh.o)
- .bss           0x00406850        0x0 /usr/lib/w32api/libkernel32.a(dyuht.o)
- .bss           0x00406850        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_ctors.o)
+ .bss           0x00406040        0x0 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
+ .bss           0x00406040        0x0 _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
+ .bss           0x00406040        0x0 _SoftwareLibraries\HAL\task_UART.o
+ .bss           0x00406040        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_chkstk.o)
+ .bss           0x00406040        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(cygwin_crt0.o)
+ .bss           0x00406040       0x10 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(_cygwin_crt0_common.o)
+                0x00406044                _environ
+                0x00406040                __fmode
+ .bss           0x00406050        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(pseudo-reloc.o)
+ .bss           0x00406050        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain3.o)
+ .bss           0x00406050        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain2.o)
+ .bss           0x00406050        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain1.o)
+ .bss           0x00406050        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/../../../libcygwin.a(premain0.o)
+ .bss           0x00406050        0x0 /usr/lib/w32api/libkernel32.a(dyuhs00337.o)
+ .bss           0x00406050        0x0 /usr/lib/w32api/libkernel32.a(dyuhh.o)
+ .bss           0x00406050        0x0 /usr/lib/w32api/libkernel32.a(dyuht.o)
+ .bss           0x00406050        0x0 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_ctors.o)
  *(COMMON)
- COMMON         0x00406850      0x280 projectSpecificHardwareInterface_cygwin_and_TS7800.o
-                0x00406850                _timer_threadStatus
-                0x00406860                _tv
-                0x00406870                _UARTtempBuffer
-                0x00406a70                _timer_threadHandle
-                0x00406a80                _tio
-                0x00406ab0                _charInput_threadHandle
-                0x00406ac0                _charInput_threadStatus
- COMMON         0x00406ad0       0x20 main.o
-                0x00406ad0                _bomb
-                0x00406ae0                _calculator
- COMMON         0x00406af0       0xf0 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
-                0x00406af0                _stateMachines
-                0x00406bc0                _uptime_microseconds
-                0x00406bd0                _uptime_hours
- COMMON         0x00406be0       0x20 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_ctors.o)
-                0x00406c00                __bss_end__ = .
+ COMMON         0x00406050      0x280 projectSpecificHardwareInterface_cygwin_and_TS7800.o
+                0x00406050                _timer_threadStatus
+                0x00406060                _tv
+                0x00406070                _UARTtempBuffer
+                0x00406270                _timer_threadHandle
+                0x00406280                _tio
+                0x004062b0                _charInput_threadHandle
+                0x004062c0                _charInput_threadStatus
+ COMMON         0x004062d0       0x20 main.o
+                0x004062d0                _bomb
+                0x004062e0                _calculator
+ COMMON         0x004062f0       0xf0 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
+                0x004062f0                _stateMachines
+                0x004063c0                _uptime_microseconds
+                0x004063d0                _uptime_hours
+ COMMON         0x004063e0       0x20 /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a(_ctors.o)
+                0x00406400                __bss_end__ = .
 
 .edata
  *(.edata)
@@ -674,22 +674,22 @@ LOAD /usr/lib/gcc/i686-pc-cygwin/3.4.4/libgcc.a
  .stab          0x00408000      0xb10 sm_test_toaster.o
  .stab          0x00408b10      0x72c sm_test_timeBomb.o
                                 0xa08 (size before relaxing)
- .stab          0x0040923c      0xfa8 sm_test_calculator.o
-                               0x12a8 (size before relaxing)
- .stab          0x0040a1e4     0x1464 projectSpecificHardwareInterface_cygwin_and_TS7800.o
-                               0x1620 (size before relaxing)
- .stab          0x0040b648      0xbe8 main.o
-                               0x11c4 (size before relaxing)
- .stab          0x0040c230     0x156c _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
-                               0x1d1c (size before relaxing)
- .stab          0x0040d79c      0x8ac _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
+ .stab          0x0040923c      0xf9c sm_test_calculator.o
+                               0x129c (size before relaxing)
+ .stab          0x0040a1d8     0x13ec projectSpecificHardwareInterface_cygwin_and_TS7800.o
+                               0x15a8 (size before relaxing)
+ .stab          0x0040b5c4      0xbdc main.o
+                               0x11b8 (size before relaxing)
+ .stab          0x0040c1a0     0x14f4 _SoftwareLibraries\stateMachines_G4\stateMachine_G4.o
+                               0x1ca4 (size before relaxing)
+ .stab          0x0040d694      0x8ac _SoftwareLibraries\stateMachines_G4\StateMachine_G4_eventQueue.o
                                0x11ac (size before relaxing)
- .stab          0x0040e048      0x540 _SoftwareLibraries\HAL\task_UART.o
+ .stab          0x0040df40      0x540 _SoftwareLibraries\HAL\task_UART.o
                                 0xde0 (size before relaxing)
 
 .stabstr        0x0040f000     0xa400
  *(.stabstr)
- .stabstr       0x0040f000     0xa3f3 sm_test_toaster.o
+ .stabstr       0x0040f000     0xa31d sm_test_toaster.o
 
 .debug_aranges
  *(.debug_aranges)

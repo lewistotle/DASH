@@ -58,9 +58,6 @@ STATE_MACHINE_DESTRUCTOR()
 
 void heaterOn(	void)
 {
-	/* test of call event transition macro */
-
-//	TRANSITION_CALL(TO(heating)) ;
 }
 
 
@@ -115,6 +112,10 @@ DEFINE_STATE(doorClosed)
 	/* test of generic IF transition macro that also sets DO flag */
 
 //	TRANSITION_IF(self->flag > 55, TO(off), NO_ACTION) ;
+
+	/* test of call event transition macro */
+
+//	TRANSITION_CALL(TO(heating)) ;
 }
 END_DEFINE_STATE()
 
