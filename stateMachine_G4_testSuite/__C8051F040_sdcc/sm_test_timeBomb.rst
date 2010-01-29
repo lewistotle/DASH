@@ -157,11 +157,11 @@
    17AF 8A 82               157 	mov	dpl,r2
    17B1 8B 83               158 	mov	dph,r3
    17B3 8C F0               159 	mov	b,r4
-   17B5 74 DE               160 	mov	a,#_timeBomb_TOP
-   17B7 12 41 10            161 	lcall	__gptrput
+   17B5 74 10               160 	mov	a,#_timeBomb_TOP
+   17B7 12 42 42            161 	lcall	__gptrput
    17BA A3                  162 	inc	dptr
-   17BB 74 4F               163 	mov	a,#(_timeBomb_TOP >> 8)
-   17BD 12 41 10            164 	lcall	__gptrput
+   17BB 74 51               163 	mov	a,#(_timeBomb_TOP >> 8)
+   17BD 12 42 42            164 	lcall	__gptrput
    17C0 74 05               165 	mov	a,#0x05
    17C2 2A                  166 	add	a,r2
    17C3 FD                  167 	mov	r5,a
@@ -172,14 +172,14 @@
    17C9 8D 82               172 	mov	dpl,r5
    17CB 8E 83               173 	mov	dph,r6
    17CD 8F F0               174 	mov	b,r7
-   17CF 74 DE               175 	mov	a,#_timeBomb_TOP
-   17D1 12 41 10            176 	lcall	__gptrput
+   17CF 74 10               175 	mov	a,#_timeBomb_TOP
+   17D1 12 42 42            176 	lcall	__gptrput
    17D4 A3                  177 	inc	dptr
-   17D5 74 4F               178 	mov	a,#(_timeBomb_TOP >> 8)
-   17D7 12 41 10            179 	lcall	__gptrput
+   17D5 74 51               178 	mov	a,#(_timeBomb_TOP >> 8)
+   17D7 12 42 42            179 	lcall	__gptrput
    17DA A3                  180 	inc	dptr
    17DB 74 80               181 	mov	a,#0x80
-   17DD 12 41 10            182 	lcall	__gptrput
+   17DD 12 42 42            182 	lcall	__gptrput
    17E0 74 02               183 	mov	a,#0x02
    17E2 2A                  184 	add	a,r2
    17E3 F5 24               185 	mov	_timeBomb_constructor_sloc0_1_0,a
@@ -200,13 +200,13 @@
    17F9 85 25 83            200 	mov	dph,(_timeBomb_constructor_sloc0_1_0 + 1)
    17FC 85 26 F0            201 	mov	b,(_timeBomb_constructor_sloc0_1_0 + 2)
    17FF E8                  202 	mov	a,r0
-   1800 12 41 10            203 	lcall	__gptrput
+   1800 12 42 42            203 	lcall	__gptrput
    1803 A3                  204 	inc	dptr
    1804 E9                  205 	mov	a,r1
-   1805 12 41 10            206 	lcall	__gptrput
+   1805 12 42 42            206 	lcall	__gptrput
    1808 A3                  207 	inc	dptr
    1809 ED                  208 	mov	a,r5
-   180A 12 41 10            209 	lcall	__gptrput
+   180A 12 42 42            209 	lcall	__gptrput
    180D 8A 82               210 	mov	dpl,r2
    180F 8B 83               211 	mov	dph,r3
    1811 8C F0               212 	mov	b,r4
@@ -309,7 +309,7 @@
    1868 8E 83               309 	mov	dph,r6
    186A 8F F0               310 	mov	b,r7
    186C E4                  311 	clr	a
-   186D 12 41 10            312 	lcall	__gptrput
+   186D 12 42 42            312 	lcall	__gptrput
                             313 ;	../sm_test_timeBomb.c:42: self->codeBeingEntered	= 0 ;
    1870 74 2C               314 	mov	a,#0x2C
    1872 2A                  315 	add	a,r2
@@ -322,7 +322,7 @@
    187B 8E 83               322 	mov	dph,r6
    187D 8F F0               323 	mov	b,r7
    187F E4                  324 	clr	a
-   1880 12 41 10            325 	lcall	__gptrput
+   1880 12 42 42            325 	lcall	__gptrput
                             326 ;	../sm_test_timeBomb.c:43: self->disarmCode		= 0 ;
    1883 74 2D               327 	mov	a,#0x2D
    1885 2A                  328 	add	a,r2
@@ -334,7 +334,7 @@
    188C 8B 83               334 	mov	dph,r3
    188E 8C F0               335 	mov	b,r4
    1890 E4                  336 	clr	a
-   1891 02 41 10            337 	ljmp	__gptrput
+   1891 02 42 42            337 	ljmp	__gptrput
                             338 ;------------------------------------------------------------
                             339 ;Allocation info for local variables in function 'timeBomb_destructor2'
                             340 ;------------------------------------------------------------
@@ -399,7 +399,7 @@
    18AF 8D 82               399 	mov	dpl,r5
    18B1 8E 83               400 	mov	dph,r6
    18B3 8F F0               401 	mov	b,r7
-   18B5 12 4D 3C            402 	lcall	__gptrget
+   18B5 12 4E 6E            402 	lcall	__gptrget
    18B8 FD                  403 	mov	r5,a
    18B9 BD 02 43            404 	cjne	r5,#0x02,00102$
    18BC A8 1F               405 	mov	r0,_bp
@@ -417,7 +417,7 @@
    18CC 8F 83               417 	mov	dph,r7
    18CE 8A F0               418 	mov	b,r2
    18D0 74 1E               419 	mov	a,#0x1E
-   18D2 12 41 10            420 	lcall	__gptrput
+   18D2 12 42 42            420 	lcall	__gptrput
    18D5 A8 1F               421 	mov	r0,_bp
    18D7 08                  422 	inc	r0
    18D8 74 08               423 	mov	a,#0x08
@@ -432,14 +432,14 @@
    18E3 8A 82               432 	mov	dpl,r2
    18E5 8B 83               433 	mov	dph,r3
    18E7 8C F0               434 	mov	b,r4
-   18E9 74 E7               435 	mov	a,#_timeBomb_setting
-   18EB 12 41 10            436 	lcall	__gptrput
+   18E9 74 19               435 	mov	a,#_timeBomb_setting
+   18EB 12 42 42            436 	lcall	__gptrput
    18EE A3                  437 	inc	dptr
-   18EF 74 4F               438 	mov	a,#(_timeBomb_setting >> 8)
-   18F1 12 41 10            439 	lcall	__gptrput
+   18EF 74 51               438 	mov	a,#(_timeBomb_setting >> 8)
+   18F1 12 42 42            439 	lcall	__gptrput
    18F4 A3                  440 	inc	dptr
    18F5 74 80               441 	mov	a,#0x80
-   18F7 12 41 10            442 	lcall	__gptrput
+   18F7 12 42 42            442 	lcall	__gptrput
    18FA 75 82 02            443 	mov	dpl,#0x02
    18FD 80 0B               444 	sjmp	00106$
    18FF                     445 00102$:
@@ -486,7 +486,7 @@
    1928 8D 82               486 	mov	dpl,r5
    192A 8E 83               487 	mov	dph,r6
    192C 8F F0               488 	mov	b,r7
-   192E 12 4D 3C            489 	lcall	__gptrget
+   192E 12 4E 6E            489 	lcall	__gptrget
    1931 FD                  490 	mov	r5,a
    1932 BD 08 42            491 	cjne	r5,#0x08,00102$
    1935 A8 1F               492 	mov	r0,_bp
@@ -504,7 +504,7 @@
    1945 8F 83               504 	mov	dph,r7
    1947 8A F0               505 	mov	b,r2
    1949 E4                  506 	clr	a
-   194A 12 41 10            507 	lcall	__gptrput
+   194A 12 42 42            507 	lcall	__gptrput
    194D A8 1F               508 	mov	r0,_bp
    194F 08                  509 	inc	r0
    1950 74 08               510 	mov	a,#0x08
@@ -519,14 +519,14 @@
    195B 8A 82               519 	mov	dpl,r2
    195D 8B 83               520 	mov	dph,r3
    195F 8C F0               521 	mov	b,r4
-   1961 74 F0               522 	mov	a,#_timeBomb_timing
-   1963 12 41 10            523 	lcall	__gptrput
+   1961 74 22               522 	mov	a,#_timeBomb_timing
+   1963 12 42 42            523 	lcall	__gptrput
    1966 A3                  524 	inc	dptr
-   1967 74 4F               525 	mov	a,#(_timeBomb_timing >> 8)
-   1969 12 41 10            526 	lcall	__gptrput
+   1967 74 51               525 	mov	a,#(_timeBomb_timing >> 8)
+   1969 12 42 42            526 	lcall	__gptrput
    196C A3                  527 	inc	dptr
    196D 74 80               528 	mov	a,#0x80
-   196F 12 41 10            529 	lcall	__gptrput
+   196F 12 42 42            529 	lcall	__gptrput
    1972 75 82 02            530 	mov	dpl,#0x02
    1975 80 70               531 	sjmp	00111$
    1977                     532 00102$:
@@ -553,7 +553,7 @@
    198F 8A 82               553 	mov	dpl,r2
    1991 8B 83               554 	mov	dph,r3
    1993 8C F0               555 	mov	b,r4
-   1995 12 4D 3C            556 	lcall	__gptrget
+   1995 12 4E 6E            556 	lcall	__gptrget
    1998 FD                  557 	mov	r5,a
    1999 BD 3C 00            558 	cjne	r5,#0x3C,00122$
    199C                     559 00122$:
@@ -564,7 +564,7 @@
    19A1 8B 83               564 	mov	dph,r3
    19A3 8C F0               565 	mov	b,r4
    19A5 ED                  566 	mov	a,r5
-   19A6 12 41 10            567 	lcall	__gptrput
+   19A6 12 42 42            567 	lcall	__gptrput
                             568 ;	../sm_test_timeBomb.c:93: updateDisplay(self->timeout) ;
    19A9 8D 82               569 	mov	dpl,r5
    19AB 12 18 95            570 	lcall	_updateDisplay
@@ -589,7 +589,7 @@
    19C1 8A 82               589 	mov	dpl,r2
    19C3 8B 83               590 	mov	dph,r3
    19C5 8C F0               591 	mov	b,r4
-   19C7 12 4D 3C            592 	lcall	__gptrget
+   19C7 12 4E 6E            592 	lcall	__gptrget
    19CA FD                  593 	mov  r5,a
    19CB 24 FE               594 	add	a,#0xff - 0x01
    19CD 50 10               595 	jnc	00108$
@@ -599,7 +599,7 @@
    19D2 8B 83               599 	mov	dph,r3
    19D4 8C F0               600 	mov	b,r4
    19D6 ED                  601 	mov	a,r5
-   19D7 12 41 10            602 	lcall	__gptrput
+   19D7 12 42 42            602 	lcall	__gptrput
                             603 ;	../sm_test_timeBomb.c:104: updateDisplay(self->timeout) ;
    19DA 8D 82               604 	mov	dpl,r5
    19DC 12 18 95            605 	lcall	_updateDisplay
@@ -646,7 +646,7 @@
    1A05 8D 82               646 	mov	dpl,r5
    1A07 8E 83               647 	mov	dph,r6
    1A09 8F F0               648 	mov	b,r7
-   1A0B 12 4D 3C            649 	lcall	__gptrget
+   1A0B 12 4E 6E            649 	lcall	__gptrget
    1A0E FD                  650 	mov	r5,a
    1A0F BD 08 02            651 	cjne	r5,#0x08,00116$
    1A12 80 03               652 	sjmp	00117$
@@ -668,7 +668,7 @@
    1A27 8E 82               668 	mov	dpl,r6
    1A29 8F 83               669 	mov	dph,r7
    1A2B 8D F0               670 	mov	b,r5
-   1A2D 12 4D 3C            671 	lcall	__gptrget
+   1A2D 12 4E 6E            671 	lcall	__gptrget
    1A30 FE                  672 	mov	r6,a
    1A31 A8 1F               673 	mov	r0,_bp
    1A33 08                  674 	inc	r0
@@ -684,7 +684,7 @@
    1A3F 8D 82               684 	mov	dpl,r5
    1A41 8F 83               685 	mov	dph,r7
    1A43 8A F0               686 	mov	b,r2
-   1A45 12 4D 3C            687 	lcall	__gptrget
+   1A45 12 4E 6E            687 	lcall	__gptrget
    1A48 FD                  688 	mov	r5,a
    1A49 EE                  689 	mov	a,r6
    1A4A B5 05 02            690 	cjne	a,ar5,00118$
@@ -708,7 +708,7 @@
    1A63 8A 82               708 	mov	dpl,r2
    1A65 8B 83               709 	mov	dph,r3
    1A67 8C F0               710 	mov	b,r4
-   1A69 12 4D 3C            711 	lcall	__gptrget
+   1A69 12 4E 6E            711 	lcall	__gptrget
    1A6C F5 82               712 	mov	dpl,a
    1A6E 12 18 95            713 	lcall	_updateDisplay
    1A71 A8 1F               714 	mov	r0,_bp
@@ -725,14 +725,14 @@
    1A7F 8A 82               725 	mov	dpl,r2
    1A81 8B 83               726 	mov	dph,r3
    1A83 8C F0               727 	mov	b,r4
-   1A85 74 E7               728 	mov	a,#_timeBomb_setting
-   1A87 12 41 10            729 	lcall	__gptrput
+   1A85 74 19               728 	mov	a,#_timeBomb_setting
+   1A87 12 42 42            729 	lcall	__gptrput
    1A8A A3                  730 	inc	dptr
-   1A8B 74 4F               731 	mov	a,#(_timeBomb_setting >> 8)
-   1A8D 12 41 10            732 	lcall	__gptrput
+   1A8B 74 51               731 	mov	a,#(_timeBomb_setting >> 8)
+   1A8D 12 42 42            732 	lcall	__gptrput
    1A90 A3                  733 	inc	dptr
    1A91 74 80               734 	mov	a,#0x80
-   1A93 12 41 10            735 	lcall	__gptrput
+   1A93 12 42 42            735 	lcall	__gptrput
    1A96 75 82 02            736 	mov	dpl,#0x02
    1A99 02 1B 61            737 	ljmp	00109$
    1A9C                     738 00102$:
@@ -764,20 +764,20 @@
    1ABC 8A 82               764 	mov	dpl,r2
    1ABE 8B 83               765 	mov	dph,r3
    1AC0 8C F0               766 	mov	b,r4
-   1AC2 12 4D 3C            767 	lcall	__gptrget
+   1AC2 12 4E 6E            767 	lcall	__gptrget
    1AC5 25 E0               768 	add	a,acc
    1AC7 FD                  769 	mov	r5,a
    1AC8 8A 82               770 	mov	dpl,r2
    1ACA 8B 83               771 	mov	dph,r3
    1ACC 8C F0               772 	mov	b,r4
-   1ACE 12 41 10            773 	lcall	__gptrput
+   1ACE 12 42 42            773 	lcall	__gptrput
                             774 ;	../sm_test_timeBomb.c:123: self->codeBeingEntered |= 1 ;
    1AD1 43 05 01            775 	orl	ar5,#0x01
    1AD4 8A 82               776 	mov	dpl,r2
    1AD6 8B 83               777 	mov	dph,r3
    1AD8 8C F0               778 	mov	b,r4
    1ADA ED                  779 	mov	a,r5
-   1ADB 12 41 10            780 	lcall	__gptrput
+   1ADB 12 42 42            780 	lcall	__gptrput
                             781 ;	../sm_test_timeBomb.c:125: EVENT_HANDLED
    1ADE 75 82 01            782 	mov	dpl,#0x01
    1AE1 02 1B 61            783 	ljmp	00109$
@@ -798,13 +798,13 @@
    1AF2 8A 82               798 	mov	dpl,r2
    1AF4 8B 83               799 	mov	dph,r3
    1AF6 8C F0               800 	mov	b,r4
-   1AF8 12 4D 3C            801 	lcall	__gptrget
+   1AF8 12 4E 6E            801 	lcall	__gptrget
    1AFB 25 E0               802 	add	a,acc
    1AFD FD                  803 	mov	r5,a
    1AFE 8A 82               804 	mov	dpl,r2
    1B00 8B 83               805 	mov	dph,r3
    1B02 8C F0               806 	mov	b,r4
-   1B04 12 41 10            807 	lcall	__gptrput
+   1B04 12 42 42            807 	lcall	__gptrput
                             808 ;	../sm_test_timeBomb.c:131: EVENT_HANDLED
    1B07 75 82 01            809 	mov	dpl,#0x01
                             810 ;	../sm_test_timeBomb.c:133: EVENT(TICK)
@@ -825,14 +825,14 @@
    1B1A 8A 82               825 	mov	dpl,r2
    1B1C 8B 83               826 	mov	dph,r3
    1B1E 8C F0               827 	mov	b,r4
-   1B20 12 4D 3C            828 	lcall	__gptrget
+   1B20 12 4E 6E            828 	lcall	__gptrget
    1B23 FD                  829 	mov	r5,a
    1B24 1D                  830 	dec	r5
    1B25 8A 82               831 	mov	dpl,r2
    1B27 8B 83               832 	mov	dph,r3
    1B29 8C F0               833 	mov	b,r4
    1B2B ED                  834 	mov	a,r5
-   1B2C 12 41 10            835 	lcall	__gptrput
+   1B2C 12 42 42            835 	lcall	__gptrput
                             836 ;	../sm_test_timeBomb.c:137: TRANSITION_TO(isTimeToGoBoom, updateDisplay(self->timeout)) ;
    1B2F 8D 82               837 	mov	dpl,r5
    1B31 12 18 95            838 	lcall	_updateDisplay
@@ -850,14 +850,14 @@
    1B42 8A 82               850 	mov	dpl,r2
    1B44 8B 83               851 	mov	dph,r3
    1B46 8C F0               852 	mov	b,r4
-   1B48 74 F9               853 	mov	a,#_timeBomb_isTimeToGoBoom
-   1B4A 12 41 10            854 	lcall	__gptrput
+   1B48 74 2B               853 	mov	a,#_timeBomb_isTimeToGoBoom
+   1B4A 12 42 42            854 	lcall	__gptrput
    1B4D A3                  855 	inc	dptr
-   1B4E 74 4F               856 	mov	a,#(_timeBomb_isTimeToGoBoom >> 8)
-   1B50 12 41 10            857 	lcall	__gptrput
+   1B4E 74 51               856 	mov	a,#(_timeBomb_isTimeToGoBoom >> 8)
+   1B50 12 42 42            857 	lcall	__gptrput
    1B53 A3                  858 	inc	dptr
    1B54 74 80               859 	mov	a,#0x80
-   1B56 12 41 10            860 	lcall	__gptrput
+   1B56 12 42 42            860 	lcall	__gptrput
    1B59 75 82 02            861 	mov	dpl,#0x02
                             862 ;	../sm_test_timeBomb.c:141: HANDLE_STATE_EVENTS_DONE
    1B5C 80 03               863 	sjmp	00109$
@@ -892,7 +892,7 @@
    1B76 8D 82               892 	mov	dpl,r5
    1B78 8E 83               893 	mov	dph,r6
    1B7A 8F F0               894 	mov	b,r7
-   1B7C 12 4D 3C            895 	lcall	__gptrget
+   1B7C 12 4E 6E            895 	lcall	__gptrget
    1B7F 70 31               896 	jnz	00102$
    1B81 C0 02               897 	push	ar2
    1B83 C0 03               898 	push	ar3
@@ -911,14 +911,14 @@
    1B99 8D 82               911 	mov	dpl,r5
    1B9B 8E 83               912 	mov	dph,r6
    1B9D 8F F0               913 	mov	b,r7
-   1B9F 74 DE               914 	mov	a,#_timeBomb_TOP
-   1BA1 12 41 10            915 	lcall	__gptrput
+   1B9F 74 10               914 	mov	a,#_timeBomb_TOP
+   1BA1 12 42 42            915 	lcall	__gptrput
    1BA4 A3                  916 	inc	dptr
-   1BA5 74 4F               917 	mov	a,#(_timeBomb_TOP >> 8)
-   1BA7 12 41 10            918 	lcall	__gptrput
+   1BA5 74 51               917 	mov	a,#(_timeBomb_TOP >> 8)
+   1BA7 12 42 42            918 	lcall	__gptrput
    1BAA A3                  919 	inc	dptr
    1BAB 74 80               920 	mov	a,#0x80
-   1BAD 12 41 10            921 	lcall	__gptrput
+   1BAD 12 42 42            921 	lcall	__gptrput
    1BB0 80 1E               922 	sjmp	00103$
    1BB2                     923 00102$:
    1BB2 74 08               924 	mov	a,#0x08
@@ -930,65 +930,65 @@
    1BB9 8A 82               930 	mov	dpl,r2
    1BBB 8B 83               931 	mov	dph,r3
    1BBD 8C F0               932 	mov	b,r4
-   1BBF 74 F0               933 	mov	a,#_timeBomb_timing
-   1BC1 12 41 10            934 	lcall	__gptrput
+   1BBF 74 22               933 	mov	a,#_timeBomb_timing
+   1BC1 12 42 42            934 	lcall	__gptrput
    1BC4 A3                  935 	inc	dptr
-   1BC5 74 4F               936 	mov	a,#(_timeBomb_timing >> 8)
-   1BC7 12 41 10            937 	lcall	__gptrput
+   1BC5 74 51               936 	mov	a,#(_timeBomb_timing >> 8)
+   1BC7 12 42 42            937 	lcall	__gptrput
    1BCA A3                  938 	inc	dptr
    1BCB 74 80               939 	mov	a,#0x80
-   1BCD 12 41 10            940 	lcall	__gptrput
+   1BCD 12 42 42            940 	lcall	__gptrput
    1BD0                     941 00103$:
    1BD0 75 82 02            942 	mov	dpl,#0x02
    1BD3 22                  943 	ret
                             944 	.area CSEG    (CODE)
                             945 	.area CONST   (CODE)
-   4FDE                     946 _timeBomb_TOP:
+   5110                     946 _timeBomb_TOP:
                             947 ; generic printIvalPtr
-   4FDE 00 00 00            948 	.byte #0x00,#0x00,#0x00
-   4FE1 00                  949 	.db #0x00
-   4FE2 97 18               950 	.byte _timeBomb_TOP_handler,(_timeBomb_TOP_handler >> 8)
-   4FE4 0B 50 80            951 	.byte _str_1,(_str_1 >> 8),#0x80
-   4FE7                     952 _timeBomb_setting:
-   4FE7 DE 4F 80            953 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
-   4FEA 00                  954 	.db #0x00
-   4FEB 10 19               955 	.byte _timeBomb_setting_handler,(_timeBomb_setting_handler >> 8)
-   4FED 18 50 80            956 	.byte _str_2,(_str_2 >> 8),#0x80
-   4FF0                     957 _timeBomb_timing:
-   4FF0 DE 4F 80            958 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
-   4FF3 00                  959 	.db #0x00
-   4FF4 ED 19               960 	.byte _timeBomb_timing_handler,(_timeBomb_timing_handler >> 8)
-   4FF6 29 50 80            961 	.byte _str_3,(_str_3 >> 8),#0x80
-   4FF9                     962 _timeBomb_isTimeToGoBoom:
-   4FF9 DE 4F 80            963 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
-   4FFC 01                  964 	.db #0x01
-   4FFD 67 1B               965 	.byte _timeBomb_isTimeToGoBoom_handler,(_timeBomb_isTimeToGoBoom_handler >> 8)
-   4FFF 39 50 80            966 	.byte _str_4,(_str_4 >> 8),#0x80
-   5002                     967 __str_0:
-   5002 74 69 6D 65 42 6F   968 	.ascii "timeBomb"
+   5110 00 00 00            948 	.byte #0x00,#0x00,#0x00
+   5113 00                  949 	.db #0x00
+   5114 97 18               950 	.byte _timeBomb_TOP_handler,(_timeBomb_TOP_handler >> 8)
+   5116 3D 51 80            951 	.byte _str_1,(_str_1 >> 8),#0x80
+   5119                     952 _timeBomb_setting:
+   5119 10 51 80            953 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
+   511C 00                  954 	.db #0x00
+   511D 10 19               955 	.byte _timeBomb_setting_handler,(_timeBomb_setting_handler >> 8)
+   511F 4A 51 80            956 	.byte _str_2,(_str_2 >> 8),#0x80
+   5122                     957 _timeBomb_timing:
+   5122 10 51 80            958 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
+   5125 00                  959 	.db #0x00
+   5126 ED 19               960 	.byte _timeBomb_timing_handler,(_timeBomb_timing_handler >> 8)
+   5128 5B 51 80            961 	.byte _str_3,(_str_3 >> 8),#0x80
+   512B                     962 _timeBomb_isTimeToGoBoom:
+   512B 10 51 80            963 	.byte _timeBomb_TOP,(_timeBomb_TOP >> 8),#0x80
+   512E 01                  964 	.db #0x01
+   512F 67 1B               965 	.byte _timeBomb_isTimeToGoBoom_handler,(_timeBomb_isTimeToGoBoom_handler >> 8)
+   5131 6B 51 80            966 	.byte _str_4,(_str_4 >> 8),#0x80
+   5134                     967 __str_0:
+   5134 74 69 6D 65 42 6F   968 	.ascii "timeBomb"
         6D 62
-   500A 00                  969 	.db 0x00
-   500B                     970 _str_1:
-   500B 74 69 6D 65 42 6F   971 	.ascii "timeBomb_TOP"
+   513C 00                  969 	.db 0x00
+   513D                     970 _str_1:
+   513D 74 69 6D 65 42 6F   971 	.ascii "timeBomb_TOP"
         6D 62 5F 54 4F 50
-   5017 00                  972 	.db 0x00
-   5018                     973 _str_2:
-   5018 74 69 6D 65 42 6F   974 	.ascii "timeBomb_setting"
+   5149 00                  972 	.db 0x00
+   514A                     973 _str_2:
+   514A 74 69 6D 65 42 6F   974 	.ascii "timeBomb_setting"
         6D 62 5F 73 65 74
         74 69 6E 67
-   5028 00                  975 	.db 0x00
-   5029                     976 _str_3:
-   5029 74 69 6D 65 42 6F   977 	.ascii "timeBomb_timing"
+   515A 00                  975 	.db 0x00
+   515B                     976 _str_3:
+   515B 74 69 6D 65 42 6F   977 	.ascii "timeBomb_timing"
         6D 62 5F 74 69 6D
         69 6E 67
-   5038 00                  978 	.db 0x00
-   5039                     979 _str_4:
-   5039 74 69 6D 65 42 6F   980 	.ascii "timeBomb_isTimeToGoBoom"
+   516A 00                  978 	.db 0x00
+   516B                     979 _str_4:
+   516B 74 69 6D 65 42 6F   980 	.ascii "timeBomb_isTimeToGoBoom"
         6D 62 5F 69 73 54
         69 6D 65 54 6F 47
         6F 42 6F 6F 6D
-   5050 00                  981 	.db 0x00
+   5182 00                  981 	.db 0x00
                             982 	.area XINIT   (CODE)
-   549E                     983 __xinit__timeBomb_name:
-   549E 02 50 80            984 	.byte __str_0,(__str_0 >> 8),#0x80
+   55D0                     983 __xinit__timeBomb_name:
+   55D0 34 51 80            984 	.byte __str_0,(__str_0 >> 8),#0x80
                             985 	.area CABS    (ABS,CODE)

@@ -829,14 +829,14 @@
                             829 ; overlayable items in internal ram 
                             830 ;--------------------------------------------------------
                             831 	.area	OSEG    (OVR,DATA)
-   0060                     832 _addTickCounter_sloc0_1_0::
-   0060                     833 	.ds 3
+   0065                     832 _addTickCounter_sloc0_1_0::
+   0065                     833 	.ds 3
                             834 ;--------------------------------------------------------
                             835 ; Stack segment in internal ram 
                             836 ;--------------------------------------------------------
                             837 	.area	SSEG	(DATA)
-   0063                     838 __start__stack:
-   0063                     839 	.ds	1
+   0068                     838 __start__stack:
+   0068                     839 	.ds	1
                             840 
                             841 ;--------------------------------------------------------
                             842 ; indirectly addressable internal ram data
@@ -1048,9 +1048,9 @@
                            1048 ;	../main.c:91: bool			ok = true ;
    009A D2 01              1049 	setb	_main_ok_1_1
                            1050 ;	../main.c:96: puts("4th Generation state machine test started.") ;
-   009C 90 4D 5C           1051 	mov	dptr,#__str_0
+   009C 90 4E 8E           1051 	mov	dptr,#__str_0
    009F 75 F0 80           1052 	mov	b,#0x80
-   00A2 12 44 28           1053 	lcall	_puts
+   00A2 12 45 5A           1053 	lcall	_puts
                            1054 ;	../main.c:109: WDTCN = 0xDE ;	/* Disable the watchdog timer */
    00A5 75 FF DE           1055 	mov	_WDTCN,#0xDE
                            1056 ;	../main.c:110: WDTCN = 0xAD ;
@@ -1063,18 +1063,18 @@
    00B1 12 02 40           1063 	lcall	_gpio_init_projectSpecific
                            1064 ;	../main.c:115: pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
    00B4 75 82 00           1065 	mov	dpl,#0x00
-   00B7 12 3E 3D           1066 	lcall	_pwm_init
+   00B7 12 3F 6F           1066 	lcall	_pwm_init
                            1067 ;	../main.c:116: prvSetupTimerInterrupt() ;
    00BA 12 0B 5D           1068 	lcall	_prvSetupTimerInterrupt
                            1069 ;	../main.c:117: task_UART_init(0) ;
    00BD 75 82 00           1070 	mov	dpl,#0x00
-   00C0 12 3E D0           1071 	lcall	_task_UART_init
+   00C0 12 40 02           1071 	lcall	_task_UART_init
                            1072 ;	../main.c:119: portENABLE_INTERRUPTS() ;
    00C3 D2 AF              1073 	setb	_EA
                            1074 ;	../main.c:122: puts("Generating timebomb") ;
-   00C5 90 4D 87           1075 	mov	dptr,#__str_1
+   00C5 90 4E B9           1075 	mov	dptr,#__str_1
    00C8 75 F0 80           1076 	mov	b,#0x80
-   00CB 12 44 28           1077 	lcall	_puts
+   00CB 12 45 5A           1077 	lcall	_puts
                            1078 ;	../main.c:124: bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
    00CE 12 17 90           1079 	lcall	_timeBomb_getEventQueueDepth
    00D1 AA 82              1080 	mov	r2,dpl
@@ -1092,12 +1092,12 @@
    00E8 AB 83              1092 	mov	r3,dph
    00EA AC F0              1093 	mov	r4,b
                            1094 ;	../main.c:131: puts("Generating calculator") ;
-   00EC 90 4D 9B           1095 	mov	dptr,#__str_2
+   00EC 90 4E CD           1095 	mov	dptr,#__str_2
    00EF 75 F0 80           1096 	mov	b,#0x80
    00F2 C0 02              1097 	push	ar2
    00F4 C0 03              1098 	push	ar3
    00F6 C0 04              1099 	push	ar4
-   00F8 12 44 28           1100 	lcall	_puts
+   00F8 12 45 5A           1100 	lcall	_puts
                            1101 ;	../main.c:133: calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
    00FB 12 0C 84           1102 	lcall	_calculator_getEventQueueDepth
    00FE AD 82              1103 	mov	r5,dpl
@@ -1123,7 +1123,7 @@
    0121 4F                 1123 	orl	a,r7
    0122 60 36              1124 	jz	00102$
                            1125 ;	../main.c:137: puts("Registering calculator") ;
-   0124 90 4D B1           1126 	mov	dptr,#__str_3
+   0124 90 4E E3           1126 	mov	dptr,#__str_3
    0127 75 F0 80           1127 	mov	b,#0x80
    012A C0 02              1128 	push	ar2
    012C C0 03              1129 	push	ar3
@@ -1131,7 +1131,7 @@
    0130 C0 05              1131 	push	ar5
    0132 C0 06              1132 	push	ar6
    0134 C0 07              1133 	push	ar7
-   0136 12 44 28           1134 	lcall	_puts
+   0136 12 45 5A           1134 	lcall	_puts
    0139 D0 07              1135 	pop	ar7
    013B D0 06              1136 	pop	ar6
    013D D0 05              1137 	pop	ar5
@@ -1151,7 +1151,7 @@
    0158 D0 02              1151 	pop	ar2
    015A                    1152 00102$:
                            1153 ;	../main.c:142: puts("Iterating state machines") ;
-   015A 90 4D C8           1154 	mov	dptr,#__str_4
+   015A 90 4E FA           1154 	mov	dptr,#__str_4
    015D 75 F0 80           1155 	mov	b,#0x80
    0160 C0 02              1156 	push	ar2
    0162 C0 03              1157 	push	ar3
@@ -1159,7 +1159,7 @@
    0166 C0 05              1159 	push	ar5
    0168 C0 06              1160 	push	ar6
    016A C0 07              1161 	push	ar7
-   016C 12 44 28           1162 	lcall	_puts
+   016C 12 45 5A           1162 	lcall	_puts
    016F D0 07              1163 	pop	ar7
    0171 D0 06              1164 	pop	ar6
    0173 D0 05              1165 	pop	ar5
@@ -1201,7 +1201,7 @@
    01A6 C2 01              1201 	clr	_main_ok_1_1
    01A8                    1202 00104$:
                            1203 ;	../main.c:151: puts("loop") ;
-   01A8 90 4D E1           1204 	mov	dptr,#__str_5
+   01A8 90 4F 13           1204 	mov	dptr,#__str_5
    01AB 75 F0 80           1205 	mov	b,#0x80
    01AE C0 02              1206 	push	ar2
    01B0 C0 03              1207 	push	ar3
@@ -1209,7 +1209,7 @@
    01B4 C0 05              1209 	push	ar5
    01B6 C0 06              1210 	push	ar6
    01B8 C0 07              1211 	push	ar7
-   01BA 12 44 28           1212 	lcall	_puts
+   01BA 12 45 5A           1212 	lcall	_puts
                            1213 ;	../main.c:153: ITERATE_ALL_STATE_MACHINES() ;
    01BD 12 2B 8F           1214 	lcall	_iterateAllStateMachines
    01C0 D0 07              1215 	pop	ar7
@@ -1285,9 +1285,9 @@
                            1285 ;	../main.c:175: bomb = 0 ;
    0234                    1286 00111$:
                            1287 ;	../main.c:178: puts("\n4th Generation state machine test done.") ;
-   0234 90 4D E6           1288 	mov	dptr,#__str_6
+   0234 90 4F 18           1288 	mov	dptr,#__str_6
    0237 75 F0 80           1289 	mov	b,#0x80
-   023A 02 44 28           1290 	ljmp	_puts
+   023A 02 45 5A           1290 	ljmp	_puts
                            1291 ;------------------------------------------------------------
                            1292 ;Allocation info for local variables in function 'taskSwitcherTickHook'
                            1293 ;------------------------------------------------------------
@@ -1601,10 +1601,10 @@
    0344 8A 82              1601 	mov	dpl,r2
    0346 8B 83              1602 	mov	dph,r3
    0348 8C F0              1603 	mov	b,r4
-   034A 12 4D 3C           1604 	lcall	__gptrget
+   034A 12 4E 6E           1604 	lcall	__gptrget
    034D FA                 1605 	mov	r2,a
    034E A3                 1606 	inc	dptr
-   034F 12 4D 3C           1607 	lcall	__gptrget
+   034F 12 4E 6E           1607 	lcall	__gptrget
    0352 FB                 1608 	mov	r3,a
    0353 E4                 1609 	clr	a
    0354 BA 00 04           1610 	cjne	r2,#0x00,00103$
@@ -1654,18 +1654,18 @@
    0382 8D 82              1654 	mov	dpl,r5
    0384 8E 83              1655 	mov	dph,r6
    0386 8F F0              1656 	mov	b,r7
-   0388 12 4D 3C           1657 	lcall	__gptrget
+   0388 12 4E 6E           1657 	lcall	__gptrget
    038B FD                 1658 	mov	r5,a
    038C A3                 1659 	inc	dptr
-   038D 12 4D 3C           1660 	lcall	__gptrget
+   038D 12 4E 6E           1660 	lcall	__gptrget
    0390 FE                 1661 	mov	r6,a
    0391 8A 82              1662 	mov	dpl,r2
    0393 8B 83              1663 	mov	dph,r3
    0395 8C F0              1664 	mov	b,r4
-   0397 12 4D 3C           1665 	lcall	__gptrget
+   0397 12 4E 6E           1665 	lcall	__gptrget
    039A FA                 1666 	mov	r2,a
    039B A3                 1667 	inc	dptr
-   039C 12 4D 3C           1668 	lcall	__gptrget
+   039C 12 4E 6E           1668 	lcall	__gptrget
    039F FB                 1669 	mov	r3,a
    03A0 ED                 1670 	mov	a,r5
    03A1 B5 02 08           1671 	cjne	a,ar2,00103$
@@ -1717,10 +1717,10 @@
    03D2 8A 82              1717 	mov	dpl,r2
    03D4 8B 83              1718 	mov	dph,r3
    03D6 8C F0              1719 	mov	b,r4
-   03D8 12 4D 3C           1720 	lcall	__gptrget
+   03D8 12 4E 6E           1720 	lcall	__gptrget
    03DB FA                 1721 	mov	r2,a
    03DC A3                 1722 	inc	dptr
-   03DD 12 4D 3C           1723 	lcall	__gptrget
+   03DD 12 4E 6E           1723 	lcall	__gptrget
    03E0 FB                 1724 	mov	r3,a
    03E1 90 04 5B           1725 	mov	dptr,#_Succ_Value_1_1
    03E4 E0                 1726 	movx	a,@dptr
@@ -1781,10 +1781,10 @@
    041F 8D 83              1781 	mov	dph,r5
    0421 8E F0              1782 	mov	b,r6
    0423 74 4C              1783 	mov	a,#0x4C
-   0425 12 41 10           1784 	lcall	__gptrput
+   0425 12 42 42           1784 	lcall	__gptrput
    0428 A3                 1785 	inc	dptr
    0429 74 04              1786 	mov	a,#0x04
-   042B 12 41 10           1787 	lcall	__gptrput
+   042B 12 42 42           1787 	lcall	__gptrput
                            1788 ;	../projectSpecificHardwareInterface_C8051F040.c:328: Q->Size		= 0 ;
    042E 74 06              1789 	mov	a,#0x06
    0430 2C                 1790 	add	a,r4
@@ -1797,10 +1797,10 @@
    0439 88 83              1797 	mov	dph,r0
    043B 89 F0              1798 	mov	b,r1
    043D E4                 1799 	clr	a
-   043E 12 41 10           1800 	lcall	__gptrput
+   043E 12 42 42           1800 	lcall	__gptrput
    0441 A3                 1801 	inc	dptr
    0442 E4                 1802 	clr	a
-   0443 12 41 10           1803 	lcall	__gptrput
+   0443 12 42 42           1803 	lcall	__gptrput
                            1804 ;	../projectSpecificHardwareInterface_C8051F040.c:329: Q->Front	= 1 ;
    0446 74 02              1805 	mov	a,#0x02
    0448 2C                 1806 	add	a,r4
@@ -1813,10 +1813,10 @@
    0451 88 83              1813 	mov	dph,r0
    0453 89 F0              1814 	mov	b,r1
    0455 74 01              1815 	mov	a,#0x01
-   0457 12 41 10           1816 	lcall	__gptrput
+   0457 12 42 42           1816 	lcall	__gptrput
    045A A3                 1817 	inc	dptr
    045B E4                 1818 	clr	a
-   045C 12 41 10           1819 	lcall	__gptrput
+   045C 12 42 42           1819 	lcall	__gptrput
                            1820 ;	../projectSpecificHardwareInterface_C8051F040.c:330: Q->Rear		= 0 ;
    045F 74 04              1821 	mov	a,#0x04
    0461 2C                 1822 	add	a,r4
@@ -1829,10 +1829,10 @@
    046A 88 83              1829 	mov	dph,r0
    046C 89 F0              1830 	mov	b,r1
    046E E4                 1831 	clr	a
-   046F 12 41 10           1832 	lcall	__gptrput
+   046F 12 42 42           1832 	lcall	__gptrput
    0472 A3                 1833 	inc	dptr
    0473 E4                 1834 	clr	a
-   0474 12 41 10           1835 	lcall	__gptrput
+   0474 12 42 42           1835 	lcall	__gptrput
                            1836 ;	../projectSpecificHardwareInterface_C8051F040.c:331: Q->Array	= transmitBuffer[0] ;
    0477 74 08              1837 	mov	a,#0x08
    0479 2C                 1838 	add	a,r4
@@ -1844,13 +1844,13 @@
    0480 8D 83              1844 	mov	dph,r5
    0482 8E F0              1845 	mov	b,r6
    0484 74 5D              1846 	mov	a,#_transmitBuffer
-   0486 12 41 10           1847 	lcall	__gptrput
+   0486 12 42 42           1847 	lcall	__gptrput
    0489 A3                 1848 	inc	dptr
    048A 74 04              1849 	mov	a,#(_transmitBuffer >> 8)
-   048C 12 41 10           1850 	lcall	__gptrput
+   048C 12 42 42           1850 	lcall	__gptrput
    048F A3                 1851 	inc	dptr
    0490 E4                 1852 	clr	a
-   0491 12 41 10           1853 	lcall	__gptrput
+   0491 12 42 42           1853 	lcall	__gptrput
                            1854 ;	../projectSpecificHardwareInterface_C8051F040.c:333: Q = &receiveBuffers[channelNumber] ;
    0494 EB                 1855 	mov	a,r3
    0495 24 C0              1856 	add	a,#_receiveBuffers
@@ -1864,10 +1864,10 @@
    04A0 8C 83              1864 	mov	dph,r4
    04A2 8D F0              1865 	mov	b,r5
    04A4 74 0A              1866 	mov	a,#0x0A
-   04A6 12 41 10           1867 	lcall	__gptrput
+   04A6 12 42 42           1867 	lcall	__gptrput
    04A9 A3                 1868 	inc	dptr
    04AA E4                 1869 	clr	a
-   04AB 12 41 10           1870 	lcall	__gptrput
+   04AB 12 42 42           1870 	lcall	__gptrput
                            1871 ;	../projectSpecificHardwareInterface_C8051F040.c:336: Q->Size		= 0 ;
    04AE 74 06              1872 	mov	a,#0x06
    04B0 2B                 1873 	add	a,r3
@@ -1880,10 +1880,10 @@
    04B9 8F 83              1880 	mov	dph,r7
    04BB 88 F0              1881 	mov	b,r0
    04BD E4                 1882 	clr	a
-   04BE 12 41 10           1883 	lcall	__gptrput
+   04BE 12 42 42           1883 	lcall	__gptrput
    04C1 A3                 1884 	inc	dptr
    04C2 E4                 1885 	clr	a
-   04C3 12 41 10           1886 	lcall	__gptrput
+   04C3 12 42 42           1886 	lcall	__gptrput
                            1887 ;	../projectSpecificHardwareInterface_C8051F040.c:337: Q->Front	= 1 ;
    04C6 74 02              1888 	mov	a,#0x02
    04C8 2B                 1889 	add	a,r3
@@ -1896,10 +1896,10 @@
    04D1 8F 83              1896 	mov	dph,r7
    04D3 88 F0              1897 	mov	b,r0
    04D5 74 01              1898 	mov	a,#0x01
-   04D7 12 41 10           1899 	lcall	__gptrput
+   04D7 12 42 42           1899 	lcall	__gptrput
    04DA A3                 1900 	inc	dptr
    04DB E4                 1901 	clr	a
-   04DC 12 41 10           1902 	lcall	__gptrput
+   04DC 12 42 42           1902 	lcall	__gptrput
                            1903 ;	../projectSpecificHardwareInterface_C8051F040.c:338: Q->Rear		= 0 ;
    04DF 74 04              1904 	mov	a,#0x04
    04E1 2B                 1905 	add	a,r3
@@ -1912,10 +1912,10 @@
    04EA 8F 83              1912 	mov	dph,r7
    04EC 88 F0              1913 	mov	b,r0
    04EE E4                 1914 	clr	a
-   04EF 12 41 10           1915 	lcall	__gptrput
+   04EF 12 42 42           1915 	lcall	__gptrput
    04F2 A3                 1916 	inc	dptr
    04F3 E4                 1917 	clr	a
-   04F4 12 41 10           1918 	lcall	__gptrput
+   04F4 12 42 42           1918 	lcall	__gptrput
                            1919 ;	../projectSpecificHardwareInterface_C8051F040.c:339: Q->Array	= receiveBuffer[0] ;
    04F7 74 08              1920 	mov	a,#0x08
    04F9 2B                 1921 	add	a,r3
@@ -1927,13 +1927,13 @@
    0500 8C 83              1927 	mov	dph,r4
    0502 8D F0              1928 	mov	b,r5
    0504 74 AA              1929 	mov	a,#_receiveBuffer
-   0506 12 41 10           1930 	lcall	__gptrput
+   0506 12 42 42           1930 	lcall	__gptrput
    0509 A3                 1931 	inc	dptr
    050A 74 08              1932 	mov	a,#(_receiveBuffer >> 8)
-   050C 12 41 10           1933 	lcall	__gptrput
+   050C 12 42 42           1933 	lcall	__gptrput
    050F A3                 1934 	inc	dptr
    0510 E4                 1935 	clr	a
-   0511 12 41 10           1936 	lcall	__gptrput
+   0511 12 42 42           1936 	lcall	__gptrput
                            1937 ;	../projectSpecificHardwareInterface_C8051F040.c:341: charSent[channelNumber]		= false ;
    0514 EA                 1938 	mov	a,r2
    0515 24 CB              1939 	add	a,#_charSent
@@ -2084,10 +2084,10 @@
    05C8 85 09 82           2084 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
    05CB 85 0A 83           2085 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
    05CE 85 0B F0           2086 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   05D1 12 4D 3C           2087 	lcall	__gptrget
+   05D1 12 4E 6E           2087 	lcall	__gptrget
    05D4 FC                 2088 	mov	r4,a
    05D5 A3                 2089 	inc	dptr
-   05D6 12 4D 3C           2090 	lcall	__gptrget
+   05D6 12 4E 6E           2090 	lcall	__gptrget
    05D9 FB                 2091 	mov	r3,a
    05DA 0C                 2092 	inc	r4
    05DB BC 00 01           2093 	cjne	r4,#0x00,00129$
@@ -2097,10 +2097,10 @@
    05E2 85 0A 83           2097 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
    05E5 85 0B F0           2098 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
    05E8 EC                 2099 	mov	a,r4
-   05E9 12 41 10           2100 	lcall	__gptrput
+   05E9 12 42 42           2100 	lcall	__gptrput
    05EC A3                 2101 	inc	dptr
    05ED EB                 2102 	mov	a,r3
-   05EE 12 41 10           2103 	lcall	__gptrput
+   05EE 12 42 42           2103 	lcall	__gptrput
                            2104 ;	../projectSpecificHardwareInterface_C8051F040.c:397: Q->Rear = Succ(Q->Rear, Q) ;
    05F1 74 04              2105 	mov	a,#0x04
    05F3 2D                 2106 	add	a,r5
@@ -2112,10 +2112,10 @@
    05FC 85 09 82           2112 	mov	dpl,_task_UART_core_projectSpecific_sloc1_1_0
    05FF 85 0A 83           2113 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
    0602 85 0B F0           2114 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
-   0605 12 4D 3C           2115 	lcall	__gptrget
+   0605 12 4E 6E           2115 	lcall	__gptrget
    0608 F9                 2116 	mov	r1,a
    0609 A3                 2117 	inc	dptr
-   060A 12 4D 3C           2118 	lcall	__gptrget
+   060A 12 4E 6E           2118 	lcall	__gptrget
    060D FB                 2119 	mov	r3,a
    060E 90 04 58           2120 	mov	dptr,#_Succ_PARM_2
    0611 ED                 2121 	mov	a,r5
@@ -2137,10 +2137,10 @@
    062B 85 0A 83           2137 	mov	dph,(_task_UART_core_projectSpecific_sloc1_1_0 + 1)
    062E 85 0B F0           2138 	mov	b,(_task_UART_core_projectSpecific_sloc1_1_0 + 2)
    0631 EB                 2139 	mov	a,r3
-   0632 12 41 10           2140 	lcall	__gptrput
+   0632 12 42 42           2140 	lcall	__gptrput
    0635 A3                 2141 	inc	dptr
    0636 EC                 2142 	mov	a,r4
-   0637 12 41 10           2143 	lcall	__gptrput
+   0637 12 42 42           2143 	lcall	__gptrput
                            2144 ;	../projectSpecificHardwareInterface_C8051F040.c:398: Q->Array[Q->Rear] = charReceived ;
    063A 90 08 CF           2145 	mov	dptr,#_task_UART_core_projectSpecific_Q_4_4
    063D E0                 2146 	movx	a,@dptr
@@ -2161,13 +2161,13 @@
    064E 8E 82              2161 	mov	dpl,r6
    0650 8F 83              2162 	mov	dph,r7
    0652 88 F0              2163 	mov	b,r0
-   0654 12 4D 3C           2164 	lcall	__gptrget
+   0654 12 4E 6E           2164 	lcall	__gptrget
    0657 FE                 2165 	mov	r6,a
    0658 A3                 2166 	inc	dptr
-   0659 12 4D 3C           2167 	lcall	__gptrget
+   0659 12 4E 6E           2167 	lcall	__gptrget
    065C FF                 2168 	mov	r7,a
    065D A3                 2169 	inc	dptr
-   065E 12 4D 3C           2170 	lcall	__gptrget
+   065E 12 4E 6E           2170 	lcall	__gptrget
    0661 F8                 2171 	mov	r0,a
    0662 74 04              2172 	mov	a,#0x04
    0664 2B                 2173 	add	a,r3
@@ -2178,10 +2178,10 @@
    0669 8B 82              2178 	mov	dpl,r3
    066B 8C 83              2179 	mov	dph,r4
    066D 8D F0              2180 	mov	b,r5
-   066F 12 4D 3C           2181 	lcall	__gptrget
+   066F 12 4E 6E           2181 	lcall	__gptrget
    0672 FB                 2182 	mov	r3,a
    0673 A3                 2183 	inc	dptr
-   0674 12 4D 3C           2184 	lcall	__gptrget
+   0674 12 4E 6E           2184 	lcall	__gptrget
    0677 FC                 2185 	mov	r4,a
    0678 EB                 2186 	mov	a,r3
    0679 2E                 2187 	add	a,r6
@@ -2193,7 +2193,7 @@
    0680 8F 83              2193 	mov	dph,r7
    0682 88 F0              2194 	mov	b,r0
    0684 E5 08              2195 	mov	a,_task_UART_core_projectSpecific_sloc0_1_0
-   0686 12 41 10           2196 	lcall	__gptrput
+   0686 12 42 42           2196 	lcall	__gptrput
                            2197 ;	../projectSpecificHardwareInterface_C8051F040.c:400: if(charReceived == '\n')
    0689 74 0A              2198 	mov	a,#0x0A
    068B B5 08 02           2199 	cjne	a,_task_UART_core_projectSpecific_sloc0_1_0,00130$
@@ -2290,13 +2290,13 @@
    0706 8E 82              2290 	mov	dpl,r6
    0708 8F 83              2291 	mov	dph,r7
    070A 88 F0              2292 	mov	b,r0
-   070C 12 4D 3C           2293 	lcall	__gptrget
+   070C 12 4E 6E           2293 	lcall	__gptrget
    070F F5 09              2294 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
    0711 A3                 2295 	inc	dptr
-   0712 12 4D 3C           2296 	lcall	__gptrget
+   0712 12 4E 6E           2296 	lcall	__gptrget
    0715 F5 0A              2297 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 1),a
    0717 A3                 2298 	inc	dptr
-   0718 12 4D 3C           2299 	lcall	__gptrget
+   0718 12 4E 6E           2299 	lcall	__gptrget
    071B F5 0B              2300 	mov	(_task_UART_core_projectSpecific_sloc1_1_0 + 2),a
    071D 74 02              2301 	mov	a,#0x02
    071F 2A                 2302 	add	a,r2
@@ -2308,10 +2308,10 @@
    0728 85 0E 82           2308 	mov	dpl,_task_UART_core_projectSpecific_sloc3_1_0
    072B 85 0F 83           2309 	mov	dph,(_task_UART_core_projectSpecific_sloc3_1_0 + 1)
    072E 85 10 F0           2310 	mov	b,(_task_UART_core_projectSpecific_sloc3_1_0 + 2)
-   0731 12 4D 3C           2311 	lcall	__gptrget
+   0731 12 4E 6E           2311 	lcall	__gptrget
    0734 F5 0C              2312 	mov	_task_UART_core_projectSpecific_sloc2_1_0,a
    0736 A3                 2313 	inc	dptr
-   0737 12 4D 3C           2314 	lcall	__gptrget
+   0737 12 4E 6E           2314 	lcall	__gptrget
    073A F5 0D              2315 	mov	(_task_UART_core_projectSpecific_sloc2_1_0 + 1),a
    073C E5 0C              2316 	mov	a,_task_UART_core_projectSpecific_sloc2_1_0
    073E 25 09              2317 	add	a,_task_UART_core_projectSpecific_sloc1_1_0
@@ -2323,7 +2323,7 @@
    0748 8F 82              2323 	mov	dpl,r7
    074A 88 83              2324 	mov	dph,r0
    074C 8B F0              2325 	mov	b,r3
-   074E 12 4D 3C           2326 	lcall	__gptrget
+   074E 12 4E 6E           2326 	lcall	__gptrget
    0751 F5 09              2327 	mov	_task_UART_core_projectSpecific_sloc1_1_0,a
                            2328 ;	../projectSpecificHardwareInterface_C8051F040.c:424: Q->Size-- ;
    0753 74 06              2329 	mov	a,#0x06
@@ -2336,10 +2336,10 @@
    075C 8B 82              2336 	mov	dpl,r3
    075E 8E 83              2337 	mov	dph,r6
    0760 88 F0              2338 	mov	b,r0
-   0762 12 4D 3C           2339 	lcall	__gptrget
+   0762 12 4E 6E           2339 	lcall	__gptrget
    0765 F9                 2340 	mov	r1,a
    0766 A3                 2341 	inc	dptr
-   0767 12 4D 3C           2342 	lcall	__gptrget
+   0767 12 4E 6E           2342 	lcall	__gptrget
    076A FF                 2343 	mov	r7,a
    076B 19                 2344 	dec	r1
    076C B9 FF 01           2345 	cjne	r1,#0xff,00136$
@@ -2349,10 +2349,10 @@
    0772 8E 83              2349 	mov	dph,r6
    0774 88 F0              2350 	mov	b,r0
    0776 E9                 2351 	mov	a,r1
-   0777 12 41 10           2352 	lcall	__gptrput
+   0777 12 42 42           2352 	lcall	__gptrput
    077A A3                 2353 	inc	dptr
    077B EF                 2354 	mov	a,r7
-   077C 12 41 10           2355 	lcall	__gptrput
+   077C 12 42 42           2355 	lcall	__gptrput
                            2356 ;	../projectSpecificHardwareInterface_C8051F040.c:425: Q->Front = Succ(Q->Front, Q) ;
    077F 90 04 58           2357 	mov	dptr,#_Succ_PARM_2
    0782 EA                 2358 	mov	a,r2
@@ -2372,10 +2372,10 @@
    079A 85 0F 83           2372 	mov	dph,(_task_UART_core_projectSpecific_sloc3_1_0 + 1)
    079D 85 10 F0           2373 	mov	b,(_task_UART_core_projectSpecific_sloc3_1_0 + 2)
    07A0 EA                 2374 	mov	a,r2
-   07A1 12 41 10           2375 	lcall	__gptrput
+   07A1 12 42 42           2375 	lcall	__gptrput
    07A4 A3                 2376 	inc	dptr
    07A5 EB                 2377 	mov	a,r3
-   07A6 12 41 10           2378 	lcall	__gptrput
+   07A6 12 42 42           2378 	lcall	__gptrput
                            2379 ;	../projectSpecificHardwareInterface_C8051F040.c:427: TI0 = 0 ;	// clear it and send the next character
    07A9 C2 99              2380 	clr	_TI0
                            2381 ;	../projectSpecificHardwareInterface_C8051F040.c:429: SBUF0 = byteToSend ;
@@ -2415,7 +2415,7 @@
    07C9 F0                 2415 	movx	@dptr,a
                            2416 ;	../projectSpecificHardwareInterface_C8051F040.c:441: task_UART_core(0) ;
    07CA 75 82 00           2417 	mov	dpl,#0x00
-   07CD 12 3E DF           2418 	lcall	_task_UART_core
+   07CD 12 40 11           2418 	lcall	_task_UART_core
                            2419 ;	../projectSpecificHardwareInterface_C8051F040.c:443: portDISABLE_INTERRUPTS() ;
    07D0 C2 AF              2420 	clr	_EA
                            2421 ;	../projectSpecificHardwareInterface_C8051F040.c:445: if(channelNumber < NUMBER_OF_UARTS)
@@ -2475,10 +2475,10 @@
    081C 8D 82              2475 	mov	dpl,r5
    081E 8E 83              2476 	mov	dph,r6
    0820 8F F0              2477 	mov	b,r7
-   0822 12 4D 3C           2478 	lcall	__gptrget
+   0822 12 4E 6E           2478 	lcall	__gptrget
    0825 F8                 2479 	mov	r0,a
    0826 A3                 2480 	inc	dptr
-   0827 12 4D 3C           2481 	lcall	__gptrget
+   0827 12 4E 6E           2481 	lcall	__gptrget
    082A F9                 2482 	mov	r1,a
    082B 08                 2483 	inc	r0
    082C B8 00 01           2484 	cjne	r0,#0x00,00112$
@@ -2488,10 +2488,10 @@
    0832 8E 83              2488 	mov	dph,r6
    0834 8F F0              2489 	mov	b,r7
    0836 E8                 2490 	mov	a,r0
-   0837 12 41 10           2491 	lcall	__gptrput
+   0837 12 42 42           2491 	lcall	__gptrput
    083A A3                 2492 	inc	dptr
    083B E9                 2493 	mov	a,r1
-   083C 12 41 10           2494 	lcall	__gptrput
+   083C 12 42 42           2494 	lcall	__gptrput
                            2495 ;	../projectSpecificHardwareInterface_C8051F040.c:452: Q->Rear = Succ(Q->Rear, Q) ;
    083F 74 04              2496 	mov	a,#0x04
    0841 2A                 2497 	add	a,r2
@@ -2503,10 +2503,10 @@
    0848 8D 82              2503 	mov	dpl,r5
    084A 8E 83              2504 	mov	dph,r6
    084C 8F F0              2505 	mov	b,r7
-   084E 12 4D 3C           2506 	lcall	__gptrget
+   084E 12 4E 6E           2506 	lcall	__gptrget
    0851 F8                 2507 	mov	r0,a
    0852 A3                 2508 	inc	dptr
-   0853 12 4D 3C           2509 	lcall	__gptrget
+   0853 12 4E 6E           2509 	lcall	__gptrget
    0856 F9                 2510 	mov	r1,a
    0857 90 04 58           2511 	mov	dptr,#_Succ_PARM_2
    085A EA                 2512 	mov	a,r2
@@ -2532,10 +2532,10 @@
    087B 8E 83              2532 	mov	dph,r6
    087D 8F F0              2533 	mov	b,r7
    087F EA                 2534 	mov	a,r2
-   0880 12 41 10           2535 	lcall	__gptrput
+   0880 12 42 42           2535 	lcall	__gptrput
    0883 A3                 2536 	inc	dptr
    0884 EB                 2537 	mov	a,r3
-   0885 12 41 10           2538 	lcall	__gptrput
+   0885 12 42 42           2538 	lcall	__gptrput
                            2539 ;	../projectSpecificHardwareInterface_C8051F040.c:453: Q->Array[Q->Rear] = charToSend ;
    0888 90 08 D4           2540 	mov	dptr,#_task_UART_putchar_projectSpecific_Q_2_2
    088B E0                 2541 	movx	a,@dptr
@@ -2556,13 +2556,13 @@
    089C 8D 82              2556 	mov	dpl,r5
    089E 8E 83              2557 	mov	dph,r6
    08A0 8F F0              2558 	mov	b,r7
-   08A2 12 4D 3C           2559 	lcall	__gptrget
+   08A2 12 4E 6E           2559 	lcall	__gptrget
    08A5 FD                 2560 	mov	r5,a
    08A6 A3                 2561 	inc	dptr
-   08A7 12 4D 3C           2562 	lcall	__gptrget
+   08A7 12 4E 6E           2562 	lcall	__gptrget
    08AA FE                 2563 	mov	r6,a
    08AB A3                 2564 	inc	dptr
-   08AC 12 4D 3C           2565 	lcall	__gptrget
+   08AC 12 4E 6E           2565 	lcall	__gptrget
    08AF FF                 2566 	mov	r7,a
    08B0 74 04              2567 	mov	a,#0x04
    08B2 2A                 2568 	add	a,r2
@@ -2573,10 +2573,10 @@
    08B7 8A 82              2573 	mov	dpl,r2
    08B9 8B 83              2574 	mov	dph,r3
    08BB 8C F0              2575 	mov	b,r4
-   08BD 12 4D 3C           2576 	lcall	__gptrget
+   08BD 12 4E 6E           2576 	lcall	__gptrget
    08C0 FA                 2577 	mov	r2,a
    08C1 A3                 2578 	inc	dptr
-   08C2 12 4D 3C           2579 	lcall	__gptrget
+   08C2 12 4E 6E           2579 	lcall	__gptrget
    08C5 FB                 2580 	mov	r3,a
    08C6 EA                 2581 	mov	a,r2
    08C7 2D                 2582 	add	a,r5
@@ -2589,7 +2589,7 @@
    08D0 8D 82              2589 	mov	dpl,r5
    08D2 8E 83              2590 	mov	dph,r6
    08D4 8F F0              2591 	mov	b,r7
-   08D6 12 41 10           2592 	lcall	__gptrput
+   08D6 12 42 42           2592 	lcall	__gptrput
                            2593 ;	../projectSpecificHardwareInterface_C8051F040.c:455: portENABLE_INTERRUPTS() ;
    08D9 D2 AF              2594 	setb	_EA
                            2595 ;	../projectSpecificHardwareInterface_C8051F040.c:457: return true ;
@@ -2639,7 +2639,7 @@
    08FE 8B 82              2639 	mov	dpl,r3
    0900 8C 83              2640 	mov	dph,r4
    0902 8D F0              2641 	mov	b,r5
-   0904 12 4D 3C           2642 	lcall	__gptrget
+   0904 12 4E 6E           2642 	lcall	__gptrget
    0907 FF                 2643 	mov	r7,a
    0908 60 53              2644 	jz	00112$
                            2645 ;	../projectSpecificHardwareInterface_C8051F040.c:477: if((*myBuffer) == '\n')
@@ -2654,7 +2654,7 @@
    0919 C0 04              2654 	push	ar4
    091B C0 05              2655 	push	ar5
    091D C0 06              2656 	push	ar6
-   091F 12 3E EE           2657 	lcall	_task_UART_putchar
+   091F 12 40 20           2657 	lcall	_task_UART_putchar
    0922 D0 06              2658 	pop	ar6
    0924 D0 05              2659 	pop	ar5
    0926 D0 04              2660 	pop	ar4
@@ -2667,7 +2667,7 @@
    092E 8B 82              2667 	mov	dpl,r3
    0930 8C 83              2668 	mov	dph,r4
    0932 8D F0              2669 	mov	b,r5
-   0934 12 4D 3C           2670 	lcall	__gptrget
+   0934 12 4E 6E           2670 	lcall	__gptrget
    0937 FF                 2671 	mov	r7,a
    0938 A3                 2672 	inc	dptr
    0939 AB 82              2673 	mov	r3,dpl
@@ -2681,7 +2681,7 @@
    0948 C0 04              2681 	push	ar4
    094A C0 05              2682 	push	ar5
    094C C0 06              2683 	push	ar6
-   094E 12 3E EE           2684 	lcall	_task_UART_putchar
+   094E 12 40 20           2684 	lcall	_task_UART_putchar
    0951 D0 06              2685 	pop	ar6
    0953 D0 05              2686 	pop	ar5
    0955 D0 04              2687 	pop	ar4
@@ -2766,13 +2766,13 @@
    09AE 8D 82              2766 	mov	dpl,r5
    09B0 8E 83              2767 	mov	dph,r6
    09B2 8F F0              2768 	mov	b,r7
-   09B4 12 4D 3C           2769 	lcall	__gptrget
+   09B4 12 4E 6E           2769 	lcall	__gptrget
    09B7 F5 11              2770 	mov	_task_UART_getchar_projectSpecific_sloc0_1_0,a
    09B9 A3                 2771 	inc	dptr
-   09BA 12 4D 3C           2772 	lcall	__gptrget
+   09BA 12 4E 6E           2772 	lcall	__gptrget
    09BD F5 12              2773 	mov	(_task_UART_getchar_projectSpecific_sloc0_1_0 + 1),a
    09BF A3                 2774 	inc	dptr
-   09C0 12 4D 3C           2775 	lcall	__gptrget
+   09C0 12 4E 6E           2775 	lcall	__gptrget
    09C3 F5 13              2776 	mov	(_task_UART_getchar_projectSpecific_sloc0_1_0 + 2),a
    09C5 74 02              2777 	mov	a,#0x02
    09C7 2A                 2778 	add	a,r2
@@ -2784,10 +2784,10 @@
    09D0 85 16 82           2784 	mov	dpl,_task_UART_getchar_projectSpecific_sloc2_1_0
    09D3 85 17 83           2785 	mov	dph,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1)
    09D6 85 18 F0           2786 	mov	b,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2)
-   09D9 12 4D 3C           2787 	lcall	__gptrget
+   09D9 12 4E 6E           2787 	lcall	__gptrget
    09DC F5 14              2788 	mov	_task_UART_getchar_projectSpecific_sloc1_1_0,a
    09DE A3                 2789 	inc	dptr
-   09DF 12 4D 3C           2790 	lcall	__gptrget
+   09DF 12 4E 6E           2790 	lcall	__gptrget
    09E2 F5 15              2791 	mov	(_task_UART_getchar_projectSpecific_sloc1_1_0 + 1),a
    09E4 E5 14              2792 	mov	a,_task_UART_getchar_projectSpecific_sloc1_1_0
    09E6 25 11              2793 	add	a,_task_UART_getchar_projectSpecific_sloc0_1_0
@@ -2799,7 +2799,7 @@
    09F0 8E 82              2799 	mov	dpl,r6
    09F2 8F 83              2800 	mov	dph,r7
    09F4 8D F0              2801 	mov	b,r5
-   09F6 12 4D 3C           2802 	lcall	__gptrget
+   09F6 12 4E 6E           2802 	lcall	__gptrget
    09F9 F5 11              2803 	mov	_task_UART_getchar_projectSpecific_sloc0_1_0,a
                            2804 ;	../projectSpecificHardwareInterface_C8051F040.c:504: Q->Size-- ;
    09FB 74 06              2805 	mov	a,#0x06
@@ -2812,10 +2812,10 @@
    0A04 8D 82              2812 	mov	dpl,r5
    0A06 8F 83              2813 	mov	dph,r7
    0A08 88 F0              2814 	mov	b,r0
-   0A0A 12 4D 3C           2815 	lcall	__gptrget
+   0A0A 12 4E 6E           2815 	lcall	__gptrget
    0A0D F9                 2816 	mov	r1,a
    0A0E A3                 2817 	inc	dptr
-   0A0F 12 4D 3C           2818 	lcall	__gptrget
+   0A0F 12 4E 6E           2818 	lcall	__gptrget
    0A12 FE                 2819 	mov	r6,a
    0A13 19                 2820 	dec	r1
    0A14 B9 FF 01           2821 	cjne	r1,#0xff,00112$
@@ -2825,10 +2825,10 @@
    0A1A 8F 83              2825 	mov	dph,r7
    0A1C 88 F0              2826 	mov	b,r0
    0A1E E9                 2827 	mov	a,r1
-   0A1F 12 41 10           2828 	lcall	__gptrput
+   0A1F 12 42 42           2828 	lcall	__gptrput
    0A22 A3                 2829 	inc	dptr
    0A23 EE                 2830 	mov	a,r6
-   0A24 12 41 10           2831 	lcall	__gptrput
+   0A24 12 42 42           2831 	lcall	__gptrput
                            2832 ;	../projectSpecificHardwareInterface_C8051F040.c:505: Q->Front = Succ(Q->Front, Q) ;
    0A27 90 04 58           2833 	mov	dptr,#_Succ_PARM_2
    0A2A EA                 2834 	mov	a,r2
@@ -2848,10 +2848,10 @@
    0A42 85 17 83           2848 	mov	dph,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 1)
    0A45 85 18 F0           2849 	mov	b,(_task_UART_getchar_projectSpecific_sloc2_1_0 + 2)
    0A48 EA                 2850 	mov	a,r2
-   0A49 12 41 10           2851 	lcall	__gptrput
+   0A49 12 42 42           2851 	lcall	__gptrput
    0A4C A3                 2852 	inc	dptr
    0A4D EB                 2853 	mov	a,r3
-   0A4E 12 41 10           2854 	lcall	__gptrput
+   0A4E 12 42 42           2854 	lcall	__gptrput
                            2855 ;	../projectSpecificHardwareInterface_C8051F040.c:507: return byteReceived ;
    0A51 85 11 82           2856 	mov	dpl,_task_UART_getchar_projectSpecific_sloc0_1_0
                            2857 ;	../projectSpecificHardwareInterface_C8051F040.c:511: return -1 ;
@@ -2918,7 +2918,7 @@
    0A93 C0 07              2918 	push	ar7
    0A95 C0 00              2919 	push	ar0
    0A97 C0 01              2920 	push	ar1
-   0A99 12 3F 2F           2921 	lcall	_task_UART_getchar
+   0A99 12 40 61           2921 	lcall	_task_UART_getchar
    0A9C 85 82 19           2922 	mov	_task_UART_gets_projectSpecific_sloc0_1_0,dpl
    0A9F D0 01              2923 	pop	ar1
    0AA1 D0 00              2924 	pop	ar0
@@ -2951,7 +2951,7 @@
    0ACB 8B 83              2951 	mov	dph,r3
    0ACD 8C F0              2952 	mov	b,r4
    0ACF E5 19              2953 	mov	a,_task_UART_gets_projectSpecific_sloc0_1_0
-   0AD1 12 41 10           2954 	lcall	__gptrput
+   0AD1 12 42 42           2954 	lcall	__gptrput
                            2955 ;	../projectSpecificHardwareInterface_C8051F040.c:536: charsReturned++ ;
    0AD4 08                 2956 	inc	r0
    0AD5 B8 00 01           2957 	cjne	r0,#0x00,00124$
@@ -3051,7 +3051,7 @@
    0B27 74 0D              3051 	mov	a,#0x0D
    0B29 F0                 3052 	movx	@dptr,a
    0B2A 75 82 00           3053 	mov	dpl,#0x00
-   0B2D 12 3E EE           3054 	lcall	_task_UART_putchar
+   0B2D 12 40 20           3054 	lcall	_task_UART_putchar
    0B30                    3055 00102$:
                            3056 ;	../projectSpecificHardwareInterface_C8051F040.c:610: task_UART_putchar(0, c) ;
    0B30 90 08 E6           3057 	mov	dptr,#_putchar_c_1_1
@@ -3059,7 +3059,7 @@
    0B34 90 0A 81           3059 	mov	dptr,#_task_UART_putchar_PARM_2
    0B37 F0                 3060 	movx	@dptr,a
    0B38 75 82 00           3061 	mov	dpl,#0x00
-   0B3B 02 3E EE           3062 	ljmp	_task_UART_putchar
+   0B3B 02 40 20           3062 	ljmp	_task_UART_putchar
                            3063 ;------------------------------------------------------------
                            3064 ;Allocation info for local variables in function 'prvSetupSystemClock'
                            3065 ;------------------------------------------------------------
@@ -3198,19 +3198,19 @@
    0BC5 FF                 3198 	mov	r7,a
    0BC6 90 09 06           3199 	mov	dptr,#_addTickCounter_pointerToIncrement_1_1
    0BC9 E0                 3200 	movx	a,@dptr
-   0BCA F5 60              3201 	mov	_addTickCounter_sloc0_1_0,a
+   0BCA F5 65              3201 	mov	_addTickCounter_sloc0_1_0,a
    0BCC A3                 3202 	inc	dptr
    0BCD E0                 3203 	movx	a,@dptr
-   0BCE F5 61              3204 	mov	(_addTickCounter_sloc0_1_0 + 1),a
+   0BCE F5 66              3204 	mov	(_addTickCounter_sloc0_1_0 + 1),a
    0BD0 A3                 3205 	inc	dptr
    0BD1 E0                 3206 	movx	a,@dptr
-   0BD2 F5 62              3207 	mov	(_addTickCounter_sloc0_1_0 + 2),a
+   0BD2 F5 67              3207 	mov	(_addTickCounter_sloc0_1_0 + 2),a
    0BD4 ED                 3208 	mov	a,r5
-   0BD5 B5 60 09           3209 	cjne	a,_addTickCounter_sloc0_1_0,00117$
+   0BD5 B5 65 09           3209 	cjne	a,_addTickCounter_sloc0_1_0,00117$
    0BD8 EE                 3210 	mov	a,r6
-   0BD9 B5 61 05           3211 	cjne	a,(_addTickCounter_sloc0_1_0 + 1),00117$
+   0BD9 B5 66 05           3211 	cjne	a,(_addTickCounter_sloc0_1_0 + 1),00117$
    0BDC EF                 3212 	mov	a,r7
-   0BDD B5 62 01           3213 	cjne	a,(_addTickCounter_sloc0_1_0 + 2),00117$
+   0BDD B5 67 01           3213 	cjne	a,(_addTickCounter_sloc0_1_0 + 2),00117$
    0BE0 22                 3214 	ret
    0BE1                    3215 00117$:
                            3216 ;	../projectSpecificHardwareInterface_C8051F040.c:718: if(tickCounterToIncrement[i] == 0)
@@ -3221,13 +3221,13 @@
                            3221 ;	../projectSpecificHardwareInterface_C8051F040.c:720: tickCounterToIncrement[i] = pointerToIncrement ;
    0BE6 8B 82              3222 	mov	dpl,r3
    0BE8 8C 83              3223 	mov	dph,r4
-   0BEA E5 60              3224 	mov	a,_addTickCounter_sloc0_1_0
+   0BEA E5 65              3224 	mov	a,_addTickCounter_sloc0_1_0
    0BEC F0                 3225 	movx	@dptr,a
    0BED A3                 3226 	inc	dptr
-   0BEE E5 61              3227 	mov	a,(_addTickCounter_sloc0_1_0 + 1)
+   0BEE E5 66              3227 	mov	a,(_addTickCounter_sloc0_1_0 + 1)
    0BF0 F0                 3228 	movx	@dptr,a
    0BF1 A3                 3229 	inc	dptr
-   0BF2 E5 62              3230 	mov	a,(_addTickCounter_sloc0_1_0 + 2)
+   0BF2 E5 67              3230 	mov	a,(_addTickCounter_sloc0_1_0 + 2)
    0BF4 F0                 3231 	movx	@dptr,a
                            3232 ;	../projectSpecificHardwareInterface_C8051F040.c:722: break ;
    0BF5 22                 3233 	ret
@@ -3293,10 +3293,10 @@
    0C3B 8B 82              3293 	mov	dpl,r3
    0C3D 8C 83              3294 	mov	dph,r4
    0C3F 8D F0              3295 	mov	b,r5
-   0C41 12 4D 3C           3296 	lcall	__gptrget
+   0C41 12 4E 6E           3296 	lcall	__gptrget
    0C44 FE                 3297 	mov	r6,a
    0C45 A3                 3298 	inc	dptr
-   0C46 12 4D 3C           3299 	lcall	__gptrget
+   0C46 12 4E 6E           3299 	lcall	__gptrget
    0C49 FF                 3300 	mov	r7,a
    0C4A 0E                 3301 	inc	r6
    0C4B BE 00 01           3302 	cjne	r6,#0x00,00116$
@@ -3306,10 +3306,10 @@
    0C51 8C 83              3306 	mov	dph,r4
    0C53 8D F0              3307 	mov	b,r5
    0C55 EE                 3308 	mov	a,r6
-   0C56 12 41 10           3309 	lcall	__gptrput
+   0C56 12 42 42           3309 	lcall	__gptrput
    0C59 A3                 3310 	inc	dptr
    0C5A EF                 3311 	mov	a,r7
-   0C5B 12 41 10           3312 	lcall	__gptrput
+   0C5B 12 42 42           3312 	lcall	__gptrput
    0C5E                    3313 00105$:
                            3314 ;	../projectSpecificHardwareInterface_C8051F040.c:735: for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
    0C5E 0A                 3315 	inc	r2
@@ -3336,53 +3336,53 @@
    0C83 32                 3336 	reti
                            3337 	.area CSEG    (CODE)
                            3338 	.area CONST   (CODE)
-   4D5C                    3339 __str_0:
-   4D5C 34 74 68 20 47 65  3340 	.ascii "4th Generation state machine test started."
+   4E8E                    3339 __str_0:
+   4E8E 34 74 68 20 47 65  3340 	.ascii "4th Generation state machine test started."
         6E 65 72 61 74 69
         6F 6E 20 73 74 61
         74 65 20 6D 61 63
         68 69 6E 65 20 74
         65 73 74 20 73 74
         61 72 74 65 64 2E
-   4D86 00                 3341 	.db 0x00
-   4D87                    3342 __str_1:
-   4D87 47 65 6E 65 72 61  3343 	.ascii "Generating timebomb"
+   4EB8 00                 3341 	.db 0x00
+   4EB9                    3342 __str_1:
+   4EB9 47 65 6E 65 72 61  3343 	.ascii "Generating timebomb"
         74 69 6E 67 20 74
         69 6D 65 62 6F 6D
         62
-   4D9A 00                 3344 	.db 0x00
-   4D9B                    3345 __str_2:
-   4D9B 47 65 6E 65 72 61  3346 	.ascii "Generating calculator"
+   4ECC 00                 3344 	.db 0x00
+   4ECD                    3345 __str_2:
+   4ECD 47 65 6E 65 72 61  3346 	.ascii "Generating calculator"
         74 69 6E 67 20 63
         61 6C 63 75 6C 61
         74 6F 72
-   4DB0 00                 3347 	.db 0x00
-   4DB1                    3348 __str_3:
-   4DB1 52 65 67 69 73 74  3349 	.ascii "Registering calculator"
+   4EE2 00                 3347 	.db 0x00
+   4EE3                    3348 __str_3:
+   4EE3 52 65 67 69 73 74  3349 	.ascii "Registering calculator"
         65 72 69 6E 67 20
         63 61 6C 63 75 6C
         61 74 6F 72
-   4DC7 00                 3350 	.db 0x00
-   4DC8                    3351 __str_4:
-   4DC8 49 74 65 72 61 74  3352 	.ascii "Iterating state machines"
+   4EF9 00                 3350 	.db 0x00
+   4EFA                    3351 __str_4:
+   4EFA 49 74 65 72 61 74  3352 	.ascii "Iterating state machines"
         69 6E 67 20 73 74
         61 74 65 20 6D 61
         63 68 69 6E 65 73
-   4DE0 00                 3353 	.db 0x00
-   4DE1                    3354 __str_5:
-   4DE1 6C 6F 6F 70        3355 	.ascii "loop"
-   4DE5 00                 3356 	.db 0x00
-   4DE6                    3357 __str_6:
-   4DE6 0A                 3358 	.db 0x0A
-   4DE7 34 74 68 20 47 65  3359 	.ascii "4th Generation state machine test done."
+   4F12 00                 3353 	.db 0x00
+   4F13                    3354 __str_5:
+   4F13 6C 6F 6F 70        3355 	.ascii "loop"
+   4F17 00                 3356 	.db 0x00
+   4F18                    3357 __str_6:
+   4F18 0A                 3358 	.db 0x0A
+   4F19 34 74 68 20 47 65  3359 	.ascii "4th Generation state machine test done."
         6E 65 72 61 74 69
         6F 6E 20 73 74 61
         74 65 20 6D 61 63
         68 69 6E 65 20 74
         65 73 74 20 64 6F
         6E 65 2E
-   4E0E 00                 3360 	.db 0x00
+   4F40 00                 3360 	.db 0x00
                            3361 	.area XINIT   (CODE)
-   5499                    3362 __xinit__countdown:
-   5499 05 00              3363 	.byte #0x05,#0x00
+   55CB                    3362 __xinit__countdown:
+   55CB 05 00              3363 	.byte #0x05,#0x00
                            3364 	.area CABS    (ABS,CODE)

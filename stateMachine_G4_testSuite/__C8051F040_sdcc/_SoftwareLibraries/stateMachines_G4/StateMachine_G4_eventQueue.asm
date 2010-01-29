@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Sat Jan 02 19:24:45 2010
+; This file was generated Sat Jan 23 00:00:25 2010
 ;--------------------------------------------------------
 	.module StateMachine_G4_eventQueue
 	.optsdcc -mmcs51 --model-large
@@ -17,6 +17,8 @@
 	.globl _nextLocationFromPoint_PARM_2
 	.globl _eventQueue_initialize_PARM_3
 	.globl _eventQueue_initialize_PARM_2
+	.globl _hsm_isEventInMask_PARM_2
+	.globl _hsm_isEventInMask
 	.globl _eventQueue_initialize
 	.globl _eventQueue_isEmpty
 	.globl _eventQueue_isFull
@@ -62,12 +64,7 @@ _removeFromDeferredTypeList_sloc4_1_0:
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
-	.area	OSEG    (OVR,DATA)
-_addToDeferredTypeList_sloc0_1_0::
-	.ds 3
-	.area	OSEG    (OVR,DATA)
-_isEventTypeDeferred_sloc0_1_0::
-	.ds 3
+	.area OSEG    (OVR,DATA)
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
@@ -81,6 +78,8 @@ _isEventTypeDeferred_sloc0_1_0::
 ; bit data
 ;--------------------------------------------------------
 	.area BSEG    (BIT)
+_hsm_isEventInMask_sloc0_1_0:
+	.ds 1
 _removeFromDeferredTypeList_found_2_2:
 	.ds 1
 _postEventToStateMachine_sloc0_1_0:
@@ -93,6 +92,10 @@ _postEventToStateMachine_sloc0_1_0:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
+_hsm_isEventInMask_PARM_2:
+	.ds 3
+_hsm_isEventInMask_event_1_1:
+	.ds 3
 _eventQueue_initialize_PARM_2:
 	.ds 3
 _eventQueue_initialize_PARM_3:
@@ -168,17 +171,17 @@ _postEventToStateMachine_sm_1_1:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'eventQueue_initialize'
+;Allocation info for local variables in function 'hsm_isEventInMask'
 ;------------------------------------------------------------
-;storage                   Allocated with name '_eventQueue_initialize_PARM_2'
-;maxEntriesInQueue         Allocated with name '_eventQueue_initialize_PARM_3'
-;Q                         Allocated with name '_eventQueue_initialize_Q_1_1'
+;maskSet                   Allocated with name '_hsm_isEventInMask_PARM_2'
+;event                     Allocated with name '_hsm_isEventInMask_event_1_1'
+;eventType                 Allocated with name '_hsm_isEventInMask_eventType_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:14: bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:18: bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
 ;	-----------------------------------------
-;	 function eventQueue_initialize
+;	 function hsm_isEventInMask
 ;	-----------------------------------------
-_eventQueue_initialize:
+_hsm_isEventInMask:
 	ar2 = 0x02
 	ar3 = 0x03
 	ar4 = 0x04
@@ -190,6 +193,97 @@ _eventQueue_initialize:
 	mov	r2,b
 	mov	r3,dph
 	mov	a,dpl
+	mov	dptr,#_hsm_isEventInMask_event_1_1
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r3
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r2
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:20: eventType_t	eventType = hsm_getEventType(event) ;
+	mov	dptr,#_hsm_isEventInMask_event_1_1
+	movx	a,@dptr
+	mov	r2,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r3,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r4,a
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:22: if(hsm_isEventInternal(event))
+	mov  r2,a
+	add	a,#0xff - 0x07
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:24: return false ;
+	jc	00102$
+	ret
+00102$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:28: return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
+	mov	dptr,#_hsm_isEventInMask_PARM_2
+	movx	a,@dptr
+	mov	r3,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
+	mov	a,r2
+	swap	a
+	rl	a
+	anl	a,#0x1f
+	add	a,r3
+	mov	r3,a
+	clr	a
+	addc	a,r4
+	mov	r4,a
+	anl	ar2,#0x07
+	mov	b,r2
+	inc	b
+	mov	r2,#0x01
+	mov	r6,#0x00
+	sjmp	00108$
+00107$:
+	mov	a,r2
+	add	a,r2
+	mov	r2,a
+	mov	a,r6
+	rlc	a
+	mov	r6,a
+00108$:
+	djnz	b,00107$
+	mov	dpl,r3
+	mov	dph,r4
+	mov	b,r5
+	lcall	__gptrget
+	mov	r4,#0x00
+	anl	ar2,a
+	mov	a,r4
+	anl	ar6,a
+	mov	a,r2
+	orl	a,r6
+	add	a,#0xff
+	mov  _hsm_isEventInMask_sloc0_1_0,c
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'eventQueue_initialize'
+;------------------------------------------------------------
+;storage                   Allocated with name '_eventQueue_initialize_PARM_2'
+;maxEntriesInQueue         Allocated with name '_eventQueue_initialize_PARM_3'
+;Q                         Allocated with name '_eventQueue_initialize_Q_1_1'
+;------------------------------------------------------------
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:42: bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
+;	-----------------------------------------
+;	 function eventQueue_initialize
+;	-----------------------------------------
+_eventQueue_initialize:
+	mov	r2,b
+	mov	r3,dph
+	mov	a,dpl
 	mov	dptr,#_eventQueue_initialize_Q_1_1
 	movx	@dptr,a
 	inc	dptr
@@ -198,7 +292,7 @@ _eventQueue_initialize:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:16: Q->Capacity	= maxEntriesInQueue ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:44: Q->Capacity	= maxEntriesInQueue ;
 	mov	dptr,#_eventQueue_initialize_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -214,7 +308,7 @@ _eventQueue_initialize:
 	mov	dph,r3
 	mov	b,r4
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:17: Q->Size		= 0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:45: Q->Size		= 0 ;
 	mov	a,#0x03
 	add	a,r2
 	mov	r5,a
@@ -227,7 +321,7 @@ _eventQueue_initialize:
 	mov	b,r7
 	clr	a
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:18: Q->Front	= 1 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:46: Q->Front	= 1 ;
 	mov	a,#0x01
 	add	a,r2
 	mov	r5,a
@@ -240,7 +334,7 @@ _eventQueue_initialize:
 	mov	b,r7
 	mov	a,#0x01
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:19: Q->Rear		= 0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:47: Q->Rear		= 0 ;
 	mov	a,#0x02
 	add	a,r2
 	mov	r5,a
@@ -253,7 +347,7 @@ _eventQueue_initialize:
 	mov	b,r7
 	clr	a
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:20: Q->Array	= storage ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:48: Q->Array	= storage ;
 	mov	a,#0x04
 	add	a,r2
 	mov	r2,a
@@ -280,7 +374,7 @@ _eventQueue_initialize:
 	inc	dptr
 	mov	a,r7
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:22: return true ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:50: return true ;
 	setb	c
 	ret
 ;------------------------------------------------------------
@@ -288,7 +382,7 @@ _eventQueue_initialize:
 ;------------------------------------------------------------
 ;Q                         Allocated with name '_eventQueue_isEmpty_Q_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:26: uint8_t eventQueue_isEmpty(	eventQueue_t* Q)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:54: uint8_t eventQueue_isEmpty(	eventQueue_t* Q)
 ;	-----------------------------------------
 ;	 function eventQueue_isEmpty
 ;	-----------------------------------------
@@ -304,7 +398,7 @@ _eventQueue_isEmpty:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:28: return Q->Size == 0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:56: return Q->Size == 0 ;
 	mov	dptr,#_eventQueue_isEmpty_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -336,7 +430,7 @@ _eventQueue_isEmpty:
 ;------------------------------------------------------------
 ;Q                         Allocated with name '_eventQueue_isFull_Q_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:32: uint8_t eventQueue_isFull(	eventQueue_t* Q)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:60: uint8_t eventQueue_isFull(	eventQueue_t* Q)
 ;	-----------------------------------------
 ;	 function eventQueue_isFull
 ;	-----------------------------------------
@@ -352,7 +446,7 @@ _eventQueue_isFull:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:34: return Q->Size == Q->Capacity ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:62: return Q->Size == Q->Capacity ;
 	mov	dptr,#_eventQueue_isFull_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -394,7 +488,7 @@ _eventQueue_isFull:
 ;location                  Allocated with name '_nextLocationFromPoint_PARM_2'
 ;Q                         Allocated with name '_nextLocationFromPoint_Q_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:38: static eventQueueIndex_t nextLocationFromPoint(	eventQueue_t* Q, eventQueueIndex_t location)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:66: static eventQueueIndex_t nextLocationFromPoint(	eventQueue_t* Q, eventQueueIndex_t location)
 ;	-----------------------------------------
 ;	 function nextLocationFromPoint
 ;	-----------------------------------------
@@ -410,7 +504,7 @@ _nextLocationFromPoint:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:40: if(++location == Q->Capacity)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:68: if(++location == Q->Capacity)
 	mov	dptr,#_nextLocationFromPoint_PARM_2
 	movx	a,@dptr
 	add	a,#0x01
@@ -433,12 +527,12 @@ _nextLocationFromPoint:
 	movx	a,@dptr
 	mov	r3,a
 	cjne	a,ar2,00102$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:42: location = 0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:70: location = 0 ;
 	mov	dptr,#_nextLocationFromPoint_PARM_2
 	clr	a
 	movx	@dptr,a
 00102$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:45: return location ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:73: return location ;
 	mov	dptr,#_nextLocationFromPoint_PARM_2
 	movx	a,@dptr
 	mov	dpl,a
@@ -449,7 +543,7 @@ _nextLocationFromPoint:
 ;event                     Allocated with name '_eventQueue_insert_PARM_2'
 ;Q                         Allocated with name '_eventQueue_insert_Q_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:51: bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:79: bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 ;	-----------------------------------------
 ;	 function eventQueue_insert
 ;	-----------------------------------------
@@ -465,7 +559,7 @@ _eventQueue_insert:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:53: if(!eventQueue_isFull(Q))
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:81: if(!eventQueue_isFull(Q))
 	mov	dptr,#_eventQueue_insert_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -483,7 +577,7 @@ _eventQueue_insert:
 	jz	00110$
 	ljmp	00102$
 00110$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:55: Q->Size++ ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:83: Q->Size++ ;
 	mov	dptr,#_eventQueue_insert_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -511,7 +605,7 @@ _eventQueue_insert:
 	mov	b,r7
 	mov	a,r0
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:56: Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:84: Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 	mov	a,#0x02
 	add	a,r2
 	mov	r5,a
@@ -541,7 +635,7 @@ _eventQueue_insert:
 	mov	b,r7
 	mov	a,r2
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:57: Q->Array[Q->Rear] = event ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:85: Q->Array[Q->Rear] = event ;
 	mov	dptr,#_eventQueue_insert_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -579,24 +673,8 @@ _eventQueue_insert:
 	mov	dph,r3
 	mov	b,r4
 	lcall	__gptrget
-	mov	r2,a
-	clr	F0
 	mov	b,#0x03
-	mov	a,r2
-	jnb	acc.7,00111$
-	cpl	F0
-	cpl	a
-	inc	a
-00111$:
 	mul	ab
-	jnb	F0,00112$
-	cpl	a
-	add	a,#0x01
-	xch	a,b
-	cpl	a
-	addc	a,#0x00
-	xch	a,b
-00112$:
 	add	a,r5
 	mov	r5,a
 	mov	a,r6
@@ -622,14 +700,14 @@ _eventQueue_insert:
 	inc	dptr
 	mov	a,r4
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:59: printf("\t\t\tPosting event type: %s\n", event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:87: printf("\t\t\tPosting event type: %s\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>") ;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
 	lcall	__gptrget
 	mov	r2,a
 	clr	c
-	mov	a,#0x05
+	mov	a,#0x07
 	subb	a,r2
 	cpl	c
 	clr	a
@@ -671,11 +749,11 @@ _eventQueue_insert:
 	mov	a,sp
 	add	a,#0xfa
 	mov	sp,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:61: return true ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:89: return true ;
 	setb	c
 	ret
 00102$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:65: return false ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:93: return false ;
 	clr	c
 	ret
 ;------------------------------------------------------------
@@ -687,7 +765,7 @@ _eventQueue_insert:
 ;Q                         Allocated with name '_eventQueue_remove_Q_1_1'
 ;eventReceived             Allocated with name '_eventQueue_remove_eventReceived_2_2'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:70: event_t* eventQueue_remove(	eventQueue_t* Q)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:98: event_t* eventQueue_remove(	eventQueue_t* Q)
 ;	-----------------------------------------
 ;	 function eventQueue_remove
 ;	-----------------------------------------
@@ -703,7 +781,7 @@ _eventQueue_remove:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:72: if(!eventQueue_isEmpty(Q))
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:100: if(!eventQueue_isEmpty(Q))
 	mov	dptr,#_eventQueue_remove_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -721,7 +799,7 @@ _eventQueue_remove:
 	jz	00107$
 	ljmp	00102$
 00107$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:74: event_t* eventReceived = Q->Array[Q->Front] ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:102: event_t* eventReceived = Q->Array[Q->Front] ;
 	mov	dptr,#_eventQueue_remove_Q_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -761,23 +839,8 @@ _eventQueue_remove:
 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
 	lcall	__gptrget
 	mov	_eventQueue_remove_sloc1_1_0,a
-	clr	F0
 	mov	b,#0x03
-	mov	a,_eventQueue_remove_sloc1_1_0
-	jnb	acc.7,00108$
-	cpl	F0
-	cpl	a
-	inc	a
-00108$:
 	mul	ab
-	jnb	F0,00109$
-	cpl	a
-	add	a,#0x01
-	xch	a,b
-	cpl	a
-	addc	a,#0x00
-	xch	a,b
-00109$:
 	add	a,_eventQueue_remove_sloc0_1_0
 	mov	r7,a
 	mov	a,(_eventQueue_remove_sloc0_1_0 + 1)
@@ -795,7 +858,7 @@ _eventQueue_remove:
 	inc	dptr
 	lcall	__gptrget
 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:76: Q->Size-- ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:104: Q->Size-- ;
 	mov	a,#0x03
 	add	a,r2
 	mov	r0,a
@@ -814,7 +877,7 @@ _eventQueue_remove:
 	mov	b,r5
 	mov	a,r6
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:77: Q->Front = nextLocationFromPoint(Q, Q->Front) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:105: Q->Front = nextLocationFromPoint(Q, Q->Front) ;
 	mov	dptr,#_nextLocationFromPoint_PARM_2
 	mov	a,_eventQueue_remove_sloc1_1_0
 	movx	@dptr,a
@@ -828,13 +891,13 @@ _eventQueue_remove:
 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
 	mov	a,r2
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:79: return eventReceived ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:107: return eventReceived ;
 	mov	dpl,_eventQueue_remove_sloc0_1_0
 	mov	dph,(_eventQueue_remove_sloc0_1_0 + 1)
 	mov	b,(_eventQueue_remove_sloc0_1_0 + 2)
 	ret
 00102$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:83: return (event_t*)0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:111: return (event_t*)0 ;
 	mov	dptr,#0x0000
 	mov	b,#0x00
 	ret
@@ -843,9 +906,8 @@ _eventQueue_remove:
 ;------------------------------------------------------------
 ;eventTypeToDefer          Allocated with name '_addToDeferredTypeList_PARM_2'
 ;sm                        Allocated with name '_addToDeferredTypeList_sm_1_1'
-;sloc0                     Allocated with name '_addToDeferredTypeList_sloc0_1_0'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:88: void addToDeferredTypeList(			stateMachine_t* sm, eventType_t	eventTypeToDefer)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:116: void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefer)
 ;	-----------------------------------------
 ;	 function addToDeferredTypeList
 ;	-----------------------------------------
@@ -861,7 +923,7 @@ _addToDeferredTypeList:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:90: if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:118: if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
 	mov	dptr,#_addToDeferredTypeList_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -871,73 +933,38 @@ _addToDeferredTypeList:
 	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	mov	a,#0x13
+	mov	a,#0x16
 	add	a,r2
-	mov	_addToDeferredTypeList_sloc0_1_0,a
+	mov	r5,a
 	clr	a
 	addc	a,r3
-	mov	(_addToDeferredTypeList_sloc0_1_0 + 1),a
-	mov	(_addToDeferredTypeList_sloc0_1_0 + 2),r4
-	mov	dpl,_addToDeferredTypeList_sloc0_1_0
-	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
-	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
+	mov	r6,a
+	mov	ar7,r4
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
 	lcall	__gptrget
 	mov	r0,a
-	mov	a,#0x12
+	mov	a,#0x15
 	add	a,r2
-	mov	r1,a
+	mov	r2,a
 	clr	a
 	addc	a,r3
-	mov	r5,a
-	mov	ar6,r4
-	mov	dpl,r1
-	mov	dph,r5
-	mov	b,r6
+	mov	r3,a
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
 	lcall	__gptrget
-	mov	r1,a
+	mov	r2,a
 	clr	c
 	mov	a,r0
-	xrl	a,#0x80
-	mov	b,r1
-	xrl	b,#0x80
-	subb	a,b
+	subb	a,r2
 	jnc	00103$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:92: sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
-	mov	a,#0x14
-	add	a,r2
-	mov	r2,a
-	clr	a
-	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,r0
-	add	a,r2
-	mov	r2,a
-	clr	a
-	addc	a,r3
-	mov	r3,a
-	mov	dptr,#_addToDeferredTypeList_PARM_2
-	movx	a,@dptr
-	mov	r5,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:94: sm->currentDepthOfEventsToDeferList++ ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:122: sm->currentDepthOfEventsToDeferList++ ;
 	inc	r0
-	mov	dpl,_addToDeferredTypeList_sloc0_1_0
-	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
-	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
 	mov	a,r0
 	ljmp	__gptrput
 00103$:
@@ -948,9 +975,8 @@ _addToDeferredTypeList:
 ;eventTypeToCheck          Allocated with name '_isEventTypeDeferred_PARM_2'
 ;sm                        Allocated with name '_isEventTypeDeferred_sm_1_1'
 ;i                         Allocated with name '_isEventTypeDeferred_i_1_1'
-;sloc0                     Allocated with name '_isEventTypeDeferred_sloc0_1_0'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:99: bool isEventTypeDeferred(			stateMachine_t* sm, eventType_t	eventTypeToCheck)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:127: bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck)
 ;	-----------------------------------------
 ;	 function isEventTypeDeferred
 ;	-----------------------------------------
@@ -966,7 +992,7 @@ _isEventTypeDeferred:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:103: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:131: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
 	mov	dptr,#_isEventTypeDeferred_PARM_2
 	movx	a,@dptr
 	mov	r2,a
@@ -979,38 +1005,31 @@ _isEventTypeDeferred:
 	inc	dptr
 	movx	a,@dptr
 	mov	r5,a
-	mov	a,#0x13
+	mov	a,#0x16
 	add	a,r3
-	mov	_isEventTypeDeferred_sloc0_1_0,a
+	mov	r6,a
 	clr	a
 	addc	a,r4
-	mov	(_isEventTypeDeferred_sloc0_1_0 + 1),a
-	mov	(_isEventTypeDeferred_sloc0_1_0 + 2),r5
+	mov	r7,a
+	mov	ar0,r5
 	mov	r1,#0x00
 00103$:
 	push	ar2
-	mov	ar2,r1
-	mov	r6,#0x00
-	mov	dpl,_isEventTypeDeferred_sloc0_1_0
-	mov	dph,(_isEventTypeDeferred_sloc0_1_0 + 1)
-	mov	b,(_isEventTypeDeferred_sloc0_1_0 + 2)
-	lcall	__gptrget
-	mov	r7,a
-	rlc	a
-	subb	a,acc
-	mov	r0,a
-	clr	c
-	mov	a,r2
-	subb	a,r7
-	mov	a,r6
-	xrl	a,#0x80
+	mov	dpl,r6
+	mov	dph,r7
 	mov	b,r0
-	xrl	b,#0x80
-	subb	a,b
+	lcall	__gptrget
+	mov	r2,a
+	clr	c
+	mov	a,r1
+	subb	a,r2
 	pop	ar2
 	jnc	00106$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:105: if(sm->typesOfEventsToDefer[i] == eventTypeToCheck)
-	mov	a,#0x14
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:133: if(sm->typesOfEventsToDefer[i] == eventTypeToCheck)
+	push	ar6
+	push	ar7
+	push	ar0
+	mov	a,#0x17
 	add	a,r3
 	mov	r6,a
 	clr	a
@@ -1039,16 +1058,26 @@ _isEventTypeDeferred:
 	mov	b,r0
 	lcall	__gptrget
 	mov	r6,a
-	cjne	a,ar2,00105$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:107: return true ;
+	cjne	a,ar2,00113$
+	sjmp	00114$
+00113$:
+	pop	ar0
+	pop	ar7
+	pop	ar6
+	sjmp	00105$
+00114$:
+	pop	ar0
+	pop	ar7
+	pop	ar6
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:135: return true ;
 	setb	c
 	ret
 00105$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:103: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:131: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
 	inc	r1
 	sjmp	00103$
 00106$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:111: return false ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: return false ;
 	clr	c
 	ret
 ;------------------------------------------------------------
@@ -1065,7 +1094,7 @@ _isEventTypeDeferred:
 ;firstEvent                Allocated with name '_removeFromDeferredTypeList_firstEvent_3_5'
 ;currentEvent              Allocated with name '_removeFromDeferredTypeList_currentEvent_3_5'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:115: void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t	eventTypeToUnDefer)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:143: void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer)
 ;	-----------------------------------------
 ;	 function removeFromDeferredTypeList
 ;	-----------------------------------------
@@ -1081,7 +1110,7 @@ _removeFromDeferredTypeList:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:117: if(sm->currentDepthOfEventsToDeferList > 0)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:145: if(sm->currentDepthOfEventsToDeferList > 0)
 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1091,7 +1120,7 @@ _removeFromDeferredTypeList:
 	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	mov	a,#0x13
+	mov	a,#0x16
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1102,17 +1131,12 @@ _removeFromDeferredTypeList:
 	mov	b,r4
 	lcall	__gptrget
 	mov	r2,a
-	clr	c
-	mov	a,#(0x00 ^ 0x80)
-	mov	b,r2
-	xrl	b,#0x80
-	subb	a,b
-	jc	00136$
+	jnz	00136$
 	ret
 00136$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:119: bool				found = false ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:147: bool				found = false ;
 	clr	_removeFromDeferredTypeList_found_2_2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:122: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i >= 0 ; i-- )
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:150: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i != 0 ; i-- )
 	dec	r2
 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
 	mov	a,r2
@@ -1122,8 +1146,8 @@ _removeFromDeferredTypeList:
 	mov	_removeFromDeferredTypeList_sloc1_1_0,a
 00103$:
 	mov	a,r2
-	jb	acc.7,00106$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:124: if(sm->typesOfEventsToDefer[i] == eventTypeToUnDefer)
+	jz	00106$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:152: if(sm->typesOfEventsToDefer[i] == eventTypeToUnDefer)
 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
 	movx	a,@dptr
 	mov	r4,a
@@ -1133,7 +1157,7 @@ _removeFromDeferredTypeList:
 	inc	dptr
 	movx	a,@dptr
 	mov	r6,a
-	mov	a,#0x14
+	mov	a,#0x17
 	add	a,r4
 	mov	r7,a
 	clr	a
@@ -1163,10 +1187,10 @@ _removeFromDeferredTypeList:
 	lcall	__gptrget
 	mov	r7,a
 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00105$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:126: found = true ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:154: found = true ;
 	setb	_removeFromDeferredTypeList_found_2_2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:128: sm->currentDepthOfEventsToDeferList-- ;
-	mov	a,#0x13
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:156: sm->currentDepthOfEventsToDeferList-- ;
+	mov	a,#0x16
 	add	a,r4
 	mov	r4,a
 	clr	a
@@ -1183,21 +1207,21 @@ _removeFromDeferredTypeList:
 	mov	b,r6
 	mov	a,r7
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:130: break ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:158: break ;
 	sjmp	00106$
 00105$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:122: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i >= 0 ; i-- )
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:150: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i != 0 ; i-- )
 	dec	r2
 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
 	mov	a,r2
 	movx	@dptr,a
 	sjmp	00103$
 00106$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:134: if(found)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:162: if(found)
 	jb	_removeFromDeferredTypeList_found_2_2,00140$
 	ret
 00140$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:167: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1207,7 +1231,7 @@ _removeFromDeferredTypeList:
 	inc	dptr
 	movx	a,@dptr
 	mov	r5,a
-	mov	a,#0x13
+	mov	a,#0x16
 	add	a,r2
 	mov	r6,a
 	clr	a
@@ -1225,16 +1249,13 @@ _removeFromDeferredTypeList:
 	mov	_removeFromDeferredTypeList_sloc0_1_0,a
 	clr	c
 	mov	a,r1
-	xrl	a,#0x80
-	mov	b,_removeFromDeferredTypeList_sloc0_1_0
-	xrl	b,#0x80
-	subb	a,b
+	subb	a,_removeFromDeferredTypeList_sloc0_1_0
 	jnc	00122$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:141: sm->typesOfEventsToDefer[i] = sm->typesOfEventsToDefer[i + 1] ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:169: sm->typesOfEventsToDefer[i] = sm->typesOfEventsToDefer[i + 1] ;
 	push	ar6
 	push	ar7
 	push	ar0
-	mov	a,#0x14
+	mov	a,#0x17
 	add	a,r2
 	mov	r6,a
 	clr	a
@@ -1259,11 +1280,8 @@ _removeFromDeferredTypeList:
 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 1),a
 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 2),(_removeFromDeferredTypeList_sloc2_1_0 + 2)
-	mov	a,r1
-	mov	r0,a
-	rlc	a
-	subb	a,acc
-	mov	r3,a
+	mov	ar0,r1
+	mov	r3,#0x00
 	inc	r0
 	cjne	r0,#0x00,00142$
 	inc	r3
@@ -1283,15 +1301,15 @@ _removeFromDeferredTypeList:
 	mov	dph,(_removeFromDeferredTypeList_sloc3_1_0 + 1)
 	mov	b,(_removeFromDeferredTypeList_sloc3_1_0 + 2)
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:167: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
 	inc	r1
 	pop	ar0
 	pop	ar7
 	pop	ar6
-	ljmp	00119$
+	sjmp	00119$
 00122$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:144: sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = 0 ;
-	mov	a,#0x14
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:172: sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = 0 ;
+	mov	a,#0x17
 	add	a,r2
 	mov	r3,a
 	clr	a
@@ -1320,8 +1338,8 @@ _removeFromDeferredTypeList:
 	mov	b,r7
 	clr	a
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:155: currentEvent	= eventQueue_remove(&sm->deferredEventQueue) ;
-	mov	a,#0x17
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:183: currentEvent	= eventQueue_remove(&sm->deferredEventQueue) ;
+	mov	a,#0x1A
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1343,7 +1361,7 @@ _removeFromDeferredTypeList:
 	inc	dptr
 	mov	a,r4
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:158: while(currentEvent)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:186: while(currentEvent)
 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
 	movx	a,@dptr
 	mov	r5,a
@@ -1375,18 +1393,18 @@ _removeFromDeferredTypeList:
 	jnz	00143$
 	ret
 00143$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:168: if(currentEvent->eventType == eventTypeToUnDefer)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:196: if(hsm_getEventType(currentEvent) == eventTypeToUnDefer)
 	mov	dpl,_removeFromDeferredTypeList_sloc4_1_0
 	mov	dph,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
 	mov	b,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
 	lcall	__gptrget
 	mov	r0,a
 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00108$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:170: eventQueue_insert(&sm->eventQueue, currentEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:198: eventQueue_insert(&sm->eventQueue, currentEvent) ;
 	push	ar2
 	push	ar3
 	push	ar4
-	mov	a,#0x0B
+	mov	a,#0x0E
 	add	a,_removeFromDeferredTypeList_sloc3_1_0
 	mov	r0,a
 	clr	a
@@ -1423,11 +1441,11 @@ _removeFromDeferredTypeList:
 	pop	ar2
 	sjmp	00109$
 00108$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:174: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:202: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
 	push	ar2
 	push	ar3
 	push	ar4
-	mov	a,#0x17
+	mov	a,#0x1A
 	add	a,r5
 	mov	r0,a
 	clr	a
@@ -1459,17 +1477,17 @@ _removeFromDeferredTypeList:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:187: break ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:215: break ;
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:174: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:202: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
 00109$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:183: currentEvent = eventQueue_remove(&sm->deferredEventQueue) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:211: currentEvent = eventQueue_remove(&sm->deferredEventQueue) ;
 	push	ar5
 	push	ar6
 	push	ar7
-	mov	a,#0x17
+	mov	a,#0x1A
 	add	a,_removeFromDeferredTypeList_sloc2_1_0
 	mov	r0,a
 	clr	a
@@ -1498,7 +1516,7 @@ _removeFromDeferredTypeList:
 	inc	dptr
 	mov	a,r7
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:185: if(currentEvent == firstEvent)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:213: if(currentEvent == firstEvent)
 	mov	a,r5
 	cjne	a,ar2,00146$
 	mov	a,r6
@@ -1515,7 +1533,7 @@ _removeFromDeferredTypeList:
 	pop	ar7
 	pop	ar6
 	pop	ar5
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:187: break ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:215: break ;
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'postEventToStateMachine'
@@ -1523,7 +1541,7 @@ _removeFromDeferredTypeList:
 ;event                     Allocated with name '_postEventToStateMachine_PARM_2'
 ;sm                        Allocated with name '_postEventToStateMachine_sm_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:195: bool postEventToStateMachine(			stateMachine_t* sm, event_t* event)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:223: bool postEventToStateMachine(			stateMachine_t* sm, event_t* event)
 ;	-----------------------------------------
 ;	 function postEventToStateMachine
 ;	-----------------------------------------
@@ -1539,7 +1557,7 @@ _postEventToStateMachine:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:197: if(isEventTypeDeferred(sm, event->eventType))
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:225: if(isEventTypeDeferred(sm, hsm_getEventType(event)))
 	mov	dptr,#_postEventToStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1575,7 +1593,7 @@ _postEventToStateMachine:
 	pop	ar6
 	pop	ar5
 	jnc	00102$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:199: return eventQueue_insert(&sm->deferredEventQueue, event) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:227: return eventQueue_insert(&sm->deferredEventQueue, event) ;
 	mov	dptr,#_postEventToStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1585,7 +1603,7 @@ _postEventToStateMachine:
 	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	mov	a,#0x17
+	mov	a,#0x1A
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1607,7 +1625,7 @@ _postEventToStateMachine:
 	mov  _postEventToStateMachine_sloc0_1_0,c
 	ret
 00102$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:203: return eventQueue_insert(&sm->eventQueue, event) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:231: return eventQueue_insert(&sm->eventQueue, event) ;
 	mov	dptr,#_postEventToStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1617,7 +1635,7 @@ _postEventToStateMachine:
 	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	mov	a,#0x0B
+	mov	a,#0x0E
 	add	a,r2
 	mov	r2,a
 	clr	a

@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Sat Jan 02 19:24:46 2010
+; This file was generated Sat Jan 02 19:57:10 2010
 ;--------------------------------------------------------
 	.module stateMachine_G4
 	.optsdcc -mmcs51 --model-large
@@ -53,7 +53,7 @@ _callStateHandler_sloc2_1_0:
 _iterateStateMachine_sloc0_1_0:
 	.ds 3
 _iterateStateMachine_sloc1_1_0:
-	.ds 1
+	.ds 3
 _iterateStateMachine_sloc2_1_0:
 	.ds 3
 _iterateStateMachine_sloc3_1_0:
@@ -61,6 +61,8 @@ _iterateStateMachine_sloc3_1_0:
 _iterateStateMachine_sloc4_1_0:
 	.ds 3
 _iterateStateMachine_sloc5_1_0:
+	.ds 3
+_iterateStateMachine_sloc6_1_0:
 	.ds 3
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
@@ -144,6 +146,8 @@ _responseTypes::
 _initialTransitionEvent:
 	.ds 1
 _jumpToHistoryEvent:
+	.ds 1
+_doEvent:
 	.ds 1
 _enterEvent:
 	.ds 1
@@ -818,7 +822,7 @@ _iterateAllStateMachines:
 ;sm                        Allocated with name '_callStateHandler_sm_1_1'
 ;response                  Allocated with name '_callStateHandler_response_1_1'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:157: stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:158: stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
 ;	-----------------------------------------
 ;	 function callStateHandler
 ;	-----------------------------------------
@@ -834,7 +838,7 @@ _callStateHandler:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:162: printf("\t\t\tCalling state: %s, event: %s, ", state->stateName, event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:163: printf("\t\t\tCalling state: %s, event: %s, ", state->stateName, event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
 	mov	dptr,#_callStateHandler_PARM_3
 	movx	a,@dptr
 	mov	r2,a
@@ -931,7 +935,7 @@ _callStateHandler:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:165: if(state->type == CHOICE_PSUEDOSTATE)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:166: if(state->type == CHOICE_PSUEDOSTATE)
 	mov	a,#0x03
 	add	a,_callStateHandler_sloc0_1_0
 	mov	r2,a
@@ -956,7 +960,7 @@ _callStateHandler:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:167: response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:168: response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
 	mov	a,#0x04
 	add	a,_callStateHandler_sloc0_1_0
 	mov	r5,a
@@ -1000,14 +1004,14 @@ _callStateHandler:
 	movx	@dptr,a
 	ljmp	00112$
 00111$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:171: if(event == &enterEvent)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:172: if(event == &enterEvent)
 	mov	a,r2
 	cjne	a,#_enterEvent,00102$
 	mov	a,r3
 	cjne	a,#(_enterEvent >> 8),00102$
 	mov	a,r4
 	cjne	a,#0x00,00102$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:173: sm->mostRecentlyEnteredState = state ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:174: sm->mostRecentlyEnteredState = state ;
 	mov	dptr,#_callStateHandler_sm_1_1
 	movx	a,@dptr
 	mov	r5,a
@@ -1035,7 +1039,7 @@ _callStateHandler:
 	mov	a,(_callStateHandler_sloc0_1_0 + 2)
 	lcall	__gptrput
 00102$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:175: if(event == &exitEvent)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:176: if(event == &exitEvent)
 	mov	a,r2
 	cjne	a,#_exitEvent,00133$
 	mov	a,r3
@@ -1046,14 +1050,14 @@ _callStateHandler:
 00133$:
 	ljmp	00109$
 00134$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:177: if(state->type == STATE_WITH_SHALLOW_HISTORY)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:178: if(state->type == STATE_WITH_SHALLOW_HISTORY)
 	mov	a,#0x02
 	cjne	a,_callStateHandler_sloc1_1_0,00135$
 	sjmp	00136$
 00135$:
 	ljmp	00106$
 00136$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:181: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyExitedState ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:182: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyExitedState ;
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1157,14 +1161,14 @@ _callStateHandler:
 	pop	ar2
 	ljmp	00107$
 00106$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:183: else if(state->type == STATE_WITH_DEEP_HISTORY)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:184: else if(state->type == STATE_WITH_DEEP_HISTORY)
 	mov	a,#0x03
 	cjne	a,_callStateHandler_sloc1_1_0,00137$
 	sjmp	00138$
 00137$:
 	ljmp	00107$
 00138$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:187: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:188: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1263,13 +1267,13 @@ _callStateHandler:
 	inc	dptr
 	mov	a,r7
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:211: return response ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:212: return response ;
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:187: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:188: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
 00107$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:190: sm->mostRecentlyExitedState = (void*)state ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:191: sm->mostRecentlyExitedState = (void*)state ;
 	mov	dptr,#_callStateHandler_sm_1_1
 	movx	a,@dptr
 	mov	r5,a
@@ -1297,7 +1301,7 @@ _callStateHandler:
 	mov	a,(_callStateHandler_sloc0_1_0 + 2)
 	lcall	__gptrput
 00109$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:193: response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:194: response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
 	mov	a,#0x04
 	add	a,_callStateHandler_sloc0_1_0
 	mov	r5,a
@@ -1346,7 +1350,7 @@ _callStateHandler:
 	mov	a,r5
 	movx	@dptr,a
 00112$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:197: printf("response: %s ", responseTypes[response]) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:198: printf("response: %s ", responseTypes[response]) ;
 	mov	dptr,#_callStateHandler_response_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1380,9 +1384,9 @@ _callStateHandler:
 	add	a,#0xfa
 	mov	sp,a
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:200: if(response == TRANSITION)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:201: if(response == TRANSITION)
 	cjne	r2,#0x02,00114$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:203: printf("to %s ", ((state_t*)(sm->nextState))->stateName) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:204: printf("to %s ", ((state_t*)(sm->nextState))->stateName) ;
 	mov	dptr,#_callStateHandler_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1440,7 +1444,7 @@ _callStateHandler:
 	add	a,#0xfa
 	mov	sp,a
 00114$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:208: printf("\n") ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:209: printf("\n") ;
 	mov	a,#__str_4
 	push	acc
 	mov	a,#(__str_4 >> 8)
@@ -1451,7 +1455,7 @@ _callStateHandler:
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:211: return response ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:212: return response ;
 	mov	dptr,#_callStateHandler_response_1_1
 	movx	a,@dptr
 	mov	dpl,a
@@ -1465,7 +1469,9 @@ _callStateHandler:
 ;sloc3                     Allocated with name '_iterateStateMachine_sloc3_1_0'
 ;sloc4                     Allocated with name '_iterateStateMachine_sloc4_1_0'
 ;sloc5                     Allocated with name '_iterateStateMachine_sloc5_1_0'
+;sloc6                     Allocated with name '_iterateStateMachine_sloc6_1_0'
 ;sm                        Allocated with name '_iterateStateMachine_sm_1_1'
+;action                    Allocated with name '_iterateStateMachine_action_1_1'
 ;eventToProcess            Allocated with name '_iterateStateMachine_eventToProcess_2_3'
 ;stateBeingProcessed       Allocated with name '_iterateStateMachine_stateBeingProcessed_2_3'
 ;action                    Allocated with name '_iterateStateMachine_action_2_3'
@@ -1482,7 +1488,7 @@ _callStateHandler:
 ;exitIndex                 Allocated with name '_iterateStateMachine_exitIndex_6_21'
 ;LCAindex                  Allocated with name '_iterateStateMachine_LCAindex_5_27'
 ;------------------------------------------------------------
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:215: void iterateStateMachine(	stateMachine_t* sm)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:216: void iterateStateMachine(	stateMachine_t* sm)
 ;	-----------------------------------------
 ;	 function iterateStateMachine
 ;	-----------------------------------------
@@ -1498,7 +1504,7 @@ _iterateStateMachine:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:218: printf("\titerating %s\n", sm->stateMachineName) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:221: printf("\titerating %s\n", sm->stateMachineName) ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1545,7 +1551,7 @@ _iterateStateMachine:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:225: if(!sm->stateMachineInitialized)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:228: if(!sm->stateMachineInitialized)
 	mov	a,#0x1E
 	add	a,r2
 	mov	r5,a
@@ -1557,10 +1563,10 @@ _iterateStateMachine:
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
-	jz	00210$
+	jz	00214$
 	ljmp	00102$
-00210$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:228: printf("\t\tinitializing...\n") ;
+00214$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:231: printf("\t\tinitializing...\n") ;
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1577,7 +1583,7 @@ _iterateStateMachine:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:231: sm->currentState = (state_t*)sm->topState ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:234: sm->currentState = (state_t*)sm->topState ;
 	mov	a,#0x05
 	add	a,r2
 	mov	_iterateStateMachine_sloc0_1_0,a
@@ -1605,7 +1611,7 @@ _iterateStateMachine:
 	inc	dptr
 	mov	a,r5
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:233: callStateHandler(sm, sm->currentState, &enterEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:236: callStateHandler(sm, sm->currentState, &enterEvent) ;
 	mov	dptr,#_callStateHandler_PARM_2
 	mov	a,r0
 	movx	@dptr,a
@@ -1628,7 +1634,7 @@ _iterateStateMachine:
 	mov	dph,r3
 	mov	b,r4
 	lcall	_callStateHandler
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:235: sm->stateMachineInitialized	= true ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:238: sm->stateMachineInitialized	= true ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1650,7 +1656,7 @@ _iterateStateMachine:
 	mov	b,r7
 	mov	a,#0x01
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:236: sm->forceTransition			= true ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:239: sm->forceTransition			= true ;
 	mov	a,#0x1F
 	add	a,r2
 	mov	r2,a
@@ -1663,7 +1669,7 @@ _iterateStateMachine:
 	mov	a,#0x01
 	lcall	__gptrput
 00102$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:241: if((!eventQueue_isEmpty(&sm->eventQueue)) || (sm->forceTransition))
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:244: if((!eventQueue_isEmpty(&sm->eventQueue)) || (sm->forceTransition))
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -1691,78 +1697,79 @@ _iterateStateMachine:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-	jz	00166$
+	jz	00168$
 	mov	a,#0x1F
 	add	a,r2
-	mov	r2,a
+	mov	r5,a
 	clr	a
 	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+	mov	r6,a
+	mov	ar7,r4
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
 	lcall	__gptrget
-	jnz	00212$
-	ljmp	00167$
-00212$:
-00166$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:244: state_t*						stateBeingProcessed	= sm->currentState ;
+	jnz	00216$
+	ljmp	00169$
+00216$:
+00168$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:247: state_t*						stateBeingProcessed	= sm->currentState ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	r2,a
+	mov	_iterateStateMachine_sloc0_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
 	mov	a,#0x05
-	add	a,r2
-	mov	r5,a
+	add	a,_iterateStateMachine_sloc0_1_0
+	mov	_iterateStateMachine_sloc1_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r6,a
-	mov	ar7,r4
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
+	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	lcall	__gptrget
-	mov	r5,a
+	mov	_iterateStateMachine_sloc1_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	r7,a
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-	mov	a,r5
+	mov	a,_iterateStateMachine_sloc1_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r6
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r7
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:247: if(sm->forceTransition)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:250: if(sm->forceTransition)
 	mov	a,#0x1F
-	add	a,r2
-	mov	r5,a
+	add	a,_iterateStateMachine_sloc0_1_0
+	mov	_iterateStateMachine_sloc1_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r6,a
-	mov	ar7,r4
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
+	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	lcall	__gptrget
 	jz	00104$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:249: sm->forceTransition	= false ;
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:252: sm->forceTransition	= false ;
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	clr	a
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:250: eventToProcess		= &initialTransitionEvent ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:253: eventToProcess		= &initialTransitionEvent ;
 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
 	mov	a,#_initialTransitionEvent
 	movx	@dptr,a
@@ -1774,58 +1781,59 @@ _iterateStateMachine:
 	movx	@dptr,a
 	sjmp	00105$
 00104$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:254: eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:257: eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
 	mov	a,#0x0B
-	add	a,r2
-	mov	r2,a
+	add	a,_iterateStateMachine_sloc0_1_0
+	mov	_iterateStateMachine_sloc1_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	lcall	_eventQueue_remove
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
+	mov	_iterateStateMachine_sloc1_1_0,dpl
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),dph
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),b
 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
-	mov	a,r2
+	mov	a,_iterateStateMachine_sloc1_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r3
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r4
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
 	movx	@dptr,a
 00105$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:257: sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:260: sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	r2,a
+	mov	_iterateStateMachine_sloc1_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
 	mov	a,#0x08
-	add	a,r2
-	mov	r2,a
+	add	a,_iterateStateMachine_sloc1_1_0
+	mov	_iterateStateMachine_sloc1_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	clr	a
-	lcall	__gptrput
-	inc	dptr
+	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	clr	a
 	lcall	__gptrput
 	inc	dptr
 	clr	a
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:260: printf("\t\tProcessing event...\n") ;
+	inc	dptr
+	clr	a
+	lcall	__gptrput
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:263: printf("\t\tProcessing event...\n") ;
 	mov	a,#__str_7
 	push	acc
 	mov	a,#(__str_7 >> 8)
@@ -1836,31 +1844,19 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:270: do
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:273: do
 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
 	movx	a,@dptr
-	mov	r2,a
+	mov	_iterateStateMachine_sloc1_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
 00110$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:272: action = callStateHandler(sm, stateBeingProcessed, eventToProcess) ;
-	push	ar2
-	push	ar3
-	push	ar4
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:275: action = callStateHandler(sm, stateBeingProcessed, eventToProcess) ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
 	mov	_iterateStateMachine_sloc0_1_0,a
 	inc	dptr
@@ -1869,135 +1865,134 @@ _iterateStateMachine:
 	inc	dptr
 	movx	a,@dptr
 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc2_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc2_1_0 + 2),a
 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
 	movx	a,@dptr
-	mov	r3,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r2,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
 	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,_iterateStateMachine_sloc0_1_0
+	mov	a,_iterateStateMachine_sloc2_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
 	movx	@dptr,a
 	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,r3
+	mov	a,_iterateStateMachine_sloc3_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r4
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r2
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
 	movx	@dptr,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	push	ar3
-	push	ar4
+	mov	dpl,_iterateStateMachine_sloc0_1_0
+	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
 	lcall	_callStateHandler
-	mov	r2,dpl
-	pop	ar4
-	pop	ar3
+	mov	r0,dpl
 	mov	dptr,#_iterateStateMachine_action_2_3
-	mov	a,r2
+	mov	a,r0
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:274: if((action == IGNORED) && (eventToProcess->eventType > SUBSTATE_EXIT))
-	mov	a,r2
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	jz	00214$
-	ljmp	00183$
-00214$:
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:277: if((action == IGNORED) && (eventToProcess->eventType > SUBSTATE_EXIT))
+	mov	a,r0
+	jz	00218$
+	ljmp	00186$
+00218$:
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	lcall	__gptrget
-	mov  r5,a
+	mov  r0,a
 	add	a,#0xff - 0x05
-	jc	00215$
-	ljmp	00183$
-00215$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:276: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+	jc	00219$
+	ljmp	00186$
+00219$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:279: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
-	mov	r5,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+	mov	dpl,_iterateStateMachine_sloc3_1_0
+	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
 	lcall	__gptrget
-	mov	r5,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	r7,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-	mov	a,r5
+	mov	a,_iterateStateMachine_sloc3_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r6
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r7
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:279: printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:282: printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ;
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
-	mov	r5,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,r5
-	orl	a,r6
-	orl	a,r7
-	jz	00171$
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc3_1_0
+	orl	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	orl	a,(_iterateStateMachine_sloc3_1_0 + 2)
+	jz	00174$
 	mov	a,#0x06
-	add	a,r5
-	mov	r5,a
+	add	a,_iterateStateMachine_sloc3_1_0
+	mov	_iterateStateMachine_sloc3_1_0,a
 	clr	a
-	addc	a,r6
-	mov	r6,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
+	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc3_1_0
+	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
 	lcall	__gptrget
-	mov	r5,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	r7,a
-	sjmp	00172$
-00171$:
-	mov	r5,#__str_9
-	mov	r6,#(__str_9 >> 8)
-	mov	r7,#0x80
-00172$:
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar6
-	push	ar7
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+	sjmp	00175$
+00174$:
+	mov	_iterateStateMachine_sloc3_1_0,#__str_9
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),#(__str_9 >> 8)
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),#0x80
+00175$:
+	push	_iterateStateMachine_sloc3_1_0
+	push	(_iterateStateMachine_sloc3_1_0 + 1)
+	push	(_iterateStateMachine_sloc3_1_0 + 2)
 	mov	a,#__str_8
 	push	acc
 	mov	a,#(__str_8 >> 8)
@@ -2008,241 +2003,207 @@ _iterateStateMachine:
 	mov	a,sp
 	add	a,#0xfa
 	mov	sp,a
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:289: } while(stateBeingProcessed) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:292: } while(stateBeingProcessed) ;
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
-	mov	r5,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,r5
-	orl	a,r6
-	orl	a,r7
-	jz	00217$
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc3_1_0
+	orl	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	orl	a,(_iterateStateMachine_sloc3_1_0 + 2)
+	jz	00221$
 	ljmp	00110$
-00217$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:291: while(action == TRANSITION_TO_HISTORY)
-00183$:
+00221$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:294: while(action == TRANSITION_TO_HISTORY)
+00186$:
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	r2,a
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
 	mov	a,#0x08
-	add	a,r2
-	mov	r5,a
+	add	a,_iterateStateMachine_sloc3_1_0
+	mov	_iterateStateMachine_sloc2_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r6,a
-	mov	ar7,r4
-	mov	_iterateStateMachine_sloc0_1_0,r2
-	mov	(_iterateStateMachine_sloc0_1_0 + 1),r3
-	mov	(_iterateStateMachine_sloc0_1_0 + 2),r4
+	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc2_1_0 + 2),(_iterateStateMachine_sloc3_1_0 + 2)
+	mov	_iterateStateMachine_sloc1_1_0,_iterateStateMachine_sloc3_1_0
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc3_1_0 + 2)
 	mov	a,#0x22
-	add	a,r2
-	mov	r2,a
+	add	a,_iterateStateMachine_sloc3_1_0
+	mov	_iterateStateMachine_sloc3_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r3,a
+	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 00120$:
 	mov	dptr,#_iterateStateMachine_action_2_3
 	movx	a,@dptr
 	mov	r0,a
-	cjne	r0,#0x03,00218$
-	sjmp	00219$
-00218$:
-	ljmp	00122$
-00219$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:293: if(		(((state_t*)(sm->nextState))->type != STATE_WITH_SHALLOW_HISTORY)
-	push	ar2
-	push	ar3
-	push	ar4
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	r0,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r1,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r2,a
-	mov	a,#0x03
-	add	a,r0
-	mov	r0,a
-	clr	a
-	addc	a,r1
-	mov	r1,a
-	mov	dpl,r0
-	mov	dph,r1
-	mov	b,r2
-	lcall	__gptrget
-	mov	_iterateStateMachine_sloc1_1_0,a
-	mov	a,#0x02
-	cjne	a,_iterateStateMachine_sloc1_1_0,00220$
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	sjmp	00117$
-00220$:
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:294: &&	(((state_t*)(sm->nextState))->type != STATE_WITH_DEEP_HISTORY))
-	mov	a,#0x03
-	cjne	a,_iterateStateMachine_sloc1_1_0,00221$
-	sjmp	00222$
-00221$:
-	ljmp	00122$
+	cjne	r0,#0x03,00222$
+	sjmp	00223$
 00222$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:300: break ;
-00117$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:304: state_t* nextState = sm->historicalMarkers[((state_with_history_t*)(sm->nextState))->historyMarkerIndex] ;
-	push	ar5
-	push	ar6
-	push	ar7
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+	ljmp	00122$
+00223$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:296: if(		(((state_t*)(sm->nextState))->type != STATE_WITH_SHALLOW_HISTORY)
+	mov	dpl,_iterateStateMachine_sloc2_1_0
+	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
 	lcall	__gptrget
-	mov	_iterateStateMachine_sloc3_1_0,a
+	mov	_iterateStateMachine_sloc0_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
-	mov	a,#0x08
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+	mov	a,#0x03
 	add	a,_iterateStateMachine_sloc0_1_0
-	mov	_iterateStateMachine_sloc2_1_0,a
+	mov	_iterateStateMachine_sloc0_1_0,a
 	clr	a
 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
-	mov	(_iterateStateMachine_sloc2_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
-	mov	dpl,_iterateStateMachine_sloc2_1_0
-	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc0_1_0
+	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
 	lcall	__gptrget
-	mov	r6,a
+	mov	r0,a
+	cjne	r0,#0x02,00224$
+	sjmp	00117$
+00224$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:297: &&	(((state_t*)(sm->nextState))->type != STATE_WITH_DEEP_HISTORY))
+	cjne	r0,#0x03,00225$
+	sjmp	00226$
+00225$:
+	ljmp	00122$
+00226$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:303: break ;
+00117$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:307: state_t* nextState = sm->historicalMarkers[((state_with_history_t*)(sm->nextState))->historyMarkerIndex] ;
+	mov	dpl,_iterateStateMachine_sloc3_1_0
+	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc0_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r7,a
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	r5,a
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+	mov	a,#0x08
+	add	a,_iterateStateMachine_sloc1_1_0
+	mov	_iterateStateMachine_sloc4_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc1_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
 	mov	a,#0x09
-	add	a,r6
-	mov	r6,a
+	add	a,_iterateStateMachine_sloc5_1_0
+	mov	_iterateStateMachine_sloc5_1_0,a
 	clr	a
-	addc	a,r7
-	mov	r7,a
-	mov	dpl,r6
-	mov	dph,r7
-	mov	b,r5
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r7,a
-	mov	dptr,#__mulint_PARM_2
-	mov	a,r6
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r7
-	movx	@dptr,a
-	mov	dptr,#0x0003
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar7
-	lcall	__mulint
-	mov	r5,dpl
-	mov	r6,dph
-	pop	ar7
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	mov	a,r5
-	add	a,_iterateStateMachine_sloc3_1_0
-	mov	r5,a
-	mov	a,r6
-	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
-	mov	r6,a
-	mov	r7,(_iterateStateMachine_sloc3_1_0 + 2)
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	_iterateStateMachine_sloc3_1_0,a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:309: if(nextState != (void*)0)
-	clr	a
-	cjne	a,_iterateStateMachine_sloc3_1_0,00223$
-	clr	a
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00223$
-	clr	a
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00223$
-	pop	ar7
-	pop	ar6
-	pop	ar5
-	sjmp	00114$
-00223$:
-	pop	ar7
-	pop	ar6
-	pop	ar5
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:316: sm->nextState = nextState ;
-	mov	dpl,_iterateStateMachine_sloc2_1_0
-	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-	mov	a,_iterateStateMachine_sloc3_1_0
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-	lcall	__gptrput
-	sjmp	00118$
-00114$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:331: action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
-	push	ar2
-	push	ar3
-	push	ar4
-	mov	dpl,_iterateStateMachine_sloc2_1_0
-	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
 	lcall	__gptrget
 	mov	r0,a
 	inc	dptr
 	lcall	__gptrget
 	mov	r1,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r2,a
-	mov	dptr,#_callStateHandler_PARM_2
+	mov	dptr,#__mulint_PARM_2
 	mov	a,r0
 	movx	@dptr,a
 	inc	dptr
 	mov	a,r1
 	movx	@dptr,a
+	mov	dptr,#0x0003
+	lcall	__mulint
+	mov	r0,dpl
+	mov	r1,dph
+	mov	a,r0
+	add	a,_iterateStateMachine_sloc0_1_0
+	mov	_iterateStateMachine_sloc5_1_0,a
+	mov	a,r1
+	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc5_1_0,a
 	inc	dptr
-	mov	a,r2
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:312: if(nextState != (void*)0)
+	clr	a
+	cjne	a,_iterateStateMachine_sloc5_1_0,00227$
+	clr	a
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00227$
+	clr	a
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00227$
+	sjmp	00114$
+00227$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:319: sm->nextState = nextState ;
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc5_1_0
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	__gptrput
+	sjmp	00118$
+00114$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:334: action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc5_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
 	movx	@dptr,a
 	mov	dptr,#_callStateHandler_PARM_3
 	mov	a,#_jumpToHistoryEvent
@@ -2253,329 +2214,27 @@ _iterateStateMachine:
 	inc	dptr
 	clr	a
 	movx	@dptr,a
-	mov	dpl,_iterateStateMachine_sloc0_1_0
-	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar6
-	push	ar7
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
 	lcall	_callStateHandler
-	pop	ar7
-	pop	ar6
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:567: printf("\t\tEvent queue empty.\n") ;
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:331: action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
 00118$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:339: action = TRANSITION ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:342: action = TRANSITION ;
 	mov	dptr,#_iterateStateMachine_action_2_3
 	mov	a,#0x02
 	movx	@dptr,a
 	ljmp	00120$
 00122$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:342: if(action == TRANSITION)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:345: if(action == TRANSITION)
 	mov	dptr,#_iterateStateMachine_action_2_3
 	movx	a,@dptr
-	mov	r2,a
-	cjne	r2,#0x02,00224$
-	sjmp	00225$
-00224$:
-	ljmp	00167$
-00225$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:344: state_t*	source	= sm->currentState ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	mov	a,#0x05
-	add	a,r2
-	mov	_iterateStateMachine_sloc2_1_0,a
-	clr	a
-	addc	a,r3
-	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
-	mov	(_iterateStateMachine_sloc2_1_0 + 2),r4
-	mov	dpl,_iterateStateMachine_sloc2_1_0
-	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-	lcall	__gptrget
-	mov	_iterateStateMachine_sloc3_1_0,a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:345: state_t*	target	= sm->nextState ;
-	mov	a,#0x08
-	add	a,r2
 	mov	r0,a
-	clr	a
-	addc	a,r3
-	mov	r1,a
-	mov	ar5,r4
-	mov	dpl,r0
-	mov	dph,r1
-	mov	b,r5
-	lcall	__gptrget
-	mov	_iterateStateMachine_sloc0_1_0,a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:349: if(source == target)
-	mov	a,_iterateStateMachine_sloc0_1_0
-	cjne	a,_iterateStateMachine_sloc3_1_0,00226$
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00226$
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00226$
-	sjmp	00227$
-00226$:
-	ljmp	00162$
-00227$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:352: printf("\t\t\t\tSelf transition.\n") ;
-	push	ar2
-	push	ar3
-	push	ar4
-	mov	a,#__str_10
-	push	acc
-	mov	a,#(__str_10 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:357: callStateHandler(sm, source, &exitEvent) ;
-	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,_iterateStateMachine_sloc3_1_0
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-	movx	@dptr,a
-	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,#_exitEvent
-	movx	@dptr,a
-	inc	dptr
-	mov	a,#(_exitEvent >> 8)
-	movx	@dptr,a
-	inc	dptr
-	clr	a
-	movx	@dptr,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_callStateHandler
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:358: sm->currentState = target ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	_iterateStateMachine_sloc4_1_0,a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
-	mov	a,#0x05
-	add	a,_iterateStateMachine_sloc4_1_0
-	mov	r6,a
-	clr	a
-	addc	a,(_iterateStateMachine_sloc4_1_0 + 1)
-	mov	r7,a
-	mov	r5,(_iterateStateMachine_sloc4_1_0 + 2)
-	mov	dpl,r6
-	mov	dph,r7
-	mov	b,r5
-	mov	a,_iterateStateMachine_sloc0_1_0
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:359: callStateHandler(sm, target, &enterEvent) ;
-	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,_iterateStateMachine_sloc0_1_0
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	movx	@dptr,a
-	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,#_enterEvent
-	movx	@dptr,a
-	inc	dptr
-	mov	a,#(_enterEvent >> 8)
-	movx	@dptr,a
-	inc	dptr
-	clr	a
-	movx	@dptr,a
-	mov	dpl,_iterateStateMachine_sloc4_1_0
-	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
-	lcall	_callStateHandler
-	ljmp	00163$
-00162$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:361: else if(source == (state_t*)(target->parent))
-	mov	dpl,_iterateStateMachine_sloc0_1_0
-	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
-	lcall	__gptrget
-	mov	r5,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r7,a
-	mov	a,r5
-	cjne	a,_iterateStateMachine_sloc3_1_0,00159$
-	mov	a,r6
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00159$
-	mov	a,r7
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00159$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:364: printf("\t\t\t\tTransition to direct child.\n") ;
-	push	ar2
-	push	ar3
-	push	ar4
-	mov	a,#__str_11
-	push	acc
-	mov	a,#(__str_11 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:370: sm->currentState = target ;
-	mov	dpl,_iterateStateMachine_sloc2_1_0
-	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-	mov	a,_iterateStateMachine_sloc0_1_0
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:371: callStateHandler(sm, target, &enterEvent) ;
-	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,_iterateStateMachine_sloc0_1_0
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	movx	@dptr,a
-	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,#_enterEvent
-	movx	@dptr,a
-	inc	dptr
-	mov	a,#(_enterEvent >> 8)
-	movx	@dptr,a
-	inc	dptr
-	clr	a
-	movx	@dptr,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_callStateHandler
-	ljmp	00163$
-00159$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:373: else if((state_t*)(source->parent) == (state_t*)(target->parent))
-	mov	dpl,_iterateStateMachine_sloc3_1_0
-	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
-	lcall	__gptrget
-	mov	_iterateStateMachine_sloc4_1_0,a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
-	mov	a,r5
-	cjne	a,_iterateStateMachine_sloc4_1_0,00230$
-	mov	a,r6
-	cjne	a,(_iterateStateMachine_sloc4_1_0 + 1),00230$
-	mov	a,r7
-	cjne	a,(_iterateStateMachine_sloc4_1_0 + 2),00230$
-	sjmp	00231$
-00230$:
-	ljmp	00156$
-00231$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:376: printf("\t\t\t\tTransition to direct peer.\n") ;
-	push	ar2
-	push	ar3
-	push	ar4
-	mov	a,#__str_12
-	push	acc
-	mov	a,#(__str_12 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:382: callStateHandler(sm, source, &exitEvent) ;
-	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,_iterateStateMachine_sloc3_1_0
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-	movx	@dptr,a
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-	movx	@dptr,a
-	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,#_exitEvent
-	movx	@dptr,a
-	inc	dptr
-	mov	a,#(_exitEvent >> 8)
-	movx	@dptr,a
-	inc	dptr
-	clr	a
-	movx	@dptr,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_callStateHandler
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:383: sm->currentState = target ;
+	cjne	r0,#0x02,00228$
+	sjmp	00229$
+00228$:
+	ljmp	00170$
+00229$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:347: state_t*	source	= sm->currentState ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	_iterateStateMachine_sloc5_1_0,a
@@ -2587,31 +2246,189 @@ _iterateStateMachine:
 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
 	mov	a,#0x05
 	add	a,_iterateStateMachine_sloc5_1_0
-	mov	r0,a
+	mov	_iterateStateMachine_sloc4_1_0,a
 	clr	a
 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
-	mov	r1,a
-	mov	r5,(_iterateStateMachine_sloc5_1_0 + 2)
-	mov	dpl,r0
-	mov	dph,r1
-	mov	b,r5
-	mov	a,_iterateStateMachine_sloc0_1_0
-	lcall	__gptrput
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc3_1_0,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	lcall	__gptrput
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:384: callStateHandler(sm, target, &enterEvent) ;
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:348: state_t*	target	= sm->nextState ;
+	mov	a,#0x08
+	add	a,_iterateStateMachine_sloc5_1_0
+	mov	_iterateStateMachine_sloc2_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc2_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc2_1_0
+	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc2_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc2_1_0 + 2),a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:352: if(source == target)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	cjne	a,_iterateStateMachine_sloc3_1_0,00230$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00230$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00230$
+	sjmp	00231$
+00230$:
+	ljmp	00162$
+00231$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:355: printf("\t\t\t\tSelf transition.\n") ;
+	mov	a,#__str_10
+	push	acc
+	mov	a,#(__str_10 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:360: callStateHandler(sm, source, &exitEvent) ;
 	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,_iterateStateMachine_sloc0_1_0
+	mov	a,_iterateStateMachine_sloc3_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+	movx	@dptr,a
+	mov	dptr,#_callStateHandler_PARM_3
+	mov	a,#_exitEvent
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_exitEvent >> 8)
+	movx	@dptr,a
+	inc	dptr
+	clr	a
+	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	_callStateHandler
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:361: sm->currentState = target ;
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc1_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+	mov	a,#0x05
+	add	a,_iterateStateMachine_sloc1_1_0
+	mov	_iterateStateMachine_sloc0_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),(_iterateStateMachine_sloc1_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc0_1_0
+	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrput
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:362: callStateHandler(sm, target, &enterEvent) ;
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc2_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	movx	@dptr,a
+	mov	dptr,#_callStateHandler_PARM_3
+	mov	a,#_enterEvent
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_enterEvent >> 8)
+	movx	@dptr,a
+	inc	dptr
+	clr	a
+	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+	lcall	_callStateHandler
+	ljmp	00163$
+00162$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:364: else if(source == (state_t*)(target->parent))
+	mov	dpl,_iterateStateMachine_sloc2_1_0
+	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc1_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc1_1_0
+	cjne	a,_iterateStateMachine_sloc3_1_0,00159$
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00159$
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00159$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:367: printf("\t\t\t\tTransition to direct child.\n") ;
+	mov	a,#__str_11
+	push	acc
+	mov	a,#(__str_11 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:373: sm->currentState = target ;
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrput
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:374: callStateHandler(sm, target, &enterEvent) ;
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc2_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
 	movx	@dptr,a
 	mov	dptr,#_callStateHandler_PARM_3
 	mov	a,#_enterEvent
@@ -2627,18 +2444,124 @@ _iterateStateMachine:
 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
 	lcall	_callStateHandler
 	ljmp	00163$
+00159$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:376: else if((state_t*)(source->parent) == (state_t*)(target->parent))
+	mov	dpl,_iterateStateMachine_sloc3_1_0
+	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc0_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc1_1_0
+	cjne	a,_iterateStateMachine_sloc0_1_0,00234$
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00234$
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00234$
+	sjmp	00235$
+00234$:
+	ljmp	00156$
+00235$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:379: printf("\t\t\t\tTransition to direct peer.\n") ;
+	mov	a,#__str_12
+	push	acc
+	mov	a,#(__str_12 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:385: callStateHandler(sm, source, &exitEvent) ;
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc3_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+	movx	@dptr,a
+	mov	dptr,#_callStateHandler_PARM_3
+	mov	a,#_exitEvent
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_exitEvent >> 8)
+	movx	@dptr,a
+	inc	dptr
+	clr	a
+	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	_callStateHandler
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:386: sm->currentState = target ;
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc1_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+	mov	a,#0x05
+	add	a,_iterateStateMachine_sloc1_1_0
+	mov	_iterateStateMachine_sloc6_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),(_iterateStateMachine_sloc1_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc6_1_0
+	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrput
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:387: callStateHandler(sm, target, &enterEvent) ;
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc2_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	movx	@dptr,a
+	mov	dptr,#_callStateHandler_PARM_3
+	mov	a,#_enterEvent
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_enterEvent >> 8)
+	movx	@dptr,a
+	inc	dptr
+	clr	a
+	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+	lcall	_callStateHandler
+	ljmp	00163$
 00156$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:386: else if((state_t*)(source->parent) == target)
-	mov	a,_iterateStateMachine_sloc0_1_0
-	cjne	a,_iterateStateMachine_sloc4_1_0,00153$
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	cjne	a,(_iterateStateMachine_sloc4_1_0 + 1),00153$
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	cjne	a,(_iterateStateMachine_sloc4_1_0 + 2),00153$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:389: printf("\t\t\t\tTransition to direct parent.\n") ;
-	push	ar2
-	push	ar3
-	push	ar4
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:389: else if((state_t*)(source->parent) == target)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	cjne	a,_iterateStateMachine_sloc0_1_0,00153$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00153$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00153$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:392: printf("\t\t\t\tTransition to direct parent.\n") ;
 	mov	a,#__str_13
 	push	acc
 	mov	a,#(__str_13 >> 8)
@@ -2649,22 +2572,19 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:396: sm->currentState = target ;
-	mov	dpl,_iterateStateMachine_sloc2_1_0
-	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-	mov	a,_iterateStateMachine_sloc0_1_0
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:399: sm->currentState = target ;
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
 	lcall	__gptrput
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
 	lcall	__gptrput
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:397: callStateHandler(sm, source, &exitEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:400: callStateHandler(sm, source, &exitEvent) ;
 	mov	dptr,#_callStateHandler_PARM_2
 	mov	a,_iterateStateMachine_sloc3_1_0
 	movx	@dptr,a
@@ -2683,13 +2603,13 @@ _iterateStateMachine:
 	inc	dptr
 	clr	a
 	movx	@dptr,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
 	lcall	_callStateHandler
 	ljmp	00163$
 00153$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:412: printf("\t\t\t\tScanning source hierarchy...\n") ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:415: printf("\t\t\t\tScanning source hierarchy...\n") ;
 	mov	a,#__str_14
 	push	acc
 	mov	a,#(__str_14 >> 8)
@@ -2700,11 +2620,11 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:416: targetIndex			= 0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:419: targetIndex			= 0 ;
 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
 	clr	a
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:417: stateBeingProcessed	= source ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:420: stateBeingProcessed	= source ;
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	mov	a,_iterateStateMachine_sloc3_1_0
 	movx	@dptr,a
@@ -2714,76 +2634,72 @@ _iterateStateMachine:
 	inc	dptr
 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:419: do
-	mov	r2,#0x00
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:422: do
+	mov	_iterateStateMachine_sloc6_1_0,#0x00
 00128$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:421: sourceHierarchy[sourceIndex++] = stateBeingProcessed ;
-	mov	ar3,r2
-	inc	r2
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:424: sourceHierarchy[sourceIndex++] = stateBeingProcessed ;
+	mov	r1,_iterateStateMachine_sloc6_1_0
+	inc	_iterateStateMachine_sloc6_1_0
 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
-	mov	a,r2
+	mov	a,_iterateStateMachine_sloc6_1_0
 	movx	@dptr,a
-	mov	a,r3
+	mov	a,r1
 	mov	b,#0x03
 	mul	ab
 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-	mov	r3,a
+	mov	r1,a
 	clr	a
 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-	mov	r4,a
+	mov	r0,a
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dpl,r3
-	mov	dph,r4
-	mov	a,r5
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r6
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r7
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:424: printf("\t\t\t\t\tsourceHierarchy[%d] = %s\n", sourceIndex - 1, stateBeingProcessed->stateName) ;
-	mov	a,#0x06
-	add	a,r5
-	mov	r3,a
-	clr	a
-	addc	a,r6
-	mov	r4,a
-	mov	ar0,r7
-	mov	dpl,r3
-	mov	dph,r4
-	mov	b,r0
-	lcall	__gptrget
 	mov	_iterateStateMachine_sloc5_1_0,a
 	inc	dptr
-	lcall	__gptrget
+	movx	a,@dptr
 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
 	inc	dptr
-	lcall	__gptrget
+	movx	a,@dptr
 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-	mov	ar1,r2
-	mov	r3,#0x00
+	mov	dpl,r1
+	mov	dph,r0
+	mov	a,_iterateStateMachine_sloc5_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:427: printf("\t\t\t\t\tsourceHierarchy[%d] = %s\n", sourceIndex - 1, stateBeingProcessed->stateName) ;
+	mov	a,#0x06
+	add	a,_iterateStateMachine_sloc5_1_0
+	mov	_iterateStateMachine_sloc4_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc4_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+	mov	r0,_iterateStateMachine_sloc6_1_0
+	mov	r1,#0x00
+	dec	r0
+	cjne	r0,#0xff,00238$
 	dec	r1
-	cjne	r1,#0xff,00234$
-	dec	r3
-00234$:
-	push	ar2
-	push	ar5
-	push	ar6
-	push	ar7
-	push	_iterateStateMachine_sloc5_1_0
-	push	(_iterateStateMachine_sloc5_1_0 + 1)
-	push	(_iterateStateMachine_sloc5_1_0 + 2)
+00238$:
+	push	_iterateStateMachine_sloc4_1_0
+	push	(_iterateStateMachine_sloc4_1_0 + 1)
+	push	(_iterateStateMachine_sloc4_1_0 + 2)
+	push	ar0
 	push	ar1
-	push	ar3
 	mov	a,#__str_15
 	push	acc
 	mov	a,#(__str_15 >> 8)
@@ -2794,23 +2710,18 @@ _iterateStateMachine:
 	mov	a,sp
 	add	a,#0xf8
 	mov	sp,a
-	pop	ar7
-	pop	ar6
-	pop	ar5
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:427: if(stateBeingProcessed == target)
-	mov	a,r5
-	cjne	a,_iterateStateMachine_sloc0_1_0,00235$
-	mov	a,r6
-	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00235$
-	mov	a,r7
-	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00235$
-	sjmp	00236$
-00235$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:430: if(stateBeingProcessed == target)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	cjne	a,_iterateStateMachine_sloc5_1_0,00239$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00239$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00239$
+	sjmp	00240$
+00239$:
 	ljmp	00127$
-00236$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:432: printf("\t\t\t\t\t\tFound target as ancestor of source\n") ;
-	push	ar2
+00240$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:435: printf("\t\t\t\t\t\tFound target as ancestor of source\n") ;
 	mov	a,#__str_16
 	push	acc
 	mov	a,#(__str_16 >> 8)
@@ -2821,24 +2732,22 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:435: sourceIndex-- ;
-	mov	a,r2
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:438: sourceIndex-- ;
+	mov	a,_iterateStateMachine_sloc6_1_0
 	dec	a
-	mov	r3,a
+	mov	r0,a
 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:437: while(exitIndex < sourceIndex)
-	mov	r4,#0x00
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:440: while(exitIndex < sourceIndex)
+	mov	_iterateStateMachine_sloc4_1_0,#0x00
 00123$:
 	clr	c
-	mov	a,r4
-	subb	a,r3
+	mov	a,_iterateStateMachine_sloc4_1_0
+	subb	a,r0
 	jnc	00125$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:440: printf("\t\t\t\t") ;
-	push	ar3
-	push	ar3
-	push	ar4
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:443: printf("\t\t\t\t") ;
+	push	ar0
+	push	ar0
 	mov	a,#__str_17
 	push	acc
 	mov	a,#(__str_17 >> 8)
@@ -2849,19 +2758,17 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-	pop	ar4
-	pop	ar3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:443: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:446: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	_iterateStateMachine_sloc5_1_0,a
+	mov	_iterateStateMachine_sloc1_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-	mov	a,r4
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc4_1_0
 	mov	b,#0x03
 	mul	ab
 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
@@ -2870,21 +2777,21 @@ _iterateStateMachine:
 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
 	mov	dph,a
 	movx	a,@dptr
-	mov	r3,a
+	mov	_iterateStateMachine_sloc0_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r0,a
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r1,a
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
 	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,r3
+	mov	a,_iterateStateMachine_sloc0_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r0
+	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r1
+	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
 	movx	@dptr,a
 	mov	dptr,#_callStateHandler_PARM_3
 	mov	a,#_exitEvent
@@ -2895,123 +2802,120 @@ _iterateStateMachine:
 	inc	dptr
 	clr	a
 	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+	lcall	_callStateHandler
+	pop	ar0
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:448: exitIndex++ ;
+	inc	_iterateStateMachine_sloc4_1_0
+	pop	ar0
+	sjmp	00123$
+00125$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:451: sm->currentState = target ;
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc4_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+	mov	a,#0x05
+	add	a,_iterateStateMachine_sloc4_1_0
+	mov	_iterateStateMachine_sloc4_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrput
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:453: break ;
+	sjmp	00130$
+00127$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:456: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 	mov	dpl,_iterateStateMachine_sloc5_1_0
 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
-	push	ar3
-	push	ar4
-	lcall	_callStateHandler
-	pop	ar4
-	pop	ar3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:445: exitIndex++ ;
-	inc	r4
-	pop	ar3
-	sjmp	00123$
-00125$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:448: sm->currentState = target ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r0,a
-	mov	a,#0x05
-	add	a,r3
-	mov	r3,a
-	clr	a
-	addc	a,r4
-	mov	r4,a
-	mov	dpl,r3
-	mov	dph,r4
-	mov	b,r0
-	mov	a,_iterateStateMachine_sloc0_1_0
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:450: break ;
-	sjmp	00130$
-00127$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:453: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
 	lcall	__gptrget
-	mov	r5,a
+	mov	_iterateStateMachine_sloc5_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r6,a
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	r7,a
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-	mov	a,r5
+	mov	a,_iterateStateMachine_sloc5_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r6
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r7
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:454: } while(stateBeingProcessed) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:457: } while(stateBeingProcessed) ;
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
-	mov	r3,a
+	mov	_iterateStateMachine_sloc5_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r5,a
-	mov	a,r3
-	orl	a,r4
-	orl	a,r5
-	jz	00238$
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc5_1_0
+	orl	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	orl	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	jz	00242$
 	ljmp	00128$
-00238$:
+00242$:
 00130$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:456: if(sm->currentState != target)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:459: if(sm->currentState != target)
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	r2,a
+	mov	_iterateStateMachine_sloc6_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
 	mov	a,#0x05
-	add	a,r2
-	mov	r2,a
+	add	a,_iterateStateMachine_sloc6_1_0
+	mov	_iterateStateMachine_sloc6_1_0,a
 	clr	a
-	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc6_1_0
+	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
 	lcall	__gptrget
-	mov	r2,a
+	mov	_iterateStateMachine_sloc6_1_0,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
 	inc	dptr
 	lcall	__gptrget
-	mov	r4,a
-	mov	a,r2
-	cjne	a,_iterateStateMachine_sloc0_1_0,00239$
-	mov	a,r3
-	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00239$
-	mov	a,r4
-	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00239$
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc2_1_0
+	cjne	a,_iterateStateMachine_sloc6_1_0,00243$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc6_1_0 + 1),00243$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc6_1_0 + 2),00243$
 	ljmp	00140$
-00239$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:459: printf("\t\t\t\tScanning target hierarchy...\n") ;
+00243$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:462: printf("\t\t\t\tScanning target hierarchy...\n") ;
 	mov	a,#__str_18
 	push	acc
 	mov	a,#(__str_18 >> 8)
@@ -3022,81 +2926,77 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:462: targetIndex			= 0 ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:465: targetIndex			= 0 ;
 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
 	clr	a
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:463: stateBeingProcessed	= target ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:466: stateBeingProcessed	= target ;
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-	mov	a,_iterateStateMachine_sloc0_1_0
+	mov	a,_iterateStateMachine_sloc2_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
 	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:465: do
-	mov	r2,#0x00
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:468: do
+	mov	_iterateStateMachine_sloc6_1_0,#0x00
 00136$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:467: targetHierarchy[targetIndex] = stateBeingProcessed ;
-	mov	a,r2
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:470: targetHierarchy[targetIndex] = stateBeingProcessed ;
+	mov	a,_iterateStateMachine_sloc6_1_0
 	mov	b,#0x03
 	mul	ab
 	add	a,#_iterateStateMachine_targetHierarchy_4_19
-	mov	r3,a
+	mov	r1,a
 	clr	a
 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-	mov	r4,a
+	mov	r0,a
 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
 	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dpl,r3
-	mov	dph,r4
-	mov	a,r5
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r6
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r7
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:470: printf("\t\t\t\t\ttargetHierarchy[%d] = %s\n", targetIndex, stateBeingProcessed->stateName) ;
-	mov	a,#0x06
-	add	a,r5
-	mov	r3,a
-	clr	a
-	addc	a,r6
-	mov	r4,a
-	mov	ar0,r7
-	mov	dpl,r3
-	mov	dph,r4
-	mov	b,r0
-	lcall	__gptrget
 	mov	_iterateStateMachine_sloc5_1_0,a
 	inc	dptr
-	lcall	__gptrget
+	movx	a,@dptr
 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
 	inc	dptr
-	lcall	__gptrget
+	movx	a,@dptr
 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-	mov	ar1,r2
-	mov	r3,#0x00
-	push	ar2
-	push	ar5
-	push	ar6
-	push	ar7
-	push	_iterateStateMachine_sloc5_1_0
-	push	(_iterateStateMachine_sloc5_1_0 + 1)
-	push	(_iterateStateMachine_sloc5_1_0 + 2)
+	mov	dpl,r1
+	mov	dph,r0
+	mov	a,_iterateStateMachine_sloc5_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:473: printf("\t\t\t\t\ttargetHierarchy[%d] = %s\n", targetIndex, stateBeingProcessed->stateName) ;
+	mov	a,#0x06
+	add	a,_iterateStateMachine_sloc5_1_0
+	mov	_iterateStateMachine_sloc4_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc4_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+	mov	r0,_iterateStateMachine_sloc6_1_0
+	mov	r1,#0x00
+	push	_iterateStateMachine_sloc4_1_0
+	push	(_iterateStateMachine_sloc4_1_0 + 1)
+	push	(_iterateStateMachine_sloc4_1_0 + 2)
+	push	ar0
 	push	ar1
-	push	ar3
 	mov	a,#__str_19
 	push	acc
 	mov	a,#(__str_19 >> 8)
@@ -3107,22 +3007,18 @@ _iterateStateMachine:
 	mov	a,sp
 	add	a,#0xf8
 	mov	sp,a
-	pop	ar7
-	pop	ar6
-	pop	ar5
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:473: if(stateBeingProcessed == source)
-	mov	a,r5
-	cjne	a,_iterateStateMachine_sloc3_1_0,00240$
-	mov	a,r6
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00240$
-	mov	a,r7
-	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00240$
-	sjmp	00241$
-00240$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:476: if(stateBeingProcessed == source)
+	mov	a,_iterateStateMachine_sloc3_1_0
+	cjne	a,_iterateStateMachine_sloc5_1_0,00244$
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00244$
+	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00244$
+	sjmp	00245$
+00244$:
 	ljmp	00135$
-00241$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:476: printf("\t\t\t\t\t\tFound source as ancestor of target\n") ;
+00245$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:479: printf("\t\t\t\t\t\tFound source as ancestor of target\n") ;
 	mov	a,#__str_20
 	push	acc
 	mov	a,#(__str_20 >> 8)
@@ -3133,17 +3029,16 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:479: while(targetIndex--)
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:482: while(targetIndex--)
 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
 	movx	a,@dptr
-	mov	r3,a
+	mov	_iterateStateMachine_sloc4_1_0,a
 00131$:
-	mov	ar4,r3
-	dec	r3
-	mov	a,r4
-	jz	00206$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:482: printf("\t\t\t\t") ;
-	push	ar3
+	mov	r1,_iterateStateMachine_sloc4_1_0
+	dec	_iterateStateMachine_sloc4_1_0
+	mov	a,r1
+	jz	00210$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:485: printf("\t\t\t\t") ;
 	mov	a,#__str_17
 	push	acc
 	mov	a,#(__str_17 >> 8)
@@ -3154,8 +3049,449 @@ _iterateStateMachine:
 	dec	sp
 	dec	sp
 	dec	sp
-	pop	ar3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:484: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:487: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc1_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc4_1_0
+	mov	b,#0x03
+	mul	ab
+	add	a,#_iterateStateMachine_targetHierarchy_4_19
+	mov	dpl,a
+	clr	a
+	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
+	mov	dph,a
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc0_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc0_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+	movx	@dptr,a
+	mov	dptr,#_callStateHandler_PARM_3
+	mov	a,#_enterEvent
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_enterEvent >> 8)
+	movx	@dptr,a
+	inc	dptr
+	clr	a
+	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc1_1_0
+	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+	lcall	_callStateHandler
+	sjmp	00131$
+00210$:
+	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+	mov	a,_iterateStateMachine_sloc4_1_0
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:490: sm->currentState = target ;
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc4_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+	mov	a,#0x05
+	add	a,_iterateStateMachine_sloc4_1_0
+	mov	_iterateStateMachine_sloc4_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc4_1_0
+	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	lcall	__gptrput
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	lcall	__gptrput
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:492: break ;
+	sjmp	00140$
+00135$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:495: targetIndex++ ;
+	inc	_iterateStateMachine_sloc6_1_0
+	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+	mov	a,_iterateStateMachine_sloc6_1_0
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:496: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+	mov	a,_iterateStateMachine_sloc5_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:497: } while(stateBeingProcessed) ;
+	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc5_1_0
+	orl	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	orl	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	jz	00247$
+	ljmp	00136$
+00247$:
+00140$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:500: if(sm->currentState != target)
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc6_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+	mov	a,#0x05
+	add	a,_iterateStateMachine_sloc6_1_0
+	mov	_iterateStateMachine_sloc6_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc6_1_0
+	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc6_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc2_1_0
+	cjne	a,_iterateStateMachine_sloc6_1_0,00248$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc6_1_0 + 1),00248$
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc6_1_0 + 2),00248$
+	ljmp	00163$
+00248$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:505: printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ;
+	mov	a,#__str_21
+	push	acc
+	mov	a,#(__str_21 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:507: LCA			= 0 ;
+	mov	dptr,#_iterateStateMachine_LCA_4_19
+	clr	a
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:508: entryIndex	= targetIndex - 1 ;
+	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+	movx	a,@dptr
+	dec	a
+	mov	_iterateStateMachine_sloc5_1_0,a
+	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:509: exitIndex	= sourceIndex - 1 ;
+	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
+	movx	a,@dptr
+	dec	a
+	mov	_iterateStateMachine_sloc6_1_0,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:511: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
+	mov	_iterateStateMachine_sloc4_1_0,_iterateStateMachine_sloc6_1_0
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),#0x00
+	mov	r0,_iterateStateMachine_sloc5_1_0
+	mov	r1,#0x00
+	push	_iterateStateMachine_sloc4_1_0
+	push	(_iterateStateMachine_sloc4_1_0 + 1)
+	push	ar0
+	push	ar1
+	mov	a,#__str_22
+	push	acc
+	mov	a,#(__str_22 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:514: while(sourceHierarchy[exitIndex] == targetHierarchy[entryIndex])
+	mov	_iterateStateMachine_sloc4_1_0,_iterateStateMachine_sloc5_1_0
+	mov	_iterateStateMachine_sloc0_1_0,_iterateStateMachine_sloc6_1_0
+	mov	_iterateStateMachine_sloc6_1_0,#0x00
+00141$:
+	mov	a,_iterateStateMachine_sloc0_1_0
+	mov	b,#0x03
+	mul	ab
+	add	a,#_iterateStateMachine_sourceHierarchy_4_19
+	mov	dpl,a
+	clr	a
+	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
+	mov	dph,a
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc4_1_0
+	mov	b,#0x03
+	mul	ab
+	add	a,#_iterateStateMachine_targetHierarchy_4_19
+	mov	dpl,a
+	clr	a
+	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
+	mov	dph,a
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc1_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc1_1_0
+	cjne	a,_iterateStateMachine_sloc5_1_0,00211$
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00211$
+	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00211$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:516: LCA = sourceHierarchy[exitIndex] ;
+	mov	dptr,#_iterateStateMachine_LCA_4_19
+	mov	a,_iterateStateMachine_sloc5_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:518: entryIndex-- ;
+	dec	_iterateStateMachine_sloc4_1_0
+	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+	mov	a,_iterateStateMachine_sloc4_1_0
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:519: exitIndex-- ;
+	dec	_iterateStateMachine_sloc0_1_0
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:522: printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ;
+	mov	dptr,#_iterateStateMachine_LCA_4_19
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	a,#0x06
+	add	a,_iterateStateMachine_sloc5_1_0
+	mov	_iterateStateMachine_sloc5_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	push	_iterateStateMachine_sloc5_1_0
+	push	(_iterateStateMachine_sloc5_1_0 + 1)
+	push	(_iterateStateMachine_sloc5_1_0 + 2)
+	mov	a,#__str_23
+	push	acc
+	mov	a,#(__str_23 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfa
+	mov	sp,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:525: LCAindex++ ;
+	inc	_iterateStateMachine_sloc6_1_0
+	ljmp	00141$
+00211$:
+	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+	mov	a,_iterateStateMachine_sloc4_1_0
+	movx	@dptr,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:529: printf("\t\t\t\t\tLCA of %s and %s is: %s\n", source->stateName, target->stateName, LCA->stateName) ;
+	mov	dptr,#_iterateStateMachine_LCA_4_19
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc6_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+	mov	a,#0x06
+	add	a,_iterateStateMachine_sloc6_1_0
+	mov	_iterateStateMachine_sloc6_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc6_1_0
+	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc6_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+	mov	a,#0x06
+	add	a,_iterateStateMachine_sloc2_1_0
+	mov	_iterateStateMachine_sloc5_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc2_1_0 + 1)
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),(_iterateStateMachine_sloc2_1_0 + 2)
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	a,#0x06
+	add	a,_iterateStateMachine_sloc3_1_0
+	mov	_iterateStateMachine_sloc3_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc3_1_0
+	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+	lcall	__gptrget
+	mov	_iterateStateMachine_sloc3_1_0,a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+	inc	dptr
+	lcall	__gptrget
+	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+	push	_iterateStateMachine_sloc6_1_0
+	push	(_iterateStateMachine_sloc6_1_0 + 1)
+	push	(_iterateStateMachine_sloc6_1_0 + 2)
+	push	_iterateStateMachine_sloc5_1_0
+	push	(_iterateStateMachine_sloc5_1_0 + 1)
+	push	(_iterateStateMachine_sloc5_1_0 + 2)
+	push	_iterateStateMachine_sloc3_1_0
+	push	(_iterateStateMachine_sloc3_1_0 + 1)
+	push	(_iterateStateMachine_sloc3_1_0 + 2)
+	mov	a,#__str_24
+	push	acc
+	mov	a,#(__str_24 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf4
+	mov	sp,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:530: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
+	mov	_iterateStateMachine_sloc6_1_0,_iterateStateMachine_sloc0_1_0
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),#0x00
+	mov	r0,_iterateStateMachine_sloc4_1_0
+	mov	r1,#0x00
+	push	_iterateStateMachine_sloc6_1_0
+	push	(_iterateStateMachine_sloc6_1_0 + 1)
+	push	ar0
+	push	ar1
+	mov	a,#__str_22
+	push	acc
+	mov	a,#(__str_22 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:533: sourceIndex	= exitIndex + 1 ;
+	mov	a,_iterateStateMachine_sloc0_1_0
+	inc	a
+	mov	r0,a
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:536: while(exitIndex < sourceIndex)
+	mov	_iterateStateMachine_sloc6_1_0,#0x00
+00144$:
+	clr	c
+	mov	a,_iterateStateMachine_sloc6_1_0
+	subb	a,r0
+	jnc	00146$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:539: printf("\t\t\t\t") ;
+	push	ar0
+	push	ar0
+	mov	a,#__str_17
+	push	acc
+	mov	a,#(__str_17 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:542: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
 	mov	_iterateStateMachine_sloc5_1_0,a
@@ -3165,7 +3501,84 @@ _iterateStateMachine:
 	inc	dptr
 	movx	a,@dptr
 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-	mov	a,r3
+	mov	a,_iterateStateMachine_sloc6_1_0
+	mov	b,#0x03
+	mul	ab
+	add	a,#_iterateStateMachine_sourceHierarchy_4_19
+	mov	dpl,a
+	clr	a
+	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
+	mov	dph,a
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc4_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+	mov	dptr,#_callStateHandler_PARM_2
+	mov	a,_iterateStateMachine_sloc4_1_0
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc4_1_0 + 1)
+	movx	@dptr,a
+	inc	dptr
+	mov	a,(_iterateStateMachine_sloc4_1_0 + 2)
+	movx	@dptr,a
+	mov	dptr,#_callStateHandler_PARM_3
+	mov	a,#_exitEvent
+	movx	@dptr,a
+	inc	dptr
+	mov	a,#(_exitEvent >> 8)
+	movx	@dptr,a
+	inc	dptr
+	clr	a
+	movx	@dptr,a
+	mov	dpl,_iterateStateMachine_sloc5_1_0
+	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+	lcall	_callStateHandler
+	pop	ar0
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:544: exitIndex++ ;
+	inc	_iterateStateMachine_sloc6_1_0
+	pop	ar0
+	sjmp	00144$
+00146$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:547: targetIndex = entryIndex + 1 ;
+	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+	movx	a,@dptr
+	mov	r0,a
+	inc	r0
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:549: while(targetIndex--)
+	mov	_iterateStateMachine_sloc6_1_0,r0
+00147$:
+	mov	r1,_iterateStateMachine_sloc6_1_0
+	dec	_iterateStateMachine_sloc6_1_0
+	mov	a,r1
+	jz	00149$
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:552: printf("\t\t\t\t") ;
+	mov	a,#__str_17
+	push	acc
+	mov	a,#(__str_17 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:554: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
+	mov	dptr,#_iterateStateMachine_sm_1_1
+	movx	a,@dptr
+	mov	_iterateStateMachine_sloc5_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+	mov	a,_iterateStateMachine_sloc6_1_0
 	mov	b,#0x03
 	mul	ab
 	add	a,#_iterateStateMachine_targetHierarchy_4_19
@@ -3173,23 +3586,22 @@ _iterateStateMachine:
 	clr	a
 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
 	mov	dph,a
-	push	ar3
 	movx	a,@dptr
-	mov	r3,a
+	mov	_iterateStateMachine_sloc4_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r0,a
+	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
 	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,r3
+	mov	a,_iterateStateMachine_sloc4_1_0
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r4
+	mov	a,(_iterateStateMachine_sloc4_1_0 + 1)
 	movx	@dptr,a
 	inc	dptr
-	mov	a,r0
+	mov	a,(_iterateStateMachine_sloc4_1_0 + 2)
 	movx	@dptr,a
 	mov	dptr,#_callStateHandler_PARM_3
 	mov	a,#_enterEvent
@@ -3203,609 +3615,131 @@ _iterateStateMachine:
 	mov	dpl,_iterateStateMachine_sloc5_1_0
 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
-	push	ar3
 	lcall	_callStateHandler
-	pop	ar3
-	pop	ar3
-	sjmp	00131$
-00206$:
-	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-	mov	a,r3
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:487: sm->currentState = target ;
+	sjmp	00147$
+00149$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:557: sm->currentState = target ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	r3,a
+	mov	_iterateStateMachine_sloc6_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r0,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
 	mov	a,#0x05
-	add	a,r3
-	mov	r3,a
+	add	a,_iterateStateMachine_sloc6_1_0
+	mov	_iterateStateMachine_sloc6_1_0,a
 	clr	a
-	addc	a,r4
-	mov	r4,a
-	mov	dpl,r3
-	mov	dph,r4
-	mov	b,r0
-	mov	a,_iterateStateMachine_sloc0_1_0
+	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc6_1_0
+	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+	mov	a,_iterateStateMachine_sloc2_1_0
 	lcall	__gptrput
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
 	lcall	__gptrput
 	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
 	lcall	__gptrput
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:489: break ;
-	sjmp	00140$
-00135$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:492: targetIndex++ ;
-	inc	r2
-	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-	mov	a,r2
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:493: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	r5,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r7,a
-	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-	mov	a,r5
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r6
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r7
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:494: } while(stateBeingProcessed) ;
-	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	mov	a,r3
-	orl	a,r4
-	orl	a,r5
-	jz	00243$
-	ljmp	00136$
-00243$:
-00140$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:497: if(sm->currentState != target)
+00163$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:565: sm->forceTransition = true ;
 	mov	dptr,#_iterateStateMachine_sm_1_1
 	movx	a,@dptr
-	mov	r2,a
+	mov	_iterateStateMachine_sloc6_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r3,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r4,a
+	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+	mov	a,#0x1F
+	add	a,_iterateStateMachine_sloc6_1_0
+	mov	_iterateStateMachine_sloc6_1_0,a
+	clr	a
+	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+	mov	dpl,_iterateStateMachine_sloc6_1_0
+	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+	mov	a,#0x01
+	lcall	__gptrput
+	sjmp	00170$
+00169$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:570: action = callStateHandler(sm, (state_t*)(sm->currentState), &doEvent) ;
+	push	ar5
+	push	ar6
+	push	ar7
 	mov	a,#0x05
 	add	a,r2
-	mov	r2,a
+	mov	r0,a
 	clr	a
 	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,r2
-	cjne	a,_iterateStateMachine_sloc0_1_0,00244$
-	mov	a,r3
-	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00244$
-	mov	a,r4
-	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00244$
-	ljmp	00163$
-00244$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:502: printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ;
-	mov	a,#__str_21
-	push	acc
-	mov	a,#(__str_21 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:504: LCA			= 0 ;
-	mov	dptr,#_iterateStateMachine_LCA_4_19
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:505: entryIndex	= targetIndex - 1 ;
-	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-	movx	a,@dptr
-	mov	r2,a
-	dec	r2
-	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-	mov	a,r2
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:506: exitIndex	= sourceIndex - 1 ;
-	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
-	movx	a,@dptr
-	mov	r3,a
-	dec	r3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:508: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
-	mov	ar4,r3
-	mov	r5,#0x00
-	mov	ar6,r2
-	mov	r7,#0x00
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar6
-	push	ar7
-	mov	a,#__str_22
-	push	acc
-	mov	a,#(__str_22 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xf9
-	mov	sp,a
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:511: while(sourceHierarchy[exitIndex] == targetHierarchy[entryIndex])
-	mov	r4,#0x00
-00141$:
-	push	ar4
-	mov	a,r3
-	mov	b,#0x03
-	mul	ab
-	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-	mov	dpl,a
-	clr	a
-	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-	mov	dph,a
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	a,r2
-	mov	b,#0x03
-	mul	ab
-	add	a,#_iterateStateMachine_targetHierarchy_4_19
-	mov	dpl,a
-	clr	a
-	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-	mov	dph,a
-	movx	a,@dptr
-	mov	r0,a
-	inc	dptr
-	movx	a,@dptr
 	mov	r1,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	mov	a,r5
-	cjne	a,ar0,00245$
-	mov	a,r6
-	cjne	a,ar1,00245$
-	mov	a,r7
-	cjne	a,ar4,00245$
-	sjmp	00246$
-00245$:
-	pop	ar4
-	sjmp	00207$
-00246$:
-	pop	ar4
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:513: LCA = sourceHierarchy[exitIndex] ;
-	mov	dptr,#_iterateStateMachine_LCA_4_19
-	mov	a,r5
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r6
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r7
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:515: entryIndex-- ;
-	dec	r2
-	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-	mov	a,r2
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:516: exitIndex-- ;
-	dec	r3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:519: printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ;
-	mov	dptr,#_iterateStateMachine_LCA_4_19
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	a,#0x06
-	add	a,r5
-	mov	r5,a
-	clr	a
-	addc	a,r6
-	mov	r6,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	r5,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r7,a
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar6
-	push	ar7
-	mov	a,#__str_23
-	push	acc
-	mov	a,#(__str_23 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfa
-	mov	sp,a
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:522: LCAindex++ ;
-	inc	r4
-	ljmp	00141$
-00207$:
-	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-	mov	a,r2
-	movx	@dptr,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:526: printf("\t\t\t\t\tLCA of %s and %s is: %s\n", source->stateName, target->stateName, LCA->stateName) ;
-	mov	dptr,#_iterateStateMachine_LCA_4_19
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	mov	a,#0x06
-	add	a,r4
-	mov	r4,a
-	clr	a
-	addc	a,r5
-	mov	r5,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	lcall	__gptrget
-	mov	r4,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r5,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r6,a
-	mov	a,#0x06
-	add	a,_iterateStateMachine_sloc0_1_0
-	mov	r7,a
-	clr	a
-	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	mov	r0,a
-	mov	r1,(_iterateStateMachine_sloc0_1_0 + 2)
-	mov	dpl,r7
-	mov	dph,r0
-	mov	b,r1
-	lcall	__gptrget
-	mov	_iterateStateMachine_sloc5_1_0,a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-	inc	dptr
-	lcall	__gptrget
-	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-	mov	a,#0x06
-	add	a,_iterateStateMachine_sloc3_1_0
-	mov	r7,a
-	clr	a
-	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
-	mov	r0,a
-	mov	r1,(_iterateStateMachine_sloc3_1_0 + 2)
-	mov	dpl,r7
-	mov	dph,r0
-	mov	b,r1
-	lcall	__gptrget
-	mov	r7,a
-	inc	dptr
+	mov	ar5,r4
+	mov	dpl,r0
+	mov	dph,r1
+	mov	b,r5
 	lcall	__gptrget
 	mov	r0,a
 	inc	dptr
 	lcall	__gptrget
 	mov	r1,a
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar6
-	push	_iterateStateMachine_sloc5_1_0
-	push	(_iterateStateMachine_sloc5_1_0 + 1)
-	push	(_iterateStateMachine_sloc5_1_0 + 2)
-	push	ar7
-	push	ar0
-	push	ar1
-	mov	a,#__str_24
-	push	acc
-	mov	a,#(__str_24 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xf4
-	mov	sp,a
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:527: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
-	mov	ar4,r3
-	mov	r5,#0x00
-	mov	r6,#0x00
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar2
-	push	ar6
-	mov	a,#__str_22
-	push	acc
-	mov	a,#(__str_22 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xf9
-	mov	sp,a
-	pop	ar3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:530: sourceIndex	= exitIndex + 1 ;
-	mov	a,r3
-	inc	a
-	mov	r2,a
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:533: while(exitIndex < sourceIndex)
-	mov	r3,#0x00
-00144$:
-	clr	c
-	mov	a,r3
-	subb	a,r2
-	jnc	00146$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:536: printf("\t\t\t\t") ;
-	push	ar2
-	push	ar3
-	mov	a,#__str_17
-	push	acc
-	mov	a,#(__str_17 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar3
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:539: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r4,a
 	inc	dptr
-	movx	a,@dptr
+	lcall	__gptrget
 	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	mov	a,r3
-	mov	b,#0x03
-	mul	ab
-	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-	mov	dpl,a
-	clr	a
-	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-	mov	dph,a
-	movx	a,@dptr
-	mov	r7,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r0,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r1,a
 	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,r7
-	movx	@dptr,a
-	inc	dptr
 	mov	a,r0
 	movx	@dptr,a
 	inc	dptr
 	mov	a,r1
 	movx	@dptr,a
-	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,#_exitEvent
-	movx	@dptr,a
 	inc	dptr
-	mov	a,#(_exitEvent >> 8)
-	movx	@dptr,a
-	inc	dptr
-	clr	a
-	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	push	ar3
-	lcall	_callStateHandler
-	pop	ar3
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:541: exitIndex++ ;
-	inc	r3
-	sjmp	00144$
-00146$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:544: targetIndex = entryIndex + 1 ;
-	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-	movx	a,@dptr
-	mov	r2,a
-	inc	r2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:546: while(targetIndex--)
-00147$:
-	mov	ar3,r2
-	dec	r2
-	mov	a,r3
-	jz	00149$
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:549: printf("\t\t\t\t") ;
-	push	ar2
-	mov	a,#__str_17
-	push	acc
-	mov	a,#(__str_17 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar2
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:551: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	mov	a,r2
-	mov	b,#0x03
-	mul	ab
-	add	a,#_iterateStateMachine_targetHierarchy_4_19
-	mov	dpl,a
-	clr	a
-	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-	mov	dph,a
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r0,a
-	mov	dptr,#_callStateHandler_PARM_2
-	mov	a,r6
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r7
-	movx	@dptr,a
-	inc	dptr
-	mov	a,r0
+	mov	a,r5
 	movx	@dptr,a
 	mov	dptr,#_callStateHandler_PARM_3
-	mov	a,#_enterEvent
+	mov	a,#_doEvent
 	movx	@dptr,a
 	inc	dptr
-	mov	a,#(_enterEvent >> 8)
+	mov	a,#(_doEvent >> 8)
 	movx	@dptr,a
 	inc	dptr
 	clr	a
 	movx	@dptr,a
-	mov	dpl,r3
-	mov	dph,r4
-	mov	b,r5
-	push	ar2
-	lcall	_callStateHandler
-	pop	ar2
-	sjmp	00147$
-00149$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:554: sm->currentState = target ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	mov	a,#0x05
-	add	a,r2
-	mov	r2,a
-	clr	a
-	addc	a,r3
-	mov	r3,a
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
-	mov	a,_iterateStateMachine_sloc0_1_0
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-	lcall	__gptrput
-	inc	dptr
-	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-	lcall	__gptrput
-00163$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:562: sm->forceTransition = true ;
-	mov	dptr,#_iterateStateMachine_sm_1_1
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	mov	a,#0x1F
-	add	a,r2
-	mov	r2,a
-	clr	a
-	addc	a,r3
-	mov	r3,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
+	push	ar5
+	push	ar6
+	push	ar7
+	lcall	_callStateHandler
+	mov	r2,dpl
+	pop	ar7
+	pop	ar6
+	pop	ar5
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:572: if(action == TRANSITION)
+	cjne	r2,#0x02,00253$
+	sjmp	00254$
+00253$:
+	pop	ar7
+	pop	ar6
+	pop	ar5
+	sjmp	00170$
+00254$:
+	pop	ar7
+	pop	ar6
+	pop	ar5
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:574: sm->forceTransition = true ;
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
 	mov	a,#0x01
 	lcall	__gptrput
-00167$:
-;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:567: printf("\t\tEvent queue empty.\n") ;
+00170$:
+;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:579: printf("\t\tEvent queue empty.\n") ;
 	mov	a,#__str_25
 	push	acc
 	mov	a,#(__str_25 >> 8)
@@ -4048,6 +3982,8 @@ __xinit__initialTransitionEvent:
 	.db #0x02
 __xinit__jumpToHistoryEvent:
 	.db #0x03
+__xinit__doEvent:
+	.db #0x04
 __xinit__enterEvent:
 	.db #0x01
 __xinit__exitEvent:

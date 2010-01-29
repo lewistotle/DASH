@@ -21,13 +21,6 @@ DECLARE_STATE_MACHINE_EVENTS(calculator)
 	EQUALS,
 	OFF
 
-END_STATE_MACHINE_EVENTS()
-
-typedef struct
-{
-	PARENT_CLASS(event_t) ;
-
-	uint8_t	key ;
-} keyEvent_t ;
+END_STATE_MACHINE_EVENTS(calculator)
 
 #endif /* SM_TEST_CALCULATOR_H_ */

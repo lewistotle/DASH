@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Sat Jan 02 19:24:42 2010
+; This file was generated Sat Jan 02 21:08:33 2010
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-large
@@ -1079,7 +1079,20 @@ _main:
 	lcall	_timeBomb_getEventQueueDepth
 	mov	r2,dpl
 	mov	r3,dph
+	push	ar2
+	push	ar3
+	lcall	_timeBomb_getHistoryArraySize
+	mov	r4,dpl
+	mov	r5,dph
+	pop	ar3
+	pop	ar2
 	mov	dptr,#_allocateStateMachineMemory_PARM_2
+	mov	a,r4
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r5
+	movx	@dptr,a
+	mov	dptr,#_allocateStateMachineMemory_PARM_3
 	mov	a,#_timeBomb_constructor
 	movx	@dptr,a
 	inc	dptr
@@ -1102,7 +1115,20 @@ _main:
 	lcall	_calculator_getEventQueueDepth
 	mov	r5,dpl
 	mov	r6,dph
+	push	ar5
+	push	ar6
+	lcall	_calculator_getHistoryArraySize
+	mov	r7,dpl
+	mov	r0,dph
+	pop	ar6
+	pop	ar5
 	mov	dptr,#_allocateStateMachineMemory_PARM_2
+	mov	a,r7
+	movx	@dptr,a
+	inc	dptr
+	mov	a,r0
+	movx	@dptr,a
+	mov	dptr,#_allocateStateMachineMemory_PARM_3
 	mov	a,#_calculator_constructor
 	movx	@dptr,a
 	inc	dptr

@@ -177,10 +177,10 @@ Symbol Table
     _addToDeferredTypeList                                         **** GX
     _addToDeferredTypeList_PARM_2                                  **** GX
     _bp                                                            **** GX
- 15 _heaterOff                                                     0106 GR
- 15 _heaterOn                                                      0105 GR
- 15 _lampOff                                                       0108 GR
- 15 _lampOn                                                        0107 GR
+ 15 _heaterOff                                                     0102 GR
+ 15 _heaterOn                                                      0101 GR
+ 15 _lampOff                                                       0104 GR
+ 15 _lampOn                                                        0103 GR
     _removeFromDeferredTypeList                                    **** GX
     _removeFromDeferredTypeList_PARM_2                             **** GX
  16 _str_1                                                         0049 R
@@ -191,31 +191,30 @@ Symbol Table
  16 _str_6                                                         0098 R
  16 _str_7                                                         00A4 R
  16 _toaster_TOP                                                   0000 R
- 15 _toaster_TOP_handler                                           0109 R
+ 15 _toaster_TOP_handler                                           0105 R
  16 _toaster_baking                                                001D R
- 15 _toaster_baking_handler                                        0337 R
- 15 _toaster_constructor                                           0004 GR
- 15 _toaster_constructor2                                          00B2 GR
+ 15 _toaster_baking_handler                                        02FA R
+ 15 _toaster_constructor                                           0000 GR
+ 15 _toaster_constructor2                                          00AE GR
   9 _toaster_constructor2_self_1_1                                 0006 R
   9 _toaster_constructor_base_1_1                                  0000 R
   3 _toaster_constructor_sloc0_1_0                                 0000 R
- 15 _toaster_destructor                                            0086 GR
- 15 _toaster_destructor2                                           0104 GR
+ 15 _toaster_destructor                                            0082 GR
+ 15 _toaster_destructor2                                           0100 GR
   9 _toaster_destructor_self_1_1                                   0003 R
  16 _toaster_doorClosed                                            0009 R
- 15 _toaster_doorClosed_handler                                    0190 R
+ 15 _toaster_doorClosed_handler                                    0153 R
  16 _toaster_doorOpen                                              0038 R
- 15 _toaster_doorOpen_handler                                      035E R
- 15 _toaster_getEventQueueDepth                                    0000 GR
- 15 _toaster_getHistoryQueueDepth                                  00AA GR
- 15 _toaster_getMachineSize                                        00AE GR
+ 15 _toaster_doorOpen_handler                                      0321 R
+ 15 _toaster_getHistoryArraySize                                   00A6 GR
+ 15 _toaster_getMachineSize                                        00AA GR
  16 _toaster_heating                                               0014 R
- 15 _toaster_heating_handler                                       02FF R
+ 15 _toaster_heating_handler                                       02C2 R
   B _toaster_name                                                  0000 R
  16 _toaster_off                                                   002F R
- 15 _toaster_off_handler                                           034D R
+ 15 _toaster_off_handler                                           0310 R
  16 _toaster_toasting                                              0026 R
- 15 _toaster_toasting_handler                                      0342 R
+ 15 _toaster_toasting_handler                                      0305 R
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -418,7 +417,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size  499   flags 20
+  15 CSEG                                                                               size  45C   flags 20
   16 CONST                                                                              size   B5   flags 20
   17 XINIT                                                                              size    3   flags 20
   18 CABS                                                                               size    0   flags 28

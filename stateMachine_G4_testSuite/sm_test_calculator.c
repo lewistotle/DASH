@@ -5,22 +5,35 @@
  *      Author: jlewis
  */
 
+#include "config.h"
+
 #include "stateMachine_G4.h"
 #include "stateMachine_G4_eventQueue.h"
 
+#include "sm_globalEvents.h"
 #include "sm_test_calculator.h"
 
-#define config_CalcEVENT_QUEUE_DEPTH		16
 
 
 #define STATE_MACHINE_NAME calculator
 
 DEFINE_STATE_MACHINE() ;
+	DECLARE_MEMORY_REQUIREMENTS()
+	{
+		DECLARE_EVENT_QUEUE_DEPTH(5) ;
+
+		START_MEMORY_POOL_DECLARATIONS()
+		{
+			DECLARE_EVENT_MEMORY_POOL(3, keyEvent_t),
+			DECLARE_EVENT_MEMORY_POOL(2, event_t)
+		}
+		END_MEMORY_POOL_DECLARATIONS()
+	}
+	END_MEMORY_REQUIREMENTS()
+
 	DECLARE_STATE_MACHINE_VARIABLES() ;
 		uint32_t	result ;
 	END_STATE_MACHINE_VARIABLES() ;
-
-	SET_EVENT_QUEUE_DEPTH(config_CalcEVENT_QUEUE_DEPTH) ;
 
 	ADD_SUB_STATE(on, PARENT_STATE(TOP)) ;
 		ADD_SUB_STATE(ready, PARENT_STATE(on)) ;
@@ -49,6 +62,20 @@ END_STATE_MACHINE_DEFINITION() ;
 
 STATE_MACHINE_CONSTRUCTOR()
 {
+	static const char*	eventNames[] =	{	"CLEAR",
+											"CLEAR_ENTRY",
+											"DIGIT_0",
+											"DIGIT_1_9",
+											"POINT",
+											"OPERATION",
+											"EQUALS",
+											"OFF"
+										} ;
+
+//	hsm_setMachinePriority(self, 0) ;
+
+	self->parent.eventNames = eventNames ;
+
 	self->result = 0 ;
 }
 
@@ -61,7 +88,7 @@ STATE_MACHINE_DESTRUCTOR()
 
 DEFINE_TOP_STATE()
 {
-	INITIAL_TRANSITION(TO(begin),																	NO_ACTION) ;
+	INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -78,7 +105,7 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(ready)
 {
-	INITIAL_TRANSITION(TO(zero1),																NO_ACTION) ;
+	INITIAL_TRANSITION(TO(begin),																NO_ACTION) ;
 
 	TRANSITION_ON(OPERATION,											TO(opEntered),			NO_ACTION) ;
 }
@@ -93,9 +120,6 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(begin)
 {
-	/* This will cause a loop in the state machine, but for testing purposes, it tests a couple of cases */
-	INITIAL_TRANSITION(TO(on),																	NO_ACTION) ;
-
 	TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
 	TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
@@ -125,7 +149,6 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(zero1)
 {
-	INITIAL_TRANSITION(TO(zero2),																NO_ACTION) ;
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
 	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
@@ -136,6 +159,8 @@ END_DEFINE_STATE()
 DEFINE_STATE(int1)
 {
 	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -143,13 +168,14 @@ END_DEFINE_STATE()
 DEFINE_STATE(frac1)
 {
 	CONSUME_EVENT(POINT,																		NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(error)
 {
-	INITIAL_TRANSITION(TO(frac2),																NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -177,12 +203,14 @@ END_DEFINE_STATE()
 
 uint8_t doCalculation(	uint8_t type)
 {
+	printf("type = '%c', ", type) ;
 	switch(type)
 	{
 		case '+': { return true ; }
 		case '-': { return true ; }
 		case '*': { return true ; }
 		case '/': { return true ; }
+		case '=': { return true ; }
 		default:  { return false ; }
 	}
 }
@@ -218,7 +246,6 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(zero2)
 {
-	INITIAL_TRANSITION(TO(negated1),															NO_ACTION) ;
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
 	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
@@ -229,6 +256,8 @@ END_DEFINE_STATE()
 DEFINE_STATE(int2)
 {
 	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -236,5 +265,7 @@ END_DEFINE_STATE()
 DEFINE_STATE(frac2)
 {
 	CONSUME_EVENT(POINT,																		NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
+	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
 }
 END_DEFINE_STATE()

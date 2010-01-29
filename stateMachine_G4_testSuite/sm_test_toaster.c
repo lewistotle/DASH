@@ -5,14 +5,14 @@
  *      Author: jlewis
  */
 
+#include "config.h"
+
 #include "stateMachine_G4.h"
 #include "stateMachine_G4_eventQueue.h"
 
 #include "sm_test_toaster.h"
 
 
-
-#define config_toastEVENT_QUEUE_DEPTH		8
 
 #define STATE_MACHINE_NAME toaster
 
@@ -21,9 +21,11 @@ DEFINE_STATE_MACHINE() ;
 		uint8_t		cookingTime_hours ;
 		uint8_t		cookingTime_minutes ;
 		uint8_t		cookingTime_seconds ;
-	END_STATE_MACHINE_VARIABLES() ;
 
-	SET_EVENT_QUEUE_DEPTH(config_toastEVENT_QUEUE_DEPTH) ;
+		uint8_t		flag ;
+
+		uint16_t	temp ;
+	END_STATE_MACHINE_VARIABLES() ;
 
 	ADD_SUB_STATE_WITH_DEEP_HISTORY(doorClosed, PARENT_STATE(TOP)) ;
 
@@ -56,6 +58,9 @@ STATE_MACHINE_DESTRUCTOR()
 
 void heaterOn(	void)
 {
+	/* test of call event transition macro */
+
+//	TRANSITION_CALL(TO(heating)) ;
 }
 
 
@@ -76,26 +81,40 @@ void lampOff(	void)
 
 DEFINE_TOP_STATE()
 {
-	self->cookingTime_hours		= 0 ;
-	self->cookingTime_minutes	= 0 ;
-	self->cookingTime_seconds	= 0 ;
-
-	INITIAL_TRANSITION(TO(doorClosed),						NO_ACTION) ;
+	INITIAL_TRANSITION(TO(doorClosed),							NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(doorClosed)
 {
-	SET_HISTORY_DEFAULT_STATE(off,							NO_ACTION) ;
-	SET_HISTORY_DEFAULT_STATE(HISTORY_OF(off),				NO_ACTION) ;
+	/* test of history macros */
 
-	INITIAL_TRANSITION(TO(off),								NO_ACTION) ;
+	SET_HISTORY_DEFAULT_STATE(off,								NO_ACTION) ;
+	SET_HISTORY_DEFAULT_STATE(HISTORY_OF(off),					NO_ACTION) ;
 
-	TRANSITION_ON(BAKE,		TO(baking),	NO_ACTION) ;
-	TRANSITION_ON(TOAST,	TO(toasting),	NO_ACTION) ;
-	TRANSITION_ON(OFF,		TO(off),		NO_ACTION) ;
-	TRANSITION_ON(OPEN,		TO(off),		NO_ACTION) ;
+	/* test of initial transition macro */
+
+	INITIAL_TRANSITION(			TO(off),						NO_ACTION) ;
+
+	/* test of signal event transition macro */
+
+	TRANSITION_ON(BAKE,			TO(baking),						NO_ACTION) ;
+	TRANSITION_ON(TOAST,		TO(toasting),					NO_ACTION) ;
+	TRANSITION_ON(OFF,			TO(off),						NO_ACTION) ;
+	TRANSITION_ON(OPEN,			TO(off),						NO_ACTION) ;
+
+	/* test of change event transition macro */
+
+//	TRANSITION_WHEN(self->flag,	TO(heating),	NO_ACTION) ;
+
+	/* test of time event transition macro */
+
+//	TRANSITION_AFTER(DAYS(42.3) + HOURS(7.58) + MINUTES(3) + SECONDS(10.452537), TO(OFF), NO_ACTION) ;
+
+	/* test of generic IF transition macro that also sets DO flag */
+
+//	TRANSITION_IF(self->flag > 55, TO(off), NO_ACTION) ;
 }
 END_DEFINE_STATE()
 

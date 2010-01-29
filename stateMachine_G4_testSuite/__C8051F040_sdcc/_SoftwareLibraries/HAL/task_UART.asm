@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Sat Jan 02 12:04:44 2010
+; This file was generated Thu Jan 21 16:08:03 2010
 ;--------------------------------------------------------
 	.module task_UART
 	.optsdcc -mmcs51 --model-large
@@ -788,8 +788,6 @@ _P7_7	=	0x00ff
 ; bit data
 ;--------------------------------------------------------
 	.area BSEG    (BIT)
-_task_UART_putchar_sloc0_1_0:
-	.ds 1
 ;--------------------------------------------------------
 ; paged external ram data
 ;--------------------------------------------------------
@@ -925,9 +923,7 @@ _task_UART_putchar:
 	mov	dptr,#_task_UART_putchar_projectSpecific_PARM_2
 	movx	@dptr,a
 	mov	dpl,r2
-	lcall	_task_UART_putchar_projectSpecific
-	mov  _task_UART_putchar_sloc0_1_0,c
-	ret
+	ljmp	_task_UART_putchar_projectSpecific
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'task_UART_puts'
 ;------------------------------------------------------------

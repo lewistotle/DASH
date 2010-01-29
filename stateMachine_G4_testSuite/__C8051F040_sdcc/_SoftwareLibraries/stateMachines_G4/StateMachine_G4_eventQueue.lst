@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-                              4 ; This file was generated Sat Jan 02 19:24:45 2010
+                              4 ; This file was generated Sat Jan 23 00:00:25 2010
                               5 ;--------------------------------------------------------
                               6 	.module StateMachine_G4_eventQueue
                               7 	.optsdcc -mmcs51 --model-large
@@ -17,1642 +17,1660 @@
                              17 	.globl _nextLocationFromPoint_PARM_2
                              18 	.globl _eventQueue_initialize_PARM_3
                              19 	.globl _eventQueue_initialize_PARM_2
-                             20 	.globl _eventQueue_initialize
-                             21 	.globl _eventQueue_isEmpty
-                             22 	.globl _eventQueue_isFull
-                             23 	.globl _eventQueue_insert
-                             24 	.globl _eventQueue_remove
-                             25 	.globl _addToDeferredTypeList
-                             26 	.globl _isEventTypeDeferred
-                             27 	.globl _removeFromDeferredTypeList
-                             28 	.globl _postEventToStateMachine
-                             29 ;--------------------------------------------------------
-                             30 ; special function registers
+                             20 	.globl _hsm_isEventInMask_PARM_2
+                             21 	.globl _hsm_isEventInMask
+                             22 	.globl _eventQueue_initialize
+                             23 	.globl _eventQueue_isEmpty
+                             24 	.globl _eventQueue_isFull
+                             25 	.globl _eventQueue_insert
+                             26 	.globl _eventQueue_remove
+                             27 	.globl _addToDeferredTypeList
+                             28 	.globl _isEventTypeDeferred
+                             29 	.globl _removeFromDeferredTypeList
+                             30 	.globl _postEventToStateMachine
                              31 ;--------------------------------------------------------
-                             32 	.area RSEG    (DATA)
+                             32 ; special function registers
                              33 ;--------------------------------------------------------
-                             34 ; special function bits
+                             34 	.area RSEG    (DATA)
                              35 ;--------------------------------------------------------
-                             36 	.area RSEG    (DATA)
+                             36 ; special function bits
                              37 ;--------------------------------------------------------
-                             38 ; overlayable register banks
+                             38 	.area RSEG    (DATA)
                              39 ;--------------------------------------------------------
-                             40 	.area REG_BANK_0	(REL,OVR,DATA)
-   0000                      41 	.ds 8
-                             42 ;--------------------------------------------------------
-                             43 ; internal ram data
+                             40 ; overlayable register banks
+                             41 ;--------------------------------------------------------
+                             42 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                      43 	.ds 8
                              44 ;--------------------------------------------------------
-                             45 	.area DSEG    (DATA)
-   0000                      46 _eventQueue_remove_sloc0_1_0:
-   0000                      47 	.ds 3
-   0003                      48 _eventQueue_remove_sloc1_1_0:
-   0003                      49 	.ds 1
-   0004                      50 _eventQueue_remove_sloc2_1_0:
-   0004                      51 	.ds 3
-   0007                      52 _removeFromDeferredTypeList_sloc0_1_0:
-   0007                      53 	.ds 1
-   0008                      54 _removeFromDeferredTypeList_sloc1_1_0:
-   0008                      55 	.ds 1
-   0009                      56 _removeFromDeferredTypeList_sloc2_1_0:
-   0009                      57 	.ds 3
-   000C                      58 _removeFromDeferredTypeList_sloc3_1_0:
-   000C                      59 	.ds 3
-   000F                      60 _removeFromDeferredTypeList_sloc4_1_0:
-   000F                      61 	.ds 3
-                             62 ;--------------------------------------------------------
-                             63 ; overlayable items in internal ram 
+                             45 ; internal ram data
+                             46 ;--------------------------------------------------------
+                             47 	.area DSEG    (DATA)
+   0000                      48 _eventQueue_remove_sloc0_1_0:
+   0000                      49 	.ds 3
+   0003                      50 _eventQueue_remove_sloc1_1_0:
+   0003                      51 	.ds 1
+   0004                      52 _eventQueue_remove_sloc2_1_0:
+   0004                      53 	.ds 3
+   0007                      54 _removeFromDeferredTypeList_sloc0_1_0:
+   0007                      55 	.ds 1
+   0008                      56 _removeFromDeferredTypeList_sloc1_1_0:
+   0008                      57 	.ds 1
+   0009                      58 _removeFromDeferredTypeList_sloc2_1_0:
+   0009                      59 	.ds 3
+   000C                      60 _removeFromDeferredTypeList_sloc3_1_0:
+   000C                      61 	.ds 3
+   000F                      62 _removeFromDeferredTypeList_sloc4_1_0:
+   000F                      63 	.ds 3
                              64 ;--------------------------------------------------------
-                             65 	.area	OSEG    (OVR,DATA)
-   0000                      66 _addToDeferredTypeList_sloc0_1_0::
-   0000                      67 	.ds 3
-                             68 	.area	OSEG    (OVR,DATA)
-   0000                      69 _isEventTypeDeferred_sloc0_1_0::
-   0000                      70 	.ds 3
-                             71 ;--------------------------------------------------------
-                             72 ; indirectly addressable internal ram data
-                             73 ;--------------------------------------------------------
-                             74 	.area ISEG    (DATA)
-                             75 ;--------------------------------------------------------
-                             76 ; absolute internal ram data
+                             65 ; overlayable items in internal ram 
+                             66 ;--------------------------------------------------------
+                             67 	.area OSEG    (OVR,DATA)
+                             68 ;--------------------------------------------------------
+                             69 ; indirectly addressable internal ram data
+                             70 ;--------------------------------------------------------
+                             71 	.area ISEG    (DATA)
+                             72 ;--------------------------------------------------------
+                             73 ; absolute internal ram data
+                             74 ;--------------------------------------------------------
+                             75 	.area IABS    (ABS,DATA)
+                             76 	.area IABS    (ABS,DATA)
                              77 ;--------------------------------------------------------
-                             78 	.area IABS    (ABS,DATA)
-                             79 	.area IABS    (ABS,DATA)
-                             80 ;--------------------------------------------------------
-                             81 ; bit data
-                             82 ;--------------------------------------------------------
-                             83 	.area BSEG    (BIT)
-   0000                      84 _removeFromDeferredTypeList_found_2_2:
-   0000                      85 	.ds 1
-   0001                      86 _postEventToStateMachine_sloc0_1_0:
-   0001                      87 	.ds 1
-                             88 ;--------------------------------------------------------
-                             89 ; paged external ram data
-                             90 ;--------------------------------------------------------
-                             91 	.area PSEG    (PAG,XDATA)
-                             92 ;--------------------------------------------------------
-                             93 ; external ram data
-                             94 ;--------------------------------------------------------
-                             95 	.area XSEG    (XDATA)
-   0000                      96 _eventQueue_initialize_PARM_2:
-   0000                      97 	.ds 3
-   0003                      98 _eventQueue_initialize_PARM_3:
-   0003                      99 	.ds 1
-   0004                     100 _eventQueue_initialize_Q_1_1:
-   0004                     101 	.ds 3
-   0007                     102 _eventQueue_isEmpty_Q_1_1:
-   0007                     103 	.ds 3
-   000A                     104 _eventQueue_isFull_Q_1_1:
-   000A                     105 	.ds 3
-   000D                     106 _nextLocationFromPoint_PARM_2:
-   000D                     107 	.ds 1
-   000E                     108 _nextLocationFromPoint_Q_1_1:
-   000E                     109 	.ds 3
-   0011                     110 _eventQueue_insert_PARM_2:
-   0011                     111 	.ds 3
-   0014                     112 _eventQueue_insert_Q_1_1:
-   0014                     113 	.ds 3
-   0017                     114 _eventQueue_remove_Q_1_1:
-   0017                     115 	.ds 3
-   001A                     116 _addToDeferredTypeList_PARM_2:
-   001A                     117 	.ds 1
-   001B                     118 _addToDeferredTypeList_sm_1_1:
-   001B                     119 	.ds 3
-   001E                     120 _isEventTypeDeferred_PARM_2:
-   001E                     121 	.ds 1
-   001F                     122 _isEventTypeDeferred_sm_1_1:
-   001F                     123 	.ds 3
-   0022                     124 _removeFromDeferredTypeList_PARM_2:
-   0022                     125 	.ds 1
-   0023                     126 _removeFromDeferredTypeList_sm_1_1:
-   0023                     127 	.ds 3
-   0026                     128 _removeFromDeferredTypeList_i_2_2:
-   0026                     129 	.ds 1
-   0027                     130 _removeFromDeferredTypeList_currentEvent_3_5:
-   0027                     131 	.ds 3
-   002A                     132 _postEventToStateMachine_PARM_2:
-   002A                     133 	.ds 3
-   002D                     134 _postEventToStateMachine_sm_1_1:
-   002D                     135 	.ds 3
-                            136 ;--------------------------------------------------------
-                            137 ; absolute external ram data
-                            138 ;--------------------------------------------------------
-                            139 	.area XABS    (ABS,XDATA)
-                            140 ;--------------------------------------------------------
-                            141 ; external initialized ram data
-                            142 ;--------------------------------------------------------
-                            143 	.area XISEG   (XDATA)
-                            144 	.area HOME    (CODE)
-                            145 	.area GSINIT0 (CODE)
-                            146 	.area GSINIT1 (CODE)
-                            147 	.area GSINIT2 (CODE)
-                            148 	.area GSINIT3 (CODE)
-                            149 	.area GSINIT4 (CODE)
-                            150 	.area GSINIT5 (CODE)
-                            151 	.area GSINIT  (CODE)
-                            152 	.area GSFINAL (CODE)
-                            153 	.area CSEG    (CODE)
-                            154 ;--------------------------------------------------------
-                            155 ; global & static initialisations
-                            156 ;--------------------------------------------------------
-                            157 	.area HOME    (CODE)
-                            158 	.area GSINIT  (CODE)
-                            159 	.area GSFINAL (CODE)
-                            160 	.area GSINIT  (CODE)
-                            161 ;--------------------------------------------------------
-                            162 ; Home
-                            163 ;--------------------------------------------------------
-                            164 	.area HOME    (CODE)
-                            165 	.area HOME    (CODE)
+                             78 ; bit data
+                             79 ;--------------------------------------------------------
+                             80 	.area BSEG    (BIT)
+   0000                      81 _hsm_isEventInMask_sloc0_1_0:
+   0000                      82 	.ds 1
+   0001                      83 _removeFromDeferredTypeList_found_2_2:
+   0001                      84 	.ds 1
+   0002                      85 _postEventToStateMachine_sloc0_1_0:
+   0002                      86 	.ds 1
+                             87 ;--------------------------------------------------------
+                             88 ; paged external ram data
+                             89 ;--------------------------------------------------------
+                             90 	.area PSEG    (PAG,XDATA)
+                             91 ;--------------------------------------------------------
+                             92 ; external ram data
+                             93 ;--------------------------------------------------------
+                             94 	.area XSEG    (XDATA)
+   0000                      95 _hsm_isEventInMask_PARM_2:
+   0000                      96 	.ds 3
+   0003                      97 _hsm_isEventInMask_event_1_1:
+   0003                      98 	.ds 3
+   0006                      99 _eventQueue_initialize_PARM_2:
+   0006                     100 	.ds 3
+   0009                     101 _eventQueue_initialize_PARM_3:
+   0009                     102 	.ds 1
+   000A                     103 _eventQueue_initialize_Q_1_1:
+   000A                     104 	.ds 3
+   000D                     105 _eventQueue_isEmpty_Q_1_1:
+   000D                     106 	.ds 3
+   0010                     107 _eventQueue_isFull_Q_1_1:
+   0010                     108 	.ds 3
+   0013                     109 _nextLocationFromPoint_PARM_2:
+   0013                     110 	.ds 1
+   0014                     111 _nextLocationFromPoint_Q_1_1:
+   0014                     112 	.ds 3
+   0017                     113 _eventQueue_insert_PARM_2:
+   0017                     114 	.ds 3
+   001A                     115 _eventQueue_insert_Q_1_1:
+   001A                     116 	.ds 3
+   001D                     117 _eventQueue_remove_Q_1_1:
+   001D                     118 	.ds 3
+   0020                     119 _addToDeferredTypeList_PARM_2:
+   0020                     120 	.ds 1
+   0021                     121 _addToDeferredTypeList_sm_1_1:
+   0021                     122 	.ds 3
+   0024                     123 _isEventTypeDeferred_PARM_2:
+   0024                     124 	.ds 1
+   0025                     125 _isEventTypeDeferred_sm_1_1:
+   0025                     126 	.ds 3
+   0028                     127 _removeFromDeferredTypeList_PARM_2:
+   0028                     128 	.ds 1
+   0029                     129 _removeFromDeferredTypeList_sm_1_1:
+   0029                     130 	.ds 3
+   002C                     131 _removeFromDeferredTypeList_i_2_2:
+   002C                     132 	.ds 1
+   002D                     133 _removeFromDeferredTypeList_currentEvent_3_5:
+   002D                     134 	.ds 3
+   0030                     135 _postEventToStateMachine_PARM_2:
+   0030                     136 	.ds 3
+   0033                     137 _postEventToStateMachine_sm_1_1:
+   0033                     138 	.ds 3
+                            139 ;--------------------------------------------------------
+                            140 ; absolute external ram data
+                            141 ;--------------------------------------------------------
+                            142 	.area XABS    (ABS,XDATA)
+                            143 ;--------------------------------------------------------
+                            144 ; external initialized ram data
+                            145 ;--------------------------------------------------------
+                            146 	.area XISEG   (XDATA)
+                            147 	.area HOME    (CODE)
+                            148 	.area GSINIT0 (CODE)
+                            149 	.area GSINIT1 (CODE)
+                            150 	.area GSINIT2 (CODE)
+                            151 	.area GSINIT3 (CODE)
+                            152 	.area GSINIT4 (CODE)
+                            153 	.area GSINIT5 (CODE)
+                            154 	.area GSINIT  (CODE)
+                            155 	.area GSFINAL (CODE)
+                            156 	.area CSEG    (CODE)
+                            157 ;--------------------------------------------------------
+                            158 ; global & static initialisations
+                            159 ;--------------------------------------------------------
+                            160 	.area HOME    (CODE)
+                            161 	.area GSINIT  (CODE)
+                            162 	.area GSFINAL (CODE)
+                            163 	.area GSINIT  (CODE)
+                            164 ;--------------------------------------------------------
+                            165 ; Home
                             166 ;--------------------------------------------------------
-                            167 ; code
-                            168 ;--------------------------------------------------------
-                            169 	.area CSEG    (CODE)
-                            170 ;------------------------------------------------------------
-                            171 ;Allocation info for local variables in function 'eventQueue_initialize'
-                            172 ;------------------------------------------------------------
-                            173 ;storage                   Allocated with name '_eventQueue_initialize_PARM_2'
-                            174 ;maxEntriesInQueue         Allocated with name '_eventQueue_initialize_PARM_3'
-                            175 ;Q                         Allocated with name '_eventQueue_initialize_Q_1_1'
-                            176 ;------------------------------------------------------------
-                            177 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:14: bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
-                            178 ;	-----------------------------------------
-                            179 ;	 function eventQueue_initialize
-                            180 ;	-----------------------------------------
-   0000                     181 _eventQueue_initialize:
-                    0002    182 	ar2 = 0x02
-                    0003    183 	ar3 = 0x03
-                    0004    184 	ar4 = 0x04
-                    0005    185 	ar5 = 0x05
-                    0006    186 	ar6 = 0x06
-                    0007    187 	ar7 = 0x07
-                    0000    188 	ar0 = 0x00
-                    0001    189 	ar1 = 0x01
-   0000 AA F0               190 	mov	r2,b
-   0002 AB 83               191 	mov	r3,dph
-   0004 E5 82               192 	mov	a,dpl
-   0006 90s00r04            193 	mov	dptr,#_eventQueue_initialize_Q_1_1
-   0009 F0                  194 	movx	@dptr,a
-   000A A3                  195 	inc	dptr
-   000B EB                  196 	mov	a,r3
-   000C F0                  197 	movx	@dptr,a
-   000D A3                  198 	inc	dptr
-   000E EA                  199 	mov	a,r2
-   000F F0                  200 	movx	@dptr,a
-                            201 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:16: Q->Capacity	= maxEntriesInQueue ;
-   0010 90s00r04            202 	mov	dptr,#_eventQueue_initialize_Q_1_1
-   0013 E0                  203 	movx	a,@dptr
-   0014 FA                  204 	mov	r2,a
-   0015 A3                  205 	inc	dptr
-   0016 E0                  206 	movx	a,@dptr
-   0017 FB                  207 	mov	r3,a
-   0018 A3                  208 	inc	dptr
-   0019 E0                  209 	movx	a,@dptr
-   001A FC                  210 	mov	r4,a
-   001B 90s00r03            211 	mov	dptr,#_eventQueue_initialize_PARM_3
-   001E E0                  212 	movx	a,@dptr
-   001F 8A 82               213 	mov	dpl,r2
-   0021 8B 83               214 	mov	dph,r3
-   0023 8C F0               215 	mov	b,r4
-   0025 12s00r00            216 	lcall	__gptrput
-                            217 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:17: Q->Size		= 0 ;
-   0028 74 03               218 	mov	a,#0x03
-   002A 2A                  219 	add	a,r2
-   002B FD                  220 	mov	r5,a
-   002C E4                  221 	clr	a
-   002D 3B                  222 	addc	a,r3
-   002E FE                  223 	mov	r6,a
-   002F 8C 07               224 	mov	ar7,r4
-   0031 8D 82               225 	mov	dpl,r5
-   0033 8E 83               226 	mov	dph,r6
-   0035 8F F0               227 	mov	b,r7
-   0037 E4                  228 	clr	a
-   0038 12s00r00            229 	lcall	__gptrput
-                            230 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:18: Q->Front	= 1 ;
-   003B 74 01               231 	mov	a,#0x01
-   003D 2A                  232 	add	a,r2
-   003E FD                  233 	mov	r5,a
-   003F E4                  234 	clr	a
-   0040 3B                  235 	addc	a,r3
-   0041 FE                  236 	mov	r6,a
-   0042 8C 07               237 	mov	ar7,r4
-   0044 8D 82               238 	mov	dpl,r5
-   0046 8E 83               239 	mov	dph,r6
-   0048 8F F0               240 	mov	b,r7
-   004A 74 01               241 	mov	a,#0x01
-   004C 12s00r00            242 	lcall	__gptrput
-                            243 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:19: Q->Rear		= 0 ;
-   004F 74 02               244 	mov	a,#0x02
-   0051 2A                  245 	add	a,r2
-   0052 FD                  246 	mov	r5,a
-   0053 E4                  247 	clr	a
-   0054 3B                  248 	addc	a,r3
-   0055 FE                  249 	mov	r6,a
-   0056 8C 07               250 	mov	ar7,r4
-   0058 8D 82               251 	mov	dpl,r5
-   005A 8E 83               252 	mov	dph,r6
-   005C 8F F0               253 	mov	b,r7
-   005E E4                  254 	clr	a
-   005F 12s00r00            255 	lcall	__gptrput
-                            256 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:20: Q->Array	= storage ;
-   0062 74 04               257 	mov	a,#0x04
-   0064 2A                  258 	add	a,r2
-   0065 FA                  259 	mov	r2,a
-   0066 E4                  260 	clr	a
-   0067 3B                  261 	addc	a,r3
-   0068 FB                  262 	mov	r3,a
-   0069 90s00r00            263 	mov	dptr,#_eventQueue_initialize_PARM_2
-   006C E0                  264 	movx	a,@dptr
-   006D FD                  265 	mov	r5,a
-   006E A3                  266 	inc	dptr
-   006F E0                  267 	movx	a,@dptr
-   0070 FE                  268 	mov	r6,a
-   0071 A3                  269 	inc	dptr
-   0072 E0                  270 	movx	a,@dptr
-   0073 FF                  271 	mov	r7,a
-   0074 8A 82               272 	mov	dpl,r2
-   0076 8B 83               273 	mov	dph,r3
-   0078 8C F0               274 	mov	b,r4
-   007A ED                  275 	mov	a,r5
-   007B 12s00r00            276 	lcall	__gptrput
-   007E A3                  277 	inc	dptr
-   007F EE                  278 	mov	a,r6
-   0080 12s00r00            279 	lcall	__gptrput
-   0083 A3                  280 	inc	dptr
-   0084 EF                  281 	mov	a,r7
-   0085 12s00r00            282 	lcall	__gptrput
-                            283 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:22: return true ;
-   0088 D3                  284 	setb	c
-   0089 22                  285 	ret
-                            286 ;------------------------------------------------------------
-                            287 ;Allocation info for local variables in function 'eventQueue_isEmpty'
-                            288 ;------------------------------------------------------------
-                            289 ;Q                         Allocated with name '_eventQueue_isEmpty_Q_1_1'
-                            290 ;------------------------------------------------------------
-                            291 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:26: uint8_t eventQueue_isEmpty(	eventQueue_t* Q)
-                            292 ;	-----------------------------------------
-                            293 ;	 function eventQueue_isEmpty
-                            294 ;	-----------------------------------------
-   008A                     295 _eventQueue_isEmpty:
-   008A AA F0               296 	mov	r2,b
-   008C AB 83               297 	mov	r3,dph
-   008E E5 82               298 	mov	a,dpl
-   0090 90s00r07            299 	mov	dptr,#_eventQueue_isEmpty_Q_1_1
-   0093 F0                  300 	movx	@dptr,a
-   0094 A3                  301 	inc	dptr
-   0095 EB                  302 	mov	a,r3
-   0096 F0                  303 	movx	@dptr,a
-   0097 A3                  304 	inc	dptr
-   0098 EA                  305 	mov	a,r2
-   0099 F0                  306 	movx	@dptr,a
-                            307 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:28: return Q->Size == 0 ;
-   009A 90s00r07            308 	mov	dptr,#_eventQueue_isEmpty_Q_1_1
-   009D E0                  309 	movx	a,@dptr
-   009E FA                  310 	mov	r2,a
-   009F A3                  311 	inc	dptr
-   00A0 E0                  312 	movx	a,@dptr
-   00A1 FB                  313 	mov	r3,a
-   00A2 A3                  314 	inc	dptr
-   00A3 E0                  315 	movx	a,@dptr
-   00A4 FC                  316 	mov	r4,a
-   00A5 74 03               317 	mov	a,#0x03
-   00A7 2A                  318 	add	a,r2
-   00A8 FA                  319 	mov	r2,a
-   00A9 E4                  320 	clr	a
-   00AA 3B                  321 	addc	a,r3
-   00AB FB                  322 	mov	r3,a
-   00AC 8A 82               323 	mov	dpl,r2
-   00AE 8B 83               324 	mov	dph,r3
-   00B0 8C F0               325 	mov	b,r4
-   00B2 12s00r00            326 	lcall	__gptrget
-   00B5 FA                  327 	mov	r2,a
-   00B6 E4                  328 	clr	a
-   00B7 BA 00 01            329 	cjne	r2,#0x00,00103$
-   00BA 04                  330 	inc	a
-   00BB                     331 00103$:
-   00BB F5 82               332 	mov	dpl,a
-   00BD 22                  333 	ret
-                            334 ;------------------------------------------------------------
-                            335 ;Allocation info for local variables in function 'eventQueue_isFull'
-                            336 ;------------------------------------------------------------
-                            337 ;Q                         Allocated with name '_eventQueue_isFull_Q_1_1'
-                            338 ;------------------------------------------------------------
-                            339 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:32: uint8_t eventQueue_isFull(	eventQueue_t* Q)
-                            340 ;	-----------------------------------------
-                            341 ;	 function eventQueue_isFull
-                            342 ;	-----------------------------------------
-   00BE                     343 _eventQueue_isFull:
-   00BE AA F0               344 	mov	r2,b
-   00C0 AB 83               345 	mov	r3,dph
-   00C2 E5 82               346 	mov	a,dpl
-   00C4 90s00r0A            347 	mov	dptr,#_eventQueue_isFull_Q_1_1
-   00C7 F0                  348 	movx	@dptr,a
-   00C8 A3                  349 	inc	dptr
-   00C9 EB                  350 	mov	a,r3
-   00CA F0                  351 	movx	@dptr,a
-   00CB A3                  352 	inc	dptr
-   00CC EA                  353 	mov	a,r2
-   00CD F0                  354 	movx	@dptr,a
-                            355 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:34: return Q->Size == Q->Capacity ;
-   00CE 90s00r0A            356 	mov	dptr,#_eventQueue_isFull_Q_1_1
-   00D1 E0                  357 	movx	a,@dptr
-   00D2 FA                  358 	mov	r2,a
-   00D3 A3                  359 	inc	dptr
-   00D4 E0                  360 	movx	a,@dptr
-   00D5 FB                  361 	mov	r3,a
-   00D6 A3                  362 	inc	dptr
-   00D7 E0                  363 	movx	a,@dptr
-   00D8 FC                  364 	mov	r4,a
-   00D9 74 03               365 	mov	a,#0x03
-   00DB 2A                  366 	add	a,r2
-   00DC FD                  367 	mov	r5,a
-   00DD E4                  368 	clr	a
-   00DE 3B                  369 	addc	a,r3
-   00DF FE                  370 	mov	r6,a
-   00E0 8C 07               371 	mov	ar7,r4
-   00E2 8D 82               372 	mov	dpl,r5
-   00E4 8E 83               373 	mov	dph,r6
-   00E6 8F F0               374 	mov	b,r7
-   00E8 12s00r00            375 	lcall	__gptrget
-   00EB FD                  376 	mov	r5,a
-   00EC 8A 82               377 	mov	dpl,r2
-   00EE 8B 83               378 	mov	dph,r3
-   00F0 8C F0               379 	mov	b,r4
-   00F2 12s00r00            380 	lcall	__gptrget
-   00F5 FA                  381 	mov	r2,a
-   00F6 ED                  382 	mov	a,r5
-   00F7 B5 02 04            383 	cjne	a,ar2,00103$
-   00FA 74 01               384 	mov	a,#0x01
-   00FC 80 01               385 	sjmp	00104$
-   00FE                     386 00103$:
-   00FE E4                  387 	clr	a
-   00FF                     388 00104$:
-   00FF F5 82               389 	mov	dpl,a
-   0101 22                  390 	ret
-                            391 ;------------------------------------------------------------
-                            392 ;Allocation info for local variables in function 'nextLocationFromPoint'
-                            393 ;------------------------------------------------------------
-                            394 ;location                  Allocated with name '_nextLocationFromPoint_PARM_2'
-                            395 ;Q                         Allocated with name '_nextLocationFromPoint_Q_1_1'
-                            396 ;------------------------------------------------------------
-                            397 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:38: static eventQueueIndex_t nextLocationFromPoint(	eventQueue_t* Q, eventQueueIndex_t location)
-                            398 ;	-----------------------------------------
-                            399 ;	 function nextLocationFromPoint
-                            400 ;	-----------------------------------------
-   0102                     401 _nextLocationFromPoint:
-   0102 AA F0               402 	mov	r2,b
-   0104 AB 83               403 	mov	r3,dph
-   0106 E5 82               404 	mov	a,dpl
-   0108 90s00r0E            405 	mov	dptr,#_nextLocationFromPoint_Q_1_1
-   010B F0                  406 	movx	@dptr,a
-   010C A3                  407 	inc	dptr
-   010D EB                  408 	mov	a,r3
-   010E F0                  409 	movx	@dptr,a
-   010F A3                  410 	inc	dptr
-   0110 EA                  411 	mov	a,r2
-   0111 F0                  412 	movx	@dptr,a
-                            413 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:40: if(++location == Q->Capacity)
-   0112 90s00r0D            414 	mov	dptr,#_nextLocationFromPoint_PARM_2
-   0115 E0                  415 	movx	a,@dptr
-   0116 24 01               416 	add	a,#0x01
-   0118 F0                  417 	movx	@dptr,a
-   0119 90s00r0E            418 	mov	dptr,#_nextLocationFromPoint_Q_1_1
-   011C E0                  419 	movx	a,@dptr
-   011D FA                  420 	mov	r2,a
-   011E A3                  421 	inc	dptr
-   011F E0                  422 	movx	a,@dptr
-   0120 FB                  423 	mov	r3,a
-   0121 A3                  424 	inc	dptr
-   0122 E0                  425 	movx	a,@dptr
-   0123 FC                  426 	mov	r4,a
-   0124 8A 82               427 	mov	dpl,r2
-   0126 8B 83               428 	mov	dph,r3
-   0128 8C F0               429 	mov	b,r4
-   012A 12s00r00            430 	lcall	__gptrget
-   012D FA                  431 	mov	r2,a
-   012E 90s00r0D            432 	mov	dptr,#_nextLocationFromPoint_PARM_2
-   0131 E0                  433 	movx	a,@dptr
-   0132 FB                  434 	mov	r3,a
-   0133 B5 02 05            435 	cjne	a,ar2,00102$
-                            436 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:42: location = 0 ;
-   0136 90s00r0D            437 	mov	dptr,#_nextLocationFromPoint_PARM_2
-   0139 E4                  438 	clr	a
-   013A F0                  439 	movx	@dptr,a
-   013B                     440 00102$:
-                            441 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:45: return location ;
-   013B 90s00r0D            442 	mov	dptr,#_nextLocationFromPoint_PARM_2
-   013E E0                  443 	movx	a,@dptr
-   013F F5 82               444 	mov	dpl,a
-   0141 22                  445 	ret
-                            446 ;------------------------------------------------------------
-                            447 ;Allocation info for local variables in function 'eventQueue_insert'
-                            448 ;------------------------------------------------------------
-                            449 ;event                     Allocated with name '_eventQueue_insert_PARM_2'
-                            450 ;Q                         Allocated with name '_eventQueue_insert_Q_1_1'
-                            451 ;------------------------------------------------------------
-                            452 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:51: bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
-                            453 ;	-----------------------------------------
-                            454 ;	 function eventQueue_insert
-                            455 ;	-----------------------------------------
-   0142                     456 _eventQueue_insert:
-   0142 AA F0               457 	mov	r2,b
-   0144 AB 83               458 	mov	r3,dph
-   0146 E5 82               459 	mov	a,dpl
-   0148 90s00r14            460 	mov	dptr,#_eventQueue_insert_Q_1_1
-   014B F0                  461 	movx	@dptr,a
-   014C A3                  462 	inc	dptr
-   014D EB                  463 	mov	a,r3
-   014E F0                  464 	movx	@dptr,a
-   014F A3                  465 	inc	dptr
-   0150 EA                  466 	mov	a,r2
-   0151 F0                  467 	movx	@dptr,a
-                            468 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:53: if(!eventQueue_isFull(Q))
-   0152 90s00r14            469 	mov	dptr,#_eventQueue_insert_Q_1_1
-   0155 E0                  470 	movx	a,@dptr
-   0156 FA                  471 	mov	r2,a
-   0157 A3                  472 	inc	dptr
-   0158 E0                  473 	movx	a,@dptr
-   0159 FB                  474 	mov	r3,a
-   015A A3                  475 	inc	dptr
-   015B E0                  476 	movx	a,@dptr
-   015C FC                  477 	mov	r4,a
-   015D 8A 82               478 	mov	dpl,r2
-   015F 8B 83               479 	mov	dph,r3
-   0161 8C F0               480 	mov	b,r4
-   0163 12s00rBE            481 	lcall	_eventQueue_isFull
-   0166 E5 82               482 	mov	a,dpl
-   0168 60 03               483 	jz	00110$
-   016A 02s02r96            484 	ljmp	00102$
-   016D                     485 00110$:
-                            486 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:55: Q->Size++ ;
-   016D 90s00r14            487 	mov	dptr,#_eventQueue_insert_Q_1_1
-   0170 E0                  488 	movx	a,@dptr
-   0171 FA                  489 	mov	r2,a
-   0172 A3                  490 	inc	dptr
-   0173 E0                  491 	movx	a,@dptr
-   0174 FB                  492 	mov	r3,a
-   0175 A3                  493 	inc	dptr
-   0176 E0                  494 	movx	a,@dptr
-   0177 FC                  495 	mov	r4,a
-   0178 74 03               496 	mov	a,#0x03
-   017A 2A                  497 	add	a,r2
-   017B FD                  498 	mov	r5,a
-   017C E4                  499 	clr	a
-   017D 3B                  500 	addc	a,r3
-   017E FE                  501 	mov	r6,a
-   017F 8C 07               502 	mov	ar7,r4
-   0181 8D 82               503 	mov	dpl,r5
-   0183 8E 83               504 	mov	dph,r6
-   0185 8F F0               505 	mov	b,r7
-   0187 12s00r00            506 	lcall	__gptrget
-   018A F8                  507 	mov	r0,a
-   018B 08                  508 	inc	r0
-   018C 8D 82               509 	mov	dpl,r5
-   018E 8E 83               510 	mov	dph,r6
-   0190 8F F0               511 	mov	b,r7
-   0192 E8                  512 	mov	a,r0
-   0193 12s00r00            513 	lcall	__gptrput
-                            514 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:56: Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
-   0196 74 02               515 	mov	a,#0x02
-   0198 2A                  516 	add	a,r2
-   0199 FD                  517 	mov	r5,a
-   019A E4                  518 	clr	a
-   019B 3B                  519 	addc	a,r3
-   019C FE                  520 	mov	r6,a
-   019D 8C 07               521 	mov	ar7,r4
-   019F 8D 82               522 	mov	dpl,r5
-   01A1 8E 83               523 	mov	dph,r6
-   01A3 8F F0               524 	mov	b,r7
-   01A5 12s00r00            525 	lcall	__gptrget
-   01A8 90s00r0D            526 	mov	dptr,#_nextLocationFromPoint_PARM_2
-   01AB F0                  527 	movx	@dptr,a
-   01AC 8A 82               528 	mov	dpl,r2
-   01AE 8B 83               529 	mov	dph,r3
-   01B0 8C F0               530 	mov	b,r4
-   01B2 C0 05               531 	push	ar5
-   01B4 C0 06               532 	push	ar6
-   01B6 C0 07               533 	push	ar7
-   01B8 12s01r02            534 	lcall	_nextLocationFromPoint
-   01BB AA 82               535 	mov	r2,dpl
-   01BD D0 07               536 	pop	ar7
-   01BF D0 06               537 	pop	ar6
-   01C1 D0 05               538 	pop	ar5
-   01C3 8D 82               539 	mov	dpl,r5
-   01C5 8E 83               540 	mov	dph,r6
-   01C7 8F F0               541 	mov	b,r7
-   01C9 EA                  542 	mov	a,r2
-   01CA 12s00r00            543 	lcall	__gptrput
-                            544 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:57: Q->Array[Q->Rear] = event ;
-   01CD 90s00r14            545 	mov	dptr,#_eventQueue_insert_Q_1_1
-   01D0 E0                  546 	movx	a,@dptr
-   01D1 FA                  547 	mov	r2,a
-   01D2 A3                  548 	inc	dptr
-   01D3 E0                  549 	movx	a,@dptr
-   01D4 FB                  550 	mov	r3,a
-   01D5 A3                  551 	inc	dptr
-   01D6 E0                  552 	movx	a,@dptr
-   01D7 FC                  553 	mov	r4,a
-   01D8 74 04               554 	mov	a,#0x04
-   01DA 2A                  555 	add	a,r2
-   01DB FD                  556 	mov	r5,a
-   01DC E4                  557 	clr	a
-   01DD 3B                  558 	addc	a,r3
-   01DE FE                  559 	mov	r6,a
-   01DF 8C 07               560 	mov	ar7,r4
-   01E1 8D 82               561 	mov	dpl,r5
-   01E3 8E 83               562 	mov	dph,r6
-   01E5 8F F0               563 	mov	b,r7
-   01E7 12s00r00            564 	lcall	__gptrget
-   01EA FD                  565 	mov	r5,a
-   01EB A3                  566 	inc	dptr
-   01EC 12s00r00            567 	lcall	__gptrget
-   01EF FE                  568 	mov	r6,a
-   01F0 A3                  569 	inc	dptr
-   01F1 12s00r00            570 	lcall	__gptrget
-   01F4 FF                  571 	mov	r7,a
-   01F5 74 02               572 	mov	a,#0x02
-   01F7 2A                  573 	add	a,r2
-   01F8 FA                  574 	mov	r2,a
-   01F9 E4                  575 	clr	a
-   01FA 3B                  576 	addc	a,r3
-   01FB FB                  577 	mov	r3,a
-   01FC 8A 82               578 	mov	dpl,r2
-   01FE 8B 83               579 	mov	dph,r3
-   0200 8C F0               580 	mov	b,r4
-   0202 12s00r00            581 	lcall	__gptrget
-   0205 FA                  582 	mov	r2,a
-   0206 C2 D5               583 	clr	F0
-   0208 75 F0 03            584 	mov	b,#0x03
-   020B EA                  585 	mov	a,r2
-   020C 30 E7 04            586 	jnb	acc.7,00111$
-   020F B2 D5               587 	cpl	F0
-   0211 F4                  588 	cpl	a
-   0212 04                  589 	inc	a
-   0213                     590 00111$:
-   0213 A4                  591 	mul	ab
-   0214 30 D5 0A            592 	jnb	F0,00112$
-   0217 F4                  593 	cpl	a
-   0218 24 01               594 	add	a,#0x01
-   021A C5 F0               595 	xch	a,b
-   021C F4                  596 	cpl	a
-   021D 34 00               597 	addc	a,#0x00
-   021F C5 F0               598 	xch	a,b
-   0221                     599 00112$:
-   0221 2D                  600 	add	a,r5
-   0222 FD                  601 	mov	r5,a
-   0223 EE                  602 	mov	a,r6
-   0224 35 F0               603 	addc	a,b
-   0226 FE                  604 	mov	r6,a
-   0227 90s00r11            605 	mov	dptr,#_eventQueue_insert_PARM_2
-   022A E0                  606 	movx	a,@dptr
-   022B FA                  607 	mov	r2,a
-   022C A3                  608 	inc	dptr
-   022D E0                  609 	movx	a,@dptr
-   022E FB                  610 	mov	r3,a
-   022F A3                  611 	inc	dptr
-   0230 E0                  612 	movx	a,@dptr
-   0231 FC                  613 	mov	r4,a
-   0232 8D 82               614 	mov	dpl,r5
-   0234 8E 83               615 	mov	dph,r6
-   0236 8F F0               616 	mov	b,r7
-   0238 EA                  617 	mov	a,r2
-   0239 12s00r00            618 	lcall	__gptrput
-   023C A3                  619 	inc	dptr
-   023D EB                  620 	mov	a,r3
-   023E 12s00r00            621 	lcall	__gptrput
-   0241 A3                  622 	inc	dptr
-   0242 EC                  623 	mov	a,r4
-   0243 12s00r00            624 	lcall	__gptrput
-                            625 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:59: printf("\t\t\tPosting event type: %s\n", event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
-   0246 8A 82               626 	mov	dpl,r2
-   0248 8B 83               627 	mov	dph,r3
-   024A 8C F0               628 	mov	b,r4
-   024C 12s00r00            629 	lcall	__gptrget
-   024F FA                  630 	mov	r2,a
-   0250 C3                  631 	clr	c
-   0251 74 05               632 	mov	a,#0x05
-   0253 9A                  633 	subb	a,r2
-   0254 B3                  634 	cpl	c
-   0255 E4                  635 	clr	a
-   0256 33                  636 	rlc	a
-   0257 FB                  637 	mov	r3,a
-   0258 60 19               638 	jz	00106$
-   025A EA                  639 	mov	a,r2
-   025B 75 F0 03            640 	mov	b,#0x03
-   025E A4                  641 	mul	ab
-   025F 24r00               642 	add	a,#_eventTypes
-   0261 F5 82               643 	mov	dpl,a
-   0263 74s00               644 	mov	a,#(_eventTypes >> 8)
-   0265 35 F0               645 	addc	a,b
-   0267 F5 83               646 	mov	dph,a
-   0269 E0                  647 	movx	a,@dptr
-   026A FA                  648 	mov	r2,a
-   026B A3                  649 	inc	dptr
-   026C E0                  650 	movx	a,@dptr
-   026D FB                  651 	mov	r3,a
-   026E A3                  652 	inc	dptr
-   026F E0                  653 	movx	a,@dptr
-   0270 FC                  654 	mov	r4,a
-   0271 80 06               655 	sjmp	00107$
-   0273                     656 00106$:
-   0273 7Ar1B               657 	mov	r2,#__str_1
-   0275 7Bs00               658 	mov	r3,#(__str_1 >> 8)
-   0277 7C 80               659 	mov	r4,#0x80
-   0279                     660 00107$:
-   0279 C0 02               661 	push	ar2
-   027B C0 03               662 	push	ar3
-   027D C0 04               663 	push	ar4
-   027F 74r00               664 	mov	a,#__str_0
-   0281 C0 E0               665 	push	acc
-   0283 74s00               666 	mov	a,#(__str_0 >> 8)
-   0285 C0 E0               667 	push	acc
-   0287 74 80               668 	mov	a,#0x80
-   0289 C0 E0               669 	push	acc
-   028B 12s00r00            670 	lcall	_printf
-   028E E5 81               671 	mov	a,sp
-   0290 24 FA               672 	add	a,#0xfa
-   0292 F5 81               673 	mov	sp,a
-                            674 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:61: return true ;
-   0294 D3                  675 	setb	c
-   0295 22                  676 	ret
-   0296                     677 00102$:
-                            678 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:65: return false ;
-   0296 C3                  679 	clr	c
-   0297 22                  680 	ret
-                            681 ;------------------------------------------------------------
-                            682 ;Allocation info for local variables in function 'eventQueue_remove'
-                            683 ;------------------------------------------------------------
-                            684 ;sloc0                     Allocated with name '_eventQueue_remove_sloc0_1_0'
-                            685 ;sloc1                     Allocated with name '_eventQueue_remove_sloc1_1_0'
-                            686 ;sloc2                     Allocated with name '_eventQueue_remove_sloc2_1_0'
-                            687 ;Q                         Allocated with name '_eventQueue_remove_Q_1_1'
-                            688 ;eventReceived             Allocated with name '_eventQueue_remove_eventReceived_2_2'
-                            689 ;------------------------------------------------------------
-                            690 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:70: event_t* eventQueue_remove(	eventQueue_t* Q)
-                            691 ;	-----------------------------------------
-                            692 ;	 function eventQueue_remove
-                            693 ;	-----------------------------------------
-   0298                     694 _eventQueue_remove:
-   0298 AA F0               695 	mov	r2,b
-   029A AB 83               696 	mov	r3,dph
-   029C E5 82               697 	mov	a,dpl
-   029E 90s00r17            698 	mov	dptr,#_eventQueue_remove_Q_1_1
-   02A1 F0                  699 	movx	@dptr,a
-   02A2 A3                  700 	inc	dptr
-   02A3 EB                  701 	mov	a,r3
-   02A4 F0                  702 	movx	@dptr,a
-   02A5 A3                  703 	inc	dptr
-   02A6 EA                  704 	mov	a,r2
-   02A7 F0                  705 	movx	@dptr,a
-                            706 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:72: if(!eventQueue_isEmpty(Q))
-   02A8 90s00r17            707 	mov	dptr,#_eventQueue_remove_Q_1_1
-   02AB E0                  708 	movx	a,@dptr
-   02AC FA                  709 	mov	r2,a
-   02AD A3                  710 	inc	dptr
-   02AE E0                  711 	movx	a,@dptr
-   02AF FB                  712 	mov	r3,a
-   02B0 A3                  713 	inc	dptr
-   02B1 E0                  714 	movx	a,@dptr
-   02B2 FC                  715 	mov	r4,a
-   02B3 8A 82               716 	mov	dpl,r2
-   02B5 8B 83               717 	mov	dph,r3
-   02B7 8C F0               718 	mov	b,r4
-   02B9 12s00r8A            719 	lcall	_eventQueue_isEmpty
-   02BC E5 82               720 	mov	a,dpl
-   02BE 60 03               721 	jz	00107$
-   02C0 02s03r8A            722 	ljmp	00102$
-   02C3                     723 00107$:
-                            724 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:74: event_t* eventReceived = Q->Array[Q->Front] ;
-   02C3 90s00r17            725 	mov	dptr,#_eventQueue_remove_Q_1_1
-   02C6 E0                  726 	movx	a,@dptr
-   02C7 FA                  727 	mov	r2,a
-   02C8 A3                  728 	inc	dptr
-   02C9 E0                  729 	movx	a,@dptr
-   02CA FB                  730 	mov	r3,a
-   02CB A3                  731 	inc	dptr
-   02CC E0                  732 	movx	a,@dptr
-   02CD FC                  733 	mov	r4,a
-   02CE 74 04               734 	mov	a,#0x04
-   02D0 2A                  735 	add	a,r2
-   02D1 FD                  736 	mov	r5,a
-   02D2 E4                  737 	clr	a
-   02D3 3B                  738 	addc	a,r3
-   02D4 FE                  739 	mov	r6,a
-   02D5 8C 07               740 	mov	ar7,r4
-   02D7 8D 82               741 	mov	dpl,r5
-   02D9 8E 83               742 	mov	dph,r6
-   02DB 8F F0               743 	mov	b,r7
-   02DD 12s00r00            744 	lcall	__gptrget
-   02E0 F5*00               745 	mov	_eventQueue_remove_sloc0_1_0,a
-   02E2 A3                  746 	inc	dptr
-   02E3 12s00r00            747 	lcall	__gptrget
-   02E6 F5*01               748 	mov	(_eventQueue_remove_sloc0_1_0 + 1),a
-   02E8 A3                  749 	inc	dptr
-   02E9 12s00r00            750 	lcall	__gptrget
-   02EC F5*02               751 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
-   02EE 74 01               752 	mov	a,#0x01
-   02F0 2A                  753 	add	a,r2
-   02F1 F5*04               754 	mov	_eventQueue_remove_sloc2_1_0,a
-   02F3 E4                  755 	clr	a
-   02F4 3B                  756 	addc	a,r3
-   02F5 F5*05               757 	mov	(_eventQueue_remove_sloc2_1_0 + 1),a
-   02F7 8C*06               758 	mov	(_eventQueue_remove_sloc2_1_0 + 2),r4
-   02F9 85*04 82            759 	mov	dpl,_eventQueue_remove_sloc2_1_0
-   02FC 85*05 83            760 	mov	dph,(_eventQueue_remove_sloc2_1_0 + 1)
-   02FF 85*06 F0            761 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
-   0302 12s00r00            762 	lcall	__gptrget
-   0305 F5*03               763 	mov	_eventQueue_remove_sloc1_1_0,a
-   0307 C2 D5               764 	clr	F0
-   0309 75 F0 03            765 	mov	b,#0x03
-   030C E5*03               766 	mov	a,_eventQueue_remove_sloc1_1_0
-   030E 30 E7 04            767 	jnb	acc.7,00108$
-   0311 B2 D5               768 	cpl	F0
-   0313 F4                  769 	cpl	a
-   0314 04                  770 	inc	a
-   0315                     771 00108$:
-   0315 A4                  772 	mul	ab
-   0316 30 D5 0A            773 	jnb	F0,00109$
-   0319 F4                  774 	cpl	a
-   031A 24 01               775 	add	a,#0x01
-   031C C5 F0               776 	xch	a,b
-   031E F4                  777 	cpl	a
-   031F 34 00               778 	addc	a,#0x00
-   0321 C5 F0               779 	xch	a,b
-   0323                     780 00109$:
-   0323 25*00               781 	add	a,_eventQueue_remove_sloc0_1_0
-   0325 FF                  782 	mov	r7,a
-   0326 E5*01               783 	mov	a,(_eventQueue_remove_sloc0_1_0 + 1)
-   0328 35 F0               784 	addc	a,b
-   032A FE                  785 	mov	r6,a
-   032B AD*02               786 	mov	r5,(_eventQueue_remove_sloc0_1_0 + 2)
-   032D 8F 82               787 	mov	dpl,r7
-   032F 8E 83               788 	mov	dph,r6
-   0331 8D F0               789 	mov	b,r5
-   0333 12s00r00            790 	lcall	__gptrget
-   0336 F5*00               791 	mov	_eventQueue_remove_sloc0_1_0,a
-   0338 A3                  792 	inc	dptr
-   0339 12s00r00            793 	lcall	__gptrget
-   033C F5*01               794 	mov	(_eventQueue_remove_sloc0_1_0 + 1),a
-   033E A3                  795 	inc	dptr
-   033F 12s00r00            796 	lcall	__gptrget
-   0342 F5*02               797 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
-                            798 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:76: Q->Size-- ;
-   0344 74 03               799 	mov	a,#0x03
-   0346 2A                  800 	add	a,r2
-   0347 F8                  801 	mov	r0,a
-   0348 E4                  802 	clr	a
-   0349 3B                  803 	addc	a,r3
-   034A F9                  804 	mov	r1,a
-   034B 8C 05               805 	mov	ar5,r4
-   034D 88 82               806 	mov	dpl,r0
-   034F 89 83               807 	mov	dph,r1
-   0351 8D F0               808 	mov	b,r5
-   0353 12s00r00            809 	lcall	__gptrget
-   0356 FE                  810 	mov	r6,a
-   0357 1E                  811 	dec	r6
-   0358 88 82               812 	mov	dpl,r0
-   035A 89 83               813 	mov	dph,r1
-   035C 8D F0               814 	mov	b,r5
-   035E EE                  815 	mov	a,r6
-   035F 12s00r00            816 	lcall	__gptrput
-                            817 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:77: Q->Front = nextLocationFromPoint(Q, Q->Front) ;
-   0362 90s00r0D            818 	mov	dptr,#_nextLocationFromPoint_PARM_2
-   0365 E5*03               819 	mov	a,_eventQueue_remove_sloc1_1_0
-   0367 F0                  820 	movx	@dptr,a
-   0368 8A 82               821 	mov	dpl,r2
-   036A 8B 83               822 	mov	dph,r3
-   036C 8C F0               823 	mov	b,r4
-   036E 12s01r02            824 	lcall	_nextLocationFromPoint
-   0371 AA 82               825 	mov	r2,dpl
-   0373 85*04 82            826 	mov	dpl,_eventQueue_remove_sloc2_1_0
-   0376 85*05 83            827 	mov	dph,(_eventQueue_remove_sloc2_1_0 + 1)
-   0379 85*06 F0            828 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
-   037C EA                  829 	mov	a,r2
-   037D 12s00r00            830 	lcall	__gptrput
-                            831 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:79: return eventReceived ;
-   0380 85*00 82            832 	mov	dpl,_eventQueue_remove_sloc0_1_0
-   0383 85*01 83            833 	mov	dph,(_eventQueue_remove_sloc0_1_0 + 1)
-   0386 85*02 F0            834 	mov	b,(_eventQueue_remove_sloc0_1_0 + 2)
-   0389 22                  835 	ret
-   038A                     836 00102$:
-                            837 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:83: return (event_t*)0 ;
-   038A 90 00 00            838 	mov	dptr,#0x0000
-   038D 75 F0 00            839 	mov	b,#0x00
-   0390 22                  840 	ret
-                            841 ;------------------------------------------------------------
-                            842 ;Allocation info for local variables in function 'addToDeferredTypeList'
-                            843 ;------------------------------------------------------------
-                            844 ;eventTypeToDefer          Allocated with name '_addToDeferredTypeList_PARM_2'
-                            845 ;sm                        Allocated with name '_addToDeferredTypeList_sm_1_1'
-                            846 ;sloc0                     Allocated with name '_addToDeferredTypeList_sloc0_1_0'
-                            847 ;------------------------------------------------------------
-                            848 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:88: void addToDeferredTypeList(			stateMachine_t* sm, eventType_t	eventTypeToDefer)
-                            849 ;	-----------------------------------------
-                            850 ;	 function addToDeferredTypeList
-                            851 ;	-----------------------------------------
-   0391                     852 _addToDeferredTypeList:
-   0391 AA F0               853 	mov	r2,b
-   0393 AB 83               854 	mov	r3,dph
-   0395 E5 82               855 	mov	a,dpl
-   0397 90s00r1B            856 	mov	dptr,#_addToDeferredTypeList_sm_1_1
-   039A F0                  857 	movx	@dptr,a
-   039B A3                  858 	inc	dptr
-   039C EB                  859 	mov	a,r3
-   039D F0                  860 	movx	@dptr,a
-   039E A3                  861 	inc	dptr
-   039F EA                  862 	mov	a,r2
-   03A0 F0                  863 	movx	@dptr,a
-                            864 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:90: if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
-   03A1 90s00r1B            865 	mov	dptr,#_addToDeferredTypeList_sm_1_1
-   03A4 E0                  866 	movx	a,@dptr
-   03A5 FA                  867 	mov	r2,a
-   03A6 A3                  868 	inc	dptr
-   03A7 E0                  869 	movx	a,@dptr
-   03A8 FB                  870 	mov	r3,a
-   03A9 A3                  871 	inc	dptr
-   03AA E0                  872 	movx	a,@dptr
-   03AB FC                  873 	mov	r4,a
-   03AC 74 13               874 	mov	a,#0x13
-   03AE 2A                  875 	add	a,r2
-   03AF F5*00               876 	mov	_addToDeferredTypeList_sloc0_1_0,a
-   03B1 E4                  877 	clr	a
-   03B2 3B                  878 	addc	a,r3
-   03B3 F5*01               879 	mov	(_addToDeferredTypeList_sloc0_1_0 + 1),a
-   03B5 8C*02               880 	mov	(_addToDeferredTypeList_sloc0_1_0 + 2),r4
-   03B7 85*00 82            881 	mov	dpl,_addToDeferredTypeList_sloc0_1_0
-   03BA 85*01 83            882 	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
-   03BD 85*02 F0            883 	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
-   03C0 12s00r00            884 	lcall	__gptrget
-   03C3 F8                  885 	mov	r0,a
-   03C4 74 12               886 	mov	a,#0x12
-   03C6 2A                  887 	add	a,r2
-   03C7 F9                  888 	mov	r1,a
-   03C8 E4                  889 	clr	a
-   03C9 3B                  890 	addc	a,r3
-   03CA FD                  891 	mov	r5,a
-   03CB 8C 06               892 	mov	ar6,r4
-   03CD 89 82               893 	mov	dpl,r1
-   03CF 8D 83               894 	mov	dph,r5
-   03D1 8E F0               895 	mov	b,r6
-   03D3 12s00r00            896 	lcall	__gptrget
-   03D6 F9                  897 	mov	r1,a
-   03D7 C3                  898 	clr	c
-   03D8 E8                  899 	mov	a,r0
-   03D9 64 80               900 	xrl	a,#0x80
-   03DB 89 F0               901 	mov	b,r1
-   03DD 63 F0 80            902 	xrl	b,#0x80
-   03E0 95 F0               903 	subb	a,b
-   03E2 50 3D               904 	jnc	00103$
-                            905 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:92: sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
-   03E4 74 14               906 	mov	a,#0x14
-   03E6 2A                  907 	add	a,r2
-   03E7 FA                  908 	mov	r2,a
-   03E8 E4                  909 	clr	a
-   03E9 3B                  910 	addc	a,r3
-   03EA FB                  911 	mov	r3,a
-   03EB 8A 82               912 	mov	dpl,r2
-   03ED 8B 83               913 	mov	dph,r3
-   03EF 8C F0               914 	mov	b,r4
-   03F1 12s00r00            915 	lcall	__gptrget
-   03F4 FA                  916 	mov	r2,a
-   03F5 A3                  917 	inc	dptr
-   03F6 12s00r00            918 	lcall	__gptrget
-   03F9 FB                  919 	mov	r3,a
-   03FA A3                  920 	inc	dptr
-   03FB 12s00r00            921 	lcall	__gptrget
-   03FE FC                  922 	mov	r4,a
-   03FF E8                  923 	mov	a,r0
-   0400 2A                  924 	add	a,r2
-   0401 FA                  925 	mov	r2,a
-   0402 E4                  926 	clr	a
-   0403 3B                  927 	addc	a,r3
-   0404 FB                  928 	mov	r3,a
-   0405 90s00r1A            929 	mov	dptr,#_addToDeferredTypeList_PARM_2
-   0408 E0                  930 	movx	a,@dptr
-   0409 FD                  931 	mov	r5,a
-   040A 8A 82               932 	mov	dpl,r2
-   040C 8B 83               933 	mov	dph,r3
-   040E 8C F0               934 	mov	b,r4
-   0410 12s00r00            935 	lcall	__gptrput
-                            936 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:94: sm->currentDepthOfEventsToDeferList++ ;
-   0413 08                  937 	inc	r0
-   0414 85*00 82            938 	mov	dpl,_addToDeferredTypeList_sloc0_1_0
-   0417 85*01 83            939 	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
-   041A 85*02 F0            940 	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
-   041D E8                  941 	mov	a,r0
-   041E 02s00r00            942 	ljmp	__gptrput
-   0421                     943 00103$:
-   0421 22                  944 	ret
-                            945 ;------------------------------------------------------------
-                            946 ;Allocation info for local variables in function 'isEventTypeDeferred'
-                            947 ;------------------------------------------------------------
-                            948 ;eventTypeToCheck          Allocated with name '_isEventTypeDeferred_PARM_2'
-                            949 ;sm                        Allocated with name '_isEventTypeDeferred_sm_1_1'
-                            950 ;i                         Allocated with name '_isEventTypeDeferred_i_1_1'
-                            951 ;sloc0                     Allocated with name '_isEventTypeDeferred_sloc0_1_0'
-                            952 ;------------------------------------------------------------
-                            953 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:99: bool isEventTypeDeferred(			stateMachine_t* sm, eventType_t	eventTypeToCheck)
-                            954 ;	-----------------------------------------
-                            955 ;	 function isEventTypeDeferred
-                            956 ;	-----------------------------------------
-   0422                     957 _isEventTypeDeferred:
-   0422 AA F0               958 	mov	r2,b
-   0424 AB 83               959 	mov	r3,dph
-   0426 E5 82               960 	mov	a,dpl
-   0428 90s00r1F            961 	mov	dptr,#_isEventTypeDeferred_sm_1_1
-   042B F0                  962 	movx	@dptr,a
-   042C A3                  963 	inc	dptr
-   042D EB                  964 	mov	a,r3
-   042E F0                  965 	movx	@dptr,a
-   042F A3                  966 	inc	dptr
-   0430 EA                  967 	mov	a,r2
-   0431 F0                  968 	movx	@dptr,a
-                            969 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:103: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
-   0432 90s00r1E            970 	mov	dptr,#_isEventTypeDeferred_PARM_2
-   0435 E0                  971 	movx	a,@dptr
-   0436 FA                  972 	mov	r2,a
-   0437 90s00r1F            973 	mov	dptr,#_isEventTypeDeferred_sm_1_1
-   043A E0                  974 	movx	a,@dptr
-   043B FB                  975 	mov	r3,a
-   043C A3                  976 	inc	dptr
-   043D E0                  977 	movx	a,@dptr
-   043E FC                  978 	mov	r4,a
-   043F A3                  979 	inc	dptr
-   0440 E0                  980 	movx	a,@dptr
-   0441 FD                  981 	mov	r5,a
-   0442 74 13               982 	mov	a,#0x13
-   0444 2B                  983 	add	a,r3
-   0445 F5*00               984 	mov	_isEventTypeDeferred_sloc0_1_0,a
-   0447 E4                  985 	clr	a
-   0448 3C                  986 	addc	a,r4
-   0449 F5*01               987 	mov	(_isEventTypeDeferred_sloc0_1_0 + 1),a
-   044B 8D*02               988 	mov	(_isEventTypeDeferred_sloc0_1_0 + 2),r5
-   044D 79 00               989 	mov	r1,#0x00
-   044F                     990 00103$:
-   044F C0 02               991 	push	ar2
-   0451 89 02               992 	mov	ar2,r1
-   0453 7E 00               993 	mov	r6,#0x00
-   0455 85*00 82            994 	mov	dpl,_isEventTypeDeferred_sloc0_1_0
-   0458 85*01 83            995 	mov	dph,(_isEventTypeDeferred_sloc0_1_0 + 1)
-   045B 85*02 F0            996 	mov	b,(_isEventTypeDeferred_sloc0_1_0 + 2)
-   045E 12s00r00            997 	lcall	__gptrget
-   0461 FF                  998 	mov	r7,a
-   0462 33                  999 	rlc	a
-   0463 95 E0              1000 	subb	a,acc
-   0465 F8                 1001 	mov	r0,a
-   0466 C3                 1002 	clr	c
-   0467 EA                 1003 	mov	a,r2
-   0468 9F                 1004 	subb	a,r7
-   0469 EE                 1005 	mov	a,r6
-   046A 64 80              1006 	xrl	a,#0x80
-   046C 88 F0              1007 	mov	b,r0
-   046E 63 F0 80           1008 	xrl	b,#0x80
-   0471 95 F0              1009 	subb	a,b
-   0473 D0 02              1010 	pop	ar2
-   0475 50 35              1011 	jnc	00106$
-                           1012 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:105: if(sm->typesOfEventsToDefer[i] == eventTypeToCheck)
-   0477 74 14              1013 	mov	a,#0x14
-   0479 2B                 1014 	add	a,r3
-   047A FE                 1015 	mov	r6,a
-   047B E4                 1016 	clr	a
-   047C 3C                 1017 	addc	a,r4
-   047D FF                 1018 	mov	r7,a
-   047E 8D 00              1019 	mov	ar0,r5
-   0480 8E 82              1020 	mov	dpl,r6
-   0482 8F 83              1021 	mov	dph,r7
-   0484 88 F0              1022 	mov	b,r0
-   0486 12s00r00           1023 	lcall	__gptrget
-   0489 FE                 1024 	mov	r6,a
-   048A A3                 1025 	inc	dptr
-   048B 12s00r00           1026 	lcall	__gptrget
-   048E FF                 1027 	mov	r7,a
-   048F A3                 1028 	inc	dptr
-   0490 12s00r00           1029 	lcall	__gptrget
-   0493 F8                 1030 	mov	r0,a
-   0494 E9                 1031 	mov	a,r1
-   0495 2E                 1032 	add	a,r6
-   0496 FE                 1033 	mov	r6,a
-   0497 E4                 1034 	clr	a
-   0498 3F                 1035 	addc	a,r7
-   0499 FF                 1036 	mov	r7,a
-   049A 8E 82              1037 	mov	dpl,r6
-   049C 8F 83              1038 	mov	dph,r7
-   049E 88 F0              1039 	mov	b,r0
-   04A0 12s00r00           1040 	lcall	__gptrget
-   04A3 FE                 1041 	mov	r6,a
-   04A4 B5 02 02           1042 	cjne	a,ar2,00105$
-                           1043 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:107: return true ;
-   04A7 D3                 1044 	setb	c
-   04A8 22                 1045 	ret
-   04A9                    1046 00105$:
-                           1047 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:103: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
-   04A9 09                 1048 	inc	r1
-   04AA 80 A3              1049 	sjmp	00103$
-   04AC                    1050 00106$:
-                           1051 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:111: return false ;
-   04AC C3                 1052 	clr	c
-   04AD 22                 1053 	ret
-                           1054 ;------------------------------------------------------------
-                           1055 ;Allocation info for local variables in function 'removeFromDeferredTypeList'
-                           1056 ;------------------------------------------------------------
-                           1057 ;sloc0                     Allocated with name '_removeFromDeferredTypeList_sloc0_1_0'
-                           1058 ;sloc1                     Allocated with name '_removeFromDeferredTypeList_sloc1_1_0'
-                           1059 ;sloc2                     Allocated with name '_removeFromDeferredTypeList_sloc2_1_0'
-                           1060 ;sloc3                     Allocated with name '_removeFromDeferredTypeList_sloc3_1_0'
-                           1061 ;sloc4                     Allocated with name '_removeFromDeferredTypeList_sloc4_1_0'
-                           1062 ;eventTypeToUnDefer        Allocated with name '_removeFromDeferredTypeList_PARM_2'
-                           1063 ;sm                        Allocated with name '_removeFromDeferredTypeList_sm_1_1'
-                           1064 ;i                         Allocated with name '_removeFromDeferredTypeList_i_2_2'
-                           1065 ;firstEvent                Allocated with name '_removeFromDeferredTypeList_firstEvent_3_5'
-                           1066 ;currentEvent              Allocated with name '_removeFromDeferredTypeList_currentEvent_3_5'
-                           1067 ;------------------------------------------------------------
-                           1068 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:115: void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t	eventTypeToUnDefer)
-                           1069 ;	-----------------------------------------
-                           1070 ;	 function removeFromDeferredTypeList
-                           1071 ;	-----------------------------------------
-   04AE                    1072 _removeFromDeferredTypeList:
-   04AE AA F0              1073 	mov	r2,b
-   04B0 AB 83              1074 	mov	r3,dph
-   04B2 E5 82              1075 	mov	a,dpl
-   04B4 90s00r23           1076 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
-   04B7 F0                 1077 	movx	@dptr,a
-   04B8 A3                 1078 	inc	dptr
-   04B9 EB                 1079 	mov	a,r3
-   04BA F0                 1080 	movx	@dptr,a
-   04BB A3                 1081 	inc	dptr
-   04BC EA                 1082 	mov	a,r2
-   04BD F0                 1083 	movx	@dptr,a
-                           1084 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:117: if(sm->currentDepthOfEventsToDeferList > 0)
-   04BE 90s00r23           1085 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
-   04C1 E0                 1086 	movx	a,@dptr
-   04C2 FA                 1087 	mov	r2,a
-   04C3 A3                 1088 	inc	dptr
-   04C4 E0                 1089 	movx	a,@dptr
-   04C5 FB                 1090 	mov	r3,a
-   04C6 A3                 1091 	inc	dptr
-   04C7 E0                 1092 	movx	a,@dptr
-   04C8 FC                 1093 	mov	r4,a
-   04C9 74 13              1094 	mov	a,#0x13
-   04CB 2A                 1095 	add	a,r2
-   04CC FA                 1096 	mov	r2,a
-   04CD E4                 1097 	clr	a
-   04CE 3B                 1098 	addc	a,r3
-   04CF FB                 1099 	mov	r3,a
-   04D0 8A 82              1100 	mov	dpl,r2
-   04D2 8B 83              1101 	mov	dph,r3
-   04D4 8C F0              1102 	mov	b,r4
-   04D6 12s00r00           1103 	lcall	__gptrget
-   04D9 FA                 1104 	mov	r2,a
-   04DA C3                 1105 	clr	c
-   04DB 74 80              1106 	mov	a,#(0x00 ^ 0x80)
-   04DD 8A F0              1107 	mov	b,r2
-   04DF 63 F0 80           1108 	xrl	b,#0x80
-   04E2 95 F0              1109 	subb	a,b
-   04E4 40 01              1110 	jc	00136$
-   04E6 22                 1111 	ret
-   04E7                    1112 00136$:
-                           1113 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:119: bool				found = false ;
-   04E7 C2*00              1114 	clr	_removeFromDeferredTypeList_found_2_2
-                           1115 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:122: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i >= 0 ; i-- )
-   04E9 1A                 1116 	dec	r2
-   04EA 90s00r26           1117 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
-   04ED EA                 1118 	mov	a,r2
-   04EE F0                 1119 	movx	@dptr,a
-   04EF 90s00r22           1120 	mov	dptr,#_removeFromDeferredTypeList_PARM_2
-   04F2 E0                 1121 	movx	a,@dptr
-   04F3 F5*08              1122 	mov	_removeFromDeferredTypeList_sloc1_1_0,a
-   04F5                    1123 00103$:
-   04F5 EA                 1124 	mov	a,r2
-   04F6 20 E7 63           1125 	jb	acc.7,00106$
-                           1126 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:124: if(sm->typesOfEventsToDefer[i] == eventTypeToUnDefer)
-   04F9 90s00r23           1127 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
-   04FC E0                 1128 	movx	a,@dptr
-   04FD FC                 1129 	mov	r4,a
-   04FE A3                 1130 	inc	dptr
-   04FF E0                 1131 	movx	a,@dptr
-   0500 FD                 1132 	mov	r5,a
-   0501 A3                 1133 	inc	dptr
-   0502 E0                 1134 	movx	a,@dptr
-   0503 FE                 1135 	mov	r6,a
-   0504 74 14              1136 	mov	a,#0x14
-   0506 2C                 1137 	add	a,r4
-   0507 FF                 1138 	mov	r7,a
-   0508 E4                 1139 	clr	a
-   0509 3D                 1140 	addc	a,r5
-   050A F8                 1141 	mov	r0,a
-   050B 8E 01              1142 	mov	ar1,r6
-   050D 8F 82              1143 	mov	dpl,r7
-   050F 88 83              1144 	mov	dph,r0
-   0511 89 F0              1145 	mov	b,r1
-   0513 12s00r00           1146 	lcall	__gptrget
-   0516 FF                 1147 	mov	r7,a
-   0517 A3                 1148 	inc	dptr
-   0518 12s00r00           1149 	lcall	__gptrget
-   051B F8                 1150 	mov	r0,a
-   051C A3                 1151 	inc	dptr
-   051D 12s00r00           1152 	lcall	__gptrget
-   0520 F9                 1153 	mov	r1,a
-   0521 EA                 1154 	mov	a,r2
-   0522 2F                 1155 	add	a,r7
-   0523 FF                 1156 	mov	r7,a
-   0524 E4                 1157 	clr	a
-   0525 38                 1158 	addc	a,r0
-   0526 F8                 1159 	mov	r0,a
-   0527 8F 82              1160 	mov	dpl,r7
-   0529 88 83              1161 	mov	dph,r0
-   052B 89 F0              1162 	mov	b,r1
-   052D 12s00r00           1163 	lcall	__gptrget
-   0530 FF                 1164 	mov	r7,a
-   0531 B5*08 20           1165 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00105$
-                           1166 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:126: found = true ;
-   0534 D2*00              1167 	setb	_removeFromDeferredTypeList_found_2_2
-                           1168 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:128: sm->currentDepthOfEventsToDeferList-- ;
-   0536 74 13              1169 	mov	a,#0x13
-   0538 2C                 1170 	add	a,r4
-   0539 FC                 1171 	mov	r4,a
-   053A E4                 1172 	clr	a
-   053B 3D                 1173 	addc	a,r5
-   053C FD                 1174 	mov	r5,a
-   053D 8C 82              1175 	mov	dpl,r4
-   053F 8D 83              1176 	mov	dph,r5
-   0541 8E F0              1177 	mov	b,r6
-   0543 12s00r00           1178 	lcall	__gptrget
-   0546 FF                 1179 	mov	r7,a
-   0547 1F                 1180 	dec	r7
-   0548 8C 82              1181 	mov	dpl,r4
-   054A 8D 83              1182 	mov	dph,r5
-   054C 8E F0              1183 	mov	b,r6
-   054E EF                 1184 	mov	a,r7
-   054F 12s00r00           1185 	lcall	__gptrput
-                           1186 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:130: break ;
-   0552 80 08              1187 	sjmp	00106$
-   0554                    1188 00105$:
-                           1189 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:122: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i >= 0 ; i-- )
-   0554 1A                 1190 	dec	r2
-   0555 90s00r26           1191 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
-   0558 EA                 1192 	mov	a,r2
-   0559 F0                 1193 	movx	@dptr,a
-   055A 80 99              1194 	sjmp	00103$
-   055C                    1195 00106$:
-                           1196 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:134: if(found)
-   055C 20*00 01           1197 	jb	_removeFromDeferredTypeList_found_2_2,00140$
-   055F 22                 1198 	ret
-   0560                    1199 00140$:
-                           1200 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
-   0560 90s00r23           1201 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
-   0563 E0                 1202 	movx	a,@dptr
-   0564 FA                 1203 	mov	r2,a
-   0565 A3                 1204 	inc	dptr
-   0566 E0                 1205 	movx	a,@dptr
-   0567 FC                 1206 	mov	r4,a
-   0568 A3                 1207 	inc	dptr
-   0569 E0                 1208 	movx	a,@dptr
-   056A FD                 1209 	mov	r5,a
-   056B 74 13              1210 	mov	a,#0x13
-   056D 2A                 1211 	add	a,r2
-   056E FE                 1212 	mov	r6,a
-   056F E4                 1213 	clr	a
-   0570 3C                 1214 	addc	a,r4
-   0571 FF                 1215 	mov	r7,a
-   0572 8D 00              1216 	mov	ar0,r5
-   0574 90s00r26           1217 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
-   0577 E0                 1218 	movx	a,@dptr
-   0578 F9                 1219 	mov	r1,a
-   0579                    1220 00119$:
-   0579 8E 82              1221 	mov	dpl,r6
-   057B 8F 83              1222 	mov	dph,r7
-   057D 88 F0              1223 	mov	b,r0
-   057F 12s00r00           1224 	lcall	__gptrget
-   0582 F5*07              1225 	mov	_removeFromDeferredTypeList_sloc0_1_0,a
-   0584 C3                 1226 	clr	c
-   0585 E9                 1227 	mov	a,r1
-   0586 64 80              1228 	xrl	a,#0x80
-   0588 85*07 F0           1229 	mov	b,_removeFromDeferredTypeList_sloc0_1_0
-   058B 63 F0 80           1230 	xrl	b,#0x80
-   058E 95 F0              1231 	subb	a,b
-   0590 50 67              1232 	jnc	00122$
-                           1233 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:141: sm->typesOfEventsToDefer[i] = sm->typesOfEventsToDefer[i + 1] ;
-   0592 C0 06              1234 	push	ar6
-   0594 C0 07              1235 	push	ar7
-   0596 C0 00              1236 	push	ar0
-   0598 74 14              1237 	mov	a,#0x14
-   059A 2A                 1238 	add	a,r2
-   059B FE                 1239 	mov	r6,a
-   059C E4                 1240 	clr	a
-   059D 3C                 1241 	addc	a,r4
-   059E FF                 1242 	mov	r7,a
-   059F 8D 00              1243 	mov	ar0,r5
-   05A1 8E 82              1244 	mov	dpl,r6
-   05A3 8F 83              1245 	mov	dph,r7
-   05A5 88 F0              1246 	mov	b,r0
-   05A7 12s00r00           1247 	lcall	__gptrget
-   05AA F5*09              1248 	mov	_removeFromDeferredTypeList_sloc2_1_0,a
-   05AC A3                 1249 	inc	dptr
-   05AD 12s00r00           1250 	lcall	__gptrget
-   05B0 F5*0A              1251 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 1),a
-   05B2 A3                 1252 	inc	dptr
-   05B3 12s00r00           1253 	lcall	__gptrget
-   05B6 F5*0B              1254 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 2),a
-   05B8 E9                 1255 	mov	a,r1
-   05B9 25*09              1256 	add	a,_removeFromDeferredTypeList_sloc2_1_0
-   05BB F5*0C              1257 	mov	_removeFromDeferredTypeList_sloc3_1_0,a
-   05BD E4                 1258 	clr	a
-   05BE 35*0A              1259 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
-   05C0 F5*0D              1260 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 1),a
-   05C2 85*0B*0E           1261 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 2),(_removeFromDeferredTypeList_sloc2_1_0 + 2)
-   05C5 E9                 1262 	mov	a,r1
-   05C6 F8                 1263 	mov	r0,a
-   05C7 33                 1264 	rlc	a
-   05C8 95 E0              1265 	subb	a,acc
-   05CA FB                 1266 	mov	r3,a
-   05CB 08                 1267 	inc	r0
-   05CC B8 00 01           1268 	cjne	r0,#0x00,00142$
-   05CF 0B                 1269 	inc	r3
-   05D0                    1270 00142$:
-   05D0 E8                 1271 	mov	a,r0
-   05D1 25*09              1272 	add	a,_removeFromDeferredTypeList_sloc2_1_0
-   05D3 F8                 1273 	mov	r0,a
-   05D4 EB                 1274 	mov	a,r3
-   05D5 35*0A              1275 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
-   05D7 FB                 1276 	mov	r3,a
-   05D8 AE*0B              1277 	mov	r6,(_removeFromDeferredTypeList_sloc2_1_0 + 2)
-   05DA 88 82              1278 	mov	dpl,r0
-   05DC 8B 83              1279 	mov	dph,r3
-   05DE 8E F0              1280 	mov	b,r6
-   05E0 12s00r00           1281 	lcall	__gptrget
-   05E3 85*0C 82           1282 	mov	dpl,_removeFromDeferredTypeList_sloc3_1_0
-   05E6 85*0D 83           1283 	mov	dph,(_removeFromDeferredTypeList_sloc3_1_0 + 1)
-   05E9 85*0E F0           1284 	mov	b,(_removeFromDeferredTypeList_sloc3_1_0 + 2)
-   05EC 12s00r00           1285 	lcall	__gptrput
-                           1286 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
-   05EF 09                 1287 	inc	r1
-   05F0 D0 00              1288 	pop	ar0
-   05F2 D0 07              1289 	pop	ar7
-   05F4 D0 06              1290 	pop	ar6
-   05F6 02s05r79           1291 	ljmp	00119$
-   05F9                    1292 00122$:
-                           1293 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:144: sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = 0 ;
-   05F9 74 14              1294 	mov	a,#0x14
-   05FB 2A                 1295 	add	a,r2
-   05FC FB                 1296 	mov	r3,a
-   05FD E4                 1297 	clr	a
-   05FE 3C                 1298 	addc	a,r4
-   05FF FE                 1299 	mov	r6,a
-   0600 8D 07              1300 	mov	ar7,r5
-   0602 8B 82              1301 	mov	dpl,r3
-   0604 8E 83              1302 	mov	dph,r6
-   0606 8F F0              1303 	mov	b,r7
-   0608 12s00r00           1304 	lcall	__gptrget
-   060B FB                 1305 	mov	r3,a
-   060C A3                 1306 	inc	dptr
-   060D 12s00r00           1307 	lcall	__gptrget
-   0610 FE                 1308 	mov	r6,a
-   0611 A3                 1309 	inc	dptr
-   0612 12s00r00           1310 	lcall	__gptrget
-   0615 FF                 1311 	mov	r7,a
-   0616 E5*07              1312 	mov	a,_removeFromDeferredTypeList_sloc0_1_0
-   0618 2B                 1313 	add	a,r3
-   0619 FB                 1314 	mov	r3,a
-   061A E4                 1315 	clr	a
-   061B 3E                 1316 	addc	a,r6
-   061C FE                 1317 	mov	r6,a
-   061D 8B 82              1318 	mov	dpl,r3
-   061F 8E 83              1319 	mov	dph,r6
-   0621 8F F0              1320 	mov	b,r7
-   0623 E4                 1321 	clr	a
-   0624 12s00r00           1322 	lcall	__gptrput
-                           1323 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:155: currentEvent	= eventQueue_remove(&sm->deferredEventQueue) ;
-   0627 74 17              1324 	mov	a,#0x17
-   0629 2A                 1325 	add	a,r2
-   062A FA                 1326 	mov	r2,a
-   062B E4                 1327 	clr	a
-   062C 3C                 1328 	addc	a,r4
-   062D FC                 1329 	mov	r4,a
-   062E 8A 82              1330 	mov	dpl,r2
-   0630 8C 83              1331 	mov	dph,r4
-   0632 8D F0              1332 	mov	b,r5
-   0634 12s02r98           1333 	lcall	_eventQueue_remove
-   0637 AA 82              1334 	mov	r2,dpl
-   0639 AB 83              1335 	mov	r3,dph
-   063B AC F0              1336 	mov	r4,b
-   063D 90s00r27           1337 	mov	dptr,#_removeFromDeferredTypeList_currentEvent_3_5
-   0640 EA                 1338 	mov	a,r2
-   0641 F0                 1339 	movx	@dptr,a
-   0642 A3                 1340 	inc	dptr
-   0643 EB                 1341 	mov	a,r3
-   0644 F0                 1342 	movx	@dptr,a
-   0645 A3                 1343 	inc	dptr
-   0646 EC                 1344 	mov	a,r4
-   0647 F0                 1345 	movx	@dptr,a
-                           1346 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:158: while(currentEvent)
-   0648 90s00r23           1347 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
-   064B E0                 1348 	movx	a,@dptr
-   064C FD                 1349 	mov	r5,a
-   064D A3                 1350 	inc	dptr
-   064E E0                 1351 	movx	a,@dptr
-   064F FE                 1352 	mov	r6,a
-   0650 A3                 1353 	inc	dptr
-   0651 E0                 1354 	movx	a,@dptr
-   0652 FF                 1355 	mov	r7,a
-   0653 8D*0C              1356 	mov	_removeFromDeferredTypeList_sloc3_1_0,r5
-   0655 8E*0D              1357 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 1),r6
-   0657 8F*0E              1358 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 2),r7
-   0659 8D*09              1359 	mov	_removeFromDeferredTypeList_sloc2_1_0,r5
-   065B 8E*0A              1360 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 1),r6
-   065D 8F*0B              1361 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 2),r7
-   065F                    1362 00112$:
-   065F 90s00r27           1363 	mov	dptr,#_removeFromDeferredTypeList_currentEvent_3_5
-   0662 E0                 1364 	movx	a,@dptr
-   0663 F5*0F              1365 	mov	_removeFromDeferredTypeList_sloc4_1_0,a
-   0665 A3                 1366 	inc	dptr
-   0666 E0                 1367 	movx	a,@dptr
-   0667 F5*10              1368 	mov	(_removeFromDeferredTypeList_sloc4_1_0 + 1),a
-   0669 A3                 1369 	inc	dptr
-   066A E0                 1370 	movx	a,@dptr
-   066B F5*11              1371 	mov	(_removeFromDeferredTypeList_sloc4_1_0 + 2),a
-   066D E5*0F              1372 	mov	a,_removeFromDeferredTypeList_sloc4_1_0
-   066F 45*10              1373 	orl	a,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
-   0671 45*11              1374 	orl	a,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
-   0673 70 01              1375 	jnz	00143$
-   0675 22                 1376 	ret
-   0676                    1377 00143$:
-                           1378 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:168: if(currentEvent->eventType == eventTypeToUnDefer)
-   0676 85*0F 82           1379 	mov	dpl,_removeFromDeferredTypeList_sloc4_1_0
-   0679 85*10 83           1380 	mov	dph,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
-   067C 85*11 F0           1381 	mov	b,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
-   067F 12s00r00           1382 	lcall	__gptrget
-   0682 F8                 1383 	mov	r0,a
-   0683 B5*08 48           1384 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00108$
-                           1385 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:170: eventQueue_insert(&sm->eventQueue, currentEvent) ;
-   0686 C0 02              1386 	push	ar2
-   0688 C0 03              1387 	push	ar3
-   068A C0 04              1388 	push	ar4
-   068C 74 0B              1389 	mov	a,#0x0B
-   068E 25*0C              1390 	add	a,_removeFromDeferredTypeList_sloc3_1_0
-   0690 F8                 1391 	mov	r0,a
-   0691 E4                 1392 	clr	a
-   0692 35*0D              1393 	addc	a,(_removeFromDeferredTypeList_sloc3_1_0 + 1)
-   0694 F9                 1394 	mov	r1,a
-   0695 AA*0E              1395 	mov	r2,(_removeFromDeferredTypeList_sloc3_1_0 + 2)
-   0697 90s00r11           1396 	mov	dptr,#_eventQueue_insert_PARM_2
-   069A E5*0F              1397 	mov	a,_removeFromDeferredTypeList_sloc4_1_0
-   069C F0                 1398 	movx	@dptr,a
-   069D A3                 1399 	inc	dptr
-   069E E5*10              1400 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
-   06A0 F0                 1401 	movx	@dptr,a
-   06A1 A3                 1402 	inc	dptr
-   06A2 E5*11              1403 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
-   06A4 F0                 1404 	movx	@dptr,a
-   06A5 88 82              1405 	mov	dpl,r0
-   06A7 89 83              1406 	mov	dph,r1
-   06A9 8A F0              1407 	mov	b,r2
-   06AB C0 02              1408 	push	ar2
-   06AD C0 03              1409 	push	ar3
-   06AF C0 04              1410 	push	ar4
-   06B1 C0 05              1411 	push	ar5
-   06B3 C0 06              1412 	push	ar6
-   06B5 C0 07              1413 	push	ar7
-   06B7 12s01r42           1414 	lcall	_eventQueue_insert
-   06BA D0 07              1415 	pop	ar7
-   06BC D0 06              1416 	pop	ar6
-   06BE D0 05              1417 	pop	ar5
-   06C0 D0 04              1418 	pop	ar4
-   06C2 D0 03              1419 	pop	ar3
-   06C4 D0 02              1420 	pop	ar2
-   06C6 D0 04              1421 	pop	ar4
-   06C8 D0 03              1422 	pop	ar3
-   06CA D0 02              1423 	pop	ar2
-   06CC 80 44              1424 	sjmp	00109$
-   06CE                    1425 00108$:
-                           1426 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:174: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
-   06CE C0 02              1427 	push	ar2
-   06D0 C0 03              1428 	push	ar3
-   06D2 C0 04              1429 	push	ar4
-   06D4 74 17              1430 	mov	a,#0x17
-   06D6 2D                 1431 	add	a,r5
-   06D7 F8                 1432 	mov	r0,a
-   06D8 E4                 1433 	clr	a
-   06D9 3E                 1434 	addc	a,r6
-   06DA F9                 1435 	mov	r1,a
-   06DB 8F 02              1436 	mov	ar2,r7
-   06DD 90s00r11           1437 	mov	dptr,#_eventQueue_insert_PARM_2
-   06E0 E5*0F              1438 	mov	a,_removeFromDeferredTypeList_sloc4_1_0
-   06E2 F0                 1439 	movx	@dptr,a
-   06E3 A3                 1440 	inc	dptr
-   06E4 E5*10              1441 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
-   06E6 F0                 1442 	movx	@dptr,a
-   06E7 A3                 1443 	inc	dptr
-   06E8 E5*11              1444 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
-   06EA F0                 1445 	movx	@dptr,a
-   06EB 88 82              1446 	mov	dpl,r0
-   06ED 89 83              1447 	mov	dph,r1
-   06EF 8A F0              1448 	mov	b,r2
-   06F1 C0 02              1449 	push	ar2
-   06F3 C0 03              1450 	push	ar3
-   06F5 C0 04              1451 	push	ar4
-   06F7 C0 05              1452 	push	ar5
-   06F9 C0 06              1453 	push	ar6
-   06FB C0 07              1454 	push	ar7
-   06FD 12s01r42           1455 	lcall	_eventQueue_insert
-   0700 D0 07              1456 	pop	ar7
-   0702 D0 06              1457 	pop	ar6
-   0704 D0 05              1458 	pop	ar5
-   0706 D0 04              1459 	pop	ar4
-   0708 D0 03              1460 	pop	ar3
-   070A D0 02              1461 	pop	ar2
-                           1462 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:187: break ;
-   070C D0 04              1463 	pop	ar4
-   070E D0 03              1464 	pop	ar3
-   0710 D0 02              1465 	pop	ar2
-                           1466 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:174: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
-   0712                    1467 00109$:
-                           1468 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:183: currentEvent = eventQueue_remove(&sm->deferredEventQueue) ;
-   0712 C0 05              1469 	push	ar5
-   0714 C0 06              1470 	push	ar6
-   0716 C0 07              1471 	push	ar7
-   0718 74 17              1472 	mov	a,#0x17
-   071A 25*09              1473 	add	a,_removeFromDeferredTypeList_sloc2_1_0
-   071C F8                 1474 	mov	r0,a
-   071D E4                 1475 	clr	a
-   071E 35*0A              1476 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
-   0720 F9                 1477 	mov	r1,a
-   0721 AD*0B              1478 	mov	r5,(_removeFromDeferredTypeList_sloc2_1_0 + 2)
-   0723 88 82              1479 	mov	dpl,r0
-   0725 89 83              1480 	mov	dph,r1
-   0727 8D F0              1481 	mov	b,r5
-   0729 C0 02              1482 	push	ar2
-   072B C0 03              1483 	push	ar3
-   072D C0 04              1484 	push	ar4
-   072F 12s02r98           1485 	lcall	_eventQueue_remove
-   0732 AD 82              1486 	mov	r5,dpl
-   0734 AE 83              1487 	mov	r6,dph
-   0736 AF F0              1488 	mov	r7,b
-   0738 D0 04              1489 	pop	ar4
-   073A D0 03              1490 	pop	ar3
-   073C D0 02              1491 	pop	ar2
-   073E 90s00r27           1492 	mov	dptr,#_removeFromDeferredTypeList_currentEvent_3_5
-   0741 ED                 1493 	mov	a,r5
-   0742 F0                 1494 	movx	@dptr,a
-   0743 A3                 1495 	inc	dptr
-   0744 EE                 1496 	mov	a,r6
-   0745 F0                 1497 	movx	@dptr,a
-   0746 A3                 1498 	inc	dptr
-   0747 EF                 1499 	mov	a,r7
-   0748 F0                 1500 	movx	@dptr,a
-                           1501 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:185: if(currentEvent == firstEvent)
-   0749 ED                 1502 	mov	a,r5
-   074A B5 02 0A           1503 	cjne	a,ar2,00146$
-   074D EE                 1504 	mov	a,r6
-   074E B5 03 06           1505 	cjne	a,ar3,00146$
-   0751 EF                 1506 	mov	a,r7
-   0752 B5 04 02           1507 	cjne	a,ar4,00146$
-   0755 80 09              1508 	sjmp	00147$
-   0757                    1509 00146$:
-   0757 D0 07              1510 	pop	ar7
-   0759 D0 06              1511 	pop	ar6
-   075B D0 05              1512 	pop	ar5
-   075D 02s06r5F           1513 	ljmp	00112$
-   0760                    1514 00147$:
-   0760 D0 07              1515 	pop	ar7
-   0762 D0 06              1516 	pop	ar6
-   0764 D0 05              1517 	pop	ar5
-                           1518 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:187: break ;
-   0766 22                 1519 	ret
-                           1520 ;------------------------------------------------------------
-                           1521 ;Allocation info for local variables in function 'postEventToStateMachine'
-                           1522 ;------------------------------------------------------------
-                           1523 ;event                     Allocated with name '_postEventToStateMachine_PARM_2'
-                           1524 ;sm                        Allocated with name '_postEventToStateMachine_sm_1_1'
-                           1525 ;------------------------------------------------------------
-                           1526 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:195: bool postEventToStateMachine(			stateMachine_t* sm, event_t* event)
-                           1527 ;	-----------------------------------------
-                           1528 ;	 function postEventToStateMachine
-                           1529 ;	-----------------------------------------
-   0767                    1530 _postEventToStateMachine:
-   0767 AA F0              1531 	mov	r2,b
-   0769 AB 83              1532 	mov	r3,dph
-   076B E5 82              1533 	mov	a,dpl
-   076D 90s00r2D           1534 	mov	dptr,#_postEventToStateMachine_sm_1_1
-   0770 F0                 1535 	movx	@dptr,a
-   0771 A3                 1536 	inc	dptr
-   0772 EB                 1537 	mov	a,r3
-   0773 F0                 1538 	movx	@dptr,a
-   0774 A3                 1539 	inc	dptr
-   0775 EA                 1540 	mov	a,r2
-   0776 F0                 1541 	movx	@dptr,a
-                           1542 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:197: if(isEventTypeDeferred(sm, event->eventType))
-   0777 90s00r2D           1543 	mov	dptr,#_postEventToStateMachine_sm_1_1
-   077A E0                 1544 	movx	a,@dptr
-   077B FA                 1545 	mov	r2,a
-   077C A3                 1546 	inc	dptr
-   077D E0                 1547 	movx	a,@dptr
-   077E FB                 1548 	mov	r3,a
-   077F A3                 1549 	inc	dptr
-   0780 E0                 1550 	movx	a,@dptr
-   0781 FC                 1551 	mov	r4,a
-   0782 90s00r2A           1552 	mov	dptr,#_postEventToStateMachine_PARM_2
-   0785 E0                 1553 	movx	a,@dptr
-   0786 FD                 1554 	mov	r5,a
-   0787 A3                 1555 	inc	dptr
-   0788 E0                 1556 	movx	a,@dptr
-   0789 FE                 1557 	mov	r6,a
-   078A A3                 1558 	inc	dptr
-   078B E0                 1559 	movx	a,@dptr
-   078C FF                 1560 	mov	r7,a
-   078D 8D 82              1561 	mov	dpl,r5
-   078F 8E 83              1562 	mov	dph,r6
-   0791 8F F0              1563 	mov	b,r7
-   0793 12s00r00           1564 	lcall	__gptrget
-   0796 90s00r1E           1565 	mov	dptr,#_isEventTypeDeferred_PARM_2
-   0799 F0                 1566 	movx	@dptr,a
-   079A 8A 82              1567 	mov	dpl,r2
-   079C 8B 83              1568 	mov	dph,r3
-   079E 8C F0              1569 	mov	b,r4
-   07A0 C0 05              1570 	push	ar5
-   07A2 C0 06              1571 	push	ar6
-   07A4 C0 07              1572 	push	ar7
-   07A6 12s04r22           1573 	lcall	_isEventTypeDeferred
-   07A9 D0 07              1574 	pop	ar7
-   07AB D0 06              1575 	pop	ar6
-   07AD D0 05              1576 	pop	ar5
-   07AF 50 29              1577 	jnc	00102$
-                           1578 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:199: return eventQueue_insert(&sm->deferredEventQueue, event) ;
-   07B1 90s00r2D           1579 	mov	dptr,#_postEventToStateMachine_sm_1_1
-   07B4 E0                 1580 	movx	a,@dptr
-   07B5 FA                 1581 	mov	r2,a
-   07B6 A3                 1582 	inc	dptr
-   07B7 E0                 1583 	movx	a,@dptr
-   07B8 FB                 1584 	mov	r3,a
-   07B9 A3                 1585 	inc	dptr
-   07BA E0                 1586 	movx	a,@dptr
-   07BB FC                 1587 	mov	r4,a
-   07BC 74 17              1588 	mov	a,#0x17
-   07BE 2A                 1589 	add	a,r2
-   07BF FA                 1590 	mov	r2,a
-   07C0 E4                 1591 	clr	a
-   07C1 3B                 1592 	addc	a,r3
-   07C2 FB                 1593 	mov	r3,a
-   07C3 90s00r11           1594 	mov	dptr,#_eventQueue_insert_PARM_2
-   07C6 ED                 1595 	mov	a,r5
-   07C7 F0                 1596 	movx	@dptr,a
-   07C8 A3                 1597 	inc	dptr
-   07C9 EE                 1598 	mov	a,r6
-   07CA F0                 1599 	movx	@dptr,a
-   07CB A3                 1600 	inc	dptr
-   07CC EF                 1601 	mov	a,r7
-   07CD F0                 1602 	movx	@dptr,a
-   07CE 8A 82              1603 	mov	dpl,r2
-   07D0 8B 83              1604 	mov	dph,r3
-   07D2 8C F0              1605 	mov	b,r4
-   07D4 12s01r42           1606 	lcall	_eventQueue_insert
-   07D7 92*01              1607 	mov  _postEventToStateMachine_sloc0_1_0,c
-   07D9 22                 1608 	ret
-   07DA                    1609 00102$:
-                           1610 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:203: return eventQueue_insert(&sm->eventQueue, event) ;
-   07DA 90s00r2D           1611 	mov	dptr,#_postEventToStateMachine_sm_1_1
-   07DD E0                 1612 	movx	a,@dptr
-   07DE FA                 1613 	mov	r2,a
-   07DF A3                 1614 	inc	dptr
-   07E0 E0                 1615 	movx	a,@dptr
-   07E1 FB                 1616 	mov	r3,a
-   07E2 A3                 1617 	inc	dptr
-   07E3 E0                 1618 	movx	a,@dptr
-   07E4 FC                 1619 	mov	r4,a
-   07E5 74 0B              1620 	mov	a,#0x0B
-   07E7 2A                 1621 	add	a,r2
-   07E8 FA                 1622 	mov	r2,a
-   07E9 E4                 1623 	clr	a
-   07EA 3B                 1624 	addc	a,r3
-   07EB FB                 1625 	mov	r3,a
-   07EC 90s00r11           1626 	mov	dptr,#_eventQueue_insert_PARM_2
-   07EF ED                 1627 	mov	a,r5
-   07F0 F0                 1628 	movx	@dptr,a
-   07F1 A3                 1629 	inc	dptr
-   07F2 EE                 1630 	mov	a,r6
-   07F3 F0                 1631 	movx	@dptr,a
-   07F4 A3                 1632 	inc	dptr
-   07F5 EF                 1633 	mov	a,r7
-   07F6 F0                 1634 	movx	@dptr,a
-   07F7 8A 82              1635 	mov	dpl,r2
-   07F9 8B 83              1636 	mov	dph,r3
-   07FB 8C F0              1637 	mov	b,r4
-   07FD 12s01r42           1638 	lcall	_eventQueue_insert
-   0800 92*01              1639 	mov  _postEventToStateMachine_sloc0_1_0,c
-   0802 22                 1640 	ret
-                           1641 	.area CSEG    (CODE)
-                           1642 	.area CONST   (CODE)
-   0000                    1643 __str_0:
-   0000 09                 1644 	.db 0x09
-   0001 09                 1645 	.db 0x09
-   0002 09                 1646 	.db 0x09
-   0003 50 6F 73 74 69 6E  1647 	.ascii "Posting event type: %s"
+                            167 	.area HOME    (CODE)
+                            168 	.area HOME    (CODE)
+                            169 ;--------------------------------------------------------
+                            170 ; code
+                            171 ;--------------------------------------------------------
+                            172 	.area CSEG    (CODE)
+                            173 ;------------------------------------------------------------
+                            174 ;Allocation info for local variables in function 'hsm_isEventInMask'
+                            175 ;------------------------------------------------------------
+                            176 ;maskSet                   Allocated with name '_hsm_isEventInMask_PARM_2'
+                            177 ;event                     Allocated with name '_hsm_isEventInMask_event_1_1'
+                            178 ;eventType                 Allocated with name '_hsm_isEventInMask_eventType_1_1'
+                            179 ;------------------------------------------------------------
+                            180 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:18: bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
+                            181 ;	-----------------------------------------
+                            182 ;	 function hsm_isEventInMask
+                            183 ;	-----------------------------------------
+   0000                     184 _hsm_isEventInMask:
+                    0002    185 	ar2 = 0x02
+                    0003    186 	ar3 = 0x03
+                    0004    187 	ar4 = 0x04
+                    0005    188 	ar5 = 0x05
+                    0006    189 	ar6 = 0x06
+                    0007    190 	ar7 = 0x07
+                    0000    191 	ar0 = 0x00
+                    0001    192 	ar1 = 0x01
+   0000 AA F0               193 	mov	r2,b
+   0002 AB 83               194 	mov	r3,dph
+   0004 E5 82               195 	mov	a,dpl
+   0006 90s00r03            196 	mov	dptr,#_hsm_isEventInMask_event_1_1
+   0009 F0                  197 	movx	@dptr,a
+   000A A3                  198 	inc	dptr
+   000B EB                  199 	mov	a,r3
+   000C F0                  200 	movx	@dptr,a
+   000D A3                  201 	inc	dptr
+   000E EA                  202 	mov	a,r2
+   000F F0                  203 	movx	@dptr,a
+                            204 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:20: eventType_t	eventType = hsm_getEventType(event) ;
+   0010 90s00r03            205 	mov	dptr,#_hsm_isEventInMask_event_1_1
+   0013 E0                  206 	movx	a,@dptr
+   0014 FA                  207 	mov	r2,a
+   0015 A3                  208 	inc	dptr
+   0016 E0                  209 	movx	a,@dptr
+   0017 FB                  210 	mov	r3,a
+   0018 A3                  211 	inc	dptr
+   0019 E0                  212 	movx	a,@dptr
+   001A FC                  213 	mov	r4,a
+   001B 8A 82               214 	mov	dpl,r2
+   001D 8B 83               215 	mov	dph,r3
+   001F 8C F0               216 	mov	b,r4
+   0021 12s00r00            217 	lcall	__gptrget
+                            218 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:22: if(hsm_isEventInternal(event))
+   0024 FA                  219 	mov  r2,a
+   0025 24 F8               220 	add	a,#0xff - 0x07
+                            221 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:24: return false ;
+   0027 40 01               222 	jc	00102$
+   0029 22                  223 	ret
+   002A                     224 00102$:
+                            225 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:28: return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
+   002A 90s00r00            226 	mov	dptr,#_hsm_isEventInMask_PARM_2
+   002D E0                  227 	movx	a,@dptr
+   002E FB                  228 	mov	r3,a
+   002F A3                  229 	inc	dptr
+   0030 E0                  230 	movx	a,@dptr
+   0031 FC                  231 	mov	r4,a
+   0032 A3                  232 	inc	dptr
+   0033 E0                  233 	movx	a,@dptr
+   0034 FD                  234 	mov	r5,a
+   0035 EA                  235 	mov	a,r2
+   0036 C4                  236 	swap	a
+   0037 23                  237 	rl	a
+   0038 54 1F               238 	anl	a,#0x1f
+   003A 2B                  239 	add	a,r3
+   003B FB                  240 	mov	r3,a
+   003C E4                  241 	clr	a
+   003D 3C                  242 	addc	a,r4
+   003E FC                  243 	mov	r4,a
+   003F 53 02 07            244 	anl	ar2,#0x07
+   0042 8A F0               245 	mov	b,r2
+   0044 05 F0               246 	inc	b
+   0046 7A 01               247 	mov	r2,#0x01
+   0048 7E 00               248 	mov	r6,#0x00
+   004A 80 06               249 	sjmp	00108$
+   004C                     250 00107$:
+   004C EA                  251 	mov	a,r2
+   004D 2A                  252 	add	a,r2
+   004E FA                  253 	mov	r2,a
+   004F EE                  254 	mov	a,r6
+   0050 33                  255 	rlc	a
+   0051 FE                  256 	mov	r6,a
+   0052                     257 00108$:
+   0052 D5 F0 F7            258 	djnz	b,00107$
+   0055 8B 82               259 	mov	dpl,r3
+   0057 8C 83               260 	mov	dph,r4
+   0059 8D F0               261 	mov	b,r5
+   005B 12s00r00            262 	lcall	__gptrget
+   005E 7C 00               263 	mov	r4,#0x00
+   0060 52 02               264 	anl	ar2,a
+   0062 EC                  265 	mov	a,r4
+   0063 52 06               266 	anl	ar6,a
+   0065 EA                  267 	mov	a,r2
+   0066 4E                  268 	orl	a,r6
+   0067 24 FF               269 	add	a,#0xff
+   0069 92*00               270 	mov  _hsm_isEventInMask_sloc0_1_0,c
+   006B 22                  271 	ret
+                            272 ;------------------------------------------------------------
+                            273 ;Allocation info for local variables in function 'eventQueue_initialize'
+                            274 ;------------------------------------------------------------
+                            275 ;storage                   Allocated with name '_eventQueue_initialize_PARM_2'
+                            276 ;maxEntriesInQueue         Allocated with name '_eventQueue_initialize_PARM_3'
+                            277 ;Q                         Allocated with name '_eventQueue_initialize_Q_1_1'
+                            278 ;------------------------------------------------------------
+                            279 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:42: bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
+                            280 ;	-----------------------------------------
+                            281 ;	 function eventQueue_initialize
+                            282 ;	-----------------------------------------
+   006C                     283 _eventQueue_initialize:
+   006C AA F0               284 	mov	r2,b
+   006E AB 83               285 	mov	r3,dph
+   0070 E5 82               286 	mov	a,dpl
+   0072 90s00r0A            287 	mov	dptr,#_eventQueue_initialize_Q_1_1
+   0075 F0                  288 	movx	@dptr,a
+   0076 A3                  289 	inc	dptr
+   0077 EB                  290 	mov	a,r3
+   0078 F0                  291 	movx	@dptr,a
+   0079 A3                  292 	inc	dptr
+   007A EA                  293 	mov	a,r2
+   007B F0                  294 	movx	@dptr,a
+                            295 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:44: Q->Capacity	= maxEntriesInQueue ;
+   007C 90s00r0A            296 	mov	dptr,#_eventQueue_initialize_Q_1_1
+   007F E0                  297 	movx	a,@dptr
+   0080 FA                  298 	mov	r2,a
+   0081 A3                  299 	inc	dptr
+   0082 E0                  300 	movx	a,@dptr
+   0083 FB                  301 	mov	r3,a
+   0084 A3                  302 	inc	dptr
+   0085 E0                  303 	movx	a,@dptr
+   0086 FC                  304 	mov	r4,a
+   0087 90s00r09            305 	mov	dptr,#_eventQueue_initialize_PARM_3
+   008A E0                  306 	movx	a,@dptr
+   008B 8A 82               307 	mov	dpl,r2
+   008D 8B 83               308 	mov	dph,r3
+   008F 8C F0               309 	mov	b,r4
+   0091 12s00r00            310 	lcall	__gptrput
+                            311 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:45: Q->Size		= 0 ;
+   0094 74 03               312 	mov	a,#0x03
+   0096 2A                  313 	add	a,r2
+   0097 FD                  314 	mov	r5,a
+   0098 E4                  315 	clr	a
+   0099 3B                  316 	addc	a,r3
+   009A FE                  317 	mov	r6,a
+   009B 8C 07               318 	mov	ar7,r4
+   009D 8D 82               319 	mov	dpl,r5
+   009F 8E 83               320 	mov	dph,r6
+   00A1 8F F0               321 	mov	b,r7
+   00A3 E4                  322 	clr	a
+   00A4 12s00r00            323 	lcall	__gptrput
+                            324 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:46: Q->Front	= 1 ;
+   00A7 74 01               325 	mov	a,#0x01
+   00A9 2A                  326 	add	a,r2
+   00AA FD                  327 	mov	r5,a
+   00AB E4                  328 	clr	a
+   00AC 3B                  329 	addc	a,r3
+   00AD FE                  330 	mov	r6,a
+   00AE 8C 07               331 	mov	ar7,r4
+   00B0 8D 82               332 	mov	dpl,r5
+   00B2 8E 83               333 	mov	dph,r6
+   00B4 8F F0               334 	mov	b,r7
+   00B6 74 01               335 	mov	a,#0x01
+   00B8 12s00r00            336 	lcall	__gptrput
+                            337 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:47: Q->Rear		= 0 ;
+   00BB 74 02               338 	mov	a,#0x02
+   00BD 2A                  339 	add	a,r2
+   00BE FD                  340 	mov	r5,a
+   00BF E4                  341 	clr	a
+   00C0 3B                  342 	addc	a,r3
+   00C1 FE                  343 	mov	r6,a
+   00C2 8C 07               344 	mov	ar7,r4
+   00C4 8D 82               345 	mov	dpl,r5
+   00C6 8E 83               346 	mov	dph,r6
+   00C8 8F F0               347 	mov	b,r7
+   00CA E4                  348 	clr	a
+   00CB 12s00r00            349 	lcall	__gptrput
+                            350 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:48: Q->Array	= storage ;
+   00CE 74 04               351 	mov	a,#0x04
+   00D0 2A                  352 	add	a,r2
+   00D1 FA                  353 	mov	r2,a
+   00D2 E4                  354 	clr	a
+   00D3 3B                  355 	addc	a,r3
+   00D4 FB                  356 	mov	r3,a
+   00D5 90s00r06            357 	mov	dptr,#_eventQueue_initialize_PARM_2
+   00D8 E0                  358 	movx	a,@dptr
+   00D9 FD                  359 	mov	r5,a
+   00DA A3                  360 	inc	dptr
+   00DB E0                  361 	movx	a,@dptr
+   00DC FE                  362 	mov	r6,a
+   00DD A3                  363 	inc	dptr
+   00DE E0                  364 	movx	a,@dptr
+   00DF FF                  365 	mov	r7,a
+   00E0 8A 82               366 	mov	dpl,r2
+   00E2 8B 83               367 	mov	dph,r3
+   00E4 8C F0               368 	mov	b,r4
+   00E6 ED                  369 	mov	a,r5
+   00E7 12s00r00            370 	lcall	__gptrput
+   00EA A3                  371 	inc	dptr
+   00EB EE                  372 	mov	a,r6
+   00EC 12s00r00            373 	lcall	__gptrput
+   00EF A3                  374 	inc	dptr
+   00F0 EF                  375 	mov	a,r7
+   00F1 12s00r00            376 	lcall	__gptrput
+                            377 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:50: return true ;
+   00F4 D3                  378 	setb	c
+   00F5 22                  379 	ret
+                            380 ;------------------------------------------------------------
+                            381 ;Allocation info for local variables in function 'eventQueue_isEmpty'
+                            382 ;------------------------------------------------------------
+                            383 ;Q                         Allocated with name '_eventQueue_isEmpty_Q_1_1'
+                            384 ;------------------------------------------------------------
+                            385 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:54: uint8_t eventQueue_isEmpty(	eventQueue_t* Q)
+                            386 ;	-----------------------------------------
+                            387 ;	 function eventQueue_isEmpty
+                            388 ;	-----------------------------------------
+   00F6                     389 _eventQueue_isEmpty:
+   00F6 AA F0               390 	mov	r2,b
+   00F8 AB 83               391 	mov	r3,dph
+   00FA E5 82               392 	mov	a,dpl
+   00FC 90s00r0D            393 	mov	dptr,#_eventQueue_isEmpty_Q_1_1
+   00FF F0                  394 	movx	@dptr,a
+   0100 A3                  395 	inc	dptr
+   0101 EB                  396 	mov	a,r3
+   0102 F0                  397 	movx	@dptr,a
+   0103 A3                  398 	inc	dptr
+   0104 EA                  399 	mov	a,r2
+   0105 F0                  400 	movx	@dptr,a
+                            401 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:56: return Q->Size == 0 ;
+   0106 90s00r0D            402 	mov	dptr,#_eventQueue_isEmpty_Q_1_1
+   0109 E0                  403 	movx	a,@dptr
+   010A FA                  404 	mov	r2,a
+   010B A3                  405 	inc	dptr
+   010C E0                  406 	movx	a,@dptr
+   010D FB                  407 	mov	r3,a
+   010E A3                  408 	inc	dptr
+   010F E0                  409 	movx	a,@dptr
+   0110 FC                  410 	mov	r4,a
+   0111 74 03               411 	mov	a,#0x03
+   0113 2A                  412 	add	a,r2
+   0114 FA                  413 	mov	r2,a
+   0115 E4                  414 	clr	a
+   0116 3B                  415 	addc	a,r3
+   0117 FB                  416 	mov	r3,a
+   0118 8A 82               417 	mov	dpl,r2
+   011A 8B 83               418 	mov	dph,r3
+   011C 8C F0               419 	mov	b,r4
+   011E 12s00r00            420 	lcall	__gptrget
+   0121 FA                  421 	mov	r2,a
+   0122 E4                  422 	clr	a
+   0123 BA 00 01            423 	cjne	r2,#0x00,00103$
+   0126 04                  424 	inc	a
+   0127                     425 00103$:
+   0127 F5 82               426 	mov	dpl,a
+   0129 22                  427 	ret
+                            428 ;------------------------------------------------------------
+                            429 ;Allocation info for local variables in function 'eventQueue_isFull'
+                            430 ;------------------------------------------------------------
+                            431 ;Q                         Allocated with name '_eventQueue_isFull_Q_1_1'
+                            432 ;------------------------------------------------------------
+                            433 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:60: uint8_t eventQueue_isFull(	eventQueue_t* Q)
+                            434 ;	-----------------------------------------
+                            435 ;	 function eventQueue_isFull
+                            436 ;	-----------------------------------------
+   012A                     437 _eventQueue_isFull:
+   012A AA F0               438 	mov	r2,b
+   012C AB 83               439 	mov	r3,dph
+   012E E5 82               440 	mov	a,dpl
+   0130 90s00r10            441 	mov	dptr,#_eventQueue_isFull_Q_1_1
+   0133 F0                  442 	movx	@dptr,a
+   0134 A3                  443 	inc	dptr
+   0135 EB                  444 	mov	a,r3
+   0136 F0                  445 	movx	@dptr,a
+   0137 A3                  446 	inc	dptr
+   0138 EA                  447 	mov	a,r2
+   0139 F0                  448 	movx	@dptr,a
+                            449 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:62: return Q->Size == Q->Capacity ;
+   013A 90s00r10            450 	mov	dptr,#_eventQueue_isFull_Q_1_1
+   013D E0                  451 	movx	a,@dptr
+   013E FA                  452 	mov	r2,a
+   013F A3                  453 	inc	dptr
+   0140 E0                  454 	movx	a,@dptr
+   0141 FB                  455 	mov	r3,a
+   0142 A3                  456 	inc	dptr
+   0143 E0                  457 	movx	a,@dptr
+   0144 FC                  458 	mov	r4,a
+   0145 74 03               459 	mov	a,#0x03
+   0147 2A                  460 	add	a,r2
+   0148 FD                  461 	mov	r5,a
+   0149 E4                  462 	clr	a
+   014A 3B                  463 	addc	a,r3
+   014B FE                  464 	mov	r6,a
+   014C 8C 07               465 	mov	ar7,r4
+   014E 8D 82               466 	mov	dpl,r5
+   0150 8E 83               467 	mov	dph,r6
+   0152 8F F0               468 	mov	b,r7
+   0154 12s00r00            469 	lcall	__gptrget
+   0157 FD                  470 	mov	r5,a
+   0158 8A 82               471 	mov	dpl,r2
+   015A 8B 83               472 	mov	dph,r3
+   015C 8C F0               473 	mov	b,r4
+   015E 12s00r00            474 	lcall	__gptrget
+   0161 FA                  475 	mov	r2,a
+   0162 ED                  476 	mov	a,r5
+   0163 B5 02 04            477 	cjne	a,ar2,00103$
+   0166 74 01               478 	mov	a,#0x01
+   0168 80 01               479 	sjmp	00104$
+   016A                     480 00103$:
+   016A E4                  481 	clr	a
+   016B                     482 00104$:
+   016B F5 82               483 	mov	dpl,a
+   016D 22                  484 	ret
+                            485 ;------------------------------------------------------------
+                            486 ;Allocation info for local variables in function 'nextLocationFromPoint'
+                            487 ;------------------------------------------------------------
+                            488 ;location                  Allocated with name '_nextLocationFromPoint_PARM_2'
+                            489 ;Q                         Allocated with name '_nextLocationFromPoint_Q_1_1'
+                            490 ;------------------------------------------------------------
+                            491 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:66: static eventQueueIndex_t nextLocationFromPoint(	eventQueue_t* Q, eventQueueIndex_t location)
+                            492 ;	-----------------------------------------
+                            493 ;	 function nextLocationFromPoint
+                            494 ;	-----------------------------------------
+   016E                     495 _nextLocationFromPoint:
+   016E AA F0               496 	mov	r2,b
+   0170 AB 83               497 	mov	r3,dph
+   0172 E5 82               498 	mov	a,dpl
+   0174 90s00r14            499 	mov	dptr,#_nextLocationFromPoint_Q_1_1
+   0177 F0                  500 	movx	@dptr,a
+   0178 A3                  501 	inc	dptr
+   0179 EB                  502 	mov	a,r3
+   017A F0                  503 	movx	@dptr,a
+   017B A3                  504 	inc	dptr
+   017C EA                  505 	mov	a,r2
+   017D F0                  506 	movx	@dptr,a
+                            507 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:68: if(++location == Q->Capacity)
+   017E 90s00r13            508 	mov	dptr,#_nextLocationFromPoint_PARM_2
+   0181 E0                  509 	movx	a,@dptr
+   0182 24 01               510 	add	a,#0x01
+   0184 F0                  511 	movx	@dptr,a
+   0185 90s00r14            512 	mov	dptr,#_nextLocationFromPoint_Q_1_1
+   0188 E0                  513 	movx	a,@dptr
+   0189 FA                  514 	mov	r2,a
+   018A A3                  515 	inc	dptr
+   018B E0                  516 	movx	a,@dptr
+   018C FB                  517 	mov	r3,a
+   018D A3                  518 	inc	dptr
+   018E E0                  519 	movx	a,@dptr
+   018F FC                  520 	mov	r4,a
+   0190 8A 82               521 	mov	dpl,r2
+   0192 8B 83               522 	mov	dph,r3
+   0194 8C F0               523 	mov	b,r4
+   0196 12s00r00            524 	lcall	__gptrget
+   0199 FA                  525 	mov	r2,a
+   019A 90s00r13            526 	mov	dptr,#_nextLocationFromPoint_PARM_2
+   019D E0                  527 	movx	a,@dptr
+   019E FB                  528 	mov	r3,a
+   019F B5 02 05            529 	cjne	a,ar2,00102$
+                            530 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:70: location = 0 ;
+   01A2 90s00r13            531 	mov	dptr,#_nextLocationFromPoint_PARM_2
+   01A5 E4                  532 	clr	a
+   01A6 F0                  533 	movx	@dptr,a
+   01A7                     534 00102$:
+                            535 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:73: return location ;
+   01A7 90s00r13            536 	mov	dptr,#_nextLocationFromPoint_PARM_2
+   01AA E0                  537 	movx	a,@dptr
+   01AB F5 82               538 	mov	dpl,a
+   01AD 22                  539 	ret
+                            540 ;------------------------------------------------------------
+                            541 ;Allocation info for local variables in function 'eventQueue_insert'
+                            542 ;------------------------------------------------------------
+                            543 ;event                     Allocated with name '_eventQueue_insert_PARM_2'
+                            544 ;Q                         Allocated with name '_eventQueue_insert_Q_1_1'
+                            545 ;------------------------------------------------------------
+                            546 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:79: bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
+                            547 ;	-----------------------------------------
+                            548 ;	 function eventQueue_insert
+                            549 ;	-----------------------------------------
+   01AE                     550 _eventQueue_insert:
+   01AE AA F0               551 	mov	r2,b
+   01B0 AB 83               552 	mov	r3,dph
+   01B2 E5 82               553 	mov	a,dpl
+   01B4 90s00r1A            554 	mov	dptr,#_eventQueue_insert_Q_1_1
+   01B7 F0                  555 	movx	@dptr,a
+   01B8 A3                  556 	inc	dptr
+   01B9 EB                  557 	mov	a,r3
+   01BA F0                  558 	movx	@dptr,a
+   01BB A3                  559 	inc	dptr
+   01BC EA                  560 	mov	a,r2
+   01BD F0                  561 	movx	@dptr,a
+                            562 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:81: if(!eventQueue_isFull(Q))
+   01BE 90s00r1A            563 	mov	dptr,#_eventQueue_insert_Q_1_1
+   01C1 E0                  564 	movx	a,@dptr
+   01C2 FA                  565 	mov	r2,a
+   01C3 A3                  566 	inc	dptr
+   01C4 E0                  567 	movx	a,@dptr
+   01C5 FB                  568 	mov	r3,a
+   01C6 A3                  569 	inc	dptr
+   01C7 E0                  570 	movx	a,@dptr
+   01C8 FC                  571 	mov	r4,a
+   01C9 8A 82               572 	mov	dpl,r2
+   01CB 8B 83               573 	mov	dph,r3
+   01CD 8C F0               574 	mov	b,r4
+   01CF 12s01r2A            575 	lcall	_eventQueue_isFull
+   01D2 E5 82               576 	mov	a,dpl
+   01D4 60 03               577 	jz	00110$
+   01D6 02s02rEA            578 	ljmp	00102$
+   01D9                     579 00110$:
+                            580 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:83: Q->Size++ ;
+   01D9 90s00r1A            581 	mov	dptr,#_eventQueue_insert_Q_1_1
+   01DC E0                  582 	movx	a,@dptr
+   01DD FA                  583 	mov	r2,a
+   01DE A3                  584 	inc	dptr
+   01DF E0                  585 	movx	a,@dptr
+   01E0 FB                  586 	mov	r3,a
+   01E1 A3                  587 	inc	dptr
+   01E2 E0                  588 	movx	a,@dptr
+   01E3 FC                  589 	mov	r4,a
+   01E4 74 03               590 	mov	a,#0x03
+   01E6 2A                  591 	add	a,r2
+   01E7 FD                  592 	mov	r5,a
+   01E8 E4                  593 	clr	a
+   01E9 3B                  594 	addc	a,r3
+   01EA FE                  595 	mov	r6,a
+   01EB 8C 07               596 	mov	ar7,r4
+   01ED 8D 82               597 	mov	dpl,r5
+   01EF 8E 83               598 	mov	dph,r6
+   01F1 8F F0               599 	mov	b,r7
+   01F3 12s00r00            600 	lcall	__gptrget
+   01F6 F8                  601 	mov	r0,a
+   01F7 08                  602 	inc	r0
+   01F8 8D 82               603 	mov	dpl,r5
+   01FA 8E 83               604 	mov	dph,r6
+   01FC 8F F0               605 	mov	b,r7
+   01FE E8                  606 	mov	a,r0
+   01FF 12s00r00            607 	lcall	__gptrput
+                            608 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:84: Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
+   0202 74 02               609 	mov	a,#0x02
+   0204 2A                  610 	add	a,r2
+   0205 FD                  611 	mov	r5,a
+   0206 E4                  612 	clr	a
+   0207 3B                  613 	addc	a,r3
+   0208 FE                  614 	mov	r6,a
+   0209 8C 07               615 	mov	ar7,r4
+   020B 8D 82               616 	mov	dpl,r5
+   020D 8E 83               617 	mov	dph,r6
+   020F 8F F0               618 	mov	b,r7
+   0211 12s00r00            619 	lcall	__gptrget
+   0214 90s00r13            620 	mov	dptr,#_nextLocationFromPoint_PARM_2
+   0217 F0                  621 	movx	@dptr,a
+   0218 8A 82               622 	mov	dpl,r2
+   021A 8B 83               623 	mov	dph,r3
+   021C 8C F0               624 	mov	b,r4
+   021E C0 05               625 	push	ar5
+   0220 C0 06               626 	push	ar6
+   0222 C0 07               627 	push	ar7
+   0224 12s01r6E            628 	lcall	_nextLocationFromPoint
+   0227 AA 82               629 	mov	r2,dpl
+   0229 D0 07               630 	pop	ar7
+   022B D0 06               631 	pop	ar6
+   022D D0 05               632 	pop	ar5
+   022F 8D 82               633 	mov	dpl,r5
+   0231 8E 83               634 	mov	dph,r6
+   0233 8F F0               635 	mov	b,r7
+   0235 EA                  636 	mov	a,r2
+   0236 12s00r00            637 	lcall	__gptrput
+                            638 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:85: Q->Array[Q->Rear] = event ;
+   0239 90s00r1A            639 	mov	dptr,#_eventQueue_insert_Q_1_1
+   023C E0                  640 	movx	a,@dptr
+   023D FA                  641 	mov	r2,a
+   023E A3                  642 	inc	dptr
+   023F E0                  643 	movx	a,@dptr
+   0240 FB                  644 	mov	r3,a
+   0241 A3                  645 	inc	dptr
+   0242 E0                  646 	movx	a,@dptr
+   0243 FC                  647 	mov	r4,a
+   0244 74 04               648 	mov	a,#0x04
+   0246 2A                  649 	add	a,r2
+   0247 FD                  650 	mov	r5,a
+   0248 E4                  651 	clr	a
+   0249 3B                  652 	addc	a,r3
+   024A FE                  653 	mov	r6,a
+   024B 8C 07               654 	mov	ar7,r4
+   024D 8D 82               655 	mov	dpl,r5
+   024F 8E 83               656 	mov	dph,r6
+   0251 8F F0               657 	mov	b,r7
+   0253 12s00r00            658 	lcall	__gptrget
+   0256 FD                  659 	mov	r5,a
+   0257 A3                  660 	inc	dptr
+   0258 12s00r00            661 	lcall	__gptrget
+   025B FE                  662 	mov	r6,a
+   025C A3                  663 	inc	dptr
+   025D 12s00r00            664 	lcall	__gptrget
+   0260 FF                  665 	mov	r7,a
+   0261 74 02               666 	mov	a,#0x02
+   0263 2A                  667 	add	a,r2
+   0264 FA                  668 	mov	r2,a
+   0265 E4                  669 	clr	a
+   0266 3B                  670 	addc	a,r3
+   0267 FB                  671 	mov	r3,a
+   0268 8A 82               672 	mov	dpl,r2
+   026A 8B 83               673 	mov	dph,r3
+   026C 8C F0               674 	mov	b,r4
+   026E 12s00r00            675 	lcall	__gptrget
+   0271 75 F0 03            676 	mov	b,#0x03
+   0274 A4                  677 	mul	ab
+   0275 2D                  678 	add	a,r5
+   0276 FD                  679 	mov	r5,a
+   0277 EE                  680 	mov	a,r6
+   0278 35 F0               681 	addc	a,b
+   027A FE                  682 	mov	r6,a
+   027B 90s00r17            683 	mov	dptr,#_eventQueue_insert_PARM_2
+   027E E0                  684 	movx	a,@dptr
+   027F FA                  685 	mov	r2,a
+   0280 A3                  686 	inc	dptr
+   0281 E0                  687 	movx	a,@dptr
+   0282 FB                  688 	mov	r3,a
+   0283 A3                  689 	inc	dptr
+   0284 E0                  690 	movx	a,@dptr
+   0285 FC                  691 	mov	r4,a
+   0286 8D 82               692 	mov	dpl,r5
+   0288 8E 83               693 	mov	dph,r6
+   028A 8F F0               694 	mov	b,r7
+   028C EA                  695 	mov	a,r2
+   028D 12s00r00            696 	lcall	__gptrput
+   0290 A3                  697 	inc	dptr
+   0291 EB                  698 	mov	a,r3
+   0292 12s00r00            699 	lcall	__gptrput
+   0295 A3                  700 	inc	dptr
+   0296 EC                  701 	mov	a,r4
+   0297 12s00r00            702 	lcall	__gptrput
+                            703 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:87: printf("\t\t\tPosting event type: %s\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>") ;
+   029A 8A 82               704 	mov	dpl,r2
+   029C 8B 83               705 	mov	dph,r3
+   029E 8C F0               706 	mov	b,r4
+   02A0 12s00r00            707 	lcall	__gptrget
+   02A3 FA                  708 	mov	r2,a
+   02A4 C3                  709 	clr	c
+   02A5 74 07               710 	mov	a,#0x07
+   02A7 9A                  711 	subb	a,r2
+   02A8 B3                  712 	cpl	c
+   02A9 E4                  713 	clr	a
+   02AA 33                  714 	rlc	a
+   02AB FB                  715 	mov	r3,a
+   02AC 60 19               716 	jz	00106$
+   02AE EA                  717 	mov	a,r2
+   02AF 75 F0 03            718 	mov	b,#0x03
+   02B2 A4                  719 	mul	ab
+   02B3 24r00               720 	add	a,#_eventTypes
+   02B5 F5 82               721 	mov	dpl,a
+   02B7 74s00               722 	mov	a,#(_eventTypes >> 8)
+   02B9 35 F0               723 	addc	a,b
+   02BB F5 83               724 	mov	dph,a
+   02BD E0                  725 	movx	a,@dptr
+   02BE FA                  726 	mov	r2,a
+   02BF A3                  727 	inc	dptr
+   02C0 E0                  728 	movx	a,@dptr
+   02C1 FB                  729 	mov	r3,a
+   02C2 A3                  730 	inc	dptr
+   02C3 E0                  731 	movx	a,@dptr
+   02C4 FC                  732 	mov	r4,a
+   02C5 80 06               733 	sjmp	00107$
+   02C7                     734 00106$:
+   02C7 7Ar1B               735 	mov	r2,#__str_1
+   02C9 7Bs00               736 	mov	r3,#(__str_1 >> 8)
+   02CB 7C 80               737 	mov	r4,#0x80
+   02CD                     738 00107$:
+   02CD C0 02               739 	push	ar2
+   02CF C0 03               740 	push	ar3
+   02D1 C0 04               741 	push	ar4
+   02D3 74r00               742 	mov	a,#__str_0
+   02D5 C0 E0               743 	push	acc
+   02D7 74s00               744 	mov	a,#(__str_0 >> 8)
+   02D9 C0 E0               745 	push	acc
+   02DB 74 80               746 	mov	a,#0x80
+   02DD C0 E0               747 	push	acc
+   02DF 12s00r00            748 	lcall	_printf
+   02E2 E5 81               749 	mov	a,sp
+   02E4 24 FA               750 	add	a,#0xfa
+   02E6 F5 81               751 	mov	sp,a
+                            752 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:89: return true ;
+   02E8 D3                  753 	setb	c
+   02E9 22                  754 	ret
+   02EA                     755 00102$:
+                            756 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:93: return false ;
+   02EA C3                  757 	clr	c
+   02EB 22                  758 	ret
+                            759 ;------------------------------------------------------------
+                            760 ;Allocation info for local variables in function 'eventQueue_remove'
+                            761 ;------------------------------------------------------------
+                            762 ;sloc0                     Allocated with name '_eventQueue_remove_sloc0_1_0'
+                            763 ;sloc1                     Allocated with name '_eventQueue_remove_sloc1_1_0'
+                            764 ;sloc2                     Allocated with name '_eventQueue_remove_sloc2_1_0'
+                            765 ;Q                         Allocated with name '_eventQueue_remove_Q_1_1'
+                            766 ;eventReceived             Allocated with name '_eventQueue_remove_eventReceived_2_2'
+                            767 ;------------------------------------------------------------
+                            768 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:98: event_t* eventQueue_remove(	eventQueue_t* Q)
+                            769 ;	-----------------------------------------
+                            770 ;	 function eventQueue_remove
+                            771 ;	-----------------------------------------
+   02EC                     772 _eventQueue_remove:
+   02EC AA F0               773 	mov	r2,b
+   02EE AB 83               774 	mov	r3,dph
+   02F0 E5 82               775 	mov	a,dpl
+   02F2 90s00r1D            776 	mov	dptr,#_eventQueue_remove_Q_1_1
+   02F5 F0                  777 	movx	@dptr,a
+   02F6 A3                  778 	inc	dptr
+   02F7 EB                  779 	mov	a,r3
+   02F8 F0                  780 	movx	@dptr,a
+   02F9 A3                  781 	inc	dptr
+   02FA EA                  782 	mov	a,r2
+   02FB F0                  783 	movx	@dptr,a
+                            784 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:100: if(!eventQueue_isEmpty(Q))
+   02FC 90s00r1D            785 	mov	dptr,#_eventQueue_remove_Q_1_1
+   02FF E0                  786 	movx	a,@dptr
+   0300 FA                  787 	mov	r2,a
+   0301 A3                  788 	inc	dptr
+   0302 E0                  789 	movx	a,@dptr
+   0303 FB                  790 	mov	r3,a
+   0304 A3                  791 	inc	dptr
+   0305 E0                  792 	movx	a,@dptr
+   0306 FC                  793 	mov	r4,a
+   0307 8A 82               794 	mov	dpl,r2
+   0309 8B 83               795 	mov	dph,r3
+   030B 8C F0               796 	mov	b,r4
+   030D 12s00rF6            797 	lcall	_eventQueue_isEmpty
+   0310 E5 82               798 	mov	a,dpl
+   0312 60 03               799 	jz	00107$
+   0314 02s03rC6            800 	ljmp	00102$
+   0317                     801 00107$:
+                            802 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:102: event_t* eventReceived = Q->Array[Q->Front] ;
+   0317 90s00r1D            803 	mov	dptr,#_eventQueue_remove_Q_1_1
+   031A E0                  804 	movx	a,@dptr
+   031B FA                  805 	mov	r2,a
+   031C A3                  806 	inc	dptr
+   031D E0                  807 	movx	a,@dptr
+   031E FB                  808 	mov	r3,a
+   031F A3                  809 	inc	dptr
+   0320 E0                  810 	movx	a,@dptr
+   0321 FC                  811 	mov	r4,a
+   0322 74 04               812 	mov	a,#0x04
+   0324 2A                  813 	add	a,r2
+   0325 FD                  814 	mov	r5,a
+   0326 E4                  815 	clr	a
+   0327 3B                  816 	addc	a,r3
+   0328 FE                  817 	mov	r6,a
+   0329 8C 07               818 	mov	ar7,r4
+   032B 8D 82               819 	mov	dpl,r5
+   032D 8E 83               820 	mov	dph,r6
+   032F 8F F0               821 	mov	b,r7
+   0331 12s00r00            822 	lcall	__gptrget
+   0334 F5*00               823 	mov	_eventQueue_remove_sloc0_1_0,a
+   0336 A3                  824 	inc	dptr
+   0337 12s00r00            825 	lcall	__gptrget
+   033A F5*01               826 	mov	(_eventQueue_remove_sloc0_1_0 + 1),a
+   033C A3                  827 	inc	dptr
+   033D 12s00r00            828 	lcall	__gptrget
+   0340 F5*02               829 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
+   0342 74 01               830 	mov	a,#0x01
+   0344 2A                  831 	add	a,r2
+   0345 F5*04               832 	mov	_eventQueue_remove_sloc2_1_0,a
+   0347 E4                  833 	clr	a
+   0348 3B                  834 	addc	a,r3
+   0349 F5*05               835 	mov	(_eventQueue_remove_sloc2_1_0 + 1),a
+   034B 8C*06               836 	mov	(_eventQueue_remove_sloc2_1_0 + 2),r4
+   034D 85*04 82            837 	mov	dpl,_eventQueue_remove_sloc2_1_0
+   0350 85*05 83            838 	mov	dph,(_eventQueue_remove_sloc2_1_0 + 1)
+   0353 85*06 F0            839 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
+   0356 12s00r00            840 	lcall	__gptrget
+   0359 F5*03               841 	mov	_eventQueue_remove_sloc1_1_0,a
+   035B 75 F0 03            842 	mov	b,#0x03
+   035E A4                  843 	mul	ab
+   035F 25*00               844 	add	a,_eventQueue_remove_sloc0_1_0
+   0361 FF                  845 	mov	r7,a
+   0362 E5*01               846 	mov	a,(_eventQueue_remove_sloc0_1_0 + 1)
+   0364 35 F0               847 	addc	a,b
+   0366 FE                  848 	mov	r6,a
+   0367 AD*02               849 	mov	r5,(_eventQueue_remove_sloc0_1_0 + 2)
+   0369 8F 82               850 	mov	dpl,r7
+   036B 8E 83               851 	mov	dph,r6
+   036D 8D F0               852 	mov	b,r5
+   036F 12s00r00            853 	lcall	__gptrget
+   0372 F5*00               854 	mov	_eventQueue_remove_sloc0_1_0,a
+   0374 A3                  855 	inc	dptr
+   0375 12s00r00            856 	lcall	__gptrget
+   0378 F5*01               857 	mov	(_eventQueue_remove_sloc0_1_0 + 1),a
+   037A A3                  858 	inc	dptr
+   037B 12s00r00            859 	lcall	__gptrget
+   037E F5*02               860 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
+                            861 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:104: Q->Size-- ;
+   0380 74 03               862 	mov	a,#0x03
+   0382 2A                  863 	add	a,r2
+   0383 F8                  864 	mov	r0,a
+   0384 E4                  865 	clr	a
+   0385 3B                  866 	addc	a,r3
+   0386 F9                  867 	mov	r1,a
+   0387 8C 05               868 	mov	ar5,r4
+   0389 88 82               869 	mov	dpl,r0
+   038B 89 83               870 	mov	dph,r1
+   038D 8D F0               871 	mov	b,r5
+   038F 12s00r00            872 	lcall	__gptrget
+   0392 FE                  873 	mov	r6,a
+   0393 1E                  874 	dec	r6
+   0394 88 82               875 	mov	dpl,r0
+   0396 89 83               876 	mov	dph,r1
+   0398 8D F0               877 	mov	b,r5
+   039A EE                  878 	mov	a,r6
+   039B 12s00r00            879 	lcall	__gptrput
+                            880 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:105: Q->Front = nextLocationFromPoint(Q, Q->Front) ;
+   039E 90s00r13            881 	mov	dptr,#_nextLocationFromPoint_PARM_2
+   03A1 E5*03               882 	mov	a,_eventQueue_remove_sloc1_1_0
+   03A3 F0                  883 	movx	@dptr,a
+   03A4 8A 82               884 	mov	dpl,r2
+   03A6 8B 83               885 	mov	dph,r3
+   03A8 8C F0               886 	mov	b,r4
+   03AA 12s01r6E            887 	lcall	_nextLocationFromPoint
+   03AD AA 82               888 	mov	r2,dpl
+   03AF 85*04 82            889 	mov	dpl,_eventQueue_remove_sloc2_1_0
+   03B2 85*05 83            890 	mov	dph,(_eventQueue_remove_sloc2_1_0 + 1)
+   03B5 85*06 F0            891 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
+   03B8 EA                  892 	mov	a,r2
+   03B9 12s00r00            893 	lcall	__gptrput
+                            894 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:107: return eventReceived ;
+   03BC 85*00 82            895 	mov	dpl,_eventQueue_remove_sloc0_1_0
+   03BF 85*01 83            896 	mov	dph,(_eventQueue_remove_sloc0_1_0 + 1)
+   03C2 85*02 F0            897 	mov	b,(_eventQueue_remove_sloc0_1_0 + 2)
+   03C5 22                  898 	ret
+   03C6                     899 00102$:
+                            900 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:111: return (event_t*)0 ;
+   03C6 90 00 00            901 	mov	dptr,#0x0000
+   03C9 75 F0 00            902 	mov	b,#0x00
+   03CC 22                  903 	ret
+                            904 ;------------------------------------------------------------
+                            905 ;Allocation info for local variables in function 'addToDeferredTypeList'
+                            906 ;------------------------------------------------------------
+                            907 ;eventTypeToDefer          Allocated with name '_addToDeferredTypeList_PARM_2'
+                            908 ;sm                        Allocated with name '_addToDeferredTypeList_sm_1_1'
+                            909 ;------------------------------------------------------------
+                            910 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:116: void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefer)
+                            911 ;	-----------------------------------------
+                            912 ;	 function addToDeferredTypeList
+                            913 ;	-----------------------------------------
+   03CD                     914 _addToDeferredTypeList:
+   03CD AA F0               915 	mov	r2,b
+   03CF AB 83               916 	mov	r3,dph
+   03D1 E5 82               917 	mov	a,dpl
+   03D3 90s00r21            918 	mov	dptr,#_addToDeferredTypeList_sm_1_1
+   03D6 F0                  919 	movx	@dptr,a
+   03D7 A3                  920 	inc	dptr
+   03D8 EB                  921 	mov	a,r3
+   03D9 F0                  922 	movx	@dptr,a
+   03DA A3                  923 	inc	dptr
+   03DB EA                  924 	mov	a,r2
+   03DC F0                  925 	movx	@dptr,a
+                            926 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:118: if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
+   03DD 90s00r21            927 	mov	dptr,#_addToDeferredTypeList_sm_1_1
+   03E0 E0                  928 	movx	a,@dptr
+   03E1 FA                  929 	mov	r2,a
+   03E2 A3                  930 	inc	dptr
+   03E3 E0                  931 	movx	a,@dptr
+   03E4 FB                  932 	mov	r3,a
+   03E5 A3                  933 	inc	dptr
+   03E6 E0                  934 	movx	a,@dptr
+   03E7 FC                  935 	mov	r4,a
+   03E8 74 16               936 	mov	a,#0x16
+   03EA 2A                  937 	add	a,r2
+   03EB FD                  938 	mov	r5,a
+   03EC E4                  939 	clr	a
+   03ED 3B                  940 	addc	a,r3
+   03EE FE                  941 	mov	r6,a
+   03EF 8C 07               942 	mov	ar7,r4
+   03F1 8D 82               943 	mov	dpl,r5
+   03F3 8E 83               944 	mov	dph,r6
+   03F5 8F F0               945 	mov	b,r7
+   03F7 12s00r00            946 	lcall	__gptrget
+   03FA F8                  947 	mov	r0,a
+   03FB 74 15               948 	mov	a,#0x15
+   03FD 2A                  949 	add	a,r2
+   03FE FA                  950 	mov	r2,a
+   03FF E4                  951 	clr	a
+   0400 3B                  952 	addc	a,r3
+   0401 FB                  953 	mov	r3,a
+   0402 8A 82               954 	mov	dpl,r2
+   0404 8B 83               955 	mov	dph,r3
+   0406 8C F0               956 	mov	b,r4
+   0408 12s00r00            957 	lcall	__gptrget
+   040B FA                  958 	mov	r2,a
+   040C C3                  959 	clr	c
+   040D E8                  960 	mov	a,r0
+   040E 9A                  961 	subb	a,r2
+   040F 50 0B               962 	jnc	00103$
+                            963 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:122: sm->currentDepthOfEventsToDeferList++ ;
+   0411 08                  964 	inc	r0
+   0412 8D 82               965 	mov	dpl,r5
+   0414 8E 83               966 	mov	dph,r6
+   0416 8F F0               967 	mov	b,r7
+   0418 E8                  968 	mov	a,r0
+   0419 02s00r00            969 	ljmp	__gptrput
+   041C                     970 00103$:
+   041C 22                  971 	ret
+                            972 ;------------------------------------------------------------
+                            973 ;Allocation info for local variables in function 'isEventTypeDeferred'
+                            974 ;------------------------------------------------------------
+                            975 ;eventTypeToCheck          Allocated with name '_isEventTypeDeferred_PARM_2'
+                            976 ;sm                        Allocated with name '_isEventTypeDeferred_sm_1_1'
+                            977 ;i                         Allocated with name '_isEventTypeDeferred_i_1_1'
+                            978 ;------------------------------------------------------------
+                            979 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:127: bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck)
+                            980 ;	-----------------------------------------
+                            981 ;	 function isEventTypeDeferred
+                            982 ;	-----------------------------------------
+   041D                     983 _isEventTypeDeferred:
+   041D AA F0               984 	mov	r2,b
+   041F AB 83               985 	mov	r3,dph
+   0421 E5 82               986 	mov	a,dpl
+   0423 90s00r25            987 	mov	dptr,#_isEventTypeDeferred_sm_1_1
+   0426 F0                  988 	movx	@dptr,a
+   0427 A3                  989 	inc	dptr
+   0428 EB                  990 	mov	a,r3
+   0429 F0                  991 	movx	@dptr,a
+   042A A3                  992 	inc	dptr
+   042B EA                  993 	mov	a,r2
+   042C F0                  994 	movx	@dptr,a
+                            995 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:131: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+   042D 90s00r24            996 	mov	dptr,#_isEventTypeDeferred_PARM_2
+   0430 E0                  997 	movx	a,@dptr
+   0431 FA                  998 	mov	r2,a
+   0432 90s00r25            999 	mov	dptr,#_isEventTypeDeferred_sm_1_1
+   0435 E0                 1000 	movx	a,@dptr
+   0436 FB                 1001 	mov	r3,a
+   0437 A3                 1002 	inc	dptr
+   0438 E0                 1003 	movx	a,@dptr
+   0439 FC                 1004 	mov	r4,a
+   043A A3                 1005 	inc	dptr
+   043B E0                 1006 	movx	a,@dptr
+   043C FD                 1007 	mov	r5,a
+   043D 74 16              1008 	mov	a,#0x16
+   043F 2B                 1009 	add	a,r3
+   0440 FE                 1010 	mov	r6,a
+   0441 E4                 1011 	clr	a
+   0442 3C                 1012 	addc	a,r4
+   0443 FF                 1013 	mov	r7,a
+   0444 8D 00              1014 	mov	ar0,r5
+   0446 79 00              1015 	mov	r1,#0x00
+   0448                    1016 00103$:
+   0448 C0 02              1017 	push	ar2
+   044A 8E 82              1018 	mov	dpl,r6
+   044C 8F 83              1019 	mov	dph,r7
+   044E 88 F0              1020 	mov	b,r0
+   0450 12s00r00           1021 	lcall	__gptrget
+   0453 FA                 1022 	mov	r2,a
+   0454 C3                 1023 	clr	c
+   0455 E9                 1024 	mov	a,r1
+   0456 9A                 1025 	subb	a,r2
+   0457 D0 02              1026 	pop	ar2
+   0459 50 4B              1027 	jnc	00106$
+                           1028 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:133: if(sm->typesOfEventsToDefer[i] == eventTypeToCheck)
+   045B C0 06              1029 	push	ar6
+   045D C0 07              1030 	push	ar7
+   045F C0 00              1031 	push	ar0
+   0461 74 17              1032 	mov	a,#0x17
+   0463 2B                 1033 	add	a,r3
+   0464 FE                 1034 	mov	r6,a
+   0465 E4                 1035 	clr	a
+   0466 3C                 1036 	addc	a,r4
+   0467 FF                 1037 	mov	r7,a
+   0468 8D 00              1038 	mov	ar0,r5
+   046A 8E 82              1039 	mov	dpl,r6
+   046C 8F 83              1040 	mov	dph,r7
+   046E 88 F0              1041 	mov	b,r0
+   0470 12s00r00           1042 	lcall	__gptrget
+   0473 FE                 1043 	mov	r6,a
+   0474 A3                 1044 	inc	dptr
+   0475 12s00r00           1045 	lcall	__gptrget
+   0478 FF                 1046 	mov	r7,a
+   0479 A3                 1047 	inc	dptr
+   047A 12s00r00           1048 	lcall	__gptrget
+   047D F8                 1049 	mov	r0,a
+   047E E9                 1050 	mov	a,r1
+   047F 2E                 1051 	add	a,r6
+   0480 FE                 1052 	mov	r6,a
+   0481 E4                 1053 	clr	a
+   0482 3F                 1054 	addc	a,r7
+   0483 FF                 1055 	mov	r7,a
+   0484 8E 82              1056 	mov	dpl,r6
+   0486 8F 83              1057 	mov	dph,r7
+   0488 88 F0              1058 	mov	b,r0
+   048A 12s00r00           1059 	lcall	__gptrget
+   048D FE                 1060 	mov	r6,a
+   048E B5 02 02           1061 	cjne	a,ar2,00113$
+   0491 80 08              1062 	sjmp	00114$
+   0493                    1063 00113$:
+   0493 D0 00              1064 	pop	ar0
+   0495 D0 07              1065 	pop	ar7
+   0497 D0 06              1066 	pop	ar6
+   0499 80 08              1067 	sjmp	00105$
+   049B                    1068 00114$:
+   049B D0 00              1069 	pop	ar0
+   049D D0 07              1070 	pop	ar7
+   049F D0 06              1071 	pop	ar6
+                           1072 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:135: return true ;
+   04A1 D3                 1073 	setb	c
+   04A2 22                 1074 	ret
+   04A3                    1075 00105$:
+                           1076 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:131: for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+   04A3 09                 1077 	inc	r1
+   04A4 80 A2              1078 	sjmp	00103$
+   04A6                    1079 00106$:
+                           1080 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: return false ;
+   04A6 C3                 1081 	clr	c
+   04A7 22                 1082 	ret
+                           1083 ;------------------------------------------------------------
+                           1084 ;Allocation info for local variables in function 'removeFromDeferredTypeList'
+                           1085 ;------------------------------------------------------------
+                           1086 ;sloc0                     Allocated with name '_removeFromDeferredTypeList_sloc0_1_0'
+                           1087 ;sloc1                     Allocated with name '_removeFromDeferredTypeList_sloc1_1_0'
+                           1088 ;sloc2                     Allocated with name '_removeFromDeferredTypeList_sloc2_1_0'
+                           1089 ;sloc3                     Allocated with name '_removeFromDeferredTypeList_sloc3_1_0'
+                           1090 ;sloc4                     Allocated with name '_removeFromDeferredTypeList_sloc4_1_0'
+                           1091 ;eventTypeToUnDefer        Allocated with name '_removeFromDeferredTypeList_PARM_2'
+                           1092 ;sm                        Allocated with name '_removeFromDeferredTypeList_sm_1_1'
+                           1093 ;i                         Allocated with name '_removeFromDeferredTypeList_i_2_2'
+                           1094 ;firstEvent                Allocated with name '_removeFromDeferredTypeList_firstEvent_3_5'
+                           1095 ;currentEvent              Allocated with name '_removeFromDeferredTypeList_currentEvent_3_5'
+                           1096 ;------------------------------------------------------------
+                           1097 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:143: void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer)
+                           1098 ;	-----------------------------------------
+                           1099 ;	 function removeFromDeferredTypeList
+                           1100 ;	-----------------------------------------
+   04A8                    1101 _removeFromDeferredTypeList:
+   04A8 AA F0              1102 	mov	r2,b
+   04AA AB 83              1103 	mov	r3,dph
+   04AC E5 82              1104 	mov	a,dpl
+   04AE 90s00r29           1105 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
+   04B1 F0                 1106 	movx	@dptr,a
+   04B2 A3                 1107 	inc	dptr
+   04B3 EB                 1108 	mov	a,r3
+   04B4 F0                 1109 	movx	@dptr,a
+   04B5 A3                 1110 	inc	dptr
+   04B6 EA                 1111 	mov	a,r2
+   04B7 F0                 1112 	movx	@dptr,a
+                           1113 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:145: if(sm->currentDepthOfEventsToDeferList > 0)
+   04B8 90s00r29           1114 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
+   04BB E0                 1115 	movx	a,@dptr
+   04BC FA                 1116 	mov	r2,a
+   04BD A3                 1117 	inc	dptr
+   04BE E0                 1118 	movx	a,@dptr
+   04BF FB                 1119 	mov	r3,a
+   04C0 A3                 1120 	inc	dptr
+   04C1 E0                 1121 	movx	a,@dptr
+   04C2 FC                 1122 	mov	r4,a
+   04C3 74 16              1123 	mov	a,#0x16
+   04C5 2A                 1124 	add	a,r2
+   04C6 FA                 1125 	mov	r2,a
+   04C7 E4                 1126 	clr	a
+   04C8 3B                 1127 	addc	a,r3
+   04C9 FB                 1128 	mov	r3,a
+   04CA 8A 82              1129 	mov	dpl,r2
+   04CC 8B 83              1130 	mov	dph,r3
+   04CE 8C F0              1131 	mov	b,r4
+   04D0 12s00r00           1132 	lcall	__gptrget
+   04D3 FA                 1133 	mov	r2,a
+   04D4 70 01              1134 	jnz	00136$
+   04D6 22                 1135 	ret
+   04D7                    1136 00136$:
+                           1137 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:147: bool				found = false ;
+   04D7 C2*01              1138 	clr	_removeFromDeferredTypeList_found_2_2
+                           1139 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:150: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i != 0 ; i-- )
+   04D9 1A                 1140 	dec	r2
+   04DA 90s00r2C           1141 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
+   04DD EA                 1142 	mov	a,r2
+   04DE F0                 1143 	movx	@dptr,a
+   04DF 90s00r28           1144 	mov	dptr,#_removeFromDeferredTypeList_PARM_2
+   04E2 E0                 1145 	movx	a,@dptr
+   04E3 F5*08              1146 	mov	_removeFromDeferredTypeList_sloc1_1_0,a
+   04E5                    1147 00103$:
+   04E5 EA                 1148 	mov	a,r2
+   04E6 60 63              1149 	jz	00106$
+                           1150 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:152: if(sm->typesOfEventsToDefer[i] == eventTypeToUnDefer)
+   04E8 90s00r29           1151 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
+   04EB E0                 1152 	movx	a,@dptr
+   04EC FC                 1153 	mov	r4,a
+   04ED A3                 1154 	inc	dptr
+   04EE E0                 1155 	movx	a,@dptr
+   04EF FD                 1156 	mov	r5,a
+   04F0 A3                 1157 	inc	dptr
+   04F1 E0                 1158 	movx	a,@dptr
+   04F2 FE                 1159 	mov	r6,a
+   04F3 74 17              1160 	mov	a,#0x17
+   04F5 2C                 1161 	add	a,r4
+   04F6 FF                 1162 	mov	r7,a
+   04F7 E4                 1163 	clr	a
+   04F8 3D                 1164 	addc	a,r5
+   04F9 F8                 1165 	mov	r0,a
+   04FA 8E 01              1166 	mov	ar1,r6
+   04FC 8F 82              1167 	mov	dpl,r7
+   04FE 88 83              1168 	mov	dph,r0
+   0500 89 F0              1169 	mov	b,r1
+   0502 12s00r00           1170 	lcall	__gptrget
+   0505 FF                 1171 	mov	r7,a
+   0506 A3                 1172 	inc	dptr
+   0507 12s00r00           1173 	lcall	__gptrget
+   050A F8                 1174 	mov	r0,a
+   050B A3                 1175 	inc	dptr
+   050C 12s00r00           1176 	lcall	__gptrget
+   050F F9                 1177 	mov	r1,a
+   0510 EA                 1178 	mov	a,r2
+   0511 2F                 1179 	add	a,r7
+   0512 FF                 1180 	mov	r7,a
+   0513 E4                 1181 	clr	a
+   0514 38                 1182 	addc	a,r0
+   0515 F8                 1183 	mov	r0,a
+   0516 8F 82              1184 	mov	dpl,r7
+   0518 88 83              1185 	mov	dph,r0
+   051A 89 F0              1186 	mov	b,r1
+   051C 12s00r00           1187 	lcall	__gptrget
+   051F FF                 1188 	mov	r7,a
+   0520 B5*08 20           1189 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00105$
+                           1190 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:154: found = true ;
+   0523 D2*01              1191 	setb	_removeFromDeferredTypeList_found_2_2
+                           1192 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:156: sm->currentDepthOfEventsToDeferList-- ;
+   0525 74 16              1193 	mov	a,#0x16
+   0527 2C                 1194 	add	a,r4
+   0528 FC                 1195 	mov	r4,a
+   0529 E4                 1196 	clr	a
+   052A 3D                 1197 	addc	a,r5
+   052B FD                 1198 	mov	r5,a
+   052C 8C 82              1199 	mov	dpl,r4
+   052E 8D 83              1200 	mov	dph,r5
+   0530 8E F0              1201 	mov	b,r6
+   0532 12s00r00           1202 	lcall	__gptrget
+   0535 FF                 1203 	mov	r7,a
+   0536 1F                 1204 	dec	r7
+   0537 8C 82              1205 	mov	dpl,r4
+   0539 8D 83              1206 	mov	dph,r5
+   053B 8E F0              1207 	mov	b,r6
+   053D EF                 1208 	mov	a,r7
+   053E 12s00r00           1209 	lcall	__gptrput
+                           1210 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:158: break ;
+   0541 80 08              1211 	sjmp	00106$
+   0543                    1212 00105$:
+                           1213 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:150: for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i != 0 ; i-- )
+   0543 1A                 1214 	dec	r2
+   0544 90s00r2C           1215 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
+   0547 EA                 1216 	mov	a,r2
+   0548 F0                 1217 	movx	@dptr,a
+   0549 80 9A              1218 	sjmp	00103$
+   054B                    1219 00106$:
+                           1220 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:162: if(found)
+   054B 20*01 01           1221 	jb	_removeFromDeferredTypeList_found_2_2,00140$
+   054E 22                 1222 	ret
+   054F                    1223 00140$:
+                           1224 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:167: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+   054F 90s00r29           1225 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
+   0552 E0                 1226 	movx	a,@dptr
+   0553 FA                 1227 	mov	r2,a
+   0554 A3                 1228 	inc	dptr
+   0555 E0                 1229 	movx	a,@dptr
+   0556 FC                 1230 	mov	r4,a
+   0557 A3                 1231 	inc	dptr
+   0558 E0                 1232 	movx	a,@dptr
+   0559 FD                 1233 	mov	r5,a
+   055A 74 16              1234 	mov	a,#0x16
+   055C 2A                 1235 	add	a,r2
+   055D FE                 1236 	mov	r6,a
+   055E E4                 1237 	clr	a
+   055F 3C                 1238 	addc	a,r4
+   0560 FF                 1239 	mov	r7,a
+   0561 8D 00              1240 	mov	ar0,r5
+   0563 90s00r2C           1241 	mov	dptr,#_removeFromDeferredTypeList_i_2_2
+   0566 E0                 1242 	movx	a,@dptr
+   0567 F9                 1243 	mov	r1,a
+   0568                    1244 00119$:
+   0568 8E 82              1245 	mov	dpl,r6
+   056A 8F 83              1246 	mov	dph,r7
+   056C 88 F0              1247 	mov	b,r0
+   056E 12s00r00           1248 	lcall	__gptrget
+   0571 F5*07              1249 	mov	_removeFromDeferredTypeList_sloc0_1_0,a
+   0573 C3                 1250 	clr	c
+   0574 E9                 1251 	mov	a,r1
+   0575 95*07              1252 	subb	a,_removeFromDeferredTypeList_sloc0_1_0
+   0577 50 64              1253 	jnc	00122$
+                           1254 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:169: sm->typesOfEventsToDefer[i] = sm->typesOfEventsToDefer[i + 1] ;
+   0579 C0 06              1255 	push	ar6
+   057B C0 07              1256 	push	ar7
+   057D C0 00              1257 	push	ar0
+   057F 74 17              1258 	mov	a,#0x17
+   0581 2A                 1259 	add	a,r2
+   0582 FE                 1260 	mov	r6,a
+   0583 E4                 1261 	clr	a
+   0584 3C                 1262 	addc	a,r4
+   0585 FF                 1263 	mov	r7,a
+   0586 8D 00              1264 	mov	ar0,r5
+   0588 8E 82              1265 	mov	dpl,r6
+   058A 8F 83              1266 	mov	dph,r7
+   058C 88 F0              1267 	mov	b,r0
+   058E 12s00r00           1268 	lcall	__gptrget
+   0591 F5*09              1269 	mov	_removeFromDeferredTypeList_sloc2_1_0,a
+   0593 A3                 1270 	inc	dptr
+   0594 12s00r00           1271 	lcall	__gptrget
+   0597 F5*0A              1272 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 1),a
+   0599 A3                 1273 	inc	dptr
+   059A 12s00r00           1274 	lcall	__gptrget
+   059D F5*0B              1275 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 2),a
+   059F E9                 1276 	mov	a,r1
+   05A0 25*09              1277 	add	a,_removeFromDeferredTypeList_sloc2_1_0
+   05A2 F5*0C              1278 	mov	_removeFromDeferredTypeList_sloc3_1_0,a
+   05A4 E4                 1279 	clr	a
+   05A5 35*0A              1280 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
+   05A7 F5*0D              1281 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 1),a
+   05A9 85*0B*0E           1282 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 2),(_removeFromDeferredTypeList_sloc2_1_0 + 2)
+   05AC 89 00              1283 	mov	ar0,r1
+   05AE 7B 00              1284 	mov	r3,#0x00
+   05B0 08                 1285 	inc	r0
+   05B1 B8 00 01           1286 	cjne	r0,#0x00,00142$
+   05B4 0B                 1287 	inc	r3
+   05B5                    1288 00142$:
+   05B5 E8                 1289 	mov	a,r0
+   05B6 25*09              1290 	add	a,_removeFromDeferredTypeList_sloc2_1_0
+   05B8 F8                 1291 	mov	r0,a
+   05B9 EB                 1292 	mov	a,r3
+   05BA 35*0A              1293 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
+   05BC FB                 1294 	mov	r3,a
+   05BD AE*0B              1295 	mov	r6,(_removeFromDeferredTypeList_sloc2_1_0 + 2)
+   05BF 88 82              1296 	mov	dpl,r0
+   05C1 8B 83              1297 	mov	dph,r3
+   05C3 8E F0              1298 	mov	b,r6
+   05C5 12s00r00           1299 	lcall	__gptrget
+   05C8 85*0C 82           1300 	mov	dpl,_removeFromDeferredTypeList_sloc3_1_0
+   05CB 85*0D 83           1301 	mov	dph,(_removeFromDeferredTypeList_sloc3_1_0 + 1)
+   05CE 85*0E F0           1302 	mov	b,(_removeFromDeferredTypeList_sloc3_1_0 + 2)
+   05D1 12s00r00           1303 	lcall	__gptrput
+                           1304 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:167: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
+   05D4 09                 1305 	inc	r1
+   05D5 D0 00              1306 	pop	ar0
+   05D7 D0 07              1307 	pop	ar7
+   05D9 D0 06              1308 	pop	ar6
+   05DB 80 8B              1309 	sjmp	00119$
+   05DD                    1310 00122$:
+                           1311 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:172: sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = 0 ;
+   05DD 74 17              1312 	mov	a,#0x17
+   05DF 2A                 1313 	add	a,r2
+   05E0 FB                 1314 	mov	r3,a
+   05E1 E4                 1315 	clr	a
+   05E2 3C                 1316 	addc	a,r4
+   05E3 FE                 1317 	mov	r6,a
+   05E4 8D 07              1318 	mov	ar7,r5
+   05E6 8B 82              1319 	mov	dpl,r3
+   05E8 8E 83              1320 	mov	dph,r6
+   05EA 8F F0              1321 	mov	b,r7
+   05EC 12s00r00           1322 	lcall	__gptrget
+   05EF FB                 1323 	mov	r3,a
+   05F0 A3                 1324 	inc	dptr
+   05F1 12s00r00           1325 	lcall	__gptrget
+   05F4 FE                 1326 	mov	r6,a
+   05F5 A3                 1327 	inc	dptr
+   05F6 12s00r00           1328 	lcall	__gptrget
+   05F9 FF                 1329 	mov	r7,a
+   05FA E5*07              1330 	mov	a,_removeFromDeferredTypeList_sloc0_1_0
+   05FC 2B                 1331 	add	a,r3
+   05FD FB                 1332 	mov	r3,a
+   05FE E4                 1333 	clr	a
+   05FF 3E                 1334 	addc	a,r6
+   0600 FE                 1335 	mov	r6,a
+   0601 8B 82              1336 	mov	dpl,r3
+   0603 8E 83              1337 	mov	dph,r6
+   0605 8F F0              1338 	mov	b,r7
+   0607 E4                 1339 	clr	a
+   0608 12s00r00           1340 	lcall	__gptrput
+                           1341 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:183: currentEvent	= eventQueue_remove(&sm->deferredEventQueue) ;
+   060B 74 1A              1342 	mov	a,#0x1A
+   060D 2A                 1343 	add	a,r2
+   060E FA                 1344 	mov	r2,a
+   060F E4                 1345 	clr	a
+   0610 3C                 1346 	addc	a,r4
+   0611 FC                 1347 	mov	r4,a
+   0612 8A 82              1348 	mov	dpl,r2
+   0614 8C 83              1349 	mov	dph,r4
+   0616 8D F0              1350 	mov	b,r5
+   0618 12s02rEC           1351 	lcall	_eventQueue_remove
+   061B AA 82              1352 	mov	r2,dpl
+   061D AB 83              1353 	mov	r3,dph
+   061F AC F0              1354 	mov	r4,b
+   0621 90s00r2D           1355 	mov	dptr,#_removeFromDeferredTypeList_currentEvent_3_5
+   0624 EA                 1356 	mov	a,r2
+   0625 F0                 1357 	movx	@dptr,a
+   0626 A3                 1358 	inc	dptr
+   0627 EB                 1359 	mov	a,r3
+   0628 F0                 1360 	movx	@dptr,a
+   0629 A3                 1361 	inc	dptr
+   062A EC                 1362 	mov	a,r4
+   062B F0                 1363 	movx	@dptr,a
+                           1364 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:186: while(currentEvent)
+   062C 90s00r29           1365 	mov	dptr,#_removeFromDeferredTypeList_sm_1_1
+   062F E0                 1366 	movx	a,@dptr
+   0630 FD                 1367 	mov	r5,a
+   0631 A3                 1368 	inc	dptr
+   0632 E0                 1369 	movx	a,@dptr
+   0633 FE                 1370 	mov	r6,a
+   0634 A3                 1371 	inc	dptr
+   0635 E0                 1372 	movx	a,@dptr
+   0636 FF                 1373 	mov	r7,a
+   0637 8D*0C              1374 	mov	_removeFromDeferredTypeList_sloc3_1_0,r5
+   0639 8E*0D              1375 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 1),r6
+   063B 8F*0E              1376 	mov	(_removeFromDeferredTypeList_sloc3_1_0 + 2),r7
+   063D 8D*09              1377 	mov	_removeFromDeferredTypeList_sloc2_1_0,r5
+   063F 8E*0A              1378 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 1),r6
+   0641 8F*0B              1379 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 2),r7
+   0643                    1380 00112$:
+   0643 90s00r2D           1381 	mov	dptr,#_removeFromDeferredTypeList_currentEvent_3_5
+   0646 E0                 1382 	movx	a,@dptr
+   0647 F5*0F              1383 	mov	_removeFromDeferredTypeList_sloc4_1_0,a
+   0649 A3                 1384 	inc	dptr
+   064A E0                 1385 	movx	a,@dptr
+   064B F5*10              1386 	mov	(_removeFromDeferredTypeList_sloc4_1_0 + 1),a
+   064D A3                 1387 	inc	dptr
+   064E E0                 1388 	movx	a,@dptr
+   064F F5*11              1389 	mov	(_removeFromDeferredTypeList_sloc4_1_0 + 2),a
+   0651 E5*0F              1390 	mov	a,_removeFromDeferredTypeList_sloc4_1_0
+   0653 45*10              1391 	orl	a,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
+   0655 45*11              1392 	orl	a,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
+   0657 70 01              1393 	jnz	00143$
+   0659 22                 1394 	ret
+   065A                    1395 00143$:
+                           1396 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:196: if(hsm_getEventType(currentEvent) == eventTypeToUnDefer)
+   065A 85*0F 82           1397 	mov	dpl,_removeFromDeferredTypeList_sloc4_1_0
+   065D 85*10 83           1398 	mov	dph,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
+   0660 85*11 F0           1399 	mov	b,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
+   0663 12s00r00           1400 	lcall	__gptrget
+   0666 F8                 1401 	mov	r0,a
+   0667 B5*08 48           1402 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00108$
+                           1403 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:198: eventQueue_insert(&sm->eventQueue, currentEvent) ;
+   066A C0 02              1404 	push	ar2
+   066C C0 03              1405 	push	ar3
+   066E C0 04              1406 	push	ar4
+   0670 74 0E              1407 	mov	a,#0x0E
+   0672 25*0C              1408 	add	a,_removeFromDeferredTypeList_sloc3_1_0
+   0674 F8                 1409 	mov	r0,a
+   0675 E4                 1410 	clr	a
+   0676 35*0D              1411 	addc	a,(_removeFromDeferredTypeList_sloc3_1_0 + 1)
+   0678 F9                 1412 	mov	r1,a
+   0679 AA*0E              1413 	mov	r2,(_removeFromDeferredTypeList_sloc3_1_0 + 2)
+   067B 90s00r17           1414 	mov	dptr,#_eventQueue_insert_PARM_2
+   067E E5*0F              1415 	mov	a,_removeFromDeferredTypeList_sloc4_1_0
+   0680 F0                 1416 	movx	@dptr,a
+   0681 A3                 1417 	inc	dptr
+   0682 E5*10              1418 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
+   0684 F0                 1419 	movx	@dptr,a
+   0685 A3                 1420 	inc	dptr
+   0686 E5*11              1421 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
+   0688 F0                 1422 	movx	@dptr,a
+   0689 88 82              1423 	mov	dpl,r0
+   068B 89 83              1424 	mov	dph,r1
+   068D 8A F0              1425 	mov	b,r2
+   068F C0 02              1426 	push	ar2
+   0691 C0 03              1427 	push	ar3
+   0693 C0 04              1428 	push	ar4
+   0695 C0 05              1429 	push	ar5
+   0697 C0 06              1430 	push	ar6
+   0699 C0 07              1431 	push	ar7
+   069B 12s01rAE           1432 	lcall	_eventQueue_insert
+   069E D0 07              1433 	pop	ar7
+   06A0 D0 06              1434 	pop	ar6
+   06A2 D0 05              1435 	pop	ar5
+   06A4 D0 04              1436 	pop	ar4
+   06A6 D0 03              1437 	pop	ar3
+   06A8 D0 02              1438 	pop	ar2
+   06AA D0 04              1439 	pop	ar4
+   06AC D0 03              1440 	pop	ar3
+   06AE D0 02              1441 	pop	ar2
+   06B0 80 44              1442 	sjmp	00109$
+   06B2                    1443 00108$:
+                           1444 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:202: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
+   06B2 C0 02              1445 	push	ar2
+   06B4 C0 03              1446 	push	ar3
+   06B6 C0 04              1447 	push	ar4
+   06B8 74 1A              1448 	mov	a,#0x1A
+   06BA 2D                 1449 	add	a,r5
+   06BB F8                 1450 	mov	r0,a
+   06BC E4                 1451 	clr	a
+   06BD 3E                 1452 	addc	a,r6
+   06BE F9                 1453 	mov	r1,a
+   06BF 8F 02              1454 	mov	ar2,r7
+   06C1 90s00r17           1455 	mov	dptr,#_eventQueue_insert_PARM_2
+   06C4 E5*0F              1456 	mov	a,_removeFromDeferredTypeList_sloc4_1_0
+   06C6 F0                 1457 	movx	@dptr,a
+   06C7 A3                 1458 	inc	dptr
+   06C8 E5*10              1459 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
+   06CA F0                 1460 	movx	@dptr,a
+   06CB A3                 1461 	inc	dptr
+   06CC E5*11              1462 	mov	a,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
+   06CE F0                 1463 	movx	@dptr,a
+   06CF 88 82              1464 	mov	dpl,r0
+   06D1 89 83              1465 	mov	dph,r1
+   06D3 8A F0              1466 	mov	b,r2
+   06D5 C0 02              1467 	push	ar2
+   06D7 C0 03              1468 	push	ar3
+   06D9 C0 04              1469 	push	ar4
+   06DB C0 05              1470 	push	ar5
+   06DD C0 06              1471 	push	ar6
+   06DF C0 07              1472 	push	ar7
+   06E1 12s01rAE           1473 	lcall	_eventQueue_insert
+   06E4 D0 07              1474 	pop	ar7
+   06E6 D0 06              1475 	pop	ar6
+   06E8 D0 05              1476 	pop	ar5
+   06EA D0 04              1477 	pop	ar4
+   06EC D0 03              1478 	pop	ar3
+   06EE D0 02              1479 	pop	ar2
+                           1480 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:215: break ;
+   06F0 D0 04              1481 	pop	ar4
+   06F2 D0 03              1482 	pop	ar3
+   06F4 D0 02              1483 	pop	ar2
+                           1484 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:202: eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
+   06F6                    1485 00109$:
+                           1486 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:211: currentEvent = eventQueue_remove(&sm->deferredEventQueue) ;
+   06F6 C0 05              1487 	push	ar5
+   06F8 C0 06              1488 	push	ar6
+   06FA C0 07              1489 	push	ar7
+   06FC 74 1A              1490 	mov	a,#0x1A
+   06FE 25*09              1491 	add	a,_removeFromDeferredTypeList_sloc2_1_0
+   0700 F8                 1492 	mov	r0,a
+   0701 E4                 1493 	clr	a
+   0702 35*0A              1494 	addc	a,(_removeFromDeferredTypeList_sloc2_1_0 + 1)
+   0704 F9                 1495 	mov	r1,a
+   0705 AD*0B              1496 	mov	r5,(_removeFromDeferredTypeList_sloc2_1_0 + 2)
+   0707 88 82              1497 	mov	dpl,r0
+   0709 89 83              1498 	mov	dph,r1
+   070B 8D F0              1499 	mov	b,r5
+   070D C0 02              1500 	push	ar2
+   070F C0 03              1501 	push	ar3
+   0711 C0 04              1502 	push	ar4
+   0713 12s02rEC           1503 	lcall	_eventQueue_remove
+   0716 AD 82              1504 	mov	r5,dpl
+   0718 AE 83              1505 	mov	r6,dph
+   071A AF F0              1506 	mov	r7,b
+   071C D0 04              1507 	pop	ar4
+   071E D0 03              1508 	pop	ar3
+   0720 D0 02              1509 	pop	ar2
+   0722 90s00r2D           1510 	mov	dptr,#_removeFromDeferredTypeList_currentEvent_3_5
+   0725 ED                 1511 	mov	a,r5
+   0726 F0                 1512 	movx	@dptr,a
+   0727 A3                 1513 	inc	dptr
+   0728 EE                 1514 	mov	a,r6
+   0729 F0                 1515 	movx	@dptr,a
+   072A A3                 1516 	inc	dptr
+   072B EF                 1517 	mov	a,r7
+   072C F0                 1518 	movx	@dptr,a
+                           1519 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:213: if(currentEvent == firstEvent)
+   072D ED                 1520 	mov	a,r5
+   072E B5 02 0A           1521 	cjne	a,ar2,00146$
+   0731 EE                 1522 	mov	a,r6
+   0732 B5 03 06           1523 	cjne	a,ar3,00146$
+   0735 EF                 1524 	mov	a,r7
+   0736 B5 04 02           1525 	cjne	a,ar4,00146$
+   0739 80 09              1526 	sjmp	00147$
+   073B                    1527 00146$:
+   073B D0 07              1528 	pop	ar7
+   073D D0 06              1529 	pop	ar6
+   073F D0 05              1530 	pop	ar5
+   0741 02s06r43           1531 	ljmp	00112$
+   0744                    1532 00147$:
+   0744 D0 07              1533 	pop	ar7
+   0746 D0 06              1534 	pop	ar6
+   0748 D0 05              1535 	pop	ar5
+                           1536 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:215: break ;
+   074A 22                 1537 	ret
+                           1538 ;------------------------------------------------------------
+                           1539 ;Allocation info for local variables in function 'postEventToStateMachine'
+                           1540 ;------------------------------------------------------------
+                           1541 ;event                     Allocated with name '_postEventToStateMachine_PARM_2'
+                           1542 ;sm                        Allocated with name '_postEventToStateMachine_sm_1_1'
+                           1543 ;------------------------------------------------------------
+                           1544 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:223: bool postEventToStateMachine(			stateMachine_t* sm, event_t* event)
+                           1545 ;	-----------------------------------------
+                           1546 ;	 function postEventToStateMachine
+                           1547 ;	-----------------------------------------
+   074B                    1548 _postEventToStateMachine:
+   074B AA F0              1549 	mov	r2,b
+   074D AB 83              1550 	mov	r3,dph
+   074F E5 82              1551 	mov	a,dpl
+   0751 90s00r33           1552 	mov	dptr,#_postEventToStateMachine_sm_1_1
+   0754 F0                 1553 	movx	@dptr,a
+   0755 A3                 1554 	inc	dptr
+   0756 EB                 1555 	mov	a,r3
+   0757 F0                 1556 	movx	@dptr,a
+   0758 A3                 1557 	inc	dptr
+   0759 EA                 1558 	mov	a,r2
+   075A F0                 1559 	movx	@dptr,a
+                           1560 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:225: if(isEventTypeDeferred(sm, hsm_getEventType(event)))
+   075B 90s00r33           1561 	mov	dptr,#_postEventToStateMachine_sm_1_1
+   075E E0                 1562 	movx	a,@dptr
+   075F FA                 1563 	mov	r2,a
+   0760 A3                 1564 	inc	dptr
+   0761 E0                 1565 	movx	a,@dptr
+   0762 FB                 1566 	mov	r3,a
+   0763 A3                 1567 	inc	dptr
+   0764 E0                 1568 	movx	a,@dptr
+   0765 FC                 1569 	mov	r4,a
+   0766 90s00r30           1570 	mov	dptr,#_postEventToStateMachine_PARM_2
+   0769 E0                 1571 	movx	a,@dptr
+   076A FD                 1572 	mov	r5,a
+   076B A3                 1573 	inc	dptr
+   076C E0                 1574 	movx	a,@dptr
+   076D FE                 1575 	mov	r6,a
+   076E A3                 1576 	inc	dptr
+   076F E0                 1577 	movx	a,@dptr
+   0770 FF                 1578 	mov	r7,a
+   0771 8D 82              1579 	mov	dpl,r5
+   0773 8E 83              1580 	mov	dph,r6
+   0775 8F F0              1581 	mov	b,r7
+   0777 12s00r00           1582 	lcall	__gptrget
+   077A 90s00r24           1583 	mov	dptr,#_isEventTypeDeferred_PARM_2
+   077D F0                 1584 	movx	@dptr,a
+   077E 8A 82              1585 	mov	dpl,r2
+   0780 8B 83              1586 	mov	dph,r3
+   0782 8C F0              1587 	mov	b,r4
+   0784 C0 05              1588 	push	ar5
+   0786 C0 06              1589 	push	ar6
+   0788 C0 07              1590 	push	ar7
+   078A 12s04r1D           1591 	lcall	_isEventTypeDeferred
+   078D D0 07              1592 	pop	ar7
+   078F D0 06              1593 	pop	ar6
+   0791 D0 05              1594 	pop	ar5
+   0793 50 29              1595 	jnc	00102$
+                           1596 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:227: return eventQueue_insert(&sm->deferredEventQueue, event) ;
+   0795 90s00r33           1597 	mov	dptr,#_postEventToStateMachine_sm_1_1
+   0798 E0                 1598 	movx	a,@dptr
+   0799 FA                 1599 	mov	r2,a
+   079A A3                 1600 	inc	dptr
+   079B E0                 1601 	movx	a,@dptr
+   079C FB                 1602 	mov	r3,a
+   079D A3                 1603 	inc	dptr
+   079E E0                 1604 	movx	a,@dptr
+   079F FC                 1605 	mov	r4,a
+   07A0 74 1A              1606 	mov	a,#0x1A
+   07A2 2A                 1607 	add	a,r2
+   07A3 FA                 1608 	mov	r2,a
+   07A4 E4                 1609 	clr	a
+   07A5 3B                 1610 	addc	a,r3
+   07A6 FB                 1611 	mov	r3,a
+   07A7 90s00r17           1612 	mov	dptr,#_eventQueue_insert_PARM_2
+   07AA ED                 1613 	mov	a,r5
+   07AB F0                 1614 	movx	@dptr,a
+   07AC A3                 1615 	inc	dptr
+   07AD EE                 1616 	mov	a,r6
+   07AE F0                 1617 	movx	@dptr,a
+   07AF A3                 1618 	inc	dptr
+   07B0 EF                 1619 	mov	a,r7
+   07B1 F0                 1620 	movx	@dptr,a
+   07B2 8A 82              1621 	mov	dpl,r2
+   07B4 8B 83              1622 	mov	dph,r3
+   07B6 8C F0              1623 	mov	b,r4
+   07B8 12s01rAE           1624 	lcall	_eventQueue_insert
+   07BB 92*02              1625 	mov  _postEventToStateMachine_sloc0_1_0,c
+   07BD 22                 1626 	ret
+   07BE                    1627 00102$:
+                           1628 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:231: return eventQueue_insert(&sm->eventQueue, event) ;
+   07BE 90s00r33           1629 	mov	dptr,#_postEventToStateMachine_sm_1_1
+   07C1 E0                 1630 	movx	a,@dptr
+   07C2 FA                 1631 	mov	r2,a
+   07C3 A3                 1632 	inc	dptr
+   07C4 E0                 1633 	movx	a,@dptr
+   07C5 FB                 1634 	mov	r3,a
+   07C6 A3                 1635 	inc	dptr
+   07C7 E0                 1636 	movx	a,@dptr
+   07C8 FC                 1637 	mov	r4,a
+   07C9 74 0E              1638 	mov	a,#0x0E
+   07CB 2A                 1639 	add	a,r2
+   07CC FA                 1640 	mov	r2,a
+   07CD E4                 1641 	clr	a
+   07CE 3B                 1642 	addc	a,r3
+   07CF FB                 1643 	mov	r3,a
+   07D0 90s00r17           1644 	mov	dptr,#_eventQueue_insert_PARM_2
+   07D3 ED                 1645 	mov	a,r5
+   07D4 F0                 1646 	movx	@dptr,a
+   07D5 A3                 1647 	inc	dptr
+   07D6 EE                 1648 	mov	a,r6
+   07D7 F0                 1649 	movx	@dptr,a
+   07D8 A3                 1650 	inc	dptr
+   07D9 EF                 1651 	mov	a,r7
+   07DA F0                 1652 	movx	@dptr,a
+   07DB 8A 82              1653 	mov	dpl,r2
+   07DD 8B 83              1654 	mov	dph,r3
+   07DF 8C F0              1655 	mov	b,r4
+   07E1 12s01rAE           1656 	lcall	_eventQueue_insert
+   07E4 92*02              1657 	mov  _postEventToStateMachine_sloc0_1_0,c
+   07E6 22                 1658 	ret
+                           1659 	.area CSEG    (CODE)
+                           1660 	.area CONST   (CODE)
+   0000                    1661 __str_0:
+   0000 09                 1662 	.db 0x09
+   0001 09                 1663 	.db 0x09
+   0002 09                 1664 	.db 0x09
+   0003 50 6F 73 74 69 6E  1665 	.ascii "Posting event type: %s"
         67 20 65 76 65 6E
         74 20 74 79 70 65
         3A 20 25 73
-   0019 0A                 1648 	.db 0x0A
-   001A 00                 1649 	.db 0x00
-   001B                    1650 __str_1:
-   001B 3C 55 53 45 52 5F  1651 	.ascii "<USER_EVENT>"
+   0019 0A                 1666 	.db 0x0A
+   001A 00                 1667 	.db 0x00
+   001B                    1668 __str_1:
+   001B 3C 55 53 45 52 5F  1669 	.ascii "<USER_EVENT>"
         45 56 45 4E 54 3E
-   0027 00                 1652 	.db 0x00
-                           1653 	.area XINIT   (CODE)
-                           1654 	.area CABS    (ABS,CODE)
+   0027 00                 1670 	.db 0x00
+                           1671 	.area XINIT   (CODE)
+                           1672 	.area CABS    (ABS,CODE)

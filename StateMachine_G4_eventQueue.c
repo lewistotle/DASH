@@ -11,6 +11,34 @@
 #include "stateMachine_G4_eventQueue.h"
 
 
+
+
+
+
+bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
+{
+	eventType_t	eventType = hsm_getEventType(event) ;
+
+	if(hsm_isEventInternal(event))
+	{
+		return false ;
+	}
+
+#if config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES <= 256
+	return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
+#else
+//	return maskSet->mask[eventType >> 3] & (1 << (eventType & 0x07)) ;
+#endif
+}
+
+
+
+
+
+
+
+
+
 bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
 {
 	Q->Capacity	= maxEntriesInQueue ;
@@ -56,12 +84,13 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 		Q->Array[Q->Rear] = event ;
 
-		printf("\t\t\tPosting event type: %s\n", event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
+//		printf("\t\t\tPosting event type %s to %p\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>", &Q->Array[Q->Rear]) ;
 
 		return true ;
 	}
 	else
 	{
+		printf("\t\t\tEvent queue FULL\n") ;
 		return false ;
 	}
 }
@@ -69,9 +98,13 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 
 event_t* eventQueue_remove(	eventQueue_t* Q)
 {
+//	printf("\t\t\t\teventQueue_remove(): Q: %p\n", Q) ;
+
 	if(!eventQueue_isEmpty(Q))
 	{
 		event_t* eventReceived = Q->Array[Q->Front] ;
+
+//		printf("\t\t\t\teventQueue_remove(): eventReceived: %p\n", eventReceived) ;
 
 		Q->Size-- ;
 		Q->Front = nextLocationFromPoint(Q, Q->Front) ;
@@ -85,20 +118,20 @@ event_t* eventQueue_remove(	eventQueue_t* Q)
 }
 
 
-void addToDeferredTypeList(			stateMachine_t* sm, eventType_t	eventTypeToDefer)
+void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefer)
 {
 	if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
 	{
-		sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
+//		sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
 
 		sm->currentDepthOfEventsToDeferList++ ;
 	}
 }
 
 
-bool isEventTypeDeferred(			stateMachine_t* sm, eventType_t	eventTypeToCheck)
+bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck)
 {
-	eventType_t	i ;
+	eventQueueIndex_t	i ;
 
 	for( i = 0 ; i < sm->currentDepthOfEventsToDeferList ; i++ )
 	{
@@ -112,14 +145,14 @@ bool isEventTypeDeferred(			stateMachine_t* sm, eventType_t	eventTypeToCheck)
 }
 
 
-void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t	eventTypeToUnDefer)
+void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer)
 {
 	if(sm->currentDepthOfEventsToDeferList > 0)
 	{
 		bool				found = false ;
 		eventQueueIndex_t	i ;
 
-		for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i >= 0 ; i-- )
+		for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i != 0 ; i-- )
 		{
 			if(sm->typesOfEventsToDefer[i] == eventTypeToUnDefer)
 			{
@@ -165,7 +198,7 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t	eventTypeToUnDe
 				 * deferred and the normal event queue was full.
 				 */
 
-				if(currentEvent->eventType == eventTypeToUnDefer)
+				if(hsm_getEventType(currentEvent) == eventTypeToUnDefer)
 				{
 					eventQueue_insert(&sm->eventQueue, currentEvent) ;
 				}
@@ -192,9 +225,9 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t	eventTypeToUnDe
 }
 
 
-bool postEventToStateMachine(			stateMachine_t* sm, event_t* event)
+bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm)
 {
-	if(isEventTypeDeferred(sm, event->eventType))
+	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
 	{
 		return eventQueue_insert(&sm->deferredEventQueue, event) ;
 	}

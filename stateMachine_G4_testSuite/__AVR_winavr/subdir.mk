@@ -3,9 +3,6 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-O_SRCS += \
-../sm_test_toaster.o 
-
 C_SRCS += \
 ../main.c \
 ../sm_test_calculator.c \

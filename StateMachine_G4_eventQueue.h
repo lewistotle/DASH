@@ -15,15 +15,24 @@
 	#define configstateMachine_MAX_NUMBER_OF_EVENT_TYPES		100
 #endif
 
-#if config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES < 127
-	typedef uint8_t				eventType_t ;
-	/* The signed version is used here to allow for loop indexes to be
-	 * compared to zero and have it do the right thing. That is why
-	 * 127 was chosen above rather than 255
-	 */
-	typedef int8_t				eventQueueIndex_t ;
-#elif config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES < 32767
-	typedef uint16_t			eventType_t ;
+#if config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES <= 256
+	typedef uint8_t	rawEventType_t ;
+	typedef uint8_t eventType_t ;
+	typedef uint8_t	eventQueueIndex_t ;
+#elif config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES < 65536
+	typedef uint16_t	rawEventType_t ;
+	typedef struct
+	{
+		union
+		{
+			struct
+			{
+				unsigned	eventFamily	: 2 ;
+				unsigned	eventID		: 14 ;
+			} encodedEventType ;
+			uint8_t	rawEventType ;
+		}
+	} eventType ;
 	typedef int8_t				eventQueueIndex_t ;
 #else
 	#error	DAMN! You have got way too many event types here.
@@ -48,10 +57,78 @@
  * having to know about all the additional data.
  */
 
+typedef uint8_t			eventInfo_t ;
+
+#define EVENT_SIZE_MASK					0xE0
+#define EVENT_REFERENCE_COUNT_MASK		0x1F
+
+#define hsm_getEventMemoryPool(evt)		((((event_t*)evt)->eventInfo & EVENT_SIZE_MASK) >> 5)
+#define hsm_getEventReferenceCount(evt)	(((event_t*)evt)->eventInfo & EVENT_REFERENCE_COUNT_MASK)
+
 typedef struct
 {
 	eventType_t			eventType ;
+	eventInfo_t			eventInfo ;
+	const char*			eventName ;	/* debugging only */
 } event_t ;
+
+
+
+#define hsm_getEventType(event)		(event->eventType)
+
+enum STATE_MACHINE_INTERNAL_EVENTS	{
+										SUBSTATE_LAST_USER_EVENTS			= 0x7F,
+										SUBSTATE_FIRST_GLOBAL_EVENT			= 0x80,
+										SUBSTATE_NON_EVENT					= 0x00,
+										SUBSTATE_ENTRY						= 0x01,
+										SUBSTATE_INITIAL_TRANSITION			= 0x02,
+										SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= 0x03,
+										SUBSTATE_TICK						= 0x04,
+										SUBSTATE_TIMEOUT					= 0x05,
+										SUBSTATE_WATCHED					= 0x06,
+										SUBSTATE_DO							= 0x07,
+										SUBSTATE_EXIT						= 0x08,
+										SUBSTATE_LAST_INTERNAL_EVENT		= SUBSTATE_EXIT
+									} ;
+
+#define hsm_isEventInternal(event)	(event->eventType <= SUBSTATE_EXIT ? true : false)
+#define hsm_isEventGlobal(event)	(event->eventType >= SUBSTATE_FIRST_GLOBAL_EVENT ? true : false)
+#define hsm_isEventUser(event)		((event->eventType > SUBSTATE_EXIT) && (event->eventType <= SUBSTATE_LAST_USER_EVENTS)) ? true : false)
+
+
+
+
+enum WATCH_VARIABLE_TYPE		{ UINT8 = 1, UINT16 = 2, UINT32 = 4 } ;
+
+typedef struct
+{
+	event_t						parent ;
+
+	void*						machine ;
+
+	enum WATCH_VARIABLE_TYPE	type ;
+	void*						watchVariableLocation ;
+} stateMachineWatch_t ;
+
+typedef struct
+{
+	event_t						parent ;
+
+	uint32_t					uptime_hours_endTime ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t					uptime_microseconds_endTime ;
+} tickEvent_t ;
+
+
+typedef struct
+{
+	event_t						parent ;
+
+	uint32_t					uptime_hours_endTime ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t					uptime_microseconds_endTime ;
+
+	void*						machine ;
+} stateMachineTimeout_t ;
+
 
 
 /* Now make up a simple queue that will be used to hold pointers to
@@ -69,6 +146,30 @@ typedef struct
 	eventQueueIndex_t	Size ;
 	event_t**			Array ;
 } eventQueue_t ;
+
+
+
+
+
+
+typedef struct
+{
+	uint8_t	mask[8] ;
+} eventTypeBitmask_t ;
+
+
+bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet) ;
+
+
+
+
+
+
+
+
+
+
+
 
 
 

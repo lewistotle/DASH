@@ -867,7 +867,7 @@
                             867 ;	-----------------------------------------
                             868 ;	 function task_UART_init
                             869 ;	-----------------------------------------
-   3ED0                     870 _task_UART_init:
+   4002                     870 _task_UART_init:
                     0002    871 	ar2 = 0x02
                     0003    872 	ar3 = 0x03
                     0004    873 	ar4 = 0x04
@@ -876,14 +876,14 @@
                     0007    876 	ar7 = 0x07
                     0000    877 	ar0 = 0x00
                     0001    878 	ar1 = 0x01
-   3ED0 E5 82               879 	mov	a,dpl
-   3ED2 90 0A 7F            880 	mov	dptr,#_task_UART_init_channelNumber_1_1
-   3ED5 F0                  881 	movx	@dptr,a
+   4002 E5 82               879 	mov	a,dpl
+   4004 90 0A 7F            880 	mov	dptr,#_task_UART_init_channelNumber_1_1
+   4007 F0                  881 	movx	@dptr,a
                             882 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:37: task_UART_init_projectSpecific(channelNumber) ;
-   3ED6 90 0A 7F            883 	mov	dptr,#_task_UART_init_channelNumber_1_1
-   3ED9 E0                  884 	movx	a,@dptr
-   3EDA F5 82               885 	mov	dpl,a
-   3EDC 02 04 04            886 	ljmp	_task_UART_init_projectSpecific
+   4008 90 0A 7F            883 	mov	dptr,#_task_UART_init_channelNumber_1_1
+   400B E0                  884 	movx	a,@dptr
+   400C F5 82               885 	mov	dpl,a
+   400E 02 04 04            886 	ljmp	_task_UART_init_projectSpecific
                             887 ;------------------------------------------------------------
                             888 ;Allocation info for local variables in function 'task_UART_core'
                             889 ;------------------------------------------------------------
@@ -893,15 +893,15 @@
                             893 ;	-----------------------------------------
                             894 ;	 function task_UART_core
                             895 ;	-----------------------------------------
-   3EDF                     896 _task_UART_core:
-   3EDF E5 82               897 	mov	a,dpl
-   3EE1 90 0A 80            898 	mov	dptr,#_task_UART_core_channelNumber_1_1
-   3EE4 F0                  899 	movx	@dptr,a
+   4011                     896 _task_UART_core:
+   4011 E5 82               897 	mov	a,dpl
+   4013 90 0A 80            898 	mov	dptr,#_task_UART_core_channelNumber_1_1
+   4016 F0                  899 	movx	@dptr,a
                             900 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:46: task_UART_core_projectSpecific(channelNumber) ;
-   3EE5 90 0A 80            901 	mov	dptr,#_task_UART_core_channelNumber_1_1
-   3EE8 E0                  902 	movx	a,@dptr
-   3EE9 F5 82               903 	mov	dpl,a
-   3EEB 02 05 60            904 	ljmp	_task_UART_core_projectSpecific
+   4017 90 0A 80            901 	mov	dptr,#_task_UART_core_channelNumber_1_1
+   401A E0                  902 	movx	a,@dptr
+   401B F5 82               903 	mov	dpl,a
+   401D 02 05 60            904 	ljmp	_task_UART_core_projectSpecific
                             905 ;------------------------------------------------------------
                             906 ;Allocation info for local variables in function 'task_UART_putchar'
                             907 ;------------------------------------------------------------
@@ -912,22 +912,22 @@
                             912 ;	-----------------------------------------
                             913 ;	 function task_UART_putchar
                             914 ;	-----------------------------------------
-   3EEE                     915 _task_UART_putchar:
-   3EEE E5 82               916 	mov	a,dpl
-   3EF0 90 0A 82            917 	mov	dptr,#_task_UART_putchar_channelNumber_1_1
-   3EF3 F0                  918 	movx	@dptr,a
+   4020                     915 _task_UART_putchar:
+   4020 E5 82               916 	mov	a,dpl
+   4022 90 0A 82            917 	mov	dptr,#_task_UART_putchar_channelNumber_1_1
+   4025 F0                  918 	movx	@dptr,a
                             919 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:53: return task_UART_putchar_projectSpecific(channelNumber, charToSend) ;
-   3EF4 90 0A 82            920 	mov	dptr,#_task_UART_putchar_channelNumber_1_1
-   3EF7 E0                  921 	movx	a,@dptr
-   3EF8 FA                  922 	mov	r2,a
-   3EF9 90 0A 81            923 	mov	dptr,#_task_UART_putchar_PARM_2
-   3EFC E0                  924 	movx	a,@dptr
-   3EFD 90 08 D2            925 	mov	dptr,#_task_UART_putchar_projectSpecific_PARM_2
-   3F00 F0                  926 	movx	@dptr,a
-   3F01 8A 82               927 	mov	dpl,r2
-   3F03 12 07 C4            928 	lcall	_task_UART_putchar_projectSpecific
-   3F06 92 07               929 	mov  _task_UART_putchar_sloc0_1_0,c
-   3F08 22                  930 	ret
+   4026 90 0A 82            920 	mov	dptr,#_task_UART_putchar_channelNumber_1_1
+   4029 E0                  921 	movx	a,@dptr
+   402A FA                  922 	mov	r2,a
+   402B 90 0A 81            923 	mov	dptr,#_task_UART_putchar_PARM_2
+   402E E0                  924 	movx	a,@dptr
+   402F 90 08 D2            925 	mov	dptr,#_task_UART_putchar_projectSpecific_PARM_2
+   4032 F0                  926 	movx	@dptr,a
+   4033 8A 82               927 	mov	dpl,r2
+   4035 12 07 C4            928 	lcall	_task_UART_putchar_projectSpecific
+   4038 92 07               929 	mov  _task_UART_putchar_sloc0_1_0,c
+   403A 22                  930 	ret
                             931 ;------------------------------------------------------------
                             932 ;Allocation info for local variables in function 'task_UART_puts'
                             933 ;------------------------------------------------------------
@@ -938,34 +938,34 @@
                             938 ;	-----------------------------------------
                             939 ;	 function task_UART_puts
                             940 ;	-----------------------------------------
-   3F09                     941 _task_UART_puts:
-   3F09 E5 82               942 	mov	a,dpl
-   3F0B 90 0A 86            943 	mov	dptr,#_task_UART_puts_channelNumber_1_1
-   3F0E F0                  944 	movx	@dptr,a
+   403B                     941 _task_UART_puts:
+   403B E5 82               942 	mov	a,dpl
+   403D 90 0A 86            943 	mov	dptr,#_task_UART_puts_channelNumber_1_1
+   4040 F0                  944 	movx	@dptr,a
                             945 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:59: task_UART_puts_projectSpecific(channelNumber, buffer) ;
-   3F0F 90 0A 86            946 	mov	dptr,#_task_UART_puts_channelNumber_1_1
-   3F12 E0                  947 	movx	a,@dptr
-   3F13 FA                  948 	mov	r2,a
-   3F14 90 0A 83            949 	mov	dptr,#_task_UART_puts_PARM_2
-   3F17 E0                  950 	movx	a,@dptr
-   3F18 FB                  951 	mov	r3,a
-   3F19 A3                  952 	inc	dptr
-   3F1A E0                  953 	movx	a,@dptr
-   3F1B FC                  954 	mov	r4,a
-   3F1C A3                  955 	inc	dptr
-   3F1D E0                  956 	movx	a,@dptr
-   3F1E FD                  957 	mov	r5,a
-   3F1F 90 08 D7            958 	mov	dptr,#_task_UART_puts_projectSpecific_PARM_2
-   3F22 EB                  959 	mov	a,r3
-   3F23 F0                  960 	movx	@dptr,a
-   3F24 A3                  961 	inc	dptr
-   3F25 EC                  962 	mov	a,r4
-   3F26 F0                  963 	movx	@dptr,a
-   3F27 A3                  964 	inc	dptr
-   3F28 ED                  965 	mov	a,r5
-   3F29 F0                  966 	movx	@dptr,a
-   3F2A 8A 82               967 	mov	dpl,r2
-   3F2C 02 08 E1            968 	ljmp	_task_UART_puts_projectSpecific
+   4041 90 0A 86            946 	mov	dptr,#_task_UART_puts_channelNumber_1_1
+   4044 E0                  947 	movx	a,@dptr
+   4045 FA                  948 	mov	r2,a
+   4046 90 0A 83            949 	mov	dptr,#_task_UART_puts_PARM_2
+   4049 E0                  950 	movx	a,@dptr
+   404A FB                  951 	mov	r3,a
+   404B A3                  952 	inc	dptr
+   404C E0                  953 	movx	a,@dptr
+   404D FC                  954 	mov	r4,a
+   404E A3                  955 	inc	dptr
+   404F E0                  956 	movx	a,@dptr
+   4050 FD                  957 	mov	r5,a
+   4051 90 08 D7            958 	mov	dptr,#_task_UART_puts_projectSpecific_PARM_2
+   4054 EB                  959 	mov	a,r3
+   4055 F0                  960 	movx	@dptr,a
+   4056 A3                  961 	inc	dptr
+   4057 EC                  962 	mov	a,r4
+   4058 F0                  963 	movx	@dptr,a
+   4059 A3                  964 	inc	dptr
+   405A ED                  965 	mov	a,r5
+   405B F0                  966 	movx	@dptr,a
+   405C 8A 82               967 	mov	dpl,r2
+   405E 02 08 E1            968 	ljmp	_task_UART_puts_projectSpecific
                             969 ;------------------------------------------------------------
                             970 ;Allocation info for local variables in function 'task_UART_getchar'
                             971 ;------------------------------------------------------------
@@ -975,15 +975,15 @@
                             975 ;	-----------------------------------------
                             976 ;	 function task_UART_getchar
                             977 ;	-----------------------------------------
-   3F2F                     978 _task_UART_getchar:
-   3F2F E5 82               979 	mov	a,dpl
-   3F31 90 0A 87            980 	mov	dptr,#_task_UART_getchar_channelNumber_1_1
-   3F34 F0                  981 	movx	@dptr,a
+   4061                     978 _task_UART_getchar:
+   4061 E5 82               979 	mov	a,dpl
+   4063 90 0A 87            980 	mov	dptr,#_task_UART_getchar_channelNumber_1_1
+   4066 F0                  981 	movx	@dptr,a
                             982 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:65: return task_UART_getchar_projectSpecific(channelNumber) ;
-   3F35 90 0A 87            983 	mov	dptr,#_task_UART_getchar_channelNumber_1_1
-   3F38 E0                  984 	movx	a,@dptr
-   3F39 F5 82               985 	mov	dpl,a
-   3F3B 02 09 5E            986 	ljmp	_task_UART_getchar_projectSpecific
+   4067 90 0A 87            983 	mov	dptr,#_task_UART_getchar_channelNumber_1_1
+   406A E0                  984 	movx	a,@dptr
+   406B F5 82               985 	mov	dpl,a
+   406D 02 09 5E            986 	ljmp	_task_UART_getchar_projectSpecific
                             987 ;------------------------------------------------------------
                             988 ;Allocation info for local variables in function 'task_UART_gets'
                             989 ;------------------------------------------------------------
@@ -995,46 +995,46 @@
                             995 ;	-----------------------------------------
                             996 ;	 function task_UART_gets
                             997 ;	-----------------------------------------
-   3F3E                     998 _task_UART_gets:
-   3F3E E5 82               999 	mov	a,dpl
-   3F40 90 0A 8D           1000 	mov	dptr,#_task_UART_gets_channelNumber_1_1
-   3F43 F0                 1001 	movx	@dptr,a
+   4070                     998 _task_UART_gets:
+   4070 E5 82               999 	mov	a,dpl
+   4072 90 0A 8D           1000 	mov	dptr,#_task_UART_gets_channelNumber_1_1
+   4075 F0                 1001 	movx	@dptr,a
                            1002 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:71: return task_UART_gets_projectSpecific(channelNumber, buffer, maxBufferLength) ;
-   3F44 90 0A 8D           1003 	mov	dptr,#_task_UART_gets_channelNumber_1_1
-   3F47 E0                 1004 	movx	a,@dptr
-   3F48 FA                 1005 	mov	r2,a
-   3F49 90 0A 88           1006 	mov	dptr,#_task_UART_gets_PARM_2
-   3F4C E0                 1007 	movx	a,@dptr
-   3F4D FB                 1008 	mov	r3,a
-   3F4E A3                 1009 	inc	dptr
-   3F4F E0                 1010 	movx	a,@dptr
-   3F50 FC                 1011 	mov	r4,a
-   3F51 A3                 1012 	inc	dptr
-   3F52 E0                 1013 	movx	a,@dptr
-   3F53 FD                 1014 	mov	r5,a
-   3F54 90 0A 8B           1015 	mov	dptr,#_task_UART_gets_PARM_3
-   3F57 E0                 1016 	movx	a,@dptr
-   3F58 FE                 1017 	mov	r6,a
-   3F59 A3                 1018 	inc	dptr
-   3F5A E0                 1019 	movx	a,@dptr
-   3F5B FF                 1020 	mov	r7,a
-   3F5C 90 08 DF           1021 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_2
-   3F5F EB                 1022 	mov	a,r3
-   3F60 F0                 1023 	movx	@dptr,a
-   3F61 A3                 1024 	inc	dptr
-   3F62 EC                 1025 	mov	a,r4
-   3F63 F0                 1026 	movx	@dptr,a
-   3F64 A3                 1027 	inc	dptr
-   3F65 ED                 1028 	mov	a,r5
-   3F66 F0                 1029 	movx	@dptr,a
-   3F67 90 08 E2           1030 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_3
-   3F6A EE                 1031 	mov	a,r6
-   3F6B F0                 1032 	movx	@dptr,a
-   3F6C A3                 1033 	inc	dptr
-   3F6D EF                 1034 	mov	a,r7
-   3F6E F0                 1035 	movx	@dptr,a
-   3F6F 8A 82              1036 	mov	dpl,r2
-   3F71 02 0A 59           1037 	ljmp	_task_UART_gets_projectSpecific
+   4076 90 0A 8D           1003 	mov	dptr,#_task_UART_gets_channelNumber_1_1
+   4079 E0                 1004 	movx	a,@dptr
+   407A FA                 1005 	mov	r2,a
+   407B 90 0A 88           1006 	mov	dptr,#_task_UART_gets_PARM_2
+   407E E0                 1007 	movx	a,@dptr
+   407F FB                 1008 	mov	r3,a
+   4080 A3                 1009 	inc	dptr
+   4081 E0                 1010 	movx	a,@dptr
+   4082 FC                 1011 	mov	r4,a
+   4083 A3                 1012 	inc	dptr
+   4084 E0                 1013 	movx	a,@dptr
+   4085 FD                 1014 	mov	r5,a
+   4086 90 0A 8B           1015 	mov	dptr,#_task_UART_gets_PARM_3
+   4089 E0                 1016 	movx	a,@dptr
+   408A FE                 1017 	mov	r6,a
+   408B A3                 1018 	inc	dptr
+   408C E0                 1019 	movx	a,@dptr
+   408D FF                 1020 	mov	r7,a
+   408E 90 08 DF           1021 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_2
+   4091 EB                 1022 	mov	a,r3
+   4092 F0                 1023 	movx	@dptr,a
+   4093 A3                 1024 	inc	dptr
+   4094 EC                 1025 	mov	a,r4
+   4095 F0                 1026 	movx	@dptr,a
+   4096 A3                 1027 	inc	dptr
+   4097 ED                 1028 	mov	a,r5
+   4098 F0                 1029 	movx	@dptr,a
+   4099 90 08 E2           1030 	mov	dptr,#_task_UART_gets_projectSpecific_PARM_3
+   409C EE                 1031 	mov	a,r6
+   409D F0                 1032 	movx	@dptr,a
+   409E A3                 1033 	inc	dptr
+   409F EF                 1034 	mov	a,r7
+   40A0 F0                 1035 	movx	@dptr,a
+   40A1 8A 82              1036 	mov	dpl,r2
+   40A3 02 0A 59           1037 	ljmp	_task_UART_gets_projectSpecific
                            1038 ;------------------------------------------------------------
                            1039 ;Allocation info for local variables in function 'DEBUG_PRINT_TIME'
                            1040 ;------------------------------------------------------------
@@ -1046,113 +1046,113 @@
                            1046 ;	-----------------------------------------
                            1047 ;	 function DEBUG_PRINT_TIME
                            1048 ;	-----------------------------------------
-   3F74                    1049 _DEBUG_PRINT_TIME:
-   3F74 AA F0              1050 	mov	r2,b
-   3F76 AB 83              1051 	mov	r3,dph
-   3F78 E5 82              1052 	mov	a,dpl
-   3F7A 90 0A 94           1053 	mov	dptr,#_DEBUG_PRINT_TIME_header_1_1
-   3F7D F0                 1054 	movx	@dptr,a
-   3F7E A3                 1055 	inc	dptr
-   3F7F EB                 1056 	mov	a,r3
-   3F80 F0                 1057 	movx	@dptr,a
-   3F81 A3                 1058 	inc	dptr
-   3F82 EA                 1059 	mov	a,r2
-   3F83 F0                 1060 	movx	@dptr,a
+   40A6                    1049 _DEBUG_PRINT_TIME:
+   40A6 AA F0              1050 	mov	r2,b
+   40A8 AB 83              1051 	mov	r3,dph
+   40AA E5 82              1052 	mov	a,dpl
+   40AC 90 0A 94           1053 	mov	dptr,#_DEBUG_PRINT_TIME_header_1_1
+   40AF F0                 1054 	movx	@dptr,a
+   40B0 A3                 1055 	inc	dptr
+   40B1 EB                 1056 	mov	a,r3
+   40B2 F0                 1057 	movx	@dptr,a
+   40B3 A3                 1058 	inc	dptr
+   40B4 EA                 1059 	mov	a,r2
+   40B5 F0                 1060 	movx	@dptr,a
                            1061 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:89: DEBUG_PRINT_0(header) ;
-   3F84 90 0A 94           1062 	mov	dptr,#_DEBUG_PRINT_TIME_header_1_1
-   3F87 E0                 1063 	movx	a,@dptr
-   3F88 C0 E0              1064 	push	acc
-   3F8A A3                 1065 	inc	dptr
-   3F8B E0                 1066 	movx	a,@dptr
-   3F8C C0 E0              1067 	push	acc
-   3F8E A3                 1068 	inc	dptr
-   3F8F E0                 1069 	movx	a,@dptr
-   3F90 C0 E0              1070 	push	acc
-   3F92 74 06              1071 	mov	a,#_UARTtempBuffer
-   3F94 C0 E0              1072 	push	acc
-   3F96 74 00              1073 	mov	a,#(_UARTtempBuffer >> 8)
-   3F98 C0 E0              1074 	push	acc
-   3F9A E4                 1075 	clr	a
-   3F9B C0 E0              1076 	push	acc
-   3F9D 12 43 CB           1077 	lcall	_sprintf
-   3FA0 E5 81              1078 	mov	a,sp
-   3FA2 24 FA              1079 	add	a,#0xfa
-   3FA4 F5 81              1080 	mov	sp,a
-   3FA6 90 0A 83           1081 	mov	dptr,#_task_UART_puts_PARM_2
-   3FA9 74 06              1082 	mov	a,#_UARTtempBuffer
-   3FAB F0                 1083 	movx	@dptr,a
-   3FAC A3                 1084 	inc	dptr
-   3FAD 74 00              1085 	mov	a,#(_UARTtempBuffer >> 8)
-   3FAF F0                 1086 	movx	@dptr,a
-   3FB0 A3                 1087 	inc	dptr
-   3FB1 E4                 1088 	clr	a
-   3FB2 F0                 1089 	movx	@dptr,a
-   3FB3 75 82 00           1090 	mov	dpl,#0x00
-   3FB6 12 3F 09           1091 	lcall	_task_UART_puts
+   40B6 90 0A 94           1062 	mov	dptr,#_DEBUG_PRINT_TIME_header_1_1
+   40B9 E0                 1063 	movx	a,@dptr
+   40BA C0 E0              1064 	push	acc
+   40BC A3                 1065 	inc	dptr
+   40BD E0                 1066 	movx	a,@dptr
+   40BE C0 E0              1067 	push	acc
+   40C0 A3                 1068 	inc	dptr
+   40C1 E0                 1069 	movx	a,@dptr
+   40C2 C0 E0              1070 	push	acc
+   40C4 74 06              1071 	mov	a,#_UARTtempBuffer
+   40C6 C0 E0              1072 	push	acc
+   40C8 74 00              1073 	mov	a,#(_UARTtempBuffer >> 8)
+   40CA C0 E0              1074 	push	acc
+   40CC E4                 1075 	clr	a
+   40CD C0 E0              1076 	push	acc
+   40CF 12 44 FD           1077 	lcall	_sprintf
+   40D2 E5 81              1078 	mov	a,sp
+   40D4 24 FA              1079 	add	a,#0xfa
+   40D6 F5 81              1080 	mov	sp,a
+   40D8 90 0A 83           1081 	mov	dptr,#_task_UART_puts_PARM_2
+   40DB 74 06              1082 	mov	a,#_UARTtempBuffer
+   40DD F0                 1083 	movx	@dptr,a
+   40DE A3                 1084 	inc	dptr
+   40DF 74 00              1085 	mov	a,#(_UARTtempBuffer >> 8)
+   40E1 F0                 1086 	movx	@dptr,a
+   40E2 A3                 1087 	inc	dptr
+   40E3 E4                 1088 	clr	a
+   40E4 F0                 1089 	movx	@dptr,a
+   40E5 75 82 00           1090 	mov	dpl,#0x00
+   40E8 12 40 3B           1091 	lcall	_task_UART_puts
                            1092 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:96: DEBUG_PRINT_0("__:__:__") ;
-   3FB9 74 83              1093 	mov	a,#__str_0
-   3FBB C0 E0              1094 	push	acc
-   3FBD 74 54              1095 	mov	a,#(__str_0 >> 8)
-   3FBF C0 E0              1096 	push	acc
-   3FC1 74 80              1097 	mov	a,#0x80
-   3FC3 C0 E0              1098 	push	acc
-   3FC5 74 06              1099 	mov	a,#_UARTtempBuffer
-   3FC7 C0 E0              1100 	push	acc
-   3FC9 74 00              1101 	mov	a,#(_UARTtempBuffer >> 8)
-   3FCB C0 E0              1102 	push	acc
-   3FCD E4                 1103 	clr	a
-   3FCE C0 E0              1104 	push	acc
-   3FD0 12 43 CB           1105 	lcall	_sprintf
-   3FD3 E5 81              1106 	mov	a,sp
-   3FD5 24 FA              1107 	add	a,#0xfa
-   3FD7 F5 81              1108 	mov	sp,a
-   3FD9 90 0A 83           1109 	mov	dptr,#_task_UART_puts_PARM_2
-   3FDC 74 06              1110 	mov	a,#_UARTtempBuffer
-   3FDE F0                 1111 	movx	@dptr,a
-   3FDF A3                 1112 	inc	dptr
-   3FE0 74 00              1113 	mov	a,#(_UARTtempBuffer >> 8)
-   3FE2 F0                 1114 	movx	@dptr,a
-   3FE3 A3                 1115 	inc	dptr
-   3FE4 E4                 1116 	clr	a
-   3FE5 F0                 1117 	movx	@dptr,a
-   3FE6 75 82 00           1118 	mov	dpl,#0x00
-   3FE9 12 3F 09           1119 	lcall	_task_UART_puts
+   40EB 74 B5              1093 	mov	a,#__str_0
+   40ED C0 E0              1094 	push	acc
+   40EF 74 55              1095 	mov	a,#(__str_0 >> 8)
+   40F1 C0 E0              1096 	push	acc
+   40F3 74 80              1097 	mov	a,#0x80
+   40F5 C0 E0              1098 	push	acc
+   40F7 74 06              1099 	mov	a,#_UARTtempBuffer
+   40F9 C0 E0              1100 	push	acc
+   40FB 74 00              1101 	mov	a,#(_UARTtempBuffer >> 8)
+   40FD C0 E0              1102 	push	acc
+   40FF E4                 1103 	clr	a
+   4100 C0 E0              1104 	push	acc
+   4102 12 44 FD           1105 	lcall	_sprintf
+   4105 E5 81              1106 	mov	a,sp
+   4107 24 FA              1107 	add	a,#0xfa
+   4109 F5 81              1108 	mov	sp,a
+   410B 90 0A 83           1109 	mov	dptr,#_task_UART_puts_PARM_2
+   410E 74 06              1110 	mov	a,#_UARTtempBuffer
+   4110 F0                 1111 	movx	@dptr,a
+   4111 A3                 1112 	inc	dptr
+   4112 74 00              1113 	mov	a,#(_UARTtempBuffer >> 8)
+   4114 F0                 1114 	movx	@dptr,a
+   4115 A3                 1115 	inc	dptr
+   4116 E4                 1116 	clr	a
+   4117 F0                 1117 	movx	@dptr,a
+   4118 75 82 00           1118 	mov	dpl,#0x00
+   411B 12 40 3B           1119 	lcall	_task_UART_puts
                            1120 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/Common/task_UART.c:99: DEBUG_PRINT_0(trailer) ;
-   3FEC 90 0A 91           1121 	mov	dptr,#_DEBUG_PRINT_TIME_PARM_3
-   3FEF E0                 1122 	movx	a,@dptr
-   3FF0 C0 E0              1123 	push	acc
-   3FF2 A3                 1124 	inc	dptr
-   3FF3 E0                 1125 	movx	a,@dptr
-   3FF4 C0 E0              1126 	push	acc
-   3FF6 A3                 1127 	inc	dptr
-   3FF7 E0                 1128 	movx	a,@dptr
-   3FF8 C0 E0              1129 	push	acc
-   3FFA 74 06              1130 	mov	a,#_UARTtempBuffer
-   3FFC C0 E0              1131 	push	acc
-   3FFE 74 00              1132 	mov	a,#(_UARTtempBuffer >> 8)
-   4000 C0 E0              1133 	push	acc
-   4002 E4                 1134 	clr	a
-   4003 C0 E0              1135 	push	acc
-   4005 12 43 CB           1136 	lcall	_sprintf
-   4008 E5 81              1137 	mov	a,sp
-   400A 24 FA              1138 	add	a,#0xfa
-   400C F5 81              1139 	mov	sp,a
-   400E 90 0A 83           1140 	mov	dptr,#_task_UART_puts_PARM_2
-   4011 74 06              1141 	mov	a,#_UARTtempBuffer
-   4013 F0                 1142 	movx	@dptr,a
-   4014 A3                 1143 	inc	dptr
-   4015 74 00              1144 	mov	a,#(_UARTtempBuffer >> 8)
-   4017 F0                 1145 	movx	@dptr,a
-   4018 A3                 1146 	inc	dptr
-   4019 E4                 1147 	clr	a
-   401A F0                 1148 	movx	@dptr,a
-   401B 75 82 00           1149 	mov	dpl,#0x00
-   401E 02 3F 09           1150 	ljmp	_task_UART_puts
+   411E 90 0A 91           1121 	mov	dptr,#_DEBUG_PRINT_TIME_PARM_3
+   4121 E0                 1122 	movx	a,@dptr
+   4122 C0 E0              1123 	push	acc
+   4124 A3                 1124 	inc	dptr
+   4125 E0                 1125 	movx	a,@dptr
+   4126 C0 E0              1126 	push	acc
+   4128 A3                 1127 	inc	dptr
+   4129 E0                 1128 	movx	a,@dptr
+   412A C0 E0              1129 	push	acc
+   412C 74 06              1130 	mov	a,#_UARTtempBuffer
+   412E C0 E0              1131 	push	acc
+   4130 74 00              1132 	mov	a,#(_UARTtempBuffer >> 8)
+   4132 C0 E0              1133 	push	acc
+   4134 E4                 1134 	clr	a
+   4135 C0 E0              1135 	push	acc
+   4137 12 44 FD           1136 	lcall	_sprintf
+   413A E5 81              1137 	mov	a,sp
+   413C 24 FA              1138 	add	a,#0xfa
+   413E F5 81              1139 	mov	sp,a
+   4140 90 0A 83           1140 	mov	dptr,#_task_UART_puts_PARM_2
+   4143 74 06              1141 	mov	a,#_UARTtempBuffer
+   4145 F0                 1142 	movx	@dptr,a
+   4146 A3                 1143 	inc	dptr
+   4147 74 00              1144 	mov	a,#(_UARTtempBuffer >> 8)
+   4149 F0                 1145 	movx	@dptr,a
+   414A A3                 1146 	inc	dptr
+   414B E4                 1147 	clr	a
+   414C F0                 1148 	movx	@dptr,a
+   414D 75 82 00           1149 	mov	dpl,#0x00
+   4150 02 40 3B           1150 	ljmp	_task_UART_puts
                            1151 	.area CSEG    (CODE)
                            1152 	.area CONST   (CODE)
-   5483                    1153 __str_0:
-   5483 5F 5F 3A 5F 5F 3A  1154 	.ascii "__:__:__"
+   55B5                    1153 __str_0:
+   55B5 5F 5F 3A 5F 5F 3A  1154 	.ascii "__:__:__"
         5F 5F
-   548B 00                 1155 	.db 0x00
+   55BD 00                 1155 	.db 0x00
                            1156 	.area XINIT   (CODE)
                            1157 	.area CABS    (ABS,CODE)

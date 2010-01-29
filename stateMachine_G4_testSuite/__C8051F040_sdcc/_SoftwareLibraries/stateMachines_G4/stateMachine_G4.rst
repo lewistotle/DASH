@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-                              4 ; This file was generated Sat Jan 02 19:24:46 2010
+                              4 ; This file was generated Sat Jan 02 19:57:10 2010
                               5 ;--------------------------------------------------------
                               6 	.module stateMachine_G4
                               7 	.optsdcc -mmcs51 --model-large
@@ -53,3973 +53,3907 @@
    0048                      53 _iterateStateMachine_sloc0_1_0:
    0048                      54 	.ds 3
    004B                      55 _iterateStateMachine_sloc1_1_0:
-   004B                      56 	.ds 1
-   004C                      57 _iterateStateMachine_sloc2_1_0:
-   004C                      58 	.ds 3
-   004F                      59 _iterateStateMachine_sloc3_1_0:
-   004F                      60 	.ds 3
-   0052                      61 _iterateStateMachine_sloc4_1_0:
-   0052                      62 	.ds 3
-   0055                      63 _iterateStateMachine_sloc5_1_0:
-   0055                      64 	.ds 3
-                             65 ;--------------------------------------------------------
-                             66 ; overlayable items in internal ram 
+   004B                      56 	.ds 3
+   004E                      57 _iterateStateMachine_sloc2_1_0:
+   004E                      58 	.ds 3
+   0051                      59 _iterateStateMachine_sloc3_1_0:
+   0051                      60 	.ds 3
+   0054                      61 _iterateStateMachine_sloc4_1_0:
+   0054                      62 	.ds 3
+   0057                      63 _iterateStateMachine_sloc5_1_0:
+   0057                      64 	.ds 3
+   005A                      65 _iterateStateMachine_sloc6_1_0:
+   005A                      66 	.ds 3
                              67 ;--------------------------------------------------------
-                             68 	.area OSEG    (OVR,DATA)
+                             68 ; overlayable items in internal ram 
                              69 ;--------------------------------------------------------
-                             70 ; indirectly addressable internal ram data
+                             70 	.area OSEG    (OVR,DATA)
                              71 ;--------------------------------------------------------
-                             72 	.area ISEG    (DATA)
+                             72 ; indirectly addressable internal ram data
                              73 ;--------------------------------------------------------
-                             74 ; absolute internal ram data
+                             74 	.area ISEG    (DATA)
                              75 ;--------------------------------------------------------
-                             76 	.area IABS    (ABS,DATA)
-                             77 	.area IABS    (ABS,DATA)
-                             78 ;--------------------------------------------------------
-                             79 ; bit data
+                             76 ; absolute internal ram data
+                             77 ;--------------------------------------------------------
+                             78 	.area IABS    (ABS,DATA)
+                             79 	.area IABS    (ABS,DATA)
                              80 ;--------------------------------------------------------
-                             81 	.area BSEG    (BIT)
+                             81 ; bit data
                              82 ;--------------------------------------------------------
-                             83 ; paged external ram data
+                             83 	.area BSEG    (BIT)
                              84 ;--------------------------------------------------------
-                             85 	.area PSEG    (PAG,XDATA)
+                             85 ; paged external ram data
                              86 ;--------------------------------------------------------
-                             87 ; external ram data
+                             87 	.area PSEG    (PAG,XDATA)
                              88 ;--------------------------------------------------------
-                             89 	.area XSEG    (XDATA)
-   0955                      90 _stateMachines::
-   0955                      91 	.ds 150
-   09EB                      92 _allocateStateMachineMemory_PARM_2:
-   09EB                      93 	.ds 2
-   09ED                      94 _allocateStateMachineMemory_eventQueueDepth_1_1:
-   09ED                      95 	.ds 2
-   09EF                      96 _deallocateStateMachineMemory_PARM_2:
-   09EF                      97 	.ds 2
-   09F1                      98 _deallocateStateMachineMemory_instance_1_1:
-   09F1                      99 	.ds 3
-   09F4                     100 _registerStateMachine_sm_1_1:
-   09F4                     101 	.ds 3
-   09F7                     102 _unregisterStateMachine_sm_1_1:
-   09F7                     103 	.ds 3
-   09FA                     104 _callStateHandler_PARM_2:
-   09FA                     105 	.ds 3
-   09FD                     106 _callStateHandler_PARM_3:
-   09FD                     107 	.ds 3
-   0A00                     108 _callStateHandler_sm_1_1:
-   0A00                     109 	.ds 3
-   0A03                     110 _callStateHandler_response_1_1:
-   0A03                     111 	.ds 1
-   0A04                     112 _iterateStateMachine_sm_1_1:
-   0A04                     113 	.ds 3
-   0A07                     114 _iterateStateMachine_eventToProcess_2_3:
-   0A07                     115 	.ds 3
-   0A0A                     116 _iterateStateMachine_stateBeingProcessed_2_3:
-   0A0A                     117 	.ds 3
-   0A0D                     118 _iterateStateMachine_action_2_3:
-   0A0D                     119 	.ds 1
-   0A0E                     120 _iterateStateMachine_sourceHierarchy_4_19:
-   0A0E                     121 	.ds 48
-   0A3E                     122 _iterateStateMachine_sourceIndex_4_19:
-   0A3E                     123 	.ds 1
-   0A3F                     124 _iterateStateMachine_targetHierarchy_4_19:
-   0A3F                     125 	.ds 48
-   0A6F                     126 _iterateStateMachine_targetIndex_4_19:
-   0A6F                     127 	.ds 1
-   0A70                     128 _iterateStateMachine_LCA_4_19:
-   0A70                     129 	.ds 3
-   0A73                     130 _iterateStateMachine_entryIndex_4_19:
-   0A73                     131 	.ds 1
-                            132 ;--------------------------------------------------------
-                            133 ; absolute external ram data
+                             89 ; external ram data
+                             90 ;--------------------------------------------------------
+                             91 	.area XSEG    (XDATA)
+   0955                      92 _stateMachines::
+   0955                      93 	.ds 150
+   09EB                      94 _allocateStateMachineMemory_PARM_2:
+   09EB                      95 	.ds 2
+   09ED                      96 _allocateStateMachineMemory_eventQueueDepth_1_1:
+   09ED                      97 	.ds 2
+   09EF                      98 _deallocateStateMachineMemory_PARM_2:
+   09EF                      99 	.ds 2
+   09F1                     100 _deallocateStateMachineMemory_instance_1_1:
+   09F1                     101 	.ds 3
+   09F4                     102 _registerStateMachine_sm_1_1:
+   09F4                     103 	.ds 3
+   09F7                     104 _unregisterStateMachine_sm_1_1:
+   09F7                     105 	.ds 3
+   09FA                     106 _callStateHandler_PARM_2:
+   09FA                     107 	.ds 3
+   09FD                     108 _callStateHandler_PARM_3:
+   09FD                     109 	.ds 3
+   0A00                     110 _callStateHandler_sm_1_1:
+   0A00                     111 	.ds 3
+   0A03                     112 _callStateHandler_response_1_1:
+   0A03                     113 	.ds 1
+   0A04                     114 _iterateStateMachine_sm_1_1:
+   0A04                     115 	.ds 3
+   0A07                     116 _iterateStateMachine_eventToProcess_2_3:
+   0A07                     117 	.ds 3
+   0A0A                     118 _iterateStateMachine_stateBeingProcessed_2_3:
+   0A0A                     119 	.ds 3
+   0A0D                     120 _iterateStateMachine_action_2_3:
+   0A0D                     121 	.ds 1
+   0A0E                     122 _iterateStateMachine_sourceHierarchy_4_19:
+   0A0E                     123 	.ds 48
+   0A3E                     124 _iterateStateMachine_sourceIndex_4_19:
+   0A3E                     125 	.ds 1
+   0A3F                     126 _iterateStateMachine_targetHierarchy_4_19:
+   0A3F                     127 	.ds 48
+   0A6F                     128 _iterateStateMachine_targetIndex_4_19:
+   0A6F                     129 	.ds 1
+   0A70                     130 _iterateStateMachine_LCA_4_19:
+   0A70                     131 	.ds 3
+   0A73                     132 _iterateStateMachine_entryIndex_4_19:
+   0A73                     133 	.ds 1
                             134 ;--------------------------------------------------------
-                            135 	.area XABS    (ABS,XDATA)
+                            135 ; absolute external ram data
                             136 ;--------------------------------------------------------
-                            137 ; external initialized ram data
+                            137 	.area XABS    (ABS,XDATA)
                             138 ;--------------------------------------------------------
-                            139 	.area XISEG   (XDATA)
-   0EEF                     140 _eventTypes::
-   0EEF                     141 	.ds 18
-   0F01                     142 _responseTypes::
-   0F01                     143 	.ds 12
-   0F0D                     144 _initialTransitionEvent:
-   0F0D                     145 	.ds 1
-   0F0E                     146 _jumpToHistoryEvent:
-   0F0E                     147 	.ds 1
-   0F0F                     148 _enterEvent:
-   0F0F                     149 	.ds 1
-   0F10                     150 _exitEvent:
-   0F10                     151 	.ds 1
-                            152 	.area HOME    (CODE)
-                            153 	.area GSINIT0 (CODE)
-                            154 	.area GSINIT1 (CODE)
-                            155 	.area GSINIT2 (CODE)
-                            156 	.area GSINIT3 (CODE)
-                            157 	.area GSINIT4 (CODE)
-                            158 	.area GSINIT5 (CODE)
-                            159 	.area GSINIT  (CODE)
-                            160 	.area GSFINAL (CODE)
-                            161 	.area CSEG    (CODE)
-                            162 ;--------------------------------------------------------
-                            163 ; global & static initialisations
-                            164 ;--------------------------------------------------------
-                            165 	.area HOME    (CODE)
-                            166 	.area GSINIT  (CODE)
-                            167 	.area GSFINAL (CODE)
-                            168 	.area GSINIT  (CODE)
-                            169 ;--------------------------------------------------------
-                            170 ; Home
-                            171 ;--------------------------------------------------------
-                            172 	.area HOME    (CODE)
-                            173 	.area HOME    (CODE)
-                            174 ;--------------------------------------------------------
-                            175 ; code
-                            176 ;--------------------------------------------------------
-                            177 	.area CSEG    (CODE)
-                            178 ;------------------------------------------------------------
-                            179 ;Allocation info for local variables in function 'allocateStateMachineMemory'
-                            180 ;------------------------------------------------------------
-                            181 ;sloc0                     Allocated with name '_allocateStateMachineMemory_sloc0_1_0'
-                            182 ;sloc1                     Allocated with name '_allocateStateMachineMemory_sloc1_1_0'
-                            183 ;constructor               Allocated with name '_allocateStateMachineMemory_PARM_2'
-                            184 ;eventQueueDepth           Allocated with name '_allocateStateMachineMemory_eventQueueDepth_1_1'
-                            185 ;instance                  Allocated with name '_allocateStateMachineMemory_instance_1_1'
-                            186 ;eventQueue                Allocated with name '_allocateStateMachineMemory_eventQueue_2_2'
-                            187 ;typesOfEventsToDefer      Allocated with name '_allocateStateMachineMemory_typesOfEventsToDefer_3_3'
-                            188 ;deferredEventQueue        Allocated with name '_allocateStateMachineMemory_deferredEventQueue_4_4'
-                            189 ;------------------------------------------------------------
-                            190 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:36: stateMachine_t* allocateStateMachineMemory(		uint16_t eventQueueDepth,
-                            191 ;	-----------------------------------------
-                            192 ;	 function allocateStateMachineMemory
-                            193 ;	-----------------------------------------
-   2870                     194 _allocateStateMachineMemory:
-                    0002    195 	ar2 = 0x02
-                    0003    196 	ar3 = 0x03
-                    0004    197 	ar4 = 0x04
-                    0005    198 	ar5 = 0x05
-                    0006    199 	ar6 = 0x06
-                    0007    200 	ar7 = 0x07
-                    0000    201 	ar0 = 0x00
-                    0001    202 	ar1 = 0x01
-   2870 AA 83               203 	mov	r2,dph
-   2872 E5 82               204 	mov	a,dpl
-   2874 90 09 ED            205 	mov	dptr,#_allocateStateMachineMemory_eventQueueDepth_1_1
-   2877 F0                  206 	movx	@dptr,a
-   2878 A3                  207 	inc	dptr
-   2879 EA                  208 	mov	a,r2
-   287A F0                  209 	movx	@dptr,a
-                            210 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:39: stateMachine_t*	instance = malloc(sizeof(stateMachine_t)) ;
-   287B 90 00 2B            211 	mov	dptr,#0x002B
-   287E 12 41 A7            212 	lcall	_malloc
-   2881 AA 82               213 	mov	r2,dpl
-   2883 AB 83               214 	mov	r3,dph
-   2885 7C 00               215 	mov	r4,#0x00
-                            216 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:41: if(instance)
-   2887 EA                  217 	mov	a,r2
-   2888 4B                  218 	orl	a,r3
-   2889 4C                  219 	orl	a,r4
-   288A 70 03               220 	jnz	00115$
-   288C 02 2A 6E            221 	ljmp	00108$
-   288F                     222 00115$:
-                            223 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:45: memset((char*)instance, 0, sizeof(stateMachine_t)) ;
-   288F 90 0A A0            224 	mov	dptr,#_memset_PARM_2
-   2892 E4                  225 	clr	a
-   2893 F0                  226 	movx	@dptr,a
-   2894 90 0A A1            227 	mov	dptr,#_memset_PARM_3
-   2897 74 2B               228 	mov	a,#0x2B
-   2899 F0                  229 	movx	@dptr,a
-   289A E4                  230 	clr	a
-   289B A3                  231 	inc	dptr
-   289C F0                  232 	movx	@dptr,a
-   289D 8A 82               233 	mov	dpl,r2
-   289F 8B 83               234 	mov	dph,r3
-   28A1 8C F0               235 	mov	b,r4
-   28A3 C0 02               236 	push	ar2
-   28A5 C0 03               237 	push	ar3
-   28A7 C0 04               238 	push	ar4
-   28A9 12 40 E8            239 	lcall	_memset
-                            240 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:47: eventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
-   28AC 90 09 ED            241 	mov	dptr,#_allocateStateMachineMemory_eventQueueDepth_1_1
-   28AF E0                  242 	movx	a,@dptr
-   28B0 F5 3C               243 	mov	_allocateStateMachineMemory_sloc0_1_0,a
-   28B2 A3                  244 	inc	dptr
-   28B3 E0                  245 	movx	a,@dptr
-   28B4 F5 3D               246 	mov	(_allocateStateMachineMemory_sloc0_1_0 + 1),a
-   28B6 90 0A AE            247 	mov	dptr,#__mulint_PARM_2
-   28B9 E5 3C               248 	mov	a,_allocateStateMachineMemory_sloc0_1_0
-   28BB F0                  249 	movx	@dptr,a
-   28BC A3                  250 	inc	dptr
-   28BD E5 3D               251 	mov	a,(_allocateStateMachineMemory_sloc0_1_0 + 1)
-   28BF F0                  252 	movx	@dptr,a
-   28C0 90 00 03            253 	mov	dptr,#0x0003
-   28C3 12 42 F1            254 	lcall	__mulint
-   28C6 AF 82               255 	mov	r7,dpl
-   28C8 A8 83               256 	mov  r0,dph
-   28CA C0 07               257 	push	ar7
-   28CC C0 00               258 	push	ar0
-   28CE 12 41 A7            259 	lcall	_malloc
-   28D1 A9 82               260 	mov	r1,dpl
-   28D3 AD 83               261 	mov	r5,dph
-   28D5 D0 00               262 	pop	ar0
-   28D7 D0 07               263 	pop	ar7
-   28D9 D0 04               264 	pop	ar4
-   28DB D0 03               265 	pop	ar3
-   28DD D0 02               266 	pop	ar2
-   28DF 89 3E               267 	mov	_allocateStateMachineMemory_sloc1_1_0,r1
-   28E1 8D 3F               268 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 1),r5
-   28E3 75 40 00            269 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 2),#0x00
-                            270 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:49: if(eventQueue)
-   28E6 E5 3E               271 	mov	a,_allocateStateMachineMemory_sloc1_1_0
-   28E8 45 3F               272 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   28EA 45 40               273 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   28EC 70 03               274 	jnz	00116$
-   28EE 02 2A 6E            275 	ljmp	00108$
-   28F1                     276 00116$:
-                            277 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:53: memset((char*)eventQueue, 0, eventQueueDepth * sizeof(event_t*)) ;
-   28F1 90 0A A0            278 	mov	dptr,#_memset_PARM_2
-   28F4 E4                  279 	clr	a
-   28F5 F0                  280 	movx	@dptr,a
-   28F6 90 0A A1            281 	mov	dptr,#_memset_PARM_3
-   28F9 EF                  282 	mov	a,r7
-   28FA F0                  283 	movx	@dptr,a
-   28FB A3                  284 	inc	dptr
-   28FC E8                  285 	mov	a,r0
-   28FD F0                  286 	movx	@dptr,a
-   28FE 85 3E 82            287 	mov	dpl,_allocateStateMachineMemory_sloc1_1_0
-   2901 85 3F 83            288 	mov	dph,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   2904 85 40 F0            289 	mov	b,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   2907 C0 02               290 	push	ar2
-   2909 C0 03               291 	push	ar3
-   290B C0 04               292 	push	ar4
-   290D C0 07               293 	push	ar7
-   290F C0 00               294 	push	ar0
-   2911 12 40 E8            295 	lcall	_memset
-   2914 D0 00               296 	pop	ar0
-   2916 D0 07               297 	pop	ar7
-   2918 D0 04               298 	pop	ar4
-   291A D0 03               299 	pop	ar3
-   291C D0 02               300 	pop	ar2
-                            301 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:54: eventQueue_initialize(&instance->eventQueue, eventQueue, eventQueueDepth) ;
-   291E 74 0B               302 	mov	a,#0x0B
-   2920 2A                  303 	add	a,r2
-   2921 FD                  304 	mov	r5,a
-   2922 E4                  305 	clr	a
-   2923 3B                  306 	addc	a,r3
-   2924 FE                  307 	mov	r6,a
-   2925 8C 01               308 	mov	ar1,r4
-   2927 90 09 25            309 	mov	dptr,#_eventQueue_initialize_PARM_2
-   292A E5 3E               310 	mov	a,_allocateStateMachineMemory_sloc1_1_0
-   292C F0                  311 	movx	@dptr,a
-   292D A3                  312 	inc	dptr
-   292E E5 3F               313 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   2930 F0                  314 	movx	@dptr,a
-   2931 A3                  315 	inc	dptr
-   2932 E5 40               316 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   2934 F0                  317 	movx	@dptr,a
-   2935 90 09 28            318 	mov	dptr,#_eventQueue_initialize_PARM_3
-   2938 E5 3C               319 	mov	a,_allocateStateMachineMemory_sloc0_1_0
-   293A F0                  320 	movx	@dptr,a
-   293B 8D 82               321 	mov	dpl,r5
-   293D 8E 83               322 	mov	dph,r6
-   293F 89 F0               323 	mov	b,r1
-   2941 C0 02               324 	push	ar2
-   2943 C0 03               325 	push	ar3
-   2945 C0 04               326 	push	ar4
-   2947 C0 07               327 	push	ar7
-   2949 C0 00               328 	push	ar0
-   294B 12 20 6D            329 	lcall	_eventQueue_initialize
-   294E D0 00               330 	pop	ar0
-   2950 D0 07               331 	pop	ar7
-                            332 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:56: typesOfEventsToDefer = (eventType_t*)malloc(eventQueueDepth * sizeof(eventType_t*)) ;
-   2952 8F 82               333 	mov	dpl,r7
-   2954 88 83               334 	mov	dph,r0
-   2956 C0 07               335 	push	ar7
-   2958 C0 00               336 	push	ar0
-   295A 12 41 A7            337 	lcall	_malloc
-   295D AD 82               338 	mov	r5,dpl
-   295F AE 83               339 	mov	r6,dph
-   2961 D0 00               340 	pop	ar0
-   2963 D0 07               341 	pop	ar7
-   2965 D0 04               342 	pop	ar4
-   2967 D0 03               343 	pop	ar3
-   2969 D0 02               344 	pop	ar2
-   296B 8D 3E               345 	mov	_allocateStateMachineMemory_sloc1_1_0,r5
-   296D 8E 3F               346 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 1),r6
-   296F 75 40 00            347 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 2),#0x00
-                            348 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:58: if(typesOfEventsToDefer)
-   2972 E5 3E               349 	mov	a,_allocateStateMachineMemory_sloc1_1_0
-   2974 45 3F               350 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   2976 45 40               351 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   2978 70 03               352 	jnz	00117$
-   297A 02 2A 6E            353 	ljmp	00108$
-   297D                     354 00117$:
-                            355 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:62: instance->maxDepthOfEventsToDeferList		= eventQueueDepth ;
-   297D 74 12               356 	mov	a,#0x12
-   297F 2A                  357 	add	a,r2
-   2980 FD                  358 	mov	r5,a
-   2981 E4                  359 	clr	a
-   2982 3B                  360 	addc	a,r3
-   2983 FE                  361 	mov	r6,a
-   2984 8C 01               362 	mov	ar1,r4
-   2986 8D 82               363 	mov	dpl,r5
-   2988 8E 83               364 	mov	dph,r6
-   298A 89 F0               365 	mov	b,r1
-   298C E5 3C               366 	mov	a,_allocateStateMachineMemory_sloc0_1_0
-   298E 12 41 10            367 	lcall	__gptrput
-                            368 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:63: instance->currentDepthOfEventsToDeferList	= 0 ;
-   2991 74 13               369 	mov	a,#0x13
-   2993 2A                  370 	add	a,r2
-   2994 FD                  371 	mov	r5,a
-   2995 E4                  372 	clr	a
-   2996 3B                  373 	addc	a,r3
-   2997 FE                  374 	mov	r6,a
-   2998 8C 01               375 	mov	ar1,r4
-   299A 8D 82               376 	mov	dpl,r5
-   299C 8E 83               377 	mov	dph,r6
-   299E 89 F0               378 	mov	b,r1
-   29A0 E4                  379 	clr	a
-   29A1 12 41 10            380 	lcall	__gptrput
-                            381 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:64: instance->typesOfEventsToDefer				= typesOfEventsToDefer ;
-   29A4 74 14               382 	mov	a,#0x14
-   29A6 2A                  383 	add	a,r2
-   29A7 FD                  384 	mov	r5,a
-   29A8 E4                  385 	clr	a
-   29A9 3B                  386 	addc	a,r3
-   29AA FE                  387 	mov	r6,a
-   29AB 8C 01               388 	mov	ar1,r4
-   29AD 8D 82               389 	mov	dpl,r5
-   29AF 8E 83               390 	mov	dph,r6
-   29B1 89 F0               391 	mov	b,r1
-   29B3 E5 3E               392 	mov	a,_allocateStateMachineMemory_sloc1_1_0
-   29B5 12 41 10            393 	lcall	__gptrput
-   29B8 A3                  394 	inc	dptr
-   29B9 E5 3F               395 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   29BB 12 41 10            396 	lcall	__gptrput
-   29BE A3                  397 	inc	dptr
-   29BF E5 40               398 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   29C1 12 41 10            399 	lcall	__gptrput
-                            400 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:66: deferredEventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
-   29C4 8F 82               401 	mov	dpl,r7
-   29C6 88 83               402 	mov	dph,r0
-   29C8 C0 02               403 	push	ar2
-   29CA C0 03               404 	push	ar3
-   29CC C0 04               405 	push	ar4
-   29CE C0 07               406 	push	ar7
-   29D0 C0 00               407 	push	ar0
-   29D2 12 41 A7            408 	lcall	_malloc
-   29D5 AD 82               409 	mov	r5,dpl
-   29D7 AE 83               410 	mov	r6,dph
-   29D9 D0 00               411 	pop	ar0
-   29DB D0 07               412 	pop	ar7
-   29DD D0 04               413 	pop	ar4
-   29DF D0 03               414 	pop	ar3
-   29E1 D0 02               415 	pop	ar2
-   29E3 8D 3E               416 	mov	_allocateStateMachineMemory_sloc1_1_0,r5
-   29E5 8E 3F               417 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 1),r6
-   29E7 75 40 00            418 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 2),#0x00
-                            419 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:68: if(deferredEventQueue)
-   29EA E5 3E               420 	mov	a,_allocateStateMachineMemory_sloc1_1_0
-   29EC 45 3F               421 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   29EE 45 40               422 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   29F0 60 7C               423 	jz	00108$
-                            424 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:70: memset((char*)deferredEventQueue, 0, eventQueueDepth * sizeof(event_t*)) ;
-   29F2 90 0A A0            425 	mov	dptr,#_memset_PARM_2
-   29F5 E4                  426 	clr	a
-   29F6 F0                  427 	movx	@dptr,a
-   29F7 90 0A A1            428 	mov	dptr,#_memset_PARM_3
-   29FA EF                  429 	mov	a,r7
-   29FB F0                  430 	movx	@dptr,a
-   29FC A3                  431 	inc	dptr
-   29FD E8                  432 	mov	a,r0
-   29FE F0                  433 	movx	@dptr,a
-   29FF 85 3E 82            434 	mov	dpl,_allocateStateMachineMemory_sloc1_1_0
-   2A02 85 3F 83            435 	mov	dph,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   2A05 85 40 F0            436 	mov	b,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   2A08 C0 02               437 	push	ar2
-   2A0A C0 03               438 	push	ar3
-   2A0C C0 04               439 	push	ar4
-   2A0E 12 40 E8            440 	lcall	_memset
-   2A11 D0 04               441 	pop	ar4
-   2A13 D0 03               442 	pop	ar3
-   2A15 D0 02               443 	pop	ar2
-                            444 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:71: eventQueue_initialize(&instance->deferredEventQueue, deferredEventQueue, eventQueueDepth) ;
-   2A17 74 17               445 	mov	a,#0x17
-   2A19 2A                  446 	add	a,r2
-   2A1A FF                  447 	mov	r7,a
-   2A1B E4                  448 	clr	a
-   2A1C 3B                  449 	addc	a,r3
-   2A1D F8                  450 	mov	r0,a
-   2A1E 8C 05               451 	mov	ar5,r4
-   2A20 90 09 25            452 	mov	dptr,#_eventQueue_initialize_PARM_2
-   2A23 E5 3E               453 	mov	a,_allocateStateMachineMemory_sloc1_1_0
-   2A25 F0                  454 	movx	@dptr,a
-   2A26 A3                  455 	inc	dptr
-   2A27 E5 3F               456 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
-   2A29 F0                  457 	movx	@dptr,a
-   2A2A A3                  458 	inc	dptr
-   2A2B E5 40               459 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
-   2A2D F0                  460 	movx	@dptr,a
-   2A2E 90 09 28            461 	mov	dptr,#_eventQueue_initialize_PARM_3
-   2A31 E5 3C               462 	mov	a,_allocateStateMachineMemory_sloc0_1_0
-   2A33 F0                  463 	movx	@dptr,a
-   2A34 8F 82               464 	mov	dpl,r7
-   2A36 88 83               465 	mov	dph,r0
-   2A38 8D F0               466 	mov	b,r5
-   2A3A C0 02               467 	push	ar2
-   2A3C C0 03               468 	push	ar3
-   2A3E C0 04               469 	push	ar4
-   2A40 12 20 6D            470 	lcall	_eventQueue_initialize
-   2A43 D0 04               471 	pop	ar4
-   2A45 D0 03               472 	pop	ar3
-   2A47 D0 02               473 	pop	ar2
-                            474 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:73: constructor(instance) ;
-   2A49 C0 02               475 	push	ar2
-   2A4B C0 03               476 	push	ar3
-   2A4D C0 04               477 	push	ar4
-   2A4F 74 68               478 	mov	a,#00119$
-   2A51 C0 E0               479 	push	acc
-   2A53 74 2A               480 	mov	a,#(00119$ >> 8)
-   2A55 C0 E0               481 	push	acc
-   2A57 90 09 EB            482 	mov	dptr,#_allocateStateMachineMemory_PARM_2
-   2A5A E0                  483 	movx	a,@dptr
-   2A5B C0 E0               484 	push	acc
-   2A5D A3                  485 	inc	dptr
-   2A5E E0                  486 	movx	a,@dptr
-   2A5F C0 E0               487 	push	acc
-   2A61 8A 82               488 	mov	dpl,r2
-   2A63 8B 83               489 	mov	dph,r3
-   2A65 8C F0               490 	mov	b,r4
-   2A67 22                  491 	ret
-   2A68                     492 00119$:
-   2A68 D0 04               493 	pop	ar4
-   2A6A D0 03               494 	pop	ar3
-   2A6C D0 02               495 	pop	ar2
-   2A6E                     496 00108$:
-                            497 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:79: return instance ;
-   2A6E 8A 82               498 	mov	dpl,r2
-   2A70 8B 83               499 	mov	dph,r3
-   2A72 8C F0               500 	mov	b,r4
-   2A74 22                  501 	ret
-                            502 ;------------------------------------------------------------
-                            503 ;Allocation info for local variables in function 'deallocateStateMachineMemory'
-                            504 ;------------------------------------------------------------
-                            505 ;destructor                Allocated with name '_deallocateStateMachineMemory_PARM_2'
-                            506 ;instance                  Allocated with name '_deallocateStateMachineMemory_instance_1_1'
-                            507 ;------------------------------------------------------------
-                            508 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:83: void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachine_destructor_t destructor)
-                            509 ;	-----------------------------------------
-                            510 ;	 function deallocateStateMachineMemory
-                            511 ;	-----------------------------------------
-   2A75                     512 _deallocateStateMachineMemory:
-   2A75 AA F0               513 	mov	r2,b
-   2A77 AB 83               514 	mov	r3,dph
-   2A79 E5 82               515 	mov	a,dpl
-   2A7B 90 09 F1            516 	mov	dptr,#_deallocateStateMachineMemory_instance_1_1
-   2A7E F0                  517 	movx	@dptr,a
-   2A7F A3                  518 	inc	dptr
-   2A80 EB                  519 	mov	a,r3
-   2A81 F0                  520 	movx	@dptr,a
-   2A82 A3                  521 	inc	dptr
-   2A83 EA                  522 	mov	a,r2
-   2A84 F0                  523 	movx	@dptr,a
-                            524 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:85: if(instance != 0)
-   2A85 90 09 F1            525 	mov	dptr,#_deallocateStateMachineMemory_instance_1_1
-   2A88 E0                  526 	movx	a,@dptr
-   2A89 FA                  527 	mov	r2,a
-   2A8A A3                  528 	inc	dptr
-   2A8B E0                  529 	movx	a,@dptr
-   2A8C FB                  530 	mov	r3,a
-   2A8D A3                  531 	inc	dptr
-   2A8E E0                  532 	movx	a,@dptr
-   2A8F FC                  533 	mov	r4,a
-   2A90 EA                  534 	mov	a,r2
-   2A91 4B                  535 	orl	a,r3
-   2A92 4C                  536 	orl	a,r4
-   2A93 60 2D               537 	jz	00103$
-                            538 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:87: destructor(instance) ;
-   2A95 74 AE               539 	mov	a,#00107$
-   2A97 C0 E0               540 	push	acc
-   2A99 74 2A               541 	mov	a,#(00107$ >> 8)
-   2A9B C0 E0               542 	push	acc
-   2A9D 90 09 EF            543 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
-   2AA0 E0                  544 	movx	a,@dptr
-   2AA1 C0 E0               545 	push	acc
-   2AA3 A3                  546 	inc	dptr
-   2AA4 E0                  547 	movx	a,@dptr
-   2AA5 C0 E0               548 	push	acc
-   2AA7 8A 82               549 	mov	dpl,r2
-   2AA9 8B 83               550 	mov	dph,r3
-   2AAB 8C F0               551 	mov	b,r4
-   2AAD 22                  552 	ret
-   2AAE                     553 00107$:
-                            554 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:89: free((char*)instance) ;
-   2AAE 90 09 F1            555 	mov	dptr,#_deallocateStateMachineMemory_instance_1_1
-   2AB1 E0                  556 	movx	a,@dptr
-   2AB2 FA                  557 	mov	r2,a
-   2AB3 A3                  558 	inc	dptr
-   2AB4 E0                  559 	movx	a,@dptr
-   2AB5 FB                  560 	mov	r3,a
-   2AB6 A3                  561 	inc	dptr
-   2AB7 E0                  562 	movx	a,@dptr
-   2AB8 FC                  563 	mov	r4,a
-   2AB9 8A 82               564 	mov	dpl,r2
-   2ABB 8B 83               565 	mov	dph,r3
-   2ABD 8C F0               566 	mov	b,r4
-   2ABF 02 40 96            567 	ljmp	_free
-   2AC2                     568 00103$:
-   2AC2 22                  569 	ret
-                            570 ;------------------------------------------------------------
-                            571 ;Allocation info for local variables in function 'registerStateMachine'
-                            572 ;------------------------------------------------------------
-                            573 ;sm                        Allocated with name '_registerStateMachine_sm_1_1'
-                            574 ;statetMachineIndex        Allocated with name '_registerStateMachine_statetMachineIndex_2_2'
-                            575 ;------------------------------------------------------------
-                            576 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:94: bool registerStateMachine(			stateMachine_t* sm)
-                            577 ;	-----------------------------------------
-                            578 ;	 function registerStateMachine
-                            579 ;	-----------------------------------------
-   2AC3                     580 _registerStateMachine:
-   2AC3 AA F0               581 	mov	r2,b
-   2AC5 AB 83               582 	mov	r3,dph
-   2AC7 E5 82               583 	mov	a,dpl
-   2AC9 90 09 F4            584 	mov	dptr,#_registerStateMachine_sm_1_1
-   2ACC F0                  585 	movx	@dptr,a
-   2ACD A3                  586 	inc	dptr
-   2ACE EB                  587 	mov	a,r3
-   2ACF F0                  588 	movx	@dptr,a
-   2AD0 A3                  589 	inc	dptr
-   2AD1 EA                  590 	mov	a,r2
-   2AD2 F0                  591 	movx	@dptr,a
-                            592 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:96: if(sm)
-   2AD3 90 09 F4            593 	mov	dptr,#_registerStateMachine_sm_1_1
-   2AD6 E0                  594 	movx	a,@dptr
-   2AD7 FA                  595 	mov	r2,a
-   2AD8 A3                  596 	inc	dptr
-   2AD9 E0                  597 	movx	a,@dptr
-   2ADA FB                  598 	mov	r3,a
-   2ADB A3                  599 	inc	dptr
-   2ADC E0                  600 	movx	a,@dptr
-   2ADD FC                  601 	mov	r4,a
-   2ADE EA                  602 	mov	a,r2
-   2ADF 4B                  603 	orl	a,r3
-   2AE0 4C                  604 	orl	a,r4
-   2AE1 60 44               605 	jz	00104$
-                            606 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:100: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
-   2AE3 7A 00               607 	mov	r2,#0x00
-   2AE5                     608 00105$:
-   2AE5 BA 32 00            609 	cjne	r2,#0x32,00116$
-   2AE8                     610 00116$:
-   2AE8 50 3D               611 	jnc	00104$
-                            612 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:102: if(stateMachines[statetMachineIndex] == NULL)
-   2AEA EA                  613 	mov	a,r2
-   2AEB 75 F0 03            614 	mov	b,#0x03
-   2AEE A4                  615 	mul	ab
-   2AEF 24 55               616 	add	a,#_stateMachines
-   2AF1 FB                  617 	mov	r3,a
-   2AF2 E4                  618 	clr	a
-   2AF3 34 09               619 	addc	a,#(_stateMachines >> 8)
-   2AF5 FC                  620 	mov	r4,a
-   2AF6 8B 82               621 	mov	dpl,r3
-   2AF8 8C 83               622 	mov	dph,r4
-   2AFA E0                  623 	movx	a,@dptr
-   2AFB FD                  624 	mov	r5,a
-   2AFC A3                  625 	inc	dptr
-   2AFD E0                  626 	movx	a,@dptr
-   2AFE FE                  627 	mov	r6,a
-   2AFF A3                  628 	inc	dptr
-   2B00 E0                  629 	movx	a,@dptr
-   2B01 FF                  630 	mov	r7,a
-   2B02 BD 00 1F            631 	cjne	r5,#0x00,00107$
-   2B05 BE 00 1C            632 	cjne	r6,#0x00,00107$
-   2B08 BF 00 19            633 	cjne	r7,#0x00,00107$
-                            634 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:104: stateMachines[statetMachineIndex] = sm ;
-   2B0B 90 09 F4            635 	mov	dptr,#_registerStateMachine_sm_1_1
-   2B0E E0                  636 	movx	a,@dptr
-   2B0F FD                  637 	mov	r5,a
-   2B10 A3                  638 	inc	dptr
-   2B11 E0                  639 	movx	a,@dptr
-   2B12 FE                  640 	mov	r6,a
-   2B13 A3                  641 	inc	dptr
-   2B14 E0                  642 	movx	a,@dptr
-   2B15 FF                  643 	mov	r7,a
-   2B16 8B 82               644 	mov	dpl,r3
-   2B18 8C 83               645 	mov	dph,r4
-   2B1A ED                  646 	mov	a,r5
-   2B1B F0                  647 	movx	@dptr,a
-   2B1C A3                  648 	inc	dptr
-   2B1D EE                  649 	mov	a,r6
-   2B1E F0                  650 	movx	@dptr,a
-   2B1F A3                  651 	inc	dptr
-   2B20 EF                  652 	mov	a,r7
-   2B21 F0                  653 	movx	@dptr,a
-                            654 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:106: return true ;
-   2B22 D3                  655 	setb	c
-   2B23 22                  656 	ret
-   2B24                     657 00107$:
-                            658 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:100: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
-   2B24 0A                  659 	inc	r2
-   2B25 80 BE               660 	sjmp	00105$
-   2B27                     661 00104$:
-                            662 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:111: return false ;
-   2B27 C3                  663 	clr	c
-   2B28 22                  664 	ret
-                            665 ;------------------------------------------------------------
-                            666 ;Allocation info for local variables in function 'unregisterStateMachine'
-                            667 ;------------------------------------------------------------
-                            668 ;sm                        Allocated with name '_unregisterStateMachine_sm_1_1'
-                            669 ;statetMachineIndex        Allocated with name '_unregisterStateMachine_statetMachineIndex_2_2'
-                            670 ;------------------------------------------------------------
-                            671 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:114: bool unregisterStateMachine(		stateMachine_t* sm)
-                            672 ;	-----------------------------------------
-                            673 ;	 function unregisterStateMachine
-                            674 ;	-----------------------------------------
-   2B29                     675 _unregisterStateMachine:
-   2B29 AA F0               676 	mov	r2,b
-   2B2B AB 83               677 	mov	r3,dph
-   2B2D E5 82               678 	mov	a,dpl
-   2B2F 90 09 F7            679 	mov	dptr,#_unregisterStateMachine_sm_1_1
-   2B32 F0                  680 	movx	@dptr,a
-   2B33 A3                  681 	inc	dptr
-   2B34 EB                  682 	mov	a,r3
-   2B35 F0                  683 	movx	@dptr,a
-   2B36 A3                  684 	inc	dptr
-   2B37 EA                  685 	mov	a,r2
-   2B38 F0                  686 	movx	@dptr,a
-                            687 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:116: if(sm)
-   2B39 90 09 F7            688 	mov	dptr,#_unregisterStateMachine_sm_1_1
-   2B3C E0                  689 	movx	a,@dptr
-   2B3D FA                  690 	mov	r2,a
-   2B3E A3                  691 	inc	dptr
-   2B3F E0                  692 	movx	a,@dptr
-   2B40 FB                  693 	mov	r3,a
-   2B41 A3                  694 	inc	dptr
-   2B42 E0                  695 	movx	a,@dptr
-   2B43 FC                  696 	mov	r4,a
-   2B44 EA                  697 	mov	a,r2
-   2B45 4B                  698 	orl	a,r3
-   2B46 4C                  699 	orl	a,r4
-   2B47 60 44               700 	jz	00104$
-                            701 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:120: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
-   2B49 7D 00               702 	mov	r5,#0x00
-   2B4B                     703 00105$:
-   2B4B BD 32 00            704 	cjne	r5,#0x32,00116$
-   2B4E                     705 00116$:
-   2B4E 50 3D               706 	jnc	00104$
-                            707 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:122: if(stateMachines[statetMachineIndex] == sm)
-   2B50 ED                  708 	mov	a,r5
-   2B51 75 F0 03            709 	mov	b,#0x03
-   2B54 A4                  710 	mul	ab
-   2B55 24 55               711 	add	a,#_stateMachines
-   2B57 FE                  712 	mov	r6,a
-   2B58 E4                  713 	clr	a
-   2B59 34 09               714 	addc	a,#(_stateMachines >> 8)
-   2B5B FF                  715 	mov	r7,a
-   2B5C C0 05               716 	push	ar5
-   2B5E 8E 82               717 	mov	dpl,r6
-   2B60 8F 83               718 	mov	dph,r7
-   2B62 E0                  719 	movx	a,@dptr
-   2B63 F8                  720 	mov	r0,a
-   2B64 A3                  721 	inc	dptr
-   2B65 E0                  722 	movx	a,@dptr
-   2B66 F9                  723 	mov	r1,a
-   2B67 A3                  724 	inc	dptr
-   2B68 E0                  725 	movx	a,@dptr
-   2B69 FD                  726 	mov	r5,a
-   2B6A E8                  727 	mov	a,r0
-   2B6B B5 02 0A            728 	cjne	a,ar2,00118$
-   2B6E E9                  729 	mov	a,r1
-   2B6F B5 03 06            730 	cjne	a,ar3,00118$
-   2B72 ED                  731 	mov	a,r5
-   2B73 B5 04 02            732 	cjne	a,ar4,00118$
-   2B76 80 04               733 	sjmp	00119$
-   2B78                     734 00118$:
-   2B78 D0 05               735 	pop	ar5
-   2B7A 80 0E               736 	sjmp	00107$
-   2B7C                     737 00119$:
-   2B7C D0 05               738 	pop	ar5
-                            739 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:124: stateMachines[statetMachineIndex] = NULL ;
-   2B7E 8E 82               740 	mov	dpl,r6
-   2B80 8F 83               741 	mov	dph,r7
-   2B82 E4                  742 	clr	a
-   2B83 F0                  743 	movx	@dptr,a
-   2B84 A3                  744 	inc	dptr
-   2B85 F0                  745 	movx	@dptr,a
-   2B86 A3                  746 	inc	dptr
-   2B87 F0                  747 	movx	@dptr,a
-                            748 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:126: return true ;
-   2B88 D3                  749 	setb	c
-   2B89 22                  750 	ret
-   2B8A                     751 00107$:
-                            752 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:120: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
-   2B8A 0D                  753 	inc	r5
-   2B8B 80 BE               754 	sjmp	00105$
-   2B8D                     755 00104$:
-                            756 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:131: return false ;
-   2B8D C3                  757 	clr	c
-   2B8E 22                  758 	ret
-                            759 ;------------------------------------------------------------
-                            760 ;Allocation info for local variables in function 'iterateAllStateMachines'
-                            761 ;------------------------------------------------------------
-                            762 ;statetMachineIndex        Allocated with name '_iterateAllStateMachines_statetMachineIndex_1_1'
+                            139 ; external initialized ram data
+                            140 ;--------------------------------------------------------
+                            141 	.area XISEG   (XDATA)
+   0EEF                     142 _eventTypes::
+   0EEF                     143 	.ds 18
+   0F01                     144 _responseTypes::
+   0F01                     145 	.ds 12
+   0F0D                     146 _initialTransitionEvent:
+   0F0D                     147 	.ds 1
+   0F0E                     148 _jumpToHistoryEvent:
+   0F0E                     149 	.ds 1
+   0F0F                     150 _doEvent:
+   0F0F                     151 	.ds 1
+   0F10                     152 _enterEvent:
+   0F10                     153 	.ds 1
+   0F11                     154 _exitEvent:
+   0F11                     155 	.ds 1
+                            156 	.area HOME    (CODE)
+                            157 	.area GSINIT0 (CODE)
+                            158 	.area GSINIT1 (CODE)
+                            159 	.area GSINIT2 (CODE)
+                            160 	.area GSINIT3 (CODE)
+                            161 	.area GSINIT4 (CODE)
+                            162 	.area GSINIT5 (CODE)
+                            163 	.area GSINIT  (CODE)
+                            164 	.area GSFINAL (CODE)
+                            165 	.area CSEG    (CODE)
+                            166 ;--------------------------------------------------------
+                            167 ; global & static initialisations
+                            168 ;--------------------------------------------------------
+                            169 	.area HOME    (CODE)
+                            170 	.area GSINIT  (CODE)
+                            171 	.area GSFINAL (CODE)
+                            172 	.area GSINIT  (CODE)
+                            173 ;--------------------------------------------------------
+                            174 ; Home
+                            175 ;--------------------------------------------------------
+                            176 	.area HOME    (CODE)
+                            177 	.area HOME    (CODE)
+                            178 ;--------------------------------------------------------
+                            179 ; code
+                            180 ;--------------------------------------------------------
+                            181 	.area CSEG    (CODE)
+                            182 ;------------------------------------------------------------
+                            183 ;Allocation info for local variables in function 'allocateStateMachineMemory'
+                            184 ;------------------------------------------------------------
+                            185 ;sloc0                     Allocated with name '_allocateStateMachineMemory_sloc0_1_0'
+                            186 ;sloc1                     Allocated with name '_allocateStateMachineMemory_sloc1_1_0'
+                            187 ;constructor               Allocated with name '_allocateStateMachineMemory_PARM_2'
+                            188 ;eventQueueDepth           Allocated with name '_allocateStateMachineMemory_eventQueueDepth_1_1'
+                            189 ;instance                  Allocated with name '_allocateStateMachineMemory_instance_1_1'
+                            190 ;eventQueue                Allocated with name '_allocateStateMachineMemory_eventQueue_2_2'
+                            191 ;typesOfEventsToDefer      Allocated with name '_allocateStateMachineMemory_typesOfEventsToDefer_3_3'
+                            192 ;deferredEventQueue        Allocated with name '_allocateStateMachineMemory_deferredEventQueue_4_4'
+                            193 ;------------------------------------------------------------
+                            194 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:36: stateMachine_t* allocateStateMachineMemory(		uint16_t eventQueueDepth,
+                            195 ;	-----------------------------------------
+                            196 ;	 function allocateStateMachineMemory
+                            197 ;	-----------------------------------------
+   2870                     198 _allocateStateMachineMemory:
+                    0002    199 	ar2 = 0x02
+                    0003    200 	ar3 = 0x03
+                    0004    201 	ar4 = 0x04
+                    0005    202 	ar5 = 0x05
+                    0006    203 	ar6 = 0x06
+                    0007    204 	ar7 = 0x07
+                    0000    205 	ar0 = 0x00
+                    0001    206 	ar1 = 0x01
+   2870 AA 83               207 	mov	r2,dph
+   2872 E5 82               208 	mov	a,dpl
+   2874 90 09 ED            209 	mov	dptr,#_allocateStateMachineMemory_eventQueueDepth_1_1
+   2877 F0                  210 	movx	@dptr,a
+   2878 A3                  211 	inc	dptr
+   2879 EA                  212 	mov	a,r2
+   287A F0                  213 	movx	@dptr,a
+                            214 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:39: stateMachine_t*	instance = malloc(sizeof(stateMachine_t)) ;
+   287B 90 00 2B            215 	mov	dptr,#0x002B
+   287E 12 42 D9            216 	lcall	_malloc
+   2881 AA 82               217 	mov	r2,dpl
+   2883 AB 83               218 	mov	r3,dph
+   2885 7C 00               219 	mov	r4,#0x00
+                            220 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:41: if(instance)
+   2887 EA                  221 	mov	a,r2
+   2888 4B                  222 	orl	a,r3
+   2889 4C                  223 	orl	a,r4
+   288A 70 03               224 	jnz	00115$
+   288C 02 2A 6E            225 	ljmp	00108$
+   288F                     226 00115$:
+                            227 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:45: memset((char*)instance, 0, sizeof(stateMachine_t)) ;
+   288F 90 0A A0            228 	mov	dptr,#_memset_PARM_2
+   2892 E4                  229 	clr	a
+   2893 F0                  230 	movx	@dptr,a
+   2894 90 0A A1            231 	mov	dptr,#_memset_PARM_3
+   2897 74 2B               232 	mov	a,#0x2B
+   2899 F0                  233 	movx	@dptr,a
+   289A E4                  234 	clr	a
+   289B A3                  235 	inc	dptr
+   289C F0                  236 	movx	@dptr,a
+   289D 8A 82               237 	mov	dpl,r2
+   289F 8B 83               238 	mov	dph,r3
+   28A1 8C F0               239 	mov	b,r4
+   28A3 C0 02               240 	push	ar2
+   28A5 C0 03               241 	push	ar3
+   28A7 C0 04               242 	push	ar4
+   28A9 12 42 1A            243 	lcall	_memset
+                            244 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:47: eventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
+   28AC 90 09 ED            245 	mov	dptr,#_allocateStateMachineMemory_eventQueueDepth_1_1
+   28AF E0                  246 	movx	a,@dptr
+   28B0 F5 3C               247 	mov	_allocateStateMachineMemory_sloc0_1_0,a
+   28B2 A3                  248 	inc	dptr
+   28B3 E0                  249 	movx	a,@dptr
+   28B4 F5 3D               250 	mov	(_allocateStateMachineMemory_sloc0_1_0 + 1),a
+   28B6 90 0A AE            251 	mov	dptr,#__mulint_PARM_2
+   28B9 E5 3C               252 	mov	a,_allocateStateMachineMemory_sloc0_1_0
+   28BB F0                  253 	movx	@dptr,a
+   28BC A3                  254 	inc	dptr
+   28BD E5 3D               255 	mov	a,(_allocateStateMachineMemory_sloc0_1_0 + 1)
+   28BF F0                  256 	movx	@dptr,a
+   28C0 90 00 03            257 	mov	dptr,#0x0003
+   28C3 12 44 23            258 	lcall	__mulint
+   28C6 AF 82               259 	mov	r7,dpl
+   28C8 A8 83               260 	mov  r0,dph
+   28CA C0 07               261 	push	ar7
+   28CC C0 00               262 	push	ar0
+   28CE 12 42 D9            263 	lcall	_malloc
+   28D1 A9 82               264 	mov	r1,dpl
+   28D3 AD 83               265 	mov	r5,dph
+   28D5 D0 00               266 	pop	ar0
+   28D7 D0 07               267 	pop	ar7
+   28D9 D0 04               268 	pop	ar4
+   28DB D0 03               269 	pop	ar3
+   28DD D0 02               270 	pop	ar2
+   28DF 89 3E               271 	mov	_allocateStateMachineMemory_sloc1_1_0,r1
+   28E1 8D 3F               272 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 1),r5
+   28E3 75 40 00            273 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 2),#0x00
+                            274 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:49: if(eventQueue)
+   28E6 E5 3E               275 	mov	a,_allocateStateMachineMemory_sloc1_1_0
+   28E8 45 3F               276 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   28EA 45 40               277 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   28EC 70 03               278 	jnz	00116$
+   28EE 02 2A 6E            279 	ljmp	00108$
+   28F1                     280 00116$:
+                            281 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:53: memset((char*)eventQueue, 0, eventQueueDepth * sizeof(event_t*)) ;
+   28F1 90 0A A0            282 	mov	dptr,#_memset_PARM_2
+   28F4 E4                  283 	clr	a
+   28F5 F0                  284 	movx	@dptr,a
+   28F6 90 0A A1            285 	mov	dptr,#_memset_PARM_3
+   28F9 EF                  286 	mov	a,r7
+   28FA F0                  287 	movx	@dptr,a
+   28FB A3                  288 	inc	dptr
+   28FC E8                  289 	mov	a,r0
+   28FD F0                  290 	movx	@dptr,a
+   28FE 85 3E 82            291 	mov	dpl,_allocateStateMachineMemory_sloc1_1_0
+   2901 85 3F 83            292 	mov	dph,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   2904 85 40 F0            293 	mov	b,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   2907 C0 02               294 	push	ar2
+   2909 C0 03               295 	push	ar3
+   290B C0 04               296 	push	ar4
+   290D C0 07               297 	push	ar7
+   290F C0 00               298 	push	ar0
+   2911 12 42 1A            299 	lcall	_memset
+   2914 D0 00               300 	pop	ar0
+   2916 D0 07               301 	pop	ar7
+   2918 D0 04               302 	pop	ar4
+   291A D0 03               303 	pop	ar3
+   291C D0 02               304 	pop	ar2
+                            305 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:54: eventQueue_initialize(&instance->eventQueue, eventQueue, eventQueueDepth) ;
+   291E 74 0B               306 	mov	a,#0x0B
+   2920 2A                  307 	add	a,r2
+   2921 FD                  308 	mov	r5,a
+   2922 E4                  309 	clr	a
+   2923 3B                  310 	addc	a,r3
+   2924 FE                  311 	mov	r6,a
+   2925 8C 01               312 	mov	ar1,r4
+   2927 90 09 25            313 	mov	dptr,#_eventQueue_initialize_PARM_2
+   292A E5 3E               314 	mov	a,_allocateStateMachineMemory_sloc1_1_0
+   292C F0                  315 	movx	@dptr,a
+   292D A3                  316 	inc	dptr
+   292E E5 3F               317 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   2930 F0                  318 	movx	@dptr,a
+   2931 A3                  319 	inc	dptr
+   2932 E5 40               320 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   2934 F0                  321 	movx	@dptr,a
+   2935 90 09 28            322 	mov	dptr,#_eventQueue_initialize_PARM_3
+   2938 E5 3C               323 	mov	a,_allocateStateMachineMemory_sloc0_1_0
+   293A F0                  324 	movx	@dptr,a
+   293B 8D 82               325 	mov	dpl,r5
+   293D 8E 83               326 	mov	dph,r6
+   293F 89 F0               327 	mov	b,r1
+   2941 C0 02               328 	push	ar2
+   2943 C0 03               329 	push	ar3
+   2945 C0 04               330 	push	ar4
+   2947 C0 07               331 	push	ar7
+   2949 C0 00               332 	push	ar0
+   294B 12 20 6D            333 	lcall	_eventQueue_initialize
+   294E D0 00               334 	pop	ar0
+   2950 D0 07               335 	pop	ar7
+                            336 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:56: typesOfEventsToDefer = (eventType_t*)malloc(eventQueueDepth * sizeof(eventType_t*)) ;
+   2952 8F 82               337 	mov	dpl,r7
+   2954 88 83               338 	mov	dph,r0
+   2956 C0 07               339 	push	ar7
+   2958 C0 00               340 	push	ar0
+   295A 12 42 D9            341 	lcall	_malloc
+   295D AD 82               342 	mov	r5,dpl
+   295F AE 83               343 	mov	r6,dph
+   2961 D0 00               344 	pop	ar0
+   2963 D0 07               345 	pop	ar7
+   2965 D0 04               346 	pop	ar4
+   2967 D0 03               347 	pop	ar3
+   2969 D0 02               348 	pop	ar2
+   296B 8D 3E               349 	mov	_allocateStateMachineMemory_sloc1_1_0,r5
+   296D 8E 3F               350 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 1),r6
+   296F 75 40 00            351 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 2),#0x00
+                            352 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:58: if(typesOfEventsToDefer)
+   2972 E5 3E               353 	mov	a,_allocateStateMachineMemory_sloc1_1_0
+   2974 45 3F               354 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   2976 45 40               355 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   2978 70 03               356 	jnz	00117$
+   297A 02 2A 6E            357 	ljmp	00108$
+   297D                     358 00117$:
+                            359 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:62: instance->maxDepthOfEventsToDeferList		= eventQueueDepth ;
+   297D 74 12               360 	mov	a,#0x12
+   297F 2A                  361 	add	a,r2
+   2980 FD                  362 	mov	r5,a
+   2981 E4                  363 	clr	a
+   2982 3B                  364 	addc	a,r3
+   2983 FE                  365 	mov	r6,a
+   2984 8C 01               366 	mov	ar1,r4
+   2986 8D 82               367 	mov	dpl,r5
+   2988 8E 83               368 	mov	dph,r6
+   298A 89 F0               369 	mov	b,r1
+   298C E5 3C               370 	mov	a,_allocateStateMachineMemory_sloc0_1_0
+   298E 12 42 42            371 	lcall	__gptrput
+                            372 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:63: instance->currentDepthOfEventsToDeferList	= 0 ;
+   2991 74 13               373 	mov	a,#0x13
+   2993 2A                  374 	add	a,r2
+   2994 FD                  375 	mov	r5,a
+   2995 E4                  376 	clr	a
+   2996 3B                  377 	addc	a,r3
+   2997 FE                  378 	mov	r6,a
+   2998 8C 01               379 	mov	ar1,r4
+   299A 8D 82               380 	mov	dpl,r5
+   299C 8E 83               381 	mov	dph,r6
+   299E 89 F0               382 	mov	b,r1
+   29A0 E4                  383 	clr	a
+   29A1 12 42 42            384 	lcall	__gptrput
+                            385 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:64: instance->typesOfEventsToDefer				= typesOfEventsToDefer ;
+   29A4 74 14               386 	mov	a,#0x14
+   29A6 2A                  387 	add	a,r2
+   29A7 FD                  388 	mov	r5,a
+   29A8 E4                  389 	clr	a
+   29A9 3B                  390 	addc	a,r3
+   29AA FE                  391 	mov	r6,a
+   29AB 8C 01               392 	mov	ar1,r4
+   29AD 8D 82               393 	mov	dpl,r5
+   29AF 8E 83               394 	mov	dph,r6
+   29B1 89 F0               395 	mov	b,r1
+   29B3 E5 3E               396 	mov	a,_allocateStateMachineMemory_sloc1_1_0
+   29B5 12 42 42            397 	lcall	__gptrput
+   29B8 A3                  398 	inc	dptr
+   29B9 E5 3F               399 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   29BB 12 42 42            400 	lcall	__gptrput
+   29BE A3                  401 	inc	dptr
+   29BF E5 40               402 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   29C1 12 42 42            403 	lcall	__gptrput
+                            404 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:66: deferredEventQueue = (event_t**)malloc(eventQueueDepth * sizeof(event_t*)) ;
+   29C4 8F 82               405 	mov	dpl,r7
+   29C6 88 83               406 	mov	dph,r0
+   29C8 C0 02               407 	push	ar2
+   29CA C0 03               408 	push	ar3
+   29CC C0 04               409 	push	ar4
+   29CE C0 07               410 	push	ar7
+   29D0 C0 00               411 	push	ar0
+   29D2 12 42 D9            412 	lcall	_malloc
+   29D5 AD 82               413 	mov	r5,dpl
+   29D7 AE 83               414 	mov	r6,dph
+   29D9 D0 00               415 	pop	ar0
+   29DB D0 07               416 	pop	ar7
+   29DD D0 04               417 	pop	ar4
+   29DF D0 03               418 	pop	ar3
+   29E1 D0 02               419 	pop	ar2
+   29E3 8D 3E               420 	mov	_allocateStateMachineMemory_sloc1_1_0,r5
+   29E5 8E 3F               421 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 1),r6
+   29E7 75 40 00            422 	mov	(_allocateStateMachineMemory_sloc1_1_0 + 2),#0x00
+                            423 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:68: if(deferredEventQueue)
+   29EA E5 3E               424 	mov	a,_allocateStateMachineMemory_sloc1_1_0
+   29EC 45 3F               425 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   29EE 45 40               426 	orl	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   29F0 60 7C               427 	jz	00108$
+                            428 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:70: memset((char*)deferredEventQueue, 0, eventQueueDepth * sizeof(event_t*)) ;
+   29F2 90 0A A0            429 	mov	dptr,#_memset_PARM_2
+   29F5 E4                  430 	clr	a
+   29F6 F0                  431 	movx	@dptr,a
+   29F7 90 0A A1            432 	mov	dptr,#_memset_PARM_3
+   29FA EF                  433 	mov	a,r7
+   29FB F0                  434 	movx	@dptr,a
+   29FC A3                  435 	inc	dptr
+   29FD E8                  436 	mov	a,r0
+   29FE F0                  437 	movx	@dptr,a
+   29FF 85 3E 82            438 	mov	dpl,_allocateStateMachineMemory_sloc1_1_0
+   2A02 85 3F 83            439 	mov	dph,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   2A05 85 40 F0            440 	mov	b,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   2A08 C0 02               441 	push	ar2
+   2A0A C0 03               442 	push	ar3
+   2A0C C0 04               443 	push	ar4
+   2A0E 12 42 1A            444 	lcall	_memset
+   2A11 D0 04               445 	pop	ar4
+   2A13 D0 03               446 	pop	ar3
+   2A15 D0 02               447 	pop	ar2
+                            448 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:71: eventQueue_initialize(&instance->deferredEventQueue, deferredEventQueue, eventQueueDepth) ;
+   2A17 74 17               449 	mov	a,#0x17
+   2A19 2A                  450 	add	a,r2
+   2A1A FF                  451 	mov	r7,a
+   2A1B E4                  452 	clr	a
+   2A1C 3B                  453 	addc	a,r3
+   2A1D F8                  454 	mov	r0,a
+   2A1E 8C 05               455 	mov	ar5,r4
+   2A20 90 09 25            456 	mov	dptr,#_eventQueue_initialize_PARM_2
+   2A23 E5 3E               457 	mov	a,_allocateStateMachineMemory_sloc1_1_0
+   2A25 F0                  458 	movx	@dptr,a
+   2A26 A3                  459 	inc	dptr
+   2A27 E5 3F               460 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 1)
+   2A29 F0                  461 	movx	@dptr,a
+   2A2A A3                  462 	inc	dptr
+   2A2B E5 40               463 	mov	a,(_allocateStateMachineMemory_sloc1_1_0 + 2)
+   2A2D F0                  464 	movx	@dptr,a
+   2A2E 90 09 28            465 	mov	dptr,#_eventQueue_initialize_PARM_3
+   2A31 E5 3C               466 	mov	a,_allocateStateMachineMemory_sloc0_1_0
+   2A33 F0                  467 	movx	@dptr,a
+   2A34 8F 82               468 	mov	dpl,r7
+   2A36 88 83               469 	mov	dph,r0
+   2A38 8D F0               470 	mov	b,r5
+   2A3A C0 02               471 	push	ar2
+   2A3C C0 03               472 	push	ar3
+   2A3E C0 04               473 	push	ar4
+   2A40 12 20 6D            474 	lcall	_eventQueue_initialize
+   2A43 D0 04               475 	pop	ar4
+   2A45 D0 03               476 	pop	ar3
+   2A47 D0 02               477 	pop	ar2
+                            478 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:73: constructor(instance) ;
+   2A49 C0 02               479 	push	ar2
+   2A4B C0 03               480 	push	ar3
+   2A4D C0 04               481 	push	ar4
+   2A4F 74 68               482 	mov	a,#00119$
+   2A51 C0 E0               483 	push	acc
+   2A53 74 2A               484 	mov	a,#(00119$ >> 8)
+   2A55 C0 E0               485 	push	acc
+   2A57 90 09 EB            486 	mov	dptr,#_allocateStateMachineMemory_PARM_2
+   2A5A E0                  487 	movx	a,@dptr
+   2A5B C0 E0               488 	push	acc
+   2A5D A3                  489 	inc	dptr
+   2A5E E0                  490 	movx	a,@dptr
+   2A5F C0 E0               491 	push	acc
+   2A61 8A 82               492 	mov	dpl,r2
+   2A63 8B 83               493 	mov	dph,r3
+   2A65 8C F0               494 	mov	b,r4
+   2A67 22                  495 	ret
+   2A68                     496 00119$:
+   2A68 D0 04               497 	pop	ar4
+   2A6A D0 03               498 	pop	ar3
+   2A6C D0 02               499 	pop	ar2
+   2A6E                     500 00108$:
+                            501 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:79: return instance ;
+   2A6E 8A 82               502 	mov	dpl,r2
+   2A70 8B 83               503 	mov	dph,r3
+   2A72 8C F0               504 	mov	b,r4
+   2A74 22                  505 	ret
+                            506 ;------------------------------------------------------------
+                            507 ;Allocation info for local variables in function 'deallocateStateMachineMemory'
+                            508 ;------------------------------------------------------------
+                            509 ;destructor                Allocated with name '_deallocateStateMachineMemory_PARM_2'
+                            510 ;instance                  Allocated with name '_deallocateStateMachineMemory_instance_1_1'
+                            511 ;------------------------------------------------------------
+                            512 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:83: void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachine_destructor_t destructor)
+                            513 ;	-----------------------------------------
+                            514 ;	 function deallocateStateMachineMemory
+                            515 ;	-----------------------------------------
+   2A75                     516 _deallocateStateMachineMemory:
+   2A75 AA F0               517 	mov	r2,b
+   2A77 AB 83               518 	mov	r3,dph
+   2A79 E5 82               519 	mov	a,dpl
+   2A7B 90 09 F1            520 	mov	dptr,#_deallocateStateMachineMemory_instance_1_1
+   2A7E F0                  521 	movx	@dptr,a
+   2A7F A3                  522 	inc	dptr
+   2A80 EB                  523 	mov	a,r3
+   2A81 F0                  524 	movx	@dptr,a
+   2A82 A3                  525 	inc	dptr
+   2A83 EA                  526 	mov	a,r2
+   2A84 F0                  527 	movx	@dptr,a
+                            528 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:85: if(instance != 0)
+   2A85 90 09 F1            529 	mov	dptr,#_deallocateStateMachineMemory_instance_1_1
+   2A88 E0                  530 	movx	a,@dptr
+   2A89 FA                  531 	mov	r2,a
+   2A8A A3                  532 	inc	dptr
+   2A8B E0                  533 	movx	a,@dptr
+   2A8C FB                  534 	mov	r3,a
+   2A8D A3                  535 	inc	dptr
+   2A8E E0                  536 	movx	a,@dptr
+   2A8F FC                  537 	mov	r4,a
+   2A90 EA                  538 	mov	a,r2
+   2A91 4B                  539 	orl	a,r3
+   2A92 4C                  540 	orl	a,r4
+   2A93 60 2D               541 	jz	00103$
+                            542 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:87: destructor(instance) ;
+   2A95 74 AE               543 	mov	a,#00107$
+   2A97 C0 E0               544 	push	acc
+   2A99 74 2A               545 	mov	a,#(00107$ >> 8)
+   2A9B C0 E0               546 	push	acc
+   2A9D 90 09 EF            547 	mov	dptr,#_deallocateStateMachineMemory_PARM_2
+   2AA0 E0                  548 	movx	a,@dptr
+   2AA1 C0 E0               549 	push	acc
+   2AA3 A3                  550 	inc	dptr
+   2AA4 E0                  551 	movx	a,@dptr
+   2AA5 C0 E0               552 	push	acc
+   2AA7 8A 82               553 	mov	dpl,r2
+   2AA9 8B 83               554 	mov	dph,r3
+   2AAB 8C F0               555 	mov	b,r4
+   2AAD 22                  556 	ret
+   2AAE                     557 00107$:
+                            558 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:89: free((char*)instance) ;
+   2AAE 90 09 F1            559 	mov	dptr,#_deallocateStateMachineMemory_instance_1_1
+   2AB1 E0                  560 	movx	a,@dptr
+   2AB2 FA                  561 	mov	r2,a
+   2AB3 A3                  562 	inc	dptr
+   2AB4 E0                  563 	movx	a,@dptr
+   2AB5 FB                  564 	mov	r3,a
+   2AB6 A3                  565 	inc	dptr
+   2AB7 E0                  566 	movx	a,@dptr
+   2AB8 FC                  567 	mov	r4,a
+   2AB9 8A 82               568 	mov	dpl,r2
+   2ABB 8B 83               569 	mov	dph,r3
+   2ABD 8C F0               570 	mov	b,r4
+   2ABF 02 41 C8            571 	ljmp	_free
+   2AC2                     572 00103$:
+   2AC2 22                  573 	ret
+                            574 ;------------------------------------------------------------
+                            575 ;Allocation info for local variables in function 'registerStateMachine'
+                            576 ;------------------------------------------------------------
+                            577 ;sm                        Allocated with name '_registerStateMachine_sm_1_1'
+                            578 ;statetMachineIndex        Allocated with name '_registerStateMachine_statetMachineIndex_2_2'
+                            579 ;------------------------------------------------------------
+                            580 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:94: bool registerStateMachine(			stateMachine_t* sm)
+                            581 ;	-----------------------------------------
+                            582 ;	 function registerStateMachine
+                            583 ;	-----------------------------------------
+   2AC3                     584 _registerStateMachine:
+   2AC3 AA F0               585 	mov	r2,b
+   2AC5 AB 83               586 	mov	r3,dph
+   2AC7 E5 82               587 	mov	a,dpl
+   2AC9 90 09 F4            588 	mov	dptr,#_registerStateMachine_sm_1_1
+   2ACC F0                  589 	movx	@dptr,a
+   2ACD A3                  590 	inc	dptr
+   2ACE EB                  591 	mov	a,r3
+   2ACF F0                  592 	movx	@dptr,a
+   2AD0 A3                  593 	inc	dptr
+   2AD1 EA                  594 	mov	a,r2
+   2AD2 F0                  595 	movx	@dptr,a
+                            596 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:96: if(sm)
+   2AD3 90 09 F4            597 	mov	dptr,#_registerStateMachine_sm_1_1
+   2AD6 E0                  598 	movx	a,@dptr
+   2AD7 FA                  599 	mov	r2,a
+   2AD8 A3                  600 	inc	dptr
+   2AD9 E0                  601 	movx	a,@dptr
+   2ADA FB                  602 	mov	r3,a
+   2ADB A3                  603 	inc	dptr
+   2ADC E0                  604 	movx	a,@dptr
+   2ADD FC                  605 	mov	r4,a
+   2ADE EA                  606 	mov	a,r2
+   2ADF 4B                  607 	orl	a,r3
+   2AE0 4C                  608 	orl	a,r4
+   2AE1 60 44               609 	jz	00104$
+                            610 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:100: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+   2AE3 7A 00               611 	mov	r2,#0x00
+   2AE5                     612 00105$:
+   2AE5 BA 32 00            613 	cjne	r2,#0x32,00116$
+   2AE8                     614 00116$:
+   2AE8 50 3D               615 	jnc	00104$
+                            616 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:102: if(stateMachines[statetMachineIndex] == NULL)
+   2AEA EA                  617 	mov	a,r2
+   2AEB 75 F0 03            618 	mov	b,#0x03
+   2AEE A4                  619 	mul	ab
+   2AEF 24 55               620 	add	a,#_stateMachines
+   2AF1 FB                  621 	mov	r3,a
+   2AF2 E4                  622 	clr	a
+   2AF3 34 09               623 	addc	a,#(_stateMachines >> 8)
+   2AF5 FC                  624 	mov	r4,a
+   2AF6 8B 82               625 	mov	dpl,r3
+   2AF8 8C 83               626 	mov	dph,r4
+   2AFA E0                  627 	movx	a,@dptr
+   2AFB FD                  628 	mov	r5,a
+   2AFC A3                  629 	inc	dptr
+   2AFD E0                  630 	movx	a,@dptr
+   2AFE FE                  631 	mov	r6,a
+   2AFF A3                  632 	inc	dptr
+   2B00 E0                  633 	movx	a,@dptr
+   2B01 FF                  634 	mov	r7,a
+   2B02 BD 00 1F            635 	cjne	r5,#0x00,00107$
+   2B05 BE 00 1C            636 	cjne	r6,#0x00,00107$
+   2B08 BF 00 19            637 	cjne	r7,#0x00,00107$
+                            638 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:104: stateMachines[statetMachineIndex] = sm ;
+   2B0B 90 09 F4            639 	mov	dptr,#_registerStateMachine_sm_1_1
+   2B0E E0                  640 	movx	a,@dptr
+   2B0F FD                  641 	mov	r5,a
+   2B10 A3                  642 	inc	dptr
+   2B11 E0                  643 	movx	a,@dptr
+   2B12 FE                  644 	mov	r6,a
+   2B13 A3                  645 	inc	dptr
+   2B14 E0                  646 	movx	a,@dptr
+   2B15 FF                  647 	mov	r7,a
+   2B16 8B 82               648 	mov	dpl,r3
+   2B18 8C 83               649 	mov	dph,r4
+   2B1A ED                  650 	mov	a,r5
+   2B1B F0                  651 	movx	@dptr,a
+   2B1C A3                  652 	inc	dptr
+   2B1D EE                  653 	mov	a,r6
+   2B1E F0                  654 	movx	@dptr,a
+   2B1F A3                  655 	inc	dptr
+   2B20 EF                  656 	mov	a,r7
+   2B21 F0                  657 	movx	@dptr,a
+                            658 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:106: return true ;
+   2B22 D3                  659 	setb	c
+   2B23 22                  660 	ret
+   2B24                     661 00107$:
+                            662 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:100: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+   2B24 0A                  663 	inc	r2
+   2B25 80 BE               664 	sjmp	00105$
+   2B27                     665 00104$:
+                            666 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:111: return false ;
+   2B27 C3                  667 	clr	c
+   2B28 22                  668 	ret
+                            669 ;------------------------------------------------------------
+                            670 ;Allocation info for local variables in function 'unregisterStateMachine'
+                            671 ;------------------------------------------------------------
+                            672 ;sm                        Allocated with name '_unregisterStateMachine_sm_1_1'
+                            673 ;statetMachineIndex        Allocated with name '_unregisterStateMachine_statetMachineIndex_2_2'
+                            674 ;------------------------------------------------------------
+                            675 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:114: bool unregisterStateMachine(		stateMachine_t* sm)
+                            676 ;	-----------------------------------------
+                            677 ;	 function unregisterStateMachine
+                            678 ;	-----------------------------------------
+   2B29                     679 _unregisterStateMachine:
+   2B29 AA F0               680 	mov	r2,b
+   2B2B AB 83               681 	mov	r3,dph
+   2B2D E5 82               682 	mov	a,dpl
+   2B2F 90 09 F7            683 	mov	dptr,#_unregisterStateMachine_sm_1_1
+   2B32 F0                  684 	movx	@dptr,a
+   2B33 A3                  685 	inc	dptr
+   2B34 EB                  686 	mov	a,r3
+   2B35 F0                  687 	movx	@dptr,a
+   2B36 A3                  688 	inc	dptr
+   2B37 EA                  689 	mov	a,r2
+   2B38 F0                  690 	movx	@dptr,a
+                            691 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:116: if(sm)
+   2B39 90 09 F7            692 	mov	dptr,#_unregisterStateMachine_sm_1_1
+   2B3C E0                  693 	movx	a,@dptr
+   2B3D FA                  694 	mov	r2,a
+   2B3E A3                  695 	inc	dptr
+   2B3F E0                  696 	movx	a,@dptr
+   2B40 FB                  697 	mov	r3,a
+   2B41 A3                  698 	inc	dptr
+   2B42 E0                  699 	movx	a,@dptr
+   2B43 FC                  700 	mov	r4,a
+   2B44 EA                  701 	mov	a,r2
+   2B45 4B                  702 	orl	a,r3
+   2B46 4C                  703 	orl	a,r4
+   2B47 60 44               704 	jz	00104$
+                            705 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:120: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+   2B49 7D 00               706 	mov	r5,#0x00
+   2B4B                     707 00105$:
+   2B4B BD 32 00            708 	cjne	r5,#0x32,00116$
+   2B4E                     709 00116$:
+   2B4E 50 3D               710 	jnc	00104$
+                            711 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:122: if(stateMachines[statetMachineIndex] == sm)
+   2B50 ED                  712 	mov	a,r5
+   2B51 75 F0 03            713 	mov	b,#0x03
+   2B54 A4                  714 	mul	ab
+   2B55 24 55               715 	add	a,#_stateMachines
+   2B57 FE                  716 	mov	r6,a
+   2B58 E4                  717 	clr	a
+   2B59 34 09               718 	addc	a,#(_stateMachines >> 8)
+   2B5B FF                  719 	mov	r7,a
+   2B5C C0 05               720 	push	ar5
+   2B5E 8E 82               721 	mov	dpl,r6
+   2B60 8F 83               722 	mov	dph,r7
+   2B62 E0                  723 	movx	a,@dptr
+   2B63 F8                  724 	mov	r0,a
+   2B64 A3                  725 	inc	dptr
+   2B65 E0                  726 	movx	a,@dptr
+   2B66 F9                  727 	mov	r1,a
+   2B67 A3                  728 	inc	dptr
+   2B68 E0                  729 	movx	a,@dptr
+   2B69 FD                  730 	mov	r5,a
+   2B6A E8                  731 	mov	a,r0
+   2B6B B5 02 0A            732 	cjne	a,ar2,00118$
+   2B6E E9                  733 	mov	a,r1
+   2B6F B5 03 06            734 	cjne	a,ar3,00118$
+   2B72 ED                  735 	mov	a,r5
+   2B73 B5 04 02            736 	cjne	a,ar4,00118$
+   2B76 80 04               737 	sjmp	00119$
+   2B78                     738 00118$:
+   2B78 D0 05               739 	pop	ar5
+   2B7A 80 0E               740 	sjmp	00107$
+   2B7C                     741 00119$:
+   2B7C D0 05               742 	pop	ar5
+                            743 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:124: stateMachines[statetMachineIndex] = NULL ;
+   2B7E 8E 82               744 	mov	dpl,r6
+   2B80 8F 83               745 	mov	dph,r7
+   2B82 E4                  746 	clr	a
+   2B83 F0                  747 	movx	@dptr,a
+   2B84 A3                  748 	inc	dptr
+   2B85 F0                  749 	movx	@dptr,a
+   2B86 A3                  750 	inc	dptr
+   2B87 F0                  751 	movx	@dptr,a
+                            752 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:126: return true ;
+   2B88 D3                  753 	setb	c
+   2B89 22                  754 	ret
+   2B8A                     755 00107$:
+                            756 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:120: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+   2B8A 0D                  757 	inc	r5
+   2B8B 80 BE               758 	sjmp	00105$
+   2B8D                     759 00104$:
+                            760 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:131: return false ;
+   2B8D C3                  761 	clr	c
+   2B8E 22                  762 	ret
                             763 ;------------------------------------------------------------
-                            764 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:135: void iterateAllStateMachines(	void)
-                            765 ;	-----------------------------------------
-                            766 ;	 function iterateAllStateMachines
-                            767 ;	-----------------------------------------
-   2B8F                     768 _iterateAllStateMachines:
-                            769 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:139: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
-   2B8F 7A 00               770 	mov	r2,#0x00
-   2B91                     771 00103$:
-   2B91 BA 32 00            772 	cjne	r2,#0x32,00113$
-   2B94                     773 00113$:
-   2B94 50 31               774 	jnc	00107$
-                            775 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:141: if(stateMachines[statetMachineIndex] != NULL)
-   2B96 EA                  776 	mov	a,r2
-   2B97 75 F0 03            777 	mov	b,#0x03
-   2B9A A4                  778 	mul	ab
-   2B9B 24 55               779 	add	a,#_stateMachines
-   2B9D F5 82               780 	mov	dpl,a
-   2B9F E4                  781 	clr	a
-   2BA0 34 09               782 	addc	a,#(_stateMachines >> 8)
-   2BA2 F5 83               783 	mov	dph,a
-   2BA4 E0                  784 	movx	a,@dptr
-   2BA5 FB                  785 	mov	r3,a
-   2BA6 A3                  786 	inc	dptr
-   2BA7 E0                  787 	movx	a,@dptr
-   2BA8 FC                  788 	mov	r4,a
-   2BA9 A3                  789 	inc	dptr
-   2BAA E0                  790 	movx	a,@dptr
-   2BAB FD                  791 	mov	r5,a
-   2BAC BB 00 08            792 	cjne	r3,#0x00,00115$
-   2BAF BC 00 05            793 	cjne	r4,#0x00,00115$
-   2BB2 BD 00 02            794 	cjne	r5,#0x00,00115$
-   2BB5 80 0D               795 	sjmp	00105$
-   2BB7                     796 00115$:
-                            797 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:143: iterateStateMachine(stateMachines[statetMachineIndex]) ;
-   2BB7 8B 82               798 	mov	dpl,r3
-   2BB9 8C 83               799 	mov	dph,r4
-   2BBB 8D F0               800 	mov	b,r5
-   2BBD C0 02               801 	push	ar2
-   2BBF 12 2F C7            802 	lcall	_iterateStateMachine
-   2BC2 D0 02               803 	pop	ar2
-   2BC4                     804 00105$:
-                            805 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:139: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
-   2BC4 0A                  806 	inc	r2
-   2BC5 80 CA               807 	sjmp	00103$
-   2BC7                     808 00107$:
-   2BC7 22                  809 	ret
-                            810 ;------------------------------------------------------------
-                            811 ;Allocation info for local variables in function 'callStateHandler'
-                            812 ;------------------------------------------------------------
-                            813 ;sloc0                     Allocated with name '_callStateHandler_sloc0_1_0'
-                            814 ;sloc1                     Allocated with name '_callStateHandler_sloc1_1_0'
-                            815 ;sloc2                     Allocated with name '_callStateHandler_sloc2_1_0'
-                            816 ;state                     Allocated with name '_callStateHandler_PARM_2'
-                            817 ;event                     Allocated with name '_callStateHandler_PARM_3'
-                            818 ;sm                        Allocated with name '_callStateHandler_sm_1_1'
-                            819 ;response                  Allocated with name '_callStateHandler_response_1_1'
-                            820 ;------------------------------------------------------------
-                            821 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:157: stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
-                            822 ;	-----------------------------------------
-                            823 ;	 function callStateHandler
-                            824 ;	-----------------------------------------
-   2BC8                     825 _callStateHandler:
-   2BC8 AA F0               826 	mov	r2,b
-   2BCA AB 83               827 	mov	r3,dph
-   2BCC E5 82               828 	mov	a,dpl
-   2BCE 90 0A 00            829 	mov	dptr,#_callStateHandler_sm_1_1
-   2BD1 F0                  830 	movx	@dptr,a
-   2BD2 A3                  831 	inc	dptr
-   2BD3 EB                  832 	mov	a,r3
-   2BD4 F0                  833 	movx	@dptr,a
-   2BD5 A3                  834 	inc	dptr
-   2BD6 EA                  835 	mov	a,r2
-   2BD7 F0                  836 	movx	@dptr,a
-                            837 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:162: printf("\t\t\tCalling state: %s, event: %s, ", state->stateName, event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
-   2BD8 90 09 FD            838 	mov	dptr,#_callStateHandler_PARM_3
-   2BDB E0                  839 	movx	a,@dptr
-   2BDC FA                  840 	mov	r2,a
-   2BDD A3                  841 	inc	dptr
-   2BDE E0                  842 	movx	a,@dptr
-   2BDF FB                  843 	mov	r3,a
-   2BE0 A3                  844 	inc	dptr
-   2BE1 E0                  845 	movx	a,@dptr
-   2BE2 FC                  846 	mov	r4,a
-   2BE3 8A 82               847 	mov	dpl,r2
-   2BE5 8B 83               848 	mov	dph,r3
-   2BE7 8C F0               849 	mov	b,r4
-   2BE9 12 4D 3C            850 	lcall	__gptrget
-   2BEC FD                  851 	mov	r5,a
-   2BED C3                  852 	clr	c
-   2BEE 74 05               853 	mov	a,#0x05
-   2BF0 9D                  854 	subb	a,r5
-   2BF1 B3                  855 	cpl	c
-   2BF2 E4                  856 	clr	a
-   2BF3 33                  857 	rlc	a
-   2BF4 FE                  858 	mov	r6,a
-   2BF5 60 18               859 	jz	00117$
-   2BF7 ED                  860 	mov	a,r5
-   2BF8 75 F0 03            861 	mov	b,#0x03
-   2BFB A4                  862 	mul	ab
-   2BFC 24 EF               863 	add	a,#_eventTypes
-   2BFE F5 82               864 	mov	dpl,a
-   2C00 E4                  865 	clr	a
-   2C01 34 0E               866 	addc	a,#(_eventTypes >> 8)
-   2C03 F5 83               867 	mov	dph,a
-   2C05 E0                  868 	movx	a,@dptr
-   2C06 FD                  869 	mov	r5,a
-   2C07 A3                  870 	inc	dptr
-   2C08 E0                  871 	movx	a,@dptr
-   2C09 FE                  872 	mov	r6,a
-   2C0A A3                  873 	inc	dptr
-   2C0B E0                  874 	movx	a,@dptr
-   2C0C FF                  875 	mov	r7,a
-   2C0D 80 06               876 	sjmp	00118$
-   2C0F                     877 00117$:
-   2C0F 7D 50               878 	mov	r5,#__str_1
-   2C11 7E 51               879 	mov	r6,#(__str_1 >> 8)
-   2C13 7F 80               880 	mov	r7,#0x80
-   2C15                     881 00118$:
-   2C15 C0 02               882 	push	ar2
-   2C17 C0 03               883 	push	ar3
-   2C19 C0 04               884 	push	ar4
-   2C1B 90 09 FA            885 	mov	dptr,#_callStateHandler_PARM_2
-   2C1E E0                  886 	movx	a,@dptr
-   2C1F F5 41               887 	mov	_callStateHandler_sloc0_1_0,a
-   2C21 A3                  888 	inc	dptr
-   2C22 E0                  889 	movx	a,@dptr
-   2C23 F5 42               890 	mov	(_callStateHandler_sloc0_1_0 + 1),a
-   2C25 A3                  891 	inc	dptr
-   2C26 E0                  892 	movx	a,@dptr
-   2C27 F5 43               893 	mov	(_callStateHandler_sloc0_1_0 + 2),a
-   2C29 74 06               894 	mov	a,#0x06
-   2C2B 25 41               895 	add	a,_callStateHandler_sloc0_1_0
-   2C2D F8                  896 	mov	r0,a
-   2C2E E4                  897 	clr	a
-   2C2F 35 42               898 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
-   2C31 F9                  899 	mov	r1,a
-   2C32 AA 43               900 	mov	r2,(_callStateHandler_sloc0_1_0 + 2)
-   2C34 88 82               901 	mov	dpl,r0
-   2C36 89 83               902 	mov	dph,r1
-   2C38 8A F0               903 	mov	b,r2
-   2C3A 12 4D 3C            904 	lcall	__gptrget
-   2C3D F8                  905 	mov	r0,a
-   2C3E A3                  906 	inc	dptr
-   2C3F 12 4D 3C            907 	lcall	__gptrget
-   2C42 F9                  908 	mov	r1,a
-   2C43 A3                  909 	inc	dptr
-   2C44 12 4D 3C            910 	lcall	__gptrget
-   2C47 FA                  911 	mov	r2,a
-   2C48 C0 02               912 	push	ar2
-   2C4A C0 03               913 	push	ar3
-   2C4C C0 04               914 	push	ar4
-   2C4E C0 05               915 	push	ar5
-   2C50 C0 06               916 	push	ar6
-   2C52 C0 07               917 	push	ar7
-   2C54 C0 00               918 	push	ar0
-   2C56 C0 01               919 	push	ar1
-   2C58 C0 02               920 	push	ar2
-   2C5A 74 2E               921 	mov	a,#__str_0
-   2C5C C0 E0               922 	push	acc
-   2C5E 74 51               923 	mov	a,#(__str_0 >> 8)
-   2C60 C0 E0               924 	push	acc
-   2C62 74 80               925 	mov	a,#0x80
-   2C64 C0 E0               926 	push	acc
-   2C66 12 44 F0            927 	lcall	_printf
-   2C69 E5 81               928 	mov	a,sp
-   2C6B 24 F7               929 	add	a,#0xf7
-   2C6D F5 81               930 	mov	sp,a
-   2C6F D0 04               931 	pop	ar4
-   2C71 D0 03               932 	pop	ar3
-   2C73 D0 02               933 	pop	ar2
-                            934 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:165: if(state->type == CHOICE_PSUEDOSTATE)
-   2C75 74 03               935 	mov	a,#0x03
-   2C77 25 41               936 	add	a,_callStateHandler_sloc0_1_0
-   2C79 FA                  937 	mov	r2,a
-   2C7A E4                  938 	clr	a
-   2C7B 35 42               939 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
-   2C7D FB                  940 	mov	r3,a
-   2C7E AC 43               941 	mov	r4,(_callStateHandler_sloc0_1_0 + 2)
-   2C80 8A 82               942 	mov	dpl,r2
-   2C82 8B 83               943 	mov	dph,r3
-   2C84 8C F0               944 	mov	b,r4
-   2C86 12 4D 3C            945 	lcall	__gptrget
-   2C89 F5 44               946 	mov	_callStateHandler_sloc1_1_0,a
-   2C8B 74 01               947 	mov	a,#0x01
-   2C8D B5 44 02            948 	cjne	a,_callStateHandler_sloc1_1_0,00128$
-   2C90 80 08               949 	sjmp	00129$
-   2C92                     950 00128$:
-   2C92 D0 04               951 	pop	ar4
-   2C94 D0 03               952 	pop	ar3
-   2C96 D0 02               953 	pop	ar2
-   2C98 80 4C               954 	sjmp	00111$
-   2C9A                     955 00129$:
-   2C9A D0 04               956 	pop	ar4
-   2C9C D0 03               957 	pop	ar3
-   2C9E D0 02               958 	pop	ar2
-                            959 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:167: response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
-   2CA0 74 04               960 	mov	a,#0x04
-   2CA2 25 41               961 	add	a,_callStateHandler_sloc0_1_0
-   2CA4 FD                  962 	mov	r5,a
-   2CA5 E4                  963 	clr	a
-   2CA6 35 42               964 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
-   2CA8 FE                  965 	mov	r6,a
-   2CA9 AF 43               966 	mov	r7,(_callStateHandler_sloc0_1_0 + 2)
-   2CAB 8D 82               967 	mov	dpl,r5
-   2CAD 8E 83               968 	mov	dph,r6
-   2CAF 8F F0               969 	mov	b,r7
-   2CB1 12 4D 3C            970 	lcall	__gptrget
-   2CB4 FD                  971 	mov	r5,a
-   2CB5 A3                  972 	inc	dptr
-   2CB6 12 4D 3C            973 	lcall	__gptrget
-   2CB9 FE                  974 	mov	r6,a
-   2CBA 90 0A 00            975 	mov	dptr,#_callStateHandler_sm_1_1
-   2CBD E0                  976 	movx	a,@dptr
-   2CBE FF                  977 	mov	r7,a
-   2CBF A3                  978 	inc	dptr
-   2CC0 E0                  979 	movx	a,@dptr
-   2CC1 F8                  980 	mov	r0,a
-   2CC2 A3                  981 	inc	dptr
-   2CC3 E0                  982 	movx	a,@dptr
-   2CC4 F9                  983 	mov	r1,a
-   2CC5 C0 06               984 	push	ar6
-   2CC7 74 DA               985 	mov	a,#00130$
-   2CC9 C0 E0               986 	push	acc
-   2CCB 74 2C               987 	mov	a,#(00130$ >> 8)
-   2CCD C0 E0               988 	push	acc
-   2CCF C0 05               989 	push	ar5
-   2CD1 C0 06               990 	push	ar6
-   2CD3 8F 82               991 	mov	dpl,r7
-   2CD5 88 83               992 	mov	dph,r0
-   2CD7 89 F0               993 	mov	b,r1
-   2CD9 22                  994 	ret
-   2CDA                     995 00130$:
-   2CDA AD 82               996 	mov	r5,dpl
-   2CDC D0 06               997 	pop	ar6
-   2CDE 90 0A 03            998 	mov	dptr,#_callStateHandler_response_1_1
-   2CE1 ED                  999 	mov	a,r5
-   2CE2 F0                 1000 	movx	@dptr,a
-   2CE3 02 2F 13           1001 	ljmp	00112$
-   2CE6                    1002 00111$:
-                           1003 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:171: if(event == &enterEvent)
-   2CE6 EA                 1004 	mov	a,r2
-   2CE7 B4 0F 31           1005 	cjne	a,#_enterEvent,00102$
-   2CEA EB                 1006 	mov	a,r3
-   2CEB B4 0F 2D           1007 	cjne	a,#(_enterEvent >> 8),00102$
-   2CEE EC                 1008 	mov	a,r4
-   2CEF B4 00 29           1009 	cjne	a,#0x00,00102$
-                           1010 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:173: sm->mostRecentlyEnteredState = state ;
-   2CF2 90 0A 00           1011 	mov	dptr,#_callStateHandler_sm_1_1
-   2CF5 E0                 1012 	movx	a,@dptr
-   2CF6 FD                 1013 	mov	r5,a
-   2CF7 A3                 1014 	inc	dptr
-   2CF8 E0                 1015 	movx	a,@dptr
-   2CF9 FE                 1016 	mov	r6,a
-   2CFA A3                 1017 	inc	dptr
-   2CFB E0                 1018 	movx	a,@dptr
-   2CFC FF                 1019 	mov	r7,a
-   2CFD 74 25              1020 	mov	a,#0x25
-   2CFF 2D                 1021 	add	a,r5
-   2D00 FD                 1022 	mov	r5,a
-   2D01 E4                 1023 	clr	a
-   2D02 3E                 1024 	addc	a,r6
-   2D03 FE                 1025 	mov	r6,a
-   2D04 8D 82              1026 	mov	dpl,r5
-   2D06 8E 83              1027 	mov	dph,r6
-   2D08 8F F0              1028 	mov	b,r7
-   2D0A E5 41              1029 	mov	a,_callStateHandler_sloc0_1_0
-   2D0C 12 41 10           1030 	lcall	__gptrput
-   2D0F A3                 1031 	inc	dptr
-   2D10 E5 42              1032 	mov	a,(_callStateHandler_sloc0_1_0 + 1)
-   2D12 12 41 10           1033 	lcall	__gptrput
-   2D15 A3                 1034 	inc	dptr
-   2D16 E5 43              1035 	mov	a,(_callStateHandler_sloc0_1_0 + 2)
-   2D18 12 41 10           1036 	lcall	__gptrput
-   2D1B                    1037 00102$:
-                           1038 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:175: if(event == &exitEvent)
-   2D1B EA                 1039 	mov	a,r2
-   2D1C B4 10 0A           1040 	cjne	a,#_exitEvent,00133$
-   2D1F EB                 1041 	mov	a,r3
-   2D20 B4 0F 06           1042 	cjne	a,#(_exitEvent >> 8),00133$
-   2D23 EC                 1043 	mov	a,r4
-   2D24 B4 00 02           1044 	cjne	a,#0x00,00133$
-   2D27 80 03              1045 	sjmp	00134$
-   2D29                    1046 00133$:
-   2D29 02 2E C4           1047 	ljmp	00109$
-   2D2C                    1048 00134$:
-                           1049 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:177: if(state->type == STATE_WITH_SHALLOW_HISTORY)
-   2D2C 74 02              1050 	mov	a,#0x02
-   2D2E B5 44 02           1051 	cjne	a,_callStateHandler_sloc1_1_0,00135$
-   2D31 80 03              1052 	sjmp	00136$
-   2D33                    1053 00135$:
-   2D33 02 2D E5           1054 	ljmp	00106$
-   2D36                    1055 00136$:
-                           1056 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:181: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyExitedState ;
-   2D36 C0 02              1057 	push	ar2
-   2D38 C0 03              1058 	push	ar3
-   2D3A C0 04              1059 	push	ar4
-   2D3C 90 0A 00           1060 	mov	dptr,#_callStateHandler_sm_1_1
-   2D3F E0                 1061 	movx	a,@dptr
-   2D40 FD                 1062 	mov	r5,a
-   2D41 A3                 1063 	inc	dptr
-   2D42 E0                 1064 	movx	a,@dptr
-   2D43 FE                 1065 	mov	r6,a
-   2D44 A3                 1066 	inc	dptr
-   2D45 E0                 1067 	movx	a,@dptr
-   2D46 FF                 1068 	mov	r7,a
-   2D47 74 22              1069 	mov	a,#0x22
-   2D49 2D                 1070 	add	a,r5
-   2D4A F8                 1071 	mov	r0,a
-   2D4B E4                 1072 	clr	a
-   2D4C 3E                 1073 	addc	a,r6
-   2D4D F9                 1074 	mov	r1,a
-   2D4E 8F 02              1075 	mov	ar2,r7
-   2D50 88 82              1076 	mov	dpl,r0
-   2D52 89 83              1077 	mov	dph,r1
-   2D54 8A F0              1078 	mov	b,r2
-   2D56 12 4D 3C           1079 	lcall	__gptrget
-   2D59 F5 45              1080 	mov	_callStateHandler_sloc2_1_0,a
-   2D5B A3                 1081 	inc	dptr
-   2D5C 12 4D 3C           1082 	lcall	__gptrget
-   2D5F F5 46              1083 	mov	(_callStateHandler_sloc2_1_0 + 1),a
-   2D61 A3                 1084 	inc	dptr
-   2D62 12 4D 3C           1085 	lcall	__gptrget
-   2D65 F5 47              1086 	mov	(_callStateHandler_sloc2_1_0 + 2),a
-   2D67 74 09              1087 	mov	a,#0x09
-   2D69 25 41              1088 	add	a,_callStateHandler_sloc0_1_0
-   2D6B FB                 1089 	mov	r3,a
-   2D6C E4                 1090 	clr	a
-   2D6D 35 42              1091 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
-   2D6F FC                 1092 	mov	r4,a
-   2D70 AA 43              1093 	mov	r2,(_callStateHandler_sloc0_1_0 + 2)
-   2D72 8B 82              1094 	mov	dpl,r3
-   2D74 8C 83              1095 	mov	dph,r4
-   2D76 8A F0              1096 	mov	b,r2
-   2D78 12 4D 3C           1097 	lcall	__gptrget
-   2D7B FB                 1098 	mov	r3,a
-   2D7C A3                 1099 	inc	dptr
-   2D7D 12 4D 3C           1100 	lcall	__gptrget
-   2D80 FC                 1101 	mov	r4,a
-   2D81 90 0A AE           1102 	mov	dptr,#__mulint_PARM_2
-   2D84 EB                 1103 	mov	a,r3
-   2D85 F0                 1104 	movx	@dptr,a
-   2D86 A3                 1105 	inc	dptr
-   2D87 EC                 1106 	mov	a,r4
-   2D88 F0                 1107 	movx	@dptr,a
-   2D89 90 00 03           1108 	mov	dptr,#0x0003
-   2D8C C0 04              1109 	push	ar4
-   2D8E C0 05              1110 	push	ar5
-   2D90 C0 06              1111 	push	ar6
-   2D92 C0 07              1112 	push	ar7
-   2D94 12 42 F1           1113 	lcall	__mulint
-   2D97 AA 82              1114 	mov	r2,dpl
-   2D99 AB 83              1115 	mov	r3,dph
-   2D9B D0 07              1116 	pop	ar7
-   2D9D D0 06              1117 	pop	ar6
-   2D9F D0 05              1118 	pop	ar5
-   2DA1 D0 04              1119 	pop	ar4
-   2DA3 EA                 1120 	mov	a,r2
-   2DA4 25 45              1121 	add	a,_callStateHandler_sloc2_1_0
-   2DA6 FA                 1122 	mov	r2,a
-   2DA7 EB                 1123 	mov	a,r3
-   2DA8 35 46              1124 	addc	a,(_callStateHandler_sloc2_1_0 + 1)
-   2DAA FB                 1125 	mov	r3,a
-   2DAB AC 47              1126 	mov	r4,(_callStateHandler_sloc2_1_0 + 2)
-   2DAD 74 28              1127 	mov	a,#0x28
-   2DAF 2D                 1128 	add	a,r5
-   2DB0 FD                 1129 	mov	r5,a
-   2DB1 E4                 1130 	clr	a
-   2DB2 3E                 1131 	addc	a,r6
-   2DB3 FE                 1132 	mov	r6,a
-   2DB4 8D 82              1133 	mov	dpl,r5
-   2DB6 8E 83              1134 	mov	dph,r6
-   2DB8 8F F0              1135 	mov	b,r7
-   2DBA 12 4D 3C           1136 	lcall	__gptrget
-   2DBD FD                 1137 	mov	r5,a
-   2DBE A3                 1138 	inc	dptr
-   2DBF 12 4D 3C           1139 	lcall	__gptrget
-   2DC2 FE                 1140 	mov	r6,a
-   2DC3 A3                 1141 	inc	dptr
-   2DC4 12 4D 3C           1142 	lcall	__gptrget
-   2DC7 FF                 1143 	mov	r7,a
-   2DC8 8A 82              1144 	mov	dpl,r2
-   2DCA 8B 83              1145 	mov	dph,r3
-   2DCC 8C F0              1146 	mov	b,r4
-   2DCE ED                 1147 	mov	a,r5
-   2DCF 12 41 10           1148 	lcall	__gptrput
-   2DD2 A3                 1149 	inc	dptr
-   2DD3 EE                 1150 	mov	a,r6
-   2DD4 12 41 10           1151 	lcall	__gptrput
-   2DD7 A3                 1152 	inc	dptr
-   2DD8 EF                 1153 	mov	a,r7
-   2DD9 12 41 10           1154 	lcall	__gptrput
-   2DDC D0 04              1155 	pop	ar4
-   2DDE D0 03              1156 	pop	ar3
-   2DE0 D0 02              1157 	pop	ar2
-   2DE2 02 2E 9B           1158 	ljmp	00107$
-   2DE5                    1159 00106$:
-                           1160 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:183: else if(state->type == STATE_WITH_DEEP_HISTORY)
-   2DE5 74 03              1161 	mov	a,#0x03
-   2DE7 B5 44 02           1162 	cjne	a,_callStateHandler_sloc1_1_0,00137$
-   2DEA 80 03              1163 	sjmp	00138$
-   2DEC                    1164 00137$:
-   2DEC 02 2E 9B           1165 	ljmp	00107$
-   2DEF                    1166 00138$:
-                           1167 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:187: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
-   2DEF C0 02              1168 	push	ar2
-   2DF1 C0 03              1169 	push	ar3
-   2DF3 C0 04              1170 	push	ar4
-   2DF5 90 0A 00           1171 	mov	dptr,#_callStateHandler_sm_1_1
-   2DF8 E0                 1172 	movx	a,@dptr
-   2DF9 FD                 1173 	mov	r5,a
-   2DFA A3                 1174 	inc	dptr
-   2DFB E0                 1175 	movx	a,@dptr
-   2DFC FE                 1176 	mov	r6,a
-   2DFD A3                 1177 	inc	dptr
-   2DFE E0                 1178 	movx	a,@dptr
-   2DFF FF                 1179 	mov	r7,a
-   2E00 74 22              1180 	mov	a,#0x22
-   2E02 2D                 1181 	add	a,r5
-   2E03 F8                 1182 	mov	r0,a
-   2E04 E4                 1183 	clr	a
-   2E05 3E                 1184 	addc	a,r6
-   2E06 F9                 1185 	mov	r1,a
-   2E07 8F 02              1186 	mov	ar2,r7
-   2E09 88 82              1187 	mov	dpl,r0
-   2E0B 89 83              1188 	mov	dph,r1
-   2E0D 8A F0              1189 	mov	b,r2
-   2E0F 12 4D 3C           1190 	lcall	__gptrget
-   2E12 F5 45              1191 	mov	_callStateHandler_sloc2_1_0,a
-   2E14 A3                 1192 	inc	dptr
-   2E15 12 4D 3C           1193 	lcall	__gptrget
-   2E18 F5 46              1194 	mov	(_callStateHandler_sloc2_1_0 + 1),a
-   2E1A A3                 1195 	inc	dptr
-   2E1B 12 4D 3C           1196 	lcall	__gptrget
-   2E1E F5 47              1197 	mov	(_callStateHandler_sloc2_1_0 + 2),a
-   2E20 74 09              1198 	mov	a,#0x09
-   2E22 25 41              1199 	add	a,_callStateHandler_sloc0_1_0
-   2E24 FB                 1200 	mov	r3,a
-   2E25 E4                 1201 	clr	a
-   2E26 35 42              1202 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
-   2E28 FC                 1203 	mov	r4,a
-   2E29 AA 43              1204 	mov	r2,(_callStateHandler_sloc0_1_0 + 2)
-   2E2B 8B 82              1205 	mov	dpl,r3
-   2E2D 8C 83              1206 	mov	dph,r4
-   2E2F 8A F0              1207 	mov	b,r2
-   2E31 12 4D 3C           1208 	lcall	__gptrget
-   2E34 FB                 1209 	mov	r3,a
-   2E35 A3                 1210 	inc	dptr
-   2E36 12 4D 3C           1211 	lcall	__gptrget
-   2E39 FC                 1212 	mov	r4,a
-   2E3A 90 0A AE           1213 	mov	dptr,#__mulint_PARM_2
-   2E3D EB                 1214 	mov	a,r3
-   2E3E F0                 1215 	movx	@dptr,a
-   2E3F A3                 1216 	inc	dptr
-   2E40 EC                 1217 	mov	a,r4
-   2E41 F0                 1218 	movx	@dptr,a
-   2E42 90 00 03           1219 	mov	dptr,#0x0003
-   2E45 C0 04              1220 	push	ar4
-   2E47 C0 05              1221 	push	ar5
-   2E49 C0 06              1222 	push	ar6
-   2E4B C0 07              1223 	push	ar7
-   2E4D 12 42 F1           1224 	lcall	__mulint
-   2E50 AA 82              1225 	mov	r2,dpl
-   2E52 AB 83              1226 	mov	r3,dph
-   2E54 D0 07              1227 	pop	ar7
-   2E56 D0 06              1228 	pop	ar6
-   2E58 D0 05              1229 	pop	ar5
-   2E5A D0 04              1230 	pop	ar4
-   2E5C EA                 1231 	mov	a,r2
-   2E5D 25 45              1232 	add	a,_callStateHandler_sloc2_1_0
-   2E5F FA                 1233 	mov	r2,a
-   2E60 EB                 1234 	mov	a,r3
-   2E61 35 46              1235 	addc	a,(_callStateHandler_sloc2_1_0 + 1)
-   2E63 FB                 1236 	mov	r3,a
-   2E64 AC 47              1237 	mov	r4,(_callStateHandler_sloc2_1_0 + 2)
-   2E66 74 25              1238 	mov	a,#0x25
-   2E68 2D                 1239 	add	a,r5
-   2E69 FD                 1240 	mov	r5,a
-   2E6A E4                 1241 	clr	a
-   2E6B 3E                 1242 	addc	a,r6
-   2E6C FE                 1243 	mov	r6,a
-   2E6D 8D 82              1244 	mov	dpl,r5
-   2E6F 8E 83              1245 	mov	dph,r6
-   2E71 8F F0              1246 	mov	b,r7
-   2E73 12 4D 3C           1247 	lcall	__gptrget
-   2E76 FD                 1248 	mov	r5,a
-   2E77 A3                 1249 	inc	dptr
-   2E78 12 4D 3C           1250 	lcall	__gptrget
-   2E7B FE                 1251 	mov	r6,a
-   2E7C A3                 1252 	inc	dptr
-   2E7D 12 4D 3C           1253 	lcall	__gptrget
-   2E80 FF                 1254 	mov	r7,a
-   2E81 8A 82              1255 	mov	dpl,r2
-   2E83 8B 83              1256 	mov	dph,r3
-   2E85 8C F0              1257 	mov	b,r4
-   2E87 ED                 1258 	mov	a,r5
-   2E88 12 41 10           1259 	lcall	__gptrput
-   2E8B A3                 1260 	inc	dptr
-   2E8C EE                 1261 	mov	a,r6
-   2E8D 12 41 10           1262 	lcall	__gptrput
-   2E90 A3                 1263 	inc	dptr
-   2E91 EF                 1264 	mov	a,r7
-   2E92 12 41 10           1265 	lcall	__gptrput
-                           1266 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:211: return response ;
-   2E95 D0 04              1267 	pop	ar4
-   2E97 D0 03              1268 	pop	ar3
-   2E99 D0 02              1269 	pop	ar2
-                           1270 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:187: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
-   2E9B                    1271 00107$:
-                           1272 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:190: sm->mostRecentlyExitedState = (void*)state ;
-   2E9B 90 0A 00           1273 	mov	dptr,#_callStateHandler_sm_1_1
-   2E9E E0                 1274 	movx	a,@dptr
-   2E9F FD                 1275 	mov	r5,a
-   2EA0 A3                 1276 	inc	dptr
-   2EA1 E0                 1277 	movx	a,@dptr
-   2EA2 FE                 1278 	mov	r6,a
-   2EA3 A3                 1279 	inc	dptr
-   2EA4 E0                 1280 	movx	a,@dptr
-   2EA5 FF                 1281 	mov	r7,a
-   2EA6 74 28              1282 	mov	a,#0x28
-   2EA8 2D                 1283 	add	a,r5
-   2EA9 FD                 1284 	mov	r5,a
-   2EAA E4                 1285 	clr	a
-   2EAB 3E                 1286 	addc	a,r6
-   2EAC FE                 1287 	mov	r6,a
-   2EAD 8D 82              1288 	mov	dpl,r5
-   2EAF 8E 83              1289 	mov	dph,r6
-   2EB1 8F F0              1290 	mov	b,r7
-   2EB3 E5 41              1291 	mov	a,_callStateHandler_sloc0_1_0
-   2EB5 12 41 10           1292 	lcall	__gptrput
-   2EB8 A3                 1293 	inc	dptr
-   2EB9 E5 42              1294 	mov	a,(_callStateHandler_sloc0_1_0 + 1)
-   2EBB 12 41 10           1295 	lcall	__gptrput
-   2EBE A3                 1296 	inc	dptr
-   2EBF E5 43              1297 	mov	a,(_callStateHandler_sloc0_1_0 + 2)
-   2EC1 12 41 10           1298 	lcall	__gptrput
-   2EC4                    1299 00109$:
-                           1300 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:193: response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
-   2EC4 74 04              1301 	mov	a,#0x04
-   2EC6 25 41              1302 	add	a,_callStateHandler_sloc0_1_0
-   2EC8 FD                 1303 	mov	r5,a
-   2EC9 E4                 1304 	clr	a
-   2ECA 35 42              1305 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
-   2ECC FE                 1306 	mov	r6,a
-   2ECD AF 43              1307 	mov	r7,(_callStateHandler_sloc0_1_0 + 2)
-   2ECF 8D 82              1308 	mov	dpl,r5
-   2ED1 8E 83              1309 	mov	dph,r6
-   2ED3 8F F0              1310 	mov	b,r7
-   2ED5 12 4D 3C           1311 	lcall	__gptrget
-   2ED8 FD                 1312 	mov	r5,a
-   2ED9 A3                 1313 	inc	dptr
-   2EDA 12 4D 3C           1314 	lcall	__gptrget
-   2EDD FE                 1315 	mov	r6,a
-   2EDE 90 0A 00           1316 	mov	dptr,#_callStateHandler_sm_1_1
-   2EE1 E0                 1317 	movx	a,@dptr
-   2EE2 FF                 1318 	mov	r7,a
-   2EE3 A3                 1319 	inc	dptr
-   2EE4 E0                 1320 	movx	a,@dptr
-   2EE5 F8                 1321 	mov	r0,a
-   2EE6 A3                 1322 	inc	dptr
-   2EE7 E0                 1323 	movx	a,@dptr
-   2EE8 F9                 1324 	mov	r1,a
-   2EE9 C0 06              1325 	push	ar6
-   2EEB C0 02              1326 	push	ar2
-   2EED C0 03              1327 	push	ar3
-   2EEF C0 04              1328 	push	ar4
-   2EF1 74 04              1329 	mov	a,#00139$
-   2EF3 C0 E0              1330 	push	acc
-   2EF5 74 2F              1331 	mov	a,#(00139$ >> 8)
-   2EF7 C0 E0              1332 	push	acc
-   2EF9 C0 05              1333 	push	ar5
-   2EFB C0 06              1334 	push	ar6
-   2EFD 8F 82              1335 	mov	dpl,r7
-   2EFF 88 83              1336 	mov	dph,r0
-   2F01 89 F0              1337 	mov	b,r1
-   2F03 22                 1338 	ret
-   2F04                    1339 00139$:
-   2F04 AD 82              1340 	mov	r5,dpl
-   2F06 15 81              1341 	dec	sp
-   2F08 15 81              1342 	dec	sp
-   2F0A 15 81              1343 	dec	sp
-   2F0C D0 06              1344 	pop	ar6
-   2F0E 90 0A 03           1345 	mov	dptr,#_callStateHandler_response_1_1
-   2F11 ED                 1346 	mov	a,r5
-   2F12 F0                 1347 	movx	@dptr,a
-   2F13                    1348 00112$:
-                           1349 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:197: printf("response: %s ", responseTypes[response]) ;
-   2F13 90 0A 03           1350 	mov	dptr,#_callStateHandler_response_1_1
-   2F16 E0                 1351 	movx	a,@dptr
-   2F17 FA                 1352 	mov	r2,a
-   2F18 75 F0 03           1353 	mov	b,#0x03
-   2F1B A4                 1354 	mul	ab
-   2F1C 24 01              1355 	add	a,#_responseTypes
-   2F1E F5 82              1356 	mov	dpl,a
-   2F20 E4                 1357 	clr	a
-   2F21 34 0F              1358 	addc	a,#(_responseTypes >> 8)
-   2F23 F5 83              1359 	mov	dph,a
-   2F25 E0                 1360 	movx	a,@dptr
-   2F26 FB                 1361 	mov	r3,a
-   2F27 A3                 1362 	inc	dptr
-   2F28 E0                 1363 	movx	a,@dptr
-   2F29 FC                 1364 	mov	r4,a
-   2F2A A3                 1365 	inc	dptr
-   2F2B E0                 1366 	movx	a,@dptr
-   2F2C FD                 1367 	mov	r5,a
-   2F2D C0 02              1368 	push	ar2
-   2F2F C0 03              1369 	push	ar3
-   2F31 C0 04              1370 	push	ar4
-   2F33 C0 05              1371 	push	ar5
-   2F35 74 5D              1372 	mov	a,#__str_2
-   2F37 C0 E0              1373 	push	acc
-   2F39 74 51              1374 	mov	a,#(__str_2 >> 8)
-   2F3B C0 E0              1375 	push	acc
-   2F3D 74 80              1376 	mov	a,#0x80
-   2F3F C0 E0              1377 	push	acc
-   2F41 12 44 F0           1378 	lcall	_printf
-   2F44 E5 81              1379 	mov	a,sp
-   2F46 24 FA              1380 	add	a,#0xfa
-   2F48 F5 81              1381 	mov	sp,a
-   2F4A D0 02              1382 	pop	ar2
-                           1383 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:200: if(response == TRANSITION)
-   2F4C BA 02 5C           1384 	cjne	r2,#0x02,00114$
-                           1385 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:203: printf("to %s ", ((state_t*)(sm->nextState))->stateName) ;
-   2F4F 90 0A 00           1386 	mov	dptr,#_callStateHandler_sm_1_1
-   2F52 E0                 1387 	movx	a,@dptr
-   2F53 FA                 1388 	mov	r2,a
-   2F54 A3                 1389 	inc	dptr
-   2F55 E0                 1390 	movx	a,@dptr
-   2F56 FB                 1391 	mov	r3,a
-   2F57 A3                 1392 	inc	dptr
-   2F58 E0                 1393 	movx	a,@dptr
-   2F59 FC                 1394 	mov	r4,a
-   2F5A 74 08              1395 	mov	a,#0x08
-   2F5C 2A                 1396 	add	a,r2
-   2F5D FA                 1397 	mov	r2,a
-   2F5E E4                 1398 	clr	a
-   2F5F 3B                 1399 	addc	a,r3
-   2F60 FB                 1400 	mov	r3,a
-   2F61 8A 82              1401 	mov	dpl,r2
-   2F63 8B 83              1402 	mov	dph,r3
-   2F65 8C F0              1403 	mov	b,r4
-   2F67 12 4D 3C           1404 	lcall	__gptrget
-   2F6A FA                 1405 	mov	r2,a
-   2F6B A3                 1406 	inc	dptr
-   2F6C 12 4D 3C           1407 	lcall	__gptrget
-   2F6F FB                 1408 	mov	r3,a
-   2F70 A3                 1409 	inc	dptr
-   2F71 12 4D 3C           1410 	lcall	__gptrget
-   2F74 FC                 1411 	mov	r4,a
-   2F75 74 06              1412 	mov	a,#0x06
-   2F77 2A                 1413 	add	a,r2
-   2F78 FA                 1414 	mov	r2,a
-   2F79 E4                 1415 	clr	a
-   2F7A 3B                 1416 	addc	a,r3
-   2F7B FB                 1417 	mov	r3,a
-   2F7C 8A 82              1418 	mov	dpl,r2
-   2F7E 8B 83              1419 	mov	dph,r3
-   2F80 8C F0              1420 	mov	b,r4
-   2F82 12 4D 3C           1421 	lcall	__gptrget
-   2F85 FA                 1422 	mov	r2,a
-   2F86 A3                 1423 	inc	dptr
-   2F87 12 4D 3C           1424 	lcall	__gptrget
-   2F8A FB                 1425 	mov	r3,a
-   2F8B A3                 1426 	inc	dptr
-   2F8C 12 4D 3C           1427 	lcall	__gptrget
-   2F8F FC                 1428 	mov	r4,a
-   2F90 C0 02              1429 	push	ar2
-   2F92 C0 03              1430 	push	ar3
-   2F94 C0 04              1431 	push	ar4
-   2F96 74 6B              1432 	mov	a,#__str_3
-   2F98 C0 E0              1433 	push	acc
-   2F9A 74 51              1434 	mov	a,#(__str_3 >> 8)
-   2F9C C0 E0              1435 	push	acc
-   2F9E 74 80              1436 	mov	a,#0x80
-   2FA0 C0 E0              1437 	push	acc
-   2FA2 12 44 F0           1438 	lcall	_printf
-   2FA5 E5 81              1439 	mov	a,sp
-   2FA7 24 FA              1440 	add	a,#0xfa
-   2FA9 F5 81              1441 	mov	sp,a
-   2FAB                    1442 00114$:
-                           1443 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:208: printf("\n") ;
-   2FAB 74 72              1444 	mov	a,#__str_4
-   2FAD C0 E0              1445 	push	acc
-   2FAF 74 51              1446 	mov	a,#(__str_4 >> 8)
-   2FB1 C0 E0              1447 	push	acc
-   2FB3 74 80              1448 	mov	a,#0x80
-   2FB5 C0 E0              1449 	push	acc
-   2FB7 12 44 F0           1450 	lcall	_printf
-   2FBA 15 81              1451 	dec	sp
-   2FBC 15 81              1452 	dec	sp
-   2FBE 15 81              1453 	dec	sp
-                           1454 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:211: return response ;
-   2FC0 90 0A 03           1455 	mov	dptr,#_callStateHandler_response_1_1
-   2FC3 E0                 1456 	movx	a,@dptr
-   2FC4 F5 82              1457 	mov	dpl,a
-   2FC6 22                 1458 	ret
-                           1459 ;------------------------------------------------------------
-                           1460 ;Allocation info for local variables in function 'iterateStateMachine'
-                           1461 ;------------------------------------------------------------
-                           1462 ;sloc0                     Allocated with name '_iterateStateMachine_sloc0_1_0'
-                           1463 ;sloc1                     Allocated with name '_iterateStateMachine_sloc1_1_0'
-                           1464 ;sloc2                     Allocated with name '_iterateStateMachine_sloc2_1_0'
-                           1465 ;sloc3                     Allocated with name '_iterateStateMachine_sloc3_1_0'
-                           1466 ;sloc4                     Allocated with name '_iterateStateMachine_sloc4_1_0'
-                           1467 ;sloc5                     Allocated with name '_iterateStateMachine_sloc5_1_0'
-                           1468 ;sm                        Allocated with name '_iterateStateMachine_sm_1_1'
-                           1469 ;eventToProcess            Allocated with name '_iterateStateMachine_eventToProcess_2_3'
-                           1470 ;stateBeingProcessed       Allocated with name '_iterateStateMachine_stateBeingProcessed_2_3'
-                           1471 ;action                    Allocated with name '_iterateStateMachine_action_2_3'
-                           1472 ;nextState                 Allocated with name '_iterateStateMachine_nextState_4_11'
-                           1473 ;source                    Allocated with name '_iterateStateMachine_source_3_14'
-                           1474 ;target                    Allocated with name '_iterateStateMachine_target_3_14'
-                           1475 ;sourceHierarchy           Allocated with name '_iterateStateMachine_sourceHierarchy_4_19'
-                           1476 ;sourceIndex               Allocated with name '_iterateStateMachine_sourceIndex_4_19'
-                           1477 ;targetHierarchy           Allocated with name '_iterateStateMachine_targetHierarchy_4_19'
-                           1478 ;targetIndex               Allocated with name '_iterateStateMachine_targetIndex_4_19'
-                           1479 ;LCA                       Allocated with name '_iterateStateMachine_LCA_4_19'
-                           1480 ;entryIndex                Allocated with name '_iterateStateMachine_entryIndex_4_19'
-                           1481 ;exitIndex                 Allocated with name '_iterateStateMachine_exitIndex_4_19'
-                           1482 ;exitIndex                 Allocated with name '_iterateStateMachine_exitIndex_6_21'
-                           1483 ;LCAindex                  Allocated with name '_iterateStateMachine_LCAindex_5_27'
-                           1484 ;------------------------------------------------------------
-                           1485 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:215: void iterateStateMachine(	stateMachine_t* sm)
-                           1486 ;	-----------------------------------------
-                           1487 ;	 function iterateStateMachine
-                           1488 ;	-----------------------------------------
-   2FC7                    1489 _iterateStateMachine:
-   2FC7 AA F0              1490 	mov	r2,b
-   2FC9 AB 83              1491 	mov	r3,dph
-   2FCB E5 82              1492 	mov	a,dpl
-   2FCD 90 0A 04           1493 	mov	dptr,#_iterateStateMachine_sm_1_1
-   2FD0 F0                 1494 	movx	@dptr,a
-   2FD1 A3                 1495 	inc	dptr
-   2FD2 EB                 1496 	mov	a,r3
-   2FD3 F0                 1497 	movx	@dptr,a
-   2FD4 A3                 1498 	inc	dptr
-   2FD5 EA                 1499 	mov	a,r2
-   2FD6 F0                 1500 	movx	@dptr,a
-                           1501 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:218: printf("\titerating %s\n", sm->stateMachineName) ;
-   2FD7 90 0A 04           1502 	mov	dptr,#_iterateStateMachine_sm_1_1
-   2FDA E0                 1503 	movx	a,@dptr
-   2FDB FA                 1504 	mov	r2,a
-   2FDC A3                 1505 	inc	dptr
-   2FDD E0                 1506 	movx	a,@dptr
-   2FDE FB                 1507 	mov	r3,a
-   2FDF A3                 1508 	inc	dptr
-   2FE0 E0                 1509 	movx	a,@dptr
-   2FE1 FC                 1510 	mov	r4,a
-   2FE2 74 02              1511 	mov	a,#0x02
-   2FE4 2A                 1512 	add	a,r2
-   2FE5 FD                 1513 	mov	r5,a
-   2FE6 E4                 1514 	clr	a
-   2FE7 3B                 1515 	addc	a,r3
-   2FE8 FE                 1516 	mov	r6,a
-   2FE9 8C 07              1517 	mov	ar7,r4
-   2FEB 8D 82              1518 	mov	dpl,r5
-   2FED 8E 83              1519 	mov	dph,r6
-   2FEF 8F F0              1520 	mov	b,r7
-   2FF1 12 4D 3C           1521 	lcall	__gptrget
-   2FF4 FD                 1522 	mov	r5,a
-   2FF5 A3                 1523 	inc	dptr
-   2FF6 12 4D 3C           1524 	lcall	__gptrget
-   2FF9 FE                 1525 	mov	r6,a
-   2FFA A3                 1526 	inc	dptr
-   2FFB 12 4D 3C           1527 	lcall	__gptrget
-   2FFE FF                 1528 	mov	r7,a
-   2FFF C0 02              1529 	push	ar2
-   3001 C0 03              1530 	push	ar3
-   3003 C0 04              1531 	push	ar4
-   3005 C0 05              1532 	push	ar5
-   3007 C0 06              1533 	push	ar6
-   3009 C0 07              1534 	push	ar7
-   300B 74 74              1535 	mov	a,#__str_5
-   300D C0 E0              1536 	push	acc
-   300F 74 51              1537 	mov	a,#(__str_5 >> 8)
-   3011 C0 E0              1538 	push	acc
-   3013 74 80              1539 	mov	a,#0x80
-   3015 C0 E0              1540 	push	acc
-   3017 12 44 F0           1541 	lcall	_printf
-   301A E5 81              1542 	mov	a,sp
-   301C 24 FA              1543 	add	a,#0xfa
-   301E F5 81              1544 	mov	sp,a
-   3020 D0 04              1545 	pop	ar4
-   3022 D0 03              1546 	pop	ar3
-   3024 D0 02              1547 	pop	ar2
-                           1548 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:225: if(!sm->stateMachineInitialized)
-   3026 74 1E              1549 	mov	a,#0x1E
-   3028 2A                 1550 	add	a,r2
-   3029 FD                 1551 	mov	r5,a
-   302A E4                 1552 	clr	a
-   302B 3B                 1553 	addc	a,r3
-   302C FE                 1554 	mov	r6,a
-   302D 8C 07              1555 	mov	ar7,r4
-   302F 8D 82              1556 	mov	dpl,r5
-   3031 8E 83              1557 	mov	dph,r6
-   3033 8F F0              1558 	mov	b,r7
-   3035 12 4D 3C           1559 	lcall	__gptrget
-   3038 60 03              1560 	jz	00210$
-   303A 02 30 E3           1561 	ljmp	00102$
-   303D                    1562 00210$:
-                           1563 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:228: printf("\t\tinitializing...\n") ;
-   303D C0 02              1564 	push	ar2
-   303F C0 03              1565 	push	ar3
-   3041 C0 04              1566 	push	ar4
-   3043 74 83              1567 	mov	a,#__str_6
-   3045 C0 E0              1568 	push	acc
-   3047 74 51              1569 	mov	a,#(__str_6 >> 8)
-   3049 C0 E0              1570 	push	acc
-   304B 74 80              1571 	mov	a,#0x80
-   304D C0 E0              1572 	push	acc
-   304F 12 44 F0           1573 	lcall	_printf
-   3052 15 81              1574 	dec	sp
-   3054 15 81              1575 	dec	sp
-   3056 15 81              1576 	dec	sp
-   3058 D0 04              1577 	pop	ar4
-   305A D0 03              1578 	pop	ar3
-   305C D0 02              1579 	pop	ar2
-                           1580 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:231: sm->currentState = (state_t*)sm->topState ;
-   305E 74 05              1581 	mov	a,#0x05
-   3060 2A                 1582 	add	a,r2
-   3061 F5 48              1583 	mov	_iterateStateMachine_sloc0_1_0,a
-   3063 E4                 1584 	clr	a
-   3064 3B                 1585 	addc	a,r3
-   3065 F5 49              1586 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
-   3067 8C 4A              1587 	mov	(_iterateStateMachine_sloc0_1_0 + 2),r4
-   3069 8A 82              1588 	mov	dpl,r2
-   306B 8B 83              1589 	mov	dph,r3
-   306D 8C F0              1590 	mov	b,r4
-   306F 12 4D 3C           1591 	lcall	__gptrget
-   3072 F8                 1592 	mov	r0,a
-   3073 A3                 1593 	inc	dptr
-   3074 12 4D 3C           1594 	lcall	__gptrget
-   3077 F9                 1595 	mov	r1,a
-   3078 7D 80              1596 	mov	r5,#0x80
-   307A 85 48 82           1597 	mov	dpl,_iterateStateMachine_sloc0_1_0
-   307D 85 49 83           1598 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
-   3080 85 4A F0           1599 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
-   3083 E8                 1600 	mov	a,r0
-   3084 12 41 10           1601 	lcall	__gptrput
-   3087 A3                 1602 	inc	dptr
-   3088 E9                 1603 	mov	a,r1
-   3089 12 41 10           1604 	lcall	__gptrput
-   308C A3                 1605 	inc	dptr
-   308D ED                 1606 	mov	a,r5
-   308E 12 41 10           1607 	lcall	__gptrput
-                           1608 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:233: callStateHandler(sm, sm->currentState, &enterEvent) ;
-   3091 90 09 FA           1609 	mov	dptr,#_callStateHandler_PARM_2
-   3094 E8                 1610 	mov	a,r0
-   3095 F0                 1611 	movx	@dptr,a
-   3096 A3                 1612 	inc	dptr
-   3097 E9                 1613 	mov	a,r1
-   3098 F0                 1614 	movx	@dptr,a
-   3099 A3                 1615 	inc	dptr
-   309A ED                 1616 	mov	a,r5
-   309B F0                 1617 	movx	@dptr,a
-   309C 90 09 FD           1618 	mov	dptr,#_callStateHandler_PARM_3
-   309F 74 0F              1619 	mov	a,#_enterEvent
-   30A1 F0                 1620 	movx	@dptr,a
-   30A2 A3                 1621 	inc	dptr
-   30A3 74 0F              1622 	mov	a,#(_enterEvent >> 8)
-   30A5 F0                 1623 	movx	@dptr,a
-   30A6 A3                 1624 	inc	dptr
-   30A7 E4                 1625 	clr	a
-   30A8 F0                 1626 	movx	@dptr,a
-   30A9 8A 82              1627 	mov	dpl,r2
-   30AB 8B 83              1628 	mov	dph,r3
-   30AD 8C F0              1629 	mov	b,r4
-   30AF 12 2B C8           1630 	lcall	_callStateHandler
-                           1631 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:235: sm->stateMachineInitialized	= true ;
-   30B2 90 0A 04           1632 	mov	dptr,#_iterateStateMachine_sm_1_1
-   30B5 E0                 1633 	movx	a,@dptr
-   30B6 FA                 1634 	mov	r2,a
-   30B7 A3                 1635 	inc	dptr
-   30B8 E0                 1636 	movx	a,@dptr
-   30B9 FB                 1637 	mov	r3,a
-   30BA A3                 1638 	inc	dptr
-   30BB E0                 1639 	movx	a,@dptr
-   30BC FC                 1640 	mov	r4,a
-   30BD 74 1E              1641 	mov	a,#0x1E
-   30BF 2A                 1642 	add	a,r2
-   30C0 FD                 1643 	mov	r5,a
-   30C1 E4                 1644 	clr	a
-   30C2 3B                 1645 	addc	a,r3
-   30C3 FE                 1646 	mov	r6,a
-   30C4 8C 07              1647 	mov	ar7,r4
-   30C6 8D 82              1648 	mov	dpl,r5
-   30C8 8E 83              1649 	mov	dph,r6
-   30CA 8F F0              1650 	mov	b,r7
-   30CC 74 01              1651 	mov	a,#0x01
-   30CE 12 41 10           1652 	lcall	__gptrput
-                           1653 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:236: sm->forceTransition			= true ;
-   30D1 74 1F              1654 	mov	a,#0x1F
-   30D3 2A                 1655 	add	a,r2
-   30D4 FA                 1656 	mov	r2,a
-   30D5 E4                 1657 	clr	a
-   30D6 3B                 1658 	addc	a,r3
-   30D7 FB                 1659 	mov	r3,a
-   30D8 8A 82              1660 	mov	dpl,r2
-   30DA 8B 83              1661 	mov	dph,r3
-   30DC 8C F0              1662 	mov	b,r4
-   30DE 74 01              1663 	mov	a,#0x01
-   30E0 12 41 10           1664 	lcall	__gptrput
-   30E3                    1665 00102$:
-                           1666 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:241: if((!eventQueue_isEmpty(&sm->eventQueue)) || (sm->forceTransition))
-   30E3 90 0A 04           1667 	mov	dptr,#_iterateStateMachine_sm_1_1
-   30E6 E0                 1668 	movx	a,@dptr
-   30E7 FA                 1669 	mov	r2,a
-   30E8 A3                 1670 	inc	dptr
-   30E9 E0                 1671 	movx	a,@dptr
-   30EA FB                 1672 	mov	r3,a
-   30EB A3                 1673 	inc	dptr
-   30EC E0                 1674 	movx	a,@dptr
-   30ED FC                 1675 	mov	r4,a
-   30EE 74 0B              1676 	mov	a,#0x0B
-   30F0 2A                 1677 	add	a,r2
-   30F1 FD                 1678 	mov	r5,a
-   30F2 E4                 1679 	clr	a
-   30F3 3B                 1680 	addc	a,r3
-   30F4 FE                 1681 	mov	r6,a
-   30F5 8C 07              1682 	mov	ar7,r4
-   30F7 8D 82              1683 	mov	dpl,r5
-   30F9 8E 83              1684 	mov	dph,r6
-   30FB 8F F0              1685 	mov	b,r7
-   30FD C0 02              1686 	push	ar2
-   30FF C0 03              1687 	push	ar3
-   3101 C0 04              1688 	push	ar4
-   3103 12 20 F7           1689 	lcall	_eventQueue_isEmpty
-   3106 E5 82              1690 	mov	a,dpl
-   3108 D0 04              1691 	pop	ar4
-   310A D0 03              1692 	pop	ar3
-   310C D0 02              1693 	pop	ar2
-   310E 60 15              1694 	jz	00166$
-   3110 74 1F              1695 	mov	a,#0x1F
-   3112 2A                 1696 	add	a,r2
-   3113 FA                 1697 	mov	r2,a
-   3114 E4                 1698 	clr	a
-   3115 3B                 1699 	addc	a,r3
-   3116 FB                 1700 	mov	r3,a
-   3117 8A 82              1701 	mov	dpl,r2
-   3119 8B 83              1702 	mov	dph,r3
-   311B 8C F0              1703 	mov	b,r4
-   311D 12 4D 3C           1704 	lcall	__gptrget
-   3120 70 03              1705 	jnz	00212$
-   3122 02 3E 27           1706 	ljmp	00167$
-   3125                    1707 00212$:
-   3125                    1708 00166$:
-                           1709 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:244: state_t*						stateBeingProcessed	= sm->currentState ;
-   3125 90 0A 04           1710 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3128 E0                 1711 	movx	a,@dptr
-   3129 FA                 1712 	mov	r2,a
-   312A A3                 1713 	inc	dptr
-   312B E0                 1714 	movx	a,@dptr
-   312C FB                 1715 	mov	r3,a
-   312D A3                 1716 	inc	dptr
-   312E E0                 1717 	movx	a,@dptr
-   312F FC                 1718 	mov	r4,a
-   3130 74 05              1719 	mov	a,#0x05
-   3132 2A                 1720 	add	a,r2
-   3133 FD                 1721 	mov	r5,a
-   3134 E4                 1722 	clr	a
-   3135 3B                 1723 	addc	a,r3
-   3136 FE                 1724 	mov	r6,a
-   3137 8C 07              1725 	mov	ar7,r4
-   3139 8D 82              1726 	mov	dpl,r5
-   313B 8E 83              1727 	mov	dph,r6
-   313D 8F F0              1728 	mov	b,r7
-   313F 12 4D 3C           1729 	lcall	__gptrget
-   3142 FD                 1730 	mov	r5,a
-   3143 A3                 1731 	inc	dptr
-   3144 12 4D 3C           1732 	lcall	__gptrget
-   3147 FE                 1733 	mov	r6,a
-   3148 A3                 1734 	inc	dptr
-   3149 12 4D 3C           1735 	lcall	__gptrget
-   314C FF                 1736 	mov	r7,a
-   314D 90 0A 0A           1737 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3150 ED                 1738 	mov	a,r5
-   3151 F0                 1739 	movx	@dptr,a
-   3152 A3                 1740 	inc	dptr
-   3153 EE                 1741 	mov	a,r6
-   3154 F0                 1742 	movx	@dptr,a
-   3155 A3                 1743 	inc	dptr
-   3156 EF                 1744 	mov	a,r7
-   3157 F0                 1745 	movx	@dptr,a
-                           1746 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:247: if(sm->forceTransition)
-   3158 74 1F              1747 	mov	a,#0x1F
-   315A 2A                 1748 	add	a,r2
-   315B FD                 1749 	mov	r5,a
-   315C E4                 1750 	clr	a
-   315D 3B                 1751 	addc	a,r3
-   315E FE                 1752 	mov	r6,a
-   315F 8C 07              1753 	mov	ar7,r4
-   3161 8D 82              1754 	mov	dpl,r5
-   3163 8E 83              1755 	mov	dph,r6
-   3165 8F F0              1756 	mov	b,r7
-   3167 12 4D 3C           1757 	lcall	__gptrget
-   316A 60 19              1758 	jz	00104$
-                           1759 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:249: sm->forceTransition	= false ;
-   316C 8D 82              1760 	mov	dpl,r5
-   316E 8E 83              1761 	mov	dph,r6
-   3170 8F F0              1762 	mov	b,r7
-   3172 E4                 1763 	clr	a
-   3173 12 41 10           1764 	lcall	__gptrput
-                           1765 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:250: eventToProcess		= &initialTransitionEvent ;
-   3176 90 0A 07           1766 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
-   3179 74 0D              1767 	mov	a,#_initialTransitionEvent
-   317B F0                 1768 	movx	@dptr,a
-   317C A3                 1769 	inc	dptr
-   317D 74 0F              1770 	mov	a,#(_initialTransitionEvent >> 8)
-   317F F0                 1771 	movx	@dptr,a
-   3180 A3                 1772 	inc	dptr
-   3181 E4                 1773 	clr	a
-   3182 F0                 1774 	movx	@dptr,a
-   3183 80 21              1775 	sjmp	00105$
-   3185                    1776 00104$:
-                           1777 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:254: eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
-   3185 74 0B              1778 	mov	a,#0x0B
-   3187 2A                 1779 	add	a,r2
-   3188 FA                 1780 	mov	r2,a
-   3189 E4                 1781 	clr	a
-   318A 3B                 1782 	addc	a,r3
-   318B FB                 1783 	mov	r3,a
-   318C 8A 82              1784 	mov	dpl,r2
-   318E 8B 83              1785 	mov	dph,r3
-   3190 8C F0              1786 	mov	b,r4
-   3192 12 23 05           1787 	lcall	_eventQueue_remove
-   3195 AA 82              1788 	mov	r2,dpl
-   3197 AB 83              1789 	mov	r3,dph
-   3199 AC F0              1790 	mov	r4,b
-   319B 90 0A 07           1791 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
-   319E EA                 1792 	mov	a,r2
-   319F F0                 1793 	movx	@dptr,a
-   31A0 A3                 1794 	inc	dptr
-   31A1 EB                 1795 	mov	a,r3
-   31A2 F0                 1796 	movx	@dptr,a
-   31A3 A3                 1797 	inc	dptr
-   31A4 EC                 1798 	mov	a,r4
-   31A5 F0                 1799 	movx	@dptr,a
-   31A6                    1800 00105$:
-                           1801 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:257: sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
-   31A6 90 0A 04           1802 	mov	dptr,#_iterateStateMachine_sm_1_1
-   31A9 E0                 1803 	movx	a,@dptr
-   31AA FA                 1804 	mov	r2,a
-   31AB A3                 1805 	inc	dptr
-   31AC E0                 1806 	movx	a,@dptr
-   31AD FB                 1807 	mov	r3,a
-   31AE A3                 1808 	inc	dptr
-   31AF E0                 1809 	movx	a,@dptr
-   31B0 FC                 1810 	mov	r4,a
-   31B1 74 08              1811 	mov	a,#0x08
-   31B3 2A                 1812 	add	a,r2
-   31B4 FA                 1813 	mov	r2,a
-   31B5 E4                 1814 	clr	a
-   31B6 3B                 1815 	addc	a,r3
-   31B7 FB                 1816 	mov	r3,a
-   31B8 8A 82              1817 	mov	dpl,r2
-   31BA 8B 83              1818 	mov	dph,r3
-   31BC 8C F0              1819 	mov	b,r4
-   31BE E4                 1820 	clr	a
-   31BF 12 41 10           1821 	lcall	__gptrput
-   31C2 A3                 1822 	inc	dptr
-   31C3 E4                 1823 	clr	a
-   31C4 12 41 10           1824 	lcall	__gptrput
-   31C7 A3                 1825 	inc	dptr
-   31C8 E4                 1826 	clr	a
-   31C9 12 41 10           1827 	lcall	__gptrput
-                           1828 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:260: printf("\t\tProcessing event...\n") ;
-   31CC 74 96              1829 	mov	a,#__str_7
-   31CE C0 E0              1830 	push	acc
-   31D0 74 51              1831 	mov	a,#(__str_7 >> 8)
-   31D2 C0 E0              1832 	push	acc
-   31D4 74 80              1833 	mov	a,#0x80
-   31D6 C0 E0              1834 	push	acc
-   31D8 12 44 F0           1835 	lcall	_printf
-   31DB 15 81              1836 	dec	sp
-   31DD 15 81              1837 	dec	sp
-   31DF 15 81              1838 	dec	sp
-                           1839 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:270: do
-   31E1 90 0A 07           1840 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
-   31E4 E0                 1841 	movx	a,@dptr
-   31E5 FA                 1842 	mov	r2,a
-   31E6 A3                 1843 	inc	dptr
-   31E7 E0                 1844 	movx	a,@dptr
-   31E8 FB                 1845 	mov	r3,a
-   31E9 A3                 1846 	inc	dptr
-   31EA E0                 1847 	movx	a,@dptr
-   31EB FC                 1848 	mov	r4,a
-   31EC                    1849 00110$:
-                           1850 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:272: action = callStateHandler(sm, stateBeingProcessed, eventToProcess) ;
-   31EC C0 02              1851 	push	ar2
-   31EE C0 03              1852 	push	ar3
-   31F0 C0 04              1853 	push	ar4
-   31F2 90 0A 04           1854 	mov	dptr,#_iterateStateMachine_sm_1_1
-   31F5 E0                 1855 	movx	a,@dptr
-   31F6 FD                 1856 	mov	r5,a
-   31F7 A3                 1857 	inc	dptr
-   31F8 E0                 1858 	movx	a,@dptr
-   31F9 FE                 1859 	mov	r6,a
-   31FA A3                 1860 	inc	dptr
-   31FB E0                 1861 	movx	a,@dptr
-   31FC FF                 1862 	mov	r7,a
-   31FD 90 0A 0A           1863 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3200 E0                 1864 	movx	a,@dptr
-   3201 F5 48              1865 	mov	_iterateStateMachine_sloc0_1_0,a
-   3203 A3                 1866 	inc	dptr
-   3204 E0                 1867 	movx	a,@dptr
-   3205 F5 49              1868 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
-   3207 A3                 1869 	inc	dptr
-   3208 E0                 1870 	movx	a,@dptr
-   3209 F5 4A              1871 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
-   320B 90 0A 07           1872 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
-   320E E0                 1873 	movx	a,@dptr
-   320F FB                 1874 	mov	r3,a
-   3210 A3                 1875 	inc	dptr
-   3211 E0                 1876 	movx	a,@dptr
-   3212 FC                 1877 	mov	r4,a
-   3213 A3                 1878 	inc	dptr
-   3214 E0                 1879 	movx	a,@dptr
-   3215 FA                 1880 	mov	r2,a
-   3216 90 09 FA           1881 	mov	dptr,#_callStateHandler_PARM_2
-   3219 E5 48              1882 	mov	a,_iterateStateMachine_sloc0_1_0
-   321B F0                 1883 	movx	@dptr,a
-   321C A3                 1884 	inc	dptr
-   321D E5 49              1885 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   321F F0                 1886 	movx	@dptr,a
-   3220 A3                 1887 	inc	dptr
-   3221 E5 4A              1888 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3223 F0                 1889 	movx	@dptr,a
-   3224 90 09 FD           1890 	mov	dptr,#_callStateHandler_PARM_3
-   3227 EB                 1891 	mov	a,r3
-   3228 F0                 1892 	movx	@dptr,a
-   3229 A3                 1893 	inc	dptr
-   322A EC                 1894 	mov	a,r4
-   322B F0                 1895 	movx	@dptr,a
-   322C A3                 1896 	inc	dptr
-   322D EA                 1897 	mov	a,r2
-   322E F0                 1898 	movx	@dptr,a
-   322F 8D 82              1899 	mov	dpl,r5
-   3231 8E 83              1900 	mov	dph,r6
-   3233 8F F0              1901 	mov	b,r7
-   3235 C0 03              1902 	push	ar3
-   3237 C0 04              1903 	push	ar4
-   3239 12 2B C8           1904 	lcall	_callStateHandler
-   323C AA 82              1905 	mov	r2,dpl
-   323E D0 04              1906 	pop	ar4
-   3240 D0 03              1907 	pop	ar3
-   3242 90 0A 0D           1908 	mov	dptr,#_iterateStateMachine_action_2_3
-   3245 EA                 1909 	mov	a,r2
-   3246 F0                 1910 	movx	@dptr,a
-                           1911 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:274: if((action == IGNORED) && (eventToProcess->eventType > SUBSTATE_EXIT))
-   3247 EA                 1912 	mov	a,r2
-   3248 D0 04              1913 	pop	ar4
-   324A D0 03              1914 	pop	ar3
-   324C D0 02              1915 	pop	ar2
-   324E 60 03              1916 	jz	00214$
-   3250 02 32 FB           1917 	ljmp	00183$
-   3253                    1918 00214$:
-   3253 8A 82              1919 	mov	dpl,r2
-   3255 8B 83              1920 	mov	dph,r3
-   3257 8C F0              1921 	mov	b,r4
-   3259 12 4D 3C           1922 	lcall	__gptrget
-   325C FD                 1923 	mov  r5,a
-   325D 24 FA              1924 	add	a,#0xff - 0x05
-   325F 40 03              1925 	jc	00215$
-   3261 02 32 FB           1926 	ljmp	00183$
-   3264                    1927 00215$:
-                           1928 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:276: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
-   3264 90 0A 0A           1929 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3267 E0                 1930 	movx	a,@dptr
-   3268 FD                 1931 	mov	r5,a
-   3269 A3                 1932 	inc	dptr
-   326A E0                 1933 	movx	a,@dptr
-   326B FE                 1934 	mov	r6,a
-   326C A3                 1935 	inc	dptr
-   326D E0                 1936 	movx	a,@dptr
-   326E FF                 1937 	mov	r7,a
-   326F 8D 82              1938 	mov	dpl,r5
-   3271 8E 83              1939 	mov	dph,r6
-   3273 8F F0              1940 	mov	b,r7
-   3275 12 4D 3C           1941 	lcall	__gptrget
-   3278 FD                 1942 	mov	r5,a
-   3279 A3                 1943 	inc	dptr
-   327A 12 4D 3C           1944 	lcall	__gptrget
-   327D FE                 1945 	mov	r6,a
-   327E A3                 1946 	inc	dptr
-   327F 12 4D 3C           1947 	lcall	__gptrget
-   3282 FF                 1948 	mov	r7,a
-   3283 90 0A 0A           1949 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3286 ED                 1950 	mov	a,r5
-   3287 F0                 1951 	movx	@dptr,a
-   3288 A3                 1952 	inc	dptr
-   3289 EE                 1953 	mov	a,r6
-   328A F0                 1954 	movx	@dptr,a
-   328B A3                 1955 	inc	dptr
-   328C EF                 1956 	mov	a,r7
-   328D F0                 1957 	movx	@dptr,a
-                           1958 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:279: printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ;
-   328E 90 0A 0A           1959 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3291 E0                 1960 	movx	a,@dptr
-   3292 FD                 1961 	mov	r5,a
-   3293 A3                 1962 	inc	dptr
-   3294 E0                 1963 	movx	a,@dptr
-   3295 FE                 1964 	mov	r6,a
-   3296 A3                 1965 	inc	dptr
-   3297 E0                 1966 	movx	a,@dptr
-   3298 FF                 1967 	mov	r7,a
-   3299 ED                 1968 	mov	a,r5
-   329A 4E                 1969 	orl	a,r6
-   329B 4F                 1970 	orl	a,r7
-   329C 60 1D              1971 	jz	00171$
-   329E 74 06              1972 	mov	a,#0x06
-   32A0 2D                 1973 	add	a,r5
-   32A1 FD                 1974 	mov	r5,a
-   32A2 E4                 1975 	clr	a
-   32A3 3E                 1976 	addc	a,r6
-   32A4 FE                 1977 	mov	r6,a
-   32A5 8D 82              1978 	mov	dpl,r5
-   32A7 8E 83              1979 	mov	dph,r6
-   32A9 8F F0              1980 	mov	b,r7
-   32AB 12 4D 3C           1981 	lcall	__gptrget
-   32AE FD                 1982 	mov	r5,a
-   32AF A3                 1983 	inc	dptr
-   32B0 12 4D 3C           1984 	lcall	__gptrget
-   32B3 FE                 1985 	mov	r6,a
-   32B4 A3                 1986 	inc	dptr
-   32B5 12 4D 3C           1987 	lcall	__gptrget
-   32B8 FF                 1988 	mov	r7,a
-   32B9 80 06              1989 	sjmp	00172$
-   32BB                    1990 00171$:
-   32BB 7D CA              1991 	mov	r5,#__str_9
-   32BD 7E 51              1992 	mov	r6,#(__str_9 >> 8)
-   32BF 7F 80              1993 	mov	r7,#0x80
-   32C1                    1994 00172$:
-   32C1 C0 02              1995 	push	ar2
-   32C3 C0 03              1996 	push	ar3
-   32C5 C0 04              1997 	push	ar4
-   32C7 C0 05              1998 	push	ar5
-   32C9 C0 06              1999 	push	ar6
-   32CB C0 07              2000 	push	ar7
-   32CD 74 AD              2001 	mov	a,#__str_8
-   32CF C0 E0              2002 	push	acc
-   32D1 74 51              2003 	mov	a,#(__str_8 >> 8)
-   32D3 C0 E0              2004 	push	acc
-   32D5 74 80              2005 	mov	a,#0x80
-   32D7 C0 E0              2006 	push	acc
-   32D9 12 44 F0           2007 	lcall	_printf
-   32DC E5 81              2008 	mov	a,sp
-   32DE 24 FA              2009 	add	a,#0xfa
-   32E0 F5 81              2010 	mov	sp,a
-   32E2 D0 04              2011 	pop	ar4
-   32E4 D0 03              2012 	pop	ar3
-   32E6 D0 02              2013 	pop	ar2
-                           2014 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:289: } while(stateBeingProcessed) ;
-   32E8 90 0A 0A           2015 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   32EB E0                 2016 	movx	a,@dptr
-   32EC FD                 2017 	mov	r5,a
-   32ED A3                 2018 	inc	dptr
-   32EE E0                 2019 	movx	a,@dptr
-   32EF FE                 2020 	mov	r6,a
-   32F0 A3                 2021 	inc	dptr
-   32F1 E0                 2022 	movx	a,@dptr
-   32F2 FF                 2023 	mov	r7,a
-   32F3 ED                 2024 	mov	a,r5
-   32F4 4E                 2025 	orl	a,r6
-   32F5 4F                 2026 	orl	a,r7
-   32F6 60 03              2027 	jz	00217$
-   32F8 02 31 EC           2028 	ljmp	00110$
-   32FB                    2029 00217$:
-                           2030 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:291: while(action == TRANSITION_TO_HISTORY)
-   32FB                    2031 00183$:
-   32FB 90 0A 04           2032 	mov	dptr,#_iterateStateMachine_sm_1_1
-   32FE E0                 2033 	movx	a,@dptr
-   32FF FA                 2034 	mov	r2,a
-   3300 A3                 2035 	inc	dptr
-   3301 E0                 2036 	movx	a,@dptr
-   3302 FB                 2037 	mov	r3,a
-   3303 A3                 2038 	inc	dptr
-   3304 E0                 2039 	movx	a,@dptr
-   3305 FC                 2040 	mov	r4,a
-   3306 74 08              2041 	mov	a,#0x08
-   3308 2A                 2042 	add	a,r2
-   3309 FD                 2043 	mov	r5,a
-   330A E4                 2044 	clr	a
-   330B 3B                 2045 	addc	a,r3
-   330C FE                 2046 	mov	r6,a
-   330D 8C 07              2047 	mov	ar7,r4
-   330F 8A 48              2048 	mov	_iterateStateMachine_sloc0_1_0,r2
-   3311 8B 49              2049 	mov	(_iterateStateMachine_sloc0_1_0 + 1),r3
-   3313 8C 4A              2050 	mov	(_iterateStateMachine_sloc0_1_0 + 2),r4
-   3315 74 22              2051 	mov	a,#0x22
-   3317 2A                 2052 	add	a,r2
-   3318 FA                 2053 	mov	r2,a
-   3319 E4                 2054 	clr	a
-   331A 3B                 2055 	addc	a,r3
-   331B FB                 2056 	mov	r3,a
-   331C                    2057 00120$:
-   331C 90 0A 0D           2058 	mov	dptr,#_iterateStateMachine_action_2_3
-   331F E0                 2059 	movx	a,@dptr
-   3320 F8                 2060 	mov	r0,a
-   3321 B8 03 02           2061 	cjne	r0,#0x03,00218$
-   3324 80 03              2062 	sjmp	00219$
-   3326                    2063 00218$:
-   3326 02 34 AB           2064 	ljmp	00122$
-   3329                    2065 00219$:
-                           2066 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:293: if(		(((state_t*)(sm->nextState))->type != STATE_WITH_SHALLOW_HISTORY)
-   3329 C0 02              2067 	push	ar2
-   332B C0 03              2068 	push	ar3
-   332D C0 04              2069 	push	ar4
-   332F 8D 82              2070 	mov	dpl,r5
-   3331 8E 83              2071 	mov	dph,r6
-   3333 8F F0              2072 	mov	b,r7
-   3335 12 4D 3C           2073 	lcall	__gptrget
-   3338 F8                 2074 	mov	r0,a
-   3339 A3                 2075 	inc	dptr
-   333A 12 4D 3C           2076 	lcall	__gptrget
-   333D F9                 2077 	mov	r1,a
-   333E A3                 2078 	inc	dptr
-   333F 12 4D 3C           2079 	lcall	__gptrget
-   3342 FA                 2080 	mov	r2,a
-   3343 74 03              2081 	mov	a,#0x03
-   3345 28                 2082 	add	a,r0
-   3346 F8                 2083 	mov	r0,a
-   3347 E4                 2084 	clr	a
-   3348 39                 2085 	addc	a,r1
-   3349 F9                 2086 	mov	r1,a
-   334A 88 82              2087 	mov	dpl,r0
-   334C 89 83              2088 	mov	dph,r1
-   334E 8A F0              2089 	mov	b,r2
-   3350 12 4D 3C           2090 	lcall	__gptrget
-   3353 F5 4B              2091 	mov	_iterateStateMachine_sloc1_1_0,a
-   3355 74 02              2092 	mov	a,#0x02
-   3357 B5 4B 08           2093 	cjne	a,_iterateStateMachine_sloc1_1_0,00220$
-   335A D0 04              2094 	pop	ar4
-   335C D0 03              2095 	pop	ar3
-   335E D0 02              2096 	pop	ar2
-   3360 80 10              2097 	sjmp	00117$
-   3362                    2098 00220$:
-   3362 D0 04              2099 	pop	ar4
-   3364 D0 03              2100 	pop	ar3
-   3366 D0 02              2101 	pop	ar2
-                           2102 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:294: &&	(((state_t*)(sm->nextState))->type != STATE_WITH_DEEP_HISTORY))
-   3368 74 03              2103 	mov	a,#0x03
-   336A B5 4B 02           2104 	cjne	a,_iterateStateMachine_sloc1_1_0,00221$
-   336D 80 03              2105 	sjmp	00222$
-   336F                    2106 00221$:
-   336F 02 34 AB           2107 	ljmp	00122$
-   3372                    2108 00222$:
-                           2109 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:300: break ;
-   3372                    2110 00117$:
-                           2111 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:304: state_t* nextState = sm->historicalMarkers[((state_with_history_t*)(sm->nextState))->historyMarkerIndex] ;
-   3372 C0 05              2112 	push	ar5
-   3374 C0 06              2113 	push	ar6
-   3376 C0 07              2114 	push	ar7
-   3378 8A 82              2115 	mov	dpl,r2
-   337A 8B 83              2116 	mov	dph,r3
-   337C 8C F0              2117 	mov	b,r4
-   337E 12 4D 3C           2118 	lcall	__gptrget
-   3381 F5 4F              2119 	mov	_iterateStateMachine_sloc3_1_0,a
-   3383 A3                 2120 	inc	dptr
-   3384 12 4D 3C           2121 	lcall	__gptrget
-   3387 F5 50              2122 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
-   3389 A3                 2123 	inc	dptr
-   338A 12 4D 3C           2124 	lcall	__gptrget
-   338D F5 51              2125 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
-   338F 74 08              2126 	mov	a,#0x08
-   3391 25 48              2127 	add	a,_iterateStateMachine_sloc0_1_0
-   3393 F5 4C              2128 	mov	_iterateStateMachine_sloc2_1_0,a
-   3395 E4                 2129 	clr	a
-   3396 35 49              2130 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3398 F5 4D              2131 	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
-   339A 85 4A 4E           2132 	mov	(_iterateStateMachine_sloc2_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
-   339D 85 4C 82           2133 	mov	dpl,_iterateStateMachine_sloc2_1_0
-   33A0 85 4D 83           2134 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-   33A3 85 4E F0           2135 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-   33A6 12 4D 3C           2136 	lcall	__gptrget
-   33A9 FE                 2137 	mov	r6,a
-   33AA A3                 2138 	inc	dptr
-   33AB 12 4D 3C           2139 	lcall	__gptrget
-   33AE FF                 2140 	mov	r7,a
-   33AF A3                 2141 	inc	dptr
-   33B0 12 4D 3C           2142 	lcall	__gptrget
-   33B3 FD                 2143 	mov	r5,a
-   33B4 74 09              2144 	mov	a,#0x09
-   33B6 2E                 2145 	add	a,r6
-   33B7 FE                 2146 	mov	r6,a
-   33B8 E4                 2147 	clr	a
-   33B9 3F                 2148 	addc	a,r7
-   33BA FF                 2149 	mov	r7,a
-   33BB 8E 82              2150 	mov	dpl,r6
-   33BD 8F 83              2151 	mov	dph,r7
-   33BF 8D F0              2152 	mov	b,r5
-   33C1 12 4D 3C           2153 	lcall	__gptrget
-   33C4 FE                 2154 	mov	r6,a
-   33C5 A3                 2155 	inc	dptr
-   33C6 12 4D 3C           2156 	lcall	__gptrget
-   33C9 FF                 2157 	mov	r7,a
-   33CA 90 0A AE           2158 	mov	dptr,#__mulint_PARM_2
-   33CD EE                 2159 	mov	a,r6
-   33CE F0                 2160 	movx	@dptr,a
-   33CF A3                 2161 	inc	dptr
-   33D0 EF                 2162 	mov	a,r7
-   33D1 F0                 2163 	movx	@dptr,a
-   33D2 90 00 03           2164 	mov	dptr,#0x0003
-   33D5 C0 02              2165 	push	ar2
-   33D7 C0 03              2166 	push	ar3
-   33D9 C0 04              2167 	push	ar4
-   33DB C0 07              2168 	push	ar7
-   33DD 12 42 F1           2169 	lcall	__mulint
-   33E0 AD 82              2170 	mov	r5,dpl
-   33E2 AE 83              2171 	mov	r6,dph
-   33E4 D0 07              2172 	pop	ar7
-   33E6 D0 04              2173 	pop	ar4
-   33E8 D0 03              2174 	pop	ar3
-   33EA D0 02              2175 	pop	ar2
-   33EC ED                 2176 	mov	a,r5
-   33ED 25 4F              2177 	add	a,_iterateStateMachine_sloc3_1_0
-   33EF FD                 2178 	mov	r5,a
-   33F0 EE                 2179 	mov	a,r6
-   33F1 35 50              2180 	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   33F3 FE                 2181 	mov	r6,a
-   33F4 AF 51              2182 	mov	r7,(_iterateStateMachine_sloc3_1_0 + 2)
-   33F6 8D 82              2183 	mov	dpl,r5
-   33F8 8E 83              2184 	mov	dph,r6
-   33FA 8F F0              2185 	mov	b,r7
-   33FC 12 4D 3C           2186 	lcall	__gptrget
-   33FF F5 4F              2187 	mov	_iterateStateMachine_sloc3_1_0,a
-   3401 A3                 2188 	inc	dptr
-   3402 12 4D 3C           2189 	lcall	__gptrget
-   3405 F5 50              2190 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
-   3407 A3                 2191 	inc	dptr
-   3408 12 4D 3C           2192 	lcall	__gptrget
-   340B F5 51              2193 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
-                           2194 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:309: if(nextState != (void*)0)
-   340D E4                 2195 	clr	a
-   340E B5 4F 10           2196 	cjne	a,_iterateStateMachine_sloc3_1_0,00223$
-   3411 E4                 2197 	clr	a
-   3412 B5 50 0C           2198 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00223$
-   3415 E4                 2199 	clr	a
-   3416 B5 51 08           2200 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00223$
-   3419 D0 07              2201 	pop	ar7
-   341B D0 06              2202 	pop	ar6
-   341D D0 05              2203 	pop	ar5
-   341F 80 22              2204 	sjmp	00114$
-   3421                    2205 00223$:
-   3421 D0 07              2206 	pop	ar7
-   3423 D0 06              2207 	pop	ar6
-   3425 D0 05              2208 	pop	ar5
-                           2209 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:316: sm->nextState = nextState ;
-   3427 85 4C 82           2210 	mov	dpl,_iterateStateMachine_sloc2_1_0
-   342A 85 4D 83           2211 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-   342D 85 4E F0           2212 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-   3430 E5 4F              2213 	mov	a,_iterateStateMachine_sloc3_1_0
-   3432 12 41 10           2214 	lcall	__gptrput
-   3435 A3                 2215 	inc	dptr
-   3436 E5 50              2216 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   3438 12 41 10           2217 	lcall	__gptrput
-   343B A3                 2218 	inc	dptr
-   343C E5 51              2219 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-   343E 12 41 10           2220 	lcall	__gptrput
-   3441 80 5F              2221 	sjmp	00118$
-   3443                    2222 00114$:
-                           2223 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:331: action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
-   3443 C0 02              2224 	push	ar2
-   3445 C0 03              2225 	push	ar3
-   3447 C0 04              2226 	push	ar4
-   3449 85 4C 82           2227 	mov	dpl,_iterateStateMachine_sloc2_1_0
-   344C 85 4D 83           2228 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-   344F 85 4E F0           2229 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-   3452 12 4D 3C           2230 	lcall	__gptrget
-   3455 F8                 2231 	mov	r0,a
-   3456 A3                 2232 	inc	dptr
-   3457 12 4D 3C           2233 	lcall	__gptrget
-   345A F9                 2234 	mov	r1,a
-   345B A3                 2235 	inc	dptr
-   345C 12 4D 3C           2236 	lcall	__gptrget
-   345F FA                 2237 	mov	r2,a
-   3460 90 09 FA           2238 	mov	dptr,#_callStateHandler_PARM_2
-   3463 E8                 2239 	mov	a,r0
-   3464 F0                 2240 	movx	@dptr,a
-   3465 A3                 2241 	inc	dptr
-   3466 E9                 2242 	mov	a,r1
-   3467 F0                 2243 	movx	@dptr,a
-   3468 A3                 2244 	inc	dptr
-   3469 EA                 2245 	mov	a,r2
-   346A F0                 2246 	movx	@dptr,a
-   346B 90 09 FD           2247 	mov	dptr,#_callStateHandler_PARM_3
-   346E 74 0E              2248 	mov	a,#_jumpToHistoryEvent
-   3470 F0                 2249 	movx	@dptr,a
-   3471 A3                 2250 	inc	dptr
-   3472 74 0F              2251 	mov	a,#(_jumpToHistoryEvent >> 8)
-   3474 F0                 2252 	movx	@dptr,a
-   3475 A3                 2253 	inc	dptr
-   3476 E4                 2254 	clr	a
-   3477 F0                 2255 	movx	@dptr,a
-   3478 85 48 82           2256 	mov	dpl,_iterateStateMachine_sloc0_1_0
-   347B 85 49 83           2257 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
-   347E 85 4A F0           2258 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
-   3481 C0 02              2259 	push	ar2
-   3483 C0 03              2260 	push	ar3
-   3485 C0 04              2261 	push	ar4
-   3487 C0 05              2262 	push	ar5
-   3489 C0 06              2263 	push	ar6
-   348B C0 07              2264 	push	ar7
-   348D 12 2B C8           2265 	lcall	_callStateHandler
-   3490 D0 07              2266 	pop	ar7
-   3492 D0 06              2267 	pop	ar6
-   3494 D0 05              2268 	pop	ar5
-   3496 D0 04              2269 	pop	ar4
-   3498 D0 03              2270 	pop	ar3
-   349A D0 02              2271 	pop	ar2
-                           2272 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:567: printf("\t\tEvent queue empty.\n") ;
-   349C D0 04              2273 	pop	ar4
-   349E D0 03              2274 	pop	ar3
-   34A0 D0 02              2275 	pop	ar2
-                           2276 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:331: action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
-   34A2                    2277 00118$:
-                           2278 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:339: action = TRANSITION ;
-   34A2 90 0A 0D           2279 	mov	dptr,#_iterateStateMachine_action_2_3
-   34A5 74 02              2280 	mov	a,#0x02
-   34A7 F0                 2281 	movx	@dptr,a
-   34A8 02 33 1C           2282 	ljmp	00120$
-   34AB                    2283 00122$:
-                           2284 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:342: if(action == TRANSITION)
-   34AB 90 0A 0D           2285 	mov	dptr,#_iterateStateMachine_action_2_3
-   34AE E0                 2286 	movx	a,@dptr
-   34AF FA                 2287 	mov	r2,a
-   34B0 BA 02 02           2288 	cjne	r2,#0x02,00224$
-   34B3 80 03              2289 	sjmp	00225$
-   34B5                    2290 00224$:
-   34B5 02 3E 27           2291 	ljmp	00167$
-   34B8                    2292 00225$:
-                           2293 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:344: state_t*	source	= sm->currentState ;
-   34B8 90 0A 04           2294 	mov	dptr,#_iterateStateMachine_sm_1_1
-   34BB E0                 2295 	movx	a,@dptr
-   34BC FA                 2296 	mov	r2,a
-   34BD A3                 2297 	inc	dptr
-   34BE E0                 2298 	movx	a,@dptr
-   34BF FB                 2299 	mov	r3,a
-   34C0 A3                 2300 	inc	dptr
-   34C1 E0                 2301 	movx	a,@dptr
-   34C2 FC                 2302 	mov	r4,a
-   34C3 74 05              2303 	mov	a,#0x05
-   34C5 2A                 2304 	add	a,r2
-   34C6 F5 4C              2305 	mov	_iterateStateMachine_sloc2_1_0,a
-   34C8 E4                 2306 	clr	a
-   34C9 3B                 2307 	addc	a,r3
-   34CA F5 4D              2308 	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
-   34CC 8C 4E              2309 	mov	(_iterateStateMachine_sloc2_1_0 + 2),r4
-   34CE 85 4C 82           2310 	mov	dpl,_iterateStateMachine_sloc2_1_0
-   34D1 85 4D 83           2311 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-   34D4 85 4E F0           2312 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-   34D7 12 4D 3C           2313 	lcall	__gptrget
-   34DA F5 4F              2314 	mov	_iterateStateMachine_sloc3_1_0,a
-   34DC A3                 2315 	inc	dptr
-   34DD 12 4D 3C           2316 	lcall	__gptrget
-   34E0 F5 50              2317 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
-   34E2 A3                 2318 	inc	dptr
-   34E3 12 4D 3C           2319 	lcall	__gptrget
-   34E6 F5 51              2320 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
-                           2321 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:345: state_t*	target	= sm->nextState ;
-   34E8 74 08              2322 	mov	a,#0x08
-   34EA 2A                 2323 	add	a,r2
-   34EB F8                 2324 	mov	r0,a
-   34EC E4                 2325 	clr	a
-   34ED 3B                 2326 	addc	a,r3
-   34EE F9                 2327 	mov	r1,a
-   34EF 8C 05              2328 	mov	ar5,r4
-   34F1 88 82              2329 	mov	dpl,r0
-   34F3 89 83              2330 	mov	dph,r1
-   34F5 8D F0              2331 	mov	b,r5
-   34F7 12 4D 3C           2332 	lcall	__gptrget
-   34FA F5 48              2333 	mov	_iterateStateMachine_sloc0_1_0,a
-   34FC A3                 2334 	inc	dptr
-   34FD 12 4D 3C           2335 	lcall	__gptrget
-   3500 F5 49              2336 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
-   3502 A3                 2337 	inc	dptr
-   3503 12 4D 3C           2338 	lcall	__gptrget
-   3506 F5 4A              2339 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
-                           2340 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:349: if(source == target)
-   3508 E5 48              2341 	mov	a,_iterateStateMachine_sloc0_1_0
-   350A B5 4F 0C           2342 	cjne	a,_iterateStateMachine_sloc3_1_0,00226$
-   350D E5 49              2343 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   350F B5 50 07           2344 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00226$
-   3512 E5 4A              2345 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3514 B5 51 02           2346 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00226$
-   3517 80 03              2347 	sjmp	00227$
-   3519                    2348 00226$:
-   3519 02 35 BB           2349 	ljmp	00162$
-   351C                    2350 00227$:
-                           2351 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:352: printf("\t\t\t\tSelf transition.\n") ;
-   351C C0 02              2352 	push	ar2
-   351E C0 03              2353 	push	ar3
-   3520 C0 04              2354 	push	ar4
-   3522 74 D1              2355 	mov	a,#__str_10
-   3524 C0 E0              2356 	push	acc
-   3526 74 51              2357 	mov	a,#(__str_10 >> 8)
-   3528 C0 E0              2358 	push	acc
-   352A 74 80              2359 	mov	a,#0x80
-   352C C0 E0              2360 	push	acc
-   352E 12 44 F0           2361 	lcall	_printf
-   3531 15 81              2362 	dec	sp
-   3533 15 81              2363 	dec	sp
-   3535 15 81              2364 	dec	sp
-   3537 D0 04              2365 	pop	ar4
-   3539 D0 03              2366 	pop	ar3
-   353B D0 02              2367 	pop	ar2
-                           2368 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:357: callStateHandler(sm, source, &exitEvent) ;
-   353D 90 09 FA           2369 	mov	dptr,#_callStateHandler_PARM_2
-   3540 E5 4F              2370 	mov	a,_iterateStateMachine_sloc3_1_0
-   3542 F0                 2371 	movx	@dptr,a
-   3543 A3                 2372 	inc	dptr
-   3544 E5 50              2373 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   3546 F0                 2374 	movx	@dptr,a
-   3547 A3                 2375 	inc	dptr
-   3548 E5 51              2376 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-   354A F0                 2377 	movx	@dptr,a
-   354B 90 09 FD           2378 	mov	dptr,#_callStateHandler_PARM_3
-   354E 74 10              2379 	mov	a,#_exitEvent
-   3550 F0                 2380 	movx	@dptr,a
-   3551 A3                 2381 	inc	dptr
-   3552 74 0F              2382 	mov	a,#(_exitEvent >> 8)
-   3554 F0                 2383 	movx	@dptr,a
-   3555 A3                 2384 	inc	dptr
-   3556 E4                 2385 	clr	a
-   3557 F0                 2386 	movx	@dptr,a
-   3558 8A 82              2387 	mov	dpl,r2
-   355A 8B 83              2388 	mov	dph,r3
-   355C 8C F0              2389 	mov	b,r4
-   355E 12 2B C8           2390 	lcall	_callStateHandler
-                           2391 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:358: sm->currentState = target ;
-   3561 90 0A 04           2392 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3564 E0                 2393 	movx	a,@dptr
-   3565 F5 52              2394 	mov	_iterateStateMachine_sloc4_1_0,a
-   3567 A3                 2395 	inc	dptr
-   3568 E0                 2396 	movx	a,@dptr
-   3569 F5 53              2397 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
-   356B A3                 2398 	inc	dptr
-   356C E0                 2399 	movx	a,@dptr
-   356D F5 54              2400 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
-   356F 74 05              2401 	mov	a,#0x05
-   3571 25 52              2402 	add	a,_iterateStateMachine_sloc4_1_0
-   3573 FE                 2403 	mov	r6,a
-   3574 E4                 2404 	clr	a
-   3575 35 53              2405 	addc	a,(_iterateStateMachine_sloc4_1_0 + 1)
-   3577 FF                 2406 	mov	r7,a
-   3578 AD 54              2407 	mov	r5,(_iterateStateMachine_sloc4_1_0 + 2)
-   357A 8E 82              2408 	mov	dpl,r6
-   357C 8F 83              2409 	mov	dph,r7
-   357E 8D F0              2410 	mov	b,r5
-   3580 E5 48              2411 	mov	a,_iterateStateMachine_sloc0_1_0
-   3582 12 41 10           2412 	lcall	__gptrput
-   3585 A3                 2413 	inc	dptr
-   3586 E5 49              2414 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3588 12 41 10           2415 	lcall	__gptrput
-   358B A3                 2416 	inc	dptr
-   358C E5 4A              2417 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   358E 12 41 10           2418 	lcall	__gptrput
-                           2419 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:359: callStateHandler(sm, target, &enterEvent) ;
-   3591 90 09 FA           2420 	mov	dptr,#_callStateHandler_PARM_2
-   3594 E5 48              2421 	mov	a,_iterateStateMachine_sloc0_1_0
-   3596 F0                 2422 	movx	@dptr,a
-   3597 A3                 2423 	inc	dptr
-   3598 E5 49              2424 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   359A F0                 2425 	movx	@dptr,a
-   359B A3                 2426 	inc	dptr
-   359C E5 4A              2427 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   359E F0                 2428 	movx	@dptr,a
-   359F 90 09 FD           2429 	mov	dptr,#_callStateHandler_PARM_3
-   35A2 74 0F              2430 	mov	a,#_enterEvent
-   35A4 F0                 2431 	movx	@dptr,a
-   35A5 A3                 2432 	inc	dptr
-   35A6 74 0F              2433 	mov	a,#(_enterEvent >> 8)
-   35A8 F0                 2434 	movx	@dptr,a
-   35A9 A3                 2435 	inc	dptr
-   35AA E4                 2436 	clr	a
-   35AB F0                 2437 	movx	@dptr,a
-   35AC 85 52 82           2438 	mov	dpl,_iterateStateMachine_sloc4_1_0
-   35AF 85 53 83           2439 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
-   35B2 85 54 F0           2440 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
-   35B5 12 2B C8           2441 	lcall	_callStateHandler
-   35B8 02 3E 0A           2442 	ljmp	00163$
-   35BB                    2443 00162$:
-                           2444 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:361: else if(source == (state_t*)(target->parent))
-   35BB 85 48 82           2445 	mov	dpl,_iterateStateMachine_sloc0_1_0
-   35BE 85 49 83           2446 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
-   35C1 85 4A F0           2447 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
-   35C4 12 4D 3C           2448 	lcall	__gptrget
-   35C7 FD                 2449 	mov	r5,a
-   35C8 A3                 2450 	inc	dptr
-   35C9 12 4D 3C           2451 	lcall	__gptrget
-   35CC FE                 2452 	mov	r6,a
-   35CD A3                 2453 	inc	dptr
-   35CE 12 4D 3C           2454 	lcall	__gptrget
-   35D1 FF                 2455 	mov	r7,a
-   35D2 ED                 2456 	mov	a,r5
-   35D3 B5 4F 6A           2457 	cjne	a,_iterateStateMachine_sloc3_1_0,00159$
-   35D6 EE                 2458 	mov	a,r6
-   35D7 B5 50 66           2459 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00159$
-   35DA EF                 2460 	mov	a,r7
-   35DB B5 51 62           2461 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00159$
-                           2462 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:364: printf("\t\t\t\tTransition to direct child.\n") ;
-   35DE C0 02              2463 	push	ar2
-   35E0 C0 03              2464 	push	ar3
-   35E2 C0 04              2465 	push	ar4
-   35E4 74 E7              2466 	mov	a,#__str_11
-   35E6 C0 E0              2467 	push	acc
-   35E8 74 51              2468 	mov	a,#(__str_11 >> 8)
-   35EA C0 E0              2469 	push	acc
-   35EC 74 80              2470 	mov	a,#0x80
-   35EE C0 E0              2471 	push	acc
-   35F0 12 44 F0           2472 	lcall	_printf
-   35F3 15 81              2473 	dec	sp
-   35F5 15 81              2474 	dec	sp
-   35F7 15 81              2475 	dec	sp
-   35F9 D0 04              2476 	pop	ar4
-   35FB D0 03              2477 	pop	ar3
-   35FD D0 02              2478 	pop	ar2
-                           2479 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:370: sm->currentState = target ;
-   35FF 85 4C 82           2480 	mov	dpl,_iterateStateMachine_sloc2_1_0
-   3602 85 4D 83           2481 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-   3605 85 4E F0           2482 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-   3608 E5 48              2483 	mov	a,_iterateStateMachine_sloc0_1_0
-   360A 12 41 10           2484 	lcall	__gptrput
-   360D A3                 2485 	inc	dptr
-   360E E5 49              2486 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3610 12 41 10           2487 	lcall	__gptrput
-   3613 A3                 2488 	inc	dptr
-   3614 E5 4A              2489 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3616 12 41 10           2490 	lcall	__gptrput
-                           2491 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:371: callStateHandler(sm, target, &enterEvent) ;
-   3619 90 09 FA           2492 	mov	dptr,#_callStateHandler_PARM_2
-   361C E5 48              2493 	mov	a,_iterateStateMachine_sloc0_1_0
-   361E F0                 2494 	movx	@dptr,a
-   361F A3                 2495 	inc	dptr
-   3620 E5 49              2496 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3622 F0                 2497 	movx	@dptr,a
-   3623 A3                 2498 	inc	dptr
-   3624 E5 4A              2499 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3626 F0                 2500 	movx	@dptr,a
-   3627 90 09 FD           2501 	mov	dptr,#_callStateHandler_PARM_3
-   362A 74 0F              2502 	mov	a,#_enterEvent
-   362C F0                 2503 	movx	@dptr,a
-   362D A3                 2504 	inc	dptr
-   362E 74 0F              2505 	mov	a,#(_enterEvent >> 8)
-   3630 F0                 2506 	movx	@dptr,a
-   3631 A3                 2507 	inc	dptr
-   3632 E4                 2508 	clr	a
-   3633 F0                 2509 	movx	@dptr,a
-   3634 8A 82              2510 	mov	dpl,r2
-   3636 8B 83              2511 	mov	dph,r3
-   3638 8C F0              2512 	mov	b,r4
-   363A 12 2B C8           2513 	lcall	_callStateHandler
-   363D 02 3E 0A           2514 	ljmp	00163$
-   3640                    2515 00159$:
-                           2516 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:373: else if((state_t*)(source->parent) == (state_t*)(target->parent))
-   3640 85 4F 82           2517 	mov	dpl,_iterateStateMachine_sloc3_1_0
-   3643 85 50 83           2518 	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
-   3646 85 51 F0           2519 	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
-   3649 12 4D 3C           2520 	lcall	__gptrget
-   364C F5 52              2521 	mov	_iterateStateMachine_sloc4_1_0,a
-   364E A3                 2522 	inc	dptr
-   364F 12 4D 3C           2523 	lcall	__gptrget
-   3652 F5 53              2524 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
-   3654 A3                 2525 	inc	dptr
-   3655 12 4D 3C           2526 	lcall	__gptrget
-   3658 F5 54              2527 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
-   365A ED                 2528 	mov	a,r5
-   365B B5 52 0A           2529 	cjne	a,_iterateStateMachine_sloc4_1_0,00230$
-   365E EE                 2530 	mov	a,r6
-   365F B5 53 06           2531 	cjne	a,(_iterateStateMachine_sloc4_1_0 + 1),00230$
-   3662 EF                 2532 	mov	a,r7
-   3663 B5 54 02           2533 	cjne	a,(_iterateStateMachine_sloc4_1_0 + 2),00230$
-   3666 80 03              2534 	sjmp	00231$
-   3668                    2535 00230$:
-   3668 02 37 0A           2536 	ljmp	00156$
-   366B                    2537 00231$:
-                           2538 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:376: printf("\t\t\t\tTransition to direct peer.\n") ;
-   366B C0 02              2539 	push	ar2
-   366D C0 03              2540 	push	ar3
-   366F C0 04              2541 	push	ar4
-   3671 74 08              2542 	mov	a,#__str_12
-   3673 C0 E0              2543 	push	acc
-   3675 74 52              2544 	mov	a,#(__str_12 >> 8)
-   3677 C0 E0              2545 	push	acc
-   3679 74 80              2546 	mov	a,#0x80
-   367B C0 E0              2547 	push	acc
-   367D 12 44 F0           2548 	lcall	_printf
-   3680 15 81              2549 	dec	sp
-   3682 15 81              2550 	dec	sp
-   3684 15 81              2551 	dec	sp
-   3686 D0 04              2552 	pop	ar4
-   3688 D0 03              2553 	pop	ar3
-   368A D0 02              2554 	pop	ar2
-                           2555 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:382: callStateHandler(sm, source, &exitEvent) ;
-   368C 90 09 FA           2556 	mov	dptr,#_callStateHandler_PARM_2
-   368F E5 4F              2557 	mov	a,_iterateStateMachine_sloc3_1_0
-   3691 F0                 2558 	movx	@dptr,a
-   3692 A3                 2559 	inc	dptr
-   3693 E5 50              2560 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   3695 F0                 2561 	movx	@dptr,a
-   3696 A3                 2562 	inc	dptr
-   3697 E5 51              2563 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-   3699 F0                 2564 	movx	@dptr,a
-   369A 90 09 FD           2565 	mov	dptr,#_callStateHandler_PARM_3
-   369D 74 10              2566 	mov	a,#_exitEvent
-   369F F0                 2567 	movx	@dptr,a
-   36A0 A3                 2568 	inc	dptr
-   36A1 74 0F              2569 	mov	a,#(_exitEvent >> 8)
-   36A3 F0                 2570 	movx	@dptr,a
-   36A4 A3                 2571 	inc	dptr
-   36A5 E4                 2572 	clr	a
-   36A6 F0                 2573 	movx	@dptr,a
-   36A7 8A 82              2574 	mov	dpl,r2
-   36A9 8B 83              2575 	mov	dph,r3
-   36AB 8C F0              2576 	mov	b,r4
-   36AD 12 2B C8           2577 	lcall	_callStateHandler
-                           2578 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:383: sm->currentState = target ;
-   36B0 90 0A 04           2579 	mov	dptr,#_iterateStateMachine_sm_1_1
-   36B3 E0                 2580 	movx	a,@dptr
-   36B4 F5 55              2581 	mov	_iterateStateMachine_sloc5_1_0,a
-   36B6 A3                 2582 	inc	dptr
-   36B7 E0                 2583 	movx	a,@dptr
-   36B8 F5 56              2584 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-   36BA A3                 2585 	inc	dptr
-   36BB E0                 2586 	movx	a,@dptr
-   36BC F5 57              2587 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-   36BE 74 05              2588 	mov	a,#0x05
-   36C0 25 55              2589 	add	a,_iterateStateMachine_sloc5_1_0
-   36C2 F8                 2590 	mov	r0,a
-   36C3 E4                 2591 	clr	a
-   36C4 35 56              2592 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
-   36C6 F9                 2593 	mov	r1,a
-   36C7 AD 57              2594 	mov	r5,(_iterateStateMachine_sloc5_1_0 + 2)
-   36C9 88 82              2595 	mov	dpl,r0
-   36CB 89 83              2596 	mov	dph,r1
-   36CD 8D F0              2597 	mov	b,r5
-   36CF E5 48              2598 	mov	a,_iterateStateMachine_sloc0_1_0
-   36D1 12 41 10           2599 	lcall	__gptrput
-   36D4 A3                 2600 	inc	dptr
-   36D5 E5 49              2601 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   36D7 12 41 10           2602 	lcall	__gptrput
-   36DA A3                 2603 	inc	dptr
-   36DB E5 4A              2604 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   36DD 12 41 10           2605 	lcall	__gptrput
-                           2606 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:384: callStateHandler(sm, target, &enterEvent) ;
-   36E0 90 09 FA           2607 	mov	dptr,#_callStateHandler_PARM_2
-   36E3 E5 48              2608 	mov	a,_iterateStateMachine_sloc0_1_0
-   36E5 F0                 2609 	movx	@dptr,a
-   36E6 A3                 2610 	inc	dptr
-   36E7 E5 49              2611 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   36E9 F0                 2612 	movx	@dptr,a
-   36EA A3                 2613 	inc	dptr
-   36EB E5 4A              2614 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   36ED F0                 2615 	movx	@dptr,a
-   36EE 90 09 FD           2616 	mov	dptr,#_callStateHandler_PARM_3
-   36F1 74 0F              2617 	mov	a,#_enterEvent
-   36F3 F0                 2618 	movx	@dptr,a
-   36F4 A3                 2619 	inc	dptr
-   36F5 74 0F              2620 	mov	a,#(_enterEvent >> 8)
-   36F7 F0                 2621 	movx	@dptr,a
-   36F8 A3                 2622 	inc	dptr
-   36F9 E4                 2623 	clr	a
-   36FA F0                 2624 	movx	@dptr,a
-   36FB 85 55 82           2625 	mov	dpl,_iterateStateMachine_sloc5_1_0
-   36FE 85 56 83           2626 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
-   3701 85 57 F0           2627 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
-   3704 12 2B C8           2628 	lcall	_callStateHandler
-   3707 02 3E 0A           2629 	ljmp	00163$
-   370A                    2630 00156$:
-                           2631 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:386: else if((state_t*)(source->parent) == target)
-   370A E5 48              2632 	mov	a,_iterateStateMachine_sloc0_1_0
-   370C B5 52 6C           2633 	cjne	a,_iterateStateMachine_sloc4_1_0,00153$
-   370F E5 49              2634 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3711 B5 53 67           2635 	cjne	a,(_iterateStateMachine_sloc4_1_0 + 1),00153$
-   3714 E5 4A              2636 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3716 B5 54 62           2637 	cjne	a,(_iterateStateMachine_sloc4_1_0 + 2),00153$
-                           2638 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:389: printf("\t\t\t\tTransition to direct parent.\n") ;
-   3719 C0 02              2639 	push	ar2
-   371B C0 03              2640 	push	ar3
-   371D C0 04              2641 	push	ar4
-   371F 74 28              2642 	mov	a,#__str_13
-   3721 C0 E0              2643 	push	acc
-   3723 74 52              2644 	mov	a,#(__str_13 >> 8)
-   3725 C0 E0              2645 	push	acc
-   3727 74 80              2646 	mov	a,#0x80
-   3729 C0 E0              2647 	push	acc
-   372B 12 44 F0           2648 	lcall	_printf
-   372E 15 81              2649 	dec	sp
-   3730 15 81              2650 	dec	sp
-   3732 15 81              2651 	dec	sp
-   3734 D0 04              2652 	pop	ar4
-   3736 D0 03              2653 	pop	ar3
-   3738 D0 02              2654 	pop	ar2
-                           2655 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:396: sm->currentState = target ;
-   373A 85 4C 82           2656 	mov	dpl,_iterateStateMachine_sloc2_1_0
-   373D 85 4D 83           2657 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
-   3740 85 4E F0           2658 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
-   3743 E5 48              2659 	mov	a,_iterateStateMachine_sloc0_1_0
-   3745 12 41 10           2660 	lcall	__gptrput
-   3748 A3                 2661 	inc	dptr
-   3749 E5 49              2662 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   374B 12 41 10           2663 	lcall	__gptrput
-   374E A3                 2664 	inc	dptr
-   374F E5 4A              2665 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3751 12 41 10           2666 	lcall	__gptrput
-                           2667 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:397: callStateHandler(sm, source, &exitEvent) ;
-   3754 90 09 FA           2668 	mov	dptr,#_callStateHandler_PARM_2
-   3757 E5 4F              2669 	mov	a,_iterateStateMachine_sloc3_1_0
-   3759 F0                 2670 	movx	@dptr,a
-   375A A3                 2671 	inc	dptr
-   375B E5 50              2672 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   375D F0                 2673 	movx	@dptr,a
-   375E A3                 2674 	inc	dptr
-   375F E5 51              2675 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-   3761 F0                 2676 	movx	@dptr,a
-   3762 90 09 FD           2677 	mov	dptr,#_callStateHandler_PARM_3
-   3765 74 10              2678 	mov	a,#_exitEvent
-   3767 F0                 2679 	movx	@dptr,a
-   3768 A3                 2680 	inc	dptr
-   3769 74 0F              2681 	mov	a,#(_exitEvent >> 8)
-   376B F0                 2682 	movx	@dptr,a
-   376C A3                 2683 	inc	dptr
-   376D E4                 2684 	clr	a
-   376E F0                 2685 	movx	@dptr,a
-   376F 8A 82              2686 	mov	dpl,r2
-   3771 8B 83              2687 	mov	dph,r3
-   3773 8C F0              2688 	mov	b,r4
-   3775 12 2B C8           2689 	lcall	_callStateHandler
-   3778 02 3E 0A           2690 	ljmp	00163$
-   377B                    2691 00153$:
-                           2692 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:412: printf("\t\t\t\tScanning source hierarchy...\n") ;
-   377B 74 4A              2693 	mov	a,#__str_14
-   377D C0 E0              2694 	push	acc
-   377F 74 52              2695 	mov	a,#(__str_14 >> 8)
-   3781 C0 E0              2696 	push	acc
-   3783 74 80              2697 	mov	a,#0x80
-   3785 C0 E0              2698 	push	acc
-   3787 12 44 F0           2699 	lcall	_printf
-   378A 15 81              2700 	dec	sp
-   378C 15 81              2701 	dec	sp
-   378E 15 81              2702 	dec	sp
-                           2703 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:416: targetIndex			= 0 ;
-   3790 90 0A 6F           2704 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-   3793 E4                 2705 	clr	a
-   3794 F0                 2706 	movx	@dptr,a
-                           2707 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:417: stateBeingProcessed	= source ;
-   3795 90 0A 0A           2708 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3798 E5 4F              2709 	mov	a,_iterateStateMachine_sloc3_1_0
-   379A F0                 2710 	movx	@dptr,a
-   379B A3                 2711 	inc	dptr
-   379C E5 50              2712 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   379E F0                 2713 	movx	@dptr,a
-   379F A3                 2714 	inc	dptr
-   37A0 E5 51              2715 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
-   37A2 F0                 2716 	movx	@dptr,a
-                           2717 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:419: do
-   37A3 7A 00              2718 	mov	r2,#0x00
-   37A5                    2719 00128$:
-                           2720 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:421: sourceHierarchy[sourceIndex++] = stateBeingProcessed ;
-   37A5 8A 03              2721 	mov	ar3,r2
-   37A7 0A                 2722 	inc	r2
-   37A8 90 0A 3E           2723 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
-   37AB EA                 2724 	mov	a,r2
-   37AC F0                 2725 	movx	@dptr,a
-   37AD EB                 2726 	mov	a,r3
-   37AE 75 F0 03           2727 	mov	b,#0x03
-   37B1 A4                 2728 	mul	ab
-   37B2 24 0E              2729 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-   37B4 FB                 2730 	mov	r3,a
-   37B5 E4                 2731 	clr	a
-   37B6 34 0A              2732 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-   37B8 FC                 2733 	mov	r4,a
-   37B9 90 0A 0A           2734 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   37BC E0                 2735 	movx	a,@dptr
-   37BD FD                 2736 	mov	r5,a
-   37BE A3                 2737 	inc	dptr
-   37BF E0                 2738 	movx	a,@dptr
-   37C0 FE                 2739 	mov	r6,a
-   37C1 A3                 2740 	inc	dptr
-   37C2 E0                 2741 	movx	a,@dptr
-   37C3 FF                 2742 	mov	r7,a
-   37C4 8B 82              2743 	mov	dpl,r3
-   37C6 8C 83              2744 	mov	dph,r4
-   37C8 ED                 2745 	mov	a,r5
-   37C9 F0                 2746 	movx	@dptr,a
-   37CA A3                 2747 	inc	dptr
-   37CB EE                 2748 	mov	a,r6
-   37CC F0                 2749 	movx	@dptr,a
-   37CD A3                 2750 	inc	dptr
-   37CE EF                 2751 	mov	a,r7
-   37CF F0                 2752 	movx	@dptr,a
-                           2753 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:424: printf("\t\t\t\t\tsourceHierarchy[%d] = %s\n", sourceIndex - 1, stateBeingProcessed->stateName) ;
-   37D0 74 06              2754 	mov	a,#0x06
-   37D2 2D                 2755 	add	a,r5
-   37D3 FB                 2756 	mov	r3,a
-   37D4 E4                 2757 	clr	a
-   37D5 3E                 2758 	addc	a,r6
-   37D6 FC                 2759 	mov	r4,a
-   37D7 8F 00              2760 	mov	ar0,r7
-   37D9 8B 82              2761 	mov	dpl,r3
-   37DB 8C 83              2762 	mov	dph,r4
-   37DD 88 F0              2763 	mov	b,r0
-   37DF 12 4D 3C           2764 	lcall	__gptrget
-   37E2 F5 55              2765 	mov	_iterateStateMachine_sloc5_1_0,a
-   37E4 A3                 2766 	inc	dptr
-   37E5 12 4D 3C           2767 	lcall	__gptrget
-   37E8 F5 56              2768 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-   37EA A3                 2769 	inc	dptr
-   37EB 12 4D 3C           2770 	lcall	__gptrget
-   37EE F5 57              2771 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-   37F0 8A 01              2772 	mov	ar1,r2
-   37F2 7B 00              2773 	mov	r3,#0x00
-   37F4 19                 2774 	dec	r1
-   37F5 B9 FF 01           2775 	cjne	r1,#0xff,00234$
-   37F8 1B                 2776 	dec	r3
-   37F9                    2777 00234$:
-   37F9 C0 02              2778 	push	ar2
-   37FB C0 05              2779 	push	ar5
-   37FD C0 06              2780 	push	ar6
-   37FF C0 07              2781 	push	ar7
-   3801 C0 55              2782 	push	_iterateStateMachine_sloc5_1_0
-   3803 C0 56              2783 	push	(_iterateStateMachine_sloc5_1_0 + 1)
-   3805 C0 57              2784 	push	(_iterateStateMachine_sloc5_1_0 + 2)
-   3807 C0 01              2785 	push	ar1
-   3809 C0 03              2786 	push	ar3
-   380B 74 6C              2787 	mov	a,#__str_15
-   380D C0 E0              2788 	push	acc
-   380F 74 52              2789 	mov	a,#(__str_15 >> 8)
-   3811 C0 E0              2790 	push	acc
-   3813 74 80              2791 	mov	a,#0x80
-   3815 C0 E0              2792 	push	acc
-   3817 12 44 F0           2793 	lcall	_printf
-   381A E5 81              2794 	mov	a,sp
-   381C 24 F8              2795 	add	a,#0xf8
-   381E F5 81              2796 	mov	sp,a
-   3820 D0 07              2797 	pop	ar7
-   3822 D0 06              2798 	pop	ar6
-   3824 D0 05              2799 	pop	ar5
-   3826 D0 02              2800 	pop	ar2
-                           2801 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:427: if(stateBeingProcessed == target)
-   3828 ED                 2802 	mov	a,r5
-   3829 B5 48 0A           2803 	cjne	a,_iterateStateMachine_sloc0_1_0,00235$
-   382C EE                 2804 	mov	a,r6
-   382D B5 49 06           2805 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00235$
-   3830 EF                 2806 	mov	a,r7
-   3831 B5 4A 02           2807 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00235$
-   3834 80 03              2808 	sjmp	00236$
-   3836                    2809 00235$:
-   3836 02 38 FF           2810 	ljmp	00127$
-   3839                    2811 00236$:
-                           2812 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:432: printf("\t\t\t\t\t\tFound target as ancestor of source\n") ;
-   3839 C0 02              2813 	push	ar2
-   383B 74 8B              2814 	mov	a,#__str_16
-   383D C0 E0              2815 	push	acc
-   383F 74 52              2816 	mov	a,#(__str_16 >> 8)
-   3841 C0 E0              2817 	push	acc
-   3843 74 80              2818 	mov	a,#0x80
-   3845 C0 E0              2819 	push	acc
-   3847 12 44 F0           2820 	lcall	_printf
-   384A 15 81              2821 	dec	sp
-   384C 15 81              2822 	dec	sp
-   384E 15 81              2823 	dec	sp
-   3850 D0 02              2824 	pop	ar2
-                           2825 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:435: sourceIndex-- ;
-   3852 EA                 2826 	mov	a,r2
-   3853 14                 2827 	dec	a
-   3854 FB                 2828 	mov	r3,a
-   3855 90 0A 3E           2829 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
-   3858 F0                 2830 	movx	@dptr,a
-                           2831 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:437: while(exitIndex < sourceIndex)
-   3859 7C 00              2832 	mov	r4,#0x00
-   385B                    2833 00123$:
-   385B C3                 2834 	clr	c
-   385C EC                 2835 	mov	a,r4
-   385D 9B                 2836 	subb	a,r3
-   385E 50 74              2837 	jnc	00125$
-                           2838 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:440: printf("\t\t\t\t") ;
-   3860 C0 03              2839 	push	ar3
-   3862 C0 03              2840 	push	ar3
-   3864 C0 04              2841 	push	ar4
-   3866 74 B5              2842 	mov	a,#__str_17
-   3868 C0 E0              2843 	push	acc
-   386A 74 52              2844 	mov	a,#(__str_17 >> 8)
-   386C C0 E0              2845 	push	acc
-   386E 74 80              2846 	mov	a,#0x80
-   3870 C0 E0              2847 	push	acc
-   3872 12 44 F0           2848 	lcall	_printf
-   3875 15 81              2849 	dec	sp
-   3877 15 81              2850 	dec	sp
-   3879 15 81              2851 	dec	sp
-   387B D0 04              2852 	pop	ar4
-   387D D0 03              2853 	pop	ar3
-                           2854 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:443: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
-   387F 90 0A 04           2855 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3882 E0                 2856 	movx	a,@dptr
-   3883 F5 55              2857 	mov	_iterateStateMachine_sloc5_1_0,a
-   3885 A3                 2858 	inc	dptr
-   3886 E0                 2859 	movx	a,@dptr
-   3887 F5 56              2860 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-   3889 A3                 2861 	inc	dptr
-   388A E0                 2862 	movx	a,@dptr
-   388B F5 57              2863 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-   388D EC                 2864 	mov	a,r4
-   388E 75 F0 03           2865 	mov	b,#0x03
-   3891 A4                 2866 	mul	ab
-   3892 24 0E              2867 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-   3894 F5 82              2868 	mov	dpl,a
-   3896 E4                 2869 	clr	a
-   3897 34 0A              2870 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-   3899 F5 83              2871 	mov	dph,a
-   389B E0                 2872 	movx	a,@dptr
-   389C FB                 2873 	mov	r3,a
-   389D A3                 2874 	inc	dptr
-   389E E0                 2875 	movx	a,@dptr
-   389F F8                 2876 	mov	r0,a
-   38A0 A3                 2877 	inc	dptr
-   38A1 E0                 2878 	movx	a,@dptr
-   38A2 F9                 2879 	mov	r1,a
-   38A3 90 09 FA           2880 	mov	dptr,#_callStateHandler_PARM_2
-   38A6 EB                 2881 	mov	a,r3
-   38A7 F0                 2882 	movx	@dptr,a
-   38A8 A3                 2883 	inc	dptr
-   38A9 E8                 2884 	mov	a,r0
-   38AA F0                 2885 	movx	@dptr,a
-   38AB A3                 2886 	inc	dptr
-   38AC E9                 2887 	mov	a,r1
-   38AD F0                 2888 	movx	@dptr,a
-   38AE 90 09 FD           2889 	mov	dptr,#_callStateHandler_PARM_3
-   38B1 74 10              2890 	mov	a,#_exitEvent
-   38B3 F0                 2891 	movx	@dptr,a
-   38B4 A3                 2892 	inc	dptr
-   38B5 74 0F              2893 	mov	a,#(_exitEvent >> 8)
-   38B7 F0                 2894 	movx	@dptr,a
-   38B8 A3                 2895 	inc	dptr
-   38B9 E4                 2896 	clr	a
-   38BA F0                 2897 	movx	@dptr,a
-   38BB 85 55 82           2898 	mov	dpl,_iterateStateMachine_sloc5_1_0
-   38BE 85 56 83           2899 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
-   38C1 85 57 F0           2900 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
-   38C4 C0 03              2901 	push	ar3
-   38C6 C0 04              2902 	push	ar4
-   38C8 12 2B C8           2903 	lcall	_callStateHandler
-   38CB D0 04              2904 	pop	ar4
-   38CD D0 03              2905 	pop	ar3
-                           2906 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:445: exitIndex++ ;
-   38CF 0C                 2907 	inc	r4
-   38D0 D0 03              2908 	pop	ar3
-   38D2 80 87              2909 	sjmp	00123$
-   38D4                    2910 00125$:
-                           2911 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:448: sm->currentState = target ;
-   38D4 90 0A 04           2912 	mov	dptr,#_iterateStateMachine_sm_1_1
-   38D7 E0                 2913 	movx	a,@dptr
-   38D8 FB                 2914 	mov	r3,a
-   38D9 A3                 2915 	inc	dptr
-   38DA E0                 2916 	movx	a,@dptr
-   38DB FC                 2917 	mov	r4,a
-   38DC A3                 2918 	inc	dptr
-   38DD E0                 2919 	movx	a,@dptr
-   38DE F8                 2920 	mov	r0,a
-   38DF 74 05              2921 	mov	a,#0x05
-   38E1 2B                 2922 	add	a,r3
-   38E2 FB                 2923 	mov	r3,a
-   38E3 E4                 2924 	clr	a
-   38E4 3C                 2925 	addc	a,r4
-   38E5 FC                 2926 	mov	r4,a
-   38E6 8B 82              2927 	mov	dpl,r3
-   38E8 8C 83              2928 	mov	dph,r4
-   38EA 88 F0              2929 	mov	b,r0
-   38EC E5 48              2930 	mov	a,_iterateStateMachine_sloc0_1_0
-   38EE 12 41 10           2931 	lcall	__gptrput
-   38F1 A3                 2932 	inc	dptr
-   38F2 E5 49              2933 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   38F4 12 41 10           2934 	lcall	__gptrput
-   38F7 A3                 2935 	inc	dptr
-   38F8 E5 4A              2936 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   38FA 12 41 10           2937 	lcall	__gptrput
-                           2938 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:450: break ;
-   38FD 80 32              2939 	sjmp	00130$
-   38FF                    2940 00127$:
-                           2941 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:453: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
-   38FF 8D 82              2942 	mov	dpl,r5
-   3901 8E 83              2943 	mov	dph,r6
-   3903 8F F0              2944 	mov	b,r7
-   3905 12 4D 3C           2945 	lcall	__gptrget
-   3908 FD                 2946 	mov	r5,a
-   3909 A3                 2947 	inc	dptr
-   390A 12 4D 3C           2948 	lcall	__gptrget
-   390D FE                 2949 	mov	r6,a
-   390E A3                 2950 	inc	dptr
-   390F 12 4D 3C           2951 	lcall	__gptrget
-   3912 FF                 2952 	mov	r7,a
-   3913 90 0A 0A           2953 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3916 ED                 2954 	mov	a,r5
-   3917 F0                 2955 	movx	@dptr,a
-   3918 A3                 2956 	inc	dptr
-   3919 EE                 2957 	mov	a,r6
-   391A F0                 2958 	movx	@dptr,a
-   391B A3                 2959 	inc	dptr
-   391C EF                 2960 	mov	a,r7
-   391D F0                 2961 	movx	@dptr,a
-                           2962 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:454: } while(stateBeingProcessed) ;
-   391E 90 0A 0A           2963 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3921 E0                 2964 	movx	a,@dptr
-   3922 FB                 2965 	mov	r3,a
-   3923 A3                 2966 	inc	dptr
-   3924 E0                 2967 	movx	a,@dptr
-   3925 FC                 2968 	mov	r4,a
-   3926 A3                 2969 	inc	dptr
-   3927 E0                 2970 	movx	a,@dptr
-   3928 FD                 2971 	mov	r5,a
-   3929 EB                 2972 	mov	a,r3
-   392A 4C                 2973 	orl	a,r4
-   392B 4D                 2974 	orl	a,r5
-   392C 60 03              2975 	jz	00238$
-   392E 02 37 A5           2976 	ljmp	00128$
-   3931                    2977 00238$:
-   3931                    2978 00130$:
-                           2979 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:456: if(sm->currentState != target)
-   3931 90 0A 04           2980 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3934 E0                 2981 	movx	a,@dptr
-   3935 FA                 2982 	mov	r2,a
-   3936 A3                 2983 	inc	dptr
-   3937 E0                 2984 	movx	a,@dptr
-   3938 FB                 2985 	mov	r3,a
-   3939 A3                 2986 	inc	dptr
-   393A E0                 2987 	movx	a,@dptr
-   393B FC                 2988 	mov	r4,a
-   393C 74 05              2989 	mov	a,#0x05
-   393E 2A                 2990 	add	a,r2
-   393F FA                 2991 	mov	r2,a
-   3940 E4                 2992 	clr	a
-   3941 3B                 2993 	addc	a,r3
-   3942 FB                 2994 	mov	r3,a
-   3943 8A 82              2995 	mov	dpl,r2
-   3945 8B 83              2996 	mov	dph,r3
-   3947 8C F0              2997 	mov	b,r4
-   3949 12 4D 3C           2998 	lcall	__gptrget
-   394C FA                 2999 	mov	r2,a
-   394D A3                 3000 	inc	dptr
-   394E 12 4D 3C           3001 	lcall	__gptrget
-   3951 FB                 3002 	mov	r3,a
-   3952 A3                 3003 	inc	dptr
-   3953 12 4D 3C           3004 	lcall	__gptrget
-   3956 FC                 3005 	mov	r4,a
-   3957 EA                 3006 	mov	a,r2
-   3958 B5 48 0B           3007 	cjne	a,_iterateStateMachine_sloc0_1_0,00239$
-   395B EB                 3008 	mov	a,r3
-   395C B5 49 07           3009 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00239$
-   395F EC                 3010 	mov	a,r4
-   3960 B5 4A 03           3011 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00239$
-   3963 02 3B 0A           3012 	ljmp	00140$
-   3966                    3013 00239$:
-                           3014 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:459: printf("\t\t\t\tScanning target hierarchy...\n") ;
-   3966 74 BA              3015 	mov	a,#__str_18
-   3968 C0 E0              3016 	push	acc
-   396A 74 52              3017 	mov	a,#(__str_18 >> 8)
-   396C C0 E0              3018 	push	acc
-   396E 74 80              3019 	mov	a,#0x80
-   3970 C0 E0              3020 	push	acc
-   3972 12 44 F0           3021 	lcall	_printf
-   3975 15 81              3022 	dec	sp
-   3977 15 81              3023 	dec	sp
-   3979 15 81              3024 	dec	sp
-                           3025 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:462: targetIndex			= 0 ;
-   397B 90 0A 6F           3026 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-   397E E4                 3027 	clr	a
-   397F F0                 3028 	movx	@dptr,a
-                           3029 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:463: stateBeingProcessed	= target ;
-   3980 90 0A 0A           3030 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3983 E5 48              3031 	mov	a,_iterateStateMachine_sloc0_1_0
-   3985 F0                 3032 	movx	@dptr,a
-   3986 A3                 3033 	inc	dptr
-   3987 E5 49              3034 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3989 F0                 3035 	movx	@dptr,a
-   398A A3                 3036 	inc	dptr
-   398B E5 4A              3037 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   398D F0                 3038 	movx	@dptr,a
-                           3039 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:465: do
-   398E 7A 00              3040 	mov	r2,#0x00
-   3990                    3041 00136$:
-                           3042 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:467: targetHierarchy[targetIndex] = stateBeingProcessed ;
-   3990 EA                 3043 	mov	a,r2
-   3991 75 F0 03           3044 	mov	b,#0x03
-   3994 A4                 3045 	mul	ab
-   3995 24 3F              3046 	add	a,#_iterateStateMachine_targetHierarchy_4_19
-   3997 FB                 3047 	mov	r3,a
-   3998 E4                 3048 	clr	a
-   3999 34 0A              3049 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-   399B FC                 3050 	mov	r4,a
-   399C 90 0A 0A           3051 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   399F E0                 3052 	movx	a,@dptr
-   39A0 FD                 3053 	mov	r5,a
-   39A1 A3                 3054 	inc	dptr
-   39A2 E0                 3055 	movx	a,@dptr
-   39A3 FE                 3056 	mov	r6,a
-   39A4 A3                 3057 	inc	dptr
-   39A5 E0                 3058 	movx	a,@dptr
-   39A6 FF                 3059 	mov	r7,a
-   39A7 8B 82              3060 	mov	dpl,r3
-   39A9 8C 83              3061 	mov	dph,r4
-   39AB ED                 3062 	mov	a,r5
-   39AC F0                 3063 	movx	@dptr,a
-   39AD A3                 3064 	inc	dptr
-   39AE EE                 3065 	mov	a,r6
-   39AF F0                 3066 	movx	@dptr,a
-   39B0 A3                 3067 	inc	dptr
-   39B1 EF                 3068 	mov	a,r7
-   39B2 F0                 3069 	movx	@dptr,a
-                           3070 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:470: printf("\t\t\t\t\ttargetHierarchy[%d] = %s\n", targetIndex, stateBeingProcessed->stateName) ;
-   39B3 74 06              3071 	mov	a,#0x06
-   39B5 2D                 3072 	add	a,r5
-   39B6 FB                 3073 	mov	r3,a
-   39B7 E4                 3074 	clr	a
-   39B8 3E                 3075 	addc	a,r6
-   39B9 FC                 3076 	mov	r4,a
-   39BA 8F 00              3077 	mov	ar0,r7
-   39BC 8B 82              3078 	mov	dpl,r3
-   39BE 8C 83              3079 	mov	dph,r4
-   39C0 88 F0              3080 	mov	b,r0
-   39C2 12 4D 3C           3081 	lcall	__gptrget
-   39C5 F5 55              3082 	mov	_iterateStateMachine_sloc5_1_0,a
-   39C7 A3                 3083 	inc	dptr
-   39C8 12 4D 3C           3084 	lcall	__gptrget
-   39CB F5 56              3085 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-   39CD A3                 3086 	inc	dptr
-   39CE 12 4D 3C           3087 	lcall	__gptrget
-   39D1 F5 57              3088 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-   39D3 8A 01              3089 	mov	ar1,r2
-   39D5 7B 00              3090 	mov	r3,#0x00
-   39D7 C0 02              3091 	push	ar2
-   39D9 C0 05              3092 	push	ar5
-   39DB C0 06              3093 	push	ar6
-   39DD C0 07              3094 	push	ar7
-   39DF C0 55              3095 	push	_iterateStateMachine_sloc5_1_0
-   39E1 C0 56              3096 	push	(_iterateStateMachine_sloc5_1_0 + 1)
-   39E3 C0 57              3097 	push	(_iterateStateMachine_sloc5_1_0 + 2)
-   39E5 C0 01              3098 	push	ar1
-   39E7 C0 03              3099 	push	ar3
-   39E9 74 DC              3100 	mov	a,#__str_19
-   39EB C0 E0              3101 	push	acc
-   39ED 74 52              3102 	mov	a,#(__str_19 >> 8)
-   39EF C0 E0              3103 	push	acc
-   39F1 74 80              3104 	mov	a,#0x80
-   39F3 C0 E0              3105 	push	acc
-   39F5 12 44 F0           3106 	lcall	_printf
-   39F8 E5 81              3107 	mov	a,sp
-   39FA 24 F8              3108 	add	a,#0xf8
-   39FC F5 81              3109 	mov	sp,a
-   39FE D0 07              3110 	pop	ar7
-   3A00 D0 06              3111 	pop	ar6
-   3A02 D0 05              3112 	pop	ar5
-   3A04 D0 02              3113 	pop	ar2
-                           3114 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:473: if(stateBeingProcessed == source)
-   3A06 ED                 3115 	mov	a,r5
-   3A07 B5 4F 0A           3116 	cjne	a,_iterateStateMachine_sloc3_1_0,00240$
-   3A0A EE                 3117 	mov	a,r6
-   3A0B B5 50 06           3118 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00240$
-   3A0E EF                 3119 	mov	a,r7
-   3A0F B5 51 02           3120 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00240$
-   3A12 80 03              3121 	sjmp	00241$
-   3A14                    3122 00240$:
-   3A14 02 3A D2           3123 	ljmp	00135$
-   3A17                    3124 00241$:
-                           3125 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:476: printf("\t\t\t\t\t\tFound source as ancestor of target\n") ;
-   3A17 74 FB              3126 	mov	a,#__str_20
-   3A19 C0 E0              3127 	push	acc
-   3A1B 74 52              3128 	mov	a,#(__str_20 >> 8)
-   3A1D C0 E0              3129 	push	acc
-   3A1F 74 80              3130 	mov	a,#0x80
-   3A21 C0 E0              3131 	push	acc
-   3A23 12 44 F0           3132 	lcall	_printf
-   3A26 15 81              3133 	dec	sp
-   3A28 15 81              3134 	dec	sp
-   3A2A 15 81              3135 	dec	sp
-                           3136 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:479: while(targetIndex--)
-   3A2C 90 0A 6F           3137 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-   3A2F E0                 3138 	movx	a,@dptr
-   3A30 FB                 3139 	mov	r3,a
-   3A31                    3140 00131$:
-   3A31 8B 04              3141 	mov	ar4,r3
-   3A33 1B                 3142 	dec	r3
-   3A34 EC                 3143 	mov	a,r4
-   3A35 60 6B              3144 	jz	00206$
-                           3145 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:482: printf("\t\t\t\t") ;
-   3A37 C0 03              3146 	push	ar3
-   3A39 74 B5              3147 	mov	a,#__str_17
-   3A3B C0 E0              3148 	push	acc
-   3A3D 74 52              3149 	mov	a,#(__str_17 >> 8)
-   3A3F C0 E0              3150 	push	acc
-   3A41 74 80              3151 	mov	a,#0x80
-   3A43 C0 E0              3152 	push	acc
-   3A45 12 44 F0           3153 	lcall	_printf
-   3A48 15 81              3154 	dec	sp
-   3A4A 15 81              3155 	dec	sp
-   3A4C 15 81              3156 	dec	sp
-   3A4E D0 03              3157 	pop	ar3
-                           3158 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:484: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
-   3A50 90 0A 04           3159 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3A53 E0                 3160 	movx	a,@dptr
-   3A54 F5 55              3161 	mov	_iterateStateMachine_sloc5_1_0,a
-   3A56 A3                 3162 	inc	dptr
-   3A57 E0                 3163 	movx	a,@dptr
-   3A58 F5 56              3164 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-   3A5A A3                 3165 	inc	dptr
-   3A5B E0                 3166 	movx	a,@dptr
-   3A5C F5 57              3167 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-   3A5E EB                 3168 	mov	a,r3
-   3A5F 75 F0 03           3169 	mov	b,#0x03
-   3A62 A4                 3170 	mul	ab
-   3A63 24 3F              3171 	add	a,#_iterateStateMachine_targetHierarchy_4_19
-   3A65 F5 82              3172 	mov	dpl,a
-   3A67 E4                 3173 	clr	a
-   3A68 34 0A              3174 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-   3A6A F5 83              3175 	mov	dph,a
-   3A6C C0 03              3176 	push	ar3
-   3A6E E0                 3177 	movx	a,@dptr
-   3A6F FB                 3178 	mov	r3,a
-   3A70 A3                 3179 	inc	dptr
-   3A71 E0                 3180 	movx	a,@dptr
-   3A72 FC                 3181 	mov	r4,a
-   3A73 A3                 3182 	inc	dptr
-   3A74 E0                 3183 	movx	a,@dptr
-   3A75 F8                 3184 	mov	r0,a
-   3A76 90 09 FA           3185 	mov	dptr,#_callStateHandler_PARM_2
-   3A79 EB                 3186 	mov	a,r3
-   3A7A F0                 3187 	movx	@dptr,a
-   3A7B A3                 3188 	inc	dptr
-   3A7C EC                 3189 	mov	a,r4
-   3A7D F0                 3190 	movx	@dptr,a
-   3A7E A3                 3191 	inc	dptr
-   3A7F E8                 3192 	mov	a,r0
-   3A80 F0                 3193 	movx	@dptr,a
-   3A81 90 09 FD           3194 	mov	dptr,#_callStateHandler_PARM_3
-   3A84 74 0F              3195 	mov	a,#_enterEvent
-   3A86 F0                 3196 	movx	@dptr,a
-   3A87 A3                 3197 	inc	dptr
-   3A88 74 0F              3198 	mov	a,#(_enterEvent >> 8)
-   3A8A F0                 3199 	movx	@dptr,a
-   3A8B A3                 3200 	inc	dptr
-   3A8C E4                 3201 	clr	a
-   3A8D F0                 3202 	movx	@dptr,a
-   3A8E 85 55 82           3203 	mov	dpl,_iterateStateMachine_sloc5_1_0
-   3A91 85 56 83           3204 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
-   3A94 85 57 F0           3205 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
-   3A97 C0 03              3206 	push	ar3
-   3A99 12 2B C8           3207 	lcall	_callStateHandler
-   3A9C D0 03              3208 	pop	ar3
-   3A9E D0 03              3209 	pop	ar3
-   3AA0 80 8F              3210 	sjmp	00131$
-   3AA2                    3211 00206$:
-   3AA2 90 0A 6F           3212 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-   3AA5 EB                 3213 	mov	a,r3
-   3AA6 F0                 3214 	movx	@dptr,a
-                           3215 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:487: sm->currentState = target ;
-   3AA7 90 0A 04           3216 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3AAA E0                 3217 	movx	a,@dptr
-   3AAB FB                 3218 	mov	r3,a
-   3AAC A3                 3219 	inc	dptr
-   3AAD E0                 3220 	movx	a,@dptr
-   3AAE FC                 3221 	mov	r4,a
-   3AAF A3                 3222 	inc	dptr
-   3AB0 E0                 3223 	movx	a,@dptr
-   3AB1 F8                 3224 	mov	r0,a
-   3AB2 74 05              3225 	mov	a,#0x05
-   3AB4 2B                 3226 	add	a,r3
-   3AB5 FB                 3227 	mov	r3,a
-   3AB6 E4                 3228 	clr	a
-   3AB7 3C                 3229 	addc	a,r4
-   3AB8 FC                 3230 	mov	r4,a
-   3AB9 8B 82              3231 	mov	dpl,r3
-   3ABB 8C 83              3232 	mov	dph,r4
-   3ABD 88 F0              3233 	mov	b,r0
-   3ABF E5 48              3234 	mov	a,_iterateStateMachine_sloc0_1_0
-   3AC1 12 41 10           3235 	lcall	__gptrput
-   3AC4 A3                 3236 	inc	dptr
-   3AC5 E5 49              3237 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3AC7 12 41 10           3238 	lcall	__gptrput
-   3ACA A3                 3239 	inc	dptr
-   3ACB E5 4A              3240 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3ACD 12 41 10           3241 	lcall	__gptrput
-                           3242 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:489: break ;
-   3AD0 80 38              3243 	sjmp	00140$
-   3AD2                    3244 00135$:
-                           3245 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:492: targetIndex++ ;
-   3AD2 0A                 3246 	inc	r2
-   3AD3 90 0A 6F           3247 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-   3AD6 EA                 3248 	mov	a,r2
-   3AD7 F0                 3249 	movx	@dptr,a
-                           3250 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:493: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
-   3AD8 8D 82              3251 	mov	dpl,r5
-   3ADA 8E 83              3252 	mov	dph,r6
-   3ADC 8F F0              3253 	mov	b,r7
-   3ADE 12 4D 3C           3254 	lcall	__gptrget
-   3AE1 FD                 3255 	mov	r5,a
-   3AE2 A3                 3256 	inc	dptr
-   3AE3 12 4D 3C           3257 	lcall	__gptrget
-   3AE6 FE                 3258 	mov	r6,a
-   3AE7 A3                 3259 	inc	dptr
-   3AE8 12 4D 3C           3260 	lcall	__gptrget
-   3AEB FF                 3261 	mov	r7,a
-   3AEC 90 0A 0A           3262 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3AEF ED                 3263 	mov	a,r5
-   3AF0 F0                 3264 	movx	@dptr,a
-   3AF1 A3                 3265 	inc	dptr
-   3AF2 EE                 3266 	mov	a,r6
-   3AF3 F0                 3267 	movx	@dptr,a
-   3AF4 A3                 3268 	inc	dptr
-   3AF5 EF                 3269 	mov	a,r7
-   3AF6 F0                 3270 	movx	@dptr,a
-                           3271 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:494: } while(stateBeingProcessed) ;
-   3AF7 90 0A 0A           3272 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
-   3AFA E0                 3273 	movx	a,@dptr
-   3AFB FB                 3274 	mov	r3,a
-   3AFC A3                 3275 	inc	dptr
-   3AFD E0                 3276 	movx	a,@dptr
-   3AFE FC                 3277 	mov	r4,a
-   3AFF A3                 3278 	inc	dptr
-   3B00 E0                 3279 	movx	a,@dptr
-   3B01 FD                 3280 	mov	r5,a
-   3B02 EB                 3281 	mov	a,r3
-   3B03 4C                 3282 	orl	a,r4
-   3B04 4D                 3283 	orl	a,r5
-   3B05 60 03              3284 	jz	00243$
-   3B07 02 39 90           3285 	ljmp	00136$
-   3B0A                    3286 00243$:
-   3B0A                    3287 00140$:
-                           3288 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:497: if(sm->currentState != target)
-   3B0A 90 0A 04           3289 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3B0D E0                 3290 	movx	a,@dptr
-   3B0E FA                 3291 	mov	r2,a
-   3B0F A3                 3292 	inc	dptr
-   3B10 E0                 3293 	movx	a,@dptr
-   3B11 FB                 3294 	mov	r3,a
-   3B12 A3                 3295 	inc	dptr
-   3B13 E0                 3296 	movx	a,@dptr
-   3B14 FC                 3297 	mov	r4,a
-   3B15 74 05              3298 	mov	a,#0x05
-   3B17 2A                 3299 	add	a,r2
-   3B18 FA                 3300 	mov	r2,a
-   3B19 E4                 3301 	clr	a
-   3B1A 3B                 3302 	addc	a,r3
-   3B1B FB                 3303 	mov	r3,a
-   3B1C 8A 82              3304 	mov	dpl,r2
-   3B1E 8B 83              3305 	mov	dph,r3
-   3B20 8C F0              3306 	mov	b,r4
-   3B22 12 4D 3C           3307 	lcall	__gptrget
-   3B25 FA                 3308 	mov	r2,a
-   3B26 A3                 3309 	inc	dptr
-   3B27 12 4D 3C           3310 	lcall	__gptrget
-   3B2A FB                 3311 	mov	r3,a
-   3B2B A3                 3312 	inc	dptr
-   3B2C 12 4D 3C           3313 	lcall	__gptrget
-   3B2F FC                 3314 	mov	r4,a
-   3B30 EA                 3315 	mov	a,r2
-   3B31 B5 48 0B           3316 	cjne	a,_iterateStateMachine_sloc0_1_0,00244$
-   3B34 EB                 3317 	mov	a,r3
-   3B35 B5 49 07           3318 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00244$
-   3B38 EC                 3319 	mov	a,r4
-   3B39 B5 4A 03           3320 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00244$
-   3B3C 02 3E 0A           3321 	ljmp	00163$
-   3B3F                    3322 00244$:
-                           3323 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:502: printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ;
-   3B3F 74 25              3324 	mov	a,#__str_21
-   3B41 C0 E0              3325 	push	acc
-   3B43 74 53              3326 	mov	a,#(__str_21 >> 8)
-   3B45 C0 E0              3327 	push	acc
-   3B47 74 80              3328 	mov	a,#0x80
-   3B49 C0 E0              3329 	push	acc
-   3B4B 12 44 F0           3330 	lcall	_printf
-   3B4E 15 81              3331 	dec	sp
-   3B50 15 81              3332 	dec	sp
-   3B52 15 81              3333 	dec	sp
-                           3334 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:504: LCA			= 0 ;
-   3B54 90 0A 70           3335 	mov	dptr,#_iterateStateMachine_LCA_4_19
-   3B57 E4                 3336 	clr	a
-   3B58 F0                 3337 	movx	@dptr,a
-   3B59 A3                 3338 	inc	dptr
-   3B5A F0                 3339 	movx	@dptr,a
-   3B5B A3                 3340 	inc	dptr
-   3B5C F0                 3341 	movx	@dptr,a
-                           3342 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:505: entryIndex	= targetIndex - 1 ;
-   3B5D 90 0A 6F           3343 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
-   3B60 E0                 3344 	movx	a,@dptr
-   3B61 FA                 3345 	mov	r2,a
-   3B62 1A                 3346 	dec	r2
-   3B63 90 0A 73           3347 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-   3B66 EA                 3348 	mov	a,r2
-   3B67 F0                 3349 	movx	@dptr,a
-                           3350 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:506: exitIndex	= sourceIndex - 1 ;
-   3B68 90 0A 3E           3351 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
-   3B6B E0                 3352 	movx	a,@dptr
-   3B6C FB                 3353 	mov	r3,a
-   3B6D 1B                 3354 	dec	r3
-                           3355 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:508: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
-   3B6E 8B 04              3356 	mov	ar4,r3
-   3B70 7D 00              3357 	mov	r5,#0x00
-   3B72 8A 06              3358 	mov	ar6,r2
-   3B74 7F 00              3359 	mov	r7,#0x00
-   3B76 C0 02              3360 	push	ar2
-   3B78 C0 03              3361 	push	ar3
-   3B7A C0 04              3362 	push	ar4
-   3B7C C0 05              3363 	push	ar5
-   3B7E C0 06              3364 	push	ar6
-   3B80 C0 07              3365 	push	ar7
-   3B82 74 60              3366 	mov	a,#__str_22
-   3B84 C0 E0              3367 	push	acc
-   3B86 74 53              3368 	mov	a,#(__str_22 >> 8)
-   3B88 C0 E0              3369 	push	acc
-   3B8A 74 80              3370 	mov	a,#0x80
-   3B8C C0 E0              3371 	push	acc
-   3B8E 12 44 F0           3372 	lcall	_printf
-   3B91 E5 81              3373 	mov	a,sp
-   3B93 24 F9              3374 	add	a,#0xf9
-   3B95 F5 81              3375 	mov	sp,a
-   3B97 D0 03              3376 	pop	ar3
-   3B99 D0 02              3377 	pop	ar2
-                           3378 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:511: while(sourceHierarchy[exitIndex] == targetHierarchy[entryIndex])
-   3B9B 7C 00              3379 	mov	r4,#0x00
-   3B9D                    3380 00141$:
-   3B9D C0 04              3381 	push	ar4
-   3B9F EB                 3382 	mov	a,r3
-   3BA0 75 F0 03           3383 	mov	b,#0x03
-   3BA3 A4                 3384 	mul	ab
-   3BA4 24 0E              3385 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-   3BA6 F5 82              3386 	mov	dpl,a
-   3BA8 E4                 3387 	clr	a
-   3BA9 34 0A              3388 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-   3BAB F5 83              3389 	mov	dph,a
-   3BAD E0                 3390 	movx	a,@dptr
-   3BAE FD                 3391 	mov	r5,a
-   3BAF A3                 3392 	inc	dptr
-   3BB0 E0                 3393 	movx	a,@dptr
-   3BB1 FE                 3394 	mov	r6,a
-   3BB2 A3                 3395 	inc	dptr
-   3BB3 E0                 3396 	movx	a,@dptr
-   3BB4 FF                 3397 	mov	r7,a
-   3BB5 EA                 3398 	mov	a,r2
-   3BB6 75 F0 03           3399 	mov	b,#0x03
-   3BB9 A4                 3400 	mul	ab
-   3BBA 24 3F              3401 	add	a,#_iterateStateMachine_targetHierarchy_4_19
-   3BBC F5 82              3402 	mov	dpl,a
-   3BBE E4                 3403 	clr	a
-   3BBF 34 0A              3404 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-   3BC1 F5 83              3405 	mov	dph,a
-   3BC3 E0                 3406 	movx	a,@dptr
-   3BC4 F8                 3407 	mov	r0,a
-   3BC5 A3                 3408 	inc	dptr
-   3BC6 E0                 3409 	movx	a,@dptr
-   3BC7 F9                 3410 	mov	r1,a
-   3BC8 A3                 3411 	inc	dptr
-   3BC9 E0                 3412 	movx	a,@dptr
-   3BCA FC                 3413 	mov	r4,a
-   3BCB ED                 3414 	mov	a,r5
-   3BCC B5 00 0A           3415 	cjne	a,ar0,00245$
-   3BCF EE                 3416 	mov	a,r6
-   3BD0 B5 01 06           3417 	cjne	a,ar1,00245$
-   3BD3 EF                 3418 	mov	a,r7
-   3BD4 B5 04 02           3419 	cjne	a,ar4,00245$
-   3BD7 80 04              3420 	sjmp	00246$
-   3BD9                    3421 00245$:
-   3BD9 D0 04              3422 	pop	ar4
-   3BDB 80 65              3423 	sjmp	00207$
-   3BDD                    3424 00246$:
-   3BDD D0 04              3425 	pop	ar4
-                           3426 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:513: LCA = sourceHierarchy[exitIndex] ;
-   3BDF 90 0A 70           3427 	mov	dptr,#_iterateStateMachine_LCA_4_19
-   3BE2 ED                 3428 	mov	a,r5
-   3BE3 F0                 3429 	movx	@dptr,a
-   3BE4 A3                 3430 	inc	dptr
-   3BE5 EE                 3431 	mov	a,r6
-   3BE6 F0                 3432 	movx	@dptr,a
-   3BE7 A3                 3433 	inc	dptr
-   3BE8 EF                 3434 	mov	a,r7
-   3BE9 F0                 3435 	movx	@dptr,a
-                           3436 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:515: entryIndex-- ;
-   3BEA 1A                 3437 	dec	r2
-   3BEB 90 0A 73           3438 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-   3BEE EA                 3439 	mov	a,r2
-   3BEF F0                 3440 	movx	@dptr,a
-                           3441 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:516: exitIndex-- ;
-   3BF0 1B                 3442 	dec	r3
-                           3443 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:519: printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ;
-   3BF1 90 0A 70           3444 	mov	dptr,#_iterateStateMachine_LCA_4_19
-   3BF4 E0                 3445 	movx	a,@dptr
-   3BF5 FD                 3446 	mov	r5,a
-   3BF6 A3                 3447 	inc	dptr
-   3BF7 E0                 3448 	movx	a,@dptr
-   3BF8 FE                 3449 	mov	r6,a
-   3BF9 A3                 3450 	inc	dptr
-   3BFA E0                 3451 	movx	a,@dptr
-   3BFB FF                 3452 	mov	r7,a
-   3BFC 74 06              3453 	mov	a,#0x06
-   3BFE 2D                 3454 	add	a,r5
-   3BFF FD                 3455 	mov	r5,a
-   3C00 E4                 3456 	clr	a
-   3C01 3E                 3457 	addc	a,r6
-   3C02 FE                 3458 	mov	r6,a
-   3C03 8D 82              3459 	mov	dpl,r5
-   3C05 8E 83              3460 	mov	dph,r6
-   3C07 8F F0              3461 	mov	b,r7
-   3C09 12 4D 3C           3462 	lcall	__gptrget
-   3C0C FD                 3463 	mov	r5,a
-   3C0D A3                 3464 	inc	dptr
-   3C0E 12 4D 3C           3465 	lcall	__gptrget
-   3C11 FE                 3466 	mov	r6,a
-   3C12 A3                 3467 	inc	dptr
-   3C13 12 4D 3C           3468 	lcall	__gptrget
-   3C16 FF                 3469 	mov	r7,a
-   3C17 C0 02              3470 	push	ar2
-   3C19 C0 03              3471 	push	ar3
-   3C1B C0 04              3472 	push	ar4
-   3C1D C0 05              3473 	push	ar5
-   3C1F C0 06              3474 	push	ar6
-   3C21 C0 07              3475 	push	ar7
-   3C23 74 86              3476 	mov	a,#__str_23
-   3C25 C0 E0              3477 	push	acc
-   3C27 74 53              3478 	mov	a,#(__str_23 >> 8)
-   3C29 C0 E0              3479 	push	acc
-   3C2B 74 80              3480 	mov	a,#0x80
-   3C2D C0 E0              3481 	push	acc
-   3C2F 12 44 F0           3482 	lcall	_printf
-   3C32 E5 81              3483 	mov	a,sp
-   3C34 24 FA              3484 	add	a,#0xfa
-   3C36 F5 81              3485 	mov	sp,a
-   3C38 D0 04              3486 	pop	ar4
-   3C3A D0 03              3487 	pop	ar3
-   3C3C D0 02              3488 	pop	ar2
-                           3489 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:522: LCAindex++ ;
-   3C3E 0C                 3490 	inc	r4
-   3C3F 02 3B 9D           3491 	ljmp	00141$
-   3C42                    3492 00207$:
-   3C42 90 0A 73           3493 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-   3C45 EA                 3494 	mov	a,r2
-   3C46 F0                 3495 	movx	@dptr,a
-                           3496 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:526: printf("\t\t\t\t\tLCA of %s and %s is: %s\n", source->stateName, target->stateName, LCA->stateName) ;
-   3C47 90 0A 70           3497 	mov	dptr,#_iterateStateMachine_LCA_4_19
-   3C4A E0                 3498 	movx	a,@dptr
-   3C4B FC                 3499 	mov	r4,a
-   3C4C A3                 3500 	inc	dptr
-   3C4D E0                 3501 	movx	a,@dptr
-   3C4E FD                 3502 	mov	r5,a
-   3C4F A3                 3503 	inc	dptr
-   3C50 E0                 3504 	movx	a,@dptr
-   3C51 FE                 3505 	mov	r6,a
-   3C52 74 06              3506 	mov	a,#0x06
-   3C54 2C                 3507 	add	a,r4
-   3C55 FC                 3508 	mov	r4,a
-   3C56 E4                 3509 	clr	a
-   3C57 3D                 3510 	addc	a,r5
-   3C58 FD                 3511 	mov	r5,a
-   3C59 8C 82              3512 	mov	dpl,r4
-   3C5B 8D 83              3513 	mov	dph,r5
-   3C5D 8E F0              3514 	mov	b,r6
-   3C5F 12 4D 3C           3515 	lcall	__gptrget
-   3C62 FC                 3516 	mov	r4,a
-   3C63 A3                 3517 	inc	dptr
-   3C64 12 4D 3C           3518 	lcall	__gptrget
-   3C67 FD                 3519 	mov	r5,a
-   3C68 A3                 3520 	inc	dptr
-   3C69 12 4D 3C           3521 	lcall	__gptrget
-   3C6C FE                 3522 	mov	r6,a
-   3C6D 74 06              3523 	mov	a,#0x06
-   3C6F 25 48              3524 	add	a,_iterateStateMachine_sloc0_1_0
-   3C71 FF                 3525 	mov	r7,a
-   3C72 E4                 3526 	clr	a
-   3C73 35 49              3527 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3C75 F8                 3528 	mov	r0,a
-   3C76 A9 4A              3529 	mov	r1,(_iterateStateMachine_sloc0_1_0 + 2)
-   3C78 8F 82              3530 	mov	dpl,r7
-   3C7A 88 83              3531 	mov	dph,r0
-   3C7C 89 F0              3532 	mov	b,r1
-   3C7E 12 4D 3C           3533 	lcall	__gptrget
-   3C81 F5 55              3534 	mov	_iterateStateMachine_sloc5_1_0,a
-   3C83 A3                 3535 	inc	dptr
-   3C84 12 4D 3C           3536 	lcall	__gptrget
-   3C87 F5 56              3537 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
-   3C89 A3                 3538 	inc	dptr
-   3C8A 12 4D 3C           3539 	lcall	__gptrget
-   3C8D F5 57              3540 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
-   3C8F 74 06              3541 	mov	a,#0x06
-   3C91 25 4F              3542 	add	a,_iterateStateMachine_sloc3_1_0
-   3C93 FF                 3543 	mov	r7,a
-   3C94 E4                 3544 	clr	a
-   3C95 35 50              3545 	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
-   3C97 F8                 3546 	mov	r0,a
-   3C98 A9 51              3547 	mov	r1,(_iterateStateMachine_sloc3_1_0 + 2)
-   3C9A 8F 82              3548 	mov	dpl,r7
-   3C9C 88 83              3549 	mov	dph,r0
-   3C9E 89 F0              3550 	mov	b,r1
-   3CA0 12 4D 3C           3551 	lcall	__gptrget
-   3CA3 FF                 3552 	mov	r7,a
-   3CA4 A3                 3553 	inc	dptr
-   3CA5 12 4D 3C           3554 	lcall	__gptrget
-   3CA8 F8                 3555 	mov	r0,a
-   3CA9 A3                 3556 	inc	dptr
-   3CAA 12 4D 3C           3557 	lcall	__gptrget
-   3CAD F9                 3558 	mov	r1,a
-   3CAE C0 02              3559 	push	ar2
-   3CB0 C0 03              3560 	push	ar3
-   3CB2 C0 04              3561 	push	ar4
-   3CB4 C0 05              3562 	push	ar5
-   3CB6 C0 06              3563 	push	ar6
-   3CB8 C0 55              3564 	push	_iterateStateMachine_sloc5_1_0
-   3CBA C0 56              3565 	push	(_iterateStateMachine_sloc5_1_0 + 1)
-   3CBC C0 57              3566 	push	(_iterateStateMachine_sloc5_1_0 + 2)
-   3CBE C0 07              3567 	push	ar7
-   3CC0 C0 00              3568 	push	ar0
-   3CC2 C0 01              3569 	push	ar1
-   3CC4 74 A6              3570 	mov	a,#__str_24
-   3CC6 C0 E0              3571 	push	acc
-   3CC8 74 53              3572 	mov	a,#(__str_24 >> 8)
-   3CCA C0 E0              3573 	push	acc
-   3CCC 74 80              3574 	mov	a,#0x80
-   3CCE C0 E0              3575 	push	acc
-   3CD0 12 44 F0           3576 	lcall	_printf
-   3CD3 E5 81              3577 	mov	a,sp
-   3CD5 24 F4              3578 	add	a,#0xf4
-   3CD7 F5 81              3579 	mov	sp,a
-   3CD9 D0 03              3580 	pop	ar3
-   3CDB D0 02              3581 	pop	ar2
-                           3582 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:527: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
-   3CDD 8B 04              3583 	mov	ar4,r3
-   3CDF 7D 00              3584 	mov	r5,#0x00
-   3CE1 7E 00              3585 	mov	r6,#0x00
-   3CE3 C0 03              3586 	push	ar3
-   3CE5 C0 04              3587 	push	ar4
-   3CE7 C0 05              3588 	push	ar5
-   3CE9 C0 02              3589 	push	ar2
-   3CEB C0 06              3590 	push	ar6
-   3CED 74 60              3591 	mov	a,#__str_22
-   3CEF C0 E0              3592 	push	acc
-   3CF1 74 53              3593 	mov	a,#(__str_22 >> 8)
-   3CF3 C0 E0              3594 	push	acc
-   3CF5 74 80              3595 	mov	a,#0x80
-   3CF7 C0 E0              3596 	push	acc
-   3CF9 12 44 F0           3597 	lcall	_printf
-   3CFC E5 81              3598 	mov	a,sp
-   3CFE 24 F9              3599 	add	a,#0xf9
-   3D00 F5 81              3600 	mov	sp,a
-   3D02 D0 03              3601 	pop	ar3
-                           3602 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:530: sourceIndex	= exitIndex + 1 ;
-   3D04 EB                 3603 	mov	a,r3
-   3D05 04                 3604 	inc	a
-   3D06 FA                 3605 	mov	r2,a
-                           3606 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:533: while(exitIndex < sourceIndex)
-   3D07 7B 00              3607 	mov	r3,#0x00
-   3D09                    3608 00144$:
-   3D09 C3                 3609 	clr	c
-   3D0A EB                 3610 	mov	a,r3
-   3D0B 9A                 3611 	subb	a,r2
-   3D0C 50 66              3612 	jnc	00146$
-                           3613 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:536: printf("\t\t\t\t") ;
-   3D0E C0 02              3614 	push	ar2
-   3D10 C0 03              3615 	push	ar3
-   3D12 74 B5              3616 	mov	a,#__str_17
-   3D14 C0 E0              3617 	push	acc
-   3D16 74 52              3618 	mov	a,#(__str_17 >> 8)
-   3D18 C0 E0              3619 	push	acc
-   3D1A 74 80              3620 	mov	a,#0x80
-   3D1C C0 E0              3621 	push	acc
-   3D1E 12 44 F0           3622 	lcall	_printf
-   3D21 15 81              3623 	dec	sp
-   3D23 15 81              3624 	dec	sp
-   3D25 15 81              3625 	dec	sp
-   3D27 D0 03              3626 	pop	ar3
-                           3627 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:539: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
-   3D29 90 0A 04           3628 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3D2C E0                 3629 	movx	a,@dptr
-   3D2D FC                 3630 	mov	r4,a
-   3D2E A3                 3631 	inc	dptr
-   3D2F E0                 3632 	movx	a,@dptr
-   3D30 FD                 3633 	mov	r5,a
-   3D31 A3                 3634 	inc	dptr
-   3D32 E0                 3635 	movx	a,@dptr
-   3D33 FE                 3636 	mov	r6,a
-   3D34 EB                 3637 	mov	a,r3
-   3D35 75 F0 03           3638 	mov	b,#0x03
-   3D38 A4                 3639 	mul	ab
-   3D39 24 0E              3640 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
-   3D3B F5 82              3641 	mov	dpl,a
-   3D3D E4                 3642 	clr	a
-   3D3E 34 0A              3643 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
-   3D40 F5 83              3644 	mov	dph,a
-   3D42 E0                 3645 	movx	a,@dptr
-   3D43 FF                 3646 	mov	r7,a
-   3D44 A3                 3647 	inc	dptr
-   3D45 E0                 3648 	movx	a,@dptr
-   3D46 F8                 3649 	mov	r0,a
-   3D47 A3                 3650 	inc	dptr
-   3D48 E0                 3651 	movx	a,@dptr
-   3D49 F9                 3652 	mov	r1,a
-   3D4A 90 09 FA           3653 	mov	dptr,#_callStateHandler_PARM_2
-   3D4D EF                 3654 	mov	a,r7
-   3D4E F0                 3655 	movx	@dptr,a
-   3D4F A3                 3656 	inc	dptr
-   3D50 E8                 3657 	mov	a,r0
-   3D51 F0                 3658 	movx	@dptr,a
-   3D52 A3                 3659 	inc	dptr
-   3D53 E9                 3660 	mov	a,r1
-   3D54 F0                 3661 	movx	@dptr,a
-   3D55 90 09 FD           3662 	mov	dptr,#_callStateHandler_PARM_3
-   3D58 74 10              3663 	mov	a,#_exitEvent
-   3D5A F0                 3664 	movx	@dptr,a
-   3D5B A3                 3665 	inc	dptr
-   3D5C 74 0F              3666 	mov	a,#(_exitEvent >> 8)
-   3D5E F0                 3667 	movx	@dptr,a
-   3D5F A3                 3668 	inc	dptr
-   3D60 E4                 3669 	clr	a
-   3D61 F0                 3670 	movx	@dptr,a
-   3D62 8C 82              3671 	mov	dpl,r4
-   3D64 8D 83              3672 	mov	dph,r5
-   3D66 8E F0              3673 	mov	b,r6
-   3D68 C0 03              3674 	push	ar3
-   3D6A 12 2B C8           3675 	lcall	_callStateHandler
-   3D6D D0 03              3676 	pop	ar3
-   3D6F D0 02              3677 	pop	ar2
-                           3678 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:541: exitIndex++ ;
-   3D71 0B                 3679 	inc	r3
-   3D72 80 95              3680 	sjmp	00144$
-   3D74                    3681 00146$:
-                           3682 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:544: targetIndex = entryIndex + 1 ;
-   3D74 90 0A 73           3683 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
-   3D77 E0                 3684 	movx	a,@dptr
-   3D78 FA                 3685 	mov	r2,a
-   3D79 0A                 3686 	inc	r2
-                           3687 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:546: while(targetIndex--)
-   3D7A                    3688 00147$:
-   3D7A 8A 03              3689 	mov	ar3,r2
-   3D7C 1A                 3690 	dec	r2
-   3D7D EB                 3691 	mov	a,r3
-   3D7E 60 61              3692 	jz	00149$
-                           3693 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:549: printf("\t\t\t\t") ;
-   3D80 C0 02              3694 	push	ar2
-   3D82 74 B5              3695 	mov	a,#__str_17
-   3D84 C0 E0              3696 	push	acc
-   3D86 74 52              3697 	mov	a,#(__str_17 >> 8)
-   3D88 C0 E0              3698 	push	acc
-   3D8A 74 80              3699 	mov	a,#0x80
-   3D8C C0 E0              3700 	push	acc
-   3D8E 12 44 F0           3701 	lcall	_printf
-   3D91 15 81              3702 	dec	sp
-   3D93 15 81              3703 	dec	sp
-   3D95 15 81              3704 	dec	sp
-   3D97 D0 02              3705 	pop	ar2
-                           3706 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:551: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
-   3D99 90 0A 04           3707 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3D9C E0                 3708 	movx	a,@dptr
-   3D9D FB                 3709 	mov	r3,a
-   3D9E A3                 3710 	inc	dptr
-   3D9F E0                 3711 	movx	a,@dptr
-   3DA0 FC                 3712 	mov	r4,a
-   3DA1 A3                 3713 	inc	dptr
-   3DA2 E0                 3714 	movx	a,@dptr
-   3DA3 FD                 3715 	mov	r5,a
-   3DA4 EA                 3716 	mov	a,r2
-   3DA5 75 F0 03           3717 	mov	b,#0x03
-   3DA8 A4                 3718 	mul	ab
-   3DA9 24 3F              3719 	add	a,#_iterateStateMachine_targetHierarchy_4_19
-   3DAB F5 82              3720 	mov	dpl,a
-   3DAD E4                 3721 	clr	a
-   3DAE 34 0A              3722 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
-   3DB0 F5 83              3723 	mov	dph,a
-   3DB2 E0                 3724 	movx	a,@dptr
-   3DB3 FE                 3725 	mov	r6,a
-   3DB4 A3                 3726 	inc	dptr
-   3DB5 E0                 3727 	movx	a,@dptr
-   3DB6 FF                 3728 	mov	r7,a
-   3DB7 A3                 3729 	inc	dptr
-   3DB8 E0                 3730 	movx	a,@dptr
-   3DB9 F8                 3731 	mov	r0,a
-   3DBA 90 09 FA           3732 	mov	dptr,#_callStateHandler_PARM_2
-   3DBD EE                 3733 	mov	a,r6
-   3DBE F0                 3734 	movx	@dptr,a
-   3DBF A3                 3735 	inc	dptr
-   3DC0 EF                 3736 	mov	a,r7
-   3DC1 F0                 3737 	movx	@dptr,a
-   3DC2 A3                 3738 	inc	dptr
-   3DC3 E8                 3739 	mov	a,r0
-   3DC4 F0                 3740 	movx	@dptr,a
-   3DC5 90 09 FD           3741 	mov	dptr,#_callStateHandler_PARM_3
-   3DC8 74 0F              3742 	mov	a,#_enterEvent
-   3DCA F0                 3743 	movx	@dptr,a
-   3DCB A3                 3744 	inc	dptr
-   3DCC 74 0F              3745 	mov	a,#(_enterEvent >> 8)
-   3DCE F0                 3746 	movx	@dptr,a
-   3DCF A3                 3747 	inc	dptr
-   3DD0 E4                 3748 	clr	a
-   3DD1 F0                 3749 	movx	@dptr,a
-   3DD2 8B 82              3750 	mov	dpl,r3
-   3DD4 8C 83              3751 	mov	dph,r4
-   3DD6 8D F0              3752 	mov	b,r5
-   3DD8 C0 02              3753 	push	ar2
-   3DDA 12 2B C8           3754 	lcall	_callStateHandler
-   3DDD D0 02              3755 	pop	ar2
-   3DDF 80 99              3756 	sjmp	00147$
-   3DE1                    3757 00149$:
-                           3758 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:554: sm->currentState = target ;
-   3DE1 90 0A 04           3759 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3DE4 E0                 3760 	movx	a,@dptr
-   3DE5 FA                 3761 	mov	r2,a
-   3DE6 A3                 3762 	inc	dptr
-   3DE7 E0                 3763 	movx	a,@dptr
-   3DE8 FB                 3764 	mov	r3,a
-   3DE9 A3                 3765 	inc	dptr
-   3DEA E0                 3766 	movx	a,@dptr
-   3DEB FC                 3767 	mov	r4,a
-   3DEC 74 05              3768 	mov	a,#0x05
-   3DEE 2A                 3769 	add	a,r2
-   3DEF FA                 3770 	mov	r2,a
-   3DF0 E4                 3771 	clr	a
-   3DF1 3B                 3772 	addc	a,r3
-   3DF2 FB                 3773 	mov	r3,a
-   3DF3 8A 82              3774 	mov	dpl,r2
-   3DF5 8B 83              3775 	mov	dph,r3
-   3DF7 8C F0              3776 	mov	b,r4
-   3DF9 E5 48              3777 	mov	a,_iterateStateMachine_sloc0_1_0
-   3DFB 12 41 10           3778 	lcall	__gptrput
-   3DFE A3                 3779 	inc	dptr
-   3DFF E5 49              3780 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
-   3E01 12 41 10           3781 	lcall	__gptrput
-   3E04 A3                 3782 	inc	dptr
-   3E05 E5 4A              3783 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
-   3E07 12 41 10           3784 	lcall	__gptrput
-   3E0A                    3785 00163$:
-                           3786 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:562: sm->forceTransition = true ;
-   3E0A 90 0A 04           3787 	mov	dptr,#_iterateStateMachine_sm_1_1
-   3E0D E0                 3788 	movx	a,@dptr
-   3E0E FA                 3789 	mov	r2,a
-   3E0F A3                 3790 	inc	dptr
-   3E10 E0                 3791 	movx	a,@dptr
-   3E11 FB                 3792 	mov	r3,a
-   3E12 A3                 3793 	inc	dptr
-   3E13 E0                 3794 	movx	a,@dptr
-   3E14 FC                 3795 	mov	r4,a
-   3E15 74 1F              3796 	mov	a,#0x1F
-   3E17 2A                 3797 	add	a,r2
-   3E18 FA                 3798 	mov	r2,a
-   3E19 E4                 3799 	clr	a
-   3E1A 3B                 3800 	addc	a,r3
-   3E1B FB                 3801 	mov	r3,a
-   3E1C 8A 82              3802 	mov	dpl,r2
-   3E1E 8B 83              3803 	mov	dph,r3
-   3E20 8C F0              3804 	mov	b,r4
-   3E22 74 01              3805 	mov	a,#0x01
-   3E24 12 41 10           3806 	lcall	__gptrput
-   3E27                    3807 00167$:
-                           3808 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:567: printf("\t\tEvent queue empty.\n") ;
-   3E27 74 C4              3809 	mov	a,#__str_25
-   3E29 C0 E0              3810 	push	acc
-   3E2B 74 53              3811 	mov	a,#(__str_25 >> 8)
-   3E2D C0 E0              3812 	push	acc
-   3E2F 74 80              3813 	mov	a,#0x80
-   3E31 C0 E0              3814 	push	acc
-   3E33 12 44 F0           3815 	lcall	_printf
-   3E36 15 81              3816 	dec	sp
-   3E38 15 81              3817 	dec	sp
-   3E3A 15 81              3818 	dec	sp
-   3E3C 22                 3819 	ret
-                           3820 	.area CSEG    (CODE)
-                           3821 	.area CONST   (CODE)
-   512E                    3822 __str_0:
-   512E 09                 3823 	.db 0x09
-   512F 09                 3824 	.db 0x09
-   5130 09                 3825 	.db 0x09
-   5131 43 61 6C 6C 69 6E  3826 	.ascii "Calling state: %s, event: %s, "
+                            764 ;Allocation info for local variables in function 'iterateAllStateMachines'
+                            765 ;------------------------------------------------------------
+                            766 ;statetMachineIndex        Allocated with name '_iterateAllStateMachines_statetMachineIndex_1_1'
+                            767 ;------------------------------------------------------------
+                            768 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:135: void iterateAllStateMachines(	void)
+                            769 ;	-----------------------------------------
+                            770 ;	 function iterateAllStateMachines
+                            771 ;	-----------------------------------------
+   2B8F                     772 _iterateAllStateMachines:
+                            773 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:139: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+   2B8F 7A 00               774 	mov	r2,#0x00
+   2B91                     775 00103$:
+   2B91 BA 32 00            776 	cjne	r2,#0x32,00113$
+   2B94                     777 00113$:
+   2B94 50 31               778 	jnc	00107$
+                            779 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:141: if(stateMachines[statetMachineIndex] != NULL)
+   2B96 EA                  780 	mov	a,r2
+   2B97 75 F0 03            781 	mov	b,#0x03
+   2B9A A4                  782 	mul	ab
+   2B9B 24 55               783 	add	a,#_stateMachines
+   2B9D F5 82               784 	mov	dpl,a
+   2B9F E4                  785 	clr	a
+   2BA0 34 09               786 	addc	a,#(_stateMachines >> 8)
+   2BA2 F5 83               787 	mov	dph,a
+   2BA4 E0                  788 	movx	a,@dptr
+   2BA5 FB                  789 	mov	r3,a
+   2BA6 A3                  790 	inc	dptr
+   2BA7 E0                  791 	movx	a,@dptr
+   2BA8 FC                  792 	mov	r4,a
+   2BA9 A3                  793 	inc	dptr
+   2BAA E0                  794 	movx	a,@dptr
+   2BAB FD                  795 	mov	r5,a
+   2BAC BB 00 08            796 	cjne	r3,#0x00,00115$
+   2BAF BC 00 05            797 	cjne	r4,#0x00,00115$
+   2BB2 BD 00 02            798 	cjne	r5,#0x00,00115$
+   2BB5 80 0D               799 	sjmp	00105$
+   2BB7                     800 00115$:
+                            801 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:143: iterateStateMachine(stateMachines[statetMachineIndex]) ;
+   2BB7 8B 82               802 	mov	dpl,r3
+   2BB9 8C 83               803 	mov	dph,r4
+   2BBB 8D F0               804 	mov	b,r5
+   2BBD C0 02               805 	push	ar2
+   2BBF 12 2F C7            806 	lcall	_iterateStateMachine
+   2BC2 D0 02               807 	pop	ar2
+   2BC4                     808 00105$:
+                            809 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:139: for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+   2BC4 0A                  810 	inc	r2
+   2BC5 80 CA               811 	sjmp	00103$
+   2BC7                     812 00107$:
+   2BC7 22                  813 	ret
+                            814 ;------------------------------------------------------------
+                            815 ;Allocation info for local variables in function 'callStateHandler'
+                            816 ;------------------------------------------------------------
+                            817 ;sloc0                     Allocated with name '_callStateHandler_sloc0_1_0'
+                            818 ;sloc1                     Allocated with name '_callStateHandler_sloc1_1_0'
+                            819 ;sloc2                     Allocated with name '_callStateHandler_sloc2_1_0'
+                            820 ;state                     Allocated with name '_callStateHandler_PARM_2'
+                            821 ;event                     Allocated with name '_callStateHandler_PARM_3'
+                            822 ;sm                        Allocated with name '_callStateHandler_sm_1_1'
+                            823 ;response                  Allocated with name '_callStateHandler_response_1_1'
+                            824 ;------------------------------------------------------------
+                            825 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:158: stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
+                            826 ;	-----------------------------------------
+                            827 ;	 function callStateHandler
+                            828 ;	-----------------------------------------
+   2BC8                     829 _callStateHandler:
+   2BC8 AA F0               830 	mov	r2,b
+   2BCA AB 83               831 	mov	r3,dph
+   2BCC E5 82               832 	mov	a,dpl
+   2BCE 90 0A 00            833 	mov	dptr,#_callStateHandler_sm_1_1
+   2BD1 F0                  834 	movx	@dptr,a
+   2BD2 A3                  835 	inc	dptr
+   2BD3 EB                  836 	mov	a,r3
+   2BD4 F0                  837 	movx	@dptr,a
+   2BD5 A3                  838 	inc	dptr
+   2BD6 EA                  839 	mov	a,r2
+   2BD7 F0                  840 	movx	@dptr,a
+                            841 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:163: printf("\t\t\tCalling state: %s, event: %s, ", state->stateName, event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
+   2BD8 90 09 FD            842 	mov	dptr,#_callStateHandler_PARM_3
+   2BDB E0                  843 	movx	a,@dptr
+   2BDC FA                  844 	mov	r2,a
+   2BDD A3                  845 	inc	dptr
+   2BDE E0                  846 	movx	a,@dptr
+   2BDF FB                  847 	mov	r3,a
+   2BE0 A3                  848 	inc	dptr
+   2BE1 E0                  849 	movx	a,@dptr
+   2BE2 FC                  850 	mov	r4,a
+   2BE3 8A 82               851 	mov	dpl,r2
+   2BE5 8B 83               852 	mov	dph,r3
+   2BE7 8C F0               853 	mov	b,r4
+   2BE9 12 4E 6E            854 	lcall	__gptrget
+   2BEC FD                  855 	mov	r5,a
+   2BED C3                  856 	clr	c
+   2BEE 74 05               857 	mov	a,#0x05
+   2BF0 9D                  858 	subb	a,r5
+   2BF1 B3                  859 	cpl	c
+   2BF2 E4                  860 	clr	a
+   2BF3 33                  861 	rlc	a
+   2BF4 FE                  862 	mov	r6,a
+   2BF5 60 18               863 	jz	00117$
+   2BF7 ED                  864 	mov	a,r5
+   2BF8 75 F0 03            865 	mov	b,#0x03
+   2BFB A4                  866 	mul	ab
+   2BFC 24 EF               867 	add	a,#_eventTypes
+   2BFE F5 82               868 	mov	dpl,a
+   2C00 E4                  869 	clr	a
+   2C01 34 0E               870 	addc	a,#(_eventTypes >> 8)
+   2C03 F5 83               871 	mov	dph,a
+   2C05 E0                  872 	movx	a,@dptr
+   2C06 FD                  873 	mov	r5,a
+   2C07 A3                  874 	inc	dptr
+   2C08 E0                  875 	movx	a,@dptr
+   2C09 FE                  876 	mov	r6,a
+   2C0A A3                  877 	inc	dptr
+   2C0B E0                  878 	movx	a,@dptr
+   2C0C FF                  879 	mov	r7,a
+   2C0D 80 06               880 	sjmp	00118$
+   2C0F                     881 00117$:
+   2C0F 7D 82               882 	mov	r5,#__str_1
+   2C11 7E 52               883 	mov	r6,#(__str_1 >> 8)
+   2C13 7F 80               884 	mov	r7,#0x80
+   2C15                     885 00118$:
+   2C15 C0 02               886 	push	ar2
+   2C17 C0 03               887 	push	ar3
+   2C19 C0 04               888 	push	ar4
+   2C1B 90 09 FA            889 	mov	dptr,#_callStateHandler_PARM_2
+   2C1E E0                  890 	movx	a,@dptr
+   2C1F F5 41               891 	mov	_callStateHandler_sloc0_1_0,a
+   2C21 A3                  892 	inc	dptr
+   2C22 E0                  893 	movx	a,@dptr
+   2C23 F5 42               894 	mov	(_callStateHandler_sloc0_1_0 + 1),a
+   2C25 A3                  895 	inc	dptr
+   2C26 E0                  896 	movx	a,@dptr
+   2C27 F5 43               897 	mov	(_callStateHandler_sloc0_1_0 + 2),a
+   2C29 74 06               898 	mov	a,#0x06
+   2C2B 25 41               899 	add	a,_callStateHandler_sloc0_1_0
+   2C2D F8                  900 	mov	r0,a
+   2C2E E4                  901 	clr	a
+   2C2F 35 42               902 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
+   2C31 F9                  903 	mov	r1,a
+   2C32 AA 43               904 	mov	r2,(_callStateHandler_sloc0_1_0 + 2)
+   2C34 88 82               905 	mov	dpl,r0
+   2C36 89 83               906 	mov	dph,r1
+   2C38 8A F0               907 	mov	b,r2
+   2C3A 12 4E 6E            908 	lcall	__gptrget
+   2C3D F8                  909 	mov	r0,a
+   2C3E A3                  910 	inc	dptr
+   2C3F 12 4E 6E            911 	lcall	__gptrget
+   2C42 F9                  912 	mov	r1,a
+   2C43 A3                  913 	inc	dptr
+   2C44 12 4E 6E            914 	lcall	__gptrget
+   2C47 FA                  915 	mov	r2,a
+   2C48 C0 02               916 	push	ar2
+   2C4A C0 03               917 	push	ar3
+   2C4C C0 04               918 	push	ar4
+   2C4E C0 05               919 	push	ar5
+   2C50 C0 06               920 	push	ar6
+   2C52 C0 07               921 	push	ar7
+   2C54 C0 00               922 	push	ar0
+   2C56 C0 01               923 	push	ar1
+   2C58 C0 02               924 	push	ar2
+   2C5A 74 60               925 	mov	a,#__str_0
+   2C5C C0 E0               926 	push	acc
+   2C5E 74 52               927 	mov	a,#(__str_0 >> 8)
+   2C60 C0 E0               928 	push	acc
+   2C62 74 80               929 	mov	a,#0x80
+   2C64 C0 E0               930 	push	acc
+   2C66 12 46 22            931 	lcall	_printf
+   2C69 E5 81               932 	mov	a,sp
+   2C6B 24 F7               933 	add	a,#0xf7
+   2C6D F5 81               934 	mov	sp,a
+   2C6F D0 04               935 	pop	ar4
+   2C71 D0 03               936 	pop	ar3
+   2C73 D0 02               937 	pop	ar2
+                            938 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:166: if(state->type == CHOICE_PSUEDOSTATE)
+   2C75 74 03               939 	mov	a,#0x03
+   2C77 25 41               940 	add	a,_callStateHandler_sloc0_1_0
+   2C79 FA                  941 	mov	r2,a
+   2C7A E4                  942 	clr	a
+   2C7B 35 42               943 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
+   2C7D FB                  944 	mov	r3,a
+   2C7E AC 43               945 	mov	r4,(_callStateHandler_sloc0_1_0 + 2)
+   2C80 8A 82               946 	mov	dpl,r2
+   2C82 8B 83               947 	mov	dph,r3
+   2C84 8C F0               948 	mov	b,r4
+   2C86 12 4E 6E            949 	lcall	__gptrget
+   2C89 F5 44               950 	mov	_callStateHandler_sloc1_1_0,a
+   2C8B 74 01               951 	mov	a,#0x01
+   2C8D B5 44 02            952 	cjne	a,_callStateHandler_sloc1_1_0,00128$
+   2C90 80 08               953 	sjmp	00129$
+   2C92                     954 00128$:
+   2C92 D0 04               955 	pop	ar4
+   2C94 D0 03               956 	pop	ar3
+   2C96 D0 02               957 	pop	ar2
+   2C98 80 4C               958 	sjmp	00111$
+   2C9A                     959 00129$:
+   2C9A D0 04               960 	pop	ar4
+   2C9C D0 03               961 	pop	ar3
+   2C9E D0 02               962 	pop	ar2
+                            963 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:168: response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
+   2CA0 74 04               964 	mov	a,#0x04
+   2CA2 25 41               965 	add	a,_callStateHandler_sloc0_1_0
+   2CA4 FD                  966 	mov	r5,a
+   2CA5 E4                  967 	clr	a
+   2CA6 35 42               968 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
+   2CA8 FE                  969 	mov	r6,a
+   2CA9 AF 43               970 	mov	r7,(_callStateHandler_sloc0_1_0 + 2)
+   2CAB 8D 82               971 	mov	dpl,r5
+   2CAD 8E 83               972 	mov	dph,r6
+   2CAF 8F F0               973 	mov	b,r7
+   2CB1 12 4E 6E            974 	lcall	__gptrget
+   2CB4 FD                  975 	mov	r5,a
+   2CB5 A3                  976 	inc	dptr
+   2CB6 12 4E 6E            977 	lcall	__gptrget
+   2CB9 FE                  978 	mov	r6,a
+   2CBA 90 0A 00            979 	mov	dptr,#_callStateHandler_sm_1_1
+   2CBD E0                  980 	movx	a,@dptr
+   2CBE FF                  981 	mov	r7,a
+   2CBF A3                  982 	inc	dptr
+   2CC0 E0                  983 	movx	a,@dptr
+   2CC1 F8                  984 	mov	r0,a
+   2CC2 A3                  985 	inc	dptr
+   2CC3 E0                  986 	movx	a,@dptr
+   2CC4 F9                  987 	mov	r1,a
+   2CC5 C0 06               988 	push	ar6
+   2CC7 74 DA               989 	mov	a,#00130$
+   2CC9 C0 E0               990 	push	acc
+   2CCB 74 2C               991 	mov	a,#(00130$ >> 8)
+   2CCD C0 E0               992 	push	acc
+   2CCF C0 05               993 	push	ar5
+   2CD1 C0 06               994 	push	ar6
+   2CD3 8F 82               995 	mov	dpl,r7
+   2CD5 88 83               996 	mov	dph,r0
+   2CD7 89 F0               997 	mov	b,r1
+   2CD9 22                  998 	ret
+   2CDA                     999 00130$:
+   2CDA AD 82              1000 	mov	r5,dpl
+   2CDC D0 06              1001 	pop	ar6
+   2CDE 90 0A 03           1002 	mov	dptr,#_callStateHandler_response_1_1
+   2CE1 ED                 1003 	mov	a,r5
+   2CE2 F0                 1004 	movx	@dptr,a
+   2CE3 02 2F 13           1005 	ljmp	00112$
+   2CE6                    1006 00111$:
+                           1007 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:172: if(event == &enterEvent)
+   2CE6 EA                 1008 	mov	a,r2
+   2CE7 B4 10 31           1009 	cjne	a,#_enterEvent,00102$
+   2CEA EB                 1010 	mov	a,r3
+   2CEB B4 0F 2D           1011 	cjne	a,#(_enterEvent >> 8),00102$
+   2CEE EC                 1012 	mov	a,r4
+   2CEF B4 00 29           1013 	cjne	a,#0x00,00102$
+                           1014 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:174: sm->mostRecentlyEnteredState = state ;
+   2CF2 90 0A 00           1015 	mov	dptr,#_callStateHandler_sm_1_1
+   2CF5 E0                 1016 	movx	a,@dptr
+   2CF6 FD                 1017 	mov	r5,a
+   2CF7 A3                 1018 	inc	dptr
+   2CF8 E0                 1019 	movx	a,@dptr
+   2CF9 FE                 1020 	mov	r6,a
+   2CFA A3                 1021 	inc	dptr
+   2CFB E0                 1022 	movx	a,@dptr
+   2CFC FF                 1023 	mov	r7,a
+   2CFD 74 25              1024 	mov	a,#0x25
+   2CFF 2D                 1025 	add	a,r5
+   2D00 FD                 1026 	mov	r5,a
+   2D01 E4                 1027 	clr	a
+   2D02 3E                 1028 	addc	a,r6
+   2D03 FE                 1029 	mov	r6,a
+   2D04 8D 82              1030 	mov	dpl,r5
+   2D06 8E 83              1031 	mov	dph,r6
+   2D08 8F F0              1032 	mov	b,r7
+   2D0A E5 41              1033 	mov	a,_callStateHandler_sloc0_1_0
+   2D0C 12 42 42           1034 	lcall	__gptrput
+   2D0F A3                 1035 	inc	dptr
+   2D10 E5 42              1036 	mov	a,(_callStateHandler_sloc0_1_0 + 1)
+   2D12 12 42 42           1037 	lcall	__gptrput
+   2D15 A3                 1038 	inc	dptr
+   2D16 E5 43              1039 	mov	a,(_callStateHandler_sloc0_1_0 + 2)
+   2D18 12 42 42           1040 	lcall	__gptrput
+   2D1B                    1041 00102$:
+                           1042 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:176: if(event == &exitEvent)
+   2D1B EA                 1043 	mov	a,r2
+   2D1C B4 11 0A           1044 	cjne	a,#_exitEvent,00133$
+   2D1F EB                 1045 	mov	a,r3
+   2D20 B4 0F 06           1046 	cjne	a,#(_exitEvent >> 8),00133$
+   2D23 EC                 1047 	mov	a,r4
+   2D24 B4 00 02           1048 	cjne	a,#0x00,00133$
+   2D27 80 03              1049 	sjmp	00134$
+   2D29                    1050 00133$:
+   2D29 02 2E C4           1051 	ljmp	00109$
+   2D2C                    1052 00134$:
+                           1053 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:178: if(state->type == STATE_WITH_SHALLOW_HISTORY)
+   2D2C 74 02              1054 	mov	a,#0x02
+   2D2E B5 44 02           1055 	cjne	a,_callStateHandler_sloc1_1_0,00135$
+   2D31 80 03              1056 	sjmp	00136$
+   2D33                    1057 00135$:
+   2D33 02 2D E5           1058 	ljmp	00106$
+   2D36                    1059 00136$:
+                           1060 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:182: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyExitedState ;
+   2D36 C0 02              1061 	push	ar2
+   2D38 C0 03              1062 	push	ar3
+   2D3A C0 04              1063 	push	ar4
+   2D3C 90 0A 00           1064 	mov	dptr,#_callStateHandler_sm_1_1
+   2D3F E0                 1065 	movx	a,@dptr
+   2D40 FD                 1066 	mov	r5,a
+   2D41 A3                 1067 	inc	dptr
+   2D42 E0                 1068 	movx	a,@dptr
+   2D43 FE                 1069 	mov	r6,a
+   2D44 A3                 1070 	inc	dptr
+   2D45 E0                 1071 	movx	a,@dptr
+   2D46 FF                 1072 	mov	r7,a
+   2D47 74 22              1073 	mov	a,#0x22
+   2D49 2D                 1074 	add	a,r5
+   2D4A F8                 1075 	mov	r0,a
+   2D4B E4                 1076 	clr	a
+   2D4C 3E                 1077 	addc	a,r6
+   2D4D F9                 1078 	mov	r1,a
+   2D4E 8F 02              1079 	mov	ar2,r7
+   2D50 88 82              1080 	mov	dpl,r0
+   2D52 89 83              1081 	mov	dph,r1
+   2D54 8A F0              1082 	mov	b,r2
+   2D56 12 4E 6E           1083 	lcall	__gptrget
+   2D59 F5 45              1084 	mov	_callStateHandler_sloc2_1_0,a
+   2D5B A3                 1085 	inc	dptr
+   2D5C 12 4E 6E           1086 	lcall	__gptrget
+   2D5F F5 46              1087 	mov	(_callStateHandler_sloc2_1_0 + 1),a
+   2D61 A3                 1088 	inc	dptr
+   2D62 12 4E 6E           1089 	lcall	__gptrget
+   2D65 F5 47              1090 	mov	(_callStateHandler_sloc2_1_0 + 2),a
+   2D67 74 09              1091 	mov	a,#0x09
+   2D69 25 41              1092 	add	a,_callStateHandler_sloc0_1_0
+   2D6B FB                 1093 	mov	r3,a
+   2D6C E4                 1094 	clr	a
+   2D6D 35 42              1095 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
+   2D6F FC                 1096 	mov	r4,a
+   2D70 AA 43              1097 	mov	r2,(_callStateHandler_sloc0_1_0 + 2)
+   2D72 8B 82              1098 	mov	dpl,r3
+   2D74 8C 83              1099 	mov	dph,r4
+   2D76 8A F0              1100 	mov	b,r2
+   2D78 12 4E 6E           1101 	lcall	__gptrget
+   2D7B FB                 1102 	mov	r3,a
+   2D7C A3                 1103 	inc	dptr
+   2D7D 12 4E 6E           1104 	lcall	__gptrget
+   2D80 FC                 1105 	mov	r4,a
+   2D81 90 0A AE           1106 	mov	dptr,#__mulint_PARM_2
+   2D84 EB                 1107 	mov	a,r3
+   2D85 F0                 1108 	movx	@dptr,a
+   2D86 A3                 1109 	inc	dptr
+   2D87 EC                 1110 	mov	a,r4
+   2D88 F0                 1111 	movx	@dptr,a
+   2D89 90 00 03           1112 	mov	dptr,#0x0003
+   2D8C C0 04              1113 	push	ar4
+   2D8E C0 05              1114 	push	ar5
+   2D90 C0 06              1115 	push	ar6
+   2D92 C0 07              1116 	push	ar7
+   2D94 12 44 23           1117 	lcall	__mulint
+   2D97 AA 82              1118 	mov	r2,dpl
+   2D99 AB 83              1119 	mov	r3,dph
+   2D9B D0 07              1120 	pop	ar7
+   2D9D D0 06              1121 	pop	ar6
+   2D9F D0 05              1122 	pop	ar5
+   2DA1 D0 04              1123 	pop	ar4
+   2DA3 EA                 1124 	mov	a,r2
+   2DA4 25 45              1125 	add	a,_callStateHandler_sloc2_1_0
+   2DA6 FA                 1126 	mov	r2,a
+   2DA7 EB                 1127 	mov	a,r3
+   2DA8 35 46              1128 	addc	a,(_callStateHandler_sloc2_1_0 + 1)
+   2DAA FB                 1129 	mov	r3,a
+   2DAB AC 47              1130 	mov	r4,(_callStateHandler_sloc2_1_0 + 2)
+   2DAD 74 28              1131 	mov	a,#0x28
+   2DAF 2D                 1132 	add	a,r5
+   2DB0 FD                 1133 	mov	r5,a
+   2DB1 E4                 1134 	clr	a
+   2DB2 3E                 1135 	addc	a,r6
+   2DB3 FE                 1136 	mov	r6,a
+   2DB4 8D 82              1137 	mov	dpl,r5
+   2DB6 8E 83              1138 	mov	dph,r6
+   2DB8 8F F0              1139 	mov	b,r7
+   2DBA 12 4E 6E           1140 	lcall	__gptrget
+   2DBD FD                 1141 	mov	r5,a
+   2DBE A3                 1142 	inc	dptr
+   2DBF 12 4E 6E           1143 	lcall	__gptrget
+   2DC2 FE                 1144 	mov	r6,a
+   2DC3 A3                 1145 	inc	dptr
+   2DC4 12 4E 6E           1146 	lcall	__gptrget
+   2DC7 FF                 1147 	mov	r7,a
+   2DC8 8A 82              1148 	mov	dpl,r2
+   2DCA 8B 83              1149 	mov	dph,r3
+   2DCC 8C F0              1150 	mov	b,r4
+   2DCE ED                 1151 	mov	a,r5
+   2DCF 12 42 42           1152 	lcall	__gptrput
+   2DD2 A3                 1153 	inc	dptr
+   2DD3 EE                 1154 	mov	a,r6
+   2DD4 12 42 42           1155 	lcall	__gptrput
+   2DD7 A3                 1156 	inc	dptr
+   2DD8 EF                 1157 	mov	a,r7
+   2DD9 12 42 42           1158 	lcall	__gptrput
+   2DDC D0 04              1159 	pop	ar4
+   2DDE D0 03              1160 	pop	ar3
+   2DE0 D0 02              1161 	pop	ar2
+   2DE2 02 2E 9B           1162 	ljmp	00107$
+   2DE5                    1163 00106$:
+                           1164 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:184: else if(state->type == STATE_WITH_DEEP_HISTORY)
+   2DE5 74 03              1165 	mov	a,#0x03
+   2DE7 B5 44 02           1166 	cjne	a,_callStateHandler_sloc1_1_0,00137$
+   2DEA 80 03              1167 	sjmp	00138$
+   2DEC                    1168 00137$:
+   2DEC 02 2E 9B           1169 	ljmp	00107$
+   2DEF                    1170 00138$:
+                           1171 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:188: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
+   2DEF C0 02              1172 	push	ar2
+   2DF1 C0 03              1173 	push	ar3
+   2DF3 C0 04              1174 	push	ar4
+   2DF5 90 0A 00           1175 	mov	dptr,#_callStateHandler_sm_1_1
+   2DF8 E0                 1176 	movx	a,@dptr
+   2DF9 FD                 1177 	mov	r5,a
+   2DFA A3                 1178 	inc	dptr
+   2DFB E0                 1179 	movx	a,@dptr
+   2DFC FE                 1180 	mov	r6,a
+   2DFD A3                 1181 	inc	dptr
+   2DFE E0                 1182 	movx	a,@dptr
+   2DFF FF                 1183 	mov	r7,a
+   2E00 74 22              1184 	mov	a,#0x22
+   2E02 2D                 1185 	add	a,r5
+   2E03 F8                 1186 	mov	r0,a
+   2E04 E4                 1187 	clr	a
+   2E05 3E                 1188 	addc	a,r6
+   2E06 F9                 1189 	mov	r1,a
+   2E07 8F 02              1190 	mov	ar2,r7
+   2E09 88 82              1191 	mov	dpl,r0
+   2E0B 89 83              1192 	mov	dph,r1
+   2E0D 8A F0              1193 	mov	b,r2
+   2E0F 12 4E 6E           1194 	lcall	__gptrget
+   2E12 F5 45              1195 	mov	_callStateHandler_sloc2_1_0,a
+   2E14 A3                 1196 	inc	dptr
+   2E15 12 4E 6E           1197 	lcall	__gptrget
+   2E18 F5 46              1198 	mov	(_callStateHandler_sloc2_1_0 + 1),a
+   2E1A A3                 1199 	inc	dptr
+   2E1B 12 4E 6E           1200 	lcall	__gptrget
+   2E1E F5 47              1201 	mov	(_callStateHandler_sloc2_1_0 + 2),a
+   2E20 74 09              1202 	mov	a,#0x09
+   2E22 25 41              1203 	add	a,_callStateHandler_sloc0_1_0
+   2E24 FB                 1204 	mov	r3,a
+   2E25 E4                 1205 	clr	a
+   2E26 35 42              1206 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
+   2E28 FC                 1207 	mov	r4,a
+   2E29 AA 43              1208 	mov	r2,(_callStateHandler_sloc0_1_0 + 2)
+   2E2B 8B 82              1209 	mov	dpl,r3
+   2E2D 8C 83              1210 	mov	dph,r4
+   2E2F 8A F0              1211 	mov	b,r2
+   2E31 12 4E 6E           1212 	lcall	__gptrget
+   2E34 FB                 1213 	mov	r3,a
+   2E35 A3                 1214 	inc	dptr
+   2E36 12 4E 6E           1215 	lcall	__gptrget
+   2E39 FC                 1216 	mov	r4,a
+   2E3A 90 0A AE           1217 	mov	dptr,#__mulint_PARM_2
+   2E3D EB                 1218 	mov	a,r3
+   2E3E F0                 1219 	movx	@dptr,a
+   2E3F A3                 1220 	inc	dptr
+   2E40 EC                 1221 	mov	a,r4
+   2E41 F0                 1222 	movx	@dptr,a
+   2E42 90 00 03           1223 	mov	dptr,#0x0003
+   2E45 C0 04              1224 	push	ar4
+   2E47 C0 05              1225 	push	ar5
+   2E49 C0 06              1226 	push	ar6
+   2E4B C0 07              1227 	push	ar7
+   2E4D 12 44 23           1228 	lcall	__mulint
+   2E50 AA 82              1229 	mov	r2,dpl
+   2E52 AB 83              1230 	mov	r3,dph
+   2E54 D0 07              1231 	pop	ar7
+   2E56 D0 06              1232 	pop	ar6
+   2E58 D0 05              1233 	pop	ar5
+   2E5A D0 04              1234 	pop	ar4
+   2E5C EA                 1235 	mov	a,r2
+   2E5D 25 45              1236 	add	a,_callStateHandler_sloc2_1_0
+   2E5F FA                 1237 	mov	r2,a
+   2E60 EB                 1238 	mov	a,r3
+   2E61 35 46              1239 	addc	a,(_callStateHandler_sloc2_1_0 + 1)
+   2E63 FB                 1240 	mov	r3,a
+   2E64 AC 47              1241 	mov	r4,(_callStateHandler_sloc2_1_0 + 2)
+   2E66 74 25              1242 	mov	a,#0x25
+   2E68 2D                 1243 	add	a,r5
+   2E69 FD                 1244 	mov	r5,a
+   2E6A E4                 1245 	clr	a
+   2E6B 3E                 1246 	addc	a,r6
+   2E6C FE                 1247 	mov	r6,a
+   2E6D 8D 82              1248 	mov	dpl,r5
+   2E6F 8E 83              1249 	mov	dph,r6
+   2E71 8F F0              1250 	mov	b,r7
+   2E73 12 4E 6E           1251 	lcall	__gptrget
+   2E76 FD                 1252 	mov	r5,a
+   2E77 A3                 1253 	inc	dptr
+   2E78 12 4E 6E           1254 	lcall	__gptrget
+   2E7B FE                 1255 	mov	r6,a
+   2E7C A3                 1256 	inc	dptr
+   2E7D 12 4E 6E           1257 	lcall	__gptrget
+   2E80 FF                 1258 	mov	r7,a
+   2E81 8A 82              1259 	mov	dpl,r2
+   2E83 8B 83              1260 	mov	dph,r3
+   2E85 8C F0              1261 	mov	b,r4
+   2E87 ED                 1262 	mov	a,r5
+   2E88 12 42 42           1263 	lcall	__gptrput
+   2E8B A3                 1264 	inc	dptr
+   2E8C EE                 1265 	mov	a,r6
+   2E8D 12 42 42           1266 	lcall	__gptrput
+   2E90 A3                 1267 	inc	dptr
+   2E91 EF                 1268 	mov	a,r7
+   2E92 12 42 42           1269 	lcall	__gptrput
+                           1270 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:212: return response ;
+   2E95 D0 04              1271 	pop	ar4
+   2E97 D0 03              1272 	pop	ar3
+   2E99 D0 02              1273 	pop	ar2
+                           1274 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:188: sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
+   2E9B                    1275 00107$:
+                           1276 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:191: sm->mostRecentlyExitedState = (void*)state ;
+   2E9B 90 0A 00           1277 	mov	dptr,#_callStateHandler_sm_1_1
+   2E9E E0                 1278 	movx	a,@dptr
+   2E9F FD                 1279 	mov	r5,a
+   2EA0 A3                 1280 	inc	dptr
+   2EA1 E0                 1281 	movx	a,@dptr
+   2EA2 FE                 1282 	mov	r6,a
+   2EA3 A3                 1283 	inc	dptr
+   2EA4 E0                 1284 	movx	a,@dptr
+   2EA5 FF                 1285 	mov	r7,a
+   2EA6 74 28              1286 	mov	a,#0x28
+   2EA8 2D                 1287 	add	a,r5
+   2EA9 FD                 1288 	mov	r5,a
+   2EAA E4                 1289 	clr	a
+   2EAB 3E                 1290 	addc	a,r6
+   2EAC FE                 1291 	mov	r6,a
+   2EAD 8D 82              1292 	mov	dpl,r5
+   2EAF 8E 83              1293 	mov	dph,r6
+   2EB1 8F F0              1294 	mov	b,r7
+   2EB3 E5 41              1295 	mov	a,_callStateHandler_sloc0_1_0
+   2EB5 12 42 42           1296 	lcall	__gptrput
+   2EB8 A3                 1297 	inc	dptr
+   2EB9 E5 42              1298 	mov	a,(_callStateHandler_sloc0_1_0 + 1)
+   2EBB 12 42 42           1299 	lcall	__gptrput
+   2EBE A3                 1300 	inc	dptr
+   2EBF E5 43              1301 	mov	a,(_callStateHandler_sloc0_1_0 + 2)
+   2EC1 12 42 42           1302 	lcall	__gptrput
+   2EC4                    1303 00109$:
+                           1304 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:194: response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
+   2EC4 74 04              1305 	mov	a,#0x04
+   2EC6 25 41              1306 	add	a,_callStateHandler_sloc0_1_0
+   2EC8 FD                 1307 	mov	r5,a
+   2EC9 E4                 1308 	clr	a
+   2ECA 35 42              1309 	addc	a,(_callStateHandler_sloc0_1_0 + 1)
+   2ECC FE                 1310 	mov	r6,a
+   2ECD AF 43              1311 	mov	r7,(_callStateHandler_sloc0_1_0 + 2)
+   2ECF 8D 82              1312 	mov	dpl,r5
+   2ED1 8E 83              1313 	mov	dph,r6
+   2ED3 8F F0              1314 	mov	b,r7
+   2ED5 12 4E 6E           1315 	lcall	__gptrget
+   2ED8 FD                 1316 	mov	r5,a
+   2ED9 A3                 1317 	inc	dptr
+   2EDA 12 4E 6E           1318 	lcall	__gptrget
+   2EDD FE                 1319 	mov	r6,a
+   2EDE 90 0A 00           1320 	mov	dptr,#_callStateHandler_sm_1_1
+   2EE1 E0                 1321 	movx	a,@dptr
+   2EE2 FF                 1322 	mov	r7,a
+   2EE3 A3                 1323 	inc	dptr
+   2EE4 E0                 1324 	movx	a,@dptr
+   2EE5 F8                 1325 	mov	r0,a
+   2EE6 A3                 1326 	inc	dptr
+   2EE7 E0                 1327 	movx	a,@dptr
+   2EE8 F9                 1328 	mov	r1,a
+   2EE9 C0 06              1329 	push	ar6
+   2EEB C0 02              1330 	push	ar2
+   2EED C0 03              1331 	push	ar3
+   2EEF C0 04              1332 	push	ar4
+   2EF1 74 04              1333 	mov	a,#00139$
+   2EF3 C0 E0              1334 	push	acc
+   2EF5 74 2F              1335 	mov	a,#(00139$ >> 8)
+   2EF7 C0 E0              1336 	push	acc
+   2EF9 C0 05              1337 	push	ar5
+   2EFB C0 06              1338 	push	ar6
+   2EFD 8F 82              1339 	mov	dpl,r7
+   2EFF 88 83              1340 	mov	dph,r0
+   2F01 89 F0              1341 	mov	b,r1
+   2F03 22                 1342 	ret
+   2F04                    1343 00139$:
+   2F04 AD 82              1344 	mov	r5,dpl
+   2F06 15 81              1345 	dec	sp
+   2F08 15 81              1346 	dec	sp
+   2F0A 15 81              1347 	dec	sp
+   2F0C D0 06              1348 	pop	ar6
+   2F0E 90 0A 03           1349 	mov	dptr,#_callStateHandler_response_1_1
+   2F11 ED                 1350 	mov	a,r5
+   2F12 F0                 1351 	movx	@dptr,a
+   2F13                    1352 00112$:
+                           1353 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:198: printf("response: %s ", responseTypes[response]) ;
+   2F13 90 0A 03           1354 	mov	dptr,#_callStateHandler_response_1_1
+   2F16 E0                 1355 	movx	a,@dptr
+   2F17 FA                 1356 	mov	r2,a
+   2F18 75 F0 03           1357 	mov	b,#0x03
+   2F1B A4                 1358 	mul	ab
+   2F1C 24 01              1359 	add	a,#_responseTypes
+   2F1E F5 82              1360 	mov	dpl,a
+   2F20 E4                 1361 	clr	a
+   2F21 34 0F              1362 	addc	a,#(_responseTypes >> 8)
+   2F23 F5 83              1363 	mov	dph,a
+   2F25 E0                 1364 	movx	a,@dptr
+   2F26 FB                 1365 	mov	r3,a
+   2F27 A3                 1366 	inc	dptr
+   2F28 E0                 1367 	movx	a,@dptr
+   2F29 FC                 1368 	mov	r4,a
+   2F2A A3                 1369 	inc	dptr
+   2F2B E0                 1370 	movx	a,@dptr
+   2F2C FD                 1371 	mov	r5,a
+   2F2D C0 02              1372 	push	ar2
+   2F2F C0 03              1373 	push	ar3
+   2F31 C0 04              1374 	push	ar4
+   2F33 C0 05              1375 	push	ar5
+   2F35 74 8F              1376 	mov	a,#__str_2
+   2F37 C0 E0              1377 	push	acc
+   2F39 74 52              1378 	mov	a,#(__str_2 >> 8)
+   2F3B C0 E0              1379 	push	acc
+   2F3D 74 80              1380 	mov	a,#0x80
+   2F3F C0 E0              1381 	push	acc
+   2F41 12 46 22           1382 	lcall	_printf
+   2F44 E5 81              1383 	mov	a,sp
+   2F46 24 FA              1384 	add	a,#0xfa
+   2F48 F5 81              1385 	mov	sp,a
+   2F4A D0 02              1386 	pop	ar2
+                           1387 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:201: if(response == TRANSITION)
+   2F4C BA 02 5C           1388 	cjne	r2,#0x02,00114$
+                           1389 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:204: printf("to %s ", ((state_t*)(sm->nextState))->stateName) ;
+   2F4F 90 0A 00           1390 	mov	dptr,#_callStateHandler_sm_1_1
+   2F52 E0                 1391 	movx	a,@dptr
+   2F53 FA                 1392 	mov	r2,a
+   2F54 A3                 1393 	inc	dptr
+   2F55 E0                 1394 	movx	a,@dptr
+   2F56 FB                 1395 	mov	r3,a
+   2F57 A3                 1396 	inc	dptr
+   2F58 E0                 1397 	movx	a,@dptr
+   2F59 FC                 1398 	mov	r4,a
+   2F5A 74 08              1399 	mov	a,#0x08
+   2F5C 2A                 1400 	add	a,r2
+   2F5D FA                 1401 	mov	r2,a
+   2F5E E4                 1402 	clr	a
+   2F5F 3B                 1403 	addc	a,r3
+   2F60 FB                 1404 	mov	r3,a
+   2F61 8A 82              1405 	mov	dpl,r2
+   2F63 8B 83              1406 	mov	dph,r3
+   2F65 8C F0              1407 	mov	b,r4
+   2F67 12 4E 6E           1408 	lcall	__gptrget
+   2F6A FA                 1409 	mov	r2,a
+   2F6B A3                 1410 	inc	dptr
+   2F6C 12 4E 6E           1411 	lcall	__gptrget
+   2F6F FB                 1412 	mov	r3,a
+   2F70 A3                 1413 	inc	dptr
+   2F71 12 4E 6E           1414 	lcall	__gptrget
+   2F74 FC                 1415 	mov	r4,a
+   2F75 74 06              1416 	mov	a,#0x06
+   2F77 2A                 1417 	add	a,r2
+   2F78 FA                 1418 	mov	r2,a
+   2F79 E4                 1419 	clr	a
+   2F7A 3B                 1420 	addc	a,r3
+   2F7B FB                 1421 	mov	r3,a
+   2F7C 8A 82              1422 	mov	dpl,r2
+   2F7E 8B 83              1423 	mov	dph,r3
+   2F80 8C F0              1424 	mov	b,r4
+   2F82 12 4E 6E           1425 	lcall	__gptrget
+   2F85 FA                 1426 	mov	r2,a
+   2F86 A3                 1427 	inc	dptr
+   2F87 12 4E 6E           1428 	lcall	__gptrget
+   2F8A FB                 1429 	mov	r3,a
+   2F8B A3                 1430 	inc	dptr
+   2F8C 12 4E 6E           1431 	lcall	__gptrget
+   2F8F FC                 1432 	mov	r4,a
+   2F90 C0 02              1433 	push	ar2
+   2F92 C0 03              1434 	push	ar3
+   2F94 C0 04              1435 	push	ar4
+   2F96 74 9D              1436 	mov	a,#__str_3
+   2F98 C0 E0              1437 	push	acc
+   2F9A 74 52              1438 	mov	a,#(__str_3 >> 8)
+   2F9C C0 E0              1439 	push	acc
+   2F9E 74 80              1440 	mov	a,#0x80
+   2FA0 C0 E0              1441 	push	acc
+   2FA2 12 46 22           1442 	lcall	_printf
+   2FA5 E5 81              1443 	mov	a,sp
+   2FA7 24 FA              1444 	add	a,#0xfa
+   2FA9 F5 81              1445 	mov	sp,a
+   2FAB                    1446 00114$:
+                           1447 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:209: printf("\n") ;
+   2FAB 74 A4              1448 	mov	a,#__str_4
+   2FAD C0 E0              1449 	push	acc
+   2FAF 74 52              1450 	mov	a,#(__str_4 >> 8)
+   2FB1 C0 E0              1451 	push	acc
+   2FB3 74 80              1452 	mov	a,#0x80
+   2FB5 C0 E0              1453 	push	acc
+   2FB7 12 46 22           1454 	lcall	_printf
+   2FBA 15 81              1455 	dec	sp
+   2FBC 15 81              1456 	dec	sp
+   2FBE 15 81              1457 	dec	sp
+                           1458 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:212: return response ;
+   2FC0 90 0A 03           1459 	mov	dptr,#_callStateHandler_response_1_1
+   2FC3 E0                 1460 	movx	a,@dptr
+   2FC4 F5 82              1461 	mov	dpl,a
+   2FC6 22                 1462 	ret
+                           1463 ;------------------------------------------------------------
+                           1464 ;Allocation info for local variables in function 'iterateStateMachine'
+                           1465 ;------------------------------------------------------------
+                           1466 ;sloc0                     Allocated with name '_iterateStateMachine_sloc0_1_0'
+                           1467 ;sloc1                     Allocated with name '_iterateStateMachine_sloc1_1_0'
+                           1468 ;sloc2                     Allocated with name '_iterateStateMachine_sloc2_1_0'
+                           1469 ;sloc3                     Allocated with name '_iterateStateMachine_sloc3_1_0'
+                           1470 ;sloc4                     Allocated with name '_iterateStateMachine_sloc4_1_0'
+                           1471 ;sloc5                     Allocated with name '_iterateStateMachine_sloc5_1_0'
+                           1472 ;sloc6                     Allocated with name '_iterateStateMachine_sloc6_1_0'
+                           1473 ;sm                        Allocated with name '_iterateStateMachine_sm_1_1'
+                           1474 ;action                    Allocated with name '_iterateStateMachine_action_1_1'
+                           1475 ;eventToProcess            Allocated with name '_iterateStateMachine_eventToProcess_2_3'
+                           1476 ;stateBeingProcessed       Allocated with name '_iterateStateMachine_stateBeingProcessed_2_3'
+                           1477 ;action                    Allocated with name '_iterateStateMachine_action_2_3'
+                           1478 ;nextState                 Allocated with name '_iterateStateMachine_nextState_4_11'
+                           1479 ;source                    Allocated with name '_iterateStateMachine_source_3_14'
+                           1480 ;target                    Allocated with name '_iterateStateMachine_target_3_14'
+                           1481 ;sourceHierarchy           Allocated with name '_iterateStateMachine_sourceHierarchy_4_19'
+                           1482 ;sourceIndex               Allocated with name '_iterateStateMachine_sourceIndex_4_19'
+                           1483 ;targetHierarchy           Allocated with name '_iterateStateMachine_targetHierarchy_4_19'
+                           1484 ;targetIndex               Allocated with name '_iterateStateMachine_targetIndex_4_19'
+                           1485 ;LCA                       Allocated with name '_iterateStateMachine_LCA_4_19'
+                           1486 ;entryIndex                Allocated with name '_iterateStateMachine_entryIndex_4_19'
+                           1487 ;exitIndex                 Allocated with name '_iterateStateMachine_exitIndex_4_19'
+                           1488 ;exitIndex                 Allocated with name '_iterateStateMachine_exitIndex_6_21'
+                           1489 ;LCAindex                  Allocated with name '_iterateStateMachine_LCAindex_5_27'
+                           1490 ;------------------------------------------------------------
+                           1491 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:216: void iterateStateMachine(	stateMachine_t* sm)
+                           1492 ;	-----------------------------------------
+                           1493 ;	 function iterateStateMachine
+                           1494 ;	-----------------------------------------
+   2FC7                    1495 _iterateStateMachine:
+   2FC7 AA F0              1496 	mov	r2,b
+   2FC9 AB 83              1497 	mov	r3,dph
+   2FCB E5 82              1498 	mov	a,dpl
+   2FCD 90 0A 04           1499 	mov	dptr,#_iterateStateMachine_sm_1_1
+   2FD0 F0                 1500 	movx	@dptr,a
+   2FD1 A3                 1501 	inc	dptr
+   2FD2 EB                 1502 	mov	a,r3
+   2FD3 F0                 1503 	movx	@dptr,a
+   2FD4 A3                 1504 	inc	dptr
+   2FD5 EA                 1505 	mov	a,r2
+   2FD6 F0                 1506 	movx	@dptr,a
+                           1507 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:221: printf("\titerating %s\n", sm->stateMachineName) ;
+   2FD7 90 0A 04           1508 	mov	dptr,#_iterateStateMachine_sm_1_1
+   2FDA E0                 1509 	movx	a,@dptr
+   2FDB FA                 1510 	mov	r2,a
+   2FDC A3                 1511 	inc	dptr
+   2FDD E0                 1512 	movx	a,@dptr
+   2FDE FB                 1513 	mov	r3,a
+   2FDF A3                 1514 	inc	dptr
+   2FE0 E0                 1515 	movx	a,@dptr
+   2FE1 FC                 1516 	mov	r4,a
+   2FE2 74 02              1517 	mov	a,#0x02
+   2FE4 2A                 1518 	add	a,r2
+   2FE5 FD                 1519 	mov	r5,a
+   2FE6 E4                 1520 	clr	a
+   2FE7 3B                 1521 	addc	a,r3
+   2FE8 FE                 1522 	mov	r6,a
+   2FE9 8C 07              1523 	mov	ar7,r4
+   2FEB 8D 82              1524 	mov	dpl,r5
+   2FED 8E 83              1525 	mov	dph,r6
+   2FEF 8F F0              1526 	mov	b,r7
+   2FF1 12 4E 6E           1527 	lcall	__gptrget
+   2FF4 FD                 1528 	mov	r5,a
+   2FF5 A3                 1529 	inc	dptr
+   2FF6 12 4E 6E           1530 	lcall	__gptrget
+   2FF9 FE                 1531 	mov	r6,a
+   2FFA A3                 1532 	inc	dptr
+   2FFB 12 4E 6E           1533 	lcall	__gptrget
+   2FFE FF                 1534 	mov	r7,a
+   2FFF C0 02              1535 	push	ar2
+   3001 C0 03              1536 	push	ar3
+   3003 C0 04              1537 	push	ar4
+   3005 C0 05              1538 	push	ar5
+   3007 C0 06              1539 	push	ar6
+   3009 C0 07              1540 	push	ar7
+   300B 74 A6              1541 	mov	a,#__str_5
+   300D C0 E0              1542 	push	acc
+   300F 74 52              1543 	mov	a,#(__str_5 >> 8)
+   3011 C0 E0              1544 	push	acc
+   3013 74 80              1545 	mov	a,#0x80
+   3015 C0 E0              1546 	push	acc
+   3017 12 46 22           1547 	lcall	_printf
+   301A E5 81              1548 	mov	a,sp
+   301C 24 FA              1549 	add	a,#0xfa
+   301E F5 81              1550 	mov	sp,a
+   3020 D0 04              1551 	pop	ar4
+   3022 D0 03              1552 	pop	ar3
+   3024 D0 02              1553 	pop	ar2
+                           1554 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:228: if(!sm->stateMachineInitialized)
+   3026 74 1E              1555 	mov	a,#0x1E
+   3028 2A                 1556 	add	a,r2
+   3029 FD                 1557 	mov	r5,a
+   302A E4                 1558 	clr	a
+   302B 3B                 1559 	addc	a,r3
+   302C FE                 1560 	mov	r6,a
+   302D 8C 07              1561 	mov	ar7,r4
+   302F 8D 82              1562 	mov	dpl,r5
+   3031 8E 83              1563 	mov	dph,r6
+   3033 8F F0              1564 	mov	b,r7
+   3035 12 4E 6E           1565 	lcall	__gptrget
+   3038 60 03              1566 	jz	00214$
+   303A 02 30 E3           1567 	ljmp	00102$
+   303D                    1568 00214$:
+                           1569 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:231: printf("\t\tinitializing...\n") ;
+   303D C0 02              1570 	push	ar2
+   303F C0 03              1571 	push	ar3
+   3041 C0 04              1572 	push	ar4
+   3043 74 B5              1573 	mov	a,#__str_6
+   3045 C0 E0              1574 	push	acc
+   3047 74 52              1575 	mov	a,#(__str_6 >> 8)
+   3049 C0 E0              1576 	push	acc
+   304B 74 80              1577 	mov	a,#0x80
+   304D C0 E0              1578 	push	acc
+   304F 12 46 22           1579 	lcall	_printf
+   3052 15 81              1580 	dec	sp
+   3054 15 81              1581 	dec	sp
+   3056 15 81              1582 	dec	sp
+   3058 D0 04              1583 	pop	ar4
+   305A D0 03              1584 	pop	ar3
+   305C D0 02              1585 	pop	ar2
+                           1586 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:234: sm->currentState = (state_t*)sm->topState ;
+   305E 74 05              1587 	mov	a,#0x05
+   3060 2A                 1588 	add	a,r2
+   3061 F5 48              1589 	mov	_iterateStateMachine_sloc0_1_0,a
+   3063 E4                 1590 	clr	a
+   3064 3B                 1591 	addc	a,r3
+   3065 F5 49              1592 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   3067 8C 4A              1593 	mov	(_iterateStateMachine_sloc0_1_0 + 2),r4
+   3069 8A 82              1594 	mov	dpl,r2
+   306B 8B 83              1595 	mov	dph,r3
+   306D 8C F0              1596 	mov	b,r4
+   306F 12 4E 6E           1597 	lcall	__gptrget
+   3072 F8                 1598 	mov	r0,a
+   3073 A3                 1599 	inc	dptr
+   3074 12 4E 6E           1600 	lcall	__gptrget
+   3077 F9                 1601 	mov	r1,a
+   3078 7D 80              1602 	mov	r5,#0x80
+   307A 85 48 82           1603 	mov	dpl,_iterateStateMachine_sloc0_1_0
+   307D 85 49 83           1604 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+   3080 85 4A F0           1605 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
+   3083 E8                 1606 	mov	a,r0
+   3084 12 42 42           1607 	lcall	__gptrput
+   3087 A3                 1608 	inc	dptr
+   3088 E9                 1609 	mov	a,r1
+   3089 12 42 42           1610 	lcall	__gptrput
+   308C A3                 1611 	inc	dptr
+   308D ED                 1612 	mov	a,r5
+   308E 12 42 42           1613 	lcall	__gptrput
+                           1614 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:236: callStateHandler(sm, sm->currentState, &enterEvent) ;
+   3091 90 09 FA           1615 	mov	dptr,#_callStateHandler_PARM_2
+   3094 E8                 1616 	mov	a,r0
+   3095 F0                 1617 	movx	@dptr,a
+   3096 A3                 1618 	inc	dptr
+   3097 E9                 1619 	mov	a,r1
+   3098 F0                 1620 	movx	@dptr,a
+   3099 A3                 1621 	inc	dptr
+   309A ED                 1622 	mov	a,r5
+   309B F0                 1623 	movx	@dptr,a
+   309C 90 09 FD           1624 	mov	dptr,#_callStateHandler_PARM_3
+   309F 74 10              1625 	mov	a,#_enterEvent
+   30A1 F0                 1626 	movx	@dptr,a
+   30A2 A3                 1627 	inc	dptr
+   30A3 74 0F              1628 	mov	a,#(_enterEvent >> 8)
+   30A5 F0                 1629 	movx	@dptr,a
+   30A6 A3                 1630 	inc	dptr
+   30A7 E4                 1631 	clr	a
+   30A8 F0                 1632 	movx	@dptr,a
+   30A9 8A 82              1633 	mov	dpl,r2
+   30AB 8B 83              1634 	mov	dph,r3
+   30AD 8C F0              1635 	mov	b,r4
+   30AF 12 2B C8           1636 	lcall	_callStateHandler
+                           1637 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:238: sm->stateMachineInitialized	= true ;
+   30B2 90 0A 04           1638 	mov	dptr,#_iterateStateMachine_sm_1_1
+   30B5 E0                 1639 	movx	a,@dptr
+   30B6 FA                 1640 	mov	r2,a
+   30B7 A3                 1641 	inc	dptr
+   30B8 E0                 1642 	movx	a,@dptr
+   30B9 FB                 1643 	mov	r3,a
+   30BA A3                 1644 	inc	dptr
+   30BB E0                 1645 	movx	a,@dptr
+   30BC FC                 1646 	mov	r4,a
+   30BD 74 1E              1647 	mov	a,#0x1E
+   30BF 2A                 1648 	add	a,r2
+   30C0 FD                 1649 	mov	r5,a
+   30C1 E4                 1650 	clr	a
+   30C2 3B                 1651 	addc	a,r3
+   30C3 FE                 1652 	mov	r6,a
+   30C4 8C 07              1653 	mov	ar7,r4
+   30C6 8D 82              1654 	mov	dpl,r5
+   30C8 8E 83              1655 	mov	dph,r6
+   30CA 8F F0              1656 	mov	b,r7
+   30CC 74 01              1657 	mov	a,#0x01
+   30CE 12 42 42           1658 	lcall	__gptrput
+                           1659 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:239: sm->forceTransition			= true ;
+   30D1 74 1F              1660 	mov	a,#0x1F
+   30D3 2A                 1661 	add	a,r2
+   30D4 FA                 1662 	mov	r2,a
+   30D5 E4                 1663 	clr	a
+   30D6 3B                 1664 	addc	a,r3
+   30D7 FB                 1665 	mov	r3,a
+   30D8 8A 82              1666 	mov	dpl,r2
+   30DA 8B 83              1667 	mov	dph,r3
+   30DC 8C F0              1668 	mov	b,r4
+   30DE 74 01              1669 	mov	a,#0x01
+   30E0 12 42 42           1670 	lcall	__gptrput
+   30E3                    1671 00102$:
+                           1672 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:244: if((!eventQueue_isEmpty(&sm->eventQueue)) || (sm->forceTransition))
+   30E3 90 0A 04           1673 	mov	dptr,#_iterateStateMachine_sm_1_1
+   30E6 E0                 1674 	movx	a,@dptr
+   30E7 FA                 1675 	mov	r2,a
+   30E8 A3                 1676 	inc	dptr
+   30E9 E0                 1677 	movx	a,@dptr
+   30EA FB                 1678 	mov	r3,a
+   30EB A3                 1679 	inc	dptr
+   30EC E0                 1680 	movx	a,@dptr
+   30ED FC                 1681 	mov	r4,a
+   30EE 74 0B              1682 	mov	a,#0x0B
+   30F0 2A                 1683 	add	a,r2
+   30F1 FD                 1684 	mov	r5,a
+   30F2 E4                 1685 	clr	a
+   30F3 3B                 1686 	addc	a,r3
+   30F4 FE                 1687 	mov	r6,a
+   30F5 8C 07              1688 	mov	ar7,r4
+   30F7 8D 82              1689 	mov	dpl,r5
+   30F9 8E 83              1690 	mov	dph,r6
+   30FB 8F F0              1691 	mov	b,r7
+   30FD C0 02              1692 	push	ar2
+   30FF C0 03              1693 	push	ar3
+   3101 C0 04              1694 	push	ar4
+   3103 12 20 F7           1695 	lcall	_eventQueue_isEmpty
+   3106 E5 82              1696 	mov	a,dpl
+   3108 D0 04              1697 	pop	ar4
+   310A D0 03              1698 	pop	ar3
+   310C D0 02              1699 	pop	ar2
+   310E 60 17              1700 	jz	00168$
+   3110 74 1F              1701 	mov	a,#0x1F
+   3112 2A                 1702 	add	a,r2
+   3113 FD                 1703 	mov	r5,a
+   3114 E4                 1704 	clr	a
+   3115 3B                 1705 	addc	a,r3
+   3116 FE                 1706 	mov	r6,a
+   3117 8C 07              1707 	mov	ar7,r4
+   3119 8D 82              1708 	mov	dpl,r5
+   311B 8E 83              1709 	mov	dph,r6
+   311D 8F F0              1710 	mov	b,r7
+   311F 12 4E 6E           1711 	lcall	__gptrget
+   3122 70 03              1712 	jnz	00216$
+   3124 02 3E E9           1713 	ljmp	00169$
+   3127                    1714 00216$:
+   3127                    1715 00168$:
+                           1716 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:247: state_t*						stateBeingProcessed	= sm->currentState ;
+   3127 90 0A 04           1717 	mov	dptr,#_iterateStateMachine_sm_1_1
+   312A E0                 1718 	movx	a,@dptr
+   312B F5 48              1719 	mov	_iterateStateMachine_sloc0_1_0,a
+   312D A3                 1720 	inc	dptr
+   312E E0                 1721 	movx	a,@dptr
+   312F F5 49              1722 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   3131 A3                 1723 	inc	dptr
+   3132 E0                 1724 	movx	a,@dptr
+   3133 F5 4A              1725 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   3135 74 05              1726 	mov	a,#0x05
+   3137 25 48              1727 	add	a,_iterateStateMachine_sloc0_1_0
+   3139 F5 4B              1728 	mov	_iterateStateMachine_sloc1_1_0,a
+   313B E4                 1729 	clr	a
+   313C 35 49              1730 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   313E F5 4C              1731 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3140 85 4A 4D           1732 	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+   3143 85 4B 82           1733 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   3146 85 4C 83           1734 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   3149 85 4D F0           1735 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   314C 12 4E 6E           1736 	lcall	__gptrget
+   314F F5 4B              1737 	mov	_iterateStateMachine_sloc1_1_0,a
+   3151 A3                 1738 	inc	dptr
+   3152 12 4E 6E           1739 	lcall	__gptrget
+   3155 F5 4C              1740 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3157 A3                 1741 	inc	dptr
+   3158 12 4E 6E           1742 	lcall	__gptrget
+   315B F5 4D              1743 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   315D 90 0A 0A           1744 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   3160 E5 4B              1745 	mov	a,_iterateStateMachine_sloc1_1_0
+   3162 F0                 1746 	movx	@dptr,a
+   3163 A3                 1747 	inc	dptr
+   3164 E5 4C              1748 	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   3166 F0                 1749 	movx	@dptr,a
+   3167 A3                 1750 	inc	dptr
+   3168 E5 4D              1751 	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+   316A F0                 1752 	movx	@dptr,a
+                           1753 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:250: if(sm->forceTransition)
+   316B 74 1F              1754 	mov	a,#0x1F
+   316D 25 48              1755 	add	a,_iterateStateMachine_sloc0_1_0
+   316F F5 4B              1756 	mov	_iterateStateMachine_sloc1_1_0,a
+   3171 E4                 1757 	clr	a
+   3172 35 49              1758 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   3174 F5 4C              1759 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3176 85 4A 4D           1760 	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+   3179 85 4B 82           1761 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   317C 85 4C 83           1762 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   317F 85 4D F0           1763 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   3182 12 4E 6E           1764 	lcall	__gptrget
+   3185 60 1C              1765 	jz	00104$
+                           1766 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:252: sm->forceTransition	= false ;
+   3187 85 4B 82           1767 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   318A 85 4C 83           1768 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   318D 85 4D F0           1769 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   3190 E4                 1770 	clr	a
+   3191 12 42 42           1771 	lcall	__gptrput
+                           1772 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:253: eventToProcess		= &initialTransitionEvent ;
+   3194 90 0A 07           1773 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
+   3197 74 0D              1774 	mov	a,#_initialTransitionEvent
+   3199 F0                 1775 	movx	@dptr,a
+   319A A3                 1776 	inc	dptr
+   319B 74 0F              1777 	mov	a,#(_initialTransitionEvent >> 8)
+   319D F0                 1778 	movx	@dptr,a
+   319E A3                 1779 	inc	dptr
+   319F E4                 1780 	clr	a
+   31A0 F0                 1781 	movx	@dptr,a
+   31A1 80 31              1782 	sjmp	00105$
+   31A3                    1783 00104$:
+                           1784 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:257: eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
+   31A3 74 0B              1785 	mov	a,#0x0B
+   31A5 25 48              1786 	add	a,_iterateStateMachine_sloc0_1_0
+   31A7 F5 4B              1787 	mov	_iterateStateMachine_sloc1_1_0,a
+   31A9 E4                 1788 	clr	a
+   31AA 35 49              1789 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   31AC F5 4C              1790 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   31AE 85 4A 4D           1791 	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+   31B1 85 4B 82           1792 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   31B4 85 4C 83           1793 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   31B7 85 4D F0           1794 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   31BA 12 23 05           1795 	lcall	_eventQueue_remove
+   31BD 85 82 4B           1796 	mov	_iterateStateMachine_sloc1_1_0,dpl
+   31C0 85 83 4C           1797 	mov	(_iterateStateMachine_sloc1_1_0 + 1),dph
+   31C3 85 F0 4D           1798 	mov	(_iterateStateMachine_sloc1_1_0 + 2),b
+   31C6 90 0A 07           1799 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
+   31C9 E5 4B              1800 	mov	a,_iterateStateMachine_sloc1_1_0
+   31CB F0                 1801 	movx	@dptr,a
+   31CC A3                 1802 	inc	dptr
+   31CD E5 4C              1803 	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   31CF F0                 1804 	movx	@dptr,a
+   31D0 A3                 1805 	inc	dptr
+   31D1 E5 4D              1806 	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+   31D3 F0                 1807 	movx	@dptr,a
+   31D4                    1808 00105$:
+                           1809 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:260: sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
+   31D4 90 0A 04           1810 	mov	dptr,#_iterateStateMachine_sm_1_1
+   31D7 E0                 1811 	movx	a,@dptr
+   31D8 F5 4B              1812 	mov	_iterateStateMachine_sloc1_1_0,a
+   31DA A3                 1813 	inc	dptr
+   31DB E0                 1814 	movx	a,@dptr
+   31DC F5 4C              1815 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   31DE A3                 1816 	inc	dptr
+   31DF E0                 1817 	movx	a,@dptr
+   31E0 F5 4D              1818 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   31E2 74 08              1819 	mov	a,#0x08
+   31E4 25 4B              1820 	add	a,_iterateStateMachine_sloc1_1_0
+   31E6 F5 4B              1821 	mov	_iterateStateMachine_sloc1_1_0,a
+   31E8 E4                 1822 	clr	a
+   31E9 35 4C              1823 	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   31EB F5 4C              1824 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   31ED 85 4B 82           1825 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   31F0 85 4C 83           1826 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   31F3 85 4D F0           1827 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   31F6 E4                 1828 	clr	a
+   31F7 12 42 42           1829 	lcall	__gptrput
+   31FA A3                 1830 	inc	dptr
+   31FB E4                 1831 	clr	a
+   31FC 12 42 42           1832 	lcall	__gptrput
+   31FF A3                 1833 	inc	dptr
+   3200 E4                 1834 	clr	a
+   3201 12 42 42           1835 	lcall	__gptrput
+                           1836 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:263: printf("\t\tProcessing event...\n") ;
+   3204 74 C8              1837 	mov	a,#__str_7
+   3206 C0 E0              1838 	push	acc
+   3208 74 52              1839 	mov	a,#(__str_7 >> 8)
+   320A C0 E0              1840 	push	acc
+   320C 74 80              1841 	mov	a,#0x80
+   320E C0 E0              1842 	push	acc
+   3210 12 46 22           1843 	lcall	_printf
+   3213 15 81              1844 	dec	sp
+   3215 15 81              1845 	dec	sp
+   3217 15 81              1846 	dec	sp
+                           1847 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:273: do
+   3219 90 0A 07           1848 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
+   321C E0                 1849 	movx	a,@dptr
+   321D F5 4B              1850 	mov	_iterateStateMachine_sloc1_1_0,a
+   321F A3                 1851 	inc	dptr
+   3220 E0                 1852 	movx	a,@dptr
+   3221 F5 4C              1853 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3223 A3                 1854 	inc	dptr
+   3224 E0                 1855 	movx	a,@dptr
+   3225 F5 4D              1856 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   3227                    1857 00110$:
+                           1858 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:275: action = callStateHandler(sm, stateBeingProcessed, eventToProcess) ;
+   3227 90 0A 04           1859 	mov	dptr,#_iterateStateMachine_sm_1_1
+   322A E0                 1860 	movx	a,@dptr
+   322B F5 48              1861 	mov	_iterateStateMachine_sloc0_1_0,a
+   322D A3                 1862 	inc	dptr
+   322E E0                 1863 	movx	a,@dptr
+   322F F5 49              1864 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   3231 A3                 1865 	inc	dptr
+   3232 E0                 1866 	movx	a,@dptr
+   3233 F5 4A              1867 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   3235 90 0A 0A           1868 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   3238 E0                 1869 	movx	a,@dptr
+   3239 F5 4E              1870 	mov	_iterateStateMachine_sloc2_1_0,a
+   323B A3                 1871 	inc	dptr
+   323C E0                 1872 	movx	a,@dptr
+   323D F5 4F              1873 	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+   323F A3                 1874 	inc	dptr
+   3240 E0                 1875 	movx	a,@dptr
+   3241 F5 50              1876 	mov	(_iterateStateMachine_sloc2_1_0 + 2),a
+   3243 90 0A 07           1877 	mov	dptr,#_iterateStateMachine_eventToProcess_2_3
+   3246 E0                 1878 	movx	a,@dptr
+   3247 F5 51              1879 	mov	_iterateStateMachine_sloc3_1_0,a
+   3249 A3                 1880 	inc	dptr
+   324A E0                 1881 	movx	a,@dptr
+   324B F5 52              1882 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   324D A3                 1883 	inc	dptr
+   324E E0                 1884 	movx	a,@dptr
+   324F F5 53              1885 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   3251 90 09 FA           1886 	mov	dptr,#_callStateHandler_PARM_2
+   3254 E5 4E              1887 	mov	a,_iterateStateMachine_sloc2_1_0
+   3256 F0                 1888 	movx	@dptr,a
+   3257 A3                 1889 	inc	dptr
+   3258 E5 4F              1890 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   325A F0                 1891 	movx	@dptr,a
+   325B A3                 1892 	inc	dptr
+   325C E5 50              1893 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   325E F0                 1894 	movx	@dptr,a
+   325F 90 09 FD           1895 	mov	dptr,#_callStateHandler_PARM_3
+   3262 E5 51              1896 	mov	a,_iterateStateMachine_sloc3_1_0
+   3264 F0                 1897 	movx	@dptr,a
+   3265 A3                 1898 	inc	dptr
+   3266 E5 52              1899 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3268 F0                 1900 	movx	@dptr,a
+   3269 A3                 1901 	inc	dptr
+   326A E5 53              1902 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   326C F0                 1903 	movx	@dptr,a
+   326D 85 48 82           1904 	mov	dpl,_iterateStateMachine_sloc0_1_0
+   3270 85 49 83           1905 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+   3273 85 4A F0           1906 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
+   3276 12 2B C8           1907 	lcall	_callStateHandler
+   3279 A8 82              1908 	mov	r0,dpl
+   327B 90 0A 0D           1909 	mov	dptr,#_iterateStateMachine_action_2_3
+   327E E8                 1910 	mov	a,r0
+   327F F0                 1911 	movx	@dptr,a
+                           1912 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:277: if((action == IGNORED) && (eventToProcess->eventType > SUBSTATE_EXIT))
+   3280 E8                 1913 	mov	a,r0
+   3281 60 03              1914 	jz	00218$
+   3283 02 33 4A           1915 	ljmp	00186$
+   3286                    1916 00218$:
+   3286 85 4B 82           1917 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   3289 85 4C 83           1918 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   328C 85 4D F0           1919 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   328F 12 4E 6E           1920 	lcall	__gptrget
+   3292 F8                 1921 	mov  r0,a
+   3293 24 FA              1922 	add	a,#0xff - 0x05
+   3295 40 03              1923 	jc	00219$
+   3297 02 33 4A           1924 	ljmp	00186$
+   329A                    1925 00219$:
+                           1926 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:279: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+   329A 90 0A 0A           1927 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   329D E0                 1928 	movx	a,@dptr
+   329E F5 51              1929 	mov	_iterateStateMachine_sloc3_1_0,a
+   32A0 A3                 1930 	inc	dptr
+   32A1 E0                 1931 	movx	a,@dptr
+   32A2 F5 52              1932 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   32A4 A3                 1933 	inc	dptr
+   32A5 E0                 1934 	movx	a,@dptr
+   32A6 F5 53              1935 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   32A8 85 51 82           1936 	mov	dpl,_iterateStateMachine_sloc3_1_0
+   32AB 85 52 83           1937 	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+   32AE 85 53 F0           1938 	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+   32B1 12 4E 6E           1939 	lcall	__gptrget
+   32B4 F5 51              1940 	mov	_iterateStateMachine_sloc3_1_0,a
+   32B6 A3                 1941 	inc	dptr
+   32B7 12 4E 6E           1942 	lcall	__gptrget
+   32BA F5 52              1943 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   32BC A3                 1944 	inc	dptr
+   32BD 12 4E 6E           1945 	lcall	__gptrget
+   32C0 F5 53              1946 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   32C2 90 0A 0A           1947 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   32C5 E5 51              1948 	mov	a,_iterateStateMachine_sloc3_1_0
+   32C7 F0                 1949 	movx	@dptr,a
+   32C8 A3                 1950 	inc	dptr
+   32C9 E5 52              1951 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   32CB F0                 1952 	movx	@dptr,a
+   32CC A3                 1953 	inc	dptr
+   32CD E5 53              1954 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   32CF F0                 1955 	movx	@dptr,a
+                           1956 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:282: printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ;
+   32D0 90 0A 0A           1957 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   32D3 E0                 1958 	movx	a,@dptr
+   32D4 F5 51              1959 	mov	_iterateStateMachine_sloc3_1_0,a
+   32D6 A3                 1960 	inc	dptr
+   32D7 E0                 1961 	movx	a,@dptr
+   32D8 F5 52              1962 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   32DA A3                 1963 	inc	dptr
+   32DB E0                 1964 	movx	a,@dptr
+   32DC F5 53              1965 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   32DE E5 51              1966 	mov	a,_iterateStateMachine_sloc3_1_0
+   32E0 45 52              1967 	orl	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   32E2 45 53              1968 	orl	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   32E4 60 27              1969 	jz	00174$
+   32E6 74 06              1970 	mov	a,#0x06
+   32E8 25 51              1971 	add	a,_iterateStateMachine_sloc3_1_0
+   32EA F5 51              1972 	mov	_iterateStateMachine_sloc3_1_0,a
+   32EC E4                 1973 	clr	a
+   32ED 35 52              1974 	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   32EF F5 52              1975 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   32F1 85 51 82           1976 	mov	dpl,_iterateStateMachine_sloc3_1_0
+   32F4 85 52 83           1977 	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+   32F7 85 53 F0           1978 	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+   32FA 12 4E 6E           1979 	lcall	__gptrget
+   32FD F5 51              1980 	mov	_iterateStateMachine_sloc3_1_0,a
+   32FF A3                 1981 	inc	dptr
+   3300 12 4E 6E           1982 	lcall	__gptrget
+   3303 F5 52              1983 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   3305 A3                 1984 	inc	dptr
+   3306 12 4E 6E           1985 	lcall	__gptrget
+   3309 F5 53              1986 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   330B 80 09              1987 	sjmp	00175$
+   330D                    1988 00174$:
+   330D 75 51 FC           1989 	mov	_iterateStateMachine_sloc3_1_0,#__str_9
+   3310 75 52 52           1990 	mov	(_iterateStateMachine_sloc3_1_0 + 1),#(__str_9 >> 8)
+   3313 75 53 80           1991 	mov	(_iterateStateMachine_sloc3_1_0 + 2),#0x80
+   3316                    1992 00175$:
+   3316 C0 51              1993 	push	_iterateStateMachine_sloc3_1_0
+   3318 C0 52              1994 	push	(_iterateStateMachine_sloc3_1_0 + 1)
+   331A C0 53              1995 	push	(_iterateStateMachine_sloc3_1_0 + 2)
+   331C 74 DF              1996 	mov	a,#__str_8
+   331E C0 E0              1997 	push	acc
+   3320 74 52              1998 	mov	a,#(__str_8 >> 8)
+   3322 C0 E0              1999 	push	acc
+   3324 74 80              2000 	mov	a,#0x80
+   3326 C0 E0              2001 	push	acc
+   3328 12 46 22           2002 	lcall	_printf
+   332B E5 81              2003 	mov	a,sp
+   332D 24 FA              2004 	add	a,#0xfa
+   332F F5 81              2005 	mov	sp,a
+                           2006 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:292: } while(stateBeingProcessed) ;
+   3331 90 0A 0A           2007 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   3334 E0                 2008 	movx	a,@dptr
+   3335 F5 51              2009 	mov	_iterateStateMachine_sloc3_1_0,a
+   3337 A3                 2010 	inc	dptr
+   3338 E0                 2011 	movx	a,@dptr
+   3339 F5 52              2012 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   333B A3                 2013 	inc	dptr
+   333C E0                 2014 	movx	a,@dptr
+   333D F5 53              2015 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   333F E5 51              2016 	mov	a,_iterateStateMachine_sloc3_1_0
+   3341 45 52              2017 	orl	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3343 45 53              2018 	orl	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   3345 60 03              2019 	jz	00221$
+   3347 02 32 27           2020 	ljmp	00110$
+   334A                    2021 00221$:
+                           2022 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:294: while(action == TRANSITION_TO_HISTORY)
+   334A                    2023 00186$:
+   334A 90 0A 04           2024 	mov	dptr,#_iterateStateMachine_sm_1_1
+   334D E0                 2025 	movx	a,@dptr
+   334E F5 51              2026 	mov	_iterateStateMachine_sloc3_1_0,a
+   3350 A3                 2027 	inc	dptr
+   3351 E0                 2028 	movx	a,@dptr
+   3352 F5 52              2029 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   3354 A3                 2030 	inc	dptr
+   3355 E0                 2031 	movx	a,@dptr
+   3356 F5 53              2032 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   3358 74 08              2033 	mov	a,#0x08
+   335A 25 51              2034 	add	a,_iterateStateMachine_sloc3_1_0
+   335C F5 4E              2035 	mov	_iterateStateMachine_sloc2_1_0,a
+   335E E4                 2036 	clr	a
+   335F 35 52              2037 	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3361 F5 4F              2038 	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+   3363 85 53 50           2039 	mov	(_iterateStateMachine_sloc2_1_0 + 2),(_iterateStateMachine_sloc3_1_0 + 2)
+   3366 85 51 4B           2040 	mov	_iterateStateMachine_sloc1_1_0,_iterateStateMachine_sloc3_1_0
+   3369 85 52 4C           2041 	mov	(_iterateStateMachine_sloc1_1_0 + 1),(_iterateStateMachine_sloc3_1_0 + 1)
+   336C 85 53 4D           2042 	mov	(_iterateStateMachine_sloc1_1_0 + 2),(_iterateStateMachine_sloc3_1_0 + 2)
+   336F 74 22              2043 	mov	a,#0x22
+   3371 25 51              2044 	add	a,_iterateStateMachine_sloc3_1_0
+   3373 F5 51              2045 	mov	_iterateStateMachine_sloc3_1_0,a
+   3375 E4                 2046 	clr	a
+   3376 35 52              2047 	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3378 F5 52              2048 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   337A                    2049 00120$:
+   337A 90 0A 0D           2050 	mov	dptr,#_iterateStateMachine_action_2_3
+   337D E0                 2051 	movx	a,@dptr
+   337E F8                 2052 	mov	r0,a
+   337F B8 03 02           2053 	cjne	r0,#0x03,00222$
+   3382 80 03              2054 	sjmp	00223$
+   3384                    2055 00222$:
+   3384 02 34 D2           2056 	ljmp	00122$
+   3387                    2057 00223$:
+                           2058 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:296: if(		(((state_t*)(sm->nextState))->type != STATE_WITH_SHALLOW_HISTORY)
+   3387 85 4E 82           2059 	mov	dpl,_iterateStateMachine_sloc2_1_0
+   338A 85 4F 83           2060 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
+   338D 85 50 F0           2061 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+   3390 12 4E 6E           2062 	lcall	__gptrget
+   3393 F5 48              2063 	mov	_iterateStateMachine_sloc0_1_0,a
+   3395 A3                 2064 	inc	dptr
+   3396 12 4E 6E           2065 	lcall	__gptrget
+   3399 F5 49              2066 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   339B A3                 2067 	inc	dptr
+   339C 12 4E 6E           2068 	lcall	__gptrget
+   339F F5 4A              2069 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   33A1 74 03              2070 	mov	a,#0x03
+   33A3 25 48              2071 	add	a,_iterateStateMachine_sloc0_1_0
+   33A5 F5 48              2072 	mov	_iterateStateMachine_sloc0_1_0,a
+   33A7 E4                 2073 	clr	a
+   33A8 35 49              2074 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   33AA F5 49              2075 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   33AC 85 48 82           2076 	mov	dpl,_iterateStateMachine_sloc0_1_0
+   33AF 85 49 83           2077 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+   33B2 85 4A F0           2078 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
+   33B5 12 4E 6E           2079 	lcall	__gptrget
+   33B8 F8                 2080 	mov	r0,a
+   33B9 B8 02 02           2081 	cjne	r0,#0x02,00224$
+   33BC 80 08              2082 	sjmp	00117$
+   33BE                    2083 00224$:
+                           2084 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:297: &&	(((state_t*)(sm->nextState))->type != STATE_WITH_DEEP_HISTORY))
+   33BE B8 03 02           2085 	cjne	r0,#0x03,00225$
+   33C1 80 03              2086 	sjmp	00226$
+   33C3                    2087 00225$:
+   33C3 02 34 D2           2088 	ljmp	00122$
+   33C6                    2089 00226$:
+                           2090 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:303: break ;
+   33C6                    2091 00117$:
+                           2092 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:307: state_t* nextState = sm->historicalMarkers[((state_with_history_t*)(sm->nextState))->historyMarkerIndex] ;
+   33C6 85 51 82           2093 	mov	dpl,_iterateStateMachine_sloc3_1_0
+   33C9 85 52 83           2094 	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+   33CC 85 53 F0           2095 	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+   33CF 12 4E 6E           2096 	lcall	__gptrget
+   33D2 F5 48              2097 	mov	_iterateStateMachine_sloc0_1_0,a
+   33D4 A3                 2098 	inc	dptr
+   33D5 12 4E 6E           2099 	lcall	__gptrget
+   33D8 F5 49              2100 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   33DA A3                 2101 	inc	dptr
+   33DB 12 4E 6E           2102 	lcall	__gptrget
+   33DE F5 4A              2103 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   33E0 74 08              2104 	mov	a,#0x08
+   33E2 25 4B              2105 	add	a,_iterateStateMachine_sloc1_1_0
+   33E4 F5 54              2106 	mov	_iterateStateMachine_sloc4_1_0,a
+   33E6 E4                 2107 	clr	a
+   33E7 35 4C              2108 	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   33E9 F5 55              2109 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   33EB 85 4D 56           2110 	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc1_1_0 + 2)
+   33EE 85 54 82           2111 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   33F1 85 55 83           2112 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   33F4 85 56 F0           2113 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   33F7 12 4E 6E           2114 	lcall	__gptrget
+   33FA F5 57              2115 	mov	_iterateStateMachine_sloc5_1_0,a
+   33FC A3                 2116 	inc	dptr
+   33FD 12 4E 6E           2117 	lcall	__gptrget
+   3400 F5 58              2118 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3402 A3                 2119 	inc	dptr
+   3403 12 4E 6E           2120 	lcall	__gptrget
+   3406 F5 59              2121 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3408 74 09              2122 	mov	a,#0x09
+   340A 25 57              2123 	add	a,_iterateStateMachine_sloc5_1_0
+   340C F5 57              2124 	mov	_iterateStateMachine_sloc5_1_0,a
+   340E E4                 2125 	clr	a
+   340F 35 58              2126 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3411 F5 58              2127 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3413 85 57 82           2128 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3416 85 58 83           2129 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3419 85 59 F0           2130 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   341C 12 4E 6E           2131 	lcall	__gptrget
+   341F F8                 2132 	mov	r0,a
+   3420 A3                 2133 	inc	dptr
+   3421 12 4E 6E           2134 	lcall	__gptrget
+   3424 F9                 2135 	mov	r1,a
+   3425 90 0A AE           2136 	mov	dptr,#__mulint_PARM_2
+   3428 E8                 2137 	mov	a,r0
+   3429 F0                 2138 	movx	@dptr,a
+   342A A3                 2139 	inc	dptr
+   342B E9                 2140 	mov	a,r1
+   342C F0                 2141 	movx	@dptr,a
+   342D 90 00 03           2142 	mov	dptr,#0x0003
+   3430 12 44 23           2143 	lcall	__mulint
+   3433 A8 82              2144 	mov	r0,dpl
+   3435 A9 83              2145 	mov	r1,dph
+   3437 E8                 2146 	mov	a,r0
+   3438 25 48              2147 	add	a,_iterateStateMachine_sloc0_1_0
+   343A F5 57              2148 	mov	_iterateStateMachine_sloc5_1_0,a
+   343C E9                 2149 	mov	a,r1
+   343D 35 49              2150 	addc	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   343F F5 58              2151 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3441 85 4A 59           2152 	mov	(_iterateStateMachine_sloc5_1_0 + 2),(_iterateStateMachine_sloc0_1_0 + 2)
+   3444 85 57 82           2153 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3447 85 58 83           2154 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   344A 85 59 F0           2155 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   344D 12 4E 6E           2156 	lcall	__gptrget
+   3450 F5 57              2157 	mov	_iterateStateMachine_sloc5_1_0,a
+   3452 A3                 2158 	inc	dptr
+   3453 12 4E 6E           2159 	lcall	__gptrget
+   3456 F5 58              2160 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3458 A3                 2161 	inc	dptr
+   3459 12 4E 6E           2162 	lcall	__gptrget
+   345C F5 59              2163 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+                           2164 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:312: if(nextState != (void*)0)
+   345E E4                 2165 	clr	a
+   345F B5 57 0A           2166 	cjne	a,_iterateStateMachine_sloc5_1_0,00227$
+   3462 E4                 2167 	clr	a
+   3463 B5 58 06           2168 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00227$
+   3466 E4                 2169 	clr	a
+   3467 B5 59 02           2170 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00227$
+   346A 80 1C              2171 	sjmp	00114$
+   346C                    2172 00227$:
+                           2173 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:319: sm->nextState = nextState ;
+   346C 85 54 82           2174 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   346F 85 55 83           2175 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3472 85 56 F0           2176 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3475 E5 57              2177 	mov	a,_iterateStateMachine_sloc5_1_0
+   3477 12 42 42           2178 	lcall	__gptrput
+   347A A3                 2179 	inc	dptr
+   347B E5 58              2180 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   347D 12 42 42           2181 	lcall	__gptrput
+   3480 A3                 2182 	inc	dptr
+   3481 E5 59              2183 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   3483 12 42 42           2184 	lcall	__gptrput
+   3486 80 41              2185 	sjmp	00118$
+   3488                    2186 00114$:
+                           2187 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:334: action = callStateHandler(sm, (state_t*)(sm->nextState), &jumpToHistoryEvent) ;
+   3488 85 54 82           2188 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   348B 85 55 83           2189 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   348E 85 56 F0           2190 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3491 12 4E 6E           2191 	lcall	__gptrget
+   3494 F5 57              2192 	mov	_iterateStateMachine_sloc5_1_0,a
+   3496 A3                 2193 	inc	dptr
+   3497 12 4E 6E           2194 	lcall	__gptrget
+   349A F5 58              2195 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   349C A3                 2196 	inc	dptr
+   349D 12 4E 6E           2197 	lcall	__gptrget
+   34A0 F5 59              2198 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   34A2 90 09 FA           2199 	mov	dptr,#_callStateHandler_PARM_2
+   34A5 E5 57              2200 	mov	a,_iterateStateMachine_sloc5_1_0
+   34A7 F0                 2201 	movx	@dptr,a
+   34A8 A3                 2202 	inc	dptr
+   34A9 E5 58              2203 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   34AB F0                 2204 	movx	@dptr,a
+   34AC A3                 2205 	inc	dptr
+   34AD E5 59              2206 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   34AF F0                 2207 	movx	@dptr,a
+   34B0 90 09 FD           2208 	mov	dptr,#_callStateHandler_PARM_3
+   34B3 74 0E              2209 	mov	a,#_jumpToHistoryEvent
+   34B5 F0                 2210 	movx	@dptr,a
+   34B6 A3                 2211 	inc	dptr
+   34B7 74 0F              2212 	mov	a,#(_jumpToHistoryEvent >> 8)
+   34B9 F0                 2213 	movx	@dptr,a
+   34BA A3                 2214 	inc	dptr
+   34BB E4                 2215 	clr	a
+   34BC F0                 2216 	movx	@dptr,a
+   34BD 85 4B 82           2217 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   34C0 85 4C 83           2218 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   34C3 85 4D F0           2219 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   34C6 12 2B C8           2220 	lcall	_callStateHandler
+   34C9                    2221 00118$:
+                           2222 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:342: action = TRANSITION ;
+   34C9 90 0A 0D           2223 	mov	dptr,#_iterateStateMachine_action_2_3
+   34CC 74 02              2224 	mov	a,#0x02
+   34CE F0                 2225 	movx	@dptr,a
+   34CF 02 33 7A           2226 	ljmp	00120$
+   34D2                    2227 00122$:
+                           2228 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:345: if(action == TRANSITION)
+   34D2 90 0A 0D           2229 	mov	dptr,#_iterateStateMachine_action_2_3
+   34D5 E0                 2230 	movx	a,@dptr
+   34D6 F8                 2231 	mov	r0,a
+   34D7 B8 02 02           2232 	cjne	r0,#0x02,00228$
+   34DA 80 03              2233 	sjmp	00229$
+   34DC                    2234 00228$:
+   34DC 02 3F 59           2235 	ljmp	00170$
+   34DF                    2236 00229$:
+                           2237 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:347: state_t*	source	= sm->currentState ;
+   34DF 90 0A 04           2238 	mov	dptr,#_iterateStateMachine_sm_1_1
+   34E2 E0                 2239 	movx	a,@dptr
+   34E3 F5 57              2240 	mov	_iterateStateMachine_sloc5_1_0,a
+   34E5 A3                 2241 	inc	dptr
+   34E6 E0                 2242 	movx	a,@dptr
+   34E7 F5 58              2243 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   34E9 A3                 2244 	inc	dptr
+   34EA E0                 2245 	movx	a,@dptr
+   34EB F5 59              2246 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   34ED 74 05              2247 	mov	a,#0x05
+   34EF 25 57              2248 	add	a,_iterateStateMachine_sloc5_1_0
+   34F1 F5 54              2249 	mov	_iterateStateMachine_sloc4_1_0,a
+   34F3 E4                 2250 	clr	a
+   34F4 35 58              2251 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   34F6 F5 55              2252 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   34F8 85 59 56           2253 	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+   34FB 85 54 82           2254 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   34FE 85 55 83           2255 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3501 85 56 F0           2256 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3504 12 4E 6E           2257 	lcall	__gptrget
+   3507 F5 51              2258 	mov	_iterateStateMachine_sloc3_1_0,a
+   3509 A3                 2259 	inc	dptr
+   350A 12 4E 6E           2260 	lcall	__gptrget
+   350D F5 52              2261 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   350F A3                 2262 	inc	dptr
+   3510 12 4E 6E           2263 	lcall	__gptrget
+   3513 F5 53              2264 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+                           2265 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:348: state_t*	target	= sm->nextState ;
+   3515 74 08              2266 	mov	a,#0x08
+   3517 25 57              2267 	add	a,_iterateStateMachine_sloc5_1_0
+   3519 F5 4E              2268 	mov	_iterateStateMachine_sloc2_1_0,a
+   351B E4                 2269 	clr	a
+   351C 35 58              2270 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   351E F5 4F              2271 	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+   3520 85 59 50           2272 	mov	(_iterateStateMachine_sloc2_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+   3523 85 4E 82           2273 	mov	dpl,_iterateStateMachine_sloc2_1_0
+   3526 85 4F 83           2274 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
+   3529 85 50 F0           2275 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+   352C 12 4E 6E           2276 	lcall	__gptrget
+   352F F5 4E              2277 	mov	_iterateStateMachine_sloc2_1_0,a
+   3531 A3                 2278 	inc	dptr
+   3532 12 4E 6E           2279 	lcall	__gptrget
+   3535 F5 4F              2280 	mov	(_iterateStateMachine_sloc2_1_0 + 1),a
+   3537 A3                 2281 	inc	dptr
+   3538 12 4E 6E           2282 	lcall	__gptrget
+   353B F5 50              2283 	mov	(_iterateStateMachine_sloc2_1_0 + 2),a
+                           2284 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:352: if(source == target)
+   353D E5 4E              2285 	mov	a,_iterateStateMachine_sloc2_1_0
+   353F B5 51 0C           2286 	cjne	a,_iterateStateMachine_sloc3_1_0,00230$
+   3542 E5 4F              2287 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3544 B5 52 07           2288 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00230$
+   3547 E5 50              2289 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3549 B5 53 02           2290 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00230$
+   354C 80 03              2291 	sjmp	00231$
+   354E                    2292 00230$:
+   354E 02 35 ED           2293 	ljmp	00162$
+   3551                    2294 00231$:
+                           2295 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:355: printf("\t\t\t\tSelf transition.\n") ;
+   3551 74 03              2296 	mov	a,#__str_10
+   3553 C0 E0              2297 	push	acc
+   3555 74 53              2298 	mov	a,#(__str_10 >> 8)
+   3557 C0 E0              2299 	push	acc
+   3559 74 80              2300 	mov	a,#0x80
+   355B C0 E0              2301 	push	acc
+   355D 12 46 22           2302 	lcall	_printf
+   3560 15 81              2303 	dec	sp
+   3562 15 81              2304 	dec	sp
+   3564 15 81              2305 	dec	sp
+                           2306 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:360: callStateHandler(sm, source, &exitEvent) ;
+   3566 90 09 FA           2307 	mov	dptr,#_callStateHandler_PARM_2
+   3569 E5 51              2308 	mov	a,_iterateStateMachine_sloc3_1_0
+   356B F0                 2309 	movx	@dptr,a
+   356C A3                 2310 	inc	dptr
+   356D E5 52              2311 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   356F F0                 2312 	movx	@dptr,a
+   3570 A3                 2313 	inc	dptr
+   3571 E5 53              2314 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   3573 F0                 2315 	movx	@dptr,a
+   3574 90 09 FD           2316 	mov	dptr,#_callStateHandler_PARM_3
+   3577 74 11              2317 	mov	a,#_exitEvent
+   3579 F0                 2318 	movx	@dptr,a
+   357A A3                 2319 	inc	dptr
+   357B 74 0F              2320 	mov	a,#(_exitEvent >> 8)
+   357D F0                 2321 	movx	@dptr,a
+   357E A3                 2322 	inc	dptr
+   357F E4                 2323 	clr	a
+   3580 F0                 2324 	movx	@dptr,a
+   3581 85 57 82           2325 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3584 85 58 83           2326 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3587 85 59 F0           2327 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   358A 12 2B C8           2328 	lcall	_callStateHandler
+                           2329 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:361: sm->currentState = target ;
+   358D 90 0A 04           2330 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3590 E0                 2331 	movx	a,@dptr
+   3591 F5 4B              2332 	mov	_iterateStateMachine_sloc1_1_0,a
+   3593 A3                 2333 	inc	dptr
+   3594 E0                 2334 	movx	a,@dptr
+   3595 F5 4C              2335 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3597 A3                 2336 	inc	dptr
+   3598 E0                 2337 	movx	a,@dptr
+   3599 F5 4D              2338 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   359B 74 05              2339 	mov	a,#0x05
+   359D 25 4B              2340 	add	a,_iterateStateMachine_sloc1_1_0
+   359F F5 48              2341 	mov	_iterateStateMachine_sloc0_1_0,a
+   35A1 E4                 2342 	clr	a
+   35A2 35 4C              2343 	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   35A4 F5 49              2344 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   35A6 85 4D 4A           2345 	mov	(_iterateStateMachine_sloc0_1_0 + 2),(_iterateStateMachine_sloc1_1_0 + 2)
+   35A9 85 48 82           2346 	mov	dpl,_iterateStateMachine_sloc0_1_0
+   35AC 85 49 83           2347 	mov	dph,(_iterateStateMachine_sloc0_1_0 + 1)
+   35AF 85 4A F0           2348 	mov	b,(_iterateStateMachine_sloc0_1_0 + 2)
+   35B2 E5 4E              2349 	mov	a,_iterateStateMachine_sloc2_1_0
+   35B4 12 42 42           2350 	lcall	__gptrput
+   35B7 A3                 2351 	inc	dptr
+   35B8 E5 4F              2352 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   35BA 12 42 42           2353 	lcall	__gptrput
+   35BD A3                 2354 	inc	dptr
+   35BE E5 50              2355 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   35C0 12 42 42           2356 	lcall	__gptrput
+                           2357 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:362: callStateHandler(sm, target, &enterEvent) ;
+   35C3 90 09 FA           2358 	mov	dptr,#_callStateHandler_PARM_2
+   35C6 E5 4E              2359 	mov	a,_iterateStateMachine_sloc2_1_0
+   35C8 F0                 2360 	movx	@dptr,a
+   35C9 A3                 2361 	inc	dptr
+   35CA E5 4F              2362 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   35CC F0                 2363 	movx	@dptr,a
+   35CD A3                 2364 	inc	dptr
+   35CE E5 50              2365 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   35D0 F0                 2366 	movx	@dptr,a
+   35D1 90 09 FD           2367 	mov	dptr,#_callStateHandler_PARM_3
+   35D4 74 10              2368 	mov	a,#_enterEvent
+   35D6 F0                 2369 	movx	@dptr,a
+   35D7 A3                 2370 	inc	dptr
+   35D8 74 0F              2371 	mov	a,#(_enterEvent >> 8)
+   35DA F0                 2372 	movx	@dptr,a
+   35DB A3                 2373 	inc	dptr
+   35DC E4                 2374 	clr	a
+   35DD F0                 2375 	movx	@dptr,a
+   35DE 85 4B 82           2376 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   35E1 85 4C 83           2377 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   35E4 85 4D F0           2378 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   35E7 12 2B C8           2379 	lcall	_callStateHandler
+   35EA 02 3E C0           2380 	ljmp	00163$
+   35ED                    2381 00162$:
+                           2382 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:364: else if(source == (state_t*)(target->parent))
+   35ED 85 4E 82           2383 	mov	dpl,_iterateStateMachine_sloc2_1_0
+   35F0 85 4F 83           2384 	mov	dph,(_iterateStateMachine_sloc2_1_0 + 1)
+   35F3 85 50 F0           2385 	mov	b,(_iterateStateMachine_sloc2_1_0 + 2)
+   35F6 12 4E 6E           2386 	lcall	__gptrget
+   35F9 F5 4B              2387 	mov	_iterateStateMachine_sloc1_1_0,a
+   35FB A3                 2388 	inc	dptr
+   35FC 12 4E 6E           2389 	lcall	__gptrget
+   35FF F5 4C              2390 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3601 A3                 2391 	inc	dptr
+   3602 12 4E 6E           2392 	lcall	__gptrget
+   3605 F5 4D              2393 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   3607 E5 4B              2394 	mov	a,_iterateStateMachine_sloc1_1_0
+   3609 B5 51 63           2395 	cjne	a,_iterateStateMachine_sloc3_1_0,00159$
+   360C E5 4C              2396 	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   360E B5 52 5E           2397 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 1),00159$
+   3611 E5 4D              2398 	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+   3613 B5 53 59           2399 	cjne	a,(_iterateStateMachine_sloc3_1_0 + 2),00159$
+                           2400 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:367: printf("\t\t\t\tTransition to direct child.\n") ;
+   3616 74 19              2401 	mov	a,#__str_11
+   3618 C0 E0              2402 	push	acc
+   361A 74 53              2403 	mov	a,#(__str_11 >> 8)
+   361C C0 E0              2404 	push	acc
+   361E 74 80              2405 	mov	a,#0x80
+   3620 C0 E0              2406 	push	acc
+   3622 12 46 22           2407 	lcall	_printf
+   3625 15 81              2408 	dec	sp
+   3627 15 81              2409 	dec	sp
+   3629 15 81              2410 	dec	sp
+                           2411 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:373: sm->currentState = target ;
+   362B 85 54 82           2412 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   362E 85 55 83           2413 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3631 85 56 F0           2414 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3634 E5 4E              2415 	mov	a,_iterateStateMachine_sloc2_1_0
+   3636 12 42 42           2416 	lcall	__gptrput
+   3639 A3                 2417 	inc	dptr
+   363A E5 4F              2418 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   363C 12 42 42           2419 	lcall	__gptrput
+   363F A3                 2420 	inc	dptr
+   3640 E5 50              2421 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3642 12 42 42           2422 	lcall	__gptrput
+                           2423 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:374: callStateHandler(sm, target, &enterEvent) ;
+   3645 90 09 FA           2424 	mov	dptr,#_callStateHandler_PARM_2
+   3648 E5 4E              2425 	mov	a,_iterateStateMachine_sloc2_1_0
+   364A F0                 2426 	movx	@dptr,a
+   364B A3                 2427 	inc	dptr
+   364C E5 4F              2428 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   364E F0                 2429 	movx	@dptr,a
+   364F A3                 2430 	inc	dptr
+   3650 E5 50              2431 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3652 F0                 2432 	movx	@dptr,a
+   3653 90 09 FD           2433 	mov	dptr,#_callStateHandler_PARM_3
+   3656 74 10              2434 	mov	a,#_enterEvent
+   3658 F0                 2435 	movx	@dptr,a
+   3659 A3                 2436 	inc	dptr
+   365A 74 0F              2437 	mov	a,#(_enterEvent >> 8)
+   365C F0                 2438 	movx	@dptr,a
+   365D A3                 2439 	inc	dptr
+   365E E4                 2440 	clr	a
+   365F F0                 2441 	movx	@dptr,a
+   3660 85 57 82           2442 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3663 85 58 83           2443 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3666 85 59 F0           2444 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3669 12 2B C8           2445 	lcall	_callStateHandler
+   366C 02 3E C0           2446 	ljmp	00163$
+   366F                    2447 00159$:
+                           2448 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:376: else if((state_t*)(source->parent) == (state_t*)(target->parent))
+   366F 85 51 82           2449 	mov	dpl,_iterateStateMachine_sloc3_1_0
+   3672 85 52 83           2450 	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+   3675 85 53 F0           2451 	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+   3678 12 4E 6E           2452 	lcall	__gptrget
+   367B F5 48              2453 	mov	_iterateStateMachine_sloc0_1_0,a
+   367D A3                 2454 	inc	dptr
+   367E 12 4E 6E           2455 	lcall	__gptrget
+   3681 F5 49              2456 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   3683 A3                 2457 	inc	dptr
+   3684 12 4E 6E           2458 	lcall	__gptrget
+   3687 F5 4A              2459 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   3689 E5 4B              2460 	mov	a,_iterateStateMachine_sloc1_1_0
+   368B B5 48 0C           2461 	cjne	a,_iterateStateMachine_sloc0_1_0,00234$
+   368E E5 4C              2462 	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   3690 B5 49 07           2463 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00234$
+   3693 E5 4D              2464 	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+   3695 B5 4A 02           2465 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00234$
+   3698 80 03              2466 	sjmp	00235$
+   369A                    2467 00234$:
+   369A 02 37 39           2468 	ljmp	00156$
+   369D                    2469 00235$:
+                           2470 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:379: printf("\t\t\t\tTransition to direct peer.\n") ;
+   369D 74 3A              2471 	mov	a,#__str_12
+   369F C0 E0              2472 	push	acc
+   36A1 74 53              2473 	mov	a,#(__str_12 >> 8)
+   36A3 C0 E0              2474 	push	acc
+   36A5 74 80              2475 	mov	a,#0x80
+   36A7 C0 E0              2476 	push	acc
+   36A9 12 46 22           2477 	lcall	_printf
+   36AC 15 81              2478 	dec	sp
+   36AE 15 81              2479 	dec	sp
+   36B0 15 81              2480 	dec	sp
+                           2481 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:385: callStateHandler(sm, source, &exitEvent) ;
+   36B2 90 09 FA           2482 	mov	dptr,#_callStateHandler_PARM_2
+   36B5 E5 51              2483 	mov	a,_iterateStateMachine_sloc3_1_0
+   36B7 F0                 2484 	movx	@dptr,a
+   36B8 A3                 2485 	inc	dptr
+   36B9 E5 52              2486 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   36BB F0                 2487 	movx	@dptr,a
+   36BC A3                 2488 	inc	dptr
+   36BD E5 53              2489 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   36BF F0                 2490 	movx	@dptr,a
+   36C0 90 09 FD           2491 	mov	dptr,#_callStateHandler_PARM_3
+   36C3 74 11              2492 	mov	a,#_exitEvent
+   36C5 F0                 2493 	movx	@dptr,a
+   36C6 A3                 2494 	inc	dptr
+   36C7 74 0F              2495 	mov	a,#(_exitEvent >> 8)
+   36C9 F0                 2496 	movx	@dptr,a
+   36CA A3                 2497 	inc	dptr
+   36CB E4                 2498 	clr	a
+   36CC F0                 2499 	movx	@dptr,a
+   36CD 85 57 82           2500 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   36D0 85 58 83           2501 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   36D3 85 59 F0           2502 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   36D6 12 2B C8           2503 	lcall	_callStateHandler
+                           2504 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:386: sm->currentState = target ;
+   36D9 90 0A 04           2505 	mov	dptr,#_iterateStateMachine_sm_1_1
+   36DC E0                 2506 	movx	a,@dptr
+   36DD F5 4B              2507 	mov	_iterateStateMachine_sloc1_1_0,a
+   36DF A3                 2508 	inc	dptr
+   36E0 E0                 2509 	movx	a,@dptr
+   36E1 F5 4C              2510 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   36E3 A3                 2511 	inc	dptr
+   36E4 E0                 2512 	movx	a,@dptr
+   36E5 F5 4D              2513 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   36E7 74 05              2514 	mov	a,#0x05
+   36E9 25 4B              2515 	add	a,_iterateStateMachine_sloc1_1_0
+   36EB F5 5A              2516 	mov	_iterateStateMachine_sloc6_1_0,a
+   36ED E4                 2517 	clr	a
+   36EE 35 4C              2518 	addc	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   36F0 F5 5B              2519 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   36F2 85 4D 5C           2520 	mov	(_iterateStateMachine_sloc6_1_0 + 2),(_iterateStateMachine_sloc1_1_0 + 2)
+   36F5 85 5A 82           2521 	mov	dpl,_iterateStateMachine_sloc6_1_0
+   36F8 85 5B 83           2522 	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+   36FB 85 5C F0           2523 	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+   36FE E5 4E              2524 	mov	a,_iterateStateMachine_sloc2_1_0
+   3700 12 42 42           2525 	lcall	__gptrput
+   3703 A3                 2526 	inc	dptr
+   3704 E5 4F              2527 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3706 12 42 42           2528 	lcall	__gptrput
+   3709 A3                 2529 	inc	dptr
+   370A E5 50              2530 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   370C 12 42 42           2531 	lcall	__gptrput
+                           2532 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:387: callStateHandler(sm, target, &enterEvent) ;
+   370F 90 09 FA           2533 	mov	dptr,#_callStateHandler_PARM_2
+   3712 E5 4E              2534 	mov	a,_iterateStateMachine_sloc2_1_0
+   3714 F0                 2535 	movx	@dptr,a
+   3715 A3                 2536 	inc	dptr
+   3716 E5 4F              2537 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3718 F0                 2538 	movx	@dptr,a
+   3719 A3                 2539 	inc	dptr
+   371A E5 50              2540 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   371C F0                 2541 	movx	@dptr,a
+   371D 90 09 FD           2542 	mov	dptr,#_callStateHandler_PARM_3
+   3720 74 10              2543 	mov	a,#_enterEvent
+   3722 F0                 2544 	movx	@dptr,a
+   3723 A3                 2545 	inc	dptr
+   3724 74 0F              2546 	mov	a,#(_enterEvent >> 8)
+   3726 F0                 2547 	movx	@dptr,a
+   3727 A3                 2548 	inc	dptr
+   3728 E4                 2549 	clr	a
+   3729 F0                 2550 	movx	@dptr,a
+   372A 85 4B 82           2551 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   372D 85 4C 83           2552 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   3730 85 4D F0           2553 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   3733 12 2B C8           2554 	lcall	_callStateHandler
+   3736 02 3E C0           2555 	ljmp	00163$
+   3739                    2556 00156$:
+                           2557 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:389: else if((state_t*)(source->parent) == target)
+   3739 E5 4E              2558 	mov	a,_iterateStateMachine_sloc2_1_0
+   373B B5 48 63           2559 	cjne	a,_iterateStateMachine_sloc0_1_0,00153$
+   373E E5 4F              2560 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3740 B5 49 5E           2561 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 1),00153$
+   3743 E5 50              2562 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3745 B5 4A 59           2563 	cjne	a,(_iterateStateMachine_sloc0_1_0 + 2),00153$
+                           2564 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:392: printf("\t\t\t\tTransition to direct parent.\n") ;
+   3748 74 5A              2565 	mov	a,#__str_13
+   374A C0 E0              2566 	push	acc
+   374C 74 53              2567 	mov	a,#(__str_13 >> 8)
+   374E C0 E0              2568 	push	acc
+   3750 74 80              2569 	mov	a,#0x80
+   3752 C0 E0              2570 	push	acc
+   3754 12 46 22           2571 	lcall	_printf
+   3757 15 81              2572 	dec	sp
+   3759 15 81              2573 	dec	sp
+   375B 15 81              2574 	dec	sp
+                           2575 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:399: sm->currentState = target ;
+   375D 85 54 82           2576 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   3760 85 55 83           2577 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3763 85 56 F0           2578 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3766 E5 4E              2579 	mov	a,_iterateStateMachine_sloc2_1_0
+   3768 12 42 42           2580 	lcall	__gptrput
+   376B A3                 2581 	inc	dptr
+   376C E5 4F              2582 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   376E 12 42 42           2583 	lcall	__gptrput
+   3771 A3                 2584 	inc	dptr
+   3772 E5 50              2585 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3774 12 42 42           2586 	lcall	__gptrput
+                           2587 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:400: callStateHandler(sm, source, &exitEvent) ;
+   3777 90 09 FA           2588 	mov	dptr,#_callStateHandler_PARM_2
+   377A E5 51              2589 	mov	a,_iterateStateMachine_sloc3_1_0
+   377C F0                 2590 	movx	@dptr,a
+   377D A3                 2591 	inc	dptr
+   377E E5 52              2592 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3780 F0                 2593 	movx	@dptr,a
+   3781 A3                 2594 	inc	dptr
+   3782 E5 53              2595 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   3784 F0                 2596 	movx	@dptr,a
+   3785 90 09 FD           2597 	mov	dptr,#_callStateHandler_PARM_3
+   3788 74 11              2598 	mov	a,#_exitEvent
+   378A F0                 2599 	movx	@dptr,a
+   378B A3                 2600 	inc	dptr
+   378C 74 0F              2601 	mov	a,#(_exitEvent >> 8)
+   378E F0                 2602 	movx	@dptr,a
+   378F A3                 2603 	inc	dptr
+   3790 E4                 2604 	clr	a
+   3791 F0                 2605 	movx	@dptr,a
+   3792 85 57 82           2606 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3795 85 58 83           2607 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3798 85 59 F0           2608 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   379B 12 2B C8           2609 	lcall	_callStateHandler
+   379E 02 3E C0           2610 	ljmp	00163$
+   37A1                    2611 00153$:
+                           2612 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:415: printf("\t\t\t\tScanning source hierarchy...\n") ;
+   37A1 74 7C              2613 	mov	a,#__str_14
+   37A3 C0 E0              2614 	push	acc
+   37A5 74 53              2615 	mov	a,#(__str_14 >> 8)
+   37A7 C0 E0              2616 	push	acc
+   37A9 74 80              2617 	mov	a,#0x80
+   37AB C0 E0              2618 	push	acc
+   37AD 12 46 22           2619 	lcall	_printf
+   37B0 15 81              2620 	dec	sp
+   37B2 15 81              2621 	dec	sp
+   37B4 15 81              2622 	dec	sp
+                           2623 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:419: targetIndex			= 0 ;
+   37B6 90 0A 6F           2624 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+   37B9 E4                 2625 	clr	a
+   37BA F0                 2626 	movx	@dptr,a
+                           2627 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:420: stateBeingProcessed	= source ;
+   37BB 90 0A 0A           2628 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   37BE E5 51              2629 	mov	a,_iterateStateMachine_sloc3_1_0
+   37C0 F0                 2630 	movx	@dptr,a
+   37C1 A3                 2631 	inc	dptr
+   37C2 E5 52              2632 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   37C4 F0                 2633 	movx	@dptr,a
+   37C5 A3                 2634 	inc	dptr
+   37C6 E5 53              2635 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   37C8 F0                 2636 	movx	@dptr,a
+                           2637 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:422: do
+   37C9 75 5A 00           2638 	mov	_iterateStateMachine_sloc6_1_0,#0x00
+   37CC                    2639 00128$:
+                           2640 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:424: sourceHierarchy[sourceIndex++] = stateBeingProcessed ;
+   37CC A9 5A              2641 	mov	r1,_iterateStateMachine_sloc6_1_0
+   37CE 05 5A              2642 	inc	_iterateStateMachine_sloc6_1_0
+   37D0 90 0A 3E           2643 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
+   37D3 E5 5A              2644 	mov	a,_iterateStateMachine_sloc6_1_0
+   37D5 F0                 2645 	movx	@dptr,a
+   37D6 E9                 2646 	mov	a,r1
+   37D7 75 F0 03           2647 	mov	b,#0x03
+   37DA A4                 2648 	mul	ab
+   37DB 24 0E              2649 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
+   37DD F9                 2650 	mov	r1,a
+   37DE E4                 2651 	clr	a
+   37DF 34 0A              2652 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
+   37E1 F8                 2653 	mov	r0,a
+   37E2 90 0A 0A           2654 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   37E5 E0                 2655 	movx	a,@dptr
+   37E6 F5 57              2656 	mov	_iterateStateMachine_sloc5_1_0,a
+   37E8 A3                 2657 	inc	dptr
+   37E9 E0                 2658 	movx	a,@dptr
+   37EA F5 58              2659 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   37EC A3                 2660 	inc	dptr
+   37ED E0                 2661 	movx	a,@dptr
+   37EE F5 59              2662 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   37F0 89 82              2663 	mov	dpl,r1
+   37F2 88 83              2664 	mov	dph,r0
+   37F4 E5 57              2665 	mov	a,_iterateStateMachine_sloc5_1_0
+   37F6 F0                 2666 	movx	@dptr,a
+   37F7 A3                 2667 	inc	dptr
+   37F8 E5 58              2668 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   37FA F0                 2669 	movx	@dptr,a
+   37FB A3                 2670 	inc	dptr
+   37FC E5 59              2671 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   37FE F0                 2672 	movx	@dptr,a
+                           2673 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:427: printf("\t\t\t\t\tsourceHierarchy[%d] = %s\n", sourceIndex - 1, stateBeingProcessed->stateName) ;
+   37FF 74 06              2674 	mov	a,#0x06
+   3801 25 57              2675 	add	a,_iterateStateMachine_sloc5_1_0
+   3803 F5 54              2676 	mov	_iterateStateMachine_sloc4_1_0,a
+   3805 E4                 2677 	clr	a
+   3806 35 58              2678 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3808 F5 55              2679 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   380A 85 59 56           2680 	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+   380D 85 54 82           2681 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   3810 85 55 83           2682 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3813 85 56 F0           2683 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3816 12 4E 6E           2684 	lcall	__gptrget
+   3819 F5 54              2685 	mov	_iterateStateMachine_sloc4_1_0,a
+   381B A3                 2686 	inc	dptr
+   381C 12 4E 6E           2687 	lcall	__gptrget
+   381F F5 55              2688 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3821 A3                 2689 	inc	dptr
+   3822 12 4E 6E           2690 	lcall	__gptrget
+   3825 F5 56              2691 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+   3827 A8 5A              2692 	mov	r0,_iterateStateMachine_sloc6_1_0
+   3829 79 00              2693 	mov	r1,#0x00
+   382B 18                 2694 	dec	r0
+   382C B8 FF 01           2695 	cjne	r0,#0xff,00238$
+   382F 19                 2696 	dec	r1
+   3830                    2697 00238$:
+   3830 C0 54              2698 	push	_iterateStateMachine_sloc4_1_0
+   3832 C0 55              2699 	push	(_iterateStateMachine_sloc4_1_0 + 1)
+   3834 C0 56              2700 	push	(_iterateStateMachine_sloc4_1_0 + 2)
+   3836 C0 00              2701 	push	ar0
+   3838 C0 01              2702 	push	ar1
+   383A 74 9E              2703 	mov	a,#__str_15
+   383C C0 E0              2704 	push	acc
+   383E 74 53              2705 	mov	a,#(__str_15 >> 8)
+   3840 C0 E0              2706 	push	acc
+   3842 74 80              2707 	mov	a,#0x80
+   3844 C0 E0              2708 	push	acc
+   3846 12 46 22           2709 	lcall	_printf
+   3849 E5 81              2710 	mov	a,sp
+   384B 24 F8              2711 	add	a,#0xf8
+   384D F5 81              2712 	mov	sp,a
+                           2713 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:430: if(stateBeingProcessed == target)
+   384F E5 4E              2714 	mov	a,_iterateStateMachine_sloc2_1_0
+   3851 B5 57 0C           2715 	cjne	a,_iterateStateMachine_sloc5_1_0,00239$
+   3854 E5 4F              2716 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3856 B5 58 07           2717 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00239$
+   3859 E5 50              2718 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   385B B5 59 02           2719 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00239$
+   385E 80 03              2720 	sjmp	00240$
+   3860                    2721 00239$:
+   3860 02 39 2E           2722 	ljmp	00127$
+   3863                    2723 00240$:
+                           2724 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:435: printf("\t\t\t\t\t\tFound target as ancestor of source\n") ;
+   3863 74 BD              2725 	mov	a,#__str_16
+   3865 C0 E0              2726 	push	acc
+   3867 74 53              2727 	mov	a,#(__str_16 >> 8)
+   3869 C0 E0              2728 	push	acc
+   386B 74 80              2729 	mov	a,#0x80
+   386D C0 E0              2730 	push	acc
+   386F 12 46 22           2731 	lcall	_printf
+   3872 15 81              2732 	dec	sp
+   3874 15 81              2733 	dec	sp
+   3876 15 81              2734 	dec	sp
+                           2735 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:438: sourceIndex-- ;
+   3878 E5 5A              2736 	mov	a,_iterateStateMachine_sloc6_1_0
+   387A 14                 2737 	dec	a
+   387B F8                 2738 	mov	r0,a
+   387C 90 0A 3E           2739 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
+   387F F0                 2740 	movx	@dptr,a
+                           2741 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:440: while(exitIndex < sourceIndex)
+   3880 75 54 00           2742 	mov	_iterateStateMachine_sloc4_1_0,#0x00
+   3883                    2743 00123$:
+   3883 C3                 2744 	clr	c
+   3884 E5 54              2745 	mov	a,_iterateStateMachine_sloc4_1_0
+   3886 98                 2746 	subb	a,r0
+   3887 50 70              2747 	jnc	00125$
+                           2748 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:443: printf("\t\t\t\t") ;
+   3889 C0 00              2749 	push	ar0
+   388B C0 00              2750 	push	ar0
+   388D 74 E7              2751 	mov	a,#__str_17
+   388F C0 E0              2752 	push	acc
+   3891 74 53              2753 	mov	a,#(__str_17 >> 8)
+   3893 C0 E0              2754 	push	acc
+   3895 74 80              2755 	mov	a,#0x80
+   3897 C0 E0              2756 	push	acc
+   3899 12 46 22           2757 	lcall	_printf
+   389C 15 81              2758 	dec	sp
+   389E 15 81              2759 	dec	sp
+   38A0 15 81              2760 	dec	sp
+                           2761 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:446: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
+   38A2 90 0A 04           2762 	mov	dptr,#_iterateStateMachine_sm_1_1
+   38A5 E0                 2763 	movx	a,@dptr
+   38A6 F5 4B              2764 	mov	_iterateStateMachine_sloc1_1_0,a
+   38A8 A3                 2765 	inc	dptr
+   38A9 E0                 2766 	movx	a,@dptr
+   38AA F5 4C              2767 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   38AC A3                 2768 	inc	dptr
+   38AD E0                 2769 	movx	a,@dptr
+   38AE F5 4D              2770 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   38B0 E5 54              2771 	mov	a,_iterateStateMachine_sloc4_1_0
+   38B2 75 F0 03           2772 	mov	b,#0x03
+   38B5 A4                 2773 	mul	ab
+   38B6 24 0E              2774 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
+   38B8 F5 82              2775 	mov	dpl,a
+   38BA E4                 2776 	clr	a
+   38BB 34 0A              2777 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
+   38BD F5 83              2778 	mov	dph,a
+   38BF E0                 2779 	movx	a,@dptr
+   38C0 F5 48              2780 	mov	_iterateStateMachine_sloc0_1_0,a
+   38C2 A3                 2781 	inc	dptr
+   38C3 E0                 2782 	movx	a,@dptr
+   38C4 F5 49              2783 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   38C6 A3                 2784 	inc	dptr
+   38C7 E0                 2785 	movx	a,@dptr
+   38C8 F5 4A              2786 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   38CA 90 09 FA           2787 	mov	dptr,#_callStateHandler_PARM_2
+   38CD E5 48              2788 	mov	a,_iterateStateMachine_sloc0_1_0
+   38CF F0                 2789 	movx	@dptr,a
+   38D0 A3                 2790 	inc	dptr
+   38D1 E5 49              2791 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   38D3 F0                 2792 	movx	@dptr,a
+   38D4 A3                 2793 	inc	dptr
+   38D5 E5 4A              2794 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+   38D7 F0                 2795 	movx	@dptr,a
+   38D8 90 09 FD           2796 	mov	dptr,#_callStateHandler_PARM_3
+   38DB 74 11              2797 	mov	a,#_exitEvent
+   38DD F0                 2798 	movx	@dptr,a
+   38DE A3                 2799 	inc	dptr
+   38DF 74 0F              2800 	mov	a,#(_exitEvent >> 8)
+   38E1 F0                 2801 	movx	@dptr,a
+   38E2 A3                 2802 	inc	dptr
+   38E3 E4                 2803 	clr	a
+   38E4 F0                 2804 	movx	@dptr,a
+   38E5 85 4B 82           2805 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   38E8 85 4C 83           2806 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   38EB 85 4D F0           2807 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   38EE 12 2B C8           2808 	lcall	_callStateHandler
+   38F1 D0 00              2809 	pop	ar0
+                           2810 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:448: exitIndex++ ;
+   38F3 05 54              2811 	inc	_iterateStateMachine_sloc4_1_0
+   38F5 D0 00              2812 	pop	ar0
+   38F7 80 8A              2813 	sjmp	00123$
+   38F9                    2814 00125$:
+                           2815 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:451: sm->currentState = target ;
+   38F9 90 0A 04           2816 	mov	dptr,#_iterateStateMachine_sm_1_1
+   38FC E0                 2817 	movx	a,@dptr
+   38FD F5 54              2818 	mov	_iterateStateMachine_sloc4_1_0,a
+   38FF A3                 2819 	inc	dptr
+   3900 E0                 2820 	movx	a,@dptr
+   3901 F5 55              2821 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3903 A3                 2822 	inc	dptr
+   3904 E0                 2823 	movx	a,@dptr
+   3905 F5 56              2824 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+   3907 74 05              2825 	mov	a,#0x05
+   3909 25 54              2826 	add	a,_iterateStateMachine_sloc4_1_0
+   390B F5 54              2827 	mov	_iterateStateMachine_sloc4_1_0,a
+   390D E4                 2828 	clr	a
+   390E 35 55              2829 	addc	a,(_iterateStateMachine_sloc4_1_0 + 1)
+   3910 F5 55              2830 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3912 85 54 82           2831 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   3915 85 55 83           2832 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3918 85 56 F0           2833 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   391B E5 4E              2834 	mov	a,_iterateStateMachine_sloc2_1_0
+   391D 12 42 42           2835 	lcall	__gptrput
+   3920 A3                 2836 	inc	dptr
+   3921 E5 4F              2837 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3923 12 42 42           2838 	lcall	__gptrput
+   3926 A3                 2839 	inc	dptr
+   3927 E5 50              2840 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3929 12 42 42           2841 	lcall	__gptrput
+                           2842 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:453: break ;
+   392C 80 41              2843 	sjmp	00130$
+   392E                    2844 00127$:
+                           2845 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:456: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+   392E 85 57 82           2846 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3931 85 58 83           2847 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3934 85 59 F0           2848 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3937 12 4E 6E           2849 	lcall	__gptrget
+   393A F5 57              2850 	mov	_iterateStateMachine_sloc5_1_0,a
+   393C A3                 2851 	inc	dptr
+   393D 12 4E 6E           2852 	lcall	__gptrget
+   3940 F5 58              2853 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3942 A3                 2854 	inc	dptr
+   3943 12 4E 6E           2855 	lcall	__gptrget
+   3946 F5 59              2856 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3948 90 0A 0A           2857 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   394B E5 57              2858 	mov	a,_iterateStateMachine_sloc5_1_0
+   394D F0                 2859 	movx	@dptr,a
+   394E A3                 2860 	inc	dptr
+   394F E5 58              2861 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3951 F0                 2862 	movx	@dptr,a
+   3952 A3                 2863 	inc	dptr
+   3953 E5 59              2864 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   3955 F0                 2865 	movx	@dptr,a
+                           2866 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:457: } while(stateBeingProcessed) ;
+   3956 90 0A 0A           2867 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   3959 E0                 2868 	movx	a,@dptr
+   395A F5 57              2869 	mov	_iterateStateMachine_sloc5_1_0,a
+   395C A3                 2870 	inc	dptr
+   395D E0                 2871 	movx	a,@dptr
+   395E F5 58              2872 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3960 A3                 2873 	inc	dptr
+   3961 E0                 2874 	movx	a,@dptr
+   3962 F5 59              2875 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3964 E5 57              2876 	mov	a,_iterateStateMachine_sloc5_1_0
+   3966 45 58              2877 	orl	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3968 45 59              2878 	orl	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   396A 60 03              2879 	jz	00242$
+   396C 02 37 CC           2880 	ljmp	00128$
+   396F                    2881 00242$:
+   396F                    2882 00130$:
+                           2883 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:459: if(sm->currentState != target)
+   396F 90 0A 04           2884 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3972 E0                 2885 	movx	a,@dptr
+   3973 F5 5A              2886 	mov	_iterateStateMachine_sloc6_1_0,a
+   3975 A3                 2887 	inc	dptr
+   3976 E0                 2888 	movx	a,@dptr
+   3977 F5 5B              2889 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3979 A3                 2890 	inc	dptr
+   397A E0                 2891 	movx	a,@dptr
+   397B F5 5C              2892 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   397D 74 05              2893 	mov	a,#0x05
+   397F 25 5A              2894 	add	a,_iterateStateMachine_sloc6_1_0
+   3981 F5 5A              2895 	mov	_iterateStateMachine_sloc6_1_0,a
+   3983 E4                 2896 	clr	a
+   3984 35 5B              2897 	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+   3986 F5 5B              2898 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3988 85 5A 82           2899 	mov	dpl,_iterateStateMachine_sloc6_1_0
+   398B 85 5B 83           2900 	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+   398E 85 5C F0           2901 	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+   3991 12 4E 6E           2902 	lcall	__gptrget
+   3994 F5 5A              2903 	mov	_iterateStateMachine_sloc6_1_0,a
+   3996 A3                 2904 	inc	dptr
+   3997 12 4E 6E           2905 	lcall	__gptrget
+   399A F5 5B              2906 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   399C A3                 2907 	inc	dptr
+   399D 12 4E 6E           2908 	lcall	__gptrget
+   39A0 F5 5C              2909 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   39A2 E5 4E              2910 	mov	a,_iterateStateMachine_sloc2_1_0
+   39A4 B5 5A 0D           2911 	cjne	a,_iterateStateMachine_sloc6_1_0,00243$
+   39A7 E5 4F              2912 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   39A9 B5 5B 08           2913 	cjne	a,(_iterateStateMachine_sloc6_1_0 + 1),00243$
+   39AC E5 50              2914 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   39AE B5 5C 03           2915 	cjne	a,(_iterateStateMachine_sloc6_1_0 + 2),00243$
+   39B1 02 3B 74           2916 	ljmp	00140$
+   39B4                    2917 00243$:
+                           2918 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:462: printf("\t\t\t\tScanning target hierarchy...\n") ;
+   39B4 74 EC              2919 	mov	a,#__str_18
+   39B6 C0 E0              2920 	push	acc
+   39B8 74 53              2921 	mov	a,#(__str_18 >> 8)
+   39BA C0 E0              2922 	push	acc
+   39BC 74 80              2923 	mov	a,#0x80
+   39BE C0 E0              2924 	push	acc
+   39C0 12 46 22           2925 	lcall	_printf
+   39C3 15 81              2926 	dec	sp
+   39C5 15 81              2927 	dec	sp
+   39C7 15 81              2928 	dec	sp
+                           2929 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:465: targetIndex			= 0 ;
+   39C9 90 0A 6F           2930 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+   39CC E4                 2931 	clr	a
+   39CD F0                 2932 	movx	@dptr,a
+                           2933 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:466: stateBeingProcessed	= target ;
+   39CE 90 0A 0A           2934 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   39D1 E5 4E              2935 	mov	a,_iterateStateMachine_sloc2_1_0
+   39D3 F0                 2936 	movx	@dptr,a
+   39D4 A3                 2937 	inc	dptr
+   39D5 E5 4F              2938 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   39D7 F0                 2939 	movx	@dptr,a
+   39D8 A3                 2940 	inc	dptr
+   39D9 E5 50              2941 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   39DB F0                 2942 	movx	@dptr,a
+                           2943 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:468: do
+   39DC 75 5A 00           2944 	mov	_iterateStateMachine_sloc6_1_0,#0x00
+   39DF                    2945 00136$:
+                           2946 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:470: targetHierarchy[targetIndex] = stateBeingProcessed ;
+   39DF E5 5A              2947 	mov	a,_iterateStateMachine_sloc6_1_0
+   39E1 75 F0 03           2948 	mov	b,#0x03
+   39E4 A4                 2949 	mul	ab
+   39E5 24 3F              2950 	add	a,#_iterateStateMachine_targetHierarchy_4_19
+   39E7 F9                 2951 	mov	r1,a
+   39E8 E4                 2952 	clr	a
+   39E9 34 0A              2953 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
+   39EB F8                 2954 	mov	r0,a
+   39EC 90 0A 0A           2955 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   39EF E0                 2956 	movx	a,@dptr
+   39F0 F5 57              2957 	mov	_iterateStateMachine_sloc5_1_0,a
+   39F2 A3                 2958 	inc	dptr
+   39F3 E0                 2959 	movx	a,@dptr
+   39F4 F5 58              2960 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   39F6 A3                 2961 	inc	dptr
+   39F7 E0                 2962 	movx	a,@dptr
+   39F8 F5 59              2963 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   39FA 89 82              2964 	mov	dpl,r1
+   39FC 88 83              2965 	mov	dph,r0
+   39FE E5 57              2966 	mov	a,_iterateStateMachine_sloc5_1_0
+   3A00 F0                 2967 	movx	@dptr,a
+   3A01 A3                 2968 	inc	dptr
+   3A02 E5 58              2969 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3A04 F0                 2970 	movx	@dptr,a
+   3A05 A3                 2971 	inc	dptr
+   3A06 E5 59              2972 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   3A08 F0                 2973 	movx	@dptr,a
+                           2974 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:473: printf("\t\t\t\t\ttargetHierarchy[%d] = %s\n", targetIndex, stateBeingProcessed->stateName) ;
+   3A09 74 06              2975 	mov	a,#0x06
+   3A0B 25 57              2976 	add	a,_iterateStateMachine_sloc5_1_0
+   3A0D F5 54              2977 	mov	_iterateStateMachine_sloc4_1_0,a
+   3A0F E4                 2978 	clr	a
+   3A10 35 58              2979 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3A12 F5 55              2980 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3A14 85 59 56           2981 	mov	(_iterateStateMachine_sloc4_1_0 + 2),(_iterateStateMachine_sloc5_1_0 + 2)
+   3A17 85 54 82           2982 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   3A1A 85 55 83           2983 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3A1D 85 56 F0           2984 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3A20 12 4E 6E           2985 	lcall	__gptrget
+   3A23 F5 54              2986 	mov	_iterateStateMachine_sloc4_1_0,a
+   3A25 A3                 2987 	inc	dptr
+   3A26 12 4E 6E           2988 	lcall	__gptrget
+   3A29 F5 55              2989 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3A2B A3                 2990 	inc	dptr
+   3A2C 12 4E 6E           2991 	lcall	__gptrget
+   3A2F F5 56              2992 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+   3A31 A8 5A              2993 	mov	r0,_iterateStateMachine_sloc6_1_0
+   3A33 79 00              2994 	mov	r1,#0x00
+   3A35 C0 54              2995 	push	_iterateStateMachine_sloc4_1_0
+   3A37 C0 55              2996 	push	(_iterateStateMachine_sloc4_1_0 + 1)
+   3A39 C0 56              2997 	push	(_iterateStateMachine_sloc4_1_0 + 2)
+   3A3B C0 00              2998 	push	ar0
+   3A3D C0 01              2999 	push	ar1
+   3A3F 74 0E              3000 	mov	a,#__str_19
+   3A41 C0 E0              3001 	push	acc
+   3A43 74 54              3002 	mov	a,#(__str_19 >> 8)
+   3A45 C0 E0              3003 	push	acc
+   3A47 74 80              3004 	mov	a,#0x80
+   3A49 C0 E0              3005 	push	acc
+   3A4B 12 46 22           3006 	lcall	_printf
+   3A4E E5 81              3007 	mov	a,sp
+   3A50 24 F8              3008 	add	a,#0xf8
+   3A52 F5 81              3009 	mov	sp,a
+                           3010 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:476: if(stateBeingProcessed == source)
+   3A54 E5 51              3011 	mov	a,_iterateStateMachine_sloc3_1_0
+   3A56 B5 57 0C           3012 	cjne	a,_iterateStateMachine_sloc5_1_0,00244$
+   3A59 E5 52              3013 	mov	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3A5B B5 58 07           3014 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00244$
+   3A5E E5 53              3015 	mov	a,(_iterateStateMachine_sloc3_1_0 + 2)
+   3A60 B5 59 02           3016 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00244$
+   3A63 80 03              3017 	sjmp	00245$
+   3A65                    3018 00244$:
+   3A65 02 3B 2B           3019 	ljmp	00135$
+   3A68                    3020 00245$:
+                           3021 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:479: printf("\t\t\t\t\t\tFound source as ancestor of target\n") ;
+   3A68 74 2D              3022 	mov	a,#__str_20
+   3A6A C0 E0              3023 	push	acc
+   3A6C 74 54              3024 	mov	a,#(__str_20 >> 8)
+   3A6E C0 E0              3025 	push	acc
+   3A70 74 80              3026 	mov	a,#0x80
+   3A72 C0 E0              3027 	push	acc
+   3A74 12 46 22           3028 	lcall	_printf
+   3A77 15 81              3029 	dec	sp
+   3A79 15 81              3030 	dec	sp
+   3A7B 15 81              3031 	dec	sp
+                           3032 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:482: while(targetIndex--)
+   3A7D 90 0A 6F           3033 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+   3A80 E0                 3034 	movx	a,@dptr
+   3A81 F5 54              3035 	mov	_iterateStateMachine_sloc4_1_0,a
+   3A83                    3036 00131$:
+   3A83 A9 54              3037 	mov	r1,_iterateStateMachine_sloc4_1_0
+   3A85 15 54              3038 	dec	_iterateStateMachine_sloc4_1_0
+   3A87 E9                 3039 	mov	a,r1
+   3A88 60 66              3040 	jz	00210$
+                           3041 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:485: printf("\t\t\t\t") ;
+   3A8A 74 E7              3042 	mov	a,#__str_17
+   3A8C C0 E0              3043 	push	acc
+   3A8E 74 53              3044 	mov	a,#(__str_17 >> 8)
+   3A90 C0 E0              3045 	push	acc
+   3A92 74 80              3046 	mov	a,#0x80
+   3A94 C0 E0              3047 	push	acc
+   3A96 12 46 22           3048 	lcall	_printf
+   3A99 15 81              3049 	dec	sp
+   3A9B 15 81              3050 	dec	sp
+   3A9D 15 81              3051 	dec	sp
+                           3052 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:487: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
+   3A9F 90 0A 04           3053 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3AA2 E0                 3054 	movx	a,@dptr
+   3AA3 F5 4B              3055 	mov	_iterateStateMachine_sloc1_1_0,a
+   3AA5 A3                 3056 	inc	dptr
+   3AA6 E0                 3057 	movx	a,@dptr
+   3AA7 F5 4C              3058 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3AA9 A3                 3059 	inc	dptr
+   3AAA E0                 3060 	movx	a,@dptr
+   3AAB F5 4D              3061 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   3AAD E5 54              3062 	mov	a,_iterateStateMachine_sloc4_1_0
+   3AAF 75 F0 03           3063 	mov	b,#0x03
+   3AB2 A4                 3064 	mul	ab
+   3AB3 24 3F              3065 	add	a,#_iterateStateMachine_targetHierarchy_4_19
+   3AB5 F5 82              3066 	mov	dpl,a
+   3AB7 E4                 3067 	clr	a
+   3AB8 34 0A              3068 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
+   3ABA F5 83              3069 	mov	dph,a
+   3ABC E0                 3070 	movx	a,@dptr
+   3ABD F5 48              3071 	mov	_iterateStateMachine_sloc0_1_0,a
+   3ABF A3                 3072 	inc	dptr
+   3AC0 E0                 3073 	movx	a,@dptr
+   3AC1 F5 49              3074 	mov	(_iterateStateMachine_sloc0_1_0 + 1),a
+   3AC3 A3                 3075 	inc	dptr
+   3AC4 E0                 3076 	movx	a,@dptr
+   3AC5 F5 4A              3077 	mov	(_iterateStateMachine_sloc0_1_0 + 2),a
+   3AC7 90 09 FA           3078 	mov	dptr,#_callStateHandler_PARM_2
+   3ACA E5 48              3079 	mov	a,_iterateStateMachine_sloc0_1_0
+   3ACC F0                 3080 	movx	@dptr,a
+   3ACD A3                 3081 	inc	dptr
+   3ACE E5 49              3082 	mov	a,(_iterateStateMachine_sloc0_1_0 + 1)
+   3AD0 F0                 3083 	movx	@dptr,a
+   3AD1 A3                 3084 	inc	dptr
+   3AD2 E5 4A              3085 	mov	a,(_iterateStateMachine_sloc0_1_0 + 2)
+   3AD4 F0                 3086 	movx	@dptr,a
+   3AD5 90 09 FD           3087 	mov	dptr,#_callStateHandler_PARM_3
+   3AD8 74 10              3088 	mov	a,#_enterEvent
+   3ADA F0                 3089 	movx	@dptr,a
+   3ADB A3                 3090 	inc	dptr
+   3ADC 74 0F              3091 	mov	a,#(_enterEvent >> 8)
+   3ADE F0                 3092 	movx	@dptr,a
+   3ADF A3                 3093 	inc	dptr
+   3AE0 E4                 3094 	clr	a
+   3AE1 F0                 3095 	movx	@dptr,a
+   3AE2 85 4B 82           3096 	mov	dpl,_iterateStateMachine_sloc1_1_0
+   3AE5 85 4C 83           3097 	mov	dph,(_iterateStateMachine_sloc1_1_0 + 1)
+   3AE8 85 4D F0           3098 	mov	b,(_iterateStateMachine_sloc1_1_0 + 2)
+   3AEB 12 2B C8           3099 	lcall	_callStateHandler
+   3AEE 80 93              3100 	sjmp	00131$
+   3AF0                    3101 00210$:
+   3AF0 90 0A 6F           3102 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+   3AF3 E5 54              3103 	mov	a,_iterateStateMachine_sloc4_1_0
+   3AF5 F0                 3104 	movx	@dptr,a
+                           3105 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:490: sm->currentState = target ;
+   3AF6 90 0A 04           3106 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3AF9 E0                 3107 	movx	a,@dptr
+   3AFA F5 54              3108 	mov	_iterateStateMachine_sloc4_1_0,a
+   3AFC A3                 3109 	inc	dptr
+   3AFD E0                 3110 	movx	a,@dptr
+   3AFE F5 55              3111 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3B00 A3                 3112 	inc	dptr
+   3B01 E0                 3113 	movx	a,@dptr
+   3B02 F5 56              3114 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+   3B04 74 05              3115 	mov	a,#0x05
+   3B06 25 54              3116 	add	a,_iterateStateMachine_sloc4_1_0
+   3B08 F5 54              3117 	mov	_iterateStateMachine_sloc4_1_0,a
+   3B0A E4                 3118 	clr	a
+   3B0B 35 55              3119 	addc	a,(_iterateStateMachine_sloc4_1_0 + 1)
+   3B0D F5 55              3120 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3B0F 85 54 82           3121 	mov	dpl,_iterateStateMachine_sloc4_1_0
+   3B12 85 55 83           3122 	mov	dph,(_iterateStateMachine_sloc4_1_0 + 1)
+   3B15 85 56 F0           3123 	mov	b,(_iterateStateMachine_sloc4_1_0 + 2)
+   3B18 E5 4E              3124 	mov	a,_iterateStateMachine_sloc2_1_0
+   3B1A 12 42 42           3125 	lcall	__gptrput
+   3B1D A3                 3126 	inc	dptr
+   3B1E E5 4F              3127 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3B20 12 42 42           3128 	lcall	__gptrput
+   3B23 A3                 3129 	inc	dptr
+   3B24 E5 50              3130 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3B26 12 42 42           3131 	lcall	__gptrput
+                           3132 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:492: break ;
+   3B29 80 49              3133 	sjmp	00140$
+   3B2B                    3134 00135$:
+                           3135 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:495: targetIndex++ ;
+   3B2B 05 5A              3136 	inc	_iterateStateMachine_sloc6_1_0
+   3B2D 90 0A 6F           3137 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+   3B30 E5 5A              3138 	mov	a,_iterateStateMachine_sloc6_1_0
+   3B32 F0                 3139 	movx	@dptr,a
+                           3140 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:496: stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+   3B33 85 57 82           3141 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3B36 85 58 83           3142 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3B39 85 59 F0           3143 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3B3C 12 4E 6E           3144 	lcall	__gptrget
+   3B3F F5 57              3145 	mov	_iterateStateMachine_sloc5_1_0,a
+   3B41 A3                 3146 	inc	dptr
+   3B42 12 4E 6E           3147 	lcall	__gptrget
+   3B45 F5 58              3148 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3B47 A3                 3149 	inc	dptr
+   3B48 12 4E 6E           3150 	lcall	__gptrget
+   3B4B F5 59              3151 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3B4D 90 0A 0A           3152 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   3B50 E5 57              3153 	mov	a,_iterateStateMachine_sloc5_1_0
+   3B52 F0                 3154 	movx	@dptr,a
+   3B53 A3                 3155 	inc	dptr
+   3B54 E5 58              3156 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3B56 F0                 3157 	movx	@dptr,a
+   3B57 A3                 3158 	inc	dptr
+   3B58 E5 59              3159 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   3B5A F0                 3160 	movx	@dptr,a
+                           3161 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:497: } while(stateBeingProcessed) ;
+   3B5B 90 0A 0A           3162 	mov	dptr,#_iterateStateMachine_stateBeingProcessed_2_3
+   3B5E E0                 3163 	movx	a,@dptr
+   3B5F F5 57              3164 	mov	_iterateStateMachine_sloc5_1_0,a
+   3B61 A3                 3165 	inc	dptr
+   3B62 E0                 3166 	movx	a,@dptr
+   3B63 F5 58              3167 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3B65 A3                 3168 	inc	dptr
+   3B66 E0                 3169 	movx	a,@dptr
+   3B67 F5 59              3170 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3B69 E5 57              3171 	mov	a,_iterateStateMachine_sloc5_1_0
+   3B6B 45 58              3172 	orl	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3B6D 45 59              3173 	orl	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   3B6F 60 03              3174 	jz	00247$
+   3B71 02 39 DF           3175 	ljmp	00136$
+   3B74                    3176 00247$:
+   3B74                    3177 00140$:
+                           3178 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:500: if(sm->currentState != target)
+   3B74 90 0A 04           3179 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3B77 E0                 3180 	movx	a,@dptr
+   3B78 F5 5A              3181 	mov	_iterateStateMachine_sloc6_1_0,a
+   3B7A A3                 3182 	inc	dptr
+   3B7B E0                 3183 	movx	a,@dptr
+   3B7C F5 5B              3184 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3B7E A3                 3185 	inc	dptr
+   3B7F E0                 3186 	movx	a,@dptr
+   3B80 F5 5C              3187 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   3B82 74 05              3188 	mov	a,#0x05
+   3B84 25 5A              3189 	add	a,_iterateStateMachine_sloc6_1_0
+   3B86 F5 5A              3190 	mov	_iterateStateMachine_sloc6_1_0,a
+   3B88 E4                 3191 	clr	a
+   3B89 35 5B              3192 	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+   3B8B F5 5B              3193 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3B8D 85 5A 82           3194 	mov	dpl,_iterateStateMachine_sloc6_1_0
+   3B90 85 5B 83           3195 	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+   3B93 85 5C F0           3196 	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+   3B96 12 4E 6E           3197 	lcall	__gptrget
+   3B99 F5 5A              3198 	mov	_iterateStateMachine_sloc6_1_0,a
+   3B9B A3                 3199 	inc	dptr
+   3B9C 12 4E 6E           3200 	lcall	__gptrget
+   3B9F F5 5B              3201 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3BA1 A3                 3202 	inc	dptr
+   3BA2 12 4E 6E           3203 	lcall	__gptrget
+   3BA5 F5 5C              3204 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   3BA7 E5 4E              3205 	mov	a,_iterateStateMachine_sloc2_1_0
+   3BA9 B5 5A 0D           3206 	cjne	a,_iterateStateMachine_sloc6_1_0,00248$
+   3BAC E5 4F              3207 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3BAE B5 5B 08           3208 	cjne	a,(_iterateStateMachine_sloc6_1_0 + 1),00248$
+   3BB1 E5 50              3209 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3BB3 B5 5C 03           3210 	cjne	a,(_iterateStateMachine_sloc6_1_0 + 2),00248$
+   3BB6 02 3E C0           3211 	ljmp	00163$
+   3BB9                    3212 00248$:
+                           3213 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:505: printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ;
+   3BB9 74 57              3214 	mov	a,#__str_21
+   3BBB C0 E0              3215 	push	acc
+   3BBD 74 54              3216 	mov	a,#(__str_21 >> 8)
+   3BBF C0 E0              3217 	push	acc
+   3BC1 74 80              3218 	mov	a,#0x80
+   3BC3 C0 E0              3219 	push	acc
+   3BC5 12 46 22           3220 	lcall	_printf
+   3BC8 15 81              3221 	dec	sp
+   3BCA 15 81              3222 	dec	sp
+   3BCC 15 81              3223 	dec	sp
+                           3224 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:507: LCA			= 0 ;
+   3BCE 90 0A 70           3225 	mov	dptr,#_iterateStateMachine_LCA_4_19
+   3BD1 E4                 3226 	clr	a
+   3BD2 F0                 3227 	movx	@dptr,a
+   3BD3 A3                 3228 	inc	dptr
+   3BD4 F0                 3229 	movx	@dptr,a
+   3BD5 A3                 3230 	inc	dptr
+   3BD6 F0                 3231 	movx	@dptr,a
+                           3232 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:508: entryIndex	= targetIndex - 1 ;
+   3BD7 90 0A 6F           3233 	mov	dptr,#_iterateStateMachine_targetIndex_4_19
+   3BDA E0                 3234 	movx	a,@dptr
+   3BDB 14                 3235 	dec	a
+   3BDC F5 57              3236 	mov	_iterateStateMachine_sloc5_1_0,a
+   3BDE 90 0A 73           3237 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+   3BE1 F0                 3238 	movx	@dptr,a
+                           3239 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:509: exitIndex	= sourceIndex - 1 ;
+   3BE2 90 0A 3E           3240 	mov	dptr,#_iterateStateMachine_sourceIndex_4_19
+   3BE5 E0                 3241 	movx	a,@dptr
+   3BE6 14                 3242 	dec	a
+   3BE7 F5 5A              3243 	mov	_iterateStateMachine_sloc6_1_0,a
+                           3244 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:511: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
+   3BE9 85 5A 54           3245 	mov	_iterateStateMachine_sloc4_1_0,_iterateStateMachine_sloc6_1_0
+   3BEC 75 55 00           3246 	mov	(_iterateStateMachine_sloc4_1_0 + 1),#0x00
+   3BEF A8 57              3247 	mov	r0,_iterateStateMachine_sloc5_1_0
+   3BF1 79 00              3248 	mov	r1,#0x00
+   3BF3 C0 54              3249 	push	_iterateStateMachine_sloc4_1_0
+   3BF5 C0 55              3250 	push	(_iterateStateMachine_sloc4_1_0 + 1)
+   3BF7 C0 00              3251 	push	ar0
+   3BF9 C0 01              3252 	push	ar1
+   3BFB 74 92              3253 	mov	a,#__str_22
+   3BFD C0 E0              3254 	push	acc
+   3BFF 74 54              3255 	mov	a,#(__str_22 >> 8)
+   3C01 C0 E0              3256 	push	acc
+   3C03 74 80              3257 	mov	a,#0x80
+   3C05 C0 E0              3258 	push	acc
+   3C07 12 46 22           3259 	lcall	_printf
+   3C0A E5 81              3260 	mov	a,sp
+   3C0C 24 F9              3261 	add	a,#0xf9
+   3C0E F5 81              3262 	mov	sp,a
+                           3263 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:514: while(sourceHierarchy[exitIndex] == targetHierarchy[entryIndex])
+   3C10 85 57 54           3264 	mov	_iterateStateMachine_sloc4_1_0,_iterateStateMachine_sloc5_1_0
+   3C13 85 5A 48           3265 	mov	_iterateStateMachine_sloc0_1_0,_iterateStateMachine_sloc6_1_0
+   3C16 75 5A 00           3266 	mov	_iterateStateMachine_sloc6_1_0,#0x00
+   3C19                    3267 00141$:
+   3C19 E5 48              3268 	mov	a,_iterateStateMachine_sloc0_1_0
+   3C1B 75 F0 03           3269 	mov	b,#0x03
+   3C1E A4                 3270 	mul	ab
+   3C1F 24 0E              3271 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
+   3C21 F5 82              3272 	mov	dpl,a
+   3C23 E4                 3273 	clr	a
+   3C24 34 0A              3274 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
+   3C26 F5 83              3275 	mov	dph,a
+   3C28 E0                 3276 	movx	a,@dptr
+   3C29 F5 57              3277 	mov	_iterateStateMachine_sloc5_1_0,a
+   3C2B A3                 3278 	inc	dptr
+   3C2C E0                 3279 	movx	a,@dptr
+   3C2D F5 58              3280 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3C2F A3                 3281 	inc	dptr
+   3C30 E0                 3282 	movx	a,@dptr
+   3C31 F5 59              3283 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3C33 E5 54              3284 	mov	a,_iterateStateMachine_sloc4_1_0
+   3C35 75 F0 03           3285 	mov	b,#0x03
+   3C38 A4                 3286 	mul	ab
+   3C39 24 3F              3287 	add	a,#_iterateStateMachine_targetHierarchy_4_19
+   3C3B F5 82              3288 	mov	dpl,a
+   3C3D E4                 3289 	clr	a
+   3C3E 34 0A              3290 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
+   3C40 F5 83              3291 	mov	dph,a
+   3C42 E0                 3292 	movx	a,@dptr
+   3C43 F5 4B              3293 	mov	_iterateStateMachine_sloc1_1_0,a
+   3C45 A3                 3294 	inc	dptr
+   3C46 E0                 3295 	movx	a,@dptr
+   3C47 F5 4C              3296 	mov	(_iterateStateMachine_sloc1_1_0 + 1),a
+   3C49 A3                 3297 	inc	dptr
+   3C4A E0                 3298 	movx	a,@dptr
+   3C4B F5 4D              3299 	mov	(_iterateStateMachine_sloc1_1_0 + 2),a
+   3C4D E5 4B              3300 	mov	a,_iterateStateMachine_sloc1_1_0
+   3C4F B5 57 75           3301 	cjne	a,_iterateStateMachine_sloc5_1_0,00211$
+   3C52 E5 4C              3302 	mov	a,(_iterateStateMachine_sloc1_1_0 + 1)
+   3C54 B5 58 70           3303 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 1),00211$
+   3C57 E5 4D              3304 	mov	a,(_iterateStateMachine_sloc1_1_0 + 2)
+   3C59 B5 59 6B           3305 	cjne	a,(_iterateStateMachine_sloc5_1_0 + 2),00211$
+                           3306 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:516: LCA = sourceHierarchy[exitIndex] ;
+   3C5C 90 0A 70           3307 	mov	dptr,#_iterateStateMachine_LCA_4_19
+   3C5F E5 57              3308 	mov	a,_iterateStateMachine_sloc5_1_0
+   3C61 F0                 3309 	movx	@dptr,a
+   3C62 A3                 3310 	inc	dptr
+   3C63 E5 58              3311 	mov	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3C65 F0                 3312 	movx	@dptr,a
+   3C66 A3                 3313 	inc	dptr
+   3C67 E5 59              3314 	mov	a,(_iterateStateMachine_sloc5_1_0 + 2)
+   3C69 F0                 3315 	movx	@dptr,a
+                           3316 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:518: entryIndex-- ;
+   3C6A 15 54              3317 	dec	_iterateStateMachine_sloc4_1_0
+   3C6C 90 0A 73           3318 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+   3C6F E5 54              3319 	mov	a,_iterateStateMachine_sloc4_1_0
+   3C71 F0                 3320 	movx	@dptr,a
+                           3321 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:519: exitIndex-- ;
+   3C72 15 48              3322 	dec	_iterateStateMachine_sloc0_1_0
+                           3323 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:522: printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ;
+   3C74 90 0A 70           3324 	mov	dptr,#_iterateStateMachine_LCA_4_19
+   3C77 E0                 3325 	movx	a,@dptr
+   3C78 F5 57              3326 	mov	_iterateStateMachine_sloc5_1_0,a
+   3C7A A3                 3327 	inc	dptr
+   3C7B E0                 3328 	movx	a,@dptr
+   3C7C F5 58              3329 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3C7E A3                 3330 	inc	dptr
+   3C7F E0                 3331 	movx	a,@dptr
+   3C80 F5 59              3332 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3C82 74 06              3333 	mov	a,#0x06
+   3C84 25 57              3334 	add	a,_iterateStateMachine_sloc5_1_0
+   3C86 F5 57              3335 	mov	_iterateStateMachine_sloc5_1_0,a
+   3C88 E4                 3336 	clr	a
+   3C89 35 58              3337 	addc	a,(_iterateStateMachine_sloc5_1_0 + 1)
+   3C8B F5 58              3338 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3C8D 85 57 82           3339 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3C90 85 58 83           3340 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3C93 85 59 F0           3341 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3C96 12 4E 6E           3342 	lcall	__gptrget
+   3C99 F5 57              3343 	mov	_iterateStateMachine_sloc5_1_0,a
+   3C9B A3                 3344 	inc	dptr
+   3C9C 12 4E 6E           3345 	lcall	__gptrget
+   3C9F F5 58              3346 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3CA1 A3                 3347 	inc	dptr
+   3CA2 12 4E 6E           3348 	lcall	__gptrget
+   3CA5 F5 59              3349 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3CA7 C0 57              3350 	push	_iterateStateMachine_sloc5_1_0
+   3CA9 C0 58              3351 	push	(_iterateStateMachine_sloc5_1_0 + 1)
+   3CAB C0 59              3352 	push	(_iterateStateMachine_sloc5_1_0 + 2)
+   3CAD 74 B8              3353 	mov	a,#__str_23
+   3CAF C0 E0              3354 	push	acc
+   3CB1 74 54              3355 	mov	a,#(__str_23 >> 8)
+   3CB3 C0 E0              3356 	push	acc
+   3CB5 74 80              3357 	mov	a,#0x80
+   3CB7 C0 E0              3358 	push	acc
+   3CB9 12 46 22           3359 	lcall	_printf
+   3CBC E5 81              3360 	mov	a,sp
+   3CBE 24 FA              3361 	add	a,#0xfa
+   3CC0 F5 81              3362 	mov	sp,a
+                           3363 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:525: LCAindex++ ;
+   3CC2 05 5A              3364 	inc	_iterateStateMachine_sloc6_1_0
+   3CC4 02 3C 19           3365 	ljmp	00141$
+   3CC7                    3366 00211$:
+   3CC7 90 0A 73           3367 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+   3CCA E5 54              3368 	mov	a,_iterateStateMachine_sloc4_1_0
+   3CCC F0                 3369 	movx	@dptr,a
+                           3370 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:529: printf("\t\t\t\t\tLCA of %s and %s is: %s\n", source->stateName, target->stateName, LCA->stateName) ;
+   3CCD 90 0A 70           3371 	mov	dptr,#_iterateStateMachine_LCA_4_19
+   3CD0 E0                 3372 	movx	a,@dptr
+   3CD1 F5 5A              3373 	mov	_iterateStateMachine_sloc6_1_0,a
+   3CD3 A3                 3374 	inc	dptr
+   3CD4 E0                 3375 	movx	a,@dptr
+   3CD5 F5 5B              3376 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3CD7 A3                 3377 	inc	dptr
+   3CD8 E0                 3378 	movx	a,@dptr
+   3CD9 F5 5C              3379 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   3CDB 74 06              3380 	mov	a,#0x06
+   3CDD 25 5A              3381 	add	a,_iterateStateMachine_sloc6_1_0
+   3CDF F5 5A              3382 	mov	_iterateStateMachine_sloc6_1_0,a
+   3CE1 E4                 3383 	clr	a
+   3CE2 35 5B              3384 	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+   3CE4 F5 5B              3385 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3CE6 85 5A 82           3386 	mov	dpl,_iterateStateMachine_sloc6_1_0
+   3CE9 85 5B 83           3387 	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+   3CEC 85 5C F0           3388 	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+   3CEF 12 4E 6E           3389 	lcall	__gptrget
+   3CF2 F5 5A              3390 	mov	_iterateStateMachine_sloc6_1_0,a
+   3CF4 A3                 3391 	inc	dptr
+   3CF5 12 4E 6E           3392 	lcall	__gptrget
+   3CF8 F5 5B              3393 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3CFA A3                 3394 	inc	dptr
+   3CFB 12 4E 6E           3395 	lcall	__gptrget
+   3CFE F5 5C              3396 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   3D00 74 06              3397 	mov	a,#0x06
+   3D02 25 4E              3398 	add	a,_iterateStateMachine_sloc2_1_0
+   3D04 F5 57              3399 	mov	_iterateStateMachine_sloc5_1_0,a
+   3D06 E4                 3400 	clr	a
+   3D07 35 4F              3401 	addc	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3D09 F5 58              3402 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3D0B 85 50 59           3403 	mov	(_iterateStateMachine_sloc5_1_0 + 2),(_iterateStateMachine_sloc2_1_0 + 2)
+   3D0E 85 57 82           3404 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3D11 85 58 83           3405 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3D14 85 59 F0           3406 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3D17 12 4E 6E           3407 	lcall	__gptrget
+   3D1A F5 57              3408 	mov	_iterateStateMachine_sloc5_1_0,a
+   3D1C A3                 3409 	inc	dptr
+   3D1D 12 4E 6E           3410 	lcall	__gptrget
+   3D20 F5 58              3411 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3D22 A3                 3412 	inc	dptr
+   3D23 12 4E 6E           3413 	lcall	__gptrget
+   3D26 F5 59              3414 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3D28 74 06              3415 	mov	a,#0x06
+   3D2A 25 51              3416 	add	a,_iterateStateMachine_sloc3_1_0
+   3D2C F5 51              3417 	mov	_iterateStateMachine_sloc3_1_0,a
+   3D2E E4                 3418 	clr	a
+   3D2F 35 52              3419 	addc	a,(_iterateStateMachine_sloc3_1_0 + 1)
+   3D31 F5 52              3420 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   3D33 85 51 82           3421 	mov	dpl,_iterateStateMachine_sloc3_1_0
+   3D36 85 52 83           3422 	mov	dph,(_iterateStateMachine_sloc3_1_0 + 1)
+   3D39 85 53 F0           3423 	mov	b,(_iterateStateMachine_sloc3_1_0 + 2)
+   3D3C 12 4E 6E           3424 	lcall	__gptrget
+   3D3F F5 51              3425 	mov	_iterateStateMachine_sloc3_1_0,a
+   3D41 A3                 3426 	inc	dptr
+   3D42 12 4E 6E           3427 	lcall	__gptrget
+   3D45 F5 52              3428 	mov	(_iterateStateMachine_sloc3_1_0 + 1),a
+   3D47 A3                 3429 	inc	dptr
+   3D48 12 4E 6E           3430 	lcall	__gptrget
+   3D4B F5 53              3431 	mov	(_iterateStateMachine_sloc3_1_0 + 2),a
+   3D4D C0 5A              3432 	push	_iterateStateMachine_sloc6_1_0
+   3D4F C0 5B              3433 	push	(_iterateStateMachine_sloc6_1_0 + 1)
+   3D51 C0 5C              3434 	push	(_iterateStateMachine_sloc6_1_0 + 2)
+   3D53 C0 57              3435 	push	_iterateStateMachine_sloc5_1_0
+   3D55 C0 58              3436 	push	(_iterateStateMachine_sloc5_1_0 + 1)
+   3D57 C0 59              3437 	push	(_iterateStateMachine_sloc5_1_0 + 2)
+   3D59 C0 51              3438 	push	_iterateStateMachine_sloc3_1_0
+   3D5B C0 52              3439 	push	(_iterateStateMachine_sloc3_1_0 + 1)
+   3D5D C0 53              3440 	push	(_iterateStateMachine_sloc3_1_0 + 2)
+   3D5F 74 D8              3441 	mov	a,#__str_24
+   3D61 C0 E0              3442 	push	acc
+   3D63 74 54              3443 	mov	a,#(__str_24 >> 8)
+   3D65 C0 E0              3444 	push	acc
+   3D67 74 80              3445 	mov	a,#0x80
+   3D69 C0 E0              3446 	push	acc
+   3D6B 12 46 22           3447 	lcall	_printf
+   3D6E E5 81              3448 	mov	a,sp
+   3D70 24 F4              3449 	add	a,#0xf4
+   3D72 F5 81              3450 	mov	sp,a
+                           3451 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:530: printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ;
+   3D74 85 48 5A           3452 	mov	_iterateStateMachine_sloc6_1_0,_iterateStateMachine_sloc0_1_0
+   3D77 75 5B 00           3453 	mov	(_iterateStateMachine_sloc6_1_0 + 1),#0x00
+   3D7A A8 54              3454 	mov	r0,_iterateStateMachine_sloc4_1_0
+   3D7C 79 00              3455 	mov	r1,#0x00
+   3D7E C0 5A              3456 	push	_iterateStateMachine_sloc6_1_0
+   3D80 C0 5B              3457 	push	(_iterateStateMachine_sloc6_1_0 + 1)
+   3D82 C0 00              3458 	push	ar0
+   3D84 C0 01              3459 	push	ar1
+   3D86 74 92              3460 	mov	a,#__str_22
+   3D88 C0 E0              3461 	push	acc
+   3D8A 74 54              3462 	mov	a,#(__str_22 >> 8)
+   3D8C C0 E0              3463 	push	acc
+   3D8E 74 80              3464 	mov	a,#0x80
+   3D90 C0 E0              3465 	push	acc
+   3D92 12 46 22           3466 	lcall	_printf
+   3D95 E5 81              3467 	mov	a,sp
+   3D97 24 F9              3468 	add	a,#0xf9
+   3D99 F5 81              3469 	mov	sp,a
+                           3470 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:533: sourceIndex	= exitIndex + 1 ;
+   3D9B E5 48              3471 	mov	a,_iterateStateMachine_sloc0_1_0
+   3D9D 04                 3472 	inc	a
+   3D9E F8                 3473 	mov	r0,a
+                           3474 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:536: while(exitIndex < sourceIndex)
+   3D9F 75 5A 00           3475 	mov	_iterateStateMachine_sloc6_1_0,#0x00
+   3DA2                    3476 00144$:
+   3DA2 C3                 3477 	clr	c
+   3DA3 E5 5A              3478 	mov	a,_iterateStateMachine_sloc6_1_0
+   3DA5 98                 3479 	subb	a,r0
+   3DA6 50 70              3480 	jnc	00146$
+                           3481 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:539: printf("\t\t\t\t") ;
+   3DA8 C0 00              3482 	push	ar0
+   3DAA C0 00              3483 	push	ar0
+   3DAC 74 E7              3484 	mov	a,#__str_17
+   3DAE C0 E0              3485 	push	acc
+   3DB0 74 53              3486 	mov	a,#(__str_17 >> 8)
+   3DB2 C0 E0              3487 	push	acc
+   3DB4 74 80              3488 	mov	a,#0x80
+   3DB6 C0 E0              3489 	push	acc
+   3DB8 12 46 22           3490 	lcall	_printf
+   3DBB 15 81              3491 	dec	sp
+   3DBD 15 81              3492 	dec	sp
+   3DBF 15 81              3493 	dec	sp
+                           3494 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:542: callStateHandler(sm, sourceHierarchy[exitIndex], &exitEvent) ;
+   3DC1 90 0A 04           3495 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3DC4 E0                 3496 	movx	a,@dptr
+   3DC5 F5 57              3497 	mov	_iterateStateMachine_sloc5_1_0,a
+   3DC7 A3                 3498 	inc	dptr
+   3DC8 E0                 3499 	movx	a,@dptr
+   3DC9 F5 58              3500 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3DCB A3                 3501 	inc	dptr
+   3DCC E0                 3502 	movx	a,@dptr
+   3DCD F5 59              3503 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3DCF E5 5A              3504 	mov	a,_iterateStateMachine_sloc6_1_0
+   3DD1 75 F0 03           3505 	mov	b,#0x03
+   3DD4 A4                 3506 	mul	ab
+   3DD5 24 0E              3507 	add	a,#_iterateStateMachine_sourceHierarchy_4_19
+   3DD7 F5 82              3508 	mov	dpl,a
+   3DD9 E4                 3509 	clr	a
+   3DDA 34 0A              3510 	addc	a,#(_iterateStateMachine_sourceHierarchy_4_19 >> 8)
+   3DDC F5 83              3511 	mov	dph,a
+   3DDE E0                 3512 	movx	a,@dptr
+   3DDF F5 54              3513 	mov	_iterateStateMachine_sloc4_1_0,a
+   3DE1 A3                 3514 	inc	dptr
+   3DE2 E0                 3515 	movx	a,@dptr
+   3DE3 F5 55              3516 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3DE5 A3                 3517 	inc	dptr
+   3DE6 E0                 3518 	movx	a,@dptr
+   3DE7 F5 56              3519 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+   3DE9 90 09 FA           3520 	mov	dptr,#_callStateHandler_PARM_2
+   3DEC E5 54              3521 	mov	a,_iterateStateMachine_sloc4_1_0
+   3DEE F0                 3522 	movx	@dptr,a
+   3DEF A3                 3523 	inc	dptr
+   3DF0 E5 55              3524 	mov	a,(_iterateStateMachine_sloc4_1_0 + 1)
+   3DF2 F0                 3525 	movx	@dptr,a
+   3DF3 A3                 3526 	inc	dptr
+   3DF4 E5 56              3527 	mov	a,(_iterateStateMachine_sloc4_1_0 + 2)
+   3DF6 F0                 3528 	movx	@dptr,a
+   3DF7 90 09 FD           3529 	mov	dptr,#_callStateHandler_PARM_3
+   3DFA 74 11              3530 	mov	a,#_exitEvent
+   3DFC F0                 3531 	movx	@dptr,a
+   3DFD A3                 3532 	inc	dptr
+   3DFE 74 0F              3533 	mov	a,#(_exitEvent >> 8)
+   3E00 F0                 3534 	movx	@dptr,a
+   3E01 A3                 3535 	inc	dptr
+   3E02 E4                 3536 	clr	a
+   3E03 F0                 3537 	movx	@dptr,a
+   3E04 85 57 82           3538 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3E07 85 58 83           3539 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3E0A 85 59 F0           3540 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3E0D 12 2B C8           3541 	lcall	_callStateHandler
+   3E10 D0 00              3542 	pop	ar0
+                           3543 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:544: exitIndex++ ;
+   3E12 05 5A              3544 	inc	_iterateStateMachine_sloc6_1_0
+   3E14 D0 00              3545 	pop	ar0
+   3E16 80 8A              3546 	sjmp	00144$
+   3E18                    3547 00146$:
+                           3548 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:547: targetIndex = entryIndex + 1 ;
+   3E18 90 0A 73           3549 	mov	dptr,#_iterateStateMachine_entryIndex_4_19
+   3E1B E0                 3550 	movx	a,@dptr
+   3E1C F8                 3551 	mov	r0,a
+   3E1D 08                 3552 	inc	r0
+                           3553 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:549: while(targetIndex--)
+   3E1E 88 5A              3554 	mov	_iterateStateMachine_sloc6_1_0,r0
+   3E20                    3555 00147$:
+   3E20 A9 5A              3556 	mov	r1,_iterateStateMachine_sloc6_1_0
+   3E22 15 5A              3557 	dec	_iterateStateMachine_sloc6_1_0
+   3E24 E9                 3558 	mov	a,r1
+   3E25 60 66              3559 	jz	00149$
+                           3560 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:552: printf("\t\t\t\t") ;
+   3E27 74 E7              3561 	mov	a,#__str_17
+   3E29 C0 E0              3562 	push	acc
+   3E2B 74 53              3563 	mov	a,#(__str_17 >> 8)
+   3E2D C0 E0              3564 	push	acc
+   3E2F 74 80              3565 	mov	a,#0x80
+   3E31 C0 E0              3566 	push	acc
+   3E33 12 46 22           3567 	lcall	_printf
+   3E36 15 81              3568 	dec	sp
+   3E38 15 81              3569 	dec	sp
+   3E3A 15 81              3570 	dec	sp
+                           3571 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:554: callStateHandler(sm, targetHierarchy[targetIndex], &enterEvent) ;
+   3E3C 90 0A 04           3572 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3E3F E0                 3573 	movx	a,@dptr
+   3E40 F5 57              3574 	mov	_iterateStateMachine_sloc5_1_0,a
+   3E42 A3                 3575 	inc	dptr
+   3E43 E0                 3576 	movx	a,@dptr
+   3E44 F5 58              3577 	mov	(_iterateStateMachine_sloc5_1_0 + 1),a
+   3E46 A3                 3578 	inc	dptr
+   3E47 E0                 3579 	movx	a,@dptr
+   3E48 F5 59              3580 	mov	(_iterateStateMachine_sloc5_1_0 + 2),a
+   3E4A E5 5A              3581 	mov	a,_iterateStateMachine_sloc6_1_0
+   3E4C 75 F0 03           3582 	mov	b,#0x03
+   3E4F A4                 3583 	mul	ab
+   3E50 24 3F              3584 	add	a,#_iterateStateMachine_targetHierarchy_4_19
+   3E52 F5 82              3585 	mov	dpl,a
+   3E54 E4                 3586 	clr	a
+   3E55 34 0A              3587 	addc	a,#(_iterateStateMachine_targetHierarchy_4_19 >> 8)
+   3E57 F5 83              3588 	mov	dph,a
+   3E59 E0                 3589 	movx	a,@dptr
+   3E5A F5 54              3590 	mov	_iterateStateMachine_sloc4_1_0,a
+   3E5C A3                 3591 	inc	dptr
+   3E5D E0                 3592 	movx	a,@dptr
+   3E5E F5 55              3593 	mov	(_iterateStateMachine_sloc4_1_0 + 1),a
+   3E60 A3                 3594 	inc	dptr
+   3E61 E0                 3595 	movx	a,@dptr
+   3E62 F5 56              3596 	mov	(_iterateStateMachine_sloc4_1_0 + 2),a
+   3E64 90 09 FA           3597 	mov	dptr,#_callStateHandler_PARM_2
+   3E67 E5 54              3598 	mov	a,_iterateStateMachine_sloc4_1_0
+   3E69 F0                 3599 	movx	@dptr,a
+   3E6A A3                 3600 	inc	dptr
+   3E6B E5 55              3601 	mov	a,(_iterateStateMachine_sloc4_1_0 + 1)
+   3E6D F0                 3602 	movx	@dptr,a
+   3E6E A3                 3603 	inc	dptr
+   3E6F E5 56              3604 	mov	a,(_iterateStateMachine_sloc4_1_0 + 2)
+   3E71 F0                 3605 	movx	@dptr,a
+   3E72 90 09 FD           3606 	mov	dptr,#_callStateHandler_PARM_3
+   3E75 74 10              3607 	mov	a,#_enterEvent
+   3E77 F0                 3608 	movx	@dptr,a
+   3E78 A3                 3609 	inc	dptr
+   3E79 74 0F              3610 	mov	a,#(_enterEvent >> 8)
+   3E7B F0                 3611 	movx	@dptr,a
+   3E7C A3                 3612 	inc	dptr
+   3E7D E4                 3613 	clr	a
+   3E7E F0                 3614 	movx	@dptr,a
+   3E7F 85 57 82           3615 	mov	dpl,_iterateStateMachine_sloc5_1_0
+   3E82 85 58 83           3616 	mov	dph,(_iterateStateMachine_sloc5_1_0 + 1)
+   3E85 85 59 F0           3617 	mov	b,(_iterateStateMachine_sloc5_1_0 + 2)
+   3E88 12 2B C8           3618 	lcall	_callStateHandler
+   3E8B 80 93              3619 	sjmp	00147$
+   3E8D                    3620 00149$:
+                           3621 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:557: sm->currentState = target ;
+   3E8D 90 0A 04           3622 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3E90 E0                 3623 	movx	a,@dptr
+   3E91 F5 5A              3624 	mov	_iterateStateMachine_sloc6_1_0,a
+   3E93 A3                 3625 	inc	dptr
+   3E94 E0                 3626 	movx	a,@dptr
+   3E95 F5 5B              3627 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3E97 A3                 3628 	inc	dptr
+   3E98 E0                 3629 	movx	a,@dptr
+   3E99 F5 5C              3630 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   3E9B 74 05              3631 	mov	a,#0x05
+   3E9D 25 5A              3632 	add	a,_iterateStateMachine_sloc6_1_0
+   3E9F F5 5A              3633 	mov	_iterateStateMachine_sloc6_1_0,a
+   3EA1 E4                 3634 	clr	a
+   3EA2 35 5B              3635 	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+   3EA4 F5 5B              3636 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3EA6 85 5A 82           3637 	mov	dpl,_iterateStateMachine_sloc6_1_0
+   3EA9 85 5B 83           3638 	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+   3EAC 85 5C F0           3639 	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+   3EAF E5 4E              3640 	mov	a,_iterateStateMachine_sloc2_1_0
+   3EB1 12 42 42           3641 	lcall	__gptrput
+   3EB4 A3                 3642 	inc	dptr
+   3EB5 E5 4F              3643 	mov	a,(_iterateStateMachine_sloc2_1_0 + 1)
+   3EB7 12 42 42           3644 	lcall	__gptrput
+   3EBA A3                 3645 	inc	dptr
+   3EBB E5 50              3646 	mov	a,(_iterateStateMachine_sloc2_1_0 + 2)
+   3EBD 12 42 42           3647 	lcall	__gptrput
+   3EC0                    3648 00163$:
+                           3649 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:565: sm->forceTransition = true ;
+   3EC0 90 0A 04           3650 	mov	dptr,#_iterateStateMachine_sm_1_1
+   3EC3 E0                 3651 	movx	a,@dptr
+   3EC4 F5 5A              3652 	mov	_iterateStateMachine_sloc6_1_0,a
+   3EC6 A3                 3653 	inc	dptr
+   3EC7 E0                 3654 	movx	a,@dptr
+   3EC8 F5 5B              3655 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3ECA A3                 3656 	inc	dptr
+   3ECB E0                 3657 	movx	a,@dptr
+   3ECC F5 5C              3658 	mov	(_iterateStateMachine_sloc6_1_0 + 2),a
+   3ECE 74 1F              3659 	mov	a,#0x1F
+   3ED0 25 5A              3660 	add	a,_iterateStateMachine_sloc6_1_0
+   3ED2 F5 5A              3661 	mov	_iterateStateMachine_sloc6_1_0,a
+   3ED4 E4                 3662 	clr	a
+   3ED5 35 5B              3663 	addc	a,(_iterateStateMachine_sloc6_1_0 + 1)
+   3ED7 F5 5B              3664 	mov	(_iterateStateMachine_sloc6_1_0 + 1),a
+   3ED9 85 5A 82           3665 	mov	dpl,_iterateStateMachine_sloc6_1_0
+   3EDC 85 5B 83           3666 	mov	dph,(_iterateStateMachine_sloc6_1_0 + 1)
+   3EDF 85 5C F0           3667 	mov	b,(_iterateStateMachine_sloc6_1_0 + 2)
+   3EE2 74 01              3668 	mov	a,#0x01
+   3EE4 12 42 42           3669 	lcall	__gptrput
+   3EE7 80 70              3670 	sjmp	00170$
+   3EE9                    3671 00169$:
+                           3672 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:570: action = callStateHandler(sm, (state_t*)(sm->currentState), &doEvent) ;
+   3EE9 C0 05              3673 	push	ar5
+   3EEB C0 06              3674 	push	ar6
+   3EED C0 07              3675 	push	ar7
+   3EEF 74 05              3676 	mov	a,#0x05
+   3EF1 2A                 3677 	add	a,r2
+   3EF2 F8                 3678 	mov	r0,a
+   3EF3 E4                 3679 	clr	a
+   3EF4 3B                 3680 	addc	a,r3
+   3EF5 F9                 3681 	mov	r1,a
+   3EF6 8C 05              3682 	mov	ar5,r4
+   3EF8 88 82              3683 	mov	dpl,r0
+   3EFA 89 83              3684 	mov	dph,r1
+   3EFC 8D F0              3685 	mov	b,r5
+   3EFE 12 4E 6E           3686 	lcall	__gptrget
+   3F01 F8                 3687 	mov	r0,a
+   3F02 A3                 3688 	inc	dptr
+   3F03 12 4E 6E           3689 	lcall	__gptrget
+   3F06 F9                 3690 	mov	r1,a
+   3F07 A3                 3691 	inc	dptr
+   3F08 12 4E 6E           3692 	lcall	__gptrget
+   3F0B FD                 3693 	mov	r5,a
+   3F0C 90 09 FA           3694 	mov	dptr,#_callStateHandler_PARM_2
+   3F0F E8                 3695 	mov	a,r0
+   3F10 F0                 3696 	movx	@dptr,a
+   3F11 A3                 3697 	inc	dptr
+   3F12 E9                 3698 	mov	a,r1
+   3F13 F0                 3699 	movx	@dptr,a
+   3F14 A3                 3700 	inc	dptr
+   3F15 ED                 3701 	mov	a,r5
+   3F16 F0                 3702 	movx	@dptr,a
+   3F17 90 09 FD           3703 	mov	dptr,#_callStateHandler_PARM_3
+   3F1A 74 0F              3704 	mov	a,#_doEvent
+   3F1C F0                 3705 	movx	@dptr,a
+   3F1D A3                 3706 	inc	dptr
+   3F1E 74 0F              3707 	mov	a,#(_doEvent >> 8)
+   3F20 F0                 3708 	movx	@dptr,a
+   3F21 A3                 3709 	inc	dptr
+   3F22 E4                 3710 	clr	a
+   3F23 F0                 3711 	movx	@dptr,a
+   3F24 8A 82              3712 	mov	dpl,r2
+   3F26 8B 83              3713 	mov	dph,r3
+   3F28 8C F0              3714 	mov	b,r4
+   3F2A C0 05              3715 	push	ar5
+   3F2C C0 06              3716 	push	ar6
+   3F2E C0 07              3717 	push	ar7
+   3F30 12 2B C8           3718 	lcall	_callStateHandler
+   3F33 AA 82              3719 	mov	r2,dpl
+   3F35 D0 07              3720 	pop	ar7
+   3F37 D0 06              3721 	pop	ar6
+   3F39 D0 05              3722 	pop	ar5
+                           3723 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:572: if(action == TRANSITION)
+   3F3B BA 02 02           3724 	cjne	r2,#0x02,00253$
+   3F3E 80 08              3725 	sjmp	00254$
+   3F40                    3726 00253$:
+   3F40 D0 07              3727 	pop	ar7
+   3F42 D0 06              3728 	pop	ar6
+   3F44 D0 05              3729 	pop	ar5
+   3F46 80 11              3730 	sjmp	00170$
+   3F48                    3731 00254$:
+   3F48 D0 07              3732 	pop	ar7
+   3F4A D0 06              3733 	pop	ar6
+   3F4C D0 05              3734 	pop	ar5
+                           3735 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:574: sm->forceTransition = true ;
+   3F4E 8D 82              3736 	mov	dpl,r5
+   3F50 8E 83              3737 	mov	dph,r6
+   3F52 8F F0              3738 	mov	b,r7
+   3F54 74 01              3739 	mov	a,#0x01
+   3F56 12 42 42           3740 	lcall	__gptrput
+   3F59                    3741 00170$:
+                           3742 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/stateMachine_G4.c:579: printf("\t\tEvent queue empty.\n") ;
+   3F59 74 F6              3743 	mov	a,#__str_25
+   3F5B C0 E0              3744 	push	acc
+   3F5D 74 54              3745 	mov	a,#(__str_25 >> 8)
+   3F5F C0 E0              3746 	push	acc
+   3F61 74 80              3747 	mov	a,#0x80
+   3F63 C0 E0              3748 	push	acc
+   3F65 12 46 22           3749 	lcall	_printf
+   3F68 15 81              3750 	dec	sp
+   3F6A 15 81              3751 	dec	sp
+   3F6C 15 81              3752 	dec	sp
+   3F6E 22                 3753 	ret
+                           3754 	.area CSEG    (CODE)
+                           3755 	.area CONST   (CODE)
+   5260                    3756 __str_0:
+   5260 09                 3757 	.db 0x09
+   5261 09                 3758 	.db 0x09
+   5262 09                 3759 	.db 0x09
+   5263 43 61 6C 6C 69 6E  3760 	.ascii "Calling state: %s, event: %s, "
         67 20 73 74 61 74
         65 3A 20 25 73 2C
         20 65 76 65 6E 74
         3A 20 25 73 2C 20
-   514F 00                 3827 	.db 0x00
-   5150                    3828 __str_1:
-   5150 3C 55 53 45 52 5F  3829 	.ascii "<USER_EVENT>"
+   5281 00                 3761 	.db 0x00
+   5282                    3762 __str_1:
+   5282 3C 55 53 45 52 5F  3763 	.ascii "<USER_EVENT>"
         45 56 45 4E 54 3E
-   515C 00                 3830 	.db 0x00
-   515D                    3831 __str_2:
-   515D 72 65 73 70 6F 6E  3832 	.ascii "response: %s "
+   528E 00                 3764 	.db 0x00
+   528F                    3765 __str_2:
+   528F 72 65 73 70 6F 6E  3766 	.ascii "response: %s "
         73 65 3A 20 25 73
         20
-   516A 00                 3833 	.db 0x00
-   516B                    3834 __str_3:
-   516B 74 6F 20 25 73 20  3835 	.ascii "to %s "
-   5171 00                 3836 	.db 0x00
-   5172                    3837 __str_4:
-   5172 0A                 3838 	.db 0x0A
-   5173 00                 3839 	.db 0x00
-   5174                    3840 __str_5:
-   5174 09                 3841 	.db 0x09
-   5175 69 74 65 72 61 74  3842 	.ascii "iterating %s"
+   529C 00                 3767 	.db 0x00
+   529D                    3768 __str_3:
+   529D 74 6F 20 25 73 20  3769 	.ascii "to %s "
+   52A3 00                 3770 	.db 0x00
+   52A4                    3771 __str_4:
+   52A4 0A                 3772 	.db 0x0A
+   52A5 00                 3773 	.db 0x00
+   52A6                    3774 __str_5:
+   52A6 09                 3775 	.db 0x09
+   52A7 69 74 65 72 61 74  3776 	.ascii "iterating %s"
         69 6E 67 20 25 73
-   5181 0A                 3843 	.db 0x0A
-   5182 00                 3844 	.db 0x00
-   5183                    3845 __str_6:
-   5183 09                 3846 	.db 0x09
-   5184 09                 3847 	.db 0x09
-   5185 69 6E 69 74 69 61  3848 	.ascii "initializing..."
+   52B3 0A                 3777 	.db 0x0A
+   52B4 00                 3778 	.db 0x00
+   52B5                    3779 __str_6:
+   52B5 09                 3780 	.db 0x09
+   52B6 09                 3781 	.db 0x09
+   52B7 69 6E 69 74 69 61  3782 	.ascii "initializing..."
         6C 69 7A 69 6E 67
         2E 2E 2E
-   5194 0A                 3849 	.db 0x0A
-   5195 00                 3850 	.db 0x00
-   5196                    3851 __str_7:
-   5196 09                 3852 	.db 0x09
-   5197 09                 3853 	.db 0x09
-   5198 50 72 6F 63 65 73  3854 	.ascii "Processing event..."
+   52C6 0A                 3783 	.db 0x0A
+   52C7 00                 3784 	.db 0x00
+   52C8                    3785 __str_7:
+   52C8 09                 3786 	.db 0x09
+   52C9 09                 3787 	.db 0x09
+   52CA 50 72 6F 63 65 73  3788 	.ascii "Processing event..."
         73 69 6E 67 20 65
         76 65 6E 74 2E 2E
         2E
-   51AB 0A                 3855 	.db 0x0A
-   51AC 00                 3856 	.db 0x00
-   51AD                    3857 __str_8:
-   51AD 09                 3858 	.db 0x09
-   51AE 09                 3859 	.db 0x09
-   51AF 09                 3860 	.db 0x09
-   51B0 09                 3861 	.db 0x09
-   51B1 09                 3862 	.db 0x09
-   51B2 09                 3863 	.db 0x09
-   51B3 09                 3864 	.db 0x09
-   51B4 6D 6F 76 69 6E 67  3865 	.ascii "moving to parent: %s"
+   52DD 0A                 3789 	.db 0x0A
+   52DE 00                 3790 	.db 0x00
+   52DF                    3791 __str_8:
+   52DF 09                 3792 	.db 0x09
+   52E0 09                 3793 	.db 0x09
+   52E1 09                 3794 	.db 0x09
+   52E2 09                 3795 	.db 0x09
+   52E3 09                 3796 	.db 0x09
+   52E4 09                 3797 	.db 0x09
+   52E5 09                 3798 	.db 0x09
+   52E6 6D 6F 76 69 6E 67  3799 	.ascii "moving to parent: %s"
         20 74 6F 20 70 61
         72 65 6E 74 3A 20
         25 73
-   51C8 0A                 3866 	.db 0x0A
-   51C9 00                 3867 	.db 0x00
-   51CA                    3868 __str_9:
-   51CA 3C 72 6F 6F 74 3E  3869 	.ascii "<root>"
-   51D0 00                 3870 	.db 0x00
-   51D1                    3871 __str_10:
-   51D1 09                 3872 	.db 0x09
-   51D2 09                 3873 	.db 0x09
-   51D3 09                 3874 	.db 0x09
-   51D4 09                 3875 	.db 0x09
-   51D5 53 65 6C 66 20 74  3876 	.ascii "Self transition."
+   52FA 0A                 3800 	.db 0x0A
+   52FB 00                 3801 	.db 0x00
+   52FC                    3802 __str_9:
+   52FC 3C 72 6F 6F 74 3E  3803 	.ascii "<root>"
+   5302 00                 3804 	.db 0x00
+   5303                    3805 __str_10:
+   5303 09                 3806 	.db 0x09
+   5304 09                 3807 	.db 0x09
+   5305 09                 3808 	.db 0x09
+   5306 09                 3809 	.db 0x09
+   5307 53 65 6C 66 20 74  3810 	.ascii "Self transition."
         72 61 6E 73 69 74
         69 6F 6E 2E
-   51E5 0A                 3877 	.db 0x0A
-   51E6 00                 3878 	.db 0x00
-   51E7                    3879 __str_11:
-   51E7 09                 3880 	.db 0x09
-   51E8 09                 3881 	.db 0x09
-   51E9 09                 3882 	.db 0x09
-   51EA 09                 3883 	.db 0x09
-   51EB 54 72 61 6E 73 69  3884 	.ascii "Transition to direct child."
+   5317 0A                 3811 	.db 0x0A
+   5318 00                 3812 	.db 0x00
+   5319                    3813 __str_11:
+   5319 09                 3814 	.db 0x09
+   531A 09                 3815 	.db 0x09
+   531B 09                 3816 	.db 0x09
+   531C 09                 3817 	.db 0x09
+   531D 54 72 61 6E 73 69  3818 	.ascii "Transition to direct child."
         74 69 6F 6E 20 74
         6F 20 64 69 72 65
         63 74 20 63 68 69
         6C 64 2E
-   5206 0A                 3885 	.db 0x0A
-   5207 00                 3886 	.db 0x00
-   5208                    3887 __str_12:
-   5208 09                 3888 	.db 0x09
-   5209 09                 3889 	.db 0x09
-   520A 09                 3890 	.db 0x09
-   520B 09                 3891 	.db 0x09
-   520C 54 72 61 6E 73 69  3892 	.ascii "Transition to direct peer."
+   5338 0A                 3819 	.db 0x0A
+   5339 00                 3820 	.db 0x00
+   533A                    3821 __str_12:
+   533A 09                 3822 	.db 0x09
+   533B 09                 3823 	.db 0x09
+   533C 09                 3824 	.db 0x09
+   533D 09                 3825 	.db 0x09
+   533E 54 72 61 6E 73 69  3826 	.ascii "Transition to direct peer."
         74 69 6F 6E 20 74
         6F 20 64 69 72 65
         63 74 20 70 65 65
         72 2E
-   5226 0A                 3893 	.db 0x0A
-   5227 00                 3894 	.db 0x00
-   5228                    3895 __str_13:
-   5228 09                 3896 	.db 0x09
-   5229 09                 3897 	.db 0x09
-   522A 09                 3898 	.db 0x09
-   522B 09                 3899 	.db 0x09
-   522C 54 72 61 6E 73 69  3900 	.ascii "Transition to direct parent."
+   5358 0A                 3827 	.db 0x0A
+   5359 00                 3828 	.db 0x00
+   535A                    3829 __str_13:
+   535A 09                 3830 	.db 0x09
+   535B 09                 3831 	.db 0x09
+   535C 09                 3832 	.db 0x09
+   535D 09                 3833 	.db 0x09
+   535E 54 72 61 6E 73 69  3834 	.ascii "Transition to direct parent."
         74 69 6F 6E 20 74
         6F 20 64 69 72 65
         63 74 20 70 61 72
         65 6E 74 2E
-   5248 0A                 3901 	.db 0x0A
-   5249 00                 3902 	.db 0x00
-   524A                    3903 __str_14:
-   524A 09                 3904 	.db 0x09
-   524B 09                 3905 	.db 0x09
-   524C 09                 3906 	.db 0x09
-   524D 09                 3907 	.db 0x09
-   524E 53 63 61 6E 6E 69  3908 	.ascii "Scanning source hierarchy..."
+   537A 0A                 3835 	.db 0x0A
+   537B 00                 3836 	.db 0x00
+   537C                    3837 __str_14:
+   537C 09                 3838 	.db 0x09
+   537D 09                 3839 	.db 0x09
+   537E 09                 3840 	.db 0x09
+   537F 09                 3841 	.db 0x09
+   5380 53 63 61 6E 6E 69  3842 	.ascii "Scanning source hierarchy..."
         6E 67 20 73 6F 75
         72 63 65 20 68 69
         65 72 61 72 63 68
         79 2E 2E 2E
-   526A 0A                 3909 	.db 0x0A
-   526B 00                 3910 	.db 0x00
-   526C                    3911 __str_15:
-   526C 09                 3912 	.db 0x09
-   526D 09                 3913 	.db 0x09
-   526E 09                 3914 	.db 0x09
-   526F 09                 3915 	.db 0x09
-   5270 09                 3916 	.db 0x09
-   5271 73 6F 75 72 63 65  3917 	.ascii "sourceHierarchy[%d] = %s"
+   539C 0A                 3843 	.db 0x0A
+   539D 00                 3844 	.db 0x00
+   539E                    3845 __str_15:
+   539E 09                 3846 	.db 0x09
+   539F 09                 3847 	.db 0x09
+   53A0 09                 3848 	.db 0x09
+   53A1 09                 3849 	.db 0x09
+   53A2 09                 3850 	.db 0x09
+   53A3 73 6F 75 72 63 65  3851 	.ascii "sourceHierarchy[%d] = %s"
         48 69 65 72 61 72
         63 68 79 5B 25 64
         5D 20 3D 20 25 73
-   5289 0A                 3918 	.db 0x0A
-   528A 00                 3919 	.db 0x00
-   528B                    3920 __str_16:
-   528B 09                 3921 	.db 0x09
-   528C 09                 3922 	.db 0x09
-   528D 09                 3923 	.db 0x09
-   528E 09                 3924 	.db 0x09
-   528F 09                 3925 	.db 0x09
-   5290 09                 3926 	.db 0x09
-   5291 46 6F 75 6E 64 20  3927 	.ascii "Found target as ancestor of source"
+   53BB 0A                 3852 	.db 0x0A
+   53BC 00                 3853 	.db 0x00
+   53BD                    3854 __str_16:
+   53BD 09                 3855 	.db 0x09
+   53BE 09                 3856 	.db 0x09
+   53BF 09                 3857 	.db 0x09
+   53C0 09                 3858 	.db 0x09
+   53C1 09                 3859 	.db 0x09
+   53C2 09                 3860 	.db 0x09
+   53C3 46 6F 75 6E 64 20  3861 	.ascii "Found target as ancestor of source"
         74 61 72 67 65 74
         20 61 73 20 61 6E
         63 65 73 74 6F 72
         20 6F 66 20 73 6F
         75 72 63 65
-   52B3 0A                 3928 	.db 0x0A
-   52B4 00                 3929 	.db 0x00
-   52B5                    3930 __str_17:
-   52B5 09                 3931 	.db 0x09
-   52B6 09                 3932 	.db 0x09
-   52B7 09                 3933 	.db 0x09
-   52B8 09                 3934 	.db 0x09
-   52B9 00                 3935 	.db 0x00
-   52BA                    3936 __str_18:
-   52BA 09                 3937 	.db 0x09
-   52BB 09                 3938 	.db 0x09
-   52BC 09                 3939 	.db 0x09
-   52BD 09                 3940 	.db 0x09
-   52BE 53 63 61 6E 6E 69  3941 	.ascii "Scanning target hierarchy..."
+   53E5 0A                 3862 	.db 0x0A
+   53E6 00                 3863 	.db 0x00
+   53E7                    3864 __str_17:
+   53E7 09                 3865 	.db 0x09
+   53E8 09                 3866 	.db 0x09
+   53E9 09                 3867 	.db 0x09
+   53EA 09                 3868 	.db 0x09
+   53EB 00                 3869 	.db 0x00
+   53EC                    3870 __str_18:
+   53EC 09                 3871 	.db 0x09
+   53ED 09                 3872 	.db 0x09
+   53EE 09                 3873 	.db 0x09
+   53EF 09                 3874 	.db 0x09
+   53F0 53 63 61 6E 6E 69  3875 	.ascii "Scanning target hierarchy..."
         6E 67 20 74 61 72
         67 65 74 20 68 69
         65 72 61 72 63 68
         79 2E 2E 2E
-   52DA 0A                 3942 	.db 0x0A
-   52DB 00                 3943 	.db 0x00
-   52DC                    3944 __str_19:
-   52DC 09                 3945 	.db 0x09
-   52DD 09                 3946 	.db 0x09
-   52DE 09                 3947 	.db 0x09
-   52DF 09                 3948 	.db 0x09
-   52E0 09                 3949 	.db 0x09
-   52E1 74 61 72 67 65 74  3950 	.ascii "targetHierarchy[%d] = %s"
+   540C 0A                 3876 	.db 0x0A
+   540D 00                 3877 	.db 0x00
+   540E                    3878 __str_19:
+   540E 09                 3879 	.db 0x09
+   540F 09                 3880 	.db 0x09
+   5410 09                 3881 	.db 0x09
+   5411 09                 3882 	.db 0x09
+   5412 09                 3883 	.db 0x09
+   5413 74 61 72 67 65 74  3884 	.ascii "targetHierarchy[%d] = %s"
         48 69 65 72 61 72
         63 68 79 5B 25 64
         5D 20 3D 20 25 73
-   52F9 0A                 3951 	.db 0x0A
-   52FA 00                 3952 	.db 0x00
-   52FB                    3953 __str_20:
-   52FB 09                 3954 	.db 0x09
-   52FC 09                 3955 	.db 0x09
-   52FD 09                 3956 	.db 0x09
-   52FE 09                 3957 	.db 0x09
-   52FF 09                 3958 	.db 0x09
-   5300 09                 3959 	.db 0x09
-   5301 46 6F 75 6E 64 20  3960 	.ascii "Found source as ancestor of target"
+   542B 0A                 3885 	.db 0x0A
+   542C 00                 3886 	.db 0x00
+   542D                    3887 __str_20:
+   542D 09                 3888 	.db 0x09
+   542E 09                 3889 	.db 0x09
+   542F 09                 3890 	.db 0x09
+   5430 09                 3891 	.db 0x09
+   5431 09                 3892 	.db 0x09
+   5432 09                 3893 	.db 0x09
+   5433 46 6F 75 6E 64 20  3894 	.ascii "Found source as ancestor of target"
         73 6F 75 72 63 65
         20 61 73 20 61 6E
         63 65 73 74 6F 72
         20 6F 66 20 74 61
         72 67 65 74
-   5323 0A                 3961 	.db 0x0A
-   5324 00                 3962 	.db 0x00
-   5325                    3963 __str_21:
-   5325 09                 3964 	.db 0x09
-   5326 09                 3965 	.db 0x09
-   5327 09                 3966 	.db 0x09
-   5328 09                 3967 	.db 0x09
-   5329 53 74 69 6C 6C 20  3968 	.ascii "Still haven't found relationship. Scanning for LCA..."
+   5455 0A                 3895 	.db 0x0A
+   5456 00                 3896 	.db 0x00
+   5457                    3897 __str_21:
+   5457 09                 3898 	.db 0x09
+   5458 09                 3899 	.db 0x09
+   5459 09                 3900 	.db 0x09
+   545A 09                 3901 	.db 0x09
+   545B 53 74 69 6C 6C 20  3902 	.ascii "Still haven't found relationship. Scanning for LCA..."
         68 61 76 65 6E 27
         74 20 66 6F 75 6E
         64 20 72 65 6C 61
@@ -4028,126 +3962,128 @@
         61 6E 6E 69 6E 67
         20 66 6F 72 20 4C
         43 41 2E 2E 2E
-   535E 0A                 3969 	.db 0x0A
-   535F 00                 3970 	.db 0x00
-   5360                    3971 __str_22:
-   5360 09                 3972 	.db 0x09
-   5361 09                 3973 	.db 0x09
-   5362 09                 3974 	.db 0x09
-   5363 09                 3975 	.db 0x09
-   5364 09                 3976 	.db 0x09
-   5365 65 6E 74 72 79 49  3977 	.ascii "entryIndex = %d, exitIndex = %d"
+   5490 0A                 3903 	.db 0x0A
+   5491 00                 3904 	.db 0x00
+   5492                    3905 __str_22:
+   5492 09                 3906 	.db 0x09
+   5493 09                 3907 	.db 0x09
+   5494 09                 3908 	.db 0x09
+   5495 09                 3909 	.db 0x09
+   5496 09                 3910 	.db 0x09
+   5497 65 6E 74 72 79 49  3911 	.ascii "entryIndex = %d, exitIndex = %d"
         6E 64 65 78 20 3D
         20 25 64 2C 20 65
         78 69 74 49 6E 64
         65 78 20 3D 20 25
         64
-   5384 0A                 3978 	.db 0x0A
-   5385 00                 3979 	.db 0x00
-   5386                    3980 __str_23:
-   5386 09                 3981 	.db 0x09
-   5387 09                 3982 	.db 0x09
-   5388 09                 3983 	.db 0x09
-   5389 09                 3984 	.db 0x09
-   538A 09                 3985 	.db 0x09
-   538B 43 75 72 72 65 6E  3986 	.ascii "Current LCA candidate: %s"
+   54B6 0A                 3912 	.db 0x0A
+   54B7 00                 3913 	.db 0x00
+   54B8                    3914 __str_23:
+   54B8 09                 3915 	.db 0x09
+   54B9 09                 3916 	.db 0x09
+   54BA 09                 3917 	.db 0x09
+   54BB 09                 3918 	.db 0x09
+   54BC 09                 3919 	.db 0x09
+   54BD 43 75 72 72 65 6E  3920 	.ascii "Current LCA candidate: %s"
         74 20 4C 43 41 20
         63 61 6E 64 69 64
         61 74 65 3A 20 25
         73
-   53A4 0A                 3987 	.db 0x0A
-   53A5 00                 3988 	.db 0x00
-   53A6                    3989 __str_24:
-   53A6 09                 3990 	.db 0x09
-   53A7 09                 3991 	.db 0x09
-   53A8 09                 3992 	.db 0x09
-   53A9 09                 3993 	.db 0x09
-   53AA 09                 3994 	.db 0x09
-   53AB 4C 43 41 20 6F 66  3995 	.ascii "LCA of %s and %s is: %s"
+   54D6 0A                 3921 	.db 0x0A
+   54D7 00                 3922 	.db 0x00
+   54D8                    3923 __str_24:
+   54D8 09                 3924 	.db 0x09
+   54D9 09                 3925 	.db 0x09
+   54DA 09                 3926 	.db 0x09
+   54DB 09                 3927 	.db 0x09
+   54DC 09                 3928 	.db 0x09
+   54DD 4C 43 41 20 6F 66  3929 	.ascii "LCA of %s and %s is: %s"
         20 25 73 20 61 6E
         64 20 25 73 20 69
         73 3A 20 25 73
-   53C2 0A                 3996 	.db 0x0A
-   53C3 00                 3997 	.db 0x00
-   53C4                    3998 __str_25:
-   53C4 09                 3999 	.db 0x09
-   53C5 09                 4000 	.db 0x09
-   53C6 45 76 65 6E 74 20  4001 	.ascii "Event queue empty."
+   54F4 0A                 3930 	.db 0x0A
+   54F5 00                 3931 	.db 0x00
+   54F6                    3932 __str_25:
+   54F6 09                 3933 	.db 0x09
+   54F7 09                 3934 	.db 0x09
+   54F8 45 76 65 6E 74 20  3935 	.ascii "Event queue empty."
         71 75 65 75 65 20
         65 6D 70 74 79 2E
-   53D8 0A                 4002 	.db 0x0A
-   53D9 00                 4003 	.db 0x00
-   53DA                    4004 __str_26:
-   53DA 53 55 42 53 54 41  4005 	.ascii "SUBSTATE_GET_INFO"
+   550A 0A                 3936 	.db 0x0A
+   550B 00                 3937 	.db 0x00
+   550C                    3938 __str_26:
+   550C 53 55 42 53 54 41  3939 	.ascii "SUBSTATE_GET_INFO"
         54 45 5F 47 45 54
         5F 49 4E 46 4F
-   53EB 00                 4006 	.db 0x00
-   53EC                    4007 __str_27:
-   53EC 53 55 42 53 54 41  4008 	.ascii "SUBSTATE_ENTRY"
+   551D 00                 3940 	.db 0x00
+   551E                    3941 __str_27:
+   551E 53 55 42 53 54 41  3942 	.ascii "SUBSTATE_ENTRY"
         54 45 5F 45 4E 54
         52 59
-   53FA 00                 4009 	.db 0x00
-   53FB                    4010 __str_28:
-   53FB 53 55 42 53 54 41  4011 	.ascii "SUBSTATE_INITIAL_TRANSITION"
+   552C 00                 3943 	.db 0x00
+   552D                    3944 __str_28:
+   552D 53 55 42 53 54 41  3945 	.ascii "SUBSTATE_INITIAL_TRANSITION"
         54 45 5F 49 4E 49
         54 49 41 4C 5F 54
         52 41 4E 53 49 54
         49 4F 4E
-   5416 00                 4012 	.db 0x00
-   5417                    4013 __str_29:
-   5417 53 55 42 53 54 41  4014 	.ascii "SUBSTATE_JUMP_TO_HISTORY_DEFAULT"
+   5548 00                 3946 	.db 0x00
+   5549                    3947 __str_29:
+   5549 53 55 42 53 54 41  3948 	.ascii "SUBSTATE_JUMP_TO_HISTORY_DEFAULT"
         54 45 5F 4A 55 4D
         50 5F 54 4F 5F 48
         49 53 54 4F 52 59
         5F 44 45 46 41 55
         4C 54
-   5437 00                 4015 	.db 0x00
-   5438                    4016 __str_30:
-   5438 53 55 42 53 54 41  4017 	.ascii "SUBSTATE_DO"
+   5569 00                 3949 	.db 0x00
+   556A                    3950 __str_30:
+   556A 53 55 42 53 54 41  3951 	.ascii "SUBSTATE_DO"
         54 45 5F 44 4F
-   5443 00                 4018 	.db 0x00
-   5444                    4019 __str_31:
-   5444 53 55 42 53 54 41  4020 	.ascii "SUBSTATE_EXIT"
+   5575 00                 3952 	.db 0x00
+   5576                    3953 __str_31:
+   5576 53 55 42 53 54 41  3954 	.ascii "SUBSTATE_EXIT"
         54 45 5F 45 58 49
         54
-   5451 00                 4021 	.db 0x00
-   5452                    4022 __str_32:
-   5452 49 47 4E 4F 52 45  4023 	.ascii "IGNORED"
+   5583 00                 3955 	.db 0x00
+   5584                    3956 __str_32:
+   5584 49 47 4E 4F 52 45  3957 	.ascii "IGNORED"
         44
-   5459 00                 4024 	.db 0x00
-   545A                    4025 __str_33:
-   545A 48 41 4E 44 4C 45  4026 	.ascii "HANDLED"
+   558B 00                 3958 	.db 0x00
+   558C                    3959 __str_33:
+   558C 48 41 4E 44 4C 45  3960 	.ascii "HANDLED"
         44
-   5461 00                 4027 	.db 0x00
-   5462                    4028 __str_34:
-   5462 54 52 41 4E 53 49  4029 	.ascii "TRANSITION"
+   5593 00                 3961 	.db 0x00
+   5594                    3962 __str_34:
+   5594 54 52 41 4E 53 49  3963 	.ascii "TRANSITION"
         54 49 4F 4E
-   546C 00                 4030 	.db 0x00
-   546D                    4031 __str_35:
-   546D 54 52 41 4E 53 49  4032 	.ascii "TRANSITION_TO_HISTORY"
+   559E 00                 3964 	.db 0x00
+   559F                    3965 __str_35:
+   559F 54 52 41 4E 53 49  3966 	.ascii "TRANSITION_TO_HISTORY"
         54 49 4F 4E 5F 54
         4F 5F 48 49 53 54
         4F 52 59
-   5482 00                 4033 	.db 0x00
-                           4034 	.area XINIT   (CODE)
-   54A4                    4035 __xinit__eventTypes:
-   54A4 DA 53 80           4036 	.byte __str_26,(__str_26 >> 8),#0x80
-   54A7 EC 53 80           4037 	.byte __str_27,(__str_27 >> 8),#0x80
-   54AA FB 53 80           4038 	.byte __str_28,(__str_28 >> 8),#0x80
-   54AD 17 54 80           4039 	.byte __str_29,(__str_29 >> 8),#0x80
-   54B0 38 54 80           4040 	.byte __str_30,(__str_30 >> 8),#0x80
-   54B3 44 54 80           4041 	.byte __str_31,(__str_31 >> 8),#0x80
-   54B6                    4042 __xinit__responseTypes:
-   54B6 52 54 80           4043 	.byte __str_32,(__str_32 >> 8),#0x80
-   54B9 5A 54 80           4044 	.byte __str_33,(__str_33 >> 8),#0x80
-   54BC 62 54 80           4045 	.byte __str_34,(__str_34 >> 8),#0x80
-   54BF 6D 54 80           4046 	.byte __str_35,(__str_35 >> 8),#0x80
-   54C2                    4047 __xinit__initialTransitionEvent:
-   54C2 02                 4048 	.db #0x02
-   54C3                    4049 __xinit__jumpToHistoryEvent:
-   54C3 03                 4050 	.db #0x03
-   54C4                    4051 __xinit__enterEvent:
-   54C4 01                 4052 	.db #0x01
-   54C5                    4053 __xinit__exitEvent:
-   54C5 05                 4054 	.db #0x05
-                           4055 	.area CABS    (ABS,CODE)
+   55B4 00                 3967 	.db 0x00
+                           3968 	.area XINIT   (CODE)
+   55D6                    3969 __xinit__eventTypes:
+   55D6 0C 55 80           3970 	.byte __str_26,(__str_26 >> 8),#0x80
+   55D9 1E 55 80           3971 	.byte __str_27,(__str_27 >> 8),#0x80
+   55DC 2D 55 80           3972 	.byte __str_28,(__str_28 >> 8),#0x80
+   55DF 49 55 80           3973 	.byte __str_29,(__str_29 >> 8),#0x80
+   55E2 6A 55 80           3974 	.byte __str_30,(__str_30 >> 8),#0x80
+   55E5 76 55 80           3975 	.byte __str_31,(__str_31 >> 8),#0x80
+   55E8                    3976 __xinit__responseTypes:
+   55E8 84 55 80           3977 	.byte __str_32,(__str_32 >> 8),#0x80
+   55EB 8C 55 80           3978 	.byte __str_33,(__str_33 >> 8),#0x80
+   55EE 94 55 80           3979 	.byte __str_34,(__str_34 >> 8),#0x80
+   55F1 9F 55 80           3980 	.byte __str_35,(__str_35 >> 8),#0x80
+   55F4                    3981 __xinit__initialTransitionEvent:
+   55F4 02                 3982 	.db #0x02
+   55F5                    3983 __xinit__jumpToHistoryEvent:
+   55F5 03                 3984 	.db #0x03
+   55F6                    3985 __xinit__doEvent:
+   55F6 04                 3986 	.db #0x04
+   55F7                    3987 __xinit__enterEvent:
+   55F7 01                 3988 	.db #0x01
+   55F8                    3989 __xinit__exitEvent:
+   55F8 05                 3990 	.db #0x05
+                           3991 	.area CABS    (ABS,CODE)

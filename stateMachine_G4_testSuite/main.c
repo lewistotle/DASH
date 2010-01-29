@@ -8,14 +8,17 @@
  ============================================================================
  */
 
-#if defined(__TS7800__) || defined(__cygwin__)
-#include <pthread.h>
-#include <unistd.h>
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <sys/time.h>
+
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <termios.h>
+
 
 #ifdef __AVR_ARCH__
 #define EXIT_SUCCESS	0
@@ -25,57 +28,131 @@
 
 #include "stateMachine_G4.h"
 
+#include "sm_globalEvents.h"
 #include "sm_test_timeBomb.h"
 #include "sm_test_calculator.h"
 
-
-
-#if defined(__TS7800__) || defined(__cygwin__)
-#define puts(s)		puts(s) ; fflush(stdout) ;
-
-void* ISR_thread(	void* threadID)
-{
-	uint32_t	iterations = 0 ;
-
-	puts("ISR thread started.") ;
-
-	usleep(10000) ;
-
-#if 0
-	while(iterations < 5000)
-#endif
-	{
-		iterations++ ;
-
-		if((iterations % 1000) == 0)
-		{
-			puts(".") ;
-		}
-
-		usleep(1) ;
-	}
-
-	puts("ISR thread exited.") ;
-
-	pthread_exit((void*)threadID) ;
-
-	return NULL ;
-}
-#endif
-
-#ifdef __c8051f040__
-#include "config.h"
-#include "HardwareAbstractionLayer.h"
-#include "ioMapping.h"
-#include "gpio.h"
-#include "pwm.h"
 #include "task_UART.h"
 
-static void prvSetupSystemClock(	void ) ;
-static void prvSetupTimerInterrupt(	void ) ;
+void task_TIMER_init(		void) ;
+void task_TIMER_core(		void) ;
+void task_TIMER_shutdown(	void) ;
 
-static volatile bool		timeForTickProcessing ;				/* set in an ISR so volatile is needed */
+stateMachine_t*	bomb ;
+stateMachine_t*	calculator ;
+
+#if configENABLE_CALC_2
+	stateMachine_t*	calc2 ;
 #endif
+
+void handleKeypress(uint8_t c)
+{
+	eventType_t	eventType = SUBSTATE_NON_EVENT ;
+
+	if((c == 'c') || (c == 'C'))
+	{
+		eventType = CLEAR ;
+	}
+	else if(c == 0x1B)
+	{
+		eventType = CLEAR_ENTRY ;
+	}
+	else if(c == '0')
+	{
+		eventType = DIGIT_0 ;
+	}
+	else if((c >= '1') && (c <= '9'))
+	{
+		eventType = DIGIT_1_9 ;
+	}
+	else if(c == '.')
+	{
+		eventType = POINT ;
+	}
+	else if((c == '+') || (c == '-') || (c == '*') || (c == '/'))
+	{
+		eventType = OPERATION ;
+	}
+	else if((c == '='))
+	{
+		eventType = EQUALS ;
+	}
+
+	if(eventType != SUBSTATE_NON_EVENT)
+	{
+#if configENABLE_CALC_2
+		static int	counter = 0 ;
+#endif
+		keyEvent_t*	event ;
+
+#if configENABLE_CALC_2
+		if(counter & 0x01)
+		{
+			event = (keyEvent_t*)hsm_createNewEvent(calc2, eventType, sizeof(keyEvent_t)) ;
+		}
+		else
+		{
+#endif
+			event = (keyEvent_t*)hsm_createNewEvent(calculator, eventType, sizeof(keyEvent_t)) ;
+#if configENABLE_CALC_2
+		}
+#endif
+
+		if(event)
+		{
+			event->key = c ;
+
+			printf(" %c: ", c) ;
+
+#if 1
+	#if configENABLE_CALC_2
+			if(counter & 0x01)
+			{
+				hsm_postEventToMachine(event, calc2) ;
+			}
+			else
+			{
+	#endif
+				hsm_postEventToMachine(event, calculator) ;
+	#if configENABLE_CALC_2
+			}
+	#endif
+
+	#if configENABLE_CALC_EVENT_TOGGLING
+			counter++ ;
+	#endif
+#else
+			hsm_publishEventForAll(event) ;
+#endif
+		}
+		else
+		{
+			printf("UNABLE TO ALLOCATE EVENT\n") ;
+		}
+	}
+}
+
+
+void handleTimer(	void)
+{
+}
+
+
+extern uint32_t	uptime_hours ;
+extern uint32_t	uptime_microseconds ;
+
+void handleTick(	void)
+{
+#if 0
+	tickEvent_t*	event = (tickEvent_t*)hsm_createNewEvent(GLOBAL, SUBSTATE_TICK, sizeof(tickEvent_t)) ;
+
+	event->uptime_hours_currentTime			= uptime_hours ;
+	event->uptime_microseconds_currentTime	= uptime_microseconds ;
+
+	hsm_publishEventForAll(event) ;
+#endif
+}
+
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
 int main()
@@ -83,41 +160,15 @@ int main()
 void main(	void)
 #endif
 {
-#if defined(__TS7800__) || defined(__cygwin__)
-	int				rc ;
-	pthread_t		ISR_threadHandle ;
-	void*			ISR_threadStatus ;
+	bool		ok				= true ;
+#if 0
+	static int	iterationMax	= 10 ;
 #endif
-	bool			ok = true ;
-	stateMachine_t*	bomb ;
-	stateMachine_t*	calculator ;
-	static int iterationMax = 10 ;
 
 	puts("4th Generation state machine test started.") ;
-#if 1
-#if defined(__TS7800__) || defined(__cygwin__)
-	rc = pthread_create(&ISR_threadHandle, NULL, ISR_thread, (void*)&ISR_threadStatus) ;
 
-	if (rc != 0)
-	{
-		puts("\nInternal error starting ISR thread.  Exiting...\n") ;
-
-		exit(EXIT_FAILURE) ;
-	}
-#endif
-#ifdef __c8051f040__
-	WDTCN = 0xDE ;	/* Disable the watchdog timer */
-	WDTCN = 0xAD ;
-	WDTCN = 0xFF ;	/* Disable any future ability to modify the watchdog timer */
-
-	prvSetupSystemClock() ;
-	gpio_init() ;
-	pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
-	prvSetupTimerInterrupt() ;
 	task_UART_init(0) ;
-
-	portENABLE_INTERRUPTS() ;
-#endif
+	task_TIMER_init() ;
 
 	puts("Generating timebomb") ;
 
@@ -125,7 +176,9 @@ void main(	void)
 
 	if(bomb)
 	{
-//		REGISTER_STATE_MACHINE(bomb) ;
+		puts("Registering timebomb") ;
+
+		REGISTER_STATE_MACHINE(bomb) ;
 	}
 
 	puts("Generating calculator") ;
@@ -138,23 +191,51 @@ void main(	void)
 
 		REGISTER_STATE_MACHINE(calculator) ;
 	}
+#if configENABLE_CALC_2
+	calc2 = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
 
+	if(calc2)
+	{
+		puts("Registering calc2") ;
+
+		REGISTER_STATE_MACHINE(calc2) ;
+	}
+#endif
 	puts("Iterating state machines") ;
 
 	while(ok)
 	{
+#if 0
 		if(iterationMax-- == 0)
 		{
 			ok = false ;
 		}
+#endif
 
+#if 0
 		puts("loop") ;
+#endif
+
+		task_UART_core(0) ;
+		task_TIMER_core() ;
 
 		ITERATE_ALL_STATE_MACHINES() ;
+		fflush(stdout) ;
+		usleep(10000) ;
 	}
 
-#if defined(__TS7800__) || defined(__cygwin__)
-	pthread_join(ISR_threadHandle, &ISR_threadStatus) ;
+	task_UART_shutdown(0) ;
+	task_TIMER_shutdown() ;
+
+#if configENABLE_CALC_2
+	if(calc2)
+	{
+		UNREGISTER_STATE_MACHINE(calc2) ;
+
+		STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calc2) ;
+
+		calc2 = 0 ;
+	}
 #endif
 
 	if(calculator)
@@ -174,7 +255,7 @@ void main(	void)
 
 		bomb = 0 ;
 	}
-#endif
+
 	puts("\n4th Generation state machine test done.") ;
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)

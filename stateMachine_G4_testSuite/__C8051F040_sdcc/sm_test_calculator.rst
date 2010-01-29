@@ -158,11 +158,11 @@
    0CA3 8A 82               158 	mov	dpl,r2
    0CA5 8B 83               159 	mov	dph,r3
    0CA7 8C F0               160 	mov	b,r4
-   0CA9 74 0F               161 	mov	a,#_calculator_TOP
-   0CAB 12 41 10            162 	lcall	__gptrput
+   0CA9 74 41               161 	mov	a,#_calculator_TOP
+   0CAB 12 42 42            162 	lcall	__gptrput
    0CAE A3                  163 	inc	dptr
-   0CAF 74 4E               164 	mov	a,#(_calculator_TOP >> 8)
-   0CB1 12 41 10            165 	lcall	__gptrput
+   0CAF 74 4F               164 	mov	a,#(_calculator_TOP >> 8)
+   0CB1 12 42 42            165 	lcall	__gptrput
    0CB4 74 05               166 	mov	a,#0x05
    0CB6 2A                  167 	add	a,r2
    0CB7 FD                  168 	mov	r5,a
@@ -173,14 +173,14 @@
    0CBD 8D 82               173 	mov	dpl,r5
    0CBF 8E 83               174 	mov	dph,r6
    0CC1 8F F0               175 	mov	b,r7
-   0CC3 74 0F               176 	mov	a,#_calculator_TOP
-   0CC5 12 41 10            177 	lcall	__gptrput
+   0CC3 74 41               176 	mov	a,#_calculator_TOP
+   0CC5 12 42 42            177 	lcall	__gptrput
    0CC8 A3                  178 	inc	dptr
-   0CC9 74 4E               179 	mov	a,#(_calculator_TOP >> 8)
-   0CCB 12 41 10            180 	lcall	__gptrput
+   0CC9 74 4F               179 	mov	a,#(_calculator_TOP >> 8)
+   0CCB 12 42 42            180 	lcall	__gptrput
    0CCE A3                  181 	inc	dptr
    0CCF 74 80               182 	mov	a,#0x80
-   0CD1 12 41 10            183 	lcall	__gptrput
+   0CD1 12 42 42            183 	lcall	__gptrput
    0CD4 74 02               184 	mov	a,#0x02
    0CD6 2A                  185 	add	a,r2
    0CD7 F5 1C               186 	mov	_calculator_constructor_sloc0_1_0,a
@@ -201,13 +201,13 @@
    0CED 85 1D 83            201 	mov	dph,(_calculator_constructor_sloc0_1_0 + 1)
    0CF0 85 1E F0            202 	mov	b,(_calculator_constructor_sloc0_1_0 + 2)
    0CF3 E8                  203 	mov	a,r0
-   0CF4 12 41 10            204 	lcall	__gptrput
+   0CF4 12 42 42            204 	lcall	__gptrput
    0CF7 A3                  205 	inc	dptr
    0CF8 E9                  206 	mov	a,r1
-   0CF9 12 41 10            207 	lcall	__gptrput
+   0CF9 12 42 42            207 	lcall	__gptrput
    0CFC A3                  208 	inc	dptr
    0CFD ED                  209 	mov	a,r5
-   0CFE 12 41 10            210 	lcall	__gptrput
+   0CFE 12 42 42            210 	lcall	__gptrput
    0D01 8A 82               211 	mov	dpl,r2
    0D03 8B 83               212 	mov	dph,r3
    0D05 8C F0               213 	mov	b,r4
@@ -309,16 +309,16 @@
    0D5A 8B 83               309 	mov	dph,r3
    0D5C 8C F0               310 	mov	b,r4
    0D5E E4                  311 	clr	a
-   0D5F 12 41 10            312 	lcall	__gptrput
+   0D5F 12 42 42            312 	lcall	__gptrput
    0D62 A3                  313 	inc	dptr
    0D63 E4                  314 	clr	a
-   0D64 12 41 10            315 	lcall	__gptrput
+   0D64 12 42 42            315 	lcall	__gptrput
    0D67 A3                  316 	inc	dptr
    0D68 E4                  317 	clr	a
-   0D69 12 41 10            318 	lcall	__gptrput
+   0D69 12 42 42            318 	lcall	__gptrput
    0D6C A3                  319 	inc	dptr
    0D6D E4                  320 	clr	a
-   0D6E 02 41 10            321 	ljmp	__gptrput
+   0D6E 02 42 42            321 	ljmp	__gptrput
                             322 ;------------------------------------------------------------
                             323 ;Allocation info for local variables in function 'calculator_destructor2'
                             324 ;------------------------------------------------------------
@@ -360,7 +360,7 @@
    0D8A 8D 82               360 	mov	dpl,r5
    0D8C 8E 83               361 	mov	dph,r6
    0D8E 8F F0               362 	mov	b,r7
-   0D90 12 4D 3C            363 	lcall	__gptrget
+   0D90 12 4E 6E            363 	lcall	__gptrget
    0D93 FD                  364 	mov	r5,a
    0D94 BD 02 23            365 	cjne	r5,#0x02,00102$
    0D97 74 08               366 	mov	a,#0x08
@@ -372,14 +372,14 @@
    0D9E 8A 82               372 	mov	dpl,r2
    0DA0 8B 83               373 	mov	dph,r3
    0DA2 8C F0               374 	mov	b,r4
-   0DA4 74 33               375 	mov	a,#_calculator_begin
-   0DA6 12 41 10            376 	lcall	__gptrput
+   0DA4 74 65               375 	mov	a,#_calculator_begin
+   0DA6 12 42 42            376 	lcall	__gptrput
    0DA9 A3                  377 	inc	dptr
-   0DAA 74 4E               378 	mov	a,#(_calculator_begin >> 8)
-   0DAC 12 41 10            379 	lcall	__gptrput
+   0DAA 74 4F               378 	mov	a,#(_calculator_begin >> 8)
+   0DAC 12 42 42            379 	lcall	__gptrput
    0DAF A3                  380 	inc	dptr
    0DB0 74 80               381 	mov	a,#0x80
-   0DB2 12 41 10            382 	lcall	__gptrput
+   0DB2 12 42 42            382 	lcall	__gptrput
    0DB5 75 82 02            383 	mov	dpl,#0x02
    0DB8 80 03               384 	sjmp	00103$
    0DBA                     385 00102$:
@@ -419,7 +419,7 @@
    0DD8 8D 82               419 	mov	dpl,r5
    0DDA 8E 83               420 	mov	dph,r6
    0DDC 8F F0               421 	mov	b,r7
-   0DDE 12 4D 3C            422 	lcall	__gptrget
+   0DDE 12 4E 6E            422 	lcall	__gptrget
    0DE1 FD                  423 	mov	r5,a
    0DE2 BD 02 2A            424 	cjne	r5,#0x02,00102$
    0DE5 A8 1F               425 	mov	r0,_bp
@@ -436,14 +436,14 @@
    0DF3 8E 82               436 	mov	dpl,r6
    0DF5 8F 83               437 	mov	dph,r7
    0DF7 8A F0               438 	mov	b,r2
-   0DF9 74 21               439 	mov	a,#_calculator_ready
-   0DFB 12 41 10            440 	lcall	__gptrput
+   0DF9 74 53               439 	mov	a,#_calculator_ready
+   0DFB 12 42 42            440 	lcall	__gptrput
    0DFE A3                  441 	inc	dptr
-   0DFF 74 4E               442 	mov	a,#(_calculator_ready >> 8)
-   0E01 12 41 10            443 	lcall	__gptrput
+   0DFF 74 4F               442 	mov	a,#(_calculator_ready >> 8)
+   0E01 12 42 42            443 	lcall	__gptrput
    0E04 A3                  444 	inc	dptr
    0E05 74 80               445 	mov	a,#0x80
-   0E07 12 41 10            446 	lcall	__gptrput
+   0E07 12 42 42            446 	lcall	__gptrput
    0E0A 75 82 02            447 	mov	dpl,#0x02
    0E0D 80 5D               448 	sjmp	00107$
    0E0F                     449 00102$:
@@ -463,14 +463,14 @@
    0E20 8A 82               463 	mov	dpl,r2
    0E22 8B 83               464 	mov	dph,r3
    0E24 8C F0               465 	mov	b,r4
-   0E26 74 18               466 	mov	a,#_calculator_on
-   0E28 12 41 10            467 	lcall	__gptrput
+   0E26 74 4A               466 	mov	a,#_calculator_on
+   0E28 12 42 42            467 	lcall	__gptrput
    0E2B A3                  468 	inc	dptr
-   0E2C 74 4E               469 	mov	a,#(_calculator_on >> 8)
-   0E2E 12 41 10            470 	lcall	__gptrput
+   0E2C 74 4F               469 	mov	a,#(_calculator_on >> 8)
+   0E2E 12 42 42            470 	lcall	__gptrput
    0E31 A3                  471 	inc	dptr
    0E32 74 80               472 	mov	a,#0x80
-   0E34 12 41 10            473 	lcall	__gptrput
+   0E34 12 42 42            473 	lcall	__gptrput
    0E37 75 82 02            474 	mov	dpl,#0x02
    0E3A 80 30               475 	sjmp	00107$
    0E3C                     476 00104$:
@@ -490,14 +490,14 @@
    0E4D 8A 82               490 	mov	dpl,r2
    0E4F 8B 83               491 	mov	dph,r3
    0E51 8C F0               492 	mov	b,r4
-   0E53 74 0F               493 	mov	a,#_calculator_TOP
-   0E55 12 41 10            494 	lcall	__gptrput
+   0E53 74 41               493 	mov	a,#_calculator_TOP
+   0E55 12 42 42            494 	lcall	__gptrput
    0E58 A3                  495 	inc	dptr
-   0E59 74 4E               496 	mov	a,#(_calculator_TOP >> 8)
-   0E5B 12 41 10            497 	lcall	__gptrput
+   0E59 74 4F               496 	mov	a,#(_calculator_TOP >> 8)
+   0E5B 12 42 42            497 	lcall	__gptrput
    0E5E A3                  498 	inc	dptr
    0E5F 74 80               499 	mov	a,#0x80
-   0E61 12 41 10            500 	lcall	__gptrput
+   0E61 12 42 42            500 	lcall	__gptrput
    0E64 75 82 02            501 	mov	dpl,#0x02
    0E67 80 03               502 	sjmp	00107$
    0E69                     503 00106$:
@@ -537,7 +537,7 @@
    0E8A 8D 82               537 	mov	dpl,r5
    0E8C 8E 83               538 	mov	dph,r6
    0E8E 8F F0               539 	mov	b,r7
-   0E90 12 4D 3C            540 	lcall	__gptrget
+   0E90 12 4E 6E            540 	lcall	__gptrget
    0E93 FD                  541 	mov	r5,a
    0E94 BD 02 2A            542 	cjne	r5,#0x02,00102$
    0E97 A8 1F               543 	mov	r0,_bp
@@ -554,14 +554,14 @@
    0EA5 8E 82               554 	mov	dpl,r6
    0EA7 8F 83               555 	mov	dph,r7
    0EA9 8A F0               556 	mov	b,r2
-   0EAB 74 4E               557 	mov	a,#_calculator_zero1
-   0EAD 12 41 10            558 	lcall	__gptrput
+   0EAB 74 80               557 	mov	a,#_calculator_zero1
+   0EAD 12 42 42            558 	lcall	__gptrput
    0EB0 A3                  559 	inc	dptr
-   0EB1 74 4E               560 	mov	a,#(_calculator_zero1 >> 8)
-   0EB3 12 41 10            561 	lcall	__gptrput
+   0EB1 74 4F               560 	mov	a,#(_calculator_zero1 >> 8)
+   0EB3 12 42 42            561 	lcall	__gptrput
    0EB6 A3                  562 	inc	dptr
    0EB7 74 80               563 	mov	a,#0x80
-   0EB9 12 41 10            564 	lcall	__gptrput
+   0EB9 12 42 42            564 	lcall	__gptrput
    0EBC 75 82 02            565 	mov	dpl,#0x02
    0EBF 80 30               566 	sjmp	00105$
    0EC1                     567 00102$:
@@ -581,14 +581,14 @@
    0ED2 8A 82               581 	mov	dpl,r2
    0ED4 8B 83               582 	mov	dph,r3
    0ED6 8C F0               583 	mov	b,r4
-   0ED8 74 72               584 	mov	a,#_calculator_opEntered
-   0EDA 12 41 10            585 	lcall	__gptrput
+   0ED8 74 A4               584 	mov	a,#_calculator_opEntered
+   0EDA 12 42 42            585 	lcall	__gptrput
    0EDD A3                  586 	inc	dptr
-   0EDE 74 4E               587 	mov	a,#(_calculator_opEntered >> 8)
-   0EE0 12 41 10            588 	lcall	__gptrput
+   0EDE 74 4F               587 	mov	a,#(_calculator_opEntered >> 8)
+   0EE0 12 42 42            588 	lcall	__gptrput
    0EE3 A3                  589 	inc	dptr
    0EE4 74 80               590 	mov	a,#0x80
-   0EE6 12 41 10            591 	lcall	__gptrput
+   0EE6 12 42 42            591 	lcall	__gptrput
    0EE9 75 82 02            592 	mov	dpl,#0x02
    0EEC 80 03               593 	sjmp	00105$
    0EEE                     594 00104$:
@@ -650,7 +650,7 @@
    0F1A 8D 82               650 	mov	dpl,r5
    0F1C 8E 83               651 	mov	dph,r6
    0F1E 8F F0               652 	mov	b,r7
-   0F20 12 4D 3C            653 	lcall	__gptrget
+   0F20 12 4E 6E            653 	lcall	__gptrget
    0F23 FA                  654 	mov	r2,a
    0F24 BA 02 2B            655 	cjne	r2,#0x02,00102$
    0F27 A8 1F               656 	mov	r0,_bp
@@ -667,14 +667,14 @@
    0F35 8A 82               667 	mov	dpl,r2
    0F37 8B 83               668 	mov	dph,r3
    0F39 8C F0               669 	mov	b,r4
-   0F3B 74 18               670 	mov	a,#_calculator_on
-   0F3D 12 41 10            671 	lcall	__gptrput
+   0F3B 74 4A               670 	mov	a,#_calculator_on
+   0F3D 12 42 42            671 	lcall	__gptrput
    0F40 A3                  672 	inc	dptr
-   0F41 74 4E               673 	mov	a,#(_calculator_on >> 8)
-   0F43 12 41 10            674 	lcall	__gptrput
+   0F41 74 4F               673 	mov	a,#(_calculator_on >> 8)
+   0F43 12 42 42            674 	lcall	__gptrput
    0F46 A3                  675 	inc	dptr
    0F47 74 80               676 	mov	a,#0x80
-   0F49 12 41 10            677 	lcall	__gptrput
+   0F49 12 42 42            677 	lcall	__gptrput
    0F4C 75 82 02            678 	mov	dpl,#0x02
    0F4F 02 10 1C            679 	ljmp	00112$
    0F52                     680 00102$:
@@ -687,7 +687,7 @@
    0F5A 8D 82               687 	mov	dpl,r5
    0F5C 8E 83               688 	mov	dph,r6
    0F5E 8F F0               689 	mov	b,r7
-   0F60 12 4D 3C            690 	lcall	__gptrget
+   0F60 12 4E 6E            690 	lcall	__gptrget
    0F63 FD                  691 	mov	r5,a
    0F64 BD 2D 2B            692 	cjne	r5,#0x2D,00104$
    0F67 A8 1F               693 	mov	r0,_bp
@@ -704,14 +704,14 @@
    0F75 8A 82               704 	mov	dpl,r2
    0F77 8B 83               705 	mov	dph,r3
    0F79 8C F0               706 	mov	b,r4
-   0F7B 74 3C               707 	mov	a,#_calculator_negated1
-   0F7D 12 41 10            708 	lcall	__gptrput
+   0F7B 74 6E               707 	mov	a,#_calculator_negated1
+   0F7D 12 42 42            708 	lcall	__gptrput
    0F80 A3                  709 	inc	dptr
-   0F81 74 4E               710 	mov	a,#(_calculator_negated1 >> 8)
-   0F83 12 41 10            711 	lcall	__gptrput
+   0F81 74 4F               710 	mov	a,#(_calculator_negated1 >> 8)
+   0F83 12 42 42            711 	lcall	__gptrput
    0F86 A3                  712 	inc	dptr
    0F87 74 80               713 	mov	a,#0x80
-   0F89 12 41 10            714 	lcall	__gptrput
+   0F89 12 42 42            714 	lcall	__gptrput
    0F8C 75 82 02            715 	mov	dpl,#0x02
    0F8F 02 10 1C            716 	ljmp	00112$
    0F92                     717 00104$:
@@ -731,14 +731,14 @@
    0FA3 8A 82               731 	mov	dpl,r2
    0FA5 8B 83               732 	mov	dph,r3
    0FA7 8C F0               733 	mov	b,r4
-   0FA9 74 4E               734 	mov	a,#_calculator_zero1
-   0FAB 12 41 10            735 	lcall	__gptrput
+   0FA9 74 80               734 	mov	a,#_calculator_zero1
+   0FAB 12 42 42            735 	lcall	__gptrput
    0FAE A3                  736 	inc	dptr
-   0FAF 74 4E               737 	mov	a,#(_calculator_zero1 >> 8)
-   0FB1 12 41 10            738 	lcall	__gptrput
+   0FAF 74 4F               737 	mov	a,#(_calculator_zero1 >> 8)
+   0FB1 12 42 42            738 	lcall	__gptrput
    0FB4 A3                  739 	inc	dptr
    0FB5 74 80               740 	mov	a,#0x80
-   0FB7 12 41 10            741 	lcall	__gptrput
+   0FB7 12 42 42            741 	lcall	__gptrput
    0FBA 75 82 02            742 	mov	dpl,#0x02
    0FBD 80 5D               743 	sjmp	00112$
    0FBF                     744 00107$:
@@ -758,14 +758,14 @@
    0FD0 8A 82               758 	mov	dpl,r2
    0FD2 8B 83               759 	mov	dph,r3
    0FD4 8C F0               760 	mov	b,r4
-   0FD6 74 57               761 	mov	a,#_calculator_int1
-   0FD8 12 41 10            762 	lcall	__gptrput
+   0FD6 74 89               761 	mov	a,#_calculator_int1
+   0FD8 12 42 42            762 	lcall	__gptrput
    0FDB A3                  763 	inc	dptr
-   0FDC 74 4E               764 	mov	a,#(_calculator_int1 >> 8)
-   0FDE 12 41 10            765 	lcall	__gptrput
+   0FDC 74 4F               764 	mov	a,#(_calculator_int1 >> 8)
+   0FDE 12 42 42            765 	lcall	__gptrput
    0FE1 A3                  766 	inc	dptr
    0FE2 74 80               767 	mov	a,#0x80
-   0FE4 12 41 10            768 	lcall	__gptrput
+   0FE4 12 42 42            768 	lcall	__gptrput
    0FE7 75 82 02            769 	mov	dpl,#0x02
    0FEA 80 30               770 	sjmp	00112$
    0FEC                     771 00109$:
@@ -785,14 +785,14 @@
    0FFD 8A 82               785 	mov	dpl,r2
    0FFF 8B 83               786 	mov	dph,r3
    1001 8C F0               787 	mov	b,r4
-   1003 74 60               788 	mov	a,#_calculator_frac1
-   1005 12 41 10            789 	lcall	__gptrput
+   1003 74 92               788 	mov	a,#_calculator_frac1
+   1005 12 42 42            789 	lcall	__gptrput
    1008 A3                  790 	inc	dptr
-   1009 74 4E               791 	mov	a,#(_calculator_frac1 >> 8)
-   100B 12 41 10            792 	lcall	__gptrput
+   1009 74 4F               791 	mov	a,#(_calculator_frac1 >> 8)
+   100B 12 42 42            792 	lcall	__gptrput
    100E A3                  793 	inc	dptr
    100F 74 80               794 	mov	a,#0x80
-   1011 12 41 10            795 	lcall	__gptrput
+   1011 12 42 42            795 	lcall	__gptrput
    1014 75 82 02            796 	mov	dpl,#0x02
    1017 80 03               797 	sjmp	00112$
    1019                     798 00111$:
@@ -836,7 +836,7 @@
    103A 8D 82               836 	mov	dpl,r5
    103C 8E 83               837 	mov	dph,r6
    103E 8F F0               838 	mov	b,r7
-   1040 12 4D 3C            839 	lcall	__gptrget
+   1040 12 4E 6E            839 	lcall	__gptrget
    1043 FA                  840 	mov	r2,a
    1044 BA 07 2B            841 	cjne	r2,#0x07,00102$
    1047 A8 1F               842 	mov	r0,_bp
@@ -853,14 +853,14 @@
    1055 8A 82               853 	mov	dpl,r2
    1057 8B 83               854 	mov	dph,r3
    1059 8C F0               855 	mov	b,r4
-   105B 74 33               856 	mov	a,#_calculator_begin
-   105D 12 41 10            857 	lcall	__gptrput
+   105B 74 65               856 	mov	a,#_calculator_begin
+   105D 12 42 42            857 	lcall	__gptrput
    1060 A3                  858 	inc	dptr
-   1061 74 4E               859 	mov	a,#(_calculator_begin >> 8)
-   1063 12 41 10            860 	lcall	__gptrput
+   1061 74 4F               859 	mov	a,#(_calculator_begin >> 8)
+   1063 12 42 42            860 	lcall	__gptrput
    1066 A3                  861 	inc	dptr
    1067 74 80               862 	mov	a,#0x80
-   1069 12 41 10            863 	lcall	__gptrput
+   1069 12 42 42            863 	lcall	__gptrput
    106C 75 82 02            864 	mov	dpl,#0x02
    106F 02 11 17            865 	ljmp	00112$
    1072                     866 00102$:
@@ -880,14 +880,14 @@
    1083 8A 82               880 	mov	dpl,r2
    1085 8B 83               881 	mov	dph,r3
    1087 8C F0               882 	mov	b,r4
-   1089 74 4E               883 	mov	a,#_calculator_zero1
-   108B 12 41 10            884 	lcall	__gptrput
+   1089 74 80               883 	mov	a,#_calculator_zero1
+   108B 12 42 42            884 	lcall	__gptrput
    108E A3                  885 	inc	dptr
-   108F 74 4E               886 	mov	a,#(_calculator_zero1 >> 8)
-   1091 12 41 10            887 	lcall	__gptrput
+   108F 74 4F               886 	mov	a,#(_calculator_zero1 >> 8)
+   1091 12 42 42            887 	lcall	__gptrput
    1094 A3                  888 	inc	dptr
    1095 74 80               889 	mov	a,#0x80
-   1097 12 41 10            890 	lcall	__gptrput
+   1097 12 42 42            890 	lcall	__gptrput
    109A 75 82 02            891 	mov	dpl,#0x02
    109D 02 11 17            892 	ljmp	00112$
    10A0                     893 00104$:
@@ -907,14 +907,14 @@
    10B1 8A 82               907 	mov	dpl,r2
    10B3 8B 83               908 	mov	dph,r3
    10B5 8C F0               909 	mov	b,r4
-   10B7 74 57               910 	mov	a,#_calculator_int1
-   10B9 12 41 10            911 	lcall	__gptrput
+   10B7 74 89               910 	mov	a,#_calculator_int1
+   10B9 12 42 42            911 	lcall	__gptrput
    10BC A3                  912 	inc	dptr
-   10BD 74 4E               913 	mov	a,#(_calculator_int1 >> 8)
-   10BF 12 41 10            914 	lcall	__gptrput
+   10BD 74 4F               913 	mov	a,#(_calculator_int1 >> 8)
+   10BF 12 42 42            914 	lcall	__gptrput
    10C2 A3                  915 	inc	dptr
    10C3 74 80               916 	mov	a,#0x80
-   10C5 12 41 10            917 	lcall	__gptrput
+   10C5 12 42 42            917 	lcall	__gptrput
    10C8 75 82 02            918 	mov	dpl,#0x02
    10CB 80 4A               919 	sjmp	00112$
    10CD                     920 00106$:
@@ -934,14 +934,14 @@
    10DE 8A 82               934 	mov	dpl,r2
    10E0 8B 83               935 	mov	dph,r3
    10E2 8C F0               936 	mov	b,r4
-   10E4 74 60               937 	mov	a,#_calculator_frac1
-   10E6 12 41 10            938 	lcall	__gptrput
+   10E4 74 92               937 	mov	a,#_calculator_frac1
+   10E6 12 42 42            938 	lcall	__gptrput
    10E9 A3                  939 	inc	dptr
-   10EA 74 4E               940 	mov	a,#(_calculator_frac1 >> 8)
-   10EC 12 41 10            941 	lcall	__gptrput
+   10EA 74 4F               940 	mov	a,#(_calculator_frac1 >> 8)
+   10EC 12 42 42            941 	lcall	__gptrput
    10EF A3                  942 	inc	dptr
    10F0 74 80               943 	mov	a,#0x80
-   10F2 12 41 10            944 	lcall	__gptrput
+   10F2 12 42 42            944 	lcall	__gptrput
    10F5 75 82 02            945 	mov	dpl,#0x02
    10F8 80 1D               946 	sjmp	00112$
    10FA                     947 00108$:
@@ -954,7 +954,7 @@
    1102 8D 82               954 	mov	dpl,r5
    1104 8E 83               955 	mov	dph,r6
    1106 8F F0               956 	mov	b,r7
-   1108 12 4D 3C            957 	lcall	__gptrget
+   1108 12 4E 6E            957 	lcall	__gptrget
    110B FD                  958 	mov	r5,a
    110C BD 2D 05            959 	cjne	r5,#0x2D,00110$
    110F 75 82 01            960 	mov	dpl,#0x01
@@ -997,7 +997,7 @@
    1135 8D 82               997 	mov	dpl,r5
    1137 8E 83               998 	mov	dph,r6
    1139 8F F0               999 	mov	b,r7
-   113B 12 4D 3C           1000 	lcall	__gptrget
+   113B 12 4E 6E           1000 	lcall	__gptrget
    113E FD                 1001 	mov	r5,a
    113F BD 07 2A           1002 	cjne	r5,#0x07,00102$
    1142 A8 1F              1003 	mov	r0,_bp
@@ -1014,14 +1014,14 @@
    1150 8E 82              1014 	mov	dpl,r6
    1152 8F 83              1015 	mov	dph,r7
    1154 8A F0              1016 	mov	b,r2
-   1156 74 21              1017 	mov	a,#_calculator_ready
-   1158 12 41 10           1018 	lcall	__gptrput
+   1156 74 53              1017 	mov	a,#_calculator_ready
+   1158 12 42 42           1018 	lcall	__gptrput
    115B A3                 1019 	inc	dptr
-   115C 74 4E              1020 	mov	a,#(_calculator_ready >> 8)
-   115E 12 41 10           1021 	lcall	__gptrput
+   115C 74 4F              1020 	mov	a,#(_calculator_ready >> 8)
+   115E 12 42 42           1021 	lcall	__gptrput
    1161 A3                 1022 	inc	dptr
    1162 74 80              1023 	mov	a,#0x80
-   1164 12 41 10           1024 	lcall	__gptrput
+   1164 12 42 42           1024 	lcall	__gptrput
    1167 75 82 02           1025 	mov	dpl,#0x02
    116A 80 30              1026 	sjmp	00105$
    116C                    1027 00102$:
@@ -1041,14 +1041,14 @@
    117D 8A 82              1041 	mov	dpl,r2
    117F 8B 83              1042 	mov	dph,r3
    1181 8C F0              1043 	mov	b,r4
-   1183 74 72              1044 	mov	a,#_calculator_opEntered
-   1185 12 41 10           1045 	lcall	__gptrput
+   1183 74 A4              1044 	mov	a,#_calculator_opEntered
+   1185 12 42 42           1045 	lcall	__gptrput
    1188 A3                 1046 	inc	dptr
-   1189 74 4E              1047 	mov	a,#(_calculator_opEntered >> 8)
-   118B 12 41 10           1048 	lcall	__gptrput
+   1189 74 4F              1047 	mov	a,#(_calculator_opEntered >> 8)
+   118B 12 42 42           1048 	lcall	__gptrput
    118E A3                 1049 	inc	dptr
    118F 74 80              1050 	mov	a,#0x80
-   1191 12 41 10           1051 	lcall	__gptrput
+   1191 12 42 42           1051 	lcall	__gptrput
    1194 75 82 02           1052 	mov	dpl,#0x02
    1197 80 03              1053 	sjmp	00105$
    1199                    1054 00104$:
@@ -1089,7 +1089,7 @@
    11BA 8D 82              1089 	mov	dpl,r5
    11BC 8E 83              1090 	mov	dph,r6
    11BE 8F F0              1091 	mov	b,r7
-   11C0 12 4D 3C           1092 	lcall	__gptrget
+   11C0 12 4E 6E           1092 	lcall	__gptrget
    11C3 FD                 1093 	mov	r5,a
    11C4 BD 02 2A           1094 	cjne	r5,#0x02,00102$
    11C7 A8 1F              1095 	mov	r0,_bp
@@ -1106,14 +1106,14 @@
    11D5 8E 82              1106 	mov	dpl,r6
    11D7 8F 83              1107 	mov	dph,r7
    11D9 8A F0              1108 	mov	b,r2
-   11DB 74 8D              1109 	mov	a,#_calculator_zero2
-   11DD 12 41 10           1110 	lcall	__gptrput
+   11DB 74 BF              1109 	mov	a,#_calculator_zero2
+   11DD 12 42 42           1110 	lcall	__gptrput
    11E0 A3                 1111 	inc	dptr
-   11E1 74 4E              1112 	mov	a,#(_calculator_zero2 >> 8)
-   11E3 12 41 10           1113 	lcall	__gptrput
+   11E1 74 4F              1112 	mov	a,#(_calculator_zero2 >> 8)
+   11E3 12 42 42           1113 	lcall	__gptrput
    11E6 A3                 1114 	inc	dptr
    11E7 74 80              1115 	mov	a,#0x80
-   11E9 12 41 10           1116 	lcall	__gptrput
+   11E9 12 42 42           1116 	lcall	__gptrput
    11EC 75 82 02           1117 	mov	dpl,#0x02
    11EF 80 65              1118 	sjmp	00109$
    11F1                    1119 00102$:
@@ -1138,14 +1138,14 @@
    120A 8A 82              1138 	mov	dpl,r2
    120C 8B 83              1139 	mov	dph,r3
    120E 8C F0              1140 	mov	b,r4
-   1210 74 57              1141 	mov	a,#_calculator_int1
-   1212 12 41 10           1142 	lcall	__gptrput
+   1210 74 89              1141 	mov	a,#_calculator_int1
+   1212 12 42 42           1142 	lcall	__gptrput
    1215 A3                 1143 	inc	dptr
-   1216 74 4E              1144 	mov	a,#(_calculator_int1 >> 8)
-   1218 12 41 10           1145 	lcall	__gptrput
+   1216 74 4F              1144 	mov	a,#(_calculator_int1 >> 8)
+   1218 12 42 42           1145 	lcall	__gptrput
    121B A3                 1146 	inc	dptr
    121C 74 80              1147 	mov	a,#0x80
-   121E 12 41 10           1148 	lcall	__gptrput
+   121E 12 42 42           1148 	lcall	__gptrput
    1221 75 82 02           1149 	mov	dpl,#0x02
    1224 80 30              1150 	sjmp	00109$
    1226                    1151 00106$:
@@ -1165,14 +1165,14 @@
    1237 8A 82              1165 	mov	dpl,r2
    1239 8B 83              1166 	mov	dph,r3
    123B 8C F0              1167 	mov	b,r4
-   123D 74 60              1168 	mov	a,#_calculator_frac1
-   123F 12 41 10           1169 	lcall	__gptrput
+   123D 74 92              1168 	mov	a,#_calculator_frac1
+   123F 12 42 42           1169 	lcall	__gptrput
    1242 A3                 1170 	inc	dptr
-   1243 74 4E              1171 	mov	a,#(_calculator_frac1 >> 8)
-   1245 12 41 10           1172 	lcall	__gptrput
+   1243 74 4F              1171 	mov	a,#(_calculator_frac1 >> 8)
+   1245 12 42 42           1172 	lcall	__gptrput
    1248 A3                 1173 	inc	dptr
    1249 74 80              1174 	mov	a,#0x80
-   124B 12 41 10           1175 	lcall	__gptrput
+   124B 12 42 42           1175 	lcall	__gptrput
    124E 75 82 02           1176 	mov	dpl,#0x02
    1251 80 03              1177 	sjmp	00109$
    1253                    1178 00108$:
@@ -1212,7 +1212,7 @@
    1274 8D 82              1212 	mov	dpl,r5
    1276 8E 83              1213 	mov	dph,r6
    1278 8F F0              1214 	mov	b,r7
-   127A 12 4D 3C           1215 	lcall	__gptrget
+   127A 12 4E 6E           1215 	lcall	__gptrget
    127D FD                 1216 	mov	r5,a
    127E BD 0A 23           1217 	cjne	r5,#0x0A,00102$
    1281 74 08              1218 	mov	a,#0x08
@@ -1224,14 +1224,14 @@
    1288 8A 82              1224 	mov	dpl,r2
    128A 8B 83              1225 	mov	dph,r3
    128C 8C F0              1226 	mov	b,r4
-   128E 74 60              1227 	mov	a,#_calculator_frac1
-   1290 12 41 10           1228 	lcall	__gptrput
+   128E 74 92              1227 	mov	a,#_calculator_frac1
+   1290 12 42 42           1228 	lcall	__gptrput
    1293 A3                 1229 	inc	dptr
-   1294 74 4E              1230 	mov	a,#(_calculator_frac1 >> 8)
-   1296 12 41 10           1231 	lcall	__gptrput
+   1294 74 4F              1230 	mov	a,#(_calculator_frac1 >> 8)
+   1296 12 42 42           1231 	lcall	__gptrput
    1299 A3                 1232 	inc	dptr
    129A 74 80              1233 	mov	a,#0x80
-   129C 12 41 10           1234 	lcall	__gptrput
+   129C 12 42 42           1234 	lcall	__gptrput
    129F 75 82 02           1235 	mov	dpl,#0x02
    12A2 80 03              1236 	sjmp	00103$
    12A4                    1237 00102$:
@@ -1266,7 +1266,7 @@
    12BC 8A 82              1266 	mov	dpl,r2
    12BE 8B 83              1267 	mov	dph,r3
    12C0 8C F0              1268 	mov	b,r4
-   12C2 12 4D 3C           1269 	lcall	__gptrget
+   12C2 12 4E 6E           1269 	lcall	__gptrget
    12C5 FA                 1270 	mov	r2,a
    12C6 BA 0A 05           1271 	cjne	r2,#0x0A,00102$
    12C9 75 82 01           1272 	mov	dpl,#0x01
@@ -1306,7 +1306,7 @@
    12EC 8D 82              1306 	mov	dpl,r5
    12EE 8E 83              1307 	mov	dph,r6
    12F0 8F F0              1308 	mov	b,r7
-   12F2 12 4D 3C           1309 	lcall	__gptrget
+   12F2 12 4E 6E           1309 	lcall	__gptrget
    12F5 FD                 1310 	mov	r5,a
    12F6 BD 02 23           1311 	cjne	r5,#0x02,00102$
    12F9 74 08              1312 	mov	a,#0x08
@@ -1318,14 +1318,14 @@
    1300 8A 82              1318 	mov	dpl,r2
    1302 8B 83              1319 	mov	dph,r3
    1304 8C F0              1320 	mov	b,r4
-   1306 74 9F              1321 	mov	a,#_calculator_frac2
-   1308 12 41 10           1322 	lcall	__gptrput
+   1306 74 D1              1321 	mov	a,#_calculator_frac2
+   1308 12 42 42           1322 	lcall	__gptrput
    130B A3                 1323 	inc	dptr
-   130C 74 4E              1324 	mov	a,#(_calculator_frac2 >> 8)
-   130E 12 41 10           1325 	lcall	__gptrput
+   130C 74 4F              1324 	mov	a,#(_calculator_frac2 >> 8)
+   130E 12 42 42           1325 	lcall	__gptrput
    1311 A3                 1326 	inc	dptr
    1312 74 80              1327 	mov	a,#0x80
-   1314 12 41 10           1328 	lcall	__gptrput
+   1314 12 42 42           1328 	lcall	__gptrput
    1317 75 82 02           1329 	mov	dpl,#0x02
    131A 80 03              1330 	sjmp	00103$
    131C                    1331 00102$:
@@ -1371,7 +1371,7 @@
    1340 8F F0              1371 	mov	b,r7
    1342 A8 1F              1372 	mov	r0,_bp
    1344 08                 1373 	inc	r0
-   1345 12 4D 3C           1374 	lcall	__gptrget
+   1345 12 4E 6E           1374 	lcall	__gptrget
    1348 F6                 1375 	mov	@r0,a
    1349 A8 1F              1376 	mov	r0,_bp
    134B 08                 1377 	inc	r0
@@ -1383,7 +1383,7 @@
    1354 8D 82              1383 	mov	dpl,r5
    1356 8E 83              1384 	mov	dph,r6
    1358 8F F0              1385 	mov	b,r7
-   135A 12 4D 3C           1386 	lcall	__gptrget
+   135A 12 4E 6E           1386 	lcall	__gptrget
    135D FD                 1387 	mov	r5,a
    135E BD 2D 26           1388 	cjne	r5,#0x2D,00102$
    1361 74 08              1389 	mov	a,#0x08
@@ -1396,14 +1396,14 @@
    136A 8D 82              1396 	mov	dpl,r5
    136C 8E 83              1397 	mov	dph,r6
    136E 8F F0              1398 	mov	b,r7
-   1370 74 7B              1399 	mov	a,#_calculator_negated2
-   1372 12 41 10           1400 	lcall	__gptrput
+   1370 74 AD              1399 	mov	a,#_calculator_negated2
+   1372 12 42 42           1400 	lcall	__gptrput
    1375 A3                 1401 	inc	dptr
-   1376 74 4E              1402 	mov	a,#(_calculator_negated2 >> 8)
-   1378 12 41 10           1403 	lcall	__gptrput
+   1376 74 4F              1402 	mov	a,#(_calculator_negated2 >> 8)
+   1378 12 42 42           1403 	lcall	__gptrput
    137B A3                 1404 	inc	dptr
    137C 74 80              1405 	mov	a,#0x80
-   137E 12 41 10           1406 	lcall	__gptrput
+   137E 12 42 42           1406 	lcall	__gptrput
    1381 75 82 02           1407 	mov	dpl,#0x02
    1384 02 14 09           1408 	ljmp	00110$
    1387                    1409 00102$:
@@ -1421,14 +1421,14 @@
    1396 8D 82              1421 	mov	dpl,r5
    1398 8E 83              1422 	mov	dph,r6
    139A 8F F0              1423 	mov	b,r7
-   139C 74 8D              1424 	mov	a,#_calculator_zero2
-   139E 12 41 10           1425 	lcall	__gptrput
+   139C 74 BF              1424 	mov	a,#_calculator_zero2
+   139E 12 42 42           1425 	lcall	__gptrput
    13A1 A3                 1426 	inc	dptr
-   13A2 74 4E              1427 	mov	a,#(_calculator_zero2 >> 8)
-   13A4 12 41 10           1428 	lcall	__gptrput
+   13A2 74 4F              1427 	mov	a,#(_calculator_zero2 >> 8)
+   13A4 12 42 42           1428 	lcall	__gptrput
    13A7 A3                 1429 	inc	dptr
    13A8 74 80              1430 	mov	a,#0x80
-   13AA 12 41 10           1431 	lcall	__gptrput
+   13AA 12 42 42           1431 	lcall	__gptrput
    13AD 75 82 02           1432 	mov	dpl,#0x02
    13B0 80 57              1433 	sjmp	00110$
    13B2                    1434 00105$:
@@ -1446,14 +1446,14 @@
    13C1 8D 82              1446 	mov	dpl,r5
    13C3 8E 83              1447 	mov	dph,r6
    13C5 8F F0              1448 	mov	b,r7
-   13C7 74 96              1449 	mov	a,#_calculator_int2
-   13C9 12 41 10           1450 	lcall	__gptrput
+   13C7 74 C8              1449 	mov	a,#_calculator_int2
+   13C9 12 42 42           1450 	lcall	__gptrput
    13CC A3                 1451 	inc	dptr
-   13CD 74 4E              1452 	mov	a,#(_calculator_int2 >> 8)
-   13CF 12 41 10           1453 	lcall	__gptrput
+   13CD 74 4F              1452 	mov	a,#(_calculator_int2 >> 8)
+   13CF 12 42 42           1453 	lcall	__gptrput
    13D2 A3                 1454 	inc	dptr
    13D3 74 80              1455 	mov	a,#0x80
-   13D5 12 41 10           1456 	lcall	__gptrput
+   13D5 12 42 42           1456 	lcall	__gptrput
    13D8 75 82 02           1457 	mov	dpl,#0x02
    13DB 80 2C              1458 	sjmp	00110$
    13DD                    1459 00107$:
@@ -1470,14 +1470,14 @@
    13EA 8A 82              1470 	mov	dpl,r2
    13EC 8B 83              1471 	mov	dph,r3
    13EE 8C F0              1472 	mov	b,r4
-   13F0 74 9F              1473 	mov	a,#_calculator_frac2
-   13F2 12 41 10           1474 	lcall	__gptrput
+   13F0 74 D1              1473 	mov	a,#_calculator_frac2
+   13F2 12 42 42           1474 	lcall	__gptrput
    13F5 A3                 1475 	inc	dptr
-   13F6 74 4E              1476 	mov	a,#(_calculator_frac2 >> 8)
-   13F8 12 41 10           1477 	lcall	__gptrput
+   13F6 74 4F              1476 	mov	a,#(_calculator_frac2 >> 8)
+   13F8 12 42 42           1477 	lcall	__gptrput
    13FB A3                 1478 	inc	dptr
    13FC 74 80              1479 	mov	a,#0x80
-   13FE 12 41 10           1480 	lcall	__gptrput
+   13FE 12 42 42           1480 	lcall	__gptrput
    1401 75 82 02           1481 	mov	dpl,#0x02
    1404 80 03              1482 	sjmp	00110$
    1406                    1483 00109$:
@@ -1521,7 +1521,7 @@
    1427 8D 82              1521 	mov	dpl,r5
    1429 8E 83              1522 	mov	dph,r6
    142B 8F F0              1523 	mov	b,r7
-   142D 12 4D 3C           1524 	lcall	__gptrget
+   142D 12 4E 6E           1524 	lcall	__gptrget
    1430 FA                 1525 	mov	r2,a
    1431 BA 07 2B           1526 	cjne	r2,#0x07,00102$
    1434 A8 1F              1527 	mov	r0,_bp
@@ -1538,14 +1538,14 @@
    1442 8A 82              1538 	mov	dpl,r2
    1444 8B 83              1539 	mov	dph,r3
    1446 8C F0              1540 	mov	b,r4
-   1448 74 72              1541 	mov	a,#_calculator_opEntered
-   144A 12 41 10           1542 	lcall	__gptrput
+   1448 74 A4              1541 	mov	a,#_calculator_opEntered
+   144A 12 42 42           1542 	lcall	__gptrput
    144D A3                 1543 	inc	dptr
-   144E 74 4E              1544 	mov	a,#(_calculator_opEntered >> 8)
-   1450 12 41 10           1545 	lcall	__gptrput
+   144E 74 4F              1544 	mov	a,#(_calculator_opEntered >> 8)
+   1450 12 42 42           1545 	lcall	__gptrput
    1453 A3                 1546 	inc	dptr
    1454 74 80              1547 	mov	a,#0x80
-   1456 12 41 10           1548 	lcall	__gptrput
+   1456 12 42 42           1548 	lcall	__gptrput
    1459 75 82 02           1549 	mov	dpl,#0x02
    145C 02 15 04           1550 	ljmp	00112$
    145F                    1551 00102$:
@@ -1565,14 +1565,14 @@
    1470 8A 82              1565 	mov	dpl,r2
    1472 8B 83              1566 	mov	dph,r3
    1474 8C F0              1567 	mov	b,r4
-   1476 74 8D              1568 	mov	a,#_calculator_zero2
-   1478 12 41 10           1569 	lcall	__gptrput
+   1476 74 BF              1568 	mov	a,#_calculator_zero2
+   1478 12 42 42           1569 	lcall	__gptrput
    147B A3                 1570 	inc	dptr
-   147C 74 4E              1571 	mov	a,#(_calculator_zero2 >> 8)
-   147E 12 41 10           1572 	lcall	__gptrput
+   147C 74 4F              1571 	mov	a,#(_calculator_zero2 >> 8)
+   147E 12 42 42           1572 	lcall	__gptrput
    1481 A3                 1573 	inc	dptr
    1482 74 80              1574 	mov	a,#0x80
-   1484 12 41 10           1575 	lcall	__gptrput
+   1484 12 42 42           1575 	lcall	__gptrput
    1487 75 82 02           1576 	mov	dpl,#0x02
    148A 02 15 04           1577 	ljmp	00112$
    148D                    1578 00104$:
@@ -1592,14 +1592,14 @@
    149E 8A 82              1592 	mov	dpl,r2
    14A0 8B 83              1593 	mov	dph,r3
    14A2 8C F0              1594 	mov	b,r4
-   14A4 74 96              1595 	mov	a,#_calculator_int2
-   14A6 12 41 10           1596 	lcall	__gptrput
+   14A4 74 C8              1595 	mov	a,#_calculator_int2
+   14A6 12 42 42           1596 	lcall	__gptrput
    14A9 A3                 1597 	inc	dptr
-   14AA 74 4E              1598 	mov	a,#(_calculator_int2 >> 8)
-   14AC 12 41 10           1599 	lcall	__gptrput
+   14AA 74 4F              1598 	mov	a,#(_calculator_int2 >> 8)
+   14AC 12 42 42           1599 	lcall	__gptrput
    14AF A3                 1600 	inc	dptr
    14B0 74 80              1601 	mov	a,#0x80
-   14B2 12 41 10           1602 	lcall	__gptrput
+   14B2 12 42 42           1602 	lcall	__gptrput
    14B5 75 82 02           1603 	mov	dpl,#0x02
    14B8 80 4A              1604 	sjmp	00112$
    14BA                    1605 00106$:
@@ -1619,14 +1619,14 @@
    14CB 8A 82              1619 	mov	dpl,r2
    14CD 8B 83              1620 	mov	dph,r3
    14CF 8C F0              1621 	mov	b,r4
-   14D1 74 9F              1622 	mov	a,#_calculator_frac2
-   14D3 12 41 10           1623 	lcall	__gptrput
+   14D1 74 D1              1622 	mov	a,#_calculator_frac2
+   14D3 12 42 42           1623 	lcall	__gptrput
    14D6 A3                 1624 	inc	dptr
-   14D7 74 4E              1625 	mov	a,#(_calculator_frac2 >> 8)
-   14D9 12 41 10           1626 	lcall	__gptrput
+   14D7 74 4F              1625 	mov	a,#(_calculator_frac2 >> 8)
+   14D9 12 42 42           1626 	lcall	__gptrput
    14DC A3                 1627 	inc	dptr
    14DD 74 80              1628 	mov	a,#0x80
-   14DF 12 41 10           1629 	lcall	__gptrput
+   14DF 12 42 42           1629 	lcall	__gptrput
    14E2 75 82 02           1630 	mov	dpl,#0x02
    14E5 80 1D              1631 	sjmp	00112$
    14E7                    1632 00108$:
@@ -1639,7 +1639,7 @@
    14EF 8D 82              1639 	mov	dpl,r5
    14F1 8E 83              1640 	mov	dph,r6
    14F3 8F F0              1641 	mov	b,r7
-   14F5 12 4D 3C           1642 	lcall	__gptrget
+   14F5 12 4E 6E           1642 	lcall	__gptrget
    14F8 FD                 1643 	mov	r5,a
    14F9 BD 2D 05           1644 	cjne	r5,#0x2D,00110$
    14FC 75 82 01           1645 	mov	dpl,#0x01
@@ -1735,7 +1735,7 @@
    1555 8D 82              1735 	mov	dpl,r5
    1557 8E 83              1736 	mov	dph,r6
    1559 8F F0              1737 	mov	b,r7
-   155B 12 4D 3C           1738 	lcall	__gptrget
+   155B 12 4E 6E           1738 	lcall	__gptrget
    155E FA                 1739 	mov	r2,a
    155F BA 07 2B           1740 	cjne	r2,#0x07,00102$
    1562 A8 1F              1741 	mov	r0,_bp
@@ -1752,14 +1752,14 @@
    1570 8A 82              1752 	mov	dpl,r2
    1572 8B 83              1753 	mov	dph,r3
    1574 8C F0              1754 	mov	b,r4
-   1576 74 72              1755 	mov	a,#_calculator_opEntered
-   1578 12 41 10           1756 	lcall	__gptrput
+   1576 74 A4              1755 	mov	a,#_calculator_opEntered
+   1578 12 42 42           1756 	lcall	__gptrput
    157B A3                 1757 	inc	dptr
-   157C 74 4E              1758 	mov	a,#(_calculator_opEntered >> 8)
-   157E 12 41 10           1759 	lcall	__gptrput
+   157C 74 4F              1758 	mov	a,#(_calculator_opEntered >> 8)
+   157E 12 42 42           1759 	lcall	__gptrput
    1581 A3                 1760 	inc	dptr
    1582 74 80              1761 	mov	a,#0x80
-   1584 12 41 10           1762 	lcall	__gptrput
+   1584 12 42 42           1762 	lcall	__gptrput
    1587 75 82 02           1763 	mov	dpl,#0x02
    158A 02 16 58           1764 	ljmp	00114$
    158D                    1765 00102$:
@@ -1785,7 +1785,7 @@
    15A3 8A 82              1785 	mov	dpl,r2
    15A5 8B 83              1786 	mov	dph,r3
    15A7 8C F0              1787 	mov	b,r4
-   15A9 12 4D 3C           1788 	lcall	__gptrget
+   15A9 12 4E 6E           1788 	lcall	__gptrget
    15AC F5 82              1789 	mov	dpl,a
    15AE C0 05              1790 	push	ar5
    15B0 C0 06              1791 	push	ar6
@@ -1802,7 +1802,7 @@
    15C2 8D 82              1802 	mov	dpl,r5
    15C4 8E 83              1803 	mov	dph,r6
    15C6 8F F0              1804 	mov	b,r7
-   15C8 12 4D 3C           1805 	lcall	__gptrget
+   15C8 12 4E 6E           1805 	lcall	__gptrget
    15CB FA                 1806 	mov	r2,a
    15CC BA 0B 2A           1807 	cjne	r2,#0x0B,00106$
    15CF A8 1F              1808 	mov	r0,_bp
@@ -1819,14 +1819,14 @@
    15DD 8B 82              1819 	mov	dpl,r3
    15DF 8C 83              1820 	mov	dph,r4
    15E1 8D F0              1821 	mov	b,r5
-   15E3 74 72              1822 	mov	a,#_calculator_opEntered
-   15E5 12 41 10           1823 	lcall	__gptrput
+   15E3 74 A4              1822 	mov	a,#_calculator_opEntered
+   15E5 12 42 42           1823 	lcall	__gptrput
    15E8 A3                 1824 	inc	dptr
-   15E9 74 4E              1825 	mov	a,#(_calculator_opEntered >> 8)
-   15EB 12 41 10           1826 	lcall	__gptrput
+   15E9 74 4F              1825 	mov	a,#(_calculator_opEntered >> 8)
+   15EB 12 42 42           1826 	lcall	__gptrput
    15EE A3                 1827 	inc	dptr
    15EF 74 80              1828 	mov	a,#0x80
-   15F1 12 41 10           1829 	lcall	__gptrput
+   15F1 12 42 42           1829 	lcall	__gptrput
    15F4 75 82 02           1830 	mov	dpl,#0x02
    15F7 80 5F              1831 	sjmp	00114$
    15F9                    1832 00106$:
@@ -1846,14 +1846,14 @@
    160A 8A 82              1846 	mov	dpl,r2
    160C 8B 83              1847 	mov	dph,r3
    160E 8C F0              1848 	mov	b,r4
-   1610 74 2A              1849 	mov	a,#_calculator_result
-   1612 12 41 10           1850 	lcall	__gptrput
+   1610 74 5C              1849 	mov	a,#_calculator_result
+   1612 12 42 42           1850 	lcall	__gptrput
    1615 A3                 1851 	inc	dptr
-   1616 74 4E              1852 	mov	a,#(_calculator_result >> 8)
-   1618 12 41 10           1853 	lcall	__gptrput
+   1616 74 4F              1852 	mov	a,#(_calculator_result >> 8)
+   1618 12 42 42           1853 	lcall	__gptrput
    161B A3                 1854 	inc	dptr
    161C 74 80              1855 	mov	a,#0x80
-   161E 12 41 10           1856 	lcall	__gptrput
+   161E 12 42 42           1856 	lcall	__gptrput
    1621 75 82 02           1857 	mov	dpl,#0x02
    1624 80 32              1858 	sjmp	00114$
    1626                    1859 00110$:
@@ -1872,14 +1872,14 @@
    1634 8A 82              1872 	mov	dpl,r2
    1636 8B 83              1873 	mov	dph,r3
    1638 8C F0              1874 	mov	b,r4
-   163A 74 69              1875 	mov	a,#_calculator_error
-   163C 12 41 10           1876 	lcall	__gptrput
+   163A 74 9B              1875 	mov	a,#_calculator_error
+   163C 12 42 42           1876 	lcall	__gptrput
    163F A3                 1877 	inc	dptr
-   1640 74 4E              1878 	mov	a,#(_calculator_error >> 8)
-   1642 12 41 10           1879 	lcall	__gptrput
+   1640 74 4F              1878 	mov	a,#(_calculator_error >> 8)
+   1642 12 42 42           1879 	lcall	__gptrput
    1645 A3                 1880 	inc	dptr
    1646 74 80              1881 	mov	a,#0x80
-   1648 12 41 10           1882 	lcall	__gptrput
+   1648 12 42 42           1882 	lcall	__gptrput
    164B 75 82 02           1883 	mov	dpl,#0x02
    164E 80 08              1884 	sjmp	00114$
    1650                    1885 00111$:
@@ -1925,7 +1925,7 @@
    1676 8D 82              1925 	mov	dpl,r5
    1678 8E 83              1926 	mov	dph,r6
    167A 8F F0              1927 	mov	b,r7
-   167C 12 4D 3C           1928 	lcall	__gptrget
+   167C 12 4E 6E           1928 	lcall	__gptrget
    167F FD                 1929 	mov	r5,a
    1680 BD 02 2A           1930 	cjne	r5,#0x02,00102$
    1683 A8 1F              1931 	mov	r0,_bp
@@ -1942,14 +1942,14 @@
    1691 8E 82              1942 	mov	dpl,r6
    1693 8F 83              1943 	mov	dph,r7
    1695 8A F0              1944 	mov	b,r2
-   1697 74 3C              1945 	mov	a,#_calculator_negated1
-   1699 12 41 10           1946 	lcall	__gptrput
+   1697 74 6E              1945 	mov	a,#_calculator_negated1
+   1699 12 42 42           1946 	lcall	__gptrput
    169C A3                 1947 	inc	dptr
-   169D 74 4E              1948 	mov	a,#(_calculator_negated1 >> 8)
-   169F 12 41 10           1949 	lcall	__gptrput
+   169D 74 4F              1948 	mov	a,#(_calculator_negated1 >> 8)
+   169F 12 42 42           1949 	lcall	__gptrput
    16A2 A3                 1950 	inc	dptr
    16A3 74 80              1951 	mov	a,#0x80
-   16A5 12 41 10           1952 	lcall	__gptrput
+   16A5 12 42 42           1952 	lcall	__gptrput
    16A8 75 82 02           1953 	mov	dpl,#0x02
    16AB 80 65              1954 	sjmp	00109$
    16AD                    1955 00102$:
@@ -1974,14 +1974,14 @@
    16C6 8A 82              1974 	mov	dpl,r2
    16C8 8B 83              1975 	mov	dph,r3
    16CA 8C F0              1976 	mov	b,r4
-   16CC 74 96              1977 	mov	a,#_calculator_int2
-   16CE 12 41 10           1978 	lcall	__gptrput
+   16CC 74 C8              1977 	mov	a,#_calculator_int2
+   16CE 12 42 42           1978 	lcall	__gptrput
    16D1 A3                 1979 	inc	dptr
-   16D2 74 4E              1980 	mov	a,#(_calculator_int2 >> 8)
-   16D4 12 41 10           1981 	lcall	__gptrput
+   16D2 74 4F              1980 	mov	a,#(_calculator_int2 >> 8)
+   16D4 12 42 42           1981 	lcall	__gptrput
    16D7 A3                 1982 	inc	dptr
    16D8 74 80              1983 	mov	a,#0x80
-   16DA 12 41 10           1984 	lcall	__gptrput
+   16DA 12 42 42           1984 	lcall	__gptrput
    16DD 75 82 02           1985 	mov	dpl,#0x02
    16E0 80 30              1986 	sjmp	00109$
    16E2                    1987 00106$:
@@ -2001,14 +2001,14 @@
    16F3 8A 82              2001 	mov	dpl,r2
    16F5 8B 83              2002 	mov	dph,r3
    16F7 8C F0              2003 	mov	b,r4
-   16F9 74 9F              2004 	mov	a,#_calculator_frac2
-   16FB 12 41 10           2005 	lcall	__gptrput
+   16F9 74 D1              2004 	mov	a,#_calculator_frac2
+   16FB 12 42 42           2005 	lcall	__gptrput
    16FE A3                 2006 	inc	dptr
-   16FF 74 4E              2007 	mov	a,#(_calculator_frac2 >> 8)
-   1701 12 41 10           2008 	lcall	__gptrput
+   16FF 74 4F              2007 	mov	a,#(_calculator_frac2 >> 8)
+   1701 12 42 42           2008 	lcall	__gptrput
    1704 A3                 2009 	inc	dptr
    1705 74 80              2010 	mov	a,#0x80
-   1707 12 41 10           2011 	lcall	__gptrput
+   1707 12 42 42           2011 	lcall	__gptrput
    170A 75 82 02           2012 	mov	dpl,#0x02
    170D 80 03              2013 	sjmp	00109$
    170F                    2014 00108$:
@@ -2048,7 +2048,7 @@
    1730 8D 82              2048 	mov	dpl,r5
    1732 8E 83              2049 	mov	dph,r6
    1734 8F F0              2050 	mov	b,r7
-   1736 12 4D 3C           2051 	lcall	__gptrget
+   1736 12 4E 6E           2051 	lcall	__gptrget
    1739 FD                 2052 	mov	r5,a
    173A BD 0A 23           2053 	cjne	r5,#0x0A,00102$
    173D 74 08              2054 	mov	a,#0x08
@@ -2060,14 +2060,14 @@
    1744 8A 82              2060 	mov	dpl,r2
    1746 8B 83              2061 	mov	dph,r3
    1748 8C F0              2062 	mov	b,r4
-   174A 74 9F              2063 	mov	a,#_calculator_frac2
-   174C 12 41 10           2064 	lcall	__gptrput
+   174A 74 D1              2063 	mov	a,#_calculator_frac2
+   174C 12 42 42           2064 	lcall	__gptrput
    174F A3                 2065 	inc	dptr
-   1750 74 4E              2066 	mov	a,#(_calculator_frac2 >> 8)
-   1752 12 41 10           2067 	lcall	__gptrput
+   1750 74 4F              2066 	mov	a,#(_calculator_frac2 >> 8)
+   1752 12 42 42           2067 	lcall	__gptrput
    1755 A3                 2068 	inc	dptr
    1756 74 80              2069 	mov	a,#0x80
-   1758 12 41 10           2070 	lcall	__gptrput
+   1758 12 42 42           2070 	lcall	__gptrput
    175B 75 82 02           2071 	mov	dpl,#0x02
    175E 80 03              2072 	sjmp	00103$
    1760                    2073 00102$:
@@ -2102,7 +2102,7 @@
    1778 8A 82              2102 	mov	dpl,r2
    177A 8B 83              2103 	mov	dph,r3
    177C 8C F0              2104 	mov	b,r4
-   177E 12 4D 3C           2105 	lcall	__gptrget
+   177E 12 4E 6E           2105 	lcall	__gptrget
    1781 FA                 2106 	mov	r2,a
    1782 BA 0A 05           2107 	cjne	r2,#0x0A,00102$
    1785 75 82 01           2108 	mov	dpl,#0x01
@@ -2115,187 +2115,187 @@
    178F 22                 2115 	ret
                            2116 	.area CSEG    (CODE)
                            2117 	.area CONST   (CODE)
-   4E0F                    2118 _calculator_TOP:
+   4F41                    2118 _calculator_TOP:
                            2119 ; generic printIvalPtr
-   4E0F 00 00 00           2120 	.byte #0x00,#0x00,#0x00
-   4E12 00                 2121 	.db #0x00
-   4E13 72 0D              2122 	.byte _calculator_TOP_handler,(_calculator_TOP_handler >> 8)
-   4E15 B3 4E 80           2123 	.byte _str_1,(_str_1 >> 8),#0x80
-   4E18                    2124 _calculator_on:
-   4E18 0F 4E 80           2125 	.byte _calculator_TOP,(_calculator_TOP >> 8),#0x80
-   4E1B 00                 2126 	.db #0x00
-   4E1C C0 0D              2127 	.byte _calculator_on_handler,(_calculator_on_handler >> 8)
-   4E1E C2 4E 80           2128 	.byte _str_2,(_str_2 >> 8),#0x80
-   4E21                    2129 _calculator_ready:
-   4E21 18 4E 80           2130 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E24 00                 2131 	.db #0x00
-   4E25 72 0E              2132 	.byte _calculator_ready_handler,(_calculator_ready_handler >> 8)
-   4E27 D0 4E 80           2133 	.byte _str_3,(_str_3 >> 8),#0x80
-   4E2A                    2134 _calculator_result:
-   4E2A 21 4E 80           2135 	.byte _calculator_ready,(_calculator_ready >> 8),#0x80
-   4E2D 00                 2136 	.db #0x00
-   4E2E F7 0E              2137 	.byte _calculator_result_handler,(_calculator_result_handler >> 8)
-   4E30 E1 4E 80           2138 	.byte _str_4,(_str_4 >> 8),#0x80
-   4E33                    2139 _calculator_begin:
-   4E33 21 4E 80           2140 	.byte _calculator_ready,(_calculator_ready >> 8),#0x80
-   4E36 00                 2141 	.db #0x00
-   4E37 02 0F              2142 	.byte _calculator_begin_handler,(_calculator_begin_handler >> 8)
-   4E39 F3 4E 80           2143 	.byte _str_5,(_str_5 >> 8),#0x80
-   4E3C                    2144 _calculator_negated1:
-   4E3C 18 4E 80           2145 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E3F 00                 2146 	.db #0x00
-   4E40 22 10              2147 	.byte _calculator_negated1_handler,(_calculator_negated1_handler >> 8)
-   4E42 04 4F 80           2148 	.byte _str_6,(_str_6 >> 8),#0x80
-   4E45                    2149 _calculator_operand1:
-   4E45 18 4E 80           2150 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E48 00                 2151 	.db #0x00
-   4E49 1D 11              2152 	.byte _calculator_operand1_handler,(_calculator_operand1_handler >> 8)
-   4E4B 18 4F 80           2153 	.byte _str_7,(_str_7 >> 8),#0x80
-   4E4E                    2154 _calculator_zero1:
-   4E4E 45 4E 80           2155 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
-   4E51 00                 2156 	.db #0x00
-   4E52 A2 11              2157 	.byte _calculator_zero1_handler,(_calculator_zero1_handler >> 8)
-   4E54 2C 4F 80           2158 	.byte _str_8,(_str_8 >> 8),#0x80
-   4E57                    2159 _calculator_int1:
-   4E57 45 4E 80           2160 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
-   4E5A 00                 2161 	.db #0x00
-   4E5B 5C 12              2162 	.byte _calculator_int1_handler,(_calculator_int1_handler >> 8)
-   4E5D 3D 4F 80           2163 	.byte _str_9,(_str_9 >> 8),#0x80
-   4E60                    2164 _calculator_frac1:
-   4E60 45 4E 80           2165 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
-   4E63 00                 2166 	.db #0x00
-   4E64 AA 12              2167 	.byte _calculator_frac1_handler,(_calculator_frac1_handler >> 8)
-   4E66 4D 4F 80           2168 	.byte _str_10,(_str_10 >> 8),#0x80
-   4E69                    2169 _calculator_error:
-   4E69 18 4E 80           2170 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E6C 00                 2171 	.db #0x00
-   4E6D D4 12              2172 	.byte _calculator_error_handler,(_calculator_error_handler >> 8)
-   4E6F 5E 4F 80           2173 	.byte _str_11,(_str_11 >> 8),#0x80
-   4E72                    2174 _calculator_opEntered:
-   4E72 18 4E 80           2175 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E75 00                 2176 	.db #0x00
-   4E76 22 13              2177 	.byte _calculator_opEntered_handler,(_calculator_opEntered_handler >> 8)
-   4E78 6F 4F 80           2178 	.byte _str_12,(_str_12 >> 8),#0x80
-   4E7B                    2179 _calculator_negated2:
-   4E7B 18 4E 80           2180 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E7E 00                 2181 	.db #0x00
-   4E7F 0F 14              2182 	.byte _calculator_negated2_handler,(_calculator_negated2_handler >> 8)
-   4E81 84 4F 80           2183 	.byte _str_13,(_str_13 >> 8),#0x80
-   4E84                    2184 _calculator_operand2:
-   4E84 18 4E 80           2185 	.byte _calculator_on,(_calculator_on >> 8),#0x80
-   4E87 00                 2186 	.db #0x00
-   4E88 3D 15              2187 	.byte _calculator_operand2_handler,(_calculator_operand2_handler >> 8)
-   4E8A 98 4F 80           2188 	.byte _str_14,(_str_14 >> 8),#0x80
-   4E8D                    2189 _calculator_zero2:
-   4E8D 84 4E 80           2190 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
-   4E90 00                 2191 	.db #0x00
-   4E91 5E 16              2192 	.byte _calculator_zero2_handler,(_calculator_zero2_handler >> 8)
-   4E93 AC 4F 80           2193 	.byte _str_15,(_str_15 >> 8),#0x80
-   4E96                    2194 _calculator_int2:
-   4E96 84 4E 80           2195 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
-   4E99 00                 2196 	.db #0x00
-   4E9A 18 17              2197 	.byte _calculator_int2_handler,(_calculator_int2_handler >> 8)
-   4E9C BD 4F 80           2198 	.byte _str_16,(_str_16 >> 8),#0x80
-   4E9F                    2199 _calculator_frac2:
-   4E9F 84 4E 80           2200 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
-   4EA2 00                 2201 	.db #0x00
-   4EA3 66 17              2202 	.byte _calculator_frac2_handler,(_calculator_frac2_handler >> 8)
-   4EA5 CD 4F 80           2203 	.byte _str_17,(_str_17 >> 8),#0x80
-   4EA8                    2204 __str_0:
-   4EA8 63 61 6C 63 75 6C  2205 	.ascii "calculator"
+   4F41 00 00 00           2120 	.byte #0x00,#0x00,#0x00
+   4F44 00                 2121 	.db #0x00
+   4F45 72 0D              2122 	.byte _calculator_TOP_handler,(_calculator_TOP_handler >> 8)
+   4F47 E5 4F 80           2123 	.byte _str_1,(_str_1 >> 8),#0x80
+   4F4A                    2124 _calculator_on:
+   4F4A 41 4F 80           2125 	.byte _calculator_TOP,(_calculator_TOP >> 8),#0x80
+   4F4D 00                 2126 	.db #0x00
+   4F4E C0 0D              2127 	.byte _calculator_on_handler,(_calculator_on_handler >> 8)
+   4F50 F4 4F 80           2128 	.byte _str_2,(_str_2 >> 8),#0x80
+   4F53                    2129 _calculator_ready:
+   4F53 4A 4F 80           2130 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4F56 00                 2131 	.db #0x00
+   4F57 72 0E              2132 	.byte _calculator_ready_handler,(_calculator_ready_handler >> 8)
+   4F59 02 50 80           2133 	.byte _str_3,(_str_3 >> 8),#0x80
+   4F5C                    2134 _calculator_result:
+   4F5C 53 4F 80           2135 	.byte _calculator_ready,(_calculator_ready >> 8),#0x80
+   4F5F 00                 2136 	.db #0x00
+   4F60 F7 0E              2137 	.byte _calculator_result_handler,(_calculator_result_handler >> 8)
+   4F62 13 50 80           2138 	.byte _str_4,(_str_4 >> 8),#0x80
+   4F65                    2139 _calculator_begin:
+   4F65 53 4F 80           2140 	.byte _calculator_ready,(_calculator_ready >> 8),#0x80
+   4F68 00                 2141 	.db #0x00
+   4F69 02 0F              2142 	.byte _calculator_begin_handler,(_calculator_begin_handler >> 8)
+   4F6B 25 50 80           2143 	.byte _str_5,(_str_5 >> 8),#0x80
+   4F6E                    2144 _calculator_negated1:
+   4F6E 4A 4F 80           2145 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4F71 00                 2146 	.db #0x00
+   4F72 22 10              2147 	.byte _calculator_negated1_handler,(_calculator_negated1_handler >> 8)
+   4F74 36 50 80           2148 	.byte _str_6,(_str_6 >> 8),#0x80
+   4F77                    2149 _calculator_operand1:
+   4F77 4A 4F 80           2150 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4F7A 00                 2151 	.db #0x00
+   4F7B 1D 11              2152 	.byte _calculator_operand1_handler,(_calculator_operand1_handler >> 8)
+   4F7D 4A 50 80           2153 	.byte _str_7,(_str_7 >> 8),#0x80
+   4F80                    2154 _calculator_zero1:
+   4F80 77 4F 80           2155 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
+   4F83 00                 2156 	.db #0x00
+   4F84 A2 11              2157 	.byte _calculator_zero1_handler,(_calculator_zero1_handler >> 8)
+   4F86 5E 50 80           2158 	.byte _str_8,(_str_8 >> 8),#0x80
+   4F89                    2159 _calculator_int1:
+   4F89 77 4F 80           2160 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
+   4F8C 00                 2161 	.db #0x00
+   4F8D 5C 12              2162 	.byte _calculator_int1_handler,(_calculator_int1_handler >> 8)
+   4F8F 6F 50 80           2163 	.byte _str_9,(_str_9 >> 8),#0x80
+   4F92                    2164 _calculator_frac1:
+   4F92 77 4F 80           2165 	.byte _calculator_operand1,(_calculator_operand1 >> 8),#0x80
+   4F95 00                 2166 	.db #0x00
+   4F96 AA 12              2167 	.byte _calculator_frac1_handler,(_calculator_frac1_handler >> 8)
+   4F98 7F 50 80           2168 	.byte _str_10,(_str_10 >> 8),#0x80
+   4F9B                    2169 _calculator_error:
+   4F9B 4A 4F 80           2170 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4F9E 00                 2171 	.db #0x00
+   4F9F D4 12              2172 	.byte _calculator_error_handler,(_calculator_error_handler >> 8)
+   4FA1 90 50 80           2173 	.byte _str_11,(_str_11 >> 8),#0x80
+   4FA4                    2174 _calculator_opEntered:
+   4FA4 4A 4F 80           2175 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4FA7 00                 2176 	.db #0x00
+   4FA8 22 13              2177 	.byte _calculator_opEntered_handler,(_calculator_opEntered_handler >> 8)
+   4FAA A1 50 80           2178 	.byte _str_12,(_str_12 >> 8),#0x80
+   4FAD                    2179 _calculator_negated2:
+   4FAD 4A 4F 80           2180 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4FB0 00                 2181 	.db #0x00
+   4FB1 0F 14              2182 	.byte _calculator_negated2_handler,(_calculator_negated2_handler >> 8)
+   4FB3 B6 50 80           2183 	.byte _str_13,(_str_13 >> 8),#0x80
+   4FB6                    2184 _calculator_operand2:
+   4FB6 4A 4F 80           2185 	.byte _calculator_on,(_calculator_on >> 8),#0x80
+   4FB9 00                 2186 	.db #0x00
+   4FBA 3D 15              2187 	.byte _calculator_operand2_handler,(_calculator_operand2_handler >> 8)
+   4FBC CA 50 80           2188 	.byte _str_14,(_str_14 >> 8),#0x80
+   4FBF                    2189 _calculator_zero2:
+   4FBF B6 4F 80           2190 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
+   4FC2 00                 2191 	.db #0x00
+   4FC3 5E 16              2192 	.byte _calculator_zero2_handler,(_calculator_zero2_handler >> 8)
+   4FC5 DE 50 80           2193 	.byte _str_15,(_str_15 >> 8),#0x80
+   4FC8                    2194 _calculator_int2:
+   4FC8 B6 4F 80           2195 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
+   4FCB 00                 2196 	.db #0x00
+   4FCC 18 17              2197 	.byte _calculator_int2_handler,(_calculator_int2_handler >> 8)
+   4FCE EF 50 80           2198 	.byte _str_16,(_str_16 >> 8),#0x80
+   4FD1                    2199 _calculator_frac2:
+   4FD1 B6 4F 80           2200 	.byte _calculator_operand2,(_calculator_operand2 >> 8),#0x80
+   4FD4 00                 2201 	.db #0x00
+   4FD5 66 17              2202 	.byte _calculator_frac2_handler,(_calculator_frac2_handler >> 8)
+   4FD7 FF 50 80           2203 	.byte _str_17,(_str_17 >> 8),#0x80
+   4FDA                    2204 __str_0:
+   4FDA 63 61 6C 63 75 6C  2205 	.ascii "calculator"
         61 74 6F 72
-   4EB2 00                 2206 	.db 0x00
-   4EB3                    2207 _str_1:
-   4EB3 63 61 6C 63 75 6C  2208 	.ascii "calculator_TOP"
+   4FE4 00                 2206 	.db 0x00
+   4FE5                    2207 _str_1:
+   4FE5 63 61 6C 63 75 6C  2208 	.ascii "calculator_TOP"
         61 74 6F 72 5F 54
         4F 50
-   4EC1 00                 2209 	.db 0x00
-   4EC2                    2210 _str_2:
-   4EC2 63 61 6C 63 75 6C  2211 	.ascii "calculator_on"
+   4FF3 00                 2209 	.db 0x00
+   4FF4                    2210 _str_2:
+   4FF4 63 61 6C 63 75 6C  2211 	.ascii "calculator_on"
         61 74 6F 72 5F 6F
         6E
-   4ECF 00                 2212 	.db 0x00
-   4ED0                    2213 _str_3:
-   4ED0 63 61 6C 63 75 6C  2214 	.ascii "calculator_ready"
+   5001 00                 2212 	.db 0x00
+   5002                    2213 _str_3:
+   5002 63 61 6C 63 75 6C  2214 	.ascii "calculator_ready"
         61 74 6F 72 5F 72
         65 61 64 79
-   4EE0 00                 2215 	.db 0x00
-   4EE1                    2216 _str_4:
-   4EE1 63 61 6C 63 75 6C  2217 	.ascii "calculator_result"
+   5012 00                 2215 	.db 0x00
+   5013                    2216 _str_4:
+   5013 63 61 6C 63 75 6C  2217 	.ascii "calculator_result"
         61 74 6F 72 5F 72
         65 73 75 6C 74
-   4EF2 00                 2218 	.db 0x00
-   4EF3                    2219 _str_5:
-   4EF3 63 61 6C 63 75 6C  2220 	.ascii "calculator_begin"
+   5024 00                 2218 	.db 0x00
+   5025                    2219 _str_5:
+   5025 63 61 6C 63 75 6C  2220 	.ascii "calculator_begin"
         61 74 6F 72 5F 62
         65 67 69 6E
-   4F03 00                 2221 	.db 0x00
-   4F04                    2222 _str_6:
-   4F04 63 61 6C 63 75 6C  2223 	.ascii "calculator_negated1"
+   5035 00                 2221 	.db 0x00
+   5036                    2222 _str_6:
+   5036 63 61 6C 63 75 6C  2223 	.ascii "calculator_negated1"
         61 74 6F 72 5F 6E
         65 67 61 74 65 64
         31
-   4F17 00                 2224 	.db 0x00
-   4F18                    2225 _str_7:
-   4F18 63 61 6C 63 75 6C  2226 	.ascii "calculator_operand1"
+   5049 00                 2224 	.db 0x00
+   504A                    2225 _str_7:
+   504A 63 61 6C 63 75 6C  2226 	.ascii "calculator_operand1"
         61 74 6F 72 5F 6F
         70 65 72 61 6E 64
         31
-   4F2B 00                 2227 	.db 0x00
-   4F2C                    2228 _str_8:
-   4F2C 63 61 6C 63 75 6C  2229 	.ascii "calculator_zero1"
+   505D 00                 2227 	.db 0x00
+   505E                    2228 _str_8:
+   505E 63 61 6C 63 75 6C  2229 	.ascii "calculator_zero1"
         61 74 6F 72 5F 7A
         65 72 6F 31
-   4F3C 00                 2230 	.db 0x00
-   4F3D                    2231 _str_9:
-   4F3D 63 61 6C 63 75 6C  2232 	.ascii "calculator_int1"
+   506E 00                 2230 	.db 0x00
+   506F                    2231 _str_9:
+   506F 63 61 6C 63 75 6C  2232 	.ascii "calculator_int1"
         61 74 6F 72 5F 69
         6E 74 31
-   4F4C 00                 2233 	.db 0x00
-   4F4D                    2234 _str_10:
-   4F4D 63 61 6C 63 75 6C  2235 	.ascii "calculator_frac1"
+   507E 00                 2233 	.db 0x00
+   507F                    2234 _str_10:
+   507F 63 61 6C 63 75 6C  2235 	.ascii "calculator_frac1"
         61 74 6F 72 5F 66
         72 61 63 31
-   4F5D 00                 2236 	.db 0x00
-   4F5E                    2237 _str_11:
-   4F5E 63 61 6C 63 75 6C  2238 	.ascii "calculator_error"
+   508F 00                 2236 	.db 0x00
+   5090                    2237 _str_11:
+   5090 63 61 6C 63 75 6C  2238 	.ascii "calculator_error"
         61 74 6F 72 5F 65
         72 72 6F 72
-   4F6E 00                 2239 	.db 0x00
-   4F6F                    2240 _str_12:
-   4F6F 63 61 6C 63 75 6C  2241 	.ascii "calculator_opEntered"
+   50A0 00                 2239 	.db 0x00
+   50A1                    2240 _str_12:
+   50A1 63 61 6C 63 75 6C  2241 	.ascii "calculator_opEntered"
         61 74 6F 72 5F 6F
         70 45 6E 74 65 72
         65 64
-   4F83 00                 2242 	.db 0x00
-   4F84                    2243 _str_13:
-   4F84 63 61 6C 63 75 6C  2244 	.ascii "calculator_negated2"
+   50B5 00                 2242 	.db 0x00
+   50B6                    2243 _str_13:
+   50B6 63 61 6C 63 75 6C  2244 	.ascii "calculator_negated2"
         61 74 6F 72 5F 6E
         65 67 61 74 65 64
         32
-   4F97 00                 2245 	.db 0x00
-   4F98                    2246 _str_14:
-   4F98 63 61 6C 63 75 6C  2247 	.ascii "calculator_operand2"
+   50C9 00                 2245 	.db 0x00
+   50CA                    2246 _str_14:
+   50CA 63 61 6C 63 75 6C  2247 	.ascii "calculator_operand2"
         61 74 6F 72 5F 6F
         70 65 72 61 6E 64
         32
-   4FAB 00                 2248 	.db 0x00
-   4FAC                    2249 _str_15:
-   4FAC 63 61 6C 63 75 6C  2250 	.ascii "calculator_zero2"
+   50DD 00                 2248 	.db 0x00
+   50DE                    2249 _str_15:
+   50DE 63 61 6C 63 75 6C  2250 	.ascii "calculator_zero2"
         61 74 6F 72 5F 7A
         65 72 6F 32
-   4FBC 00                 2251 	.db 0x00
-   4FBD                    2252 _str_16:
-   4FBD 63 61 6C 63 75 6C  2253 	.ascii "calculator_int2"
+   50EE 00                 2251 	.db 0x00
+   50EF                    2252 _str_16:
+   50EF 63 61 6C 63 75 6C  2253 	.ascii "calculator_int2"
         61 74 6F 72 5F 69
         6E 74 32
-   4FCC 00                 2254 	.db 0x00
-   4FCD                    2255 _str_17:
-   4FCD 63 61 6C 63 75 6C  2256 	.ascii "calculator_frac2"
+   50FE 00                 2254 	.db 0x00
+   50FF                    2255 _str_17:
+   50FF 63 61 6C 63 75 6C  2256 	.ascii "calculator_frac2"
         61 74 6F 72 5F 66
         72 61 63 32
-   4FDD 00                 2257 	.db 0x00
+   510F 00                 2257 	.db 0x00
                            2258 	.area XINIT   (CODE)
-   549B                    2259 __xinit__calculator_name:
-   549B A8 4E 80           2260 	.byte __str_0,(__str_0 >> 8),#0x80
+   55CD                    2259 __xinit__calculator_name:
+   55CD DA 4F 80           2260 	.byte __str_0,(__str_0 >> 8),#0x80
                            2261 	.area CABS    (ABS,CODE)

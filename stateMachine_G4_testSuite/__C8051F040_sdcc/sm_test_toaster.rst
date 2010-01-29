@@ -159,11 +159,11 @@
    1BF3 8A 82               159 	mov	dpl,r2
    1BF5 8B 83               160 	mov	dph,r3
    1BF7 8C F0               161 	mov	b,r4
-   1BF9 74 51               162 	mov	a,#_toaster_TOP
-   1BFB 12 41 10            163 	lcall	__gptrput
+   1BF9 74 83               162 	mov	a,#_toaster_TOP
+   1BFB 12 42 42            163 	lcall	__gptrput
    1BFE A3                  164 	inc	dptr
-   1BFF 74 50               165 	mov	a,#(_toaster_TOP >> 8)
-   1C01 12 41 10            166 	lcall	__gptrput
+   1BFF 74 51               165 	mov	a,#(_toaster_TOP >> 8)
+   1C01 12 42 42            166 	lcall	__gptrput
    1C04 74 05               167 	mov	a,#0x05
    1C06 2A                  168 	add	a,r2
    1C07 FD                  169 	mov	r5,a
@@ -174,14 +174,14 @@
    1C0D 8D 82               174 	mov	dpl,r5
    1C0F 8E 83               175 	mov	dph,r6
    1C11 8F F0               176 	mov	b,r7
-   1C13 74 51               177 	mov	a,#_toaster_TOP
-   1C15 12 41 10            178 	lcall	__gptrput
+   1C13 74 83               177 	mov	a,#_toaster_TOP
+   1C15 12 42 42            178 	lcall	__gptrput
    1C18 A3                  179 	inc	dptr
-   1C19 74 50               180 	mov	a,#(_toaster_TOP >> 8)
-   1C1B 12 41 10            181 	lcall	__gptrput
+   1C19 74 51               180 	mov	a,#(_toaster_TOP >> 8)
+   1C1B 12 42 42            181 	lcall	__gptrput
    1C1E A3                  182 	inc	dptr
    1C1F 74 80               183 	mov	a,#0x80
-   1C21 12 41 10            184 	lcall	__gptrput
+   1C21 12 42 42            184 	lcall	__gptrput
    1C24 74 02               185 	mov	a,#0x02
    1C26 2A                  186 	add	a,r2
    1C27 F5 27               187 	mov	_toaster_constructor_sloc0_1_0,a
@@ -202,13 +202,13 @@
    1C3D 85 28 83            202 	mov	dph,(_toaster_constructor_sloc0_1_0 + 1)
    1C40 85 29 F0            203 	mov	b,(_toaster_constructor_sloc0_1_0 + 2)
    1C43 E8                  204 	mov	a,r0
-   1C44 12 41 10            205 	lcall	__gptrput
+   1C44 12 42 42            205 	lcall	__gptrput
    1C47 A3                  206 	inc	dptr
    1C48 E9                  207 	mov	a,r1
-   1C49 12 41 10            208 	lcall	__gptrput
+   1C49 12 42 42            208 	lcall	__gptrput
    1C4C A3                  209 	inc	dptr
    1C4D ED                  210 	mov	a,r5
-   1C4E 12 41 10            211 	lcall	__gptrput
+   1C4E 12 42 42            211 	lcall	__gptrput
    1C51 8A 82               212 	mov	dpl,r2
    1C53 8B 83               213 	mov	dph,r3
    1C55 8C F0               214 	mov	b,r4
@@ -311,7 +311,7 @@
    1CAC 8E 83               311 	mov	dph,r6
    1CAE 8F F0               312 	mov	b,r7
    1CB0 E4                  313 	clr	a
-   1CB1 12 41 10            314 	lcall	__gptrput
+   1CB1 12 42 42            314 	lcall	__gptrput
                             315 ;	../sm_test_toaster.c:46: self->cookingTime_minutes	= 0 ;
    1CB4 74 2C               316 	mov	a,#0x2C
    1CB6 2A                  317 	add	a,r2
@@ -324,7 +324,7 @@
    1CBF 8E 83               324 	mov	dph,r6
    1CC1 8F F0               325 	mov	b,r7
    1CC3 E4                  326 	clr	a
-   1CC4 12 41 10            327 	lcall	__gptrput
+   1CC4 12 42 42            327 	lcall	__gptrput
                             328 ;	../sm_test_toaster.c:47: self->cookingTime_seconds	= 0 ;
    1CC7 74 2D               329 	mov	a,#0x2D
    1CC9 2A                  330 	add	a,r2
@@ -336,7 +336,7 @@
    1CD0 8B 83               336 	mov	dph,r3
    1CD2 8C F0               337 	mov	b,r4
    1CD4 E4                  338 	clr	a
-   1CD5 02 41 10            339 	ljmp	__gptrput
+   1CD5 02 42 42            339 	ljmp	__gptrput
                             340 ;------------------------------------------------------------
                             341 ;Allocation info for local variables in function 'toaster_destructor2'
                             342 ;------------------------------------------------------------
@@ -422,7 +422,7 @@
    1CF3 8E 83               422 	mov	dph,r6
    1CF5 8F F0               423 	mov	b,r7
    1CF7 E4                  424 	clr	a
-   1CF8 12 41 10            425 	lcall	__gptrput
+   1CF8 12 42 42            425 	lcall	__gptrput
                             426 ;	../sm_test_toaster.c:80: self->cookingTime_minutes	= 0 ;
    1CFB 74 2C               427 	mov	a,#0x2C
    1CFD 2A                  428 	add	a,r2
@@ -435,7 +435,7 @@
    1D06 8E 83               435 	mov	dph,r6
    1D08 8F F0               436 	mov	b,r7
    1D0A E4                  437 	clr	a
-   1D0B 12 41 10            438 	lcall	__gptrput
+   1D0B 12 42 42            438 	lcall	__gptrput
                             439 ;	../sm_test_toaster.c:81: self->cookingTime_seconds	= 0 ;
    1D0E 74 2D               440 	mov	a,#0x2D
    1D10 2A                  441 	add	a,r2
@@ -448,7 +448,7 @@
    1D19 8E 83               448 	mov	dph,r6
    1D1B 8F F0               449 	mov	b,r7
    1D1D E4                  450 	clr	a
-   1D1E 12 41 10            451 	lcall	__gptrput
+   1D1E 12 42 42            451 	lcall	__gptrput
                             452 ;	../sm_test_toaster.c:83: INITIAL_TRANSITION(TO(doorClosed),						NO_ACTION) ;
    1D21 E5 1F               453 	mov	a,_bp
    1D23 24 FB               454 	add	a,#0xfb
@@ -461,7 +461,7 @@
    1D2E 8D 82               461 	mov	dpl,r5
    1D30 8E 83               462 	mov	dph,r6
    1D32 8F F0               463 	mov	b,r7
-   1D34 12 4D 3C            464 	lcall	__gptrget
+   1D34 12 4E 6E            464 	lcall	__gptrget
    1D37 FD                  465 	mov	r5,a
    1D38 BD 02 23            466 	cjne	r5,#0x02,00102$
    1D3B 74 08               467 	mov	a,#0x08
@@ -473,14 +473,14 @@
    1D42 8A 82               473 	mov	dpl,r2
    1D44 8B 83               474 	mov	dph,r3
    1D46 8C F0               475 	mov	b,r4
-   1D48 74 5A               476 	mov	a,#_toaster_doorClosed
-   1D4A 12 41 10            477 	lcall	__gptrput
+   1D48 74 8C               476 	mov	a,#_toaster_doorClosed
+   1D4A 12 42 42            477 	lcall	__gptrput
    1D4D A3                  478 	inc	dptr
-   1D4E 74 50               479 	mov	a,#(_toaster_doorClosed >> 8)
-   1D50 12 41 10            480 	lcall	__gptrput
+   1D4E 74 51               479 	mov	a,#(_toaster_doorClosed >> 8)
+   1D50 12 42 42            480 	lcall	__gptrput
    1D53 A3                  481 	inc	dptr
    1D54 74 80               482 	mov	a,#0x80
-   1D56 12 41 10            483 	lcall	__gptrput
+   1D56 12 42 42            483 	lcall	__gptrput
    1D59 75 82 02            484 	mov	dpl,#0x02
    1D5C 80 03               485 	sjmp	00103$
    1D5E                     486 00102$:
@@ -524,7 +524,7 @@
    1D7C 8D 82               524 	mov	dpl,r5
    1D7E 8E 83               525 	mov	dph,r6
    1D80 8F F0               526 	mov	b,r7
-   1D82 12 4D 3C            527 	lcall	__gptrget
+   1D82 12 4E 6E            527 	lcall	__gptrget
    1D85 FD                  528 	mov	r5,a
    1D86 E4                  529 	clr	a
    1D87 BD 03 01            530 	cjne	r5,#0x03,00124$
@@ -546,14 +546,14 @@
    1D9C 8F 82               546 	mov	dpl,r7
    1D9E 8A 83               547 	mov	dph,r2
    1DA0 8B F0               548 	mov	b,r3
-   1DA2 74 80               549 	mov	a,#_toaster_off
-   1DA4 12 41 10            550 	lcall	__gptrput
+   1DA2 74 B2               549 	mov	a,#_toaster_off
+   1DA4 12 42 42            550 	lcall	__gptrput
    1DA7 A3                  551 	inc	dptr
-   1DA8 74 50               552 	mov	a,#(_toaster_off >> 8)
-   1DAA 12 41 10            553 	lcall	__gptrput
+   1DA8 74 51               552 	mov	a,#(_toaster_off >> 8)
+   1DAA 12 42 42            553 	lcall	__gptrput
    1DAD A3                  554 	inc	dptr
    1DAE 74 80               555 	mov	a,#0x80
-   1DB0 12 41 10            556 	lcall	__gptrput
+   1DB0 12 42 42            556 	lcall	__gptrput
    1DB3 75 82 02            557 	mov	dpl,#0x02
    1DB6 02 1E CD            558 	ljmp	00115$
    1DB9                     559 00102$:
@@ -574,14 +574,14 @@
    1DCA 8A 82               574 	mov	dpl,r2
    1DCC 8B 83               575 	mov	dph,r3
    1DCE 8C F0               576 	mov	b,r4
-   1DD0 74 80               577 	mov	a,#_toaster_off
-   1DD2 12 41 10            578 	lcall	__gptrput
+   1DD0 74 B2               577 	mov	a,#_toaster_off
+   1DD2 12 42 42            578 	lcall	__gptrput
    1DD5 A3                  579 	inc	dptr
-   1DD6 74 50               580 	mov	a,#(_toaster_off >> 8)
-   1DD8 12 41 10            581 	lcall	__gptrput
+   1DD6 74 51               580 	mov	a,#(_toaster_off >> 8)
+   1DD8 12 42 42            581 	lcall	__gptrput
    1DDB A3                  582 	inc	dptr
    1DDC 74 80               583 	mov	a,#0x80
-   1DDE 12 41 10            584 	lcall	__gptrput
+   1DDE 12 42 42            584 	lcall	__gptrput
    1DE1 75 82 03            585 	mov	dpl,#0x03
    1DE4 02 1E CD            586 	ljmp	00115$
    1DE7                     587 00104$:
@@ -601,14 +601,14 @@
    1DF8 8A 82               601 	mov	dpl,r2
    1DFA 8B 83               602 	mov	dph,r3
    1DFC 8C F0               603 	mov	b,r4
-   1DFE 74 80               604 	mov	a,#_toaster_off
-   1E00 12 41 10            605 	lcall	__gptrput
+   1DFE 74 B2               604 	mov	a,#_toaster_off
+   1E00 12 42 42            605 	lcall	__gptrput
    1E03 A3                  606 	inc	dptr
-   1E04 74 50               607 	mov	a,#(_toaster_off >> 8)
-   1E06 12 41 10            608 	lcall	__gptrput
+   1E04 74 51               607 	mov	a,#(_toaster_off >> 8)
+   1E06 12 42 42            608 	lcall	__gptrput
    1E09 A3                  609 	inc	dptr
    1E0A 74 80               610 	mov	a,#0x80
-   1E0C 12 41 10            611 	lcall	__gptrput
+   1E0C 12 42 42            611 	lcall	__gptrput
    1E0F 75 82 02            612 	mov	dpl,#0x02
    1E12 02 1E CD            613 	ljmp	00115$
    1E15                     614 00106$:
@@ -628,14 +628,14 @@
    1E26 8A 82               628 	mov	dpl,r2
    1E28 8B 83               629 	mov	dph,r3
    1E2A 8C F0               630 	mov	b,r4
-   1E2C 74 6E               631 	mov	a,#_toaster_baking
-   1E2E 12 41 10            632 	lcall	__gptrput
+   1E2C 74 A0               631 	mov	a,#_toaster_baking
+   1E2E 12 42 42            632 	lcall	__gptrput
    1E31 A3                  633 	inc	dptr
-   1E32 74 50               634 	mov	a,#(_toaster_baking >> 8)
-   1E34 12 41 10            635 	lcall	__gptrput
+   1E32 74 51               634 	mov	a,#(_toaster_baking >> 8)
+   1E34 12 42 42            635 	lcall	__gptrput
    1E37 A3                  636 	inc	dptr
    1E38 74 80               637 	mov	a,#0x80
-   1E3A 12 41 10            638 	lcall	__gptrput
+   1E3A 12 42 42            638 	lcall	__gptrput
    1E3D 75 82 02            639 	mov	dpl,#0x02
    1E40 02 1E CD            640 	ljmp	00115$
    1E43                     641 00108$:
@@ -655,14 +655,14 @@
    1E54 8A 82               655 	mov	dpl,r2
    1E56 8B 83               656 	mov	dph,r3
    1E58 8C F0               657 	mov	b,r4
-   1E5A 74 77               658 	mov	a,#_toaster_toasting
-   1E5C 12 41 10            659 	lcall	__gptrput
+   1E5A 74 A9               658 	mov	a,#_toaster_toasting
+   1E5C 12 42 42            659 	lcall	__gptrput
    1E5F A3                  660 	inc	dptr
-   1E60 74 50               661 	mov	a,#(_toaster_toasting >> 8)
-   1E62 12 41 10            662 	lcall	__gptrput
+   1E60 74 51               661 	mov	a,#(_toaster_toasting >> 8)
+   1E62 12 42 42            662 	lcall	__gptrput
    1E65 A3                  663 	inc	dptr
    1E66 74 80               664 	mov	a,#0x80
-   1E68 12 41 10            665 	lcall	__gptrput
+   1E68 12 42 42            665 	lcall	__gptrput
    1E6B 75 82 02            666 	mov	dpl,#0x02
    1E6E 80 5D               667 	sjmp	00115$
    1E70                     668 00110$:
@@ -682,14 +682,14 @@
    1E81 8A 82               682 	mov	dpl,r2
    1E83 8B 83               683 	mov	dph,r3
    1E85 8C F0               684 	mov	b,r4
-   1E87 74 80               685 	mov	a,#_toaster_off
-   1E89 12 41 10            686 	lcall	__gptrput
+   1E87 74 B2               685 	mov	a,#_toaster_off
+   1E89 12 42 42            686 	lcall	__gptrput
    1E8C A3                  687 	inc	dptr
-   1E8D 74 50               688 	mov	a,#(_toaster_off >> 8)
-   1E8F 12 41 10            689 	lcall	__gptrput
+   1E8D 74 51               688 	mov	a,#(_toaster_off >> 8)
+   1E8F 12 42 42            689 	lcall	__gptrput
    1E92 A3                  690 	inc	dptr
    1E93 74 80               691 	mov	a,#0x80
-   1E95 12 41 10            692 	lcall	__gptrput
+   1E95 12 42 42            692 	lcall	__gptrput
    1E98 75 82 02            693 	mov	dpl,#0x02
    1E9B 80 30               694 	sjmp	00115$
    1E9D                     695 00112$:
@@ -709,14 +709,14 @@
    1EAE 8A 82               709 	mov	dpl,r2
    1EB0 8B 83               710 	mov	dph,r3
    1EB2 8C F0               711 	mov	b,r4
-   1EB4 74 80               712 	mov	a,#_toaster_off
-   1EB6 12 41 10            713 	lcall	__gptrput
+   1EB4 74 B2               712 	mov	a,#_toaster_off
+   1EB6 12 42 42            713 	lcall	__gptrput
    1EB9 A3                  714 	inc	dptr
-   1EBA 74 50               715 	mov	a,#(_toaster_off >> 8)
-   1EBC 12 41 10            716 	lcall	__gptrput
+   1EBA 74 51               715 	mov	a,#(_toaster_off >> 8)
+   1EBC 12 42 42            716 	lcall	__gptrput
    1EBF A3                  717 	inc	dptr
    1EC0 74 80               718 	mov	a,#0x80
-   1EC2 12 41 10            719 	lcall	__gptrput
+   1EC2 12 42 42            719 	lcall	__gptrput
    1EC5 75 82 02            720 	mov	dpl,#0x02
    1EC8 80 03               721 	sjmp	00115$
    1ECA                     722 00114$:
@@ -752,7 +752,7 @@
    1EE5 8A 82               752 	mov	dpl,r2
    1EE7 8B 83               753 	mov	dph,r3
    1EE9 8C F0               754 	mov	b,r4
-   1EEB 12 4D 3C            755 	lcall	__gptrget
+   1EEB 12 4E 6E            755 	lcall	__gptrget
    1EEE FA                  756 	mov	r2,a
    1EEF BA 01 08            757 	cjne	r2,#0x01,00102$
    1EF2 12 1C D9            758 	lcall	_heaterOn
@@ -862,7 +862,7 @@
    1F50 8F F0               862 	mov	b,r7
    1F52 A8 1F               863 	mov	r0,_bp
    1F54 08                  864 	inc	r0
-   1F55 12 4D 3C            865 	lcall	__gptrget
+   1F55 12 4E 6E            865 	lcall	__gptrget
    1F58 F6                  866 	mov	@r0,a
    1F59 A8 1F               867 	mov	r0,_bp
    1F5B 08                  868 	inc	r0
@@ -917,7 +917,7 @@
    1FB9 8F F0               917 	mov	b,r7
    1FBB A8 1F               918 	mov	r0,_bp
    1FBD 08                  919 	inc	r0
-   1FBE 12 4D 3C            920 	lcall	__gptrget
+   1FBE 12 4E 6E            920 	lcall	__gptrget
    1FC1 F6                  921 	mov	@r0,a
    1FC2 A8 1F               922 	mov	r0,_bp
    1FC4 08                  923 	inc	r0
@@ -970,7 +970,7 @@
    201E 8D 82               970 	mov	dpl,r5
    2020 8E 83               971 	mov	dph,r6
    2022 8F F0               972 	mov	b,r7
-   2024 12 4D 3C            973 	lcall	__gptrget
+   2024 12 4E 6E            973 	lcall	__gptrget
    2027 FD                  974 	mov	r5,a
    2028 BD 01 08            975 	cjne	r5,#0x01,00112$
    202B 12 1C DB            976 	lcall	_lampOn
@@ -994,14 +994,14 @@
    2048 8A 82               994 	mov	dpl,r2
    204A 8B 83               995 	mov	dph,r3
    204C 8C F0               996 	mov	b,r4
-   204E 74 5A               997 	mov	a,#_toaster_doorClosed
-   2050 12 41 10            998 	lcall	__gptrput
+   204E 74 8C               997 	mov	a,#_toaster_doorClosed
+   2050 12 42 42            998 	lcall	__gptrput
    2053 A3                  999 	inc	dptr
-   2054 74 50              1000 	mov	a,#(_toaster_doorClosed >> 8)
-   2056 12 41 10           1001 	lcall	__gptrput
+   2054 74 51              1000 	mov	a,#(_toaster_doorClosed >> 8)
+   2056 12 42 42           1001 	lcall	__gptrput
    2059 A3                 1002 	inc	dptr
    205A 74 80              1003 	mov	a,#0x80
-   205C 12 41 10           1004 	lcall	__gptrput
+   205C 12 42 42           1004 	lcall	__gptrput
    205F 75 82 03           1005 	mov	dpl,#0x03
    2062 80 03              1006 	sjmp	00117$
    2064                    1007 00116$:
@@ -1013,81 +1013,81 @@
    206C 22                 1013 	ret
                            1014 	.area CSEG    (CODE)
                            1015 	.area CONST   (CODE)
-   5051                    1016 _toaster_TOP:
+   5183                    1016 _toaster_TOP:
                            1017 ; generic printIvalPtr
-   5051 00 00 00           1018 	.byte #0x00,#0x00,#0x00
-   5054 00                 1019 	.db #0x00
-   5055 DD 1C              1020 	.byte _toaster_TOP_handler,(_toaster_TOP_handler >> 8)
-   5057 9A 50 80           1021 	.byte _str_1,(_str_1 >> 8),#0x80
-   505A                    1022 _toaster_doorClosed:
-   505A 51 50 80           1023 	.byte _toaster_TOP,(_toaster_TOP >> 8),#0x80
-   505D 03                 1024 	.db #0x03
-   505E 64 1D              1025 	.byte _toaster_doorClosed_handler,(_toaster_doorClosed_handler >> 8)
-   5060 A6 50 80           1026 	.byte _str_2,(_str_2 >> 8),#0x80
-   5063 04 00              1027 	.byte #0x04,#0x00
-   5065                    1028 _toaster_heating:
-   5065 5A 50 80           1029 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
-   5068 00                 1030 	.db #0x00
-   5069 D3 1E              1031 	.byte _toaster_heating_handler,(_toaster_heating_handler >> 8)
-   506B B9 50 80           1032 	.byte _str_3,(_str_3 >> 8),#0x80
-   506E                    1033 _toaster_baking:
-   506E 65 50 80           1034 	.byte _toaster_heating,(_toaster_heating >> 8),#0x80
-   5071 00                 1035 	.db #0x00
-   5072 0B 1F              1036 	.byte _toaster_baking_handler,(_toaster_baking_handler >> 8)
-   5074 C9 50 80           1037 	.byte _str_4,(_str_4 >> 8),#0x80
-   5077                    1038 _toaster_toasting:
-   5077 65 50 80           1039 	.byte _toaster_heating,(_toaster_heating >> 8),#0x80
-   507A 00                 1040 	.db #0x00
-   507B 16 1F              1041 	.byte _toaster_toasting_handler,(_toaster_toasting_handler >> 8)
-   507D D8 50 80           1042 	.byte _str_5,(_str_5 >> 8),#0x80
-   5080                    1043 _toaster_off:
-   5080 5A 50 80           1044 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
-   5083 00                 1045 	.db #0x00
-   5084 21 1F              1046 	.byte _toaster_off_handler,(_toaster_off_handler >> 8)
-   5086 E9 50 80           1047 	.byte _str_6,(_str_6 >> 8),#0x80
-   5089                    1048 _toaster_doorOpen:
-   5089 51 50 80           1049 	.byte _toaster_TOP,(_toaster_TOP >> 8),#0x80
-   508C 00                 1050 	.db #0x00
-   508D 32 1F              1051 	.byte _toaster_doorOpen_handler,(_toaster_doorOpen_handler >> 8)
-   508F F5 50 80           1052 	.byte _str_7,(_str_7 >> 8),#0x80
-   5092                    1053 __str_0:
-   5092 74 6F 61 73 74 65  1054 	.ascii "toaster"
+   5183 00 00 00           1018 	.byte #0x00,#0x00,#0x00
+   5186 00                 1019 	.db #0x00
+   5187 DD 1C              1020 	.byte _toaster_TOP_handler,(_toaster_TOP_handler >> 8)
+   5189 CC 51 80           1021 	.byte _str_1,(_str_1 >> 8),#0x80
+   518C                    1022 _toaster_doorClosed:
+   518C 83 51 80           1023 	.byte _toaster_TOP,(_toaster_TOP >> 8),#0x80
+   518F 03                 1024 	.db #0x03
+   5190 64 1D              1025 	.byte _toaster_doorClosed_handler,(_toaster_doorClosed_handler >> 8)
+   5192 D8 51 80           1026 	.byte _str_2,(_str_2 >> 8),#0x80
+   5195 04 00              1027 	.byte #0x04,#0x00
+   5197                    1028 _toaster_heating:
+   5197 8C 51 80           1029 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
+   519A 00                 1030 	.db #0x00
+   519B D3 1E              1031 	.byte _toaster_heating_handler,(_toaster_heating_handler >> 8)
+   519D EB 51 80           1032 	.byte _str_3,(_str_3 >> 8),#0x80
+   51A0                    1033 _toaster_baking:
+   51A0 97 51 80           1034 	.byte _toaster_heating,(_toaster_heating >> 8),#0x80
+   51A3 00                 1035 	.db #0x00
+   51A4 0B 1F              1036 	.byte _toaster_baking_handler,(_toaster_baking_handler >> 8)
+   51A6 FB 51 80           1037 	.byte _str_4,(_str_4 >> 8),#0x80
+   51A9                    1038 _toaster_toasting:
+   51A9 97 51 80           1039 	.byte _toaster_heating,(_toaster_heating >> 8),#0x80
+   51AC 00                 1040 	.db #0x00
+   51AD 16 1F              1041 	.byte _toaster_toasting_handler,(_toaster_toasting_handler >> 8)
+   51AF 0A 52 80           1042 	.byte _str_5,(_str_5 >> 8),#0x80
+   51B2                    1043 _toaster_off:
+   51B2 8C 51 80           1044 	.byte _toaster_doorClosed,(_toaster_doorClosed >> 8),#0x80
+   51B5 00                 1045 	.db #0x00
+   51B6 21 1F              1046 	.byte _toaster_off_handler,(_toaster_off_handler >> 8)
+   51B8 1B 52 80           1047 	.byte _str_6,(_str_6 >> 8),#0x80
+   51BB                    1048 _toaster_doorOpen:
+   51BB 83 51 80           1049 	.byte _toaster_TOP,(_toaster_TOP >> 8),#0x80
+   51BE 00                 1050 	.db #0x00
+   51BF 32 1F              1051 	.byte _toaster_doorOpen_handler,(_toaster_doorOpen_handler >> 8)
+   51C1 27 52 80           1052 	.byte _str_7,(_str_7 >> 8),#0x80
+   51C4                    1053 __str_0:
+   51C4 74 6F 61 73 74 65  1054 	.ascii "toaster"
         72
-   5099 00                 1055 	.db 0x00
-   509A                    1056 _str_1:
-   509A 74 6F 61 73 74 65  1057 	.ascii "toaster_TOP"
+   51CB 00                 1055 	.db 0x00
+   51CC                    1056 _str_1:
+   51CC 74 6F 61 73 74 65  1057 	.ascii "toaster_TOP"
         72 5F 54 4F 50
-   50A5 00                 1058 	.db 0x00
-   50A6                    1059 _str_2:
-   50A6 74 6F 61 73 74 65  1060 	.ascii "toaster_doorClosed"
+   51D7 00                 1058 	.db 0x00
+   51D8                    1059 _str_2:
+   51D8 74 6F 61 73 74 65  1060 	.ascii "toaster_doorClosed"
         72 5F 64 6F 6F 72
         43 6C 6F 73 65 64
-   50B8 00                 1061 	.db 0x00
-   50B9                    1062 _str_3:
-   50B9 74 6F 61 73 74 65  1063 	.ascii "toaster_heating"
+   51EA 00                 1061 	.db 0x00
+   51EB                    1062 _str_3:
+   51EB 74 6F 61 73 74 65  1063 	.ascii "toaster_heating"
         72 5F 68 65 61 74
         69 6E 67
-   50C8 00                 1064 	.db 0x00
-   50C9                    1065 _str_4:
-   50C9 74 6F 61 73 74 65  1066 	.ascii "toaster_baking"
+   51FA 00                 1064 	.db 0x00
+   51FB                    1065 _str_4:
+   51FB 74 6F 61 73 74 65  1066 	.ascii "toaster_baking"
         72 5F 62 61 6B 69
         6E 67
-   50D7 00                 1067 	.db 0x00
-   50D8                    1068 _str_5:
-   50D8 74 6F 61 73 74 65  1069 	.ascii "toaster_toasting"
+   5209 00                 1067 	.db 0x00
+   520A                    1068 _str_5:
+   520A 74 6F 61 73 74 65  1069 	.ascii "toaster_toasting"
         72 5F 74 6F 61 73
         74 69 6E 67
-   50E8 00                 1070 	.db 0x00
-   50E9                    1071 _str_6:
-   50E9 74 6F 61 73 74 65  1072 	.ascii "toaster_off"
+   521A 00                 1070 	.db 0x00
+   521B                    1071 _str_6:
+   521B 74 6F 61 73 74 65  1072 	.ascii "toaster_off"
         72 5F 6F 66 66
-   50F4 00                 1073 	.db 0x00
-   50F5                    1074 _str_7:
-   50F5 74 6F 61 73 74 65  1075 	.ascii "toaster_doorOpen"
+   5226 00                 1073 	.db 0x00
+   5227                    1074 _str_7:
+   5227 74 6F 61 73 74 65  1075 	.ascii "toaster_doorOpen"
         72 5F 64 6F 6F 72
         4F 70 65 6E
-   5105 00                 1076 	.db 0x00
+   5237 00                 1076 	.db 0x00
                            1077 	.area XINIT   (CODE)
-   54A1                    1078 __xinit__toaster_name:
-   54A1 92 50 80           1079 	.byte __str_0,(__str_0 >> 8),#0x80
+   55D3                    1078 __xinit__toaster_name:
+   55D3 C4 51 80           1079 	.byte __str_0,(__str_0 >> 8),#0x80
                            1080 	.area CABS    (ABS,CODE)

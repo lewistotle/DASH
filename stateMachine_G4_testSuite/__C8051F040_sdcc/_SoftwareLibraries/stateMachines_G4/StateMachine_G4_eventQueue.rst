@@ -63,11 +63,11 @@
                              63 ; overlayable items in internal ram 
                              64 ;--------------------------------------------------------
                              65 	.area	OSEG    (OVR,DATA)
-   0060                      66 _addToDeferredTypeList_sloc0_1_0::
-   0060                      67 	.ds 3
+   0065                      66 _addToDeferredTypeList_sloc0_1_0::
+   0065                      67 	.ds 3
                              68 	.area	OSEG    (OVR,DATA)
-   0060                      69 _isEventTypeDeferred_sloc0_1_0::
-   0060                      70 	.ds 3
+   0065                      69 _isEventTypeDeferred_sloc0_1_0::
+   0065                      70 	.ds 3
                              71 ;--------------------------------------------------------
                              72 ; indirectly addressable internal ram data
                              73 ;--------------------------------------------------------
@@ -213,7 +213,7 @@
    208C 8A 82               213 	mov	dpl,r2
    208E 8B 83               214 	mov	dph,r3
    2090 8C F0               215 	mov	b,r4
-   2092 12 41 10            216 	lcall	__gptrput
+   2092 12 42 42            216 	lcall	__gptrput
                             217 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:17: Q->Size		= 0 ;
    2095 74 03               218 	mov	a,#0x03
    2097 2A                  219 	add	a,r2
@@ -226,7 +226,7 @@
    20A0 8E 83               226 	mov	dph,r6
    20A2 8F F0               227 	mov	b,r7
    20A4 E4                  228 	clr	a
-   20A5 12 41 10            229 	lcall	__gptrput
+   20A5 12 42 42            229 	lcall	__gptrput
                             230 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:18: Q->Front	= 1 ;
    20A8 74 01               231 	mov	a,#0x01
    20AA 2A                  232 	add	a,r2
@@ -239,7 +239,7 @@
    20B3 8E 83               239 	mov	dph,r6
    20B5 8F F0               240 	mov	b,r7
    20B7 74 01               241 	mov	a,#0x01
-   20B9 12 41 10            242 	lcall	__gptrput
+   20B9 12 42 42            242 	lcall	__gptrput
                             243 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:19: Q->Rear		= 0 ;
    20BC 74 02               244 	mov	a,#0x02
    20BE 2A                  245 	add	a,r2
@@ -252,7 +252,7 @@
    20C7 8E 83               252 	mov	dph,r6
    20C9 8F F0               253 	mov	b,r7
    20CB E4                  254 	clr	a
-   20CC 12 41 10            255 	lcall	__gptrput
+   20CC 12 42 42            255 	lcall	__gptrput
                             256 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:20: Q->Array	= storage ;
    20CF 74 04               257 	mov	a,#0x04
    20D1 2A                  258 	add	a,r2
@@ -273,13 +273,13 @@
    20E3 8B 83               273 	mov	dph,r3
    20E5 8C F0               274 	mov	b,r4
    20E7 ED                  275 	mov	a,r5
-   20E8 12 41 10            276 	lcall	__gptrput
+   20E8 12 42 42            276 	lcall	__gptrput
    20EB A3                  277 	inc	dptr
    20EC EE                  278 	mov	a,r6
-   20ED 12 41 10            279 	lcall	__gptrput
+   20ED 12 42 42            279 	lcall	__gptrput
    20F0 A3                  280 	inc	dptr
    20F1 EF                  281 	mov	a,r7
-   20F2 12 41 10            282 	lcall	__gptrput
+   20F2 12 42 42            282 	lcall	__gptrput
                             283 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:22: return true ;
    20F5 D3                  284 	setb	c
    20F6 22                  285 	ret
@@ -323,7 +323,7 @@
    2119 8A 82               323 	mov	dpl,r2
    211B 8B 83               324 	mov	dph,r3
    211D 8C F0               325 	mov	b,r4
-   211F 12 4D 3C            326 	lcall	__gptrget
+   211F 12 4E 6E            326 	lcall	__gptrget
    2122 FA                  327 	mov	r2,a
    2123 E4                  328 	clr	a
    2124 BA 00 01            329 	cjne	r2,#0x00,00103$
@@ -372,12 +372,12 @@
    214F 8D 82               372 	mov	dpl,r5
    2151 8E 83               373 	mov	dph,r6
    2153 8F F0               374 	mov	b,r7
-   2155 12 4D 3C            375 	lcall	__gptrget
+   2155 12 4E 6E            375 	lcall	__gptrget
    2158 FD                  376 	mov	r5,a
    2159 8A 82               377 	mov	dpl,r2
    215B 8B 83               378 	mov	dph,r3
    215D 8C F0               379 	mov	b,r4
-   215F 12 4D 3C            380 	lcall	__gptrget
+   215F 12 4E 6E            380 	lcall	__gptrget
    2162 FA                  381 	mov	r2,a
    2163 ED                  382 	mov	a,r5
    2164 B5 02 04            383 	cjne	a,ar2,00103$
@@ -427,7 +427,7 @@
    2191 8A 82               427 	mov	dpl,r2
    2193 8B 83               428 	mov	dph,r3
    2195 8C F0               429 	mov	b,r4
-   2197 12 4D 3C            430 	lcall	__gptrget
+   2197 12 4E 6E            430 	lcall	__gptrget
    219A FA                  431 	mov	r2,a
    219B 90 09 32            432 	mov	dptr,#_nextLocationFromPoint_PARM_2
    219E E0                  433 	movx	a,@dptr
@@ -503,14 +503,14 @@
    21EE 8D 82               503 	mov	dpl,r5
    21F0 8E 83               504 	mov	dph,r6
    21F2 8F F0               505 	mov	b,r7
-   21F4 12 4D 3C            506 	lcall	__gptrget
+   21F4 12 4E 6E            506 	lcall	__gptrget
    21F7 F8                  507 	mov	r0,a
    21F8 08                  508 	inc	r0
    21F9 8D 82               509 	mov	dpl,r5
    21FB 8E 83               510 	mov	dph,r6
    21FD 8F F0               511 	mov	b,r7
    21FF E8                  512 	mov	a,r0
-   2200 12 41 10            513 	lcall	__gptrput
+   2200 12 42 42            513 	lcall	__gptrput
                             514 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:56: Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
    2203 74 02               515 	mov	a,#0x02
    2205 2A                  516 	add	a,r2
@@ -522,7 +522,7 @@
    220C 8D 82               522 	mov	dpl,r5
    220E 8E 83               523 	mov	dph,r6
    2210 8F F0               524 	mov	b,r7
-   2212 12 4D 3C            525 	lcall	__gptrget
+   2212 12 4E 6E            525 	lcall	__gptrget
    2215 90 09 32            526 	mov	dptr,#_nextLocationFromPoint_PARM_2
    2218 F0                  527 	movx	@dptr,a
    2219 8A 82               528 	mov	dpl,r2
@@ -540,7 +540,7 @@
    2232 8E 83               540 	mov	dph,r6
    2234 8F F0               541 	mov	b,r7
    2236 EA                  542 	mov	a,r2
-   2237 12 41 10            543 	lcall	__gptrput
+   2237 12 42 42            543 	lcall	__gptrput
                             544 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:57: Q->Array[Q->Rear] = event ;
    223A 90 09 39            545 	mov	dptr,#_eventQueue_insert_Q_1_1
    223D E0                  546 	movx	a,@dptr
@@ -561,13 +561,13 @@
    224E 8D 82               561 	mov	dpl,r5
    2250 8E 83               562 	mov	dph,r6
    2252 8F F0               563 	mov	b,r7
-   2254 12 4D 3C            564 	lcall	__gptrget
+   2254 12 4E 6E            564 	lcall	__gptrget
    2257 FD                  565 	mov	r5,a
    2258 A3                  566 	inc	dptr
-   2259 12 4D 3C            567 	lcall	__gptrget
+   2259 12 4E 6E            567 	lcall	__gptrget
    225C FE                  568 	mov	r6,a
    225D A3                  569 	inc	dptr
-   225E 12 4D 3C            570 	lcall	__gptrget
+   225E 12 4E 6E            570 	lcall	__gptrget
    2261 FF                  571 	mov	r7,a
    2262 74 02               572 	mov	a,#0x02
    2264 2A                  573 	add	a,r2
@@ -578,7 +578,7 @@
    2269 8A 82               578 	mov	dpl,r2
    226B 8B 83               579 	mov	dph,r3
    226D 8C F0               580 	mov	b,r4
-   226F 12 4D 3C            581 	lcall	__gptrget
+   226F 12 4E 6E            581 	lcall	__gptrget
    2272 FA                  582 	mov	r2,a
    2273 C2 D5               583 	clr	F0
    2275 75 F0 03            584 	mov	b,#0x03
@@ -615,18 +615,18 @@
    22A1 8E 83               615 	mov	dph,r6
    22A3 8F F0               616 	mov	b,r7
    22A5 EA                  617 	mov	a,r2
-   22A6 12 41 10            618 	lcall	__gptrput
+   22A6 12 42 42            618 	lcall	__gptrput
    22A9 A3                  619 	inc	dptr
    22AA EB                  620 	mov	a,r3
-   22AB 12 41 10            621 	lcall	__gptrput
+   22AB 12 42 42            621 	lcall	__gptrput
    22AE A3                  622 	inc	dptr
    22AF EC                  623 	mov	a,r4
-   22B0 12 41 10            624 	lcall	__gptrput
+   22B0 12 42 42            624 	lcall	__gptrput
                             625 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:59: printf("\t\t\tPosting event type: %s\n", event->eventType <= SUBSTATE_EXIT ? eventTypes[event->eventType] : "<USER_EVENT>") ;
    22B3 8A 82               626 	mov	dpl,r2
    22B5 8B 83               627 	mov	dph,r3
    22B7 8C F0               628 	mov	b,r4
-   22B9 12 4D 3C            629 	lcall	__gptrget
+   22B9 12 4E 6E            629 	lcall	__gptrget
    22BC FA                  630 	mov	r2,a
    22BD C3                  631 	clr	c
    22BE 74 05               632 	mov	a,#0x05
@@ -654,20 +654,20 @@
    22DD FC                  654 	mov	r4,a
    22DE 80 06               655 	sjmp	00107$
    22E0                     656 00106$:
-   22E0 7A 21               657 	mov	r2,#__str_1
-   22E2 7B 51               658 	mov	r3,#(__str_1 >> 8)
+   22E0 7A 53               657 	mov	r2,#__str_1
+   22E2 7B 52               658 	mov	r3,#(__str_1 >> 8)
    22E4 7C 80               659 	mov	r4,#0x80
    22E6                     660 00107$:
    22E6 C0 02               661 	push	ar2
    22E8 C0 03               662 	push	ar3
    22EA C0 04               663 	push	ar4
-   22EC 74 06               664 	mov	a,#__str_0
+   22EC 74 38               664 	mov	a,#__str_0
    22EE C0 E0               665 	push	acc
-   22F0 74 51               666 	mov	a,#(__str_0 >> 8)
+   22F0 74 52               666 	mov	a,#(__str_0 >> 8)
    22F2 C0 E0               667 	push	acc
    22F4 74 80               668 	mov	a,#0x80
    22F6 C0 E0               669 	push	acc
-   22F8 12 44 F0            670 	lcall	_printf
+   22F8 12 46 22            670 	lcall	_printf
    22FB E5 81               671 	mov	a,sp
    22FD 24 FA               672 	add	a,#0xfa
    22FF F5 81               673 	mov	sp,a
@@ -741,13 +741,13 @@
    2344 8D 82               741 	mov	dpl,r5
    2346 8E 83               742 	mov	dph,r6
    2348 8F F0               743 	mov	b,r7
-   234A 12 4D 3C            744 	lcall	__gptrget
+   234A 12 4E 6E            744 	lcall	__gptrget
    234D F5 2A               745 	mov	_eventQueue_remove_sloc0_1_0,a
    234F A3                  746 	inc	dptr
-   2350 12 4D 3C            747 	lcall	__gptrget
+   2350 12 4E 6E            747 	lcall	__gptrget
    2353 F5 2B               748 	mov	(_eventQueue_remove_sloc0_1_0 + 1),a
    2355 A3                  749 	inc	dptr
-   2356 12 4D 3C            750 	lcall	__gptrget
+   2356 12 4E 6E            750 	lcall	__gptrget
    2359 F5 2C               751 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
    235B 74 01               752 	mov	a,#0x01
    235D 2A                  753 	add	a,r2
@@ -759,7 +759,7 @@
    2366 85 2E 82            759 	mov	dpl,_eventQueue_remove_sloc2_1_0
    2369 85 2F 83            760 	mov	dph,(_eventQueue_remove_sloc2_1_0 + 1)
    236C 85 30 F0            761 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
-   236F 12 4D 3C            762 	lcall	__gptrget
+   236F 12 4E 6E            762 	lcall	__gptrget
    2372 F5 2D               763 	mov	_eventQueue_remove_sloc1_1_0,a
    2374 C2 D5               764 	clr	F0
    2376 75 F0 03            765 	mov	b,#0x03
@@ -787,13 +787,13 @@
    239A 8F 82               787 	mov	dpl,r7
    239C 8E 83               788 	mov	dph,r6
    239E 8D F0               789 	mov	b,r5
-   23A0 12 4D 3C            790 	lcall	__gptrget
+   23A0 12 4E 6E            790 	lcall	__gptrget
    23A3 F5 2A               791 	mov	_eventQueue_remove_sloc0_1_0,a
    23A5 A3                  792 	inc	dptr
-   23A6 12 4D 3C            793 	lcall	__gptrget
+   23A6 12 4E 6E            793 	lcall	__gptrget
    23A9 F5 2B               794 	mov	(_eventQueue_remove_sloc0_1_0 + 1),a
    23AB A3                  795 	inc	dptr
-   23AC 12 4D 3C            796 	lcall	__gptrget
+   23AC 12 4E 6E            796 	lcall	__gptrget
    23AF F5 2C               797 	mov	(_eventQueue_remove_sloc0_1_0 + 2),a
                             798 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:76: Q->Size-- ;
    23B1 74 03               799 	mov	a,#0x03
@@ -806,14 +806,14 @@
    23BA 88 82               806 	mov	dpl,r0
    23BC 89 83               807 	mov	dph,r1
    23BE 8D F0               808 	mov	b,r5
-   23C0 12 4D 3C            809 	lcall	__gptrget
+   23C0 12 4E 6E            809 	lcall	__gptrget
    23C3 FE                  810 	mov	r6,a
    23C4 1E                  811 	dec	r6
    23C5 88 82               812 	mov	dpl,r0
    23C7 89 83               813 	mov	dph,r1
    23C9 8D F0               814 	mov	b,r5
    23CB EE                  815 	mov	a,r6
-   23CC 12 41 10            816 	lcall	__gptrput
+   23CC 12 42 42            816 	lcall	__gptrput
                             817 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:77: Q->Front = nextLocationFromPoint(Q, Q->Front) ;
    23CF 90 09 32            818 	mov	dptr,#_nextLocationFromPoint_PARM_2
    23D2 E5 2D               819 	mov	a,_eventQueue_remove_sloc1_1_0
@@ -827,7 +827,7 @@
    23E3 85 2F 83            827 	mov	dph,(_eventQueue_remove_sloc2_1_0 + 1)
    23E6 85 30 F0            828 	mov	b,(_eventQueue_remove_sloc2_1_0 + 2)
    23E9 EA                  829 	mov	a,r2
-   23EA 12 41 10            830 	lcall	__gptrput
+   23EA 12 42 42            830 	lcall	__gptrput
                             831 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:79: return eventReceived ;
    23ED 85 2A 82            832 	mov	dpl,_eventQueue_remove_sloc0_1_0
    23F0 85 2B 83            833 	mov	dph,(_eventQueue_remove_sloc0_1_0 + 1)
@@ -873,15 +873,15 @@
    2418 FC                  873 	mov	r4,a
    2419 74 13               874 	mov	a,#0x13
    241B 2A                  875 	add	a,r2
-   241C F5 60               876 	mov	_addToDeferredTypeList_sloc0_1_0,a
+   241C F5 65               876 	mov	_addToDeferredTypeList_sloc0_1_0,a
    241E E4                  877 	clr	a
    241F 3B                  878 	addc	a,r3
-   2420 F5 61               879 	mov	(_addToDeferredTypeList_sloc0_1_0 + 1),a
-   2422 8C 62               880 	mov	(_addToDeferredTypeList_sloc0_1_0 + 2),r4
-   2424 85 60 82            881 	mov	dpl,_addToDeferredTypeList_sloc0_1_0
-   2427 85 61 83            882 	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
-   242A 85 62 F0            883 	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
-   242D 12 4D 3C            884 	lcall	__gptrget
+   2420 F5 66               879 	mov	(_addToDeferredTypeList_sloc0_1_0 + 1),a
+   2422 8C 67               880 	mov	(_addToDeferredTypeList_sloc0_1_0 + 2),r4
+   2424 85 65 82            881 	mov	dpl,_addToDeferredTypeList_sloc0_1_0
+   2427 85 66 83            882 	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
+   242A 85 67 F0            883 	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
+   242D 12 4E 6E            884 	lcall	__gptrget
    2430 F8                  885 	mov	r0,a
    2431 74 12               886 	mov	a,#0x12
    2433 2A                  887 	add	a,r2
@@ -893,7 +893,7 @@
    243A 89 82               893 	mov	dpl,r1
    243C 8D 83               894 	mov	dph,r5
    243E 8E F0               895 	mov	b,r6
-   2440 12 4D 3C            896 	lcall	__gptrget
+   2440 12 4E 6E            896 	lcall	__gptrget
    2443 F9                  897 	mov	r1,a
    2444 C3                  898 	clr	c
    2445 E8                  899 	mov	a,r0
@@ -912,13 +912,13 @@
    2458 8A 82               912 	mov	dpl,r2
    245A 8B 83               913 	mov	dph,r3
    245C 8C F0               914 	mov	b,r4
-   245E 12 4D 3C            915 	lcall	__gptrget
+   245E 12 4E 6E            915 	lcall	__gptrget
    2461 FA                  916 	mov	r2,a
    2462 A3                  917 	inc	dptr
-   2463 12 4D 3C            918 	lcall	__gptrget
+   2463 12 4E 6E            918 	lcall	__gptrget
    2466 FB                  919 	mov	r3,a
    2467 A3                  920 	inc	dptr
-   2468 12 4D 3C            921 	lcall	__gptrget
+   2468 12 4E 6E            921 	lcall	__gptrget
    246B FC                  922 	mov	r4,a
    246C E8                  923 	mov	a,r0
    246D 2A                  924 	add	a,r2
@@ -932,14 +932,14 @@
    2477 8A 82               932 	mov	dpl,r2
    2479 8B 83               933 	mov	dph,r3
    247B 8C F0               934 	mov	b,r4
-   247D 12 41 10            935 	lcall	__gptrput
+   247D 12 42 42            935 	lcall	__gptrput
                             936 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:94: sm->currentDepthOfEventsToDeferList++ ;
    2480 08                  937 	inc	r0
-   2481 85 60 82            938 	mov	dpl,_addToDeferredTypeList_sloc0_1_0
-   2484 85 61 83            939 	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
-   2487 85 62 F0            940 	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
+   2481 85 65 82            938 	mov	dpl,_addToDeferredTypeList_sloc0_1_0
+   2484 85 66 83            939 	mov	dph,(_addToDeferredTypeList_sloc0_1_0 + 1)
+   2487 85 67 F0            940 	mov	b,(_addToDeferredTypeList_sloc0_1_0 + 2)
    248A E8                  941 	mov	a,r0
-   248B 02 41 10            942 	ljmp	__gptrput
+   248B 02 42 42            942 	ljmp	__gptrput
    248E                     943 00103$:
    248E 22                  944 	ret
                             945 ;------------------------------------------------------------
@@ -981,20 +981,20 @@
    24AE FD                  981 	mov	r5,a
    24AF 74 13               982 	mov	a,#0x13
    24B1 2B                  983 	add	a,r3
-   24B2 F5 60               984 	mov	_isEventTypeDeferred_sloc0_1_0,a
+   24B2 F5 65               984 	mov	_isEventTypeDeferred_sloc0_1_0,a
    24B4 E4                  985 	clr	a
    24B5 3C                  986 	addc	a,r4
-   24B6 F5 61               987 	mov	(_isEventTypeDeferred_sloc0_1_0 + 1),a
-   24B8 8D 62               988 	mov	(_isEventTypeDeferred_sloc0_1_0 + 2),r5
+   24B6 F5 66               987 	mov	(_isEventTypeDeferred_sloc0_1_0 + 1),a
+   24B8 8D 67               988 	mov	(_isEventTypeDeferred_sloc0_1_0 + 2),r5
    24BA 79 00               989 	mov	r1,#0x00
    24BC                     990 00103$:
    24BC C0 02               991 	push	ar2
    24BE 89 02               992 	mov	ar2,r1
    24C0 7E 00               993 	mov	r6,#0x00
-   24C2 85 60 82            994 	mov	dpl,_isEventTypeDeferred_sloc0_1_0
-   24C5 85 61 83            995 	mov	dph,(_isEventTypeDeferred_sloc0_1_0 + 1)
-   24C8 85 62 F0            996 	mov	b,(_isEventTypeDeferred_sloc0_1_0 + 2)
-   24CB 12 4D 3C            997 	lcall	__gptrget
+   24C2 85 65 82            994 	mov	dpl,_isEventTypeDeferred_sloc0_1_0
+   24C5 85 66 83            995 	mov	dph,(_isEventTypeDeferred_sloc0_1_0 + 1)
+   24C8 85 67 F0            996 	mov	b,(_isEventTypeDeferred_sloc0_1_0 + 2)
+   24CB 12 4E 6E            997 	lcall	__gptrget
    24CE FF                  998 	mov	r7,a
    24CF 33                  999 	rlc	a
    24D0 95 E0              1000 	subb	a,acc
@@ -1020,13 +1020,13 @@
    24ED 8E 82              1020 	mov	dpl,r6
    24EF 8F 83              1021 	mov	dph,r7
    24F1 88 F0              1022 	mov	b,r0
-   24F3 12 4D 3C           1023 	lcall	__gptrget
+   24F3 12 4E 6E           1023 	lcall	__gptrget
    24F6 FE                 1024 	mov	r6,a
    24F7 A3                 1025 	inc	dptr
-   24F8 12 4D 3C           1026 	lcall	__gptrget
+   24F8 12 4E 6E           1026 	lcall	__gptrget
    24FB FF                 1027 	mov	r7,a
    24FC A3                 1028 	inc	dptr
-   24FD 12 4D 3C           1029 	lcall	__gptrget
+   24FD 12 4E 6E           1029 	lcall	__gptrget
    2500 F8                 1030 	mov	r0,a
    2501 E9                 1031 	mov	a,r1
    2502 2E                 1032 	add	a,r6
@@ -1037,7 +1037,7 @@
    2507 8E 82              1037 	mov	dpl,r6
    2509 8F 83              1038 	mov	dph,r7
    250B 88 F0              1039 	mov	b,r0
-   250D 12 4D 3C           1040 	lcall	__gptrget
+   250D 12 4E 6E           1040 	lcall	__gptrget
    2510 FE                 1041 	mov	r6,a
    2511 B5 02 02           1042 	cjne	a,ar2,00105$
                            1043 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:107: return true ;
@@ -1100,7 +1100,7 @@
    253D 8A 82              1100 	mov	dpl,r2
    253F 8B 83              1101 	mov	dph,r3
    2541 8C F0              1102 	mov	b,r4
-   2543 12 4D 3C           1103 	lcall	__gptrget
+   2543 12 4E 6E           1103 	lcall	__gptrget
    2546 FA                 1104 	mov	r2,a
    2547 C3                 1105 	clr	c
    2548 74 80              1106 	mov	a,#(0x00 ^ 0x80)
@@ -1143,13 +1143,13 @@
    257A 8F 82              1143 	mov	dpl,r7
    257C 88 83              1144 	mov	dph,r0
    257E 89 F0              1145 	mov	b,r1
-   2580 12 4D 3C           1146 	lcall	__gptrget
+   2580 12 4E 6E           1146 	lcall	__gptrget
    2583 FF                 1147 	mov	r7,a
    2584 A3                 1148 	inc	dptr
-   2585 12 4D 3C           1149 	lcall	__gptrget
+   2585 12 4E 6E           1149 	lcall	__gptrget
    2588 F8                 1150 	mov	r0,a
    2589 A3                 1151 	inc	dptr
-   258A 12 4D 3C           1152 	lcall	__gptrget
+   258A 12 4E 6E           1152 	lcall	__gptrget
    258D F9                 1153 	mov	r1,a
    258E EA                 1154 	mov	a,r2
    258F 2F                 1155 	add	a,r7
@@ -1160,7 +1160,7 @@
    2594 8F 82              1160 	mov	dpl,r7
    2596 88 83              1161 	mov	dph,r0
    2598 89 F0              1162 	mov	b,r1
-   259A 12 4D 3C           1163 	lcall	__gptrget
+   259A 12 4E 6E           1163 	lcall	__gptrget
    259D FF                 1164 	mov	r7,a
    259E B5 32 20           1165 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00105$
                            1166 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:126: found = true ;
@@ -1175,14 +1175,14 @@
    25AA 8C 82              1175 	mov	dpl,r4
    25AC 8D 83              1176 	mov	dph,r5
    25AE 8E F0              1177 	mov	b,r6
-   25B0 12 4D 3C           1178 	lcall	__gptrget
+   25B0 12 4E 6E           1178 	lcall	__gptrget
    25B3 FF                 1179 	mov	r7,a
    25B4 1F                 1180 	dec	r7
    25B5 8C 82              1181 	mov	dpl,r4
    25B7 8D 83              1182 	mov	dph,r5
    25B9 8E F0              1183 	mov	b,r6
    25BB EF                 1184 	mov	a,r7
-   25BC 12 41 10           1185 	lcall	__gptrput
+   25BC 12 42 42           1185 	lcall	__gptrput
                            1186 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:130: break ;
    25BF 80 08              1187 	sjmp	00106$
    25C1                    1188 00105$:
@@ -1221,7 +1221,7 @@
    25E6 8E 82              1221 	mov	dpl,r6
    25E8 8F 83              1222 	mov	dph,r7
    25EA 88 F0              1223 	mov	b,r0
-   25EC 12 4D 3C           1224 	lcall	__gptrget
+   25EC 12 4E 6E           1224 	lcall	__gptrget
    25EF F5 31              1225 	mov	_removeFromDeferredTypeList_sloc0_1_0,a
    25F1 C3                 1226 	clr	c
    25F2 E9                 1227 	mov	a,r1
@@ -1244,13 +1244,13 @@
    260E 8E 82              1244 	mov	dpl,r6
    2610 8F 83              1245 	mov	dph,r7
    2612 88 F0              1246 	mov	b,r0
-   2614 12 4D 3C           1247 	lcall	__gptrget
+   2614 12 4E 6E           1247 	lcall	__gptrget
    2617 F5 33              1248 	mov	_removeFromDeferredTypeList_sloc2_1_0,a
    2619 A3                 1249 	inc	dptr
-   261A 12 4D 3C           1250 	lcall	__gptrget
+   261A 12 4E 6E           1250 	lcall	__gptrget
    261D F5 34              1251 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 1),a
    261F A3                 1252 	inc	dptr
-   2620 12 4D 3C           1253 	lcall	__gptrget
+   2620 12 4E 6E           1253 	lcall	__gptrget
    2623 F5 35              1254 	mov	(_removeFromDeferredTypeList_sloc2_1_0 + 2),a
    2625 E9                 1255 	mov	a,r1
    2626 25 33              1256 	add	a,_removeFromDeferredTypeList_sloc2_1_0
@@ -1278,11 +1278,11 @@
    2647 88 82              1278 	mov	dpl,r0
    2649 8B 83              1279 	mov	dph,r3
    264B 8E F0              1280 	mov	b,r6
-   264D 12 4D 3C           1281 	lcall	__gptrget
+   264D 12 4E 6E           1281 	lcall	__gptrget
    2650 85 36 82           1282 	mov	dpl,_removeFromDeferredTypeList_sloc3_1_0
    2653 85 37 83           1283 	mov	dph,(_removeFromDeferredTypeList_sloc3_1_0 + 1)
    2656 85 38 F0           1284 	mov	b,(_removeFromDeferredTypeList_sloc3_1_0 + 2)
-   2659 12 41 10           1285 	lcall	__gptrput
+   2659 12 42 42           1285 	lcall	__gptrput
                            1286 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:139: for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
    265C 09                 1287 	inc	r1
    265D D0 00              1288 	pop	ar0
@@ -1301,13 +1301,13 @@
    266F 8B 82              1301 	mov	dpl,r3
    2671 8E 83              1302 	mov	dph,r6
    2673 8F F0              1303 	mov	b,r7
-   2675 12 4D 3C           1304 	lcall	__gptrget
+   2675 12 4E 6E           1304 	lcall	__gptrget
    2678 FB                 1305 	mov	r3,a
    2679 A3                 1306 	inc	dptr
-   267A 12 4D 3C           1307 	lcall	__gptrget
+   267A 12 4E 6E           1307 	lcall	__gptrget
    267D FE                 1308 	mov	r6,a
    267E A3                 1309 	inc	dptr
-   267F 12 4D 3C           1310 	lcall	__gptrget
+   267F 12 4E 6E           1310 	lcall	__gptrget
    2682 FF                 1311 	mov	r7,a
    2683 E5 31              1312 	mov	a,_removeFromDeferredTypeList_sloc0_1_0
    2685 2B                 1313 	add	a,r3
@@ -1319,7 +1319,7 @@
    268C 8E 83              1319 	mov	dph,r6
    268E 8F F0              1320 	mov	b,r7
    2690 E4                 1321 	clr	a
-   2691 12 41 10           1322 	lcall	__gptrput
+   2691 12 42 42           1322 	lcall	__gptrput
                            1323 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:155: currentEvent	= eventQueue_remove(&sm->deferredEventQueue) ;
    2694 74 17              1324 	mov	a,#0x17
    2696 2A                 1325 	add	a,r2
@@ -1379,7 +1379,7 @@
    26E3 85 39 82           1379 	mov	dpl,_removeFromDeferredTypeList_sloc4_1_0
    26E6 85 3A 83           1380 	mov	dph,(_removeFromDeferredTypeList_sloc4_1_0 + 1)
    26E9 85 3B F0           1381 	mov	b,(_removeFromDeferredTypeList_sloc4_1_0 + 2)
-   26EC 12 4D 3C           1382 	lcall	__gptrget
+   26EC 12 4E 6E           1382 	lcall	__gptrget
    26EF F8                 1383 	mov	r0,a
    26F0 B5 32 48           1384 	cjne	a,_removeFromDeferredTypeList_sloc1_1_0,00108$
                            1385 ;	D:/EiqEnergy/Projects/Software/_SoftwareLibraries/StateMachines/StateMachine_G4_eventQueue.c:170: eventQueue_insert(&sm->eventQueue, currentEvent) ;
@@ -1561,7 +1561,7 @@
    27FA 8D 82              1561 	mov	dpl,r5
    27FC 8E 83              1562 	mov	dph,r6
    27FE 8F F0              1563 	mov	b,r7
-   2800 12 4D 3C           1564 	lcall	__gptrget
+   2800 12 4E 6E           1564 	lcall	__gptrget
    2803 90 09 43           1565 	mov	dptr,#_isEventTypeDeferred_PARM_2
    2806 F0                 1566 	movx	@dptr,a
    2807 8A 82              1567 	mov	dpl,r2
@@ -1640,19 +1640,19 @@
    286F 22                 1640 	ret
                            1641 	.area CSEG    (CODE)
                            1642 	.area CONST   (CODE)
-   5106                    1643 __str_0:
-   5106 09                 1644 	.db 0x09
-   5107 09                 1645 	.db 0x09
-   5108 09                 1646 	.db 0x09
-   5109 50 6F 73 74 69 6E  1647 	.ascii "Posting event type: %s"
+   5238                    1643 __str_0:
+   5238 09                 1644 	.db 0x09
+   5239 09                 1645 	.db 0x09
+   523A 09                 1646 	.db 0x09
+   523B 50 6F 73 74 69 6E  1647 	.ascii "Posting event type: %s"
         67 20 65 76 65 6E
         74 20 74 79 70 65
         3A 20 25 73
-   511F 0A                 1648 	.db 0x0A
-   5120 00                 1649 	.db 0x00
-   5121                    1650 __str_1:
-   5121 3C 55 53 45 52 5F  1651 	.ascii "<USER_EVENT>"
+   5251 0A                 1648 	.db 0x0A
+   5252 00                 1649 	.db 0x00
+   5253                    1650 __str_1:
+   5253 3C 55 53 45 52 5F  1651 	.ascii "<USER_EVENT>"
         45 56 45 4E 54 3E
-   512D 00                 1652 	.db 0x00
+   525F 00                 1652 	.db 0x00
                            1653 	.area XINIT   (CODE)
                            1654 	.area CABS    (ABS,CODE)

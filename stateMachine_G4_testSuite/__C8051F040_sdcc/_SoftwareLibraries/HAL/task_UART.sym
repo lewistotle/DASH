@@ -281,7 +281,7 @@ Symbol Table
     _DAC1CN                                                     =  00D4 G
     _DAC1H                                                      =  00D3 G
     _DAC1L                                                      =  00D2 G
- 15 _DEBUG_PRINT_TIME                                              00A4 GR
+ 15 _DEBUG_PRINT_TIME                                              00A1 GR
   9 _DEBUG_PRINT_TIME_PARM_2                                       000F GR
   9 _DEBUG_PRINT_TIME_PARM_3                                       0012 GR
   9 _DEBUG_PRINT_TIME_header_1_1                                   0015 R
@@ -546,10 +546,10 @@ Symbol Table
  15 _task_UART_core                                                000F GR
   9 _task_UART_core_channelNumber_1_1                              0001 R
     _task_UART_core_projectSpecific                                **** GX
- 15 _task_UART_getchar                                             005F GR
+ 15 _task_UART_getchar                                             005C GR
   9 _task_UART_getchar_channelNumber_1_1                           0008 R
     _task_UART_getchar_projectSpecific                             **** GX
- 15 _task_UART_gets                                                006E GR
+ 15 _task_UART_gets                                                006B GR
   9 _task_UART_gets_PARM_2                                         0009 GR
   9 _task_UART_gets_PARM_3                                         000C GR
   9 _task_UART_gets_channelNumber_1_1                              000E R
@@ -564,8 +564,7 @@ Symbol Table
   9 _task_UART_putchar_channelNumber_1_1                           0003 R
     _task_UART_putchar_projectSpecific                             **** GX
     _task_UART_putchar_projectSpecific_PARM_2                      **** GX
-  7 _task_UART_putchar_sloc0_1_0                                   0000 R
- 15 _task_UART_puts                                                0039 GR
+ 15 _task_UART_puts                                                0036 GR
   9 _task_UART_puts_PARM_2                                         0004 GR
   9 _task_UART_puts_channelNumber_1_1                              0007 R
     _task_UART_puts_projectSpecific                                **** GX
@@ -758,7 +757,7 @@ Area Table
    4 OSEG                                                                               size    0   flags 4
    5 ISEG                                                                               size    0   flags 0
    6 IABS                                                                               size    0   flags 8
-   7 BSEG                                                                               size    1   flags 80
+   7 BSEG                                                                               size    0   flags 80
    8 PSEG                                                                               size    0   flags 50
    9 XSEG                                                                               size   18   flags 40
    A XABS                                                                               size    0   flags 48
@@ -772,7 +771,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size  151   flags 20
+  15 CSEG                                                                               size  14E   flags 20
   16 CONST                                                                              size    9   flags 20
   17 XINIT                                                                              size    0   flags 20
   18 CABS                                                                               size    0   flags 28

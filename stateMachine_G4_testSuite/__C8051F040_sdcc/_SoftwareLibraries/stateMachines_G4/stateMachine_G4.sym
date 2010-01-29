@@ -210,9 +210,10 @@ Symbol Table
  16 __str_7                                                        0068 R
  16 __str_8                                                        007F R
  16 __str_9                                                        009C R
- 17 __xinit__enterEvent                                            0020 R
+ 17 __xinit__doEvent                                               0020 R
+ 17 __xinit__enterEvent                                            0021 R
  17 __xinit__eventTypes                                            0000 R
- 17 __xinit__exitEvent                                             0021 R
+ 17 __xinit__exitEvent                                             0022 R
  17 __xinit__initialTransitionEvent                                001E R
  17 __xinit__jumpToHistoryEvent                                    001F R
  17 __xinit__responseTypes                                         0012 R
@@ -232,14 +233,15 @@ Symbol Table
  15 _deallocateStateMachineMemory                                  0205 GR
   9 _deallocateStateMachineMemory_PARM_2                           009A GR
   9 _deallocateStateMachineMemory_instance_1_1                     009C R
-  B _enterEvent                                                    0020 R
+  B _doEvent                                                       0020 R
+  B _enterEvent                                                    0021 R
     _eventQueue_initialize                                         **** GX
     _eventQueue_initialize_PARM_2                                  **** GX
     _eventQueue_initialize_PARM_3                                  **** GX
     _eventQueue_isEmpty                                            **** GX
     _eventQueue_remove                                             **** GX
   B _eventTypes                                                    0000 GR
-  B _exitEvent                                                     0021 R
+  B _exitEvent                                                     0022 R
     _free                                                          **** GX
   B _initialTransitionEvent                                        001E R
  15 _iterateAllStateMachines                                       031F GR
@@ -250,10 +252,11 @@ Symbol Table
   9 _iterateStateMachine_eventToProcess_2_3                        00B2 R
   3 _iterateStateMachine_sloc0_1_0                                 000C R
   3 _iterateStateMachine_sloc1_1_0                                 000F R
-  3 _iterateStateMachine_sloc2_1_0                                 0010 R
-  3 _iterateStateMachine_sloc3_1_0                                 0013 R
-  3 _iterateStateMachine_sloc4_1_0                                 0016 R
-  3 _iterateStateMachine_sloc5_1_0                                 0019 R
+  3 _iterateStateMachine_sloc2_1_0                                 0012 R
+  3 _iterateStateMachine_sloc3_1_0                                 0015 R
+  3 _iterateStateMachine_sloc4_1_0                                 0018 R
+  3 _iterateStateMachine_sloc5_1_0                                 001B R
+  3 _iterateStateMachine_sloc6_1_0                                 001E R
   9 _iterateStateMachine_sm_1_1                                    00AF R
   9 _iterateStateMachine_sourceHierarchy_4_19                      00B9 R
   9 _iterateStateMachine_sourceIndex_4_19                          00E9 R
@@ -456,7 +459,7 @@ Area Table
    0 _CODE                                                                              size    0   flags 0
    1 RSEG                                                                               size    0   flags 0
    2 REG_BANK_0                                                                         size    8   flags 4
-   3 DSEG                                                                               size   1C   flags 0
+   3 DSEG                                                                               size   21   flags 0
    4 OSEG                                                                               size    0   flags 4
    5 ISEG                                                                               size    0   flags 0
    6 IABS                                                                               size    0   flags 8
@@ -464,7 +467,7 @@ Area Table
    8 PSEG                                                                               size    0   flags 50
    9 XSEG                                                                               size  11F   flags 40
    A XABS                                                                               size    0   flags 48
-   B XISEG                                                                              size   22   flags 40
+   B XISEG                                                                              size   23   flags 40
    C HOME                                                                               size    0   flags 20
    D GSINIT0                                                                            size    0   flags 20
    E GSINIT1                                                                            size    0   flags 20
@@ -474,7 +477,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size 15CD   flags 20
+  15 CSEG                                                                               size 16FF   flags 20
   16 CONST                                                                              size  355   flags 20
-  17 XINIT                                                                              size   22   flags 20
+  17 XINIT                                                                              size   23   flags 20
   18 CABS                                                                               size    0   flags 28

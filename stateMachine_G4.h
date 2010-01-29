@@ -78,36 +78,66 @@
  * have made it necessary to cast self in all state functions which would have been ugly.
  */
 
+typedef uint8_t					stateMachinePriority_t ;
+
 typedef struct
 {
-	__code void*			topState ;
-	const char*				stateMachineName ;
+	uint16_t					numberOfChunks ;
+	uint16_t					chunkSize ;
+} memoryPoolInfo_t ;
 
-	void*					currentState ;
-	void*					nextState ;
+typedef struct
+{
+	uint16_t					eventQueueDepth ;
+	uint16_t					numberOfMemoryPools ;
+	memoryPoolInfo_t*			eventMemoryPools ;
+} machineMemoryPoolInto_t ;
 
-	eventQueue_t			eventQueue ;
-	eventQueueIndex_t		maxDepthOfEventsToDeferList ;
-	eventQueueIndex_t		currentDepthOfEventsToDeferList ;
-	eventType_t*			typesOfEventsToDefer ;
-	eventQueue_t			deferredEventQueue ;
+typedef struct
+{
+	__code void*					topState ;
+	const char*						stateMachineName ;
 
-	uint8_t					stateMachineInitialized ;
-	uint8_t					forceTransition ;
+	void*							currentState ;
+	void*							nextState ;
 
-	uint16_t				numberOfHistoricalMarkers ;
-	void**					historicalMarkers ;
-	void*					mostRecentlyEnteredState ;
-	void*					mostRecentlyExitedState ;
+	const char*						instanceName ;
+	const char**					eventNames ;
+
+	uint8_t							stateMachineInitialized ;
+
+	uint8_t							currentStateHasInitialTransition ;
+
+	stateMachinePriority_t			priority ;
+
+	eventQueue_t					eventQueue ;
+	eventQueueIndex_t				maxDepthOfEventsToDeferList ;
+	eventQueueIndex_t				currentDepthOfEventsToDeferList ;
+	eventType_t*					typesOfEventsToDefer ;
+	eventQueue_t					deferredEventQueue ;
+
+	uint16_t						numberOfHistoricalMarkers ;
+	void**							historicalMarkers ;
+	void*							mostRecentlyEnteredState ;	/* Used for deep history */
+	void*							mostRecentlyExitedState ;	/* used for shallow history */
+
+	const machineMemoryPoolInto_t*	memoryPoolInfo ;
+	void*							startOfEventMemoryPools ;
 } stateMachine_t ;
 
-/* A couple of helpers to deal with state machine memory and initialization. */
 
-typedef void (* stateMachine_constructor_t)(stateMachine_t* self) __reentrant ;
-typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
+/*
+ * stateMachine_t
+ * eventQueue
+ * deferredTypeStack
+ * historicalMarkerArray
+ * eventPool_0
+ *    ...
+ * eventPool_n
+ * timerEventPool
+ */
 
-stateMachine_t* allocateStateMachineMemory(	uint16_t eventQueueDepth, stateMachine_constructor_t constructor) ;
-void deallocateStateMachineMemory(			stateMachine_t* instance, stateMachine_destructor_t destructor) ;
+
 
 
 
@@ -138,7 +168,7 @@ enum STATE_MACHINE_STATE_TYPES	{
  * along the way.
  */
 
-enum STATE_MACHINE_STATE_RESPONSES { IGNORED, HANDLED, TRANSITION, TRANSITION_TO_HISTORY } ;
+enum STATE_MACHINE_STATE_RESPONSES { IGNORED, HANDLED, TRANSITION, TRANSITION_TO_HISTORY, TRANSITION_TO_SELF } ;
 
 typedef enum STATE_MACHINE_STATE_RESPONSES	stateMachine_stateResponse_t ;
 
@@ -177,6 +207,22 @@ typedef struct
 
 
 
+event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t eventSize) ;
+
+
+bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm) ;
+bool hsm_publishEventForAll(			event_t* event) ;
+
+
+
+/* A couple of helpers to deal with state machine memory and initialization. */
+
+typedef const machineMemoryPoolInto_t* (* stateMachine_memRequirements_t)(void) __reentrant ;
+typedef void (* stateMachine_constructor_t)(stateMachine_t* self) __reentrant ;
+typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
+
+stateMachine_t* allocateStateMachineMemory(	uint16_t historyArraySize, stateMachine_memRequirements_t getMemRequirements, stateMachine_constructor_t constructor) ;
+void deallocateStateMachineMemory(			stateMachine_t* instance, stateMachine_destructor_t destructor) ;
 
 
 
@@ -185,35 +231,75 @@ typedef struct
 
 
 
+#define DECLARE_MEMORY_REQUIREMENTS_2(sm)		extern memoryPoolInfo_t sm##_eventPools[] ; const machineMemoryPoolInto_t* sm##_getMemoryRequirements(void)
+#define DECLARE_MEMORY_REQUIREMENTS_1(sm)		DECLARE_MEMORY_REQUIREMENTS_2(sm)
+#define DECLARE_MEMORY_REQUIREMENTS()			DECLARE_MEMORY_REQUIREMENTS_1(STATE_MACHINE_NAME)
 
-enum STATE_MACHINE_REQUIRED_EVENTS				{
-													SUBSTATE_NO_ACTION,
-													SUBSTATE_ENTRY,
-													SUBSTATE_INITIAL_TRANSITION,
-													SUBSTATE_JUMP_TO_HISTORY_DEFAULT,
-													SUBSTATE_DO,
-													SUBSTATE_EXIT
+#define DECLARE_EVENT_QUEUE_DEPTH_2(sm, n)		enum { sm##_EVENT_QUEUE_DEPTH = (n) }
+#define DECLARE_EVENT_QUEUE_DEPTH_1(sm, n)		DECLARE_EVENT_QUEUE_DEPTH_2(sm, n)
+#define DECLARE_EVENT_QUEUE_DEPTH(n)			DECLARE_EVENT_QUEUE_DEPTH_1(STATE_MACHINE_NAME, n)
+
+#define START_MEMORY_POOL_DECLARATIONS_2(sm)	static memoryPoolInfo_t sm##_eventPools[] =
+#define START_MEMORY_POOL_DECLARATIONS_1(sm)	START_MEMORY_POOL_DECLARATIONS_2(sm)
+#define START_MEMORY_POOL_DECLARATIONS()		START_MEMORY_POOL_DECLARATIONS_1(STATE_MACHINE_NAME)
+
+#define DECLARE_EVENT_MEMORY_POOL(n, strct)		{ (n), sizeof(strct) }
+#define DECLARE_TIMER_MEMORY_POOL(n)			{ (n), 0 }
+
+#define END_MEMORY_POOL_DECLARATIONS_2(sm)		; enum { sm##_placeholderToMakeTheBracketsLineUp
+#define END_MEMORY_POOL_DECLARATIONS_1(sm)		END_MEMORY_POOL_DECLARATIONS_2(sm)
+#define END_MEMORY_POOL_DECLARATIONS()			END_MEMORY_POOL_DECLARATIONS_1(STATE_MACHINE_NAME)
+
+#define END_MEMORY_REQUIREMENTS_2(sm)			; static machineMemoryPoolInto_t sm##_memPool = { sm##_EVENT_QUEUE_DEPTH, sizeof(sm##_eventPools) / sizeof(sm##_eventPools[0]), &sm##_eventPools[0] } ; return &sm##_memPool ; }
+#define END_MEMORY_REQUIREMENTS_1(sm)			END_MEMORY_REQUIREMENTS_2(sm)
+#define END_MEMORY_REQUIREMENTS()				END_MEMORY_REQUIREMENTS_1(STATE_MACHINE_NAME)
+
+
+void hsm_setMachinePriority(void* sm, stateMachinePriority_t priority) ;
+
+void* hsm_malloc(								uint16_t numberOfBytes) ;
+void hsm_free(									void* blockToFree) ;
+
+
+
+
+bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
+
+
+
+
+
+#define DECLARE_STATE_MACHINE_EVENTS(sm)		uint16_t sm##_getMachineSize(								void) ;					\
+												const machineMemoryPoolInto_t* sm##_getMemoryRequirements(	void) ;					\
+												uint16_t sm##_getHistoryArraySize(							void) ;					\
+												void sm##_constructor(				stateMachine_t* self) ;							\
+												void sm##_destructor(				stateMachine_t* self) ;							\
+												enum sm##_EVENTS																	\
+												{																					\
+													sm##SUBSTATE_NON_EVENT					= SUBSTATE_NON_EVENT,					\
+													sm##_SUBSTATE_ENTRY						= SUBSTATE_ENTRY,						\
+													sm##_SUBSTATE_INITIAL_TRANSITION		= SUBSTATE_INITIAL_TRANSITION,			\
+													sm##_SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= SUBSTATE_JUMP_TO_HISTORY_DEFAULT,		\
+													sm##_SUBSTATE_TIMEOUT					= SUBSTATE_TIMEOUT,						\
+													sm##_SUBSTATE_WATCHED					= SUBSTATE_WATCHED,						\
+													sm##_SUBSTATE_DO						= SUBSTATE_DO,							\
+													sm##_SUBSTATE_EXIT						= SUBSTATE_EXIT,						\
+
+															/* State machine specific events go here */
+
+#define END_STATE_MACHINE_EVENTS(sm)				, sm##_NUMBER_OF_MACHINE_EVENTS													\
 												} ;
 
 
-#define DECLARE_STATE_MACHINE_EVENTS(sm)		uint16_t sm##_getMachineSize(		void) ;										\
-												uint16_t sm##_getEventQueueDepth(	void) ;										\
-												uint16_t sm##_getHistoryQueueDepth(	void) ;										\
-												void sm##_constructor(				stateMachine_t* self) ;						\
-												void sm##_destructor(				stateMachine_t* self) ;						\
-												enum sm##_EVENTS																\
-												{																				\
-													sm##_SUBSTATE_NO_ACTION					= SUBSTATE_NO_ACTION,				\
-													sm##_SUBSTATE_ENTRY						= SUBSTATE_ENTRY,					\
-													sm##_SUBSTATE_INITIAL_TRANSITION		= SUBSTATE_INITIAL_TRANSITION,		\
-													sm##SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= SUBSTATE_JUMP_TO_HISTORY_DEFAULT,	\
-													sm##_SUBSTATE_DO						= SUBSTATE_DO,						\
-													sm##_SUBSTATE_EXIT						= SUBSTATE_EXIT,
-													/* State machine specific events go here */
-#define END_STATE_MACHINE_EVENTS()				} ;
 
+#define DECLARE_GLOBAL_STATE_MACHINE_EVENTS()	enum HSM_GLOBAL_EVENTS																\
+												{																					\
+													HSM_START_OF_GLOBAL_EVENTS				= SUBSTATE_LAST_USER_EVENTS,			\
 
+															/* State machine specific events go here */
 
+#define END_GLOBAL_STATE_MACHINE_EVENTS()			, HSM_NUMBER_OF_GLOBAL_MACHINE_EVENTS											\
+												} ;
 
 
 
@@ -239,7 +325,7 @@ enum STATE_MACHINE_REQUIRED_EVENTS				{
 													sm##_constructor2((sm##Machine_t*)base) ;																	\
 												}																												\
 												void sm##_destructor(	stateMachine_t* self) { sm##_destructor2((sm##Machine_t*)self) ; }						\
-												uint16_t sm##_getHistoryQueueDepth(	void) { return (__LINE__ - sm##_historicalMarkerBase) * sizeof(void*) ; }	\
+												uint16_t sm##_getHistoryArraySize(	void) { return __LINE__ - sm##_historicalMarkerBase ; }						\
 												uint16_t sm##_getMachineSize(		void) { return sizeof(sm##Machine_t) ; }									\
 												uint16_t sm##_getMachineSize(		void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
 #define END_STATE_MACHINE_DEFINITION_1(sm)		END_STATE_MACHINE_DEFINITION_2(sm)
@@ -263,10 +349,6 @@ enum STATE_MACHINE_REQUIRED_EVENTS				{
 
 
 
-
-#define SET_EVENT_QUEUE_DEPTH_2(sm, n)			uint16_t sm##_getEventQueueDepth(	void) { return n ; } uint16_t sm##_getEventQueueDepth(	void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
-#define SET_EVENT_QUEUE_DEPTH_1(sm, n)			SET_EVENT_QUEUE_DEPTH_2(sm, n)
-#define SET_EVENT_QUEUE_DEPTH(n)				SET_EVENT_QUEUE_DEPTH_1(STATE_MACHINE_NAME, n)
 
 
 
@@ -323,7 +405,7 @@ enum STATE_MACHINE_REQUIRED_EVENTS				{
 #define STATE_MACHINE_DESTRUCTOR_1(sm)			STATE_MACHINE_DESTRUCTOR_2(sm)
 #define STATE_MACHINE_DESTRUCTOR()				STATE_MACHINE_DESTRUCTOR_1(STATE_MACHINE_NAME)
 
-#define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	allocateStateMachineMemory(sm##_getEventQueueDepth(), sm##_constructor)
+#define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	allocateStateMachineMemory(sm##_getHistoryArraySize(), sm##_getMemoryRequirements, sm##_constructor)
 #define STATE_MACHINE_DESTROY_INSTANCE_OF(sm, inst)	deallocateStateMachineMemory(inst, sm##_destructor)
 
 #define DEFINE_TOP_STATE_2(sm)					static stateMachine_stateResponse_t sm##_TOP_handler(			sm##Machine_t* self, event_t* event) __reentrant
@@ -356,19 +438,13 @@ enum STATE_MACHINE_REQUIRED_EVENTS				{
 #define DEFINE_CHOICE_PSEUDO_STATE(state, cndtn, trueDest, trueAct, falseDest, falseAct)		DEFINE_CHOICE_PSEUDO_STATE_1(STATE_MACHINE_NAME, state, cndtn, trueDest, trueAct, falseDest, falseAct)
 
 
-#define HANDLE_STATE_EVENTS						switch(event->eventType)								\
+#define HANDLE_STATE_EVENTS						switch(hsm_getEventType(event))							\
 												{
 
 #define ENTER										case SUBSTATE_ENTRY:								\
 													{
 														/* implementation goes here */
 #define ENTER_HANDLED									return HANDLED ;								\
-													}
-
-#define INITIAL_TRANSITION_EVENT					case SUBSTATE_INITIAL_TRANSITION:					\
-													{
-														/* implementation goes here */
-#define INITIAL_TRANSITION_HANDLED						return HANDLED ;								\
 													}
 
 #define EXIT										case SUBSTATE_EXIT:									\
@@ -390,50 +466,116 @@ enum STATE_MACHINE_REQUIRED_EVENTS				{
 													}													\
 												}
 
-#define ON_ENTRY(act)							if(event->eventType == SUBSTATE_ENTRY)	{ act ; return HANDLED ; }
-#define ON_EXIT(act)							if(event->eventType == SUBSTATE_EXIT)	{ act ; return HANDLED ; }
+#define ON_ENTRY(act)							if(hsm_getEventType(event) == SUBSTATE_ENTRY)	{ act ; return HANDLED ; }
+#define ON_EXIT(act)							if(hsm_getEventType(event) == SUBSTATE_EXIT)	{ act ; return HANDLED ; }
 
 #define END_DEFINE_STATE()						(void)self ; (void)event ; return stateResponseCode ; }
 
 #define STATE_MACHINE_EXIT						TOP
 
 
-#define INITIAL_TRANSITION_2(sm, dest, act)			if(event->eventType == SUBSTATE_INITIAL_TRANSITION) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
+#define INITIAL_TRANSITION_2(sm, dest, act)			if(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; } else { ((stateMachine_t*)self)->currentStateHasInitialTransition = true ; }
 #define INITIAL_TRANSITION_1(sm, dest, act)			INITIAL_TRANSITION_2(sm, dest, act)
 #define INITIAL_TRANSITION(dest, act)				INITIAL_TRANSITION_1(STATE_MACHINE_NAME, dest, act)
 
-#define TRANSITION_ON_2(sm, evt, dest, act)			if(event->eventType == evt) { stateMachine_stateResponse_t stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_ON_2(sm, evt, dest, act)			if(hsm_getEventType(event) == evt) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_ON_1(sm, evt, dest, act)			TRANSITION_ON_2(sm, evt, dest, act)
 #define TRANSITION_ON(evt, dest, act)				TRANSITION_ON_1(STATE_MACHINE_NAME, evt, dest, act)
 
-#define TRANSITION_ON_IF_2(sm , evt, cndtn, dest, act)	if((event->eventType == evt) && (cndtn)) { stateMachine_stateResponse_t stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_ON_IF_2(sm , evt, cndtn, dest, act)	if((hsm_getEventType(event) == evt) && (cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_ON_IF_1(sm, evt, cndtn, dest, act)	TRANSITION_ON_IF_2(sm, evt, cndtn, dest, act)
 #define TRANSITION_ON_IF(evt, cndtn, dest, act)			TRANSITION_ON_IF_1(STATE_MACHINE_NAME, evt, cndtn, dest, act)
 
-#define TRANSITION_TO_2(sm, dest, act)				{ stateMachine_stateResponse_t stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_TO_2(sm, dest, act)				{ stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_TO_1(sm, dest, act)				TRANSITION_TO_2(sm, dest, act)
 #define TRANSITION_TO(dest, act)					TRANSITION_TO_1(STATE_MACHINE_NAME, dest, act)
 
-#define TRANSITION_TO_IF_2(sm, dest, cndtn, act)	if((cndtn)) { stateMachine_stateResponse_t stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_TO_IF_2(sm, dest, cndtn, act)	if((cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_TO_IF_1(sm, dest, cndtn, act)	TRANSITION_TO_IF_2(sm, dest, cndtn, act)
 #define TRANSITION_TO_IF(dest, cndtn, act)			TRANSITION_TO_IF_1(STATE_MACHINE_NAME, dest, cndtn, act)
 
-#define CONSUME_EVENT(evt, act)						if(event->eventType == evt) { act ; return HANDLED ; }
-#define CONSUME_EVENT_IF(evt, cndtn, act)			if((event->eventType == evt) && (cndtn)) { act ; return HANDLED ; }
-#define IGNORE_EVENT_IF(evt, cndtn)					if((event->eventType == evt) && (cndtn)) { return IGNORED ; }
+#define TRANSITION_IF_2(sm, cndtn, dest, act)		if((cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_IF_1(sm, cndtn, dest, act)		TRANSITION_IF_2(sm, cndtn, dest, act)
+#define TRANSITION_IF(cndtn, dest, act)				TRANSITION_IF_1(STATE_MACHINE_NAME, cndtn, dest, act)
+
+#define TRANSITION_CALLING_2(sm, func, evt)			if(hsm_getEventType(event) == evt) { func ; return HANDLED ; }
+#define TRANSITION_CALLING_1(sm, func, evt)			TRANSITION_CALLING_2(sm, func, evt)
+#define TRANSITION_CALLING(func, evt)				TRANSITION_CALLING_1(STATE_MACHINE_NAME, func, evt)
+
+
+
+
+
+
+typedef struct
+{
+	event_t								parent ;
+
+	stateMachine_t*						machine ;
+	state_t*							state ;
+	uint16_t							lineNumber ; 				/* used when multiple TRANSITION_WHEN calls are in a state */
+
+	volatile void*						watchedVariableAddress ;
+	uint8_t								watchedVariableSizeInBytes ;
+} watchedVariableTransitionEvent_t ;
+
+
+
+#define IS_TRUE						true,				sizeof(bool),		MATCHES_TRUE
+#define IS_FALSE					false,				sizeof(bool),		MATCHES_FALSE
+#define HAS_VALUE_OF(val)			val,				sizeof(uint32_t),	MATCHES_VALUE
+#define MATCHES_VARIABLE(var)		(void*)(&(var)),	sizeof(void*),		MATCHES_VARIABLE
+
+void registerWatchVariable(stateMachine_t* sm, uint16_t lineNumber, void* variableToWatch, uint8_t variableSize) ;
+
+#define TRANSITION_WHEN_2(sm, var, dest, act)		if(hsm_getEventType(event) == SUBSTATE_ENTRY) { registerWatchVariable(self, __LINE__, &var, sizeof(var)) ; }	\
+																																									\
+													if(		(hsm_getEventType(event) == SUBSTATE_WATCHED)															\
+														&&	(CAST_EVENT(watchedVariableTransitionEvent_t)->lineNumber == __LINE__))									\
+													{																												\
+														stateResponseCode = TRANSITION ;																			\
+																																									\
+														act ;																										\
+																																									\
+														((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ;													\
+																																									\
+														return stateResponseCode ;																					\
+													}
+#define TRANSITION_WHEN_1(sm, var, dest, act)		TRANSITION_WHEN_2(sm, var, dest, act)
+#define TRANSITION_WHEN(var, dest, act)				TRANSITION_WHEN_1(STATE_MACHINE_NAME, var, dest, act)
+
+
+
+
+
+
+#define TRANSITION_AFTER_2(sm, timeout, dest, act)	if(self->timeInState > timeout) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_AFTER_1(sm, timeout, dest, act)	TRANSITION_AFTER_2(sm, timeout, dest, act)
+#define TRANSITION_AFTER(timeout, dest, act)		TRANSITION_AFTER_1(sm, timeout, dest, act)
+
+
+
+
+#define CONSUME_EVENT(evt, act)						if(hsm_getEventType(event) == evt) { act ; return HANDLED ; }
+#define CONSUME_EVENT_IF(evt, cndtn, act)			if((hsm_getEventType(event) == evt) && (cndtn)) { act ; return HANDLED ; }
+#define IGNORE_EVENT_IF(evt, cndtn)					if((hsm_getEventType(event) == evt) && (cndtn)) { return IGNORED ; }
 #define IF(cndtn)									(cndtn)
 #define NEVER										false
 #define UNCONDITIONALLY								true
 #define TO(st)										st
+#define ON(evt)										evt
 #define NO_ACTION
 #define ACTION(act)									act
 #define TAKING(act)									act
 
 #define HISTORY_OF(dest)							dest ; stateResponseCode = TRANSITION_TO_HISTORY
 
-#define SET_HISTORY_DEFAULT_STATE_2(sm, dest, act)	if(event->eventType == SUBSTATE_JUMP_TO_HISTORY_DEFAULT)				\
+/* A bit of a cheat by pointing to the top state, but this saves me from having to define a dummy state place holder which takes extra code memory. */
+#define SELF()										TOP ; stateResponseCode = TRANSITION_TO_SELF
+
+#define SET_HISTORY_DEFAULT_STATE_2(sm, dest, act)	if(hsm_getEventType(event) == SUBSTATE_JUMP_TO_HISTORY_DEFAULT)			\
 													{																		\
-														stateMachine_stateResponse_t stateResponseCode = TRANSITION ;		\
+														stateResponseCode = TRANSITION ;									\
 														act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ;	\
 														return stateResponseCode ;											\
 													}
@@ -450,13 +592,20 @@ enum STATE_MACHINE_REQUIRED_EVENTS				{
 
 
 
+void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefer) ;
+bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck) ;
+void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer) ;
 
 
-#define DEFER_EVENT(evt)						if(event->eventType == SUBSTATE_ENTRY)							\
+bool postEventToStateMachine(			stateMachine_t* sm, event_t* event) ;
+
+
+
+#define DEFER_EVENT(evt)						if(hsm_getEventType(event) == SUBSTATE_ENTRY)					\
 												{																\
 													addToDeferredTypeList((stateMachine_t*)self, evt) ;			\
 												}																\
-												else if(event->eventType == SUBSTATE_EXIT)						\
+												else if(hsm_getEventType(event) == SUBSTATE_EXIT)				\
 												{																\
 													removeFromDeferredTypeList((stateMachine_t*)self, evt) ;	\
 												}
@@ -467,23 +616,16 @@ void outputStateMachineDebugData_G4(stateMachine_t* sm) ;
 
 
 
-void addToDeferredTypeList(			stateMachine_t* sm, eventType_t	eventTypeToDefer) ;
-bool isEventTypeDeferred(			stateMachine_t* sm, eventType_t	eventTypeToCheck) ;
-void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t	eventTypeToUnDefer) ;
-
-
-bool postEventToStateMachine(			stateMachine_t* sm, event_t* event) ;
 
 
 
 
-
-bool registerStateMachine(			stateMachine_t* sm) ;
+bool registerStateMachine(			stateMachine_t* sm, const char* smName) ;
 bool unregisterStateMachine(		stateMachine_t* sm) ;
 
 
 
-#define REGISTER_STATE_MACHINE(sm)				registerStateMachine(sm)
+#define REGISTER_STATE_MACHINE(sm)				registerStateMachine(sm, #sm)
 #define UNREGISTER_STATE_MACHINE(sm)			unregisterStateMachine(sm)
 
 

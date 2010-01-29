@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Mar 22 2009) (MINGW32)
-; This file was generated Sat Jan 02 19:24:44 2010
+; This file was generated Sat Jan 23 00:00:24 2010
 ;--------------------------------------------------------
 	.module sm_test_timeBomb
 	.optsdcc -mmcs51 --model-large
@@ -11,10 +11,9 @@
 ;--------------------------------------------------------
 	.globl _goBOOM
 	.globl _updateDisplay
-	.globl _timeBomb_getEventQueueDepth
 	.globl _timeBomb_constructor
 	.globl _timeBomb_destructor
-	.globl _timeBomb_getHistoryQueueDepth
+	.globl _timeBomb_getHistoryArraySize
 	.globl _timeBomb_getMachineSize
 	.globl _timeBomb_constructor2
 	.globl _timeBomb_destructor2
@@ -105,14 +104,16 @@ _timeBomb_name:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'timeBomb_getEventQueueDepth'
+;Allocation info for local variables in function 'timeBomb_constructor'
 ;------------------------------------------------------------
+;sloc0                     Allocated with name '_timeBomb_constructor_sloc0_1_0'
+;base                      Allocated with name '_timeBomb_constructor_base_1_1'
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:28: SET_EVENT_QUEUE_DEPTH(config_tbEVENT_QUEUE_DEPTH) ;
+;	../sm_test_timeBomb.c:32: END_STATE_MACHINE_DEFINITION() ;
 ;	-----------------------------------------
-;	 function timeBomb_getEventQueueDepth
+;	 function timeBomb_constructor
 ;	-----------------------------------------
-_timeBomb_getEventQueueDepth:
+_timeBomb_constructor:
 	ar2 = 0x02
 	ar3 = 0x03
 	ar4 = 0x04
@@ -121,19 +122,6 @@ _timeBomb_getEventQueueDepth:
 	ar7 = 0x07
 	ar0 = 0x00
 	ar1 = 0x01
-	mov	dptr,#0x0010
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'timeBomb_constructor'
-;------------------------------------------------------------
-;sloc0                     Allocated with name '_timeBomb_constructor_sloc0_1_0'
-;base                      Allocated with name '_timeBomb_constructor_base_1_1'
-;------------------------------------------------------------
-;	../sm_test_timeBomb.c:36: END_STATE_MACHINE_DEFINITION() ;
-;	-----------------------------------------
-;	 function timeBomb_constructor
-;	-----------------------------------------
-_timeBomb_constructor:
 	mov	r2,b
 	mov	r3,dph
 	mov	a,dpl
@@ -216,7 +204,7 @@ _timeBomb_constructor:
 ;------------------------------------------------------------
 ;self                      Allocated with name '_timeBomb_destructor_self_1_1'
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:36: 
+;	../sm_test_timeBomb.c:32: 
 ;	-----------------------------------------
 ;	 function timeBomb_destructor
 ;	-----------------------------------------
@@ -246,33 +234,33 @@ _timeBomb_destructor:
 	mov	b,r4
 	ljmp	_timeBomb_destructor2
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'timeBomb_getHistoryQueueDepth'
+;Allocation info for local variables in function 'timeBomb_getHistoryArraySize'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:36: END_STATE_MACHINE_DEFINITION() ;
+;	../sm_test_timeBomb.c:32: END_STATE_MACHINE_DEFINITION() ;
 ;	-----------------------------------------
-;	 function timeBomb_getHistoryQueueDepth
+;	 function timeBomb_getHistoryArraySize
 ;	-----------------------------------------
-_timeBomb_getHistoryQueueDepth:
-	mov	dptr,#0x001E
+_timeBomb_getHistoryArraySize:
+	mov	dptr,#0x0008
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timeBomb_getMachineSize'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:36: 
+;	../sm_test_timeBomb.c:32: 
 ;	-----------------------------------------
 ;	 function timeBomb_getMachineSize
 ;	-----------------------------------------
 _timeBomb_getMachineSize:
-	mov	dptr,#0x002E
+	mov	dptr,#0x0032
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timeBomb_constructor2'
 ;------------------------------------------------------------
 ;self                      Allocated with name '_timeBomb_constructor2_self_1_1'
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:39: STATE_MACHINE_CONSTRUCTOR()
+;	../sm_test_timeBomb.c:35: STATE_MACHINE_CONSTRUCTOR()
 ;	-----------------------------------------
 ;	 function timeBomb_constructor2
 ;	-----------------------------------------
@@ -288,7 +276,7 @@ _timeBomb_constructor2:
 	inc	dptr
 	mov	a,r2
 	movx	@dptr,a
-;	../sm_test_timeBomb.c:41: self->timeout			= 0 ;
+;	../sm_test_timeBomb.c:37: self->timeout			= config_tbINIT_TIMEOUT ;
 	mov	dptr,#_timeBomb_constructor2_self_1_1
 	movx	a,@dptr
 	mov	r2,a
@@ -298,7 +286,20 @@ _timeBomb_constructor2:
 	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	mov	a,#0x2B
+	mov	a,#0x2F
+	add	a,r2
+	mov	r5,a
+	clr	a
+	addc	a,r3
+	mov	r6,a
+	mov	ar7,r4
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
+	mov	a,#0x1E
+	lcall	__gptrput
+;	../sm_test_timeBomb.c:38: self->codeBeingEntered	= 0 ;
+	mov	a,#0x30
 	add	a,r2
 	mov	r5,a
 	clr	a
@@ -310,21 +311,8 @@ _timeBomb_constructor2:
 	mov	b,r7
 	clr	a
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:42: self->codeBeingEntered	= 0 ;
-	mov	a,#0x2C
-	add	a,r2
-	mov	r5,a
-	clr	a
-	addc	a,r3
-	mov	r6,a
-	mov	ar7,r4
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	clr	a
-	lcall	__gptrput
-;	../sm_test_timeBomb.c:43: self->disarmCode		= 0 ;
-	mov	a,#0x2D
+;	../sm_test_timeBomb.c:39: self->disarmCode		= 0 ;
+	mov	a,#0x31
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -340,54 +328,54 @@ _timeBomb_constructor2:
 ;------------------------------------------------------------
 ;self                      Allocated with name '_timeBomb_destructor2_self_1_1'
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:47: STATE_MACHINE_DESTRUCTOR()
+;	../sm_test_timeBomb.c:43: STATE_MACHINE_DESTRUCTOR()
 ;	-----------------------------------------
 ;	 function timeBomb_destructor2
 ;	-----------------------------------------
 _timeBomb_destructor2:
-;	../sm_test_timeBomb.c:49: (void)self ;	/* Nothing to do here */
+;	../sm_test_timeBomb.c:45: (void)self ;	/* Nothing to do here */
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'updateDisplay'
 ;------------------------------------------------------------
 ;value                     Allocated with name '_updateDisplay_value_1_1'
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:53: void updateDisplay(	uint8_t value)
+;	../sm_test_timeBomb.c:49: void updateDisplay(	uint8_t value)
 ;	-----------------------------------------
 ;	 function updateDisplay
 ;	-----------------------------------------
 _updateDisplay:
-;	../sm_test_timeBomb.c:55: (void)value ;
+;	../sm_test_timeBomb.c:51: (void)value ;
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'goBOOM'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:59: void goBOOM(		void)
+;	../sm_test_timeBomb.c:55: void goBOOM(		void)
 ;	-----------------------------------------
 ;	 function goBOOM
 ;	-----------------------------------------
 _goBOOM:
-;	../sm_test_timeBomb.c:61: }
+;	../sm_test_timeBomb.c:57: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timeBomb_TOP_handler'
 ;------------------------------------------------------------
 ;event                     Allocated to stack - offset -5
-;self                      Allocated to stack - offset 1
+;self                      Allocated to registers r2 r3 r4 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:64: DEFINE_TOP_STATE()
+;	../sm_test_timeBomb.c:60: DEFINE_TOP_STATE()
 ;	-----------------------------------------
 ;	 function timeBomb_TOP_handler
 ;	-----------------------------------------
 _timeBomb_TOP_handler:
 	push	_bp
 	mov	_bp,sp
-	push	dpl
-	push	dph
-	push	b
-;	../sm_test_timeBomb.c:66: INITIAL_TRANSITION(TO(setting), ACTION(self->timeout = INIT_TIMEOUT)) ;
+	mov	r2,dpl
+	mov	r3,dph
+	mov	r4,b
+;	../sm_test_timeBomb.c:62: INITIAL_TRANSITION(TO(setting), NO_ACTION) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -402,33 +390,12 @@ _timeBomb_TOP_handler:
 	lcall	__gptrget
 	mov	r5,a
 	cjne	r5,#0x02,00102$
-	mov	r0,_bp
-	inc	r0
-	mov	a,#0x2B
-	add	a,@r0
-	mov	r6,a
-	clr	a
-	inc	r0
-	addc	a,@r0
-	mov	r7,a
-	inc	r0
-	mov	ar2,@r0
-	mov	dpl,r6
-	mov	dph,r7
-	mov	b,r2
-	mov	a,#0x1E
-	lcall	__gptrput
-	mov	r0,_bp
-	inc	r0
 	mov	a,#0x08
-	add	a,@r0
+	add	a,r2
 	mov	r2,a
 	clr	a
-	inc	r0
-	addc	a,@r0
+	addc	a,r3
 	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
@@ -443,17 +410,16 @@ _timeBomb_TOP_handler:
 	mov	dpl,#0x02
 	sjmp	00106$
 00102$:
-;	../sm_test_timeBomb.c:68: HANDLE_STATE_EVENTS
-	cjne	r5,#0x05,00105$
-;	../sm_test_timeBomb.c:74: EXIT_HANDLED
+;	../sm_test_timeBomb.c:64: HANDLE_STATE_EVENTS
+	cjne	r5,#0x07,00105$
+;	../sm_test_timeBomb.c:70: EXIT_HANDLED
 	mov	dpl,#0x01
-;	../sm_test_timeBomb.c:76: HANDLE_STATE_EVENTS_DONE
+;	../sm_test_timeBomb.c:72: HANDLE_STATE_EVENTS_DONE
 	sjmp	00106$
 00105$:
-;	../sm_test_timeBomb.c:78: END_DEFINE_STATE()
+;	../sm_test_timeBomb.c:74: END_DEFINE_STATE()
 	mov	dpl,#0x00
 00106$:
-	mov	sp,_bp
 	pop	_bp
 	ret
 ;------------------------------------------------------------
@@ -462,9 +428,8 @@ _timeBomb_TOP_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
-;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:81: DEFINE_STATE(setting)
+;	../sm_test_timeBomb.c:77: DEFINE_STATE(setting)
 ;	-----------------------------------------
 ;	 function timeBomb_setting_handler
 ;	-----------------------------------------
@@ -474,7 +439,7 @@ _timeBomb_setting_handler:
 	push	dpl
 	push	dph
 	push	b
-;	../sm_test_timeBomb.c:83: TRANSITION_ON(ARM, TO(timing), ACTION(self->codeBeingEntered = 0)) ;
+;	../sm_test_timeBomb.c:79: TRANSITION_ON(ARM, TO(timing), ACTION(self->codeBeingEntered = 0)) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -488,10 +453,10 @@ _timeBomb_setting_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x08,00102$
+	cjne	r5,#0x0A,00102$
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2C
+	mov	a,#0x30
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -530,18 +495,18 @@ _timeBomb_setting_handler:
 	mov	dpl,#0x02
 	sjmp	00111$
 00102$:
-;	../sm_test_timeBomb.c:85: HANDLE_STATE_EVENTS
-	cjne	r5,#0x06,00120$
+;	../sm_test_timeBomb.c:81: HANDLE_STATE_EVENTS
+	cjne	r5,#0x08,00120$
 	sjmp	00103$
 00120$:
-;	../sm_test_timeBomb.c:87: EVENT(UP)
-	cjne	r5,#0x07,00110$
+;	../sm_test_timeBomb.c:83: EVENT(UP)
+	cjne	r5,#0x09,00110$
 	sjmp	00106$
 00103$:
-;	../sm_test_timeBomb.c:89: if(self->timeout < 60)
+;	../sm_test_timeBomb.c:85: if(self->timeout < 60)
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2B
+	mov	a,#0x2F
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -558,26 +523,26 @@ _timeBomb_setting_handler:
 	cjne	r5,#0x3C,00122$
 00122$:
 	jnc	00105$
-;	../sm_test_timeBomb.c:91: self->timeout++ ;
+;	../sm_test_timeBomb.c:87: self->timeout++ ;
 	inc	r5
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
 	mov	a,r5
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:93: updateDisplay(self->timeout) ;
+;	../sm_test_timeBomb.c:89: updateDisplay(self->timeout) ;
 	mov	dpl,r5
 	lcall	_updateDisplay
 00105$:
-;	../sm_test_timeBomb.c:96: EVENT_HANDLED
+;	../sm_test_timeBomb.c:92: EVENT_HANDLED
 	mov	dpl,#0x01
-;	../sm_test_timeBomb.c:98: EVENT(DOWN)
+;	../sm_test_timeBomb.c:94: EVENT(DOWN)
 	sjmp	00111$
 00106$:
-;	../sm_test_timeBomb.c:100: if(self->timeout > 1)
+;	../sm_test_timeBomb.c:96: if(self->timeout > 1)
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2B
+	mov	a,#0x2F
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -593,23 +558,23 @@ _timeBomb_setting_handler:
 	mov  r5,a
 	add	a,#0xff - 0x01
 	jnc	00108$
-;	../sm_test_timeBomb.c:102: self->timeout-- ;
+;	../sm_test_timeBomb.c:98: self->timeout-- ;
 	dec	r5
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
 	mov	a,r5
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:104: updateDisplay(self->timeout) ;
+;	../sm_test_timeBomb.c:100: updateDisplay(self->timeout) ;
 	mov	dpl,r5
 	lcall	_updateDisplay
 00108$:
-;	../sm_test_timeBomb.c:107: EVENT_HANDLED
+;	../sm_test_timeBomb.c:103: EVENT_HANDLED
 	mov	dpl,#0x01
-;	../sm_test_timeBomb.c:109: HANDLE_STATE_EVENTS_DONE
+;	../sm_test_timeBomb.c:105: HANDLE_STATE_EVENTS_DONE
 	sjmp	00111$
 00110$:
-;	../sm_test_timeBomb.c:111: END_DEFINE_STATE()
+;	../sm_test_timeBomb.c:107: END_DEFINE_STATE()
 	mov	dpl,#0x00
 00111$:
 	mov	sp,_bp
@@ -621,10 +586,8 @@ _timeBomb_setting_handler:
 ;event                     Allocated to stack - offset -5
 ;self                      Allocated to stack - offset 1
 ;stateResponseCode         Allocated to registers 
-;stateResponseCode         Allocated to registers 
-;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:114: DEFINE_STATE(timing)
+;	../sm_test_timeBomb.c:110: DEFINE_STATE(timing)
 ;	-----------------------------------------
 ;	 function timeBomb_timing_handler
 ;	-----------------------------------------
@@ -634,7 +597,7 @@ _timeBomb_timing_handler:
 	push	dpl
 	push	dph
 	push	b
-;	../sm_test_timeBomb.c:116: TRANSITION_ON_IF(ARM, self->codeBeingEntered == self->disarmCode, TO(setting), ACTION(updateDisplay(self->timeout))) ;
+;	../sm_test_timeBomb.c:112: TRANSITION_ON_IF(ARM, self->codeBeingEntered == self->disarmCode, TO(setting), ACTION(updateDisplay(self->timeout))) ;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -648,7 +611,7 @@ _timeBomb_timing_handler:
 	mov	b,r7
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r5,#0x08,00116$
+	cjne	r5,#0x0A,00116$
 	sjmp	00117$
 00116$:
 	ljmp	00102$
@@ -656,7 +619,7 @@ _timeBomb_timing_handler:
 	push	ar5
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2C
+	mov	a,#0x30
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -672,7 +635,7 @@ _timeBomb_timing_handler:
 	mov	r6,a
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2D
+	mov	a,#0x31
 	add	a,@r0
 	mov	r5,a
 	clr	a
@@ -696,7 +659,7 @@ _timeBomb_timing_handler:
 	pop	ar5
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2B
+	mov	a,#0x2F
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -736,23 +699,23 @@ _timeBomb_timing_handler:
 	mov	dpl,#0x02
 	ljmp	00109$
 00102$:
-;	../sm_test_timeBomb.c:118: HANDLE_STATE_EVENTS
-	cjne	r5,#0x06,00120$
+;	../sm_test_timeBomb.c:114: HANDLE_STATE_EVENTS
+	cjne	r5,#0x08,00120$
 	sjmp	00104$
 00120$:
-	cjne	r5,#0x07,00121$
+	cjne	r5,#0x09,00121$
 	sjmp	00105$
 00121$:
-	cjne	r5,#0x09,00122$
+	cjne	r5,#0x0B,00122$
 	sjmp	00106$
 00122$:
 	ljmp	00108$
-;	../sm_test_timeBomb.c:120: EVENT(UP)
+;	../sm_test_timeBomb.c:116: EVENT(UP)
 00104$:
-;	../sm_test_timeBomb.c:122: self->codeBeingEntered <<= 1 ;
+;	../sm_test_timeBomb.c:118: self->codeBeingEntered <<= 1 ;
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2C
+	mov	a,#0x30
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -771,22 +734,22 @@ _timeBomb_timing_handler:
 	mov	dph,r3
 	mov	b,r4
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:123: self->codeBeingEntered |= 1 ;
+;	../sm_test_timeBomb.c:119: self->codeBeingEntered |= 1 ;
 	orl	ar5,#0x01
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
 	mov	a,r5
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:125: EVENT_HANDLED
+;	../sm_test_timeBomb.c:121: EVENT_HANDLED
 	mov	dpl,#0x01
 	ljmp	00109$
-;	../sm_test_timeBomb.c:127: EVENT(DOWN)
+;	../sm_test_timeBomb.c:123: EVENT(DOWN)
 00105$:
-;	../sm_test_timeBomb.c:129: self->codeBeingEntered <<= 1 ;
+;	../sm_test_timeBomb.c:125: self->codeBeingEntered <<= 1 ;
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2C
+	mov	a,#0x30
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -805,15 +768,15 @@ _timeBomb_timing_handler:
 	mov	dph,r3
 	mov	b,r4
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:131: EVENT_HANDLED
+;	../sm_test_timeBomb.c:127: EVENT_HANDLED
 	mov	dpl,#0x01
-;	../sm_test_timeBomb.c:133: EVENT(TICK)
+;	../sm_test_timeBomb.c:129: EVENT(TICK)
 	sjmp	00109$
 00106$:
-;	../sm_test_timeBomb.c:135: self->timeout-- ;
+;	../sm_test_timeBomb.c:131: self->timeout-- ;
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0x2B
+	mov	a,#0x2F
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -833,7 +796,7 @@ _timeBomb_timing_handler:
 	mov	b,r4
 	mov	a,r5
 	lcall	__gptrput
-;	../sm_test_timeBomb.c:137: TRANSITION_TO(isTimeToGoBoom, updateDisplay(self->timeout)) ;
+;	../sm_test_timeBomb.c:133: TRANSITION_TO(isTimeToGoBoom, updateDisplay(self->timeout)) ;
 	mov	dpl,r5
 	lcall	_updateDisplay
 	mov	r0,_bp
@@ -859,10 +822,10 @@ _timeBomb_timing_handler:
 	mov	a,#0x80
 	lcall	__gptrput
 	mov	dpl,#0x02
-;	../sm_test_timeBomb.c:141: HANDLE_STATE_EVENTS_DONE
+;	../sm_test_timeBomb.c:137: HANDLE_STATE_EVENTS_DONE
 	sjmp	00109$
 00108$:
-;	../sm_test_timeBomb.c:143: END_DEFINE_STATE()
+;	../sm_test_timeBomb.c:139: END_DEFINE_STATE()
 	mov	dpl,#0x00
 00109$:
 	mov	sp,_bp
@@ -874,7 +837,7 @@ _timeBomb_timing_handler:
 ;self                      Allocated to registers r2 r3 r4 
 ;stateResponseCode         Allocated to registers 
 ;------------------------------------------------------------
-;	../sm_test_timeBomb.c:146: DEFINE_CHOICE_PSEUDO_STATE(	isTimeToGoBoom,
+;	../sm_test_timeBomb.c:142: DEFINE_CHOICE_PSEUDO_STATE(	isTimeToGoBoom,
 ;	-----------------------------------------
 ;	 function timeBomb_isTimeToGoBoom_handler
 ;	-----------------------------------------
@@ -882,7 +845,7 @@ _timeBomb_isTimeToGoBoom_handler:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-	mov	a,#0x2B
+	mov	a,#0x2F
 	add	a,r2
 	mov	r5,a
 	clr	a
