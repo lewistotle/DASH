@@ -20,11 +20,14 @@
 
 #include "stateMachine_G4.h"
 
+#if ! configHSM_DEBUGGING_ENABLED
+	#undef TRACING_ENABLED
+	#undef MINIMAL_TRACING_ENABLED
+#else
+	#undef TRACING_ENABLED
+	#define MINIMAL_TRACING_ENABLED
+#endif
 
-#define TRACING_ENABLED
-
-#undef TRACING_ENABLED
-#define MINIMAL_TRACING_ENABLED
 
 
 
@@ -299,11 +302,11 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 }
 
 
-void deallocateStateMachineMemory(				stateMachine_t* instance, stateMachine_destructor_t destructor)
+void deallocateStateMachineMemory(				stateMachine_t* instance)
 {
 	if(instance != 0)
 	{
-		destructor(instance) ;
+		instance->destructor(instance) ;
 
 		hsm_free((void*)instance) ;
 	}
@@ -400,7 +403,9 @@ watchedVariableTransitionEvent_t* getNextWatchEventVariable(	stateMachine_t*	mac
 	return (watchedVariableTransitionEvent_t*)0 ;
 }
 
-int timeval_subtract(struct timeval* result, struct timeval* x, struct timeval* y) ;
+#if configPRINT_RTC_EXECUTION_TIME
+	int timeval_subtract(struct timeval* result, struct timeval* x, struct timeval* y) ;
+#endif
 
 void iterateAllStateMachines(	void)
 {
@@ -673,7 +678,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 		}
 
 #ifdef MINIMAL_TRACING_ENABLED
-#warning The check for the intiial transition being present won't work if there is an on_entry or on_exit handler since those return immediately thereby preventing the flag from being set.
+#warning The check for the intiial transition being present won't work if there is an on_entry handler before the initial transition handler since ON_ENTRY returns immediately thereby preventing the flag from being set.
 		if(		(sm->printStateTransitions)
 			&&	(hsm_getEventType(event) != SUBSTATE_DO)
 			&&	(!((hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) && (!sm->currentStateHasInitialTransition))))
@@ -742,7 +747,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 	#endif
 #endif
 
-#warning, put in basic sanity checking for sm, sm->currentState, sm->nextState, etc.
+#warning put in basic sanity checking for sm, sm->currentState, sm->nextState, etc.
 
 	/* First of all, is the machine initialized? If not, take care of that. */
 
@@ -1117,13 +1122,15 @@ void iterateStateMachine(	stateMachine_t* sm)
 #ifdef MINIMAL_TRACING_ENABLED
 			if(!forceTransition)
 			{
-				if(sm->machineOutputDisplay)
+				if(sm->debugging_machineOutputDisplay)
 				{
-					((stateMachine_displayMachineOutput_t)(sm->machineOutputDisplay))(sm) ;
+					((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
 				}
 				else
 				{
-//					printf("\n") ;
+#if 0
+					printf("\n") ;
+#endif
 				}
 			}
 #endif

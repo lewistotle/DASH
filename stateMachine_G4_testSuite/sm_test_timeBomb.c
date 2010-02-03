@@ -5,6 +5,8 @@
  *      Author: jlewis
  */
 
+#include <stdio.h>
+
 #include "config.h"
 
 #include "stateMachine_G4.h"
@@ -46,8 +48,6 @@ DEFINE_STATE_MACHINE() ;
 
 END_STATE_MACHINE_DEFINITION() ;
 
-void timebomb_displayInternalEventInfo( stateMachine_t* sm, event_t* event) ;
-void timebomb_displayEventInfo( stateMachine_t* sm, event_t* event) ;
 
 STATE_MACHINE_CONSTRUCTOR()
 {
@@ -56,16 +56,14 @@ STATE_MACHINE_CONSTRUCTOR()
 											"ARM"
 										} ;
 
-	self->parent.eventNames				= eventNames ;
-	self->parent.printStateTransitions	= false ;
-	self->parent.eventDebuggingDisplay	= timebomb_displayEventInfo ;
+	SET_EVENT_NAMES(eventNames) ;
+	DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS() ;
+	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
 
 	self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
 	self->timeout			= config_tbINIT_TIMEOUT ;
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
-
-//	self->parent.requestsTickEvents = true ;
 
 	{
 		alarmEvent_t* alarm = self->parent.startOfTimerEvents ;
@@ -86,14 +84,12 @@ STATE_MACHINE_DESTRUCTOR()
 }
 
 
-void timebomb_displayInternalEventInfo( stateMachine_t* sm, event_t* event)
+DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 {
+	printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 }
+END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
-void timebomb_displayEventInfo( stateMachine_t* sm, event_t* event)
-{
-	printf("\n<%s>%4s: ", sm->instanceName ? sm->instanceName : sm->stateMachineName ? sm->stateMachineName : "???", sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
-}
 
 void displayTicks(	const char* instanceName, uint8_t value)
 {

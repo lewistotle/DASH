@@ -9,30 +9,27 @@
  */
 
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <sys/time.h>
-
 #include <string.h>
 #include <stdio.h>
-#include <unistd.h>
-#include <termios.h>
-
-
-#ifdef __AVR_ARCH__
-#define EXIT_SUCCESS	0
-#endif
-
-#define true	1
 
 #include "stateMachine_G4.h"
-
 #include "sm_globalEvents.h"
 #include "sm_test_timeBomb.h"
 #include "sm_test_calculator.h"
 
 #include "task_UART.h"
+
+#if defined(__TS7800__) || defined(__cygwin__)
+	#include <sys/time.h>
+	#include <unistd.h>
+	#include <termios.h>
+#elif defined(__AVR_ARCH__)
+	#define EXIT_SUCCESS	0
+#endif
 
 void task_TIMER_init(		void) ;
 void task_TIMER_core(		void) ;
@@ -233,16 +230,7 @@ void main(	void)
 
 		REGISTER_STATE_MACHINE(calculator) ;
 	}
-#if configENABLE_CALC_2
-	calc2 = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
 
-	if(calc2)
-	{
-		puts("Registering calc2") ;
-
-		REGISTER_STATE_MACHINE(calc2) ;
-	}
-#endif
 	puts("Iterating state machines") ;
 
 	while(ok)
@@ -284,7 +272,7 @@ void main(	void)
 	{
 		UNREGISTER_STATE_MACHINE(calculator) ;
 
-		STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calculator) ;
+		STATE_MACHINE_DESTROY_INSTANCE_OF(calculator) ;
 
 		calculator = 0 ;
 	}
@@ -293,7 +281,7 @@ void main(	void)
 	{
 		UNREGISTER_STATE_MACHINE(bomb_2) ;
 
-		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb_2) ;
+		STATE_MACHINE_DESTROY_INSTANCE_OF(bomb_2) ;
 
 		bomb_2 = 0 ;
 	}
@@ -302,7 +290,7 @@ void main(	void)
 	{
 		UNREGISTER_STATE_MACHINE(bomb_1) ;
 
-		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb_1) ;
+		STATE_MACHINE_DESTROY_INSTANCE_OF(bomb_1) ;
 
 		bomb_1 = 0 ;
 	}
@@ -311,7 +299,7 @@ void main(	void)
 	{
 		UNREGISTER_STATE_MACHINE(bomb_0) ;
 
-		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb_0) ;
+		STATE_MACHINE_DESTROY_INSTANCE_OF(bomb_0) ;
 
 		bomb_0 = 0 ;
 	}

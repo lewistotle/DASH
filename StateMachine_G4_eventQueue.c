@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
+#include "config.h"
+
 #include "stateMachine_G4.h"
 #include "stateMachine_G4_eventQueue.h"
 
@@ -84,12 +86,6 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 		Q->Array[Q->Rear] = event ;
 
-#if 0
-		printf("\t\t\tPosting event type %s to %p\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>", &Q->Array[Q->Rear]) ;
-#endif
-#if 0
-		printf("[%p]", &Q->Array[Q->Rear]) ;
-#endif
 		return true ;
 	}
 	else
@@ -236,24 +232,16 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 
 bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm)
 {
-#if 1
-	if(sm->internalEventDebuggingDisplay && hsm_isEventInternal(event))
+#if configHSM_DEBUGGING_ENABLED
+	if(sm->debugging_internalEventDisplay && hsm_isEventInternal(event))
 	{
-		((stateMachine_displayEventInfo_t)(sm->internalEventDebuggingDisplay))(sm, event) ;
+		((stateMachine_displayEventInfo_t)(sm->debugging_internalEventDisplay))(sm, event) ;
 	}
 
-	if(sm->eventDebuggingDisplay && !hsm_isEventInternal(event))
+	if(sm->debugging_externalEventDisplay && !hsm_isEventInternal(event))
 	{
-		((stateMachine_displayEventInfo_t)(sm->eventDebuggingDisplay))(sm, event) ;
+		((stateMachine_displayEventInfo_t)(sm->debugging_externalEventDisplay))(sm, event) ;
 	}
 #endif
-
-//	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
-//	{
-//		return eventQueue_insert(&sm->deferredEventQueue, event) ;
-//	}
-//	else
-//	{
-		return eventQueue_insert(&sm->eventQueue, event) ;
-//	}
+	return eventQueue_insert(&sm->eventQueue, event) ;
 }

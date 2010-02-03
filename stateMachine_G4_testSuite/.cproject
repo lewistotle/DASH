@@ -34,6 +34,7 @@
 <option id="de.innot.avreclipse.compiler.option.optimize.665345957" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize"/>
 <option id="de.innot.avreclipse.compiler.option.incpath.607034970" name="Include Paths (-I)" superClass="de.innot.avreclipse.compiler.option.incpath" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;../../&quot;"/>
+<listOptionValue builtIn="false" value="../../../Common"/>
 </option>
 <inputType id="de.innot.avreclipse.compiler.winavr.input.1702051326" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 </tool>

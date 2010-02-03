@@ -68,8 +68,6 @@ DEFINE_STATE_MACHINE() ;
 			ADD_SUB_STATE(frac2, PARENT_STATE(operand2)) ;
 END_STATE_MACHINE_DEFINITION() ;
 
-void calculator_displayEventInfo(	calculatorMachine_t* sm, event_t* event) ;
-void calculator_displayOutput(		calculatorMachine_t* sm, event_t* event) ;
 
 STATE_MACHINE_CONSTRUCTOR()
 {
@@ -83,10 +81,10 @@ STATE_MACHINE_CONSTRUCTOR()
 											"OFF"
 										} ;
 
-	self->parent.eventNames				= eventNames ;
-	self->parent.printStateTransitions	= false ;
-	self->parent.eventDebuggingDisplay	= (void*)&calculator_displayEventInfo ;
-	self->parent.machineOutputDisplay	= (void*)&calculator_displayOutput ;
+	SET_EVENT_NAMES(eventNames) ;
+	DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS() ;
+	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
+	ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY() ;
 
 	self->signBeingEntered		= 1 ;
 	self->integerBeingEntered	= 0 ;
@@ -102,19 +100,20 @@ STATE_MACHINE_DESTRUCTOR()
 }
 
 
-void calculator_displayEventInfo( calculatorMachine_t* sm, event_t* event)
+DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 {
 	printf("%c: ", ((keyEvent_t*)event)->key) ;
 }
+END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
 
-void calculator_displayOutput( calculatorMachine_t* sm, event_t* event)
+DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()
 {
-	char	output[50] ;
+	char output[50] ;
 
-	sprintf(output, "% ld.%ld", (long int)(sm->integerBeingEntered * sm->signBeingEntered), (long int)(sm->fractionBeingEntered)) ;
+	sprintf(output, "% ld.%ld", (long int)(self->integerBeingEntered * self->signBeingEntered), (long int)(self->fractionBeingEntered)) ;
 
-	if(sm->fractionBeingEntered == 0)
+	if(self->fractionBeingEntered == 0)
 	{
 		output[strchr(output, '.') - output] = 0 ;
 	}
@@ -123,6 +122,7 @@ void calculator_displayOutput( calculatorMachine_t* sm, event_t* event)
 
 	printf("\n[%10s] ", output) ;
 }
+END_MACHINE_OUTPUT_DEBUGGING_DISPLAY()
 
 
 void addDigitToIntegralPortion(	calculatorMachine_t* sm, event_t* event)
@@ -309,15 +309,15 @@ uint8_t doCalculation(	calculatorMachine_t* sm, event_t* event)
 			(long int)(sm->fractionBeingEntered)) ;
 
 	sm->operand2 = atof(output) ;
-
-//	printf("   %f %c %f = ", sm->operand1, CAST_EVENT(keyEvent_t)->key, sm->operand2) ;
-
+#if 0
+	printf("   %f %c %f = ", sm->operand1, CAST_EVENT(keyEvent_t)->key, sm->operand2) ;
+#endif
 	switch(CAST_EVENT(keyEvent_t)->key)
 	{
 		case '+': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
-		case '-': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
-		case '*': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
-		case '/': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
+		case '-': { result = sm->operand1 - sm->operand2 ;	success = true ;	break ; }
+		case '*': { result = sm->operand1 * sm->operand2 ;	success = true ;	break ; }
+		case '/': { result = sm->operand1 / sm->operand2 ;	success = true ;	break ; }
 		case '=': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
 		default:  { success = false ; }
 	}
@@ -326,14 +326,18 @@ uint8_t doCalculation(	calculatorMachine_t* sm, event_t* event)
 	{
 		sprintf(output, "%10f", result) ;
 
-//		printf("%f (%s)", result, output) ;
+#if 0
+		printf("%f (%s)", result, output) ;
+#endif
 
 		sm->signBeingEntered		= result >= 0 ? 1 : -1 ;
 		sm->integerBeingEntered		= abs(atoi(output)) ;
 		sm->fractionBeingEntered	= atoi(strchr(output, '.') + 1) ;
 	}
 
-//	printf("   %ld, %ld, %ld   ", sm->signBeingEntered, sm->fractionBeingEntered, sm->integerBeingEntered) ;
+#if 0
+	printf("   %ld, %ld, %ld   ", sm->signBeingEntered, sm->fractionBeingEntered, sm->integerBeingEntered) ;
+#endif
 
 	return success ;
 }

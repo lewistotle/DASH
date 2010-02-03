@@ -101,21 +101,23 @@ DEFINE_STATE(doorClosed)
 	TRANSITION_ON(OFF,			TO(off),						NO_ACTION) ;
 	TRANSITION_ON(OPEN,			TO(off),						NO_ACTION) ;
 
+#if 0
 	/* test of change event transition macro */
 
-//	TRANSITION_WHEN(self->flag,	TO(heating),	NO_ACTION) ;
+	TRANSITION_WHEN(self->flag,	TO(heating),	NO_ACTION) ;
 
 	/* test of time event transition macro */
 
-//	TRANSITION_AFTER(DAYS(42.3) + HOURS(7.58) + MINUTES(3) + SECONDS(10.452537), TO(OFF), NO_ACTION) ;
+	TRANSITION_AFTER(DAYS(42.3) + HOURS(7.58) + MINUTES(3) + SECONDS(10.452537), TO(OFF), NO_ACTION) ;
 
 	/* test of generic IF transition macro that also sets DO flag */
 
-//	TRANSITION_IF(self->flag > 55, TO(off), NO_ACTION) ;
+	TRANSITION_IF(self->flag > 55, TO(off), NO_ACTION) ;
 
 	/* test of call event transition macro */
 
-//	TRANSITION_CALL(TO(heating)) ;
+	TRANSITION_CALL(TO(heating)) ;
+#endif
 }
 END_DEFINE_STATE()
 
