@@ -795,6 +795,8 @@ void iterateStateMachine(	stateMachine_t* sm)
 				printf("\t\t\tGetting event from queue\n") ; fflush(stdout) ;
 #endif
 				eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
+
+				--eventToProcess->eventListenerCount ;
 			}
 
 #ifdef TRACING_ENABLED
@@ -840,7 +842,11 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 			if(!hsm_isEventInternal(eventToProcess))
 			{
-				eventToProcess->eventType = SUBSTATE_NON_EVENT ;
+				if(		(eventToProcess->eventListenerCount == 0)
+					&&	(!hsm_isEventAMachineTimeout(sm, eventToProcess)))
+				{
+					eventToProcess->eventType = SUBSTATE_NON_EVENT ;
+				}
 			}
 
 			/* Now deal with any transtions */

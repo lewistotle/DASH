@@ -53,7 +53,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="_SoftwareLibraries/HAL/task_UART.c|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="Copy of sm_test_timeBomb.c|Copy of sm_test_timeBomb.h|_SoftwareLibraries/HAL/task_UART.c|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_gcc.c|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -1039,7 +1039,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="Copy of sm_test_timeBomb.c|Copy of sm_test_timeBomb.h|projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_gcc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -2039,7 +2039,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="_SoftwareLibraries/HAL/task_UART.c|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="Copy of sm_test_timeBomb.c|Copy of sm_test_timeBomb.h|_SoftwareLibraries/HAL/task_UART.c|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|main_C8051F040.c|src/HAL/task_UART.c|src/HAL/pwm_C8051F040.c|src/projectSpecificHardwareInterface_C8051F040.c|src/main_avr.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h|src/main_C8051F040.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -3053,7 +3053,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+<entry excluding="Copy of sm_test_timeBomb.c|Copy of sm_test_timeBomb.h|_SoftwareLibraries/HAL/pwm_C8051F040.c|projectSpecificHardwareInterface_C8051F040.c|stateMachines/stateMachine_G4.c|stateMachines/stateMachine_G4.h" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>

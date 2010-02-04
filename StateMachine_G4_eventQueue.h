@@ -57,7 +57,7 @@
  * having to know about all the additional data.
  */
 
-typedef uint8_t			eventInfo_t ;
+typedef uint8_t			eventListenerCount_t ;
 
 #define EVENT_SIZE_MASK					0xE0
 #define EVENT_REFERENCE_COUNT_MASK		0x1F
@@ -67,9 +67,8 @@ typedef uint8_t			eventInfo_t ;
 
 typedef struct
 {
-	eventType_t			eventType ;
-	eventInfo_t			eventInfo ;
-	const char*			eventName ;	/* debugging only */
+	eventType_t				eventType ;
+	eventListenerCount_t	eventListenerCount ;
 } event_t ;
 
 
@@ -134,6 +133,7 @@ typedef struct
 	void*						machine ;
 } stateMachineTimeout_t ;
 
+#define hsm_isEventAMachineTimeout(machine, event)	(((void*)event >= machine->startOfTimerEvents) && ((void*)event < (void*)(((char*)machine->startOfTimerEvents) + (machine->numberOfTimerEvents * sizeof(alarmEvent_t)))))
 
 
 /* Now make up a simple queue that will be used to hold pointers to

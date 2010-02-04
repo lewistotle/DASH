@@ -53,7 +53,8 @@ STATE_MACHINE_CONSTRUCTOR()
 {
 	static const char*	eventNames[] =	{	"UP",
 											"DOWN",
-											"ARM"
+											"ARM",
+											"FINETICK"
 										} ;
 
 	SET_EVENT_NAMES(eventNames) ;
@@ -68,7 +69,7 @@ STATE_MACHINE_CONSTRUCTOR()
 	{
 		alarmEvent_t* alarm = self->parent.startOfTimerEvents ;
 
-		alarm->parent.eventType			= SUBSTATE_TIMER ;
+		alarm->parent.eventType			= FINETICK ;
 		alarm->active					= false ;
 		alarm->remainingHours			= 0 ;
 		alarm->remainingMicroseconds	= (1.0 / config_tbFINE_TICKS_PER_SECOND) * 1000000UL ;
@@ -86,7 +87,10 @@ STATE_MACHINE_DESTRUCTOR()
 
 DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 {
-	printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+	if(event->eventType != FINETICK)
+	{
+		printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+	}
 }
 END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
@@ -174,9 +178,9 @@ DEFINE_STATE(timing)
 	ON_ENTRY(alarmEvent_t* alarm = self->parent.startOfTimerEvents ; alarm->active = true) ;
 
 	TRANSITION_ON_IF(ARM,				self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(self->parent.instanceName, self->timeout))) ;
-	TRANSITION_ON_IF(SUBSTATE_TIMER,	self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
+	TRANSITION_ON_IF(FINETICK,			self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
 
-	ON_EVENT(SUBSTATE_TIMER, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
+	ON_EVENT(FINETICK, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
 
 	HANDLE_STATE_EVENTS
 	{

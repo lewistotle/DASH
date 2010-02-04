@@ -86,6 +86,8 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 		Q->Array[Q->Rear] = event ;
 
+		++event->eventListenerCount ;
+
 		return true ;
 	}
 	else
@@ -104,6 +106,8 @@ event_t* eventQueue_remove(	eventQueue_t* Q)
 	if(!eventQueue_isEmpty(Q))
 	{
 		event_t* eventReceived = Q->Array[Q->Front] ;
+
+		Q->Array[Q->Front] = 0 ;
 
 #if 0
 		printf("\t\t\t\teventQueue_remove(): eventReceived: %p\n", eventReceived) ;
