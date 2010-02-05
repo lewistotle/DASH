@@ -131,7 +131,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 		}
 	}
 
-	 /* It's ok to re-enable interrupts */
+	/* It's ok to re-enable interrupts */
 
 	/* Now return the appropriate thing to the caller */
 
@@ -146,6 +146,75 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 		return (event_t*)0 ;
 	}
 }
+
+#define TRACING_ENABLED
+alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating)
+{
+	bool		allocated = false ;
+	uint8_t		i ;
+	uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfTimerEvents) ;
+
+	/* start out by shutting down interrupts. This is a critical section */
+
+	/* Now go through the timer event area and grab the next open slot */
+
+#ifdef TRACING_ENABLED
+	printf("\tCreating alarm lasting %ld hours and %ld seconds for machine '%s'\n", hours, microseconds, machine->stateMachineName) ;
+#endif
+
+	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
+	{
+#ifdef TRACING_ENABLED
+		printf("\t\tChecking timer event at %p\n", memoryPoolLocation) ;
+#endif
+
+		if(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_NON_EVENT)
+		{
+			alarmEvent_t* alarm = (alarmEvent_t*)memoryPoolLocation ;
+
+			/* Found an empty slot so fill it in and bail from the loop */
+
+			allocated = true ;
+
+			alarm->parent.eventType				= eventType ;
+			alarm->parent.eventListenerCount	= 1 ;
+			alarm->active						= false ;
+			alarm->remainingHours				= hours ;
+			alarm->remainingMicroseconds		= microseconds ;
+
+			if(repeating)
+			{
+				alarm->repeatingHours			= hours ;
+				alarm->repeatingMicroseconds	= microseconds ;
+			}
+			else
+			{
+				alarm->repeatingHours			= 0 ;
+				alarm->repeatingMicroseconds	= 0 ;
+			}
+		}
+		else
+		{
+			memoryPoolLocation += sizeof(alarmEvent_t) ;
+		}
+	}
+
+	 /* It's ok to re-enable interrupts */
+
+	/* Now return the appropriate thing to the caller */
+
+	if(allocated)
+	{
+		return (alarmEvent_t*)memoryPoolLocation ;
+	}
+	else
+	{
+		printf("\t\tUnable to allocate event.\n") ;
+
+		return (alarmEvent_t*)0 ;
+	}
+}
+#undef TRACING_ENABLED
 
 stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 												uint16_t historyArraySize,

@@ -34,10 +34,12 @@ DEFINE_STATE_MACHINE() ;
 	END_MEMORY_REQUIREMENTS()
 
 	DECLARE_STATE_MACHINE_VARIABLES() ;
-		uint8_t		finetime ;
-		uint8_t		timeout ;
-		uint8_t		codeBeingEntered ;
-		uint8_t		disarmCode ;
+		uint8_t			finetime ;
+		uint8_t			timeout ;
+		uint8_t			codeBeingEntered ;
+		uint8_t			disarmCode ;
+
+		alarmEvent_t*	finetick ;
 	END_STATE_MACHINE_VARIABLES() ;
 
 	ADD_SUB_STATE(setting, PARENT_STATE(TOP)) ;
@@ -66,16 +68,7 @@ STATE_MACHINE_CONSTRUCTOR()
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
 
-	{
-		alarmEvent_t* alarm = self->parent.startOfTimerEvents ;
-
-		alarm->parent.eventType			= FINETICK ;
-		alarm->active					= false ;
-		alarm->remainingHours			= 0 ;
-		alarm->remainingMicroseconds	= (1.0 / config_tbFINE_TICKS_PER_SECOND) * 1000000UL ;
-		alarm->repeatingHours			= 0 ;
-		alarm->repeatingMicroseconds	= (1.0 / config_tbFINE_TICKS_PER_SECOND) * 1000000UL ;
-	}
+	self->finetick			= SET_ALARM(FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
 }
 
 
@@ -87,7 +80,7 @@ STATE_MACHINE_DESTRUCTOR()
 
 DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 {
-	if(event->eventType != FINETICK)
+//	if(event->eventType != FINETICK)
 	{
 		printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 	}
@@ -130,9 +123,7 @@ DEFINE_STATE(setting)
 	{
 		ENTER
 		{
-			alarmEvent_t* alarm = self->parent.startOfTimerEvents ;
-
-			alarm->active = false ;
+			DEACTIVATE_ALARM(self->finetick) ;
 
 			self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
 			self->timeout			= config_tbINIT_TIMEOUT ;
@@ -175,10 +166,10 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(timing)
 {
-	ON_ENTRY(alarmEvent_t* alarm = self->parent.startOfTimerEvents ; alarm->active = true) ;
+	ON_ENTRY(ACTIVATE_ALARM(self->finetick)) ;
 
-	TRANSITION_ON_IF(ARM,				self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(self->parent.instanceName, self->timeout))) ;
-	TRANSITION_ON_IF(FINETICK,			self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
+	TRANSITION_ON_IF(ARM,		self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(self->parent.instanceName, self->timeout))) ;
+	TRANSITION_ON_IF(FINETICK,	self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
 
 	ON_EVENT(FINETICK, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
 

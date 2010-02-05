@@ -237,7 +237,23 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm) ;
 bool hsm_publishEventForAll(			event_t* event) ;
 
+#define SECONDS(secs)	((double)((double)secs * (double)1000000.0 /* microseconds per second */))
+#define MINUTES(mins)	((double)(SECONDS(mins * (double)60.0 /* seconds per minute */)))
+#define HOURS(hrs)		((double)(MINUTES(hrs  * (double)60.0 /* minutes per hour */)))
+#define DAYS(days)		((double)(HOURS(  days * (double)24.0 /* hours per day */)))
 
+#define REPEATING		true
+#define NON_REPEATING	false
+
+#define ACTIVE			true
+#define NON_ACTIVE		false
+
+alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating) ;
+
+#define SET_ALARM(eventType, duration, repeating)	hsm_postAlarm((stateMachine_t*)self, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))), repeating)
+
+#define ACTIVATE_ALARM(alarm)						if(alarm) { alarm->active = true ; }
+#define DEACTIVATE_ALARM(alarm)						if(alarm) { alarm->active = false ; }
 
 /* A couple of helpers to deal with state machine memory and initialization. */
 

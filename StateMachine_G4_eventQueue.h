@@ -109,6 +109,7 @@ typedef struct
 	void*						watchVariableLocation ;
 } stateMachineWatch_t ;
 
+
 typedef struct
 {
 	event_t						parent ;
