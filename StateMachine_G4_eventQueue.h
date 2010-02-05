@@ -83,7 +83,7 @@ enum STATE_MACHINE_INTERNAL_EVENTS	{
 										SUBSTATE_INITIAL_TRANSITION			= 0x02,
 										SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= 0x03,
 										SUBSTATE_TICK						= 0x04,
-										SUBSTATE_TIMER						= 0x05,
+										SUBSTATE_TIMEOUT					= 0x05,
 										SUBSTATE_WATCHED					= 0x06,
 										SUBSTATE_DO							= 0x07,
 										SUBSTATE_EXIT						= 0x08,
@@ -114,14 +114,30 @@ typedef struct
 {
 	event_t						parent ;
 
-	bool						active ;
-
 	uint32_t					remainingHours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
 	uint32_t					remainingMicroseconds ;
 
 	uint32_t					repeatingHours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
 	uint32_t					repeatingMicroseconds ;
+
+	bool						active ;
 } alarmEvent_t ;
+
+
+typedef struct
+{
+	event_t						parent ;
+
+	uint32_t					remainingHours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t					remainingMicroseconds ;
+
+	uint32_t					originalHours ;				/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t					originalMicroseconds ;
+
+	void*						ownerState ;
+} timeoutEvent_t ;
+
+#define HSM_TIMER_EVENT_MEMORY_SIZE	sizeof(timeoutEvent_t)
 
 
 typedef struct

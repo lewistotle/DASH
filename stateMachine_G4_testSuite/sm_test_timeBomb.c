@@ -27,7 +27,7 @@ DEFINE_STATE_MACHINE() ;
 		START_MEMORY_POOL_DECLARATIONS()
 		{
 			DECLARE_EVENT_MEMORY_POOL(3, keyEvent_t),
-			DECLARE_TIMER_MEMORY_POOL(1)
+			DECLARE_TIMER_MEMORY_POOL(2)
 		}
 		END_MEMORY_POOL_DECLARATIONS()
 	}
@@ -67,8 +67,7 @@ STATE_MACHINE_CONSTRUCTOR()
 	self->timeout			= config_tbINIT_TIMEOUT ;
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
-
-	self->finetick			= SET_ALARM(FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
+	self->finetick			= SET_ALARM(self, FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
 }
 
 
@@ -80,7 +79,9 @@ STATE_MACHINE_DESTRUCTOR()
 
 DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 {
-//	if(event->eventType != FINETICK)
+#if 1
+	if(event->eventType != FINETICK)
+#endif
 	{
 		printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 	}
@@ -117,7 +118,8 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(setting)
 {
-	TRANSITION_ON(ARM, TO(timing), ACTION(self->codeBeingEntered = 0)) ;
+	TRANSITION_ON(ARM,				TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
+	TRANSITION_AFTER(SECONDS(5),	TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
 
 	HANDLE_STATE_EVENTS
 	{

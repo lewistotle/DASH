@@ -147,7 +147,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 	}
 }
 
-#define TRACING_ENABLED
+
 alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating)
 {
 	bool		allocated = false ;
@@ -159,7 +159,7 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 	/* Now go through the timer event area and grab the next open slot */
 
 #ifdef TRACING_ENABLED
-	printf("\tCreating alarm lasting %ld hours and %ld seconds for machine '%s'\n", hours, microseconds, machine->stateMachineName) ;
+	printf("\tCreating alarm lasting %ld hours and %ld.%06ld seconds for machine '%s'\n", hours, microseconds / 1000000UL, microseconds % 1000000UL, machine->stateMachineName) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
@@ -175,6 +175,10 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 			/* Found an empty slot so fill it in and bail from the loop */
 
 			allocated = true ;
+
+#ifdef TRACING_ENABLED
+		printf("\t\t\tEmpty slot found\n") ;
+#endif
 
 			alarm->parent.eventType				= eventType ;
 			alarm->parent.eventListenerCount	= 1 ;
@@ -192,14 +196,16 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 				alarm->repeatingHours			= 0 ;
 				alarm->repeatingMicroseconds	= 0 ;
 			}
+
+			break ;
 		}
 		else
 		{
-			memoryPoolLocation += sizeof(alarmEvent_t) ;
+			memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 		}
 	}
 
-	 /* It's ok to re-enable interrupts */
+	/* It's ok to re-enable interrupts */
 
 	/* Now return the appropriate thing to the caller */
 
@@ -214,7 +220,49 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 		return (alarmEvent_t*)0 ;
 	}
 }
-#undef TRACING_ENABLED
+
+
+void hsm_deleteTimeout(		stateMachine_t* machine)
+{
+	uint8_t		i ;
+	uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfTimerEvents) ;
+
+	/* start out by shutting down interrupts. This is a critical section */
+
+	/* Now go through the timer event area and grab the next open slot */
+
+#ifdef TRACING_ENABLED
+	printf("\tDeleting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
+#endif
+
+	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
+	{
+#ifdef TRACING_ENABLED
+		printf("\t\tChecking timeout event at %p\n", memoryPoolLocation) ;
+#endif
+
+		if(		(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_TIMEOUT)
+			&&	(((timeoutEvent_t*)memoryPoolLocation)->ownerState == machine->currentState))
+		{
+			/* This is the one so clear it out and bail */
+
+#ifdef TRACING_ENABLED
+		printf("\t\t\tFound it\n") ;
+#endif
+
+			((event_t*)memoryPoolLocation)->eventType = SUBSTATE_NON_EVENT ;
+
+			break ;
+		}
+		else
+		{
+			memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
+		}
+	}
+
+	/* It's ok to re-enable interrupts */
+}
+
 
 stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 												uint16_t historyArraySize,
@@ -285,7 +333,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
-	numberOfBytesNeeded += numberOfTimerEvents * sizeof(alarmEvent_t) ;
+	numberOfBytesNeeded += numberOfTimerEvents * HSM_TIMER_EVENT_MEMORY_SIZE ;
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
@@ -358,7 +406,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 			{
 				printf("\t\talarm event %2d start: %p\n", i, (void*)memoryPoolLocation) ;
 
-				memoryPoolLocation += sizeof(alarmEvent_t) ;
+				memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 			}
 		}
 
@@ -632,7 +680,8 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 			if(machine->startOfTimerEvents)
 			{
-				uint8_t	alarmIndex ;
+				uint8_t		alarmIndex ;
+				uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfTimerEvents) ;
 
 				/* There is at least one timer set so figure out if it's time to fire off an alarm event
 				 * Now cycle through all the alarms for this machine and see if any of them are due.
@@ -641,9 +690,9 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 				for( alarmIndex = 0 ; alarmIndex < machine->numberOfTimerEvents ; alarmIndex++ )
 				{
-					alarmEvent_t*	alarm = (alarmEvent_t*)(machine->startOfTimerEvents) ;
+					alarmEvent_t*	alarm = (alarmEvent_t*)memoryPoolLocation ;
 
-					if(alarm->active)
+					if(alarm->active || (((event_t*)(alarm))->eventType == SUBSTATE_TIMEOUT))
 					{
 						alarm->remainingMicroseconds -= microsecondsSinceLastHandled ;
 
@@ -666,24 +715,40 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 							{
 								/* Here's at least one. Fire off the event */
 
-								hsm_postEventToMachine((event_t*)alarm, machine) ;
 #if 0
-								printf("AIMING AT '%s'...FIRE!!!\n", machine->stateMachineName) ;
+								printf("AIMING AT '%s'...FIRE!!!\n", machine->instanceName) ;
 #endif
-								/* If this is a repeating alarm, reset it for next time */
+								hsm_postEventToMachine((event_t*)alarm, machine) ;
 
-								if((alarm->repeatingHours) || (alarm->repeatingMicroseconds))
+								if(((event_t*)(alarm))->eventType == SUBSTATE_TIMEOUT)
 								{
-									alarm->remainingHours			= alarm->repeatingHours ;
-									alarm->remainingMicroseconds	= alarm->repeatingMicroseconds ;
+									/*
+									 *  This is a timeout so clear it now to keep MANY events
+									 * from being fired before the state machine can iterate
+									 * the appropriate state to clear it.
+									 */
+
+									((event_t*)(alarm))->eventType = SUBSTATE_TIMEOUT ;
 								}
 								else
 								{
-									alarm->active = false ;
+									/* If this is a repeating alarm, reset it for next time */
+
+									if((alarm->repeatingHours) || (alarm->repeatingMicroseconds))
+									{
+										alarm->remainingHours			= alarm->repeatingHours ;
+										alarm->remainingMicroseconds	= alarm->repeatingMicroseconds ;
+									}
+									else
+									{
+										alarm->active = false ;
+									}
 								}
 							}
 						}
 					}
+
+					memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 				}
 			}
 		}
