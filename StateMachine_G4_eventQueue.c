@@ -92,7 +92,25 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 	}
 	else
 	{
-		printf("\t\t\tEvent queue FULL\n") ;
+		uint8_t		i ;
+		event_t**	eventPointer = (event_t**)(Q->Array) ;
+
+		printf("\n\t\t\tEvent queue at %p FULL for %d\n", (void*)Q, event->eventType) ;
+		printf("\t\t\t\tCapacity: %d\n", Q->Capacity) ;
+		printf("\t\t\t\tFront   : %d\n", Q->Front) ;
+		printf("\t\t\t\tRear    : %d\n", Q->Rear) ;
+		printf("\t\t\t\tSize    : %d\n", Q->Size) ;
+		printf("\t\t\t\tArray   : %p\n", (void*)(Q->Array)) ;
+
+		for( i = 0 ; i < Q->Capacity ; i++ )
+		{
+			printf(	"\t\t\t\t\tevent %2d(%p): %p (%d)\n",
+					i,
+					(void*)(&eventPointer[i]),
+					(void*)(eventPointer[i]),
+					eventPointer[i]->eventType) ;
+		}
+
 		return false ;
 	}
 }
@@ -108,6 +126,8 @@ event_t* eventQueue_remove(	eventQueue_t* Q)
 		event_t* eventReceived = Q->Array[Q->Front] ;
 
 		Q->Array[Q->Front] = 0 ;
+
+		--eventReceived->eventListenerCount ;
 
 #if 0
 		printf("\t\t\t\teventQueue_remove(): eventReceived: %p\n", eventReceived) ;

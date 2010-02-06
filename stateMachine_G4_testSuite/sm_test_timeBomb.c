@@ -22,7 +22,7 @@
 DEFINE_STATE_MACHINE() ;
 	DECLARE_MEMORY_REQUIREMENTS()
 	{
-		DECLARE_EVENT_QUEUE_DEPTH(5) ;
+		DECLARE_EVENT_QUEUE_DEPTH(2) ;
 
 		START_MEMORY_POOL_DECLARATIONS()
 		{
@@ -68,6 +68,8 @@ STATE_MACHINE_CONSTRUCTOR()
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
 	self->finetick			= SET_ALARM(self, FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
+
+	printf("Locating self->finetick at %p\n", (void*)self->finetick) ;
 }
 
 
@@ -99,7 +101,7 @@ void displayTicks(	const char* instanceName, uint8_t value)
 
 void updateDisplay(	const char* instanceName, uint8_t value)
 {
-	printf("\n[%s:%d] ", instanceName, value) ;
+	printf("\n[%s: time to BOOM: %d] ", instanceName, value) ;
 }
 
 
@@ -135,6 +137,8 @@ DEFINE_STATE(setting)
 
 		EVENT(UP)
 		{
+			RESET_TIMEOUT() ;
+
 			if(self->timeout < 60)
 			{
 				self->timeout++ ;
@@ -146,6 +150,8 @@ DEFINE_STATE(setting)
 
 		EVENT(DOWN)
 		{
+			RESET_TIMEOUT() ;
+
 			if(self->timeout > 1)
 			{
 				self->timeout-- ;

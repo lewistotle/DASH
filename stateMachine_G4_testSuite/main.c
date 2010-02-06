@@ -191,14 +191,10 @@ void main(	void)
 	task_UART_init(0) ;
 	task_TIMER_init() ;
 
-	puts("Generating timebomb") ;
-
 	bomb_0 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
 
 	if(bomb_0)
 	{
-		puts("Registering bomb_0") ;
-
 		REGISTER_STATE_MACHINE(bomb_0) ;
 	}
 
@@ -206,8 +202,6 @@ void main(	void)
 
 	if(bomb_1)
 	{
-		puts("Registering bomb_0") ;
-
 		REGISTER_STATE_MACHINE(bomb_1) ;
 	}
 
@@ -215,19 +209,13 @@ void main(	void)
 
 	if(bomb_2)
 	{
-		puts("Registering bomb_0") ;
-
 		REGISTER_STATE_MACHINE(bomb_2) ;
 	}
-
-	puts("Generating calculator") ;
 
 	calculator = STATE_MACHINE_CREATE_INSTANCE_OF(calculator) ;
 
 	if(calculator)
 	{
-		puts("Registering calculator") ;
-
 		REGISTER_STATE_MACHINE(calculator) ;
 	}
 

@@ -16,6 +16,11 @@
 #include <string.h>
 #include <stdio.h>
 
+#if defined(__TS7800__) || defined(__cygwin__)
+	#include <pthread.h>
+
+#endif
+
 #include "config.h"
 
 #include "stateMachine_G4.h"
@@ -23,12 +28,16 @@
 #if ! configHSM_DEBUGGING_ENABLED
 	#undef TRACING_ENABLED
 	#undef MINIMAL_TRACING_ENABLED
-#else
+#elif 1
 	#undef TRACING_ENABLED
 	#define MINIMAL_TRACING_ENABLED
+#else
+	#define TRACING_ENABLED
+	#undef MINIMAL_TRACING_ENABLED
 #endif
 
 
+pthread_mutex_t	mutex1 = PTHREAD_MUTEX_INITIALIZER ;
 
 
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
@@ -56,9 +65,12 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 	bool		allocated = false ;
 	uint8_t		i ;
 	uint8_t		j ;
-	uint8_t*	memoryPoolLocation = (uint8_t*)(sm->startOfEventMemoryPools) ;
+	uint8_t*	memoryPoolLocation	= (uint8_t*)(sm->startOfEventMemoryPools) ;
 
 	/* start out by shutting down interrupts. This is a critical section */
+
+	int ret_value = pthread_mutex_lock(&mutex1) ;
+//	printf("hsm_createNewEvent(): thread locked %d\n", ret_value) ; fflush(stdout) ;
 
 	/* Is this a global or local event? */
 
@@ -133,6 +145,9 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 
 	/* It's ok to re-enable interrupts */
 
+//	printf("hsm_createNewEvent(): thread UNLOCKED\n") ; fflush(stdout) ;
+	pthread_mutex_unlock(&mutex1) ;
+
 	/* Now return the appropriate thing to the caller */
 
 	if(allocated)
@@ -148,13 +163,16 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 }
 
 
-alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating)
+alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating)
 {
-	bool		allocated = false ;
+	bool		allocated			= false ;
 	uint8_t		i ;
-	uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfTimerEvents) ;
+	uint8_t*	memoryPoolLocation	= (uint8_t*)(machine->startOfTimerEvents) ;
 
 	/* start out by shutting down interrupts. This is a critical section */
+
+	int ret_value = pthread_mutex_lock(&mutex1) ;
+//	printf("hsm_createAlarm(): thread locked %d\n", ret_value) ; fflush(stdout) ;
 
 	/* Now go through the timer event area and grab the next open slot */
 
@@ -170,31 +188,65 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 
 		if(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_NON_EVENT)
 		{
-			alarmEvent_t* alarm = (alarmEvent_t*)memoryPoolLocation ;
-
 			/* Found an empty slot so fill it in and bail from the loop */
 
 			allocated = true ;
 
 #ifdef TRACING_ENABLED
-		printf("\t\t\tEmpty slot found\n") ;
+		printf("\t\t\tEmpty slot found at %p\n", (void*)memoryPoolLocation) ;
 #endif
-
-			alarm->parent.eventType				= eventType ;
-			alarm->parent.eventListenerCount	= 1 ;
-			alarm->active						= false ;
-			alarm->remainingHours				= hours ;
-			alarm->remainingMicroseconds		= microseconds ;
-
-			if(repeating)
+			if(eventType != SUBSTATE_TIMEOUT)
 			{
-				alarm->repeatingHours			= hours ;
-				alarm->repeatingMicroseconds	= microseconds ;
+				alarmEvent_t* alarm = (alarmEvent_t*)memoryPoolLocation ;
+
+				alarm->parent.parent.eventType			= eventType ;
+				alarm->parent.parent.eventListenerCount	= 1 ;
+				alarm->parent.remainingHours			= hours ;
+				alarm->parent.remainingMicroseconds		= microseconds ;
+				alarm->active							= false ;
+
+				if(repeating)
+				{
+					alarm->parent.originalHours			= hours ;
+					alarm->parent.originalMicroseconds	= microseconds ;
+				}
+				else
+				{
+					alarm->parent.originalHours			= 0 ;
+					alarm->parent.originalMicroseconds	= 0 ;
+				}
+#if 0
+				printf("(%p)alarm->parent.parent.eventType         : %d\n", (void*)alarm, alarm->parent.parent.eventType) ; fflush(stdout) ;
+				printf("(%p)alarm->parent.parent.eventListenerCount: %d\n", (void*)alarm, alarm->parent.parent.eventListenerCount) ; fflush(stdout) ;
+				printf("(%p)alarm->parent.remainingHours           : %ld\n", (void*)alarm, alarm->parent.remainingHours) ; fflush(stdout) ;
+				printf("(%p)alarm->parent.remainingMicroseconds    : %ld\n", (void*)alarm, alarm->parent.remainingMicroseconds) ; fflush(stdout) ;
+				printf("(%p)alarm->parent.originalHours            : %ld\n", (void*)alarm, alarm->parent.originalHours) ; fflush(stdout) ;
+				printf("(%p)alarm->parent.originalMicroseconds     : %ld\n", (void*)alarm, alarm->parent.originalMicroseconds) ; fflush(stdout) ;
+				printf("(%p)alarm->active                          : %d\n", (void*)alarm, alarm->active) ; fflush(stdout) ;
+#endif
 			}
 			else
 			{
-				alarm->repeatingHours			= 0 ;
-				alarm->repeatingMicroseconds	= 0 ;
+				timeoutEvent_t* timeout = (timeoutEvent_t*)memoryPoolLocation ;
+
+				timeout->parent.parent.parent.eventType				= eventType ;
+				timeout->parent.parent.parent.eventListenerCount	= 1 ;
+				timeout->parent.parent.remainingHours				= hours ;
+				timeout->parent.parent.remainingMicroseconds		= microseconds ;
+				timeout->parent.parent.originalHours				= hours ;
+				timeout->parent.parent.originalMicroseconds			= microseconds ;
+				timeout->parent.active								= hours ;
+				timeout->ownerState									= machine->currentState ;
+#if 0
+				printf("(%p)timeout->parent.parent.parent.eventType         : %d\n", (void*)timeout, timeout->parent.parent.parent.eventType) ; fflush(stdout) ;
+				printf("(%p)timeout->parent.parent.parent.eventListenerCount: %d\n", (void*)timeout, timeout->parent.parent.parent.eventListenerCount) ; fflush(stdout) ;
+				printf("(%p)timeout->parent.parent.remainingHours           : %ld\n", (void*)timeout, timeout->parent.parent.remainingHours) ; fflush(stdout) ;
+				printf("(%p)timeout->parent.parent.remainingMicroseconds    : %ld\n", (void*)timeout, timeout->parent.parent.remainingMicroseconds) ; fflush(stdout) ;
+				printf("(%p)timeout->parent.parent.originalHours            : %ld\n", (void*)timeout, timeout->parent.parent.originalHours) ; fflush(stdout) ;
+				printf("(%p)timeout->parent.parent.originalMicroseconds     : %ld\n", (void*)timeout, timeout->parent.parent.originalMicroseconds) ; fflush(stdout) ;
+				printf("(%p)timeout->parent.active                          : %d\n", (void*)timeout, timeout->parent.active) ; fflush(stdout) ;
+				printf("(%p)timeout->ownerState                             : %p\n", (void*)timeout, (void*)timeout->ownerState) ; fflush(stdout) ;
+#endif
 			}
 
 			break ;
@@ -206,6 +258,9 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 	}
 
 	/* It's ok to re-enable interrupts */
+
+//	printf("hsm_createAlarm(): thread UNLOCKED\n") ; fflush(stdout) ;
+	pthread_mutex_unlock(&mutex1) ;
 
 	/* Now return the appropriate thing to the caller */
 
@@ -222,12 +277,66 @@ alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint
 }
 
 
+void hsm_resetTimeout(		stateMachine_t* machine)
+{
+	uint8_t		i ;
+	uint8_t*	memoryPoolLocation	= (uint8_t*)(machine->startOfTimerEvents) ;
+
+	/* start out by shutting down interrupts. This is a critical section */
+
+	int ret_value = pthread_mutex_lock(&mutex1) ;
+//	printf("hsm_resetTimeout(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+
+	/* Now go through the timer event area and grab the next open slot */
+
+#ifdef TRACING_ENABLED
+	printf("\tResetting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
+#endif
+
+	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
+	{
+#ifdef TRACING_ENABLED
+		printf("\t\tChecking timeout event at %p\n", memoryPoolLocation) ;
+#endif
+
+		if(		(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_TIMEOUT)
+			&&	(((timeoutEvent_t*)memoryPoolLocation)->ownerState == machine->currentState))
+		{
+			timeoutEvent_t*	timeout = (timeoutEvent_t*)memoryPoolLocation ;
+
+			/* This is the one so reset it out and bail */
+
+#ifdef TRACING_ENABLED
+		printf("\t\t\tFound it. Resetting to %ld, %ld\n", timeout->originalHours, timeout->originalMicroseconds) ;
+#endif
+
+			timeout->parent.parent.originalHours		= timeout->parent.parent.originalHours ;
+			timeout->parent.parent.originalMicroseconds	= timeout->parent.parent.originalMicroseconds ;
+
+			break ;
+		}
+		else
+		{
+			memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
+		}
+	}
+
+	/* It's ok to re-enable interrupts */
+
+//	printf("hsm_resetTimeout(): thread UNLOCKED\n") ; fflush(stdout) ;
+	pthread_mutex_unlock(&mutex1) ;
+}
+
+
 void hsm_deleteTimeout(		stateMachine_t* machine)
 {
 	uint8_t		i ;
 	uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfTimerEvents) ;
 
 	/* start out by shutting down interrupts. This is a critical section */
+
+	int ret_value = pthread_mutex_lock(&mutex1) ;
+//	printf("hsm_deleteTimeout(): thread locked %d\n", ret_value) ; fflush(stdout) ;
 
 	/* Now go through the timer event area and grab the next open slot */
 
@@ -247,10 +356,15 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 			/* This is the one so clear it out and bail */
 
 #ifdef TRACING_ENABLED
-		printf("\t\t\tFound it\n") ;
+			printf("\t\t\tFound it at %p\n", (void*)memoryPoolLocation) ;
 #endif
 
-			((event_t*)memoryPoolLocation)->eventType = SUBSTATE_NON_EVENT ;
+			((event_t*)memoryPoolLocation)->eventType							= SUBSTATE_NON_EVENT ;
+
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.remainingHours			= 0 ; ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.remainingMicroseconds	= 0 ; ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalHours			= 0 ; ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalMicroseconds	= 0 ; ;
 
 			break ;
 		}
@@ -261,6 +375,9 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 	}
 
 	/* It's ok to re-enable interrupts */
+
+//	printf("hsm_deleteTimeout(): thread UNLOCKED\n") ; fflush(stdout) ;
+	pthread_mutex_unlock(&mutex1) ;
 }
 
 
@@ -371,7 +488,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		instance->startOfEventMemoryPools			= (void*)(((char*)historicalMarkerArray) + historicalMarkerArraySize) ;
 
 		printf("\tinstance                         : %p\n", (void*)instance) ;
-		printf("\tinstance->eventQueue             : %p\n", (void*)instance->eventQueue.Array) ;
+		printf("\tinstance->eventQueue.Array       : %p\n", (void*)instance->eventQueue.Array) ;
 		printf("\tinstance->typesOfEventsToDefer   : %p\n", (void*)instance->typesOfEventsToDefer) ;
 		printf("\tinstance->deferredEventQueue     : %p\n", (void*)instance->deferredEventQueue.Array) ;
 		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ;
@@ -520,18 +637,9 @@ watchedVariableTransitionEvent_t* getNextWatchEventVariable(	stateMachine_t*	mac
 	return (watchedVariableTransitionEvent_t*)0 ;
 }
 
-#if configPRINT_RTC_EXECUTION_TIME
-	int timeval_subtract(struct timeval* result, struct timeval* x, struct timeval* y) ;
-#endif
 
 void iterateAllStateMachines(	void)
 {
-#if configPRINT_RTC_EXECUTION_TIME
-	struct timeval startTime ;
-	struct timeval endTime ;
-	struct timeval duration ;
-#endif
-
 	uint8_t		statetMachineIndex ;
 #if 0
 	uint8_t		timeoutIndex ;
@@ -588,40 +696,15 @@ void iterateAllStateMachines(	void)
 	}
 #endif
 
-#if configPRINT_RTC_EXECUTION_TIME
-	gettimeofday(&startTime, NULL) ;
-#endif
-
 	/* Finally, iterate through all state machines to handle normal event processing */
 
 	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
 	{
 		if(stateMachines[statetMachineIndex] != NULL)
 		{
-#if 0
-			if(!eventQueue_isEmpty(&stateMachines[statetMachineIndex]->eventQueue))
-			{
-				printf("Iterating machine %2d ('%20s'): ", statetMachineIndex, stateMachines[statetMachineIndex]->stateMachineName) ;
-			}
-#endif
 			iterateStateMachine(stateMachines[statetMachineIndex]) ;
-
-#if 0
-			if(!eventQueue_isEmpty(&stateMachines[statetMachineIndex]->eventQueue))
-			{
-				printf("\n") ;
-			}
-#endif
 		}
 	}
-
-#if configPRINT_RTC_EXECUTION_TIME
-	gettimeofday(&endTime, NULL) ;
-
-	timeval_subtract(&duration, &endTime, &startTime) ;
-
-	printf("[%07ld]", duration.tv_usec) ;
-#endif
 }
 
 
@@ -663,6 +746,9 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 {
 	uint8_t			statetMachineIndex ;
 
+	int ret_value = pthread_mutex_lock(&mutex1) ;
+//	printf("hsm_handleTick(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+
 	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
 	{
 		stateMachine_t*	machine = stateMachines[statetMachineIndex] ;
@@ -690,69 +776,84 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 				for( alarmIndex = 0 ; alarmIndex < machine->numberOfTimerEvents ; alarmIndex++ )
 				{
-					alarmEvent_t*	alarm = (alarmEvent_t*)memoryPoolLocation ;
+					timerEvent_t*	timer = (timerEvent_t*)memoryPoolLocation ;
 
-					if(alarm->active || (((event_t*)(alarm))->eventType == SUBSTATE_TIMEOUT))
+					memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
+
+					/* See if this alarm, or timeout, is active. If not, skip it */
+
+					if(((alarmEvent_t*)timer)->active == false)
 					{
-						alarm->remainingMicroseconds -= microsecondsSinceLastHandled ;
+						continue ;
+					}
 
-						if(alarm->remainingMicroseconds > (60UL * 60UL * 1000000UL))
+					timer->remainingMicroseconds -= microsecondsSinceLastHandled ;
+
+					if(timer->remainingMicroseconds > (60UL * 60UL * 1000000UL))
+					{
+						/* must have wrapped around so reset it */
+
+						timer->remainingMicroseconds = 0 ;
+					}
+
+					if(timer->remainingMicroseconds == 0)
+					{
+						if(timer->remainingHours > 0)
 						{
-							/* must have wrapped around so reset it */
+							--(timer->remainingHours) ;
 
-							alarm->remainingMicroseconds = 0 ;
+							timer->remainingMicroseconds = (60UL * 60UL * 1000000UL) ;
 						}
-
-						if(alarm->remainingMicroseconds == 0)
+						else if(timer->remainingHours == 0)
 						{
-							if(alarm->remainingHours > 0)
-							{
-								--(alarm->remainingHours) ;
-
-								alarm->remainingMicroseconds = (60UL * 60UL * 1000000UL) ;
-							}
-							else if(alarm->remainingHours == 0)
-							{
-								/* Here's at least one. Fire off the event */
+							/* Here's at least one. Fire off the event */
 
 #if 0
-								printf("AIMING AT '%s'...FIRE!!!\n", machine->instanceName) ;
+							printf("AIMING %p (%d) AT '%s'...FIRE!!! (machine %d @ %p)\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName, statetMachineIndex, (void*)machine) ;
 #endif
-								hsm_postEventToMachine((event_t*)alarm, machine) ;
+if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
+{
+	printf("Posting non event at %p to '%s'\n", (void*)timer, machine->instanceName) ; fflush(stdout) ;
+}
+							if(!hsm_postEventToMachine((event_t*)timer, machine))
+							{
+								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)timer)->eventType, machine->instanceName) ;
+								exit(0) ;
+							}
 
-								if(((event_t*)(alarm))->eventType == SUBSTATE_TIMEOUT)
+							if(((event_t*)timer)->eventType == SUBSTATE_TIMEOUT)
+							{
+								/*
+								 * This is a timeout so clear it now to keep MANY events
+								 * from being fired before the state machine can iterate
+								 * the appropriate state to clear it.
+								 */
+
+								((alarmEvent_t*)timer)->active = false ;
+							}
+							else
+							{
+								/* If this is a repeating alarm, reset it for next time */
+
+								if((timer->originalHours) || (timer->originalMicroseconds))
 								{
-									/*
-									 *  This is a timeout so clear it now to keep MANY events
-									 * from being fired before the state machine can iterate
-									 * the appropriate state to clear it.
-									 */
-
-									((event_t*)(alarm))->eventType = SUBSTATE_TIMEOUT ;
+									timer->remainingHours			= timer->originalHours ;
+									timer->remainingMicroseconds	= timer->originalMicroseconds ;
 								}
 								else
 								{
-									/* If this is a repeating alarm, reset it for next time */
-
-									if((alarm->repeatingHours) || (alarm->repeatingMicroseconds))
-									{
-										alarm->remainingHours			= alarm->repeatingHours ;
-										alarm->remainingMicroseconds	= alarm->repeatingMicroseconds ;
-									}
-									else
-									{
-										alarm->active = false ;
-									}
+									((alarmEvent_t*)timer)->active	= false ;
 								}
 							}
 						}
 					}
-
-					memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 				}
 			}
 		}
 	}
+
+//	printf("hsm_handleTick(): thread UNLOCKED\n") ; fflush(stdout) ;
+	pthread_mutex_unlock(&mutex1) ;
 }
 
 stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
@@ -875,6 +976,9 @@ void iterateStateMachine(	stateMachine_t* sm)
 	stateMachine_stateResponse_t	action ;
 	bool							forceTransition	= false ;
 
+	int ret_value = pthread_mutex_lock(&mutex1) ;
+//	printf("iterateStateMachine(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+
 #ifdef TRACING_ENABLED
 	#if 0
 		printf("\titerating %s\n", sm->stateMachineName) ; fflush(stdout) ;
@@ -929,8 +1033,6 @@ void iterateStateMachine(	stateMachine_t* sm)
 				printf("\t\t\tGetting event from queue\n") ; fflush(stdout) ;
 #endif
 				eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
-
-				--eventToProcess->eventListenerCount ;
 			}
 
 #ifdef TRACING_ENABLED
@@ -1296,4 +1398,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 		printf("\t\tEvent queue empty.\n") ; fflush(stdout) ;
 	#endif
 #endif
+
+//	printf("iterateStateMachine(): thread UNLOCKED\n") ; fflush(stdout) ;
+	pthread_mutex_unlock(&mutex1) ;
 }

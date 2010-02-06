@@ -117,8 +117,13 @@ typedef struct
 	uint32_t					remainingHours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
 	uint32_t					remainingMicroseconds ;
 
-	uint32_t					repeatingHours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
-	uint32_t					repeatingMicroseconds ;
+	uint32_t					originalHours ;				/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t					originalMicroseconds ;
+} timerEvent_t ;
+
+typedef struct
+{
+	timerEvent_t				parent ;
 
 	bool						active ;
 } alarmEvent_t ;
@@ -126,13 +131,7 @@ typedef struct
 
 typedef struct
 {
-	event_t						parent ;
-
-	uint32_t					remainingHours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
-	uint32_t					remainingMicroseconds ;
-
-	uint32_t					originalHours ;				/* only 489,957 years, 5 months, 19 hours before wrapping */
-	uint32_t					originalMicroseconds ;
+	alarmEvent_t				parent ;
 
 	void*						ownerState ;
 } timeoutEvent_t ;

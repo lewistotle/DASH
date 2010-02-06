@@ -248,15 +248,17 @@ bool hsm_publishEventForAll(			event_t* event) ;
 #define ACTIVE			true
 #define NON_ACTIVE		false
 
-alarmEvent_t* hsm_postAlarm(stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating) ;
-void hsm_deleteTimeout(		stateMachine_t* machine) ;
+alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating) ;
+void hsm_resetTimeout(			stateMachine_t* machine) ;
+void hsm_deleteTimeout(			stateMachine_t* machine) ;
 
-#define SET_ALARM(machine, eventType, duration, repeating)	hsm_postAlarm((stateMachine_t*)machine, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
+#define SET_ALARM(machine, eventType, duration, repeating)	hsm_createAlarm((stateMachine_t*)machine, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
 
-#define ACTIVATE_ALARM(alarm)								if(alarm) { alarm->active = true ; }
-#define DEACTIVATE_ALARM(alarm)								if(alarm) { alarm->active = false ; }
+#define ACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = true ; }
+#define DEACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = false ; }
 
-#define DELETE_TIMEOUT(machine)								hsm_deleteTimeout(machine)
+#define RESET_TIMEOUT()										hsm_resetTimeout((stateMachine_t*)self)
+#define DELETE_TIMEOUT(machine)								hsm_deleteTimeout((stateMachine_t*)machine)
 
 /* A couple of helpers to deal with state machine memory and initialization. */
 
@@ -675,10 +677,10 @@ void registerWatchVariable(stateMachine_t* sm, uint16_t lineNumber, void* variab
 
 
 
-#define TRANSITION_AFTER(timeout, dest, act)		{																																																						\
-														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(self, SUBSTATE_TIMEOUT, SECONDS(5), NON_REPEATING) ; if(timeoutForState) { timeoutForState->ownerState = self->parent.currentState ; } }) ;	\
-														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->ownerState == self->parent.currentState, TO(dest), act)																								\
-														ON_EXIT(DELETE_TIMEOUT(self)) ;																																														\
+#define TRANSITION_AFTER(timeout, dest, act)		{																																																													\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(self, SUBSTATE_TIMEOUT, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->ownerState = self->parent.currentState ; } }) ;	\
+														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->ownerState == self->parent.currentState, TO(dest), act)																															\
+														ON_EXIT(DELETE_TIMEOUT(self)) ;																																																					\
 													}
 
 
