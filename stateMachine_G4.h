@@ -8,8 +8,16 @@
 #ifndef STATEMACHINE_G4_H_
 #define STATEMACHINE_G4_H_
 
+#include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+#define configHSM_INTERNAL_DEBUGGING_ENABLED		true
+#define configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED	true
+
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#include <stdio.h>
+#endif
 
 #include "stateMachine_G4_eventQueue.h"
 
@@ -132,11 +140,13 @@ typedef struct
 	const machineMemoryPoolInto_t*			memoryPoolInfo ;
 	void*									startOfEventMemoryPools ;
 
-	bool									anyTimerEventsActive ;
 	uint8_t									numberOfTimerEvents ;
 	void*									startOfTimerEvents ;
 
-#if configHSM_DEBUGGING_ENABLED
+	uint8_t									numberOfWatchEvents ;
+	void*									startOfWatchEvents ;
+
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	/* The following are used for debugging only and can be removed for production code. */
 
 	uint8_t									printStateTransitions ;
@@ -290,6 +300,7 @@ void deallocateStateMachineMemory(			stateMachine_t* instance) ;
 
 #define DECLARE_EVENT_MEMORY_POOL(n, strct)		{ (n), sizeof(strct) }
 #define DECLARE_TIMER_MEMORY_POOL(n)			{ (n), 0 }
+#define DECLARE_NUMBER_OF_WATCH_EVENTS(n)		{ (n), 0xFFFF }
 
 #define END_MEMORY_POOL_DECLARATIONS_2(sm)		; enum { sm##_placeholderToMakeTheBracketsLineUp
 #define END_MEMORY_POOL_DECLARATIONS_1(sm)		END_MEMORY_POOL_DECLARATIONS_2(sm)
@@ -351,7 +362,7 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 												} ;
 
 
-#if configHSM_DEBUGGING_ENABLED
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 
 #define SET_EVENT_NAMES(eventNames)						self->parent.eventNames = eventNames
 
@@ -599,7 +610,7 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define STATE_MACHINE_EXIT						TOP
 
 
-#if configHSM_DEBUGGING_ENABLED
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#define INITIAL_TRANSITION_2(sm, dest, act)		if(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; } else { ((stateMachine_t*)self)->currentStateHasInitialTransition = true ; }
 #else
 	#define INITIAL_TRANSITION_2(sm, dest, act)		if(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
@@ -627,10 +638,11 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define TRANSITION_IF_1(sm, cndtn, dest, act)		TRANSITION_IF_2(sm, cndtn, dest, act)
 #define TRANSITION_IF(cndtn, dest, act)				TRANSITION_IF_1(STATE_MACHINE_NAME, cndtn, dest, act)
 
+#if 0
 #define TRANSITION_CALLING_2(sm, func, evt)			if(hsm_getEventType(event) == evt) { func ; return HANDLED ; }
 #define TRANSITION_CALLING_1(sm, func, evt)			TRANSITION_CALLING_2(sm, func, evt)
 #define TRANSITION_CALLING(func, evt)				TRANSITION_CALLING_1(STATE_MACHINE_NAME, func, evt)
-
+#endif
 
 
 
@@ -655,23 +667,14 @@ typedef struct
 #define HAS_VALUE_OF(val)			val,				sizeof(uint32_t),	MATCHES_VALUE
 #define MATCHES_VARIABLE(var)		(void*)(&(var)),	sizeof(void*),		MATCHES_VARIABLE
 
-void registerWatchVariable(stateMachine_t* sm, uint16_t lineNumber, void* variableToWatch, uint8_t variableSize) ;
+stateMachineWatch_t* hsm_registerWatchVariable(		stateMachine_t* machine, void* loc, size_t size) ;
+void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 
-#define TRANSITION_WHEN_2(sm, var, dest, act)		if(hsm_getEventType(event) == SUBSTATE_ENTRY) { registerWatchVariable(self, __LINE__, &var, sizeof(var)) ; }	\
-																																									\
-													if(		(hsm_getEventType(event) == SUBSTATE_WATCHED)															\
-														&&	(CAST_EVENT(watchedVariableTransitionEvent_t)->lineNumber == __LINE__))									\
-													{																												\
-														stateResponseCode = TRANSITION ;																			\
-																																									\
-														act ;																										\
-																																									\
-														((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ;													\
-																																									\
-														return stateResponseCode ;																					\
+#define TRANSITION_WHEN(var, dest, act)				{																														\
+														ON_ENTRY(hsm_registerWatchVariable((stateMachine_t*)self, &var, sizeof(var))) ;										\
+														TRANSITION_ON_IF(SUBSTATE_WATCHED, &var == CAST_EVENT(stateMachineWatch_t)->watchVariableLocation, TO(dest), act) ;	\
+														ON_EXIT(hsm_unregisterWatchVariable((stateMachine_t*)self, &var)) ;													\
 													}
-#define TRANSITION_WHEN_1(sm, var, dest, act)		TRANSITION_WHEN_2(sm, var, dest, act)
-#define TRANSITION_WHEN(var, dest, act)				TRANSITION_WHEN_1(STATE_MACHINE_NAME, var, dest, act)
 
 
 
@@ -680,7 +683,7 @@ void registerWatchVariable(stateMachine_t* sm, uint16_t lineNumber, void* variab
 
 #define TRANSITION_AFTER(timeout, dest, act)		{																																																													\
 														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(self, SUBSTATE_TIMEOUT, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->ownerState = self->parent.currentState ; } }) ;	\
-														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->ownerState == self->parent.currentState, TO(dest), act)																															\
+														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->ownerState == self->parent.currentState, TO(dest), act) ;																															\
 														ON_EXIT(DELETE_TIMEOUT(self)) ;																																																					\
 													}
 

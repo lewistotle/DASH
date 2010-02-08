@@ -40,7 +40,6 @@
 #define config_toastEVENT_QUEUE_DEPTH		8
 
 
-#define configHSM_DEBUGGING_ENABLED					true
 
 #define configMAXIMUM_NUMBER_OF_STATE_MACHINES		5
 #define configMAXIMUM_NUMBER_OF_TIMEOUTS			50

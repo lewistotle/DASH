@@ -16,27 +16,31 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "config.h"
-
 #include "stateMachine_G4.h"
 
-#if ! configHSM_DEBUGGING_ENABLED
-	#undef TRACING_ENABLED
-	#undef MINIMAL_TRACING_ENABLED
-#elif 1
-	#undef TRACING_ENABLED
-	#define MINIMAL_TRACING_ENABLED
+#if configHSM_INTERNAL_DEBUGGING_ENABLED
+	#define TRACING_ENABLED					false
+	#define MINIMAL_TRACING_ENABLED			false
 #else
-	#define TRACING_ENABLED
+	#undef TRACING_ENABLED
 	#undef MINIMAL_TRACING_ENABLED
 #endif
 
+#ifndef configMAXIMUM_NUMBER_OF_STATE_MACHINES
+	#define configMAXIMUM_NUMBER_OF_STATE_MACHINES		8
+#endif
 
+#ifndef configMAXIMUM_STATE_HIERARCHY_DEPTH
+	#define configMAXIMUM_STATE_HIERARCHY_DEPTH			16
+#endif
 
 
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
 
 stateMachine_t*	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
+
+uint32_t	uptime_hours ;
+uint32_t	uptime_microseconds ;
 
 
 void iterateStateMachine(	stateMachine_t* sm) ;
@@ -77,13 +81,13 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 		 * find an entry both big enough and unused
 		 */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("\tCreating event type %d, size %d, for machine '%s'\n", eventType, eventSize, sm->stateMachineName) ;
 #endif
 
 		for( i = 0 ; (i < sm->memoryPoolInfo->numberOfMemoryPools) && (!allocated) ; i++ )
 		{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 			printf("\t\tPool %2d (chunkSize = %2d)\n", i, sm->memoryPoolInfo->eventMemoryPools[i].chunkSize) ;
 #endif
 
@@ -95,13 +99,13 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 				{
 					event_t* eventHeader = (event_t*)memoryPoolLocation ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 					printf("\t\t\tChecking event location %p: ", memoryPoolLocation) ;
 #endif
 
 					if(eventHeader->eventType == SUBSTATE_NON_EVENT)
 					{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 						printf("EMPTY. Filling it and bailing.\n") ;
 #endif
 
@@ -117,7 +121,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 					}
 					else
 					{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 						printf("contains event type: %d\n", eventHeader->eventType) ;
 #endif
 						/* No room at that inn so go to the next one */
@@ -167,13 +171,13 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 
 	/* Now go through the timer event area and grab the next open slot */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	printf("\tCreating alarm lasting %ld hours and %ld.%06ld seconds for machine '%s'\n", hours, microseconds / 1000000UL, microseconds % 1000000UL, machine->stateMachineName) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
 	{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("\t\tChecking timer event at %p\n", memoryPoolLocation) ;
 #endif
 
@@ -183,7 +187,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 
 			allocated = true ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("\t\t\tEmpty slot found at %p\n", (void*)memoryPoolLocation) ;
 #endif
 			if(eventType != SUBSTATE_TIMEOUT)
@@ -260,7 +264,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 	}
 	else
 	{
-		printf("\t\tUnable to allocate event.\n") ;
+		printf("\t\tUnable to allocate alarm event.\n") ;
 
 		return (alarmEvent_t*)0 ;
 	}
@@ -278,13 +282,13 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 
 	/* Now go through the timer event area and grab the next open slot */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	printf("\tResetting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
 	{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("\t\tChecking timeout event at %p\n", memoryPoolLocation) ;
 #endif
 
@@ -295,8 +299,8 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 
 			/* This is the one so reset it out and bail */
 
-#ifdef TRACING_ENABLED
-		printf("\t\t\tFound it. Resetting to %ld, %ld\n", timeout->originalHours, timeout->originalMicroseconds) ;
+#if TRACING_ENABLED
+			printf("\t\t\tFound it. Resetting to %ld, %ld\n", timeout->parent.parentoriginalHours, timeout->parent.parentoriginalMicroseconds) ;
 #endif
 
 			timeout->parent.parent.originalHours		= timeout->parent.parent.originalHours ;
@@ -327,13 +331,13 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 
 	/* Now go through the timer event area and grab the next open slot */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	printf("\tDeleting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ; fflush(stdout) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
 	{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("\t\tChecking timeout event at %p\n", memoryPoolLocation) ; fflush(stdout) ;
 #endif
 
@@ -342,7 +346,7 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 		{
 			/* This is the one so clear it out and bail */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 			printf("\t\t\tFound it at %p\n", (void*)memoryPoolLocation) ; fflush(stdout) ;
 #endif
 
@@ -382,6 +386,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 	uint16_t						deferredEventQueueSize		= (eventQueueDepth * sizeof(event_t*)) ;
 	uint16_t						historicalMarkerArraySize	= (historyArraySize * sizeof(void*)) ;
 	uint16_t						numberOfTimerEvents			= 0 ;
+	uint16_t						numberOfWatchEvents			= 0 ;
 	uint16_t						numberOfBytesNeeded			= stateMachineSize
 																+ eventQueueSize
 																+ typesOfEventsToDeferSize
@@ -406,31 +411,45 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 			numberOfTimerEvents += memoryRequirements->eventMemoryPools[i].numberOfChunks ;
 		}
+		if(memoryRequirements->eventMemoryPools[i].chunkSize == 0xFFFF)
+		{
+			/* This is a timer event so add this set to the number of timer events.
+			 * No need to worry about them in the main memory pool loop since they
+			 * will equate to 0 bytes which will not increase that total at all.
+			 */
+
+			numberOfWatchEvents += memoryRequirements->eventMemoryPools[i].numberOfChunks ;
+		}
 	}
 
 	/* round out to 4 byte boundaries */
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
-	printf("\tstateMachineSize         : %d\n", stateMachineSize) ;
-	printf("\teventQueueSize           : %d (%d events)\n", eventQueueSize, eventQueueDepth) ;
-	printf("\ttypesOfEventsToDeferSize : %d\n", typesOfEventsToDeferSize) ;
-	printf("\tdeferredEventQueueSize   : %d\n", deferredEventQueueSize) ;
-	printf("\thistoricalMarkerArraySize: %d\n", historicalMarkerArraySize) ;
-	printf("\tnumberOfTimerEvents      : %d\n", numberOfTimerEvents) ;
-	printf("\tnumberOfMemoryPools      : %d\n", memoryRequirements->numberOfMemoryPools) ;
+	printf("\tstateMachineSize         : %d\n", stateMachineSize) ; fflush(stdout) ;
+	printf("\teventQueueSize           : %d (%d events)\n", eventQueueSize, eventQueueDepth) ; fflush(stdout) ;
+	printf("\ttypesOfEventsToDeferSize : %d\n", typesOfEventsToDeferSize) ; fflush(stdout) ;
+	printf("\tdeferredEventQueueSize   : %d\n", deferredEventQueueSize) ; fflush(stdout) ;
+	printf("\thistoricalMarkerArraySize: %d\n", historicalMarkerArraySize) ; fflush(stdout) ;
+	printf("\tnumberOfTimerEvents      : %d\n", numberOfTimerEvents) ; fflush(stdout) ;
+	printf("\tnumberOfWatchEvents      : %d\n", numberOfWatchEvents) ; fflush(stdout) ;
+	printf("\tnumberOfMemoryPools      : %d\n", memoryRequirements->numberOfMemoryPools) ; fflush(stdout) ;
 
 	for( i = 0 ; i < memoryRequirements->numberOfMemoryPools ; i++ )
 	{
-		uint16_t bytesNeededForCurrentPool = memoryRequirements->eventMemoryPools[i].chunkSize * memoryRequirements->eventMemoryPools[i].numberOfChunks ;
+		if(		(memoryRequirements->eventMemoryPools[i].chunkSize > 0)
+			&&	(memoryRequirements->eventMemoryPools[i].chunkSize < 0xFFFF))
+		{
+			uint16_t bytesNeededForCurrentPool = memoryRequirements->eventMemoryPools[i].chunkSize * memoryRequirements->eventMemoryPools[i].numberOfChunks ;
 
-		printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].chunkSize, memoryRequirements->eventMemoryPools[i].numberOfChunks) ;
+			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].chunkSize, memoryRequirements->eventMemoryPools[i].numberOfChunks) ; fflush(stdout) ;
 
-		numberOfBytesNeeded += bytesNeededForCurrentPool ;
+			numberOfBytesNeeded += bytesNeededForCurrentPool ;
 
-		/* round out to 4 byte boundaries */
+			/* round out to 4 byte boundaries */
 
-		numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
+			numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
+		}
 	}
 
 	/* round out to 4 byte boundaries */
@@ -441,7 +460,11 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
-	printf("\tAllocating %d (0x%04X) total bytes\n", numberOfBytesNeeded, numberOfBytesNeeded) ;
+	numberOfBytesNeeded += numberOfWatchEvents * sizeof(stateMachineWatch_t) ;
+
+	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
+
+	printf("\tAllocating %d (0x%04X) total bytes\n", numberOfBytesNeeded, numberOfBytesNeeded) ; fflush(stdout) ;
 
 	instance = hsm_malloc(numberOfBytesNeeded) ;
 
@@ -474,33 +497,36 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		instance->memoryPoolInfo					= memoryRequirements ;
 		instance->startOfEventMemoryPools			= (void*)(((char*)historicalMarkerArray) + historicalMarkerArraySize) ;
 
-		printf("\tinstance                         : %p\n", (void*)instance) ;
-		printf("\tinstance->eventQueue.Array       : %p\n", (void*)instance->eventQueue.Array) ;
-		printf("\tinstance->typesOfEventsToDefer   : %p\n", (void*)instance->typesOfEventsToDefer) ;
-		printf("\tinstance->deferredEventQueue     : %p\n", (void*)instance->deferredEventQueue.Array) ;
-		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ;
-		printf("\tinstance->startOfEventMemoryPools: %p\n", (void*)instance->startOfEventMemoryPools) ;
+		printf("\tinstance                         : %p\n", (void*)instance) ; fflush(stdout) ;
+		printf("\tinstance->eventQueue.Array       : %p\n", (void*)instance->eventQueue.Array) ; fflush(stdout) ;
+		printf("\tinstance->typesOfEventsToDefer   : %p\n", (void*)instance->typesOfEventsToDefer) ; fflush(stdout) ;
+		printf("\tinstance->deferredEventQueue     : %p\n", (void*)instance->deferredEventQueue.Array) ; fflush(stdout) ;
+		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ; fflush(stdout) ;
+		printf("\tinstance->startOfEventMemoryPools: %p\n", (void*)instance->startOfEventMemoryPools) ; fflush(stdout) ;
 
 		memoryPoolLocation = (uint8_t*)(instance->startOfEventMemoryPools) ;
 
 		for( i = 0 ; i < memoryRequirements->numberOfMemoryPools ; i++ )
 		{
-			printf("\t\tevent pool %2d start: %p\n", i, (void*)memoryPoolLocation) ;
+			if(memoryRequirements->eventMemoryPools[i].chunkSize < 0xFFFF)
+			{
+				printf("\t\tevent pool %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
 
-			memoryPoolLocation += instance->memoryPoolInfo->eventMemoryPools[i].numberOfChunks
-								* instance->memoryPoolInfo->eventMemoryPools[i].chunkSize ;
+				memoryPoolLocation += instance->memoryPoolInfo->eventMemoryPools[i].numberOfChunks
+									* instance->memoryPoolInfo->eventMemoryPools[i].chunkSize ;
 
-			memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+				memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+			}
 		}
 
-		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ;
+		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ; fflush(stdout) ;
 
 		if(numberOfTimerEvents)
 		{
 			instance->startOfTimerEvents = (void*)memoryPoolLocation ;
 		}
 
-		printf("\ttimer event memory               : %p\n", (void*)instance->startOfTimerEvents) ;
+		printf("\ttimer event memory               : %p\n", (void*)instance->startOfTimerEvents) ; fflush(stdout) ;
 
 		if(numberOfTimerEvents)
 		{
@@ -508,13 +534,34 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 			for( i = 0 ; i < numberOfTimerEvents ; i++ )
 			{
-				printf("\t\talarm event %2d start: %p\n", i, (void*)memoryPoolLocation) ;
+				printf("\t\talarm event %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
 
 				memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 			}
 		}
 
-		printf("\tinstance last memory location    : %p\n", (void*)(((char*)instance) + numberOfBytesNeeded)) ;
+		memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+
+		if(numberOfWatchEvents)
+		{
+			instance->startOfWatchEvents = (void*)memoryPoolLocation ;
+		}
+
+		printf("\twatch event memory               : %p\n", (void*)instance->startOfWatchEvents) ; fflush(stdout) ;
+
+		if(numberOfWatchEvents)
+		{
+			instance->numberOfWatchEvents = numberOfWatchEvents ;
+
+			for( i = 0 ; i < numberOfWatchEvents ; i++ )
+			{
+				printf("\t\twatch event %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
+
+				memoryPoolLocation += sizeof(stateMachineWatch_t) ;
+			}
+		}
+
+		printf("\tinstance last memory location    : %p\n", (void*)(((char*)instance) + numberOfBytesNeeded)) ; fflush(stdout) ;
 
 		constructor(instance) ;
 	}
@@ -579,111 +626,125 @@ bool unregisterStateMachine(		stateMachine_t* sm)
 }
 
 
+stateMachineWatch_t* hsm_registerWatchVariable(	stateMachine_t* machine, void* loc, size_t size)
+{
+	bool		allocated			= false ;
+	uint8_t		i ;
+	uint8_t*	memoryPoolLocation	= (uint8_t*)(machine->startOfWatchEvents) ;
 
+	/* start out by shutting down interrupts. This is a critical section */
 
+	HSM_ENTER_CRITICAL_SECTION() ;
 
+	/* Now go through the timer event area and grab the next open slot */
 
-
-
-
-
-
-
-
-uint32_t	uptime_hours ;
-uint32_t	uptime_microseconds ;
-
-#if 0
-static uint32_t	nextTimeout_hours ;
-static uint32_t	nextTimeout_microseconds ;
-
-static stateMachineTimeout_t	timeouts[configMAXIMUM_NUMBER_OF_TIMEOUTS] ;
-static stateMachineWatch_t		watches[configMAXIMUM_NUMBER_OF_WATCH_VARIABLES] ;
+#if TRACING_ENABLED
+	printf("\nCreating watch of location %p, size %d, for machine '%s'\n", loc, size, machine->stateMachineName) ;
 #endif
 
-watchedVariableTransitionEvent_t* getNextWatchEventVariable(	stateMachine_t*	machine)
-{
-#if 0
-	uint8_t		watchVariableIndex ;
-
-	for( watchVariableIndex = 0 ; watchVariableIndex < configMAXIMUM_NUMBER_OF_WATCH_VARIABLES ; watchVariableIndex++ )
+	for( i = 0 ; i < machine->numberOfWatchEvents ; i++ )
 	{
-		watchedVariableTransitionEvent_t* watch = &watches[watchVariableIndex] ;
+		stateMachineWatch_t* watchEvent = (stateMachineWatch_t*)memoryPoolLocation ;
 
-		if(watch->machine == 0)
+#if TRACING_ENABLED
+		printf("\tChecking watch event at %p\n", memoryPoolLocation) ;
+#endif
+
+		if(watchEvent->parent.eventType == SUBSTATE_NON_EVENT)
 		{
-			watch->machine	= machine ;
-			watch->state	= machine->currentState ;
+#if TRACING_ENABLED
+			printf("\t\tEmpty slot found at %p\n", (void*)memoryPoolLocation) ;
+#endif
 
+			/* Found an empty slot so fill it in and bail from the loop */
 
-			return watch ;
+			allocated = true ;
+
+			watchEvent->parent.eventType			= SUBSTATE_WATCHED ;
+			watchEvent->parent.eventListenerCount	= 1 ;
+			watchEvent->triggered					= false ;
+			watchEvent->size						= size ;
+			watchEvent->watchVariableLocation		= loc ;
+
+			break ;
+		}
+		else
+		{
+			memoryPoolLocation += sizeof(stateMachineWatch_t) ;
 		}
 	}
+
+	/* It's ok to re-enable interrupts */
+
+	HSM_EXIT_CRITICAL_SECTION() ;
+
+	/* Now return the appropriate thing to the caller */
+
+	if(allocated)
+	{
+		return (stateMachineWatch_t*)memoryPoolLocation ;
+	}
+	else
+	{
+		printf("\t\tUnable to allocate watch event.\n") ;
+
+		return (stateMachineWatch_t*)0 ;
+	}
+}
+
+
+void hsm_unregisterWatchVariable(	stateMachine_t* machine, void* loc)
+{
+	uint8_t		i ;
+	uint8_t*	memoryPoolLocation	= (uint8_t*)(machine->startOfWatchEvents) ;
+
+	/* start out by shutting down interrupts. This is a critical section */
+
+	HSM_ENTER_CRITICAL_SECTION() ;
+
+	/* Now go through the timer event area and grab the next open slot */
+
+#if TRACING_ENABLED
+	printf("\nDeleting watch of location %p for machine '%s'\n", loc, machine->stateMachineName) ;
 #endif
 
-	return (watchedVariableTransitionEvent_t*)0 ;
+	for( i = 0 ; i < machine->numberOfWatchEvents ; i++ )
+	{
+		stateMachineWatch_t* watchEvent = (stateMachineWatch_t*)memoryPoolLocation ;
+
+#if TRACING_ENABLED
+		printf("\tChecking watch event at %p\n", memoryPoolLocation) ;
+#endif
+
+		if(watchEvent->watchVariableLocation == loc)
+		{
+#if TRACING_ENABLED
+			printf("\t\tFound it\n") ;
+#endif
+
+			watchEvent->parent.eventType			= SUBSTATE_NON_EVENT ;
+			watchEvent->parent.eventListenerCount	= 0 ;
+			watchEvent->triggered					= false ;
+			watchEvent->size						= 0 ;
+			watchEvent->watchVariableLocation		= 0 ;
+
+			break ;
+		}
+		else
+		{
+			memoryPoolLocation += sizeof(stateMachineWatch_t) ;
+		}
+	}
+
+	/* It's ok to re-enable interrupts */
+
+	HSM_EXIT_CRITICAL_SECTION() ;
 }
 
 
 void iterateAllStateMachines(	void)
 {
 	uint8_t		statetMachineIndex ;
-#if 0
-	uint8_t		timeoutIndex ;
-	uint8_t		watchVariableIndex ;
-
-	/* Go through the list of watch variables and send signals for any that have changed to true */
-
-	for( watchVariableIndex = 0 ; watchVariableIndex < configMAXIMUM_NUMBER_OF_WATCH_VARIABLES ; watchVariableIndex++ )
-	{
-		if(watches[watchVariableIndex].machine)
-		{
-			bool	isWatchVariableNonZero = false ;
-
-			switch(watches[watchVariableIndex].type)
-			{
-				case UINT8:
-				{
-					if(*((uint8_t*)(watches[watchVariableIndex].watchVariableLocation)))
-					{
-						isWatchVariableNonZero = true ;
-					}
-
-					break ;
-				}
-				case UINT16:
-				{
-					if(*((uint16_t*)(watches[watchVariableIndex].watchVariableLocation)))
-					{
-						isWatchVariableNonZero = true ;
-					}
-
-					break ;
-				}
-				case UINT32:
-				{
-					if(*((uint32_t*)(watches[watchVariableIndex].watchVariableLocation)))
-					{
-						isWatchVariableNonZero = true ;
-					}
-
-					break ;
-				}
-			}
-
-			if(isWatchVariableNonZero)
-			{
-#if 0
-				stateMachineWatch_t*	watch = (stateMachineWatch_t*)hsm_createEvent(watches[watchVariableIndex].machine, SUBSTATE_WATCHED) ;
-
-				hsm_postEvent(watches[watchVariableIndex].machine, &watches[watchVariableIndex]) ;
-#endif
-			}
-		}
-	}
-#endif
-
-	/* Finally, iterate through all state machines to handle normal event processing */
 
 	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
 	{
@@ -695,18 +756,7 @@ void iterateAllStateMachines(	void)
 }
 
 
-#ifdef TRACING_ENABLED
-char*					eventTypes[]			= {	"SUBSTATE_NON_EVENT",
-													"SUBSTATE_ENTRY",
-													"SUBSTATE_INITIAL_TRANSITION",
-													"SUBSTATE_JUMP_TO_HISTORY_DEFAULT",
-													"SUBSTATE_TICK",
-													"SUBSTATE_TIMER",
-													"SUBSTATE_WATCHED",
-													"SUBSTATE_DO",
-													"SUBSTATE_EXIT" } ;
-#endif
-#ifdef MINIMAL_TRACING_ENABLED
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 char*					eventTypes[]			= { "NO_EVENT",
 													"ENTRY",
 													"INIT",
@@ -716,11 +766,13 @@ char*					eventTypes[]			= { "NO_EVENT",
 													"WATCH",
 													"DO",
 													"EXIT" } ;
-#endif
+
 char*					responseTypes[]			= { "IGNORED",
 													"HANDLED",
 													"TRANSITION",
-													"TRANSITION_TO_HISTORY" } ;
+													"TRANSITION_TO_HISTORY",
+													"TRANSITION_TO_SELF" } ;
+#endif
 
 static const event_t	initialTransitionEvent	= { SUBSTATE_INITIAL_TRANSITION } ;
 static const event_t	jumpToHistoryEvent		= { SUBSTATE_JUMP_TO_HISTORY_DEFAULT } ;
@@ -731,7 +783,7 @@ static const event_t	exitEvent				= { SUBSTATE_EXIT } ;
 
 void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 {
-	uint8_t			statetMachineIndex ;
+	uint8_t		statetMachineIndex ;
 
 	HSM_ENTER_CRITICAL_SECTION() ;
 
@@ -835,6 +887,71 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 					}
 				}
 			}
+
+			/* Go through the list of watch variables and send signals for any that have changed to true */
+
+			if(machine->startOfWatchEvents)
+			{
+				uint8_t		watchIndex ;
+				uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfWatchEvents) ;
+
+				for( watchIndex = 0 ; watchIndex < machine->numberOfWatchEvents ; watchIndex++ )
+				{
+					stateMachineWatch_t*	watch = (stateMachineWatch_t*)memoryPoolLocation ;
+
+					memoryPoolLocation += sizeof(stateMachineWatch_t) ;
+
+					if(		(watch->watchVariableLocation)
+						&&	(!watch->triggered))
+					{
+						bool	isWatchVariableNonZero = false ;
+
+						switch(watch->size)
+						{
+							case sizeof(uint8_t):
+							{
+								if(*((uint8_t*)(watch->watchVariableLocation)))
+								{
+									isWatchVariableNonZero = true ;
+								}
+
+								break ;
+							}
+							case sizeof(uint16_t):
+							{
+								if(*((uint16_t*)(watch->watchVariableLocation)))
+								{
+									isWatchVariableNonZero = true ;
+								}
+
+								break ;
+							}
+							case sizeof(uint32_t):
+							{
+								if(*((uint32_t*)(watch->watchVariableLocation)))
+								{
+									isWatchVariableNonZero = true ;
+								}
+
+								break ;
+							}
+						}
+
+						if(isWatchVariableNonZero)
+						{
+							/* Set the triggered flag to keep the event from firing more than once */
+
+							watch->triggered = true ;
+
+							if(!hsm_postEventToMachine((event_t*)watch, machine))
+							{
+								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)watch)->eventType, machine->instanceName) ;
+								exit(0) ;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -845,7 +962,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 {
 	stateMachine_stateResponse_t	response ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	if(hsm_getEventType(event) != SUBSTATE_DO)
 	{
 		printf("\n\t\t\tCalling state '%s' in machine '%s', event: %s, ", state->stateName, sm->instanceName, hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>") ; fflush(stdout) ;
@@ -897,8 +1014,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 			sm->mostRecentlyExitedState = (void*)state ;
 		}
 
-#ifdef MINIMAL_TRACING_ENABLED
-#warning The check for the intiial transition being present won't work if there is an on_entry handler before the initial transition handler since ON_ENTRY returns immediately thereby preventing the flag from being set.
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 		if(		(sm->printStateTransitions)
 			&&	(hsm_getEventType(event) != SUBSTATE_DO)
 			&&	(!((hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) && (!sm->currentStateHasInitialTransition))))
@@ -929,27 +1045,23 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 			if(		(strncmp(&state->stateName[strlen(sm->stateMachineName) + 1], "TOP", 3) == 0)
 				&&	(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION))
 			{
-				printf("\n") ;
+				printf("\n") ; fflush(stdout) ;
 			}
 		}
 #endif
 
 		response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
-#if 0
-		if(		(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION)
-			&&	(!sm->currentStateHasInitialTransition)
-			&&	(response == IGNORED))
+
+		if(		(sm->printStateTransitions)
+			&&	(!hsm_isEventInternal(event))
+			&&	(hsm_getEventType(event) != SUBSTATE_DO)
+			&&	(!((hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) && (!sm->currentStateHasInitialTransition))))
 		{
-			printf(	"%s-%s;",
-					&state->stateName[strlen(sm->stateMachineName) + 1],
-					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
-												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
-			fflush(stdout) ;
+			printf("(%s);", responseTypes[response]) ;
 		}
-#endif
 	}
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	if(hsm_getEventType(event) != SUBSTATE_DO)
 	{
 		printf("response: %s ", responseTypes[response]) ; fflush(stdout) ;
@@ -958,12 +1070,12 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 
 	if(response == TRANSITION)
 	{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("to %s ", ((state_t*)(sm->nextState))->stateName) ; fflush(stdout) ;
 #endif
 	}
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	if(hsm_getEventType(event) != SUBSTATE_DO)
 	{
 		printf("\n") ; fflush(stdout) ;
@@ -981,7 +1093,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 //	HSM_ENTER_CRITICAL_SECTION() ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	#if 0
 		printf("\titerating %s\n", sm->stateMachineName) ; fflush(stdout) ;
 	#endif
@@ -993,7 +1105,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 	if(!sm->stateMachineInitialized)
 	{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		printf("\t\tinitializing...\n") ; fflush(stdout) ;
 #endif
 
@@ -1009,7 +1121,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 	do
 	{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 		#if 0
 			printf("\t\tPulling next event for machine '%s'\n", sm->stateMachineName) ; fflush(stdout) ;
 		#endif
@@ -1023,7 +1135,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 			if(forceTransition)
 			{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 				printf("\t\t\tFORCED transition\n") ; fflush(stdout) ;
 #endif
 				forceTransition	= false ;
@@ -1031,18 +1143,18 @@ void iterateStateMachine(	stateMachine_t* sm)
 			}
 			else
 			{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 				printf("\t\t\tGetting event from queue\n") ; fflush(stdout) ;
 #endif
 				eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
 			}
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 			printf("\t\tEvent type: %d\n", eventToProcess->eventType) ; fflush(stdout) ;
 #endif
 			sm->nextState = (state_t*)0 ;	/* just a little housecleaning */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 			#if 0
 				printf("\t\tProcessing event...\n") ; fflush(stdout) ;
 			#endif
@@ -1081,7 +1193,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 					sm->nextState		= stateBeingProcessed ;
 					action				= TRANSITION ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 					printf("    TRANSITION_TO_SELF: %s    ", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
 #endif
 
@@ -1091,7 +1203,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 				{
 					stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 					printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
 #endif
 				}
@@ -1182,8 +1294,10 @@ void iterateStateMachine(	stateMachine_t* sm)
 				if(		(source == target)
 					&&	(source != stateBeingProcessed))
 				{
-printf("  CASE I  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+					printf("  CASE I  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 					printf("\t\t\t\tTransition to current state from event caught in ancestor.\n") ; fflush(stdout) ;
 #endif
 
@@ -1213,8 +1327,10 @@ printf("  CASE I  ") ; fflush(stdout) ;
 				}
 				else if(source == target)
 				{
-printf("  CASE A  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+					printf("  CASE A  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 					printf("\t\t\t\tSelf transition.\n") ; fflush(stdout) ;
 #endif
 
@@ -1226,8 +1342,10 @@ printf("  CASE A  ") ; fflush(stdout) ;
 				}
 				else if(source == (state_t*)(target->parent))
 				{
-printf("  CASE B  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+					printf("  CASE B  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 					printf("\t\t\t\tTransition to direct child.\n") ; fflush(stdout) ;
 #endif
 
@@ -1239,8 +1357,10 @@ printf("  CASE B  ") ; fflush(stdout) ;
 				}
 				else if((state_t*)(source->parent) == (state_t*)(target->parent))
 				{
-printf("  CASE C  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+					printf("  CASE C  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 					printf("\t\t\t\tTransition to direct peer.\n") ; fflush(stdout) ;
 #endif
 
@@ -1253,8 +1373,10 @@ printf("  CASE C  ") ; fflush(stdout) ;
 				}
 				else if((state_t*)(source->parent) == target)
 				{
-printf("  CASE D  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+					printf("  CASE D  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 					printf("\t\t\t\tTransition to direct parent.\n") ; fflush(stdout) ;
 #endif
 
@@ -1277,7 +1399,7 @@ printf("  CASE D  ") ; fflush(stdout) ;
 
 					/* This is where things start to get complicated... */
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 					printf("\t\t\t\tScanning source hierarchy...\n") ; fflush(stdout) ;
 #endif
 
@@ -1289,7 +1411,7 @@ printf("  CASE D  ") ; fflush(stdout) ;
 					{
 						sourceHierarchy[sourceIndex++] = stateBeingProcessed ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 						printf("\t\t\t\t\tsourceHierarchy[%d] = %s\n", sourceIndex - 1, stateBeingProcessed->stateName) ; fflush(stdout) ;
 #endif
 
@@ -1297,8 +1419,10 @@ printf("  CASE D  ") ; fflush(stdout) ;
 						{
 							uint8_t	exitIndex = 0 ;
 
-printf("  CASE H  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+							printf("  CASE H  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 							printf("\t\t\t\t\t\tFound target as ancestor of source\n") ; fflush(stdout) ;
 #endif
 
@@ -1306,7 +1430,7 @@ printf("  CASE H  ") ; fflush(stdout) ;
 
 							while(exitIndex < sourceIndex)
 							{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 								printf("\t\t\t\t") ; fflush(stdout) ;
 #endif
 
@@ -1325,7 +1449,7 @@ printf("  CASE H  ") ; fflush(stdout) ;
 
 					if(sm->currentState != target)
 					{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 						printf("\t\t\t\tScanning target hierarchy...\n") ; fflush(stdout) ;
 #endif
 
@@ -1336,20 +1460,22 @@ printf("  CASE H  ") ; fflush(stdout) ;
 						{
 							targetHierarchy[targetIndex] = stateBeingProcessed ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 							printf("\t\t\t\t\ttargetHierarchy[%d] = %s\n", targetIndex, stateBeingProcessed->stateName) ; fflush(stdout) ;
 #endif
 
 							if(stateBeingProcessed == source)
 							{
-printf("  CASE E  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+								printf("  CASE E  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 								printf("\t\t\t\t\t\tFound source as ancestor of target\n") ; fflush(stdout) ;
 #endif
 
 								while(targetIndex--)
 								{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 									printf("\t\t\t\t") ; fflush(stdout) ;
 #endif
 									callStateHandler(sm, targetHierarchy[targetIndex], (event_t*)&enterEvent) ;
@@ -1369,14 +1495,16 @@ printf("  CASE E  ") ; fflush(stdout) ;
 					{
 						uint8_t	LCAindex = 0 ;
 
-printf("  CASES F&G  ") ; fflush(stdout) ;
-#ifdef TRACING_ENABLED
+#if MINIMAL_TRACING_ENABLED
+						printf("  CASES F&G  ") ; fflush(stdout) ;
+#endif
+#if TRACING_ENABLED
 						printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ; fflush(stdout) ;
 #endif
 						LCA			= 0 ;
 						entryIndex	= targetIndex - 1 ;
 						exitIndex	= sourceIndex - 1 ;
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 						printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ; fflush(stdout) ;
 #endif
 
@@ -1387,14 +1515,14 @@ printf("  CASES F&G  ") ; fflush(stdout) ;
 							entryIndex-- ;
 							exitIndex-- ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 							printf("\t\t\t\t\tCurrent LCA candidate: %s\n", LCA->stateName) ; fflush(stdout) ;
 #endif
 
 							LCAindex++ ;
 						}
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 						printf("\t\t\t\t\tLCA of %s and %s is: %s\n", source->stateName, target->stateName, LCA->stateName) ; fflush(stdout) ;
 						printf("\t\t\t\t\tentryIndex = %d, exitIndex = %d\n", entryIndex, exitIndex) ; fflush(stdout) ;
 #endif
@@ -1404,7 +1532,7 @@ printf("  CASES F&G  ") ; fflush(stdout) ;
 
 						while(exitIndex < sourceIndex)
 						{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 							printf("\t\t\t\t") ; fflush(stdout) ;
 #endif
 
@@ -1417,7 +1545,7 @@ printf("  CASES F&G  ") ; fflush(stdout) ;
 
 						while(targetIndex--)
 						{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 							printf("\t\t\t\t") ; fflush(stdout) ;
 #endif
 							callStateHandler(sm, targetHierarchy[targetIndex], (event_t*)&enterEvent) ;
@@ -1445,25 +1573,19 @@ printf("  CASES F&G  ") ; fflush(stdout) ;
 				break ;
 			}
 
-#ifdef MINIMAL_TRACING_ENABLED
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 			if(!forceTransition)
 			{
 				if(sm->debugging_machineOutputDisplay)
 				{
 					((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
 				}
-				else
-				{
-#if 0
-					printf("\n") ;
-#endif
-				}
 			}
 #endif
 		}
 		else
 		{
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 			#if 0
 				printf("\t\tNo event or transition pending\n") ; fflush(stdout) ;
 			#endif
@@ -1477,7 +1599,7 @@ printf("  CASES F&G  ") ; fflush(stdout) ;
 		}
 	} while(forceTransition) ;
 
-#ifdef TRACING_ENABLED
+#if TRACING_ENABLED
 	#if 0
 		printf("\t\tEvent queue empty.\n") ; fflush(stdout) ;
 	#endif

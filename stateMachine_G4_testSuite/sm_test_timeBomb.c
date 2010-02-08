@@ -101,7 +101,7 @@ void displayTicks(	const char* instanceName, uint8_t value)
 
 void updateDisplay(	const char* instanceName, uint8_t value)
 {
-	printf("\n[%s: time to BOOM: %d] ", instanceName, value) ;
+	printf("\n[%s: time to BOOM: %2d] ", instanceName, value) ;
 }
 
 

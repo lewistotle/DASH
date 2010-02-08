@@ -104,9 +104,8 @@ typedef struct
 {
 	event_t						parent ;
 
-	void*						machine ;
-
-	enum WATCH_VARIABLE_TYPE	type ;
+	bool						triggered ;
+	enum WATCH_VARIABLE_TYPE	size ;
 	void*						watchVariableLocation ;
 } stateMachineWatch_t ;
 
