@@ -742,6 +742,20 @@ void hsm_unregisterWatchVariable(	stateMachine_t* machine, void* loc)
 }
 
 
+bool hsm_publishEventToAll(				event_t* event)
+{
+	uint8_t		statetMachineIndex ;
+
+	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+	{
+		if(stateMachines[statetMachineIndex] != NULL)
+		{
+			hsm_postEventToMachine(event, stateMachines[statetMachineIndex]) ;
+		}
+	}
+}
+
+
 void iterateAllStateMachines(	void)
 {
 	uint8_t		statetMachineIndex ;

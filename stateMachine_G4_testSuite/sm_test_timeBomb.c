@@ -114,14 +114,16 @@ void goBOOM(		const char* instanceName)
 DEFINE_TOP_STATE()
 {
 	INITIAL_TRANSITION(TO(setting), NO_ACTION) ;
+
+	TRANSITION_ON(ARMAGEDDON,		TO(setting),	ACTION(goBOOM(self->parent.instanceName))) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(setting)
 {
-	TRANSITION_ON(ARM,				TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
-//	TRANSITION_AFTER(SECONDS(5),	TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
+	TRANSITION_ON(ARM,				TO(timing),		ACTION(self->codeBeingEntered = 0)) ;
+//	TRANSITION_AFTER(SECONDS(5),	TO(timing),		ACTION(self->codeBeingEntered = 0)) ;
 
 	HANDLE_STATE_EVENTS
 	{

@@ -245,7 +245,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 
 
 bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm) ;
-bool hsm_publishEventForAll(			event_t* event) ;
+bool hsm_publishEventToAll(				event_t* event) ;
 
 #define SECONDS(secs)	((double)((double)secs * (double)1000000.0 /* microseconds per second */))
 #define MINUTES(mins)	((double)(SECONDS(mins * (double)60.0 /* seconds per minute */)))

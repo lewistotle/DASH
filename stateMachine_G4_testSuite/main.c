@@ -118,104 +118,66 @@ void handleKeypress(uint8_t c)
 		case 'H':	{ target = fourLevelTest ;	eventType = H ;				break ; }
 		case 'u':
 		case 'U':	{ target = fourLevelTest ;	eventType = U ;				break ; }
+
+		case 't':
+		case 'T':	{ target = 0 ;				eventType = ARMAGEDDON ;	break ; }
 	}
 
 	if(eventType != SUBSTATE_NON_EVENT)
 	{
+		keyEvent_t*	event ;
+
+		if(target)
+		{
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
+		}
+		else
+		{
+			/* global publishable event */
+
+			static keyEvent_t	everyoneGoBoom ;
+
+			everyoneGoBoom.parent.eventType				= ARMAGEDDON ;
+			everyoneGoBoom.parent.eventListenerCount	= 0 ;
+
+			event = &everyoneGoBoom ;
+		}
+
+		if(event)
+		{
+			event->key = c ;
+		}
+		else
+		{
+			printf("UNABLE TO ALLOCATE EVENT\n") ;
+		}
+
 		if(target == bomb_0)
 		{
-			keyEvent_t*	event ;
-
-			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
-
-			if(event)
-			{
-				event->key = c ;
-
-				hsm_postEventToMachine((event_t*)event, bomb_0) ;
-			}
-			else
-			{
-				printf("UNABLE TO ALLOCATE EVENT\n") ;
-			}
+			hsm_postEventToMachine((event_t*)event, bomb_0) ;
 		}
 		else if(target == bomb_1)
 		{
-			keyEvent_t*	event ;
-
-			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
-
-			if(event)
-			{
-				event->key = c ;
-
-				hsm_postEventToMachine((event_t*)event, bomb_1) ;
-			}
-			else
-			{
-				printf("UNABLE TO ALLOCATE EVENT\n") ;
-			}
+			hsm_postEventToMachine((event_t*)event, bomb_1) ;
 		}
 		else if(target == bomb_2)
 		{
-			keyEvent_t*	event ;
-
-			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
-
-			if(event)
-			{
-				event->key = c ;
-
-				hsm_postEventToMachine((event_t*)event, bomb_2) ;
-			}
-			else
-			{
-				printf("UNABLE TO ALLOCATE EVENT\n") ;
-			}
+			hsm_postEventToMachine((event_t*)event, bomb_2) ;
 		}
 		else if(target == calculator)
 		{
-			keyEvent_t*	event ;
-
-			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
-
-			if(event)
-			{
-				event->key = c ;
-
-				hsm_postEventToMachine((event_t*)event, calculator) ;
-			}
-			else
-			{
-				printf("UNABLE TO ALLOCATE EVENT\n") ;
-			}
+			hsm_postEventToMachine((event_t*)event, calculator) ;
 		}
 		else if(target == fourLevelTest)
 		{
-			keyEvent_t*	event ;
-
-			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
-
-			if(event)
-			{
-				event->key = c ;
-
-				hsm_postEventToMachine((event_t*)event, fourLevelTest) ;
-			}
-			else
-			{
-				printf("UNABLE TO ALLOCATE EVENT\n") ;
-			}
+			hsm_postEventToMachine((event_t*)event, fourLevelTest) ;
+		}
+		else if(target == 0)
+		{
+			hsm_publishEventToAll((event_t*)event) ;
 		}
 	}
 }
-
-
-void handleTimer(	void)
-{
-}
-
-
 
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
