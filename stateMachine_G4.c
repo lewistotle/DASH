@@ -16,11 +16,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#if defined(__TS7800__) || defined(__cygwin__)
-	#include <pthread.h>
-
-#endif
-
 #include "config.h"
 
 #include "stateMachine_G4.h"
@@ -37,7 +32,6 @@
 #endif
 
 
-pthread_mutex_t	mutex1 = PTHREAD_MUTEX_INITIALIZER ;
 
 
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
@@ -69,8 +63,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 
 	/* start out by shutting down interrupts. This is a critical section */
 
-	int ret_value = pthread_mutex_lock(&mutex1) ;
-//	printf("hsm_createNewEvent(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+	HSM_ENTER_CRITICAL_SECTION() ;
 
 	/* Is this a global or local event? */
 
@@ -145,8 +138,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 
 	/* It's ok to re-enable interrupts */
 
-//	printf("hsm_createNewEvent(): thread UNLOCKED\n") ; fflush(stdout) ;
-	pthread_mutex_unlock(&mutex1) ;
+	HSM_EXIT_CRITICAL_SECTION() ;
 
 	/* Now return the appropriate thing to the caller */
 
@@ -171,8 +163,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 
 	/* start out by shutting down interrupts. This is a critical section */
 
-	int ret_value = pthread_mutex_lock(&mutex1) ;
-//	printf("hsm_createAlarm(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+	HSM_ENTER_CRITICAL_SECTION() ;
 
 	/* Now go through the timer event area and grab the next open slot */
 
@@ -259,8 +250,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 
 	/* It's ok to re-enable interrupts */
 
-//	printf("hsm_createAlarm(): thread UNLOCKED\n") ; fflush(stdout) ;
-	pthread_mutex_unlock(&mutex1) ;
+	HSM_EXIT_CRITICAL_SECTION() ;
 
 	/* Now return the appropriate thing to the caller */
 
@@ -284,8 +274,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 
 	/* start out by shutting down interrupts. This is a critical section */
 
-	int ret_value = pthread_mutex_lock(&mutex1) ;
-//	printf("hsm_resetTimeout(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+	HSM_ENTER_CRITICAL_SECTION() ;
 
 	/* Now go through the timer event area and grab the next open slot */
 
@@ -323,8 +312,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 
 	/* It's ok to re-enable interrupts */
 
-//	printf("hsm_resetTimeout(): thread UNLOCKED\n") ; fflush(stdout) ;
-	pthread_mutex_unlock(&mutex1) ;
+	HSM_EXIT_CRITICAL_SECTION() ;
 }
 
 
@@ -335,19 +323,18 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 
 	/* start out by shutting down interrupts. This is a critical section */
 
-	int ret_value = pthread_mutex_lock(&mutex1) ;
-//	printf("hsm_deleteTimeout(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+	HSM_ENTER_CRITICAL_SECTION() ;
 
 	/* Now go through the timer event area and grab the next open slot */
 
 #ifdef TRACING_ENABLED
-	printf("\tDeleting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
+	printf("\tDeleting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ; fflush(stdout) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
 	{
 #ifdef TRACING_ENABLED
-		printf("\t\tChecking timeout event at %p\n", memoryPoolLocation) ;
+		printf("\t\tChecking timeout event at %p\n", memoryPoolLocation) ; fflush(stdout) ;
 #endif
 
 		if(		(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_TIMEOUT)
@@ -356,15 +343,16 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 			/* This is the one so clear it out and bail */
 
 #ifdef TRACING_ENABLED
-			printf("\t\t\tFound it at %p\n", (void*)memoryPoolLocation) ;
+			printf("\t\t\tFound it at %p\n", (void*)memoryPoolLocation) ; fflush(stdout) ;
 #endif
 
-			((event_t*)memoryPoolLocation)->eventType							= SUBSTATE_NON_EVENT ;
-
-			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.remainingHours			= 0 ; ;
-			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.remainingMicroseconds	= 0 ; ;
-			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalHours			= 0 ; ;
-			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalMicroseconds	= 0 ; ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.parent.eventType		= SUBSTATE_NON_EVENT ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.remainingHours			= 0 ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.remainingMicroseconds	= 0 ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalHours			= 0 ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalMicroseconds	= 0 ;
+			((timeoutEvent_t*)memoryPoolLocation)->parent.active						= 0 ;
+			((timeoutEvent_t*)memoryPoolLocation)->ownerState							= 0 ;
 
 			break ;
 		}
@@ -376,10 +364,9 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 
 	/* It's ok to re-enable interrupts */
 
-//	printf("hsm_deleteTimeout(): thread UNLOCKED\n") ; fflush(stdout) ;
-	pthread_mutex_unlock(&mutex1) ;
+	HSM_EXIT_CRITICAL_SECTION() ;
 }
-
+#undef TRACING_ENABLED
 
 stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 												uint16_t historyArraySize,
@@ -746,8 +733,7 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 {
 	uint8_t			statetMachineIndex ;
 
-	int ret_value = pthread_mutex_lock(&mutex1) ;
-//	printf("hsm_handleTick(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+	HSM_ENTER_CRITICAL_SECTION() ;
 
 	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
 	{
@@ -780,7 +766,7 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 					memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 
-					/* See if this alarm, or timeout, is active. If not, skip it */
+					/* See if this alarm or timeout is active. If not, skip it */
 
 					if(((alarmEvent_t*)timer)->active == false)
 					{
@@ -852,8 +838,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 		}
 	}
 
-//	printf("hsm_handleTick(): thread UNLOCKED\n") ; fflush(stdout) ;
-	pthread_mutex_unlock(&mutex1) ;
+	HSM_EXIT_CRITICAL_SECTION() ;
 }
 
 stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
@@ -926,9 +911,15 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
 												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 			fflush(stdout) ;
-#else
+#elif 0
 			printf(	"<%s>%s-%s;",
 					sm->instanceName,
+					&state->stateName[strlen(sm->stateMachineName) + 1],
+					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
+												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+			fflush(stdout) ;
+#else
+			printf(	"%s-%s;",
 					&state->stateName[strlen(sm->stateMachineName) + 1],
 					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
 												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
@@ -944,6 +935,18 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 #endif
 
 		response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
+#if 0
+		if(		(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION)
+			&&	(!sm->currentStateHasInitialTransition)
+			&&	(response == IGNORED))
+		{
+			printf(	"%s-%s;",
+					&state->stateName[strlen(sm->stateMachineName) + 1],
+					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
+												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+			fflush(stdout) ;
+		}
+#endif
 	}
 
 #ifdef TRACING_ENABLED
@@ -976,8 +979,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 	stateMachine_stateResponse_t	action ;
 	bool							forceTransition	= false ;
 
-	int ret_value = pthread_mutex_lock(&mutex1) ;
-//	printf("iterateStateMachine(): thread locked %d\n", ret_value) ; fflush(stdout) ;
+//	HSM_ENTER_CRITICAL_SECTION() ;
 
 #ifdef TRACING_ENABLED
 	#if 0
@@ -1057,7 +1059,35 @@ void iterateStateMachine(	stateMachine_t* sm)
 			{
 				action = callStateHandler(sm, stateBeingProcessed, eventToProcess) ;
 
-				if((action == IGNORED) && (!hsm_isEventInternal(eventToProcess)))
+				if(action == TRANSITION_TO_SELF)
+				{
+					/* First, see if I'm already in the state that I'm transitioning
+					 * to. It is possible that the current state did not catch the
+					 * event, but an ancestor state did. In the latter case, walk up
+					 * the tree to get to it and then change this to a normal transition.
+					 */
+
+					sm->nextState		= stateBeingProcessed ;
+					stateBeingProcessed = sm->currentState ;
+
+					while(sm->nextState != stateBeingProcessed)
+					{
+						callStateHandler(sm, stateBeingProcessed, (event_t*)&exitEvent) ;
+
+						stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
+					}
+
+					sm->currentState	= stateBeingProcessed ;
+					sm->nextState		= stateBeingProcessed ;
+					action				= TRANSITION ;
+
+#ifdef TRACING_ENABLED
+					printf("    TRANSITION_TO_SELF: %s    ", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
+#endif
+
+					break ;
+				}
+				else if((action == IGNORED) && (!hsm_isEventInternal(eventToProcess)))
 				{
 					stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 
@@ -1067,6 +1097,9 @@ void iterateStateMachine(	stateMachine_t* sm)
 				}
 				else
 				{
+#if 0
+					printf("  caught in '%s'  ", stateBeingProcessed->stateName) ; fflush(stdout) ;
+#endif
 					/* The event was handled or a transition was taken.
 					 * In either case, no need to continue up the chain. */
 
@@ -1138,15 +1171,49 @@ void iterateStateMachine(	stateMachine_t* sm)
 				action = TRANSITION ;
 			}
 
-			if(action == TRANSITION)
+
+			while(action == TRANSITION)
 			{
 				state_t*	source	= sm->currentState ;
 				state_t*	target	= sm->nextState ;
 
 				/* There are 8 different cases here. They are handled in case of complexity... */
 
-				if(source == target)
+				if(		(source == target)
+					&&	(source != stateBeingProcessed))
 				{
+printf("  CASE I  ") ; fflush(stdout) ;
+#ifdef TRACING_ENABLED
+					printf("\t\t\t\tTransition to current state from event caught in ancestor.\n") ; fflush(stdout) ;
+#endif
+
+					/* Transition to self, but the event was caught in an ancestor state
+					 * so the entry and exit methods through that state need to be called.
+					 */
+
+					while(source != stateBeingProcessed)
+					{
+						callStateHandler(sm, source, (event_t*)&exitEvent) ;
+
+						source = (state_t*)(source->parent) ;
+					}
+
+					/* At this point, the exit methods of each state have been called all
+					 * the way up to the state that caught the event. Now, walk back down
+					 * the tree until arriving back at the initial state. The easiest way
+					 * to do that is to just continue this loop and let the case E code
+					 * handle it. I do not want to just set force transition here and use
+					 * that mechanism since that would trigger an initial event which is
+					 * not what is needed here.
+					 */
+
+					sm->currentState = stateBeingProcessed ;
+
+					continue ;
+				}
+				else if(source == target)
+				{
+printf("  CASE A  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 					printf("\t\t\t\tSelf transition.\n") ; fflush(stdout) ;
 #endif
@@ -1159,6 +1226,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 				}
 				else if(source == (state_t*)(target->parent))
 				{
+printf("  CASE B  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 					printf("\t\t\t\tTransition to direct child.\n") ; fflush(stdout) ;
 #endif
@@ -1171,6 +1239,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 				}
 				else if((state_t*)(source->parent) == (state_t*)(target->parent))
 				{
+printf("  CASE C  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 					printf("\t\t\t\tTransition to direct peer.\n") ; fflush(stdout) ;
 #endif
@@ -1184,6 +1253,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 				}
 				else if((state_t*)(source->parent) == target)
 				{
+printf("  CASE D  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 					printf("\t\t\t\tTransition to direct parent.\n") ; fflush(stdout) ;
 #endif
@@ -1227,6 +1297,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 						{
 							uint8_t	exitIndex = 0 ;
 
+printf("  CASE H  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 							printf("\t\t\t\t\t\tFound target as ancestor of source\n") ; fflush(stdout) ;
 #endif
@@ -1271,6 +1342,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 							if(stateBeingProcessed == source)
 							{
+printf("  CASE E  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 								printf("\t\t\t\t\t\tFound source as ancestor of target\n") ; fflush(stdout) ;
 #endif
@@ -1297,6 +1369,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 					{
 						uint8_t	LCAindex = 0 ;
 
+printf("  CASES F&G  ") ; fflush(stdout) ;
 #ifdef TRACING_ENABLED
 						printf("\t\t\t\tStill haven't found relationship. Scanning for LCA...\n") ; fflush(stdout) ;
 #endif
@@ -1356,9 +1429,20 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 				/* Now force an initial transition event that will cause the
 				 * target state to execute any initial transactions it might
-				 * have so the next iteration through this loop will catch it. */
+				 * have so the next iteration through this loop will catch it.
+				 */
 
 				forceTransition = true ;
+
+				/* Since this is a loop and, in most cases, I want to exit the
+				 * loop go ahead and bail now. However there is a case that would
+				 * keep this code in the loop and that is where transitioning to
+				 * the same state but the transition was triggered from a distant
+				 * ancestor. That case is handled at the beginning of this loop
+				 * as case I.
+				 */
+
+				break ;
 			}
 
 #ifdef MINIMAL_TRACING_ENABLED
@@ -1399,6 +1483,5 @@ void iterateStateMachine(	stateMachine_t* sm)
 	#endif
 #endif
 
-//	printf("iterateStateMachine(): thread UNLOCKED\n") ; fflush(stdout) ;
-	pthread_mutex_unlock(&mutex1) ;
+//	HSM_EXIT_CRITICAL_SECTION() ;
 }

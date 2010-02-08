@@ -22,7 +22,7 @@
 DEFINE_STATE_MACHINE() ;
 	DECLARE_MEMORY_REQUIREMENTS()
 	{
-		DECLARE_EVENT_QUEUE_DEPTH(2) ;
+		DECLARE_EVENT_QUEUE_DEPTH(5) ;
 
 		START_MEMORY_POOL_DECLARATIONS()
 		{
@@ -107,7 +107,7 @@ void updateDisplay(	const char* instanceName, uint8_t value)
 
 void goBOOM(		const char* instanceName)
 {
-	printf("\n\n%s:BOOM!!!\n\n", instanceName) ;
+	printf("\n\n\n%s:BOOM!!!\n\n", instanceName) ;
 }
 
 
@@ -121,7 +121,7 @@ END_DEFINE_STATE()
 DEFINE_STATE(setting)
 {
 	TRANSITION_ON(ARM,				TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
-	TRANSITION_AFTER(SECONDS(5),	TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
+//	TRANSITION_AFTER(SECONDS(5),	TO(timing),	ACTION(self->codeBeingEntered = 0)) ;
 
 	HANDLE_STATE_EVENTS
 	{

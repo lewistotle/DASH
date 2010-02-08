@@ -87,6 +87,7 @@ enum STATE_MACHINE_INTERNAL_EVENTS	{
 										SUBSTATE_WATCHED					= 0x06,
 										SUBSTATE_DO							= 0x07,
 										SUBSTATE_EXIT						= 0x08,
+										SUBSTATE_TERMINATE					= 0x09,
 										SUBSTATE_LAST_INTERNAL_EVENT		= SUBSTATE_EXIT
 									} ;
 

@@ -16,20 +16,27 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "stateMachine_G4.h"
-#include "sm_globalEvents.h"
-#include "sm_test_timeBomb.h"
-#include "sm_test_calculator.h"
-
-#include "task_UART.h"
-
 #if defined(__TS7800__) || defined(__cygwin__)
 	#include <sys/time.h>
 	#include <unistd.h>
 	#include <termios.h>
+	#include <pthread.h>
+
+	pthread_mutex_t	hsm_mutex = PTHREAD_MUTEX_INITIALIZER ;
 #elif defined(__AVR_ARCH__)
 	#define EXIT_SUCCESS	0
 #endif
+
+#include "task_UART.h"
+
+
+#include "stateMachine_G4.h"
+#include "sm_globalEvents.h"
+#include "sm_test_timeBomb.h"
+#include "sm_test_calculator.h"
+#include "sm_test_fourLevelTest.h"
+
+
 
 void task_TIMER_init(		void) ;
 void task_TIMER_core(		void) ;
@@ -39,8 +46,9 @@ stateMachine_t*	bomb_0 ;
 stateMachine_t*	bomb_1 ;
 stateMachine_t*	bomb_2 ;
 stateMachine_t*	calculator ;
+stateMachine_t*	fourLevelTest ;
 
-bool			ok = true ;
+static bool ok = true ;
 
 void handleKeypress(uint8_t c)
 {
@@ -51,11 +59,31 @@ void handleKeypress(uint8_t c)
 	{
 		case 0x1B:	{ ok = false ;										break ; }
 
+		case 'i':
+		case 'I':	{ target = bomb_0 ;			eventType = UP ;			break ; }
+		case 'o':
+		case 'O':	{ target = bomb_0 ;			eventType = DOWN ;			break ; }
+		case 'p':
+		case 'P':	{ target = bomb_0 ;			eventType = ARM ;			break ; }
+
+		case 'j':
+		case 'J':	{ target = bomb_1 ;			eventType = UP ;			break ; }
+		case 'k':
+		case 'K':	{ target = bomb_1 ;			eventType = DOWN ;			break ; }
+		case 'l':
+		case 'L':	{ target = bomb_1 ;			eventType = ARM ;			break ; }
+
+		case 'n':
+		case 'N':	{ target = bomb_2 ;			eventType = UP ;			break ; }
+		case 'm':
+		case 'M':	{ target = bomb_2 ;			eventType = DOWN ;			break ; }
+		case ',':	{ target = bomb_2 ;			eventType = ARM ;			break ; }
+
 		case 'q':
-		case 'Q':	{ target = calculator ;	eventType = CLEAR ;			break ; }
+		case 'Q':	{ target = calculator ;		eventType = CLEAR ;			break ; }
 		case 'w':
-		case 'W':	{ target = calculator ;	eventType = CLEAR_ENTRY ;	break ; }
-		case '0':	{ target = calculator ;	eventType = DIGIT_0 ;		break ; }
+		case 'W':	{ target = calculator ;		eventType = CLEAR_ENTRY ;	break ; }
+		case '0':	{ target = calculator ;		eventType = DIGIT_0 ;		break ; }
 		case '1':
 		case '2':
 		case '3':
@@ -64,55 +92,37 @@ void handleKeypress(uint8_t c)
 		case '6':
 		case '7':
 		case '8':
-		case '9':	{ target = calculator ;	eventType = DIGIT_1_9 ;		break ; }
-		case '.':	{ target = calculator ;	eventType = POINT ;			break ; }
+		case '9':	{ target = calculator ;		eventType = DIGIT_1_9 ;		break ; }
+		case '.':	{ target = calculator ;		eventType = POINT ;			break ; }
 		case '+':
 		case '-':
 		case '*':
-		case '/':	{ target = calculator ;	eventType = OPERATION ;		break ; }
-		case '=':	{ target = calculator ;	eventType = EQUALS ;		break ; }
+		case '/':	{ target = calculator ;		eventType = OPERATION ;		break ; }
+		case '=':	{ target = calculator ;		eventType = EQUALS ;		break ; }
 
-		case 'i':
-		case 'I':	{ target = bomb_0 ;		eventType = UP ;			break ; }
-		case 'o':
-		case 'O':	{ target = bomb_0 ;		eventType = DOWN ;			break ; }
-		case 'p':
-		case 'P':	{ target = bomb_0 ;		eventType = ARM ;			break ; }
-
-		case 'j':
-		case 'J':	{ target = bomb_1 ;		eventType = UP ;			break ; }
-		case 'k':
-		case 'K':	{ target = bomb_1 ;		eventType = DOWN ;			break ; }
-		case 'l':
-		case 'L':	{ target = bomb_1 ;		eventType = ARM ;			break ; }
-
-		case 'n':
-		case 'N':	{ target = bomb_2 ;		eventType = UP ;			break ; }
-		case 'm':
-		case 'M':	{ target = bomb_2 ;		eventType = DOWN ;			break ; }
-		case ',':	{ target = bomb_2 ;		eventType = ARM ;			break ; }
+		case 'a':
+		case 'A':	{ target = fourLevelTest ;	eventType = A ;				break ; }
+		case 'b':
+		case 'B':	{ target = fourLevelTest ;	eventType = B ;				break ; }
+		case 'c':
+		case 'C':	{ target = fourLevelTest ;	eventType = C ;				break ; }
+		case 'd':
+		case 'D':	{ target = fourLevelTest ;	eventType = D ;				break ; }
+		case 'e':
+		case 'E':	{ target = fourLevelTest ;	eventType = E ;				break ; }
+		case 'f':
+		case 'F':	{ target = fourLevelTest ;	eventType = F ;				break ; }
+		case 'g':
+		case 'G':	{ target = fourLevelTest ;	eventType = G ;				break ; }
+		case 'h':
+		case 'H':	{ target = fourLevelTest ;	eventType = H ;				break ; }
+		case 'u':
+		case 'U':	{ target = fourLevelTest ;	eventType = U ;				break ; }
 	}
 
 	if(eventType != SUBSTATE_NON_EVENT)
 	{
-		if(target == calculator)
-		{
-			keyEvent_t*	event ;
-
-			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
-
-			if(event)
-			{
-				event->key = c ;
-
-				hsm_postEventToMachine((event_t*)event, calculator) ;
-			}
-			else
-			{
-				printf("UNABLE TO ALLOCATE EVENT\n") ;
-			}
-		}
-		else if(target == bomb_0)
+		if(target == bomb_0)
 		{
 			keyEvent_t*	event ;
 
@@ -163,6 +173,40 @@ void handleKeypress(uint8_t c)
 				printf("UNABLE TO ALLOCATE EVENT\n") ;
 			}
 		}
+		else if(target == calculator)
+		{
+			keyEvent_t*	event ;
+
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
+
+			if(event)
+			{
+				event->key = c ;
+
+				hsm_postEventToMachine((event_t*)event, calculator) ;
+			}
+			else
+			{
+				printf("UNABLE TO ALLOCATE EVENT\n") ;
+			}
+		}
+		else if(target == fourLevelTest)
+		{
+			keyEvent_t*	event ;
+
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
+
+			if(event)
+			{
+				event->key = c ;
+
+				hsm_postEventToMachine((event_t*)event, fourLevelTest) ;
+			}
+			else
+			{
+				printf("UNABLE TO ALLOCATE EVENT\n") ;
+			}
+		}
 	}
 }
 
@@ -180,10 +224,6 @@ int main()
 void main(	void)
 #endif
 {
-#if 0
-	static int	iterationMax	= 10 ;
-#endif
-
 	ok = true ;
 
 	puts("4th Generation state machine test started.") ;
@@ -219,21 +259,17 @@ void main(	void)
 		REGISTER_STATE_MACHINE(calculator) ;
 	}
 
+	fourLevelTest = STATE_MACHINE_CREATE_INSTANCE_OF(fourLevelTest) ;
+
+	if(fourLevelTest)
+	{
+		REGISTER_STATE_MACHINE(fourLevelTest) ;
+	}
+
 	puts("Iterating state machines") ;
 
 	while(ok)
 	{
-#if 0
-		if(iterationMax-- == 0)
-		{
-			ok = false ;
-		}
-#endif
-
-#if 0
-		puts("loop") ;
-#endif
-
 		task_UART_core(0) ;
 		task_TIMER_core() ;
 
@@ -245,16 +281,14 @@ void main(	void)
 	task_UART_shutdown(0) ;
 	task_TIMER_shutdown() ;
 
-#if configENABLE_CALC_2
-	if(calc2)
+	if(fourLevelTest)
 	{
-		UNREGISTER_STATE_MACHINE(calc2) ;
+		UNREGISTER_STATE_MACHINE(fourLevelTest) ;
 
-		STATE_MACHINE_DESTROY_INSTANCE_OF(calculator, calc2) ;
+		STATE_MACHINE_DESTROY_INSTANCE_OF(fourLevelTest) ;
 
-		calc2 = 0 ;
+		fourLevelTest = 0 ;
 	}
-#endif
 
 	if(calculator)
 	{

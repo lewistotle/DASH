@@ -592,6 +592,7 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define ON_EXIT(act)							if(hsm_getEventType(event) == SUBSTATE_EXIT)	{ act ; stateResponseCode = HANDLED ; }
 
 #define ON_EVENT(evt, act)						if(hsm_getEventType(event) == evt)				{ act ; stateResponseCode = HANDLED ; }
+#define ON_EVENT_IF(evt, cndtn, act)			if((hsm_getEventType(event) == evt) && (cndtn))	{ act ; stateResponseCode = HANDLED ; }
 
 #define END_DEFINE_STATE()						(void)self ; (void)event ; return stateResponseCode ; }
 
@@ -768,5 +769,15 @@ void iterateAllStateMachines(	void) ;
 #define ITERATE_ALL_STATE_MACHINES()			iterateAllStateMachines()
 
 
+#if defined(__TS7800__) || defined(__cygwin__)
+	#include <pthread.h>
+
+	extern pthread_mutex_t	hsm_mutex ;
+
+	#define HSM_ENTER_CRITICAL_SECTION()		pthread_mutex_lock(&hsm_mutex)
+	#define HSM_EXIT_CRITICAL_SECTION()			pthread_mutex_unlock(&hsm_mutex)
+#else
+	#error DEFINE THE CRITICAL SECTION MACROS
+#endif
 
 #endif /* STATEMACHINE_G4_H_ */
