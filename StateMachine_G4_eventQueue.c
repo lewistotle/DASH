@@ -7,13 +7,11 @@
 
 #include <stdio.h>
 
-#include "config.h"
-
 #include "stateMachine_G4.h"
 #include "stateMachine_G4_eventQueue.h"
 
 
-
+#define configHSM_DEBUGGING_ENABLED		false
 
 
 
