@@ -271,7 +271,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 	}
 }
 
-
+#define TRACING_ENABLED true
 void hsm_resetTimeout(		stateMachine_t* machine)
 {
 	uint8_t		i ;
@@ -281,10 +281,10 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 
 	HSM_ENTER_CRITICAL_SECTION() ;
 
-	/* Now go through the timer event area and grab the next open slot */
+	/* Now go through the timer event area looking for the current timeout */
 
 #if TRACING_ENABLED
-	printf("\tResetting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
+	printf("\n\tResetting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
@@ -301,7 +301,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 			/* This is the one so reset it out and bail */
 
 #if TRACING_ENABLED
-			printf("\t\t\tFound it. Resetting to %ld, %ld\n", timeout->parent.parentoriginalHours, timeout->parent.parentoriginalMicroseconds) ;
+			printf("\t\t\tFound it. Resetting to %ld, %ld\n", (long int)timeout->parent.parent.originalHours, (long int)timeout->parent.parent.originalMicroseconds) ;
 #endif
 
 			timeout->parent.parent.originalHours		= timeout->parent.parent.originalHours ;
@@ -319,7 +319,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 
 	HSM_EXIT_CRITICAL_SECTION() ;
 }
-
+#undef TRACING_ENABLED
 
 void hsm_deleteTimeout(		stateMachine_t* machine, uint16_t lineNumber)
 {
