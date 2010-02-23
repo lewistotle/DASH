@@ -85,8 +85,6 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 
 		++event->eventListenerCount ;
 
-//printf("inserted...") ; fflush(stdout) ;
-
 		return true ;
 	}
 	else
@@ -276,8 +274,6 @@ bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm)
 	{
 //		printf("\nadding event of type %d to normal queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
 
-		/*return*/ eventQueue_insert(&sm->eventQueue, event) ;
-//		printf("done with insert...") ; fflush(stdout) ;
-		return true ;
+		return eventQueue_insert(&sm->eventQueue, event) ;
 	}
 }
