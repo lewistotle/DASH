@@ -27,7 +27,7 @@ DEFINE_STATE_MACHINE() ;
 		START_MEMORY_POOL_DECLARATIONS()
 		{
 			DECLARE_EVENT_MEMORY_POOL(3, keyEvent_t),
-			DECLARE_TIMER_MEMORY_POOL(2)
+			DECLARE_TIMER_MEMORY_POOL(3)
 		}
 		END_MEMORY_POOL_DECLARATIONS()
 	}
@@ -61,13 +61,14 @@ STATE_MACHINE_CONSTRUCTOR()
 
 	SET_EVENT_NAMES(eventNames) ;
 	DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS() ;
+	DISABLE_INTERNAL_EVENT_DEBUGGING_DISPLAY() ;
 	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
 
 	self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
 	self->timeout			= config_tbINIT_TIMEOUT ;
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
-	self->finetick			= SET_ALARM(self, FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
+	self->finetick			= SET_ALARM(FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
 
 	printf("Locating self->finetick at %p\n", (void*)self->finetick) ;
 }
@@ -77,6 +78,13 @@ STATE_MACHINE_DESTRUCTOR()
 {
 	(void)self ;	/* Nothing to do here */
 }
+
+
+DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY()
+{
+	printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+}
+END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
 
 DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
@@ -114,6 +122,8 @@ void goBOOM(		const char* instanceName)
 DEFINE_TOP_STATE()
 {
 	INITIAL_TRANSITION(TO(setting), NO_ACTION) ;
+
+//	EVERY(SECONDS(1), printf(" [TICK_%s] ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???")) ;
 
 	TRANSITION_ON(ARMAGEDDON,		TO(setting),	ACTION(goBOOM(self->parent.instanceName))) ;
 }
@@ -178,10 +188,10 @@ DEFINE_STATE(timing)
 {
 	ON_ENTRY(ACTIVATE_ALARM(self->finetick)) ;
 
+	ON_EVENT(FINETICK, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
+
 	TRANSITION_ON_IF(ARM,		self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(self->parent.instanceName, self->timeout))) ;
 	TRANSITION_ON_IF(FINETICK,	self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
-
-	ON_EVENT(FINETICK, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
 
 	HANDLE_STATE_EVENTS
 	{

@@ -302,7 +302,7 @@ void deallocateStateMachineMemory(			stateMachine_t* instance) ;
 #define START_MEMORY_POOL_DECLARATIONS_1(sm)	START_MEMORY_POOL_DECLARATIONS_2(sm)
 #define START_MEMORY_POOL_DECLARATIONS()		START_MEMORY_POOL_DECLARATIONS_1(STATE_MACHINE_NAME)
 
-#define DECLARE_EVENT_MEMORY_POOL(n, strct)		{ (n), sizeof(strct) }
+#define DECLARE_EVENT_MEMORY_POOL(n, strct)		{ (n), (sizeof(strct) + 3) & 0xFFFC }
 #define DECLARE_TIMER_MEMORY_POOL(n)			{ (n), 0 }
 #define DECLARE_NUMBER_OF_WATCH_EVENTS(n)		{ (n), 0xFFFF }
 

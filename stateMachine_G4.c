@@ -444,7 +444,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		{
 			uint16_t bytesNeededForCurrentPool = memoryRequirements->eventMemoryPools[i].chunkSize * memoryRequirements->eventMemoryPools[i].numberOfChunks ;
 
-			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].numberOfChunks, memoryRequirements->eventMemoryPools[i].chunkSize) ; fflush(stdout) ;
+			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].chunkSize, memoryRequirements->eventMemoryPools[i].numberOfChunks) ; fflush(stdout) ;
 
 			numberOfBytesNeeded += bytesNeededForCurrentPool ;
 

@@ -57,7 +57,7 @@ void handleKeypress(uint8_t c)
 
 	switch(c)
 	{
-		case 0x1B:	{ ok = false ;										break ; }
+		case 0x1B:	{ ok = false ;											break ; }
 
 		case 'i':
 		case 'I':	{ target = bomb_0 ;			eventType = UP ;			break ; }
