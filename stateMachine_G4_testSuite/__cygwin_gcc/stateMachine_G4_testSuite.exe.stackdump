@@ -1,0 +1,9 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=0040438B
+eax=004078F9 ebx=00000008 ecx=00000000 edx=00000022 esi=611021A0 edi=004058F0
+ebp=0022CCB8 esp=0022CCA0 program=d:\EiqEnergy\Projects\Software\_SoftwareLibraries\StateMachines\stateMachine_G4_testSuite\__cygwin_gcc\stateMachine_G4_testSuite.exe, pid 4440, thread main
+cs=001B ds=0023 es=0023 fs=003B gs=0000 ss=0023
+Stack trace:
+Frame     Function  Args
+0022CCB8  0040438B  (00000022, 004078F9, 00401374, 00401391)
+0022CCE8  00403469  (00000001     47 [unknown (0x438)] stateMachine_G4_testSuite 4440 _cygtls::handle_exceptions: Error while dumping state (probably corrupted stack)
+, 6116B7F8, 00680090, 0022CC70)

@@ -11,7 +11,6 @@
 #include "stateMachine_G4_eventQueue.h"
 
 
-#define configHSM_DEBUGGING_ENABLED		false
 
 
 
@@ -86,6 +85,8 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 
 		++event->eventListenerCount ;
 
+//printf("inserted...") ; fflush(stdout) ;
+
 		return true ;
 	}
 	else
@@ -147,9 +148,11 @@ void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefe
 {
 	if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
 	{
-#if 0
+//		printf("\naddToDeferredTypeList(): Deferring events of type %d... ", eventTypeToDefer) ; fflush(stdout) ;
+
 		sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList] = eventTypeToDefer ;
-#endif
+
+//		printf("[%d]=%d ", sm->currentDepthOfEventsToDeferList, sm->typesOfEventsToDefer[sm->currentDepthOfEventsToDeferList]) ;
 
 		sm->currentDepthOfEventsToDeferList++ ;
 	}
@@ -177,10 +180,14 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 	if(sm->currentDepthOfEventsToDeferList > 0)
 	{
 		bool				found = false ;
-		eventQueueIndex_t	i ;
+		int16_t				i ;
 
-		for( i = (sm->currentDepthOfEventsToDeferList - 1) ; i != 0 ; i-- )
+//		printf("\nremoveFromDeferredTypeList(): Looking for events of type %d to undefer (%d)... ", eventTypeToUnDefer, sm->currentDepthOfEventsToDeferList) ;
+
+		for( i = sm->currentDepthOfEventsToDeferList ; i >= 0 ; i-- )
 		{
+//			printf("[%d]=%d ", i, sm->typesOfEventsToDefer[i]) ;
+
 			if(sm->typesOfEventsToDefer[i] == eventTypeToUnDefer)
 			{
 				found = true ;
@@ -195,6 +202,8 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 		{
 			event_t*	firstEvent ;
 			event_t*	currentEvent ;
+
+//			printf("found one in the list.... ") ;
 
 			for( i = i ; i < sm->currentDepthOfEventsToDeferList ; i++ )
 			{
@@ -227,6 +236,8 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 
 				if(hsm_getEventType(currentEvent) == eventTypeToUnDefer)
 				{
+//					printf("moving it to the normal queue.... ") ;
+
 					eventQueue_insert(&sm->eventQueue, currentEvent) ;
 				}
 				else
@@ -249,21 +260,24 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 			}
 		}
 	}
+//	printf("DONE. ") ; fflush(stdout) ;
 }
 
 
 bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm)
 {
-#if configHSM_DEBUGGING_ENABLED
-	if(sm->debugging_internalEventDisplay && hsm_isEventInternal(event))
+	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
 	{
-		((stateMachine_displayEventInfo_t)(sm->debugging_internalEventDisplay))(sm, event) ;
-	}
+//		printf("\nadding event of type %d to deferred queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
 
-	if(sm->debugging_externalEventDisplay && !hsm_isEventInternal(event))
-	{
-		((stateMachine_displayEventInfo_t)(sm->debugging_externalEventDisplay))(sm, event) ;
+		return eventQueue_insert(&sm->deferredEventQueue, event) ;
 	}
-#endif
-	return eventQueue_insert(&sm->eventQueue, event) ;
+	else
+	{
+//		printf("\nadding event of type %d to normal queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
+
+		/*return*/ eventQueue_insert(&sm->eventQueue, event) ;
+//		printf("done with insert...") ; fflush(stdout) ;
+		return true ;
+	}
 }

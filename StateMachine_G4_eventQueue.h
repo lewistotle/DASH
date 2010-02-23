@@ -79,19 +79,20 @@ enum STATE_MACHINE_INTERNAL_EVENTS	{
 										SUBSTATE_LAST_USER_EVENTS			= 0x7F,
 										SUBSTATE_FIRST_GLOBAL_EVENT			= 0x80,
 										SUBSTATE_NON_EVENT					= 0x00,
-										SUBSTATE_ENTRY						= 0x01,
-										SUBSTATE_INITIAL_TRANSITION			= 0x02,
-										SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= 0x03,
-										SUBSTATE_TICK						= 0x04,
-										SUBSTATE_TIMEOUT					= 0x05,
-										SUBSTATE_WATCHED					= 0x06,
-										SUBSTATE_DO							= 0x07,
-										SUBSTATE_EXIT						= 0x08,
-										SUBSTATE_TERMINATE					= 0x09,
-										SUBSTATE_LAST_INTERNAL_EVENT		= SUBSTATE_EXIT
+										SUBSTATE_ENTRY,
+										SUBSTATE_INITIAL_TRANSITION,
+										SUBSTATE_JUMP_TO_HISTORY_DEFAULT,
+										SUBSTATE_TICK,
+										SUBSTATE_TIMEOUT,
+										SUBSTATE_REPEATING_TIMER,
+										SUBSTATE_WATCHED,
+										SUBSTATE_DO,
+										SUBSTATE_EXIT,
+										SUBSTATE_TERMINATE,
+										SUBSTATE_LAST_INTERNAL_EVENT		= SUBSTATE_TERMINATE
 									} ;
 
-#define hsm_isEventInternal(event)	(event->eventType <= SUBSTATE_EXIT ? true : false)
+#define hsm_isEventInternal(event)	(event->eventType <= SUBSTATE_LAST_INTERNAL_EVENT ? true : false)
 #define hsm_isEventGlobal(event)	(event->eventType >= SUBSTATE_FIRST_GLOBAL_EVENT ? true : false)
 #define hsm_isEventUser(event)		((event->eventType > SUBSTATE_EXIT) && (event->eventType <= SUBSTATE_LAST_USER_EVENTS)) ? true : false)
 
@@ -134,6 +135,7 @@ typedef struct
 	alarmEvent_t				parent ;
 
 	void*						ownerState ;
+	uint16_t					lineNumber ;
 } timeoutEvent_t ;
 
 #define HSM_TIMER_EVENT_MEMORY_SIZE	sizeof(timeoutEvent_t)

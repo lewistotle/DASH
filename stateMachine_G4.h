@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define configHSM_DEBUGGING_ENABLED					true
 #define configHSM_INTERNAL_DEBUGGING_ENABLED		true
 #define configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED	true
 
@@ -113,6 +114,7 @@ typedef struct
 	const char*								stateMachineName ;
 
 	void*									currentState ;
+	void*									activeState ;
 	void*									nextState ;
 
 #if 0
@@ -120,6 +122,7 @@ typedef struct
 #endif
 
 	uint8_t									stateMachineInitialized ;
+	uint8_t									requestsDoEvents ;
 	uint8_t									requestsTickEvents ;
 
 	stateMachine_destructorFunction_t		destructor ;
@@ -243,6 +246,7 @@ typedef struct
 
 event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t eventSize) ;
 
+void hsm_handleTick(	uint32_t microsecondsSinceLastHandled) ;
 
 bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm) ;
 bool hsm_publishEventToAll(				event_t* event) ;
@@ -260,15 +264,15 @@ bool hsm_publishEventToAll(				event_t* event) ;
 
 alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating) ;
 void hsm_resetTimeout(			stateMachine_t* machine) ;
-void hsm_deleteTimeout(			stateMachine_t* machine) ;
+void hsm_deleteTimeout(			stateMachine_t* machine, uint16_t lineNumber) ;
 
-#define SET_ALARM(machine, eventType, duration, repeating)	hsm_createAlarm((stateMachine_t*)machine, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
+#define SET_ALARM(eventType, duration, repeating)			hsm_createAlarm((stateMachine_t*)self, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
 
 #define ACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = true ; }
 #define DEACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = false ; }
 
 #define RESET_TIMEOUT()										hsm_resetTimeout((stateMachine_t*)self)
-#define DELETE_TIMEOUT(machine)								hsm_deleteTimeout((stateMachine_t*)machine)
+#define DELETE_TIMEOUT(machine, lineNumber)					hsm_deleteTimeout((stateMachine_t*)machine, lineNumber)
 
 /* A couple of helpers to deal with state machine memory and initialization. */
 
@@ -341,9 +345,11 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 													sm##_SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= SUBSTATE_JUMP_TO_HISTORY_DEFAULT,		\
 													sm##_SUBSTATE_TICK						= SUBSTATE_TICK,						\
 													sm##_SUBSTATE_TIMEOUT					= SUBSTATE_TIMEOUT,						\
+													sm##_SUBSTATE_REPEATING_TIMER			= SUBSTATE_REPEATING_TIMER,				\
 													sm##_SUBSTATE_WATCHED					= SUBSTATE_WATCHED,						\
 													sm##_SUBSTATE_DO						= SUBSTATE_DO,							\
 													sm##_SUBSTATE_EXIT						= SUBSTATE_EXIT,						\
+													sm##_SUBSTATE_TERMINATE					= SUBSTATE_TERMINATE,					\
 
 															/* State machine specific events go here */
 
@@ -577,20 +583,20 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define ENTER										case SUBSTATE_ENTRY:								\
 													{
 														/* implementation goes here */
-#define ENTER_HANDLED									return HANDLED ;								\
+#define ENTER_HANDLED									stateResponseCode = HANDLED ;					\
 													}
 
 #define EXIT										case SUBSTATE_EXIT:									\
 													{
 														/* implementation goes here */
-#define EXIT_HANDLED									return HANDLED ;								\
+#define EXIT_HANDLED									stateResponseCode = HANDLED ;					\
 													}
 
 #define EVENT(evt)									case evt:
 														/* Note lack of opening and closing brackets.
 														 * This allows use of multiple EVENT() clauses
 														 * implementation goes here */
-#define EVENT_HANDLED									return HANDLED ;
+#define EVENT_HANDLED									stateResponseCode = HANDLED ;
 
 
 #define HANDLE_STATE_EVENTS_DONE					default:											\
@@ -600,6 +606,7 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 												}
 
 #define ON_ENTRY(act)							if(hsm_getEventType(event) == SUBSTATE_ENTRY)	{ act ; stateResponseCode = HANDLED ; }
+#define ON_DO(act)								if(hsm_getEventType(event) == SUBSTATE_DO)		{ act ; stateResponseCode = HANDLED ; }
 #define ON_EXIT(act)							if(hsm_getEventType(event) == SUBSTATE_EXIT)	{ act ; stateResponseCode = HANDLED ; }
 
 #define ON_EVENT(evt, act)						if(hsm_getEventType(event) == evt)				{ act ; stateResponseCode = HANDLED ; }
@@ -618,23 +625,23 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define INITIAL_TRANSITION_1(sm, dest, act)			INITIAL_TRANSITION_2(sm, dest, act)
 #define INITIAL_TRANSITION(dest, act)				INITIAL_TRANSITION_1(STATE_MACHINE_NAME, dest, act)
 
-#define TRANSITION_ON_2(sm, evt, dest, act)			if(hsm_getEventType(event) == evt) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_ON_2(sm, evt, dest, act)			if(hsm_getEventType(event) == evt) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
 #define TRANSITION_ON_1(sm, evt, dest, act)			TRANSITION_ON_2(sm, evt, dest, act)
 #define TRANSITION_ON(evt, dest, act)				TRANSITION_ON_1(STATE_MACHINE_NAME, evt, dest, act)
 
-#define TRANSITION_ON_IF_2(sm , evt, cndtn, dest, act)	if((hsm_getEventType(event) == evt) && (cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_ON_IF_2(sm , evt, cndtn, dest, act)	if((hsm_getEventType(event) == evt) && (cndtn)) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
 #define TRANSITION_ON_IF_1(sm, evt, cndtn, dest, act)	TRANSITION_ON_IF_2(sm, evt, cndtn, dest, act)
 #define TRANSITION_ON_IF(evt, cndtn, dest, act)			TRANSITION_ON_IF_1(STATE_MACHINE_NAME, evt, cndtn, dest, act)
 
-#define TRANSITION_TO_2(sm, dest, act)				{ stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_TO_2(sm, dest, act)				{ act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
 #define TRANSITION_TO_1(sm, dest, act)				TRANSITION_TO_2(sm, dest, act)
 #define TRANSITION_TO(dest, act)					TRANSITION_TO_1(STATE_MACHINE_NAME, dest, act)
 
-#define TRANSITION_TO_IF_2(sm, dest, cndtn, act)	if((cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_TO_IF_2(sm, dest, cndtn, act)	if((cndtn)) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
 #define TRANSITION_TO_IF_1(sm, dest, cndtn, act)	TRANSITION_TO_IF_2(sm, dest, cndtn, act)
 #define TRANSITION_TO_IF(dest, cndtn, act)			TRANSITION_TO_IF_1(STATE_MACHINE_NAME, dest, cndtn, act)
 
-#define TRANSITION_IF_2(sm, cndtn, dest, act)		if((cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
+#define TRANSITION_IF_2(sm, cndtn, dest, act)		if((cndtn)) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
 #define TRANSITION_IF_1(sm, cndtn, dest, act)		TRANSITION_IF_2(sm, cndtn, dest, act)
 #define TRANSITION_IF(cndtn, dest, act)				TRANSITION_IF_1(STATE_MACHINE_NAME, cndtn, dest, act)
 
@@ -681,10 +688,29 @@ void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 
 
 
-#define TRANSITION_AFTER(timeout, dest, act)		{																																																													\
-														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(self, SUBSTATE_TIMEOUT, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->ownerState = self->parent.currentState ; } }) ;	\
-														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->ownerState == self->parent.currentState, TO(dest), act) ;																															\
-														ON_EXIT(DELETE_TIMEOUT(self)) ;																																																					\
+#define AFTER(timeout, act)							{																																																											\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_TIMEOUT, timeout, NON_REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;		\
+														ON_EVENT_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->lineNumber == __LINE__, act) ;																																					\
+														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
+													}
+
+#define TRANSITION_AFTER(timeout, dest, act)		{																																																											\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_TIMEOUT, timeout, NON_REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;		\
+														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->lineNumber == __LINE__, TO(dest), act) ;																																	\
+														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
+													}
+
+
+#define EVERY(timeout, act)							{																																																											\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
+														ON_EVENT_IF(SUBSTATE_REPEATING_TIMER, ((timeoutEvent_t*)event)->lineNumber == __LINE__, ACTIVATE_ALARM((timeoutEvent_t*)event) ; act) ;																									\
+														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
+													}
+
+#define TRANSITION_EVERY(timeout, dest, act)		{																																																											\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
+														TRANSITION_ON_IF(SUBSTATE_REPEATING_TIMER, ((timeoutEvent_t*)event)->lineNumber == __LINE__, TO(dest), ACTIVATE_ALARM((timeoutEvent_t*)event) ; act) ;																									\
+														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}
 
 
@@ -718,10 +744,10 @@ void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 
 
 
-#define CAST_EVENT(type)						((type*)event)
-#define PARENT_STATE(par)						par
-#define PARENT_STATE_MACHINE(par)				par
-#define PARENT_CLASS(par)						par parent
+#define CAST_EVENT(type)			((type*)event)
+#define PARENT_STATE(par)			par
+#define PARENT_STATE_MACHINE(par)	par
+#define PARENT_CLASS(par)			par parent
 
 
 
@@ -731,18 +757,27 @@ bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck)
 void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer) ;
 
 
-bool postEventToStateMachine(			stateMachine_t* sm, event_t* event) ;
+bool postEventToStateMachine(		stateMachine_t* sm, event_t* event) ;
 
 
+#define REQUEST_DO_EVENTS()			if(hsm_getEventType(event) == SUBSTATE_ENTRY)									\
+									{																				\
+										self->parent.requestsDoEvents++ ;											\
+									}																				\
+									else if(hsm_getEventType(event) == SUBSTATE_EXIT)								\
+									{																				\
+										if(self->parent.requestsDoEvents > 0) { --self->parent.requestsDoEvents ; }	\
+									}
 
-#define DEFER_EVENT(evt)						if(hsm_getEventType(event) == SUBSTATE_ENTRY)					\
-												{																\
-													addToDeferredTypeList((stateMachine_t*)self, evt) ;			\
-												}																\
-												else if(hsm_getEventType(event) == SUBSTATE_EXIT)				\
-												{																\
-													removeFromDeferredTypeList((stateMachine_t*)self, evt) ;	\
-												}
+
+#define DEFER_EVENT(evt)			if(hsm_getEventType(event) == SUBSTATE_ENTRY)									\
+									{																				\
+										addToDeferredTypeList((stateMachine_t*)self, evt) ;							\
+									}																				\
+									else if(hsm_getEventType(event) == SUBSTATE_EXIT)								\
+									{																				\
+										removeFromDeferredTypeList((stateMachine_t*)self, evt) ;					\
+									}
 
 
 void outputStateMachineDebugData_G4(stateMachine_t* sm) ;
@@ -766,9 +801,10 @@ bool unregisterStateMachine(		stateMachine_t* sm) ;
 
 
 
-
+void iterateStateMachine(		stateMachine_t* sm) ;
 void iterateAllStateMachines(	void) ;
 
+#define ITERATE_SINGLE_STATE_MACHINE(machine)	iterateStateMachine(machine)
 #define ITERATE_ALL_STATE_MACHINES()			iterateAllStateMachines()
 
 

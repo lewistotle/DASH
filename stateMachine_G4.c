@@ -57,7 +57,7 @@ void hsm_free(									void* blockToFree)
 	free(blockToFree) ;
 }
 
-
+#define TRACING_ENABLED false
 event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t eventSize)
 {
 	bool		allocated = false ;
@@ -152,12 +152,12 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 	}
 	else
 	{
-		printf("\t\tUnable to allocate event.\n") ;
+		printf("\t\tUnable to allocate event.\n") ; fflush(stdout) ;
 
 		return (event_t*)0 ;
 	}
 }
-
+#undef TRACING_ENABLED
 
 alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating)
 {
@@ -232,6 +232,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 				timeout->parent.parent.originalMicroseconds			= microseconds ;
 				timeout->parent.active								= hours ;
 				timeout->ownerState									= machine->currentState ;
+				timeout->lineNumber									= 0 ;
 #if 0
 				printf("(%p)timeout->parent.parent.parent.eventType         : %d\n", (void*)timeout, timeout->parent.parent.parent.eventType) ; fflush(stdout) ;
 				printf("(%p)timeout->parent.parent.parent.eventListenerCount: %d\n", (void*)timeout, timeout->parent.parent.parent.eventListenerCount) ; fflush(stdout) ;
@@ -293,7 +294,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 #endif
 
 		if(		(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_TIMEOUT)
-			&&	(((timeoutEvent_t*)memoryPoolLocation)->ownerState == machine->currentState))
+			&&	(((timeoutEvent_t*)memoryPoolLocation)->ownerState == machine->activeState))
 		{
 			timeoutEvent_t*	timeout = (timeoutEvent_t*)memoryPoolLocation ;
 
@@ -320,7 +321,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 }
 
 
-void hsm_deleteTimeout(		stateMachine_t* machine)
+void hsm_deleteTimeout(		stateMachine_t* machine, uint16_t lineNumber)
 {
 	uint8_t		i ;
 	uint8_t*	memoryPoolLocation = (uint8_t*)(machine->startOfTimerEvents) ;
@@ -342,7 +343,7 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 #endif
 
 		if(		(((event_t*)memoryPoolLocation)->eventType == SUBSTATE_TIMEOUT)
-			&&	(((timeoutEvent_t*)memoryPoolLocation)->ownerState == machine->currentState))
+			&&	(((timeoutEvent_t*)memoryPoolLocation)->lineNumber == lineNumber))
 		{
 			/* This is the one so clear it out and bail */
 
@@ -357,6 +358,7 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 			((timeoutEvent_t*)memoryPoolLocation)->parent.parent.originalMicroseconds	= 0 ;
 			((timeoutEvent_t*)memoryPoolLocation)->parent.active						= 0 ;
 			((timeoutEvent_t*)memoryPoolLocation)->ownerState							= 0 ;
+			((timeoutEvent_t*)memoryPoolLocation)->lineNumber							= 0 ;
 
 			break ;
 		}
@@ -370,7 +372,7 @@ void hsm_deleteTimeout(		stateMachine_t* machine)
 
 	HSM_EXIT_CRITICAL_SECTION() ;
 }
-#undef TRACING_ENABLED
+
 
 stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 												uint16_t historyArraySize,
@@ -442,7 +444,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		{
 			uint16_t bytesNeededForCurrentPool = memoryRequirements->eventMemoryPools[i].chunkSize * memoryRequirements->eventMemoryPools[i].numberOfChunks ;
 
-			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].chunkSize, memoryRequirements->eventMemoryPools[i].numberOfChunks) ; fflush(stdout) ;
+			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].numberOfChunks, memoryRequirements->eventMemoryPools[i].chunkSize) ; fflush(stdout) ;
 
 			numberOfBytesNeeded += bytesNeededForCurrentPool ;
 
@@ -744,15 +746,23 @@ void hsm_unregisterWatchVariable(	stateMachine_t* machine, void* loc)
 
 bool hsm_publishEventToAll(				event_t* event)
 {
+	bool		someoneAcceptedEvent = false ;
 	uint8_t		statetMachineIndex ;
 
 	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
 	{
 		if(stateMachines[statetMachineIndex] != NULL)
 		{
-			hsm_postEventToMachine(event, stateMachines[statetMachineIndex]) ;
+			/*
+			 * Or in the result of the postEvent call since that will make it easy
+			 * to determine that at least one state machine accepted the event.
+			 */
+
+			someoneAcceptedEvent |= hsm_postEventToMachine(event, stateMachines[statetMachineIndex]) ;
 		}
 	}
+
+	return someoneAcceptedEvent ;
 }
 
 
@@ -776,10 +786,12 @@ char*					eventTypes[]			= { "NO_EVENT",
 													"INIT",
 													"HIST_DEF",
 													"TICK",
-													"TIMER",
+													"TIMEOUT",
+													"REPEATING",
 													"WATCH",
 													"DO",
-													"EXIT" } ;
+													"EXIT",
+													"TERMINATE"} ;
 
 char*					responseTypes[]			= { "IGNORED",
 													"HANDLED",
@@ -861,7 +873,7 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 							/* Here's at least one. Fire off the event */
 
 #if 0
-							printf("AIMING %p (%d) AT '%s'...FIRE!!! (machine %d @ %p)\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName, statetMachineIndex, (void*)machine) ;
+							printf("AIMING %p (%d) AT '%s' in state '%s' ... FIRE!!! (machine %d @ %p)\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName, ((state_t*)(machine->currentState))->stateName, statetMachineIndex, (void*)machine) ;
 #endif
 if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 {
@@ -972,6 +984,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 	HSM_EXIT_CRITICAL_SECTION() ;
 }
 
+
 stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
 {
 	stateMachine_stateResponse_t	response ;
@@ -995,6 +1008,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 
 		if(event == &initialTransitionEvent)
 		{
+			sm->activeState = state ;
 			response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
 		}
 		else
@@ -1064,6 +1078,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 		}
 #endif
 
+		sm->activeState = state ;
 		response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
 
 		if(		(sm->printStateTransitions)
@@ -1161,6 +1176,18 @@ void iterateStateMachine(	stateMachine_t* sm)
 				printf("\t\t\tGetting event from queue\n") ; fflush(stdout) ;
 #endif
 				eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
+
+#if 1//TRACING_ENABLED
+				if(sm->debugging_internalEventDisplay && hsm_isEventInternal(eventToProcess))
+				{
+					((stateMachine_displayEventInfo_t)(sm->debugging_internalEventDisplay))(sm, eventToProcess) ;
+				}
+
+				if(sm->debugging_externalEventDisplay && !hsm_isEventInternal(eventToProcess))
+				{
+					((stateMachine_displayEventInfo_t)(sm->debugging_externalEventDisplay))(sm, eventToProcess) ;
+				}
+#endif
 			}
 
 #if TRACING_ENABLED
@@ -1213,7 +1240,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 					break ;
 				}
-				else if((action == IGNORED) && (!hsm_isEventInternal(eventToProcess)))
+				else if((action == IGNORED) && ((!hsm_isEventInternal(eventToProcess)) || (eventToProcess->eventType == SUBSTATE_TIMEOUT) || (eventToProcess->eventType == SUBSTATE_REPEATING_TIMER)))
 				{
 					stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 
@@ -1597,7 +1624,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 			}
 #endif
 		}
-		else
+		else if(sm->requestsDoEvents > 0)
 		{
 #if TRACING_ENABLED
 			#if 0
