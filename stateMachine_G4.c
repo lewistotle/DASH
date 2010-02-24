@@ -159,6 +159,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 }
 #undef TRACING_ENABLED
 
+#define TRACING_ENABLED false
 alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating)
 {
 	bool		allocated			= false ;
@@ -271,7 +272,6 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 	}
 }
 
-#define TRACING_ENABLED true
 void hsm_resetTimeout(		stateMachine_t* machine)
 {
 	uint8_t		i ;
@@ -304,8 +304,9 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 			printf("\t\t\tFound it. Resetting to %ld, %ld\n", (long int)timeout->parent.parent.originalHours, (long int)timeout->parent.parent.originalMicroseconds) ;
 #endif
 
-			timeout->parent.parent.originalHours		= timeout->parent.parent.originalHours ;
-			timeout->parent.parent.originalMicroseconds	= timeout->parent.parent.originalMicroseconds ;
+			timeout->parent.active							= true ;
+			timeout->parent.parent.remainingHours			= timeout->parent.parent.originalHours ;
+			timeout->parent.parent.remainingMicroseconds	= timeout->parent.parent.originalMicroseconds ;
 
 			break ;
 		}
@@ -1022,24 +1023,27 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 		{
 			sm->mostRecentlyEnteredState			= state ;
 			sm->currentStateHasInitialTransition	= false ;
+
+			if(		(state->parent)
+				&&	(((state_t*)(state->parent))->type == STATE_WITH_SHALLOW_HISTORY))
+			{
+				/* Store only most recent direct child state */
+//printf("   setting SHALLOW history for '%s' to '%s'   ", ((state_t*)(state->parent))->stateName, state->stateName) ; fflush(stdout) ;
+				sm->historicalMarkers[((state_with_history_t*)(state->parent))->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
+			}
 		}
 
 		if(event == &exitEvent)
 		{
-			if(state->type == STATE_WITH_SHALLOW_HISTORY)
-			{
-				/* Store only most recent direct child state */
+			sm->mostRecentlyExitedState = (void*)state ;
 
-				sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyExitedState ;
-			}
-			else if(state->type == STATE_WITH_DEEP_HISTORY)
+			if(state->type == STATE_WITH_DEEP_HISTORY)
 			{
+#warning This will not work. A stack is needed to keep track of the most recently entered state with deep history. Then, any time a new state is entered, that top of said stack needs to have its history marker set. In most cases, it will be fine, but if the state with deep history has a transition to its own history, this way of doing it will fail.
 				/* store child state that was active before starting transition sequence */
-
+//printf("   setting DEEP history for '%s' to '%s'   ", ((state_t*)(state->parent))->stateName, ((state_t*)(sm->mostRecentlyEnteredState))->stateName) ; fflush(stdout) ;
 				sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
 			}
-
-			sm->mostRecentlyExitedState = (void*)state ;
 		}
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
@@ -1114,7 +1118,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 	return response ;
 }
 
-
+#define TRACING_ENABLED false
 void iterateStateMachine(	stateMachine_t* sm)
 {
 	stateMachine_stateResponse_t	action ;
@@ -1245,12 +1249,20 @@ void iterateStateMachine(	stateMachine_t* sm)
 					stateBeingProcessed = (state_t*)(stateBeingProcessed->parent) ;
 
 #if TRACING_ENABLED
-					printf("\t\t\t\t\t\t\tmoving to parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
+					printf("\t\t\t\t\t\t\tIGNORED so trying event on parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
 #endif
+				}
+				else if(action == TRANSITION_TO_HISTORY)
+				{
+#if TRACING_ENABLED
+					printf("    TRANSITION_TO_HISTORY: %s->%s    ", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>", sm->currentState ? ((state_t*)(sm->currentState))->stateName : "<current>") ; fflush(stdout) ;
+#endif
+
+					break ;
 				}
 				else
 				{
-#if 0
+#if TRACING_ENABLED
 					printf("  caught in '%s'  ", stateBeingProcessed->stateName) ; fflush(stdout) ;
 #endif
 					/* The event was handled or a transition was taken.
@@ -1282,6 +1294,12 @@ void iterateStateMachine(	stateMachine_t* sm)
 					 * now and treat it as a normal transition instead.
 					 */
 
+#if TRACING_ENABLED
+					printf("\t\t\t\t\t\t\t'%s' does not have history but tried to transition to history\n", ((state_t*)(sm->nextState))->stateName ? ((state_t*)(sm->nextState))->stateName : "<state>") ; fflush(stdout) ;
+#endif
+
+					action = TRANSITION ;
+
 					break ;
 				}
 				else
@@ -1293,6 +1311,10 @@ void iterateStateMachine(	stateMachine_t* sm)
 
 					if(nextState != (void*)0)
 					{
+#if TRACING_ENABLED
+						printf("\t\t\t\t\t\t\thistory of state '%s' is state '%s'\n", ((state_t*)(sm->nextState))->stateName ? ((state_t*)(sm->nextState))->stateName : "<state>", ((state_t*)nextState)->stateName ? ((state_t*)nextState)->stateName : "<state>") ; fflush(stdout) ;
+#endif
+
 						/* Found a state that has some history tracking information so
 						 * set the next state to that and then bail this loop so that
 						 * the transition occurs normally.
@@ -1302,6 +1324,10 @@ void iterateStateMachine(	stateMachine_t* sm)
 					}
 					else
 					{
+#if TRACING_ENABLED
+						printf("\t\t\t\t\t\t\tNo history yet for '%s'\n", ((state_t*)(sm->nextState))->stateName ? ((state_t*)(sm->nextState))->stateName : "<state>") ; fflush(stdout) ;
+#endif
+
 						/* No history for the target state so turn the event into a
 						 * HISTORY_DEFAULT event and then jump to the target so that
 						 * the new target can be set. Note it it technically possible

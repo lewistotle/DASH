@@ -508,15 +508,14 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 
 
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-															static stateMachine_stateResponse_t sm##_##ss##_historyHandler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-															static const state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, CALLSTATEHANDLER_CAST(&sm##_##ss##_historyHandler), __LINE__ - sm##_historicalMarkerBase }
+															static const state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(sm, ps, ss)	ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY(ss, ps)			ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(STATE_MACHINE_NAME, ps, ss)
 
-#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(		sm##Machine_t* self, event_t* event) __reentrant ;	\
-														static const state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
-#define ADD_SUB_STATE_WITH_DEEP_HISTORY_1(sm, ps, ss)	ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)
-#define ADD_SUB_STATE_WITH_DEEP_HISTORY(ss, ps)			ADD_SUB_STATE_WITH_DEEP_HISTORY_1(STATE_MACHINE_NAME, ps, ss)
+#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+															static const state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+#define ADD_SUB_STATE_WITH_DEEP_HISTORY_1(sm, ps, ss)		ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)
+#define ADD_SUB_STATE_WITH_DEEP_HISTORY(ss, ps)				ADD_SUB_STATE_WITH_DEEP_HISTORY_1(STATE_MACHINE_NAME, ps, ss)
 
 
 
@@ -584,19 +583,22 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 													{
 														/* implementation goes here */
 #define ENTER_HANDLED									stateResponseCode = HANDLED ;					\
+														break ;											\
 													}
 
 #define EXIT										case SUBSTATE_EXIT:									\
 													{
 														/* implementation goes here */
 #define EXIT_HANDLED									stateResponseCode = HANDLED ;					\
+														break ;											\
 													}
 
 #define EVENT(evt)									case evt:
 														/* Note lack of opening and closing brackets.
 														 * This allows use of multiple EVENT() clauses
 														 * implementation goes here */
-#define EVENT_HANDLED									stateResponseCode = HANDLED ;
+#define EVENT_HANDLED									stateResponseCode = HANDLED ;					\
+														break ;											\
 
 
 #define HANDLE_STATE_EVENTS_DONE					default:											\
@@ -605,12 +607,12 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 													}													\
 												}
 
-#define ON_ENTRY(act)							if(hsm_getEventType(event) == SUBSTATE_ENTRY)	{ act ; stateResponseCode = HANDLED ; }
-#define ON_DO(act)								if(hsm_getEventType(event) == SUBSTATE_DO)		{ act ; stateResponseCode = HANDLED ; }
-#define ON_EXIT(act)							if(hsm_getEventType(event) == SUBSTATE_EXIT)	{ act ; stateResponseCode = HANDLED ; }
+#define ON_ENTRY(act)							if(hsm_getEventType(event) == SUBSTATE_ENTRY)	{ stateResponseCode = HANDLED ; act ; }
+#define ON_DO(act)								if(hsm_getEventType(event) == SUBSTATE_DO)		{ stateResponseCode = HANDLED ; act ; }
+#define ON_EXIT(act)							if(hsm_getEventType(event) == SUBSTATE_EXIT)	{ stateResponseCode = HANDLED ; act ; }
 
-#define ON_EVENT(evt, act)						if(hsm_getEventType(event) == evt)				{ act ; stateResponseCode = HANDLED ; }
-#define ON_EVENT_IF(evt, cndtn, act)			if((hsm_getEventType(event) == evt) && (cndtn))	{ act ; stateResponseCode = HANDLED ; }
+#define ON_EVENT(evt, act)						if(hsm_getEventType(event) == evt)				{ stateResponseCode = HANDLED ; act ; }
+#define ON_EVENT_IF(evt, cndtn, act)			if((hsm_getEventType(event) == evt) && (cndtn))	{ stateResponseCode = HANDLED ; act ; }
 
 #define END_DEFINE_STATE()						(void)self ; (void)event ; return stateResponseCode ; }
 
@@ -625,28 +627,28 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define INITIAL_TRANSITION_1(sm, dest, act)			INITIAL_TRANSITION_2(sm, dest, act)
 #define INITIAL_TRANSITION(dest, act)				INITIAL_TRANSITION_1(STATE_MACHINE_NAME, dest, act)
 
-#define TRANSITION_ON_2(sm, evt, dest, act)			if(hsm_getEventType(event) == evt) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
+#define TRANSITION_ON_2(sm, evt, dest, act)			if(hsm_getEventType(event) == evt) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_ON_1(sm, evt, dest, act)			TRANSITION_ON_2(sm, evt, dest, act)
 #define TRANSITION_ON(evt, dest, act)				TRANSITION_ON_1(STATE_MACHINE_NAME, evt, dest, act)
 
-#define TRANSITION_ON_IF_2(sm , evt, cndtn, dest, act)	if((hsm_getEventType(event) == evt) && (cndtn)) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
+#define TRANSITION_ON_IF_2(sm , evt, cndtn, dest, act)	if((hsm_getEventType(event) == evt) && (cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_ON_IF_1(sm, evt, cndtn, dest, act)	TRANSITION_ON_IF_2(sm, evt, cndtn, dest, act)
 #define TRANSITION_ON_IF(evt, cndtn, dest, act)			TRANSITION_ON_IF_1(STATE_MACHINE_NAME, evt, cndtn, dest, act)
 
-#define TRANSITION_TO_2(sm, dest, act)				{ act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
+#define TRANSITION_TO_2(sm, dest, act)				{ stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_TO_1(sm, dest, act)				TRANSITION_TO_2(sm, dest, act)
 #define TRANSITION_TO(dest, act)					TRANSITION_TO_1(STATE_MACHINE_NAME, dest, act)
 
-#define TRANSITION_TO_IF_2(sm, dest, cndtn, act)	if((cndtn)) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
+#define TRANSITION_TO_IF_2(sm, dest, cndtn, act)	if((cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_TO_IF_1(sm, dest, cndtn, act)	TRANSITION_TO_IF_2(sm, dest, cndtn, act)
 #define TRANSITION_TO_IF(dest, cndtn, act)			TRANSITION_TO_IF_1(STATE_MACHINE_NAME, dest, cndtn, act)
 
-#define TRANSITION_IF_2(sm, cndtn, dest, act)		if((cndtn)) { act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return TRANSITION ; }
+#define TRANSITION_IF_2(sm, cndtn, dest, act)		if((cndtn)) { stateResponseCode = TRANSITION ; act ; ((stateMachine_t*)self)->nextState = (void*)&sm##_##dest ; return stateResponseCode ; }
 #define TRANSITION_IF_1(sm, cndtn, dest, act)		TRANSITION_IF_2(sm, cndtn, dest, act)
 #define TRANSITION_IF(cndtn, dest, act)				TRANSITION_IF_1(STATE_MACHINE_NAME, cndtn, dest, act)
 
 #if 0
-#define TRANSITION_CALLING_2(sm, func, evt)			if(hsm_getEventType(event) == evt) { func ; return HANDLED ; }
+#define TRANSITION_CALLING_2(sm, func, evt)			if(hsm_getEventType(event) == evt) { stateResponseCode = HANDLED ; func ; return stateResponseCode ; }
 #define TRANSITION_CALLING_1(sm, func, evt)			TRANSITION_CALLING_2(sm, func, evt)
 #define TRANSITION_CALLING(func, evt)				TRANSITION_CALLING_1(STATE_MACHINE_NAME, func, evt)
 #endif
@@ -713,7 +715,9 @@ void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}
 
-
+#define GET_STATE_2(sm, st)							(void*)&sm##_##st
+#define GET_STATE_1(sm, st)							GET_STATE_2(sm, st)
+#define GET_STATE(st)								GET_STATE_1(STATE_MACHINE_NAME, st)
 
 
 #define CONSUME_EVENT(evt, act)						if(hsm_getEventType(event) == evt) { act ; return HANDLED ; }
