@@ -1031,6 +1031,11 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 //printf("   setting SHALLOW history for '%s' to '%s'   ", ((state_t*)(state->parent))->stateName, state->stateName) ; fflush(stdout) ;
 				sm->historicalMarkers[((state_with_history_t*)(state->parent))->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
 			}
+
+			if(sm->debugging_machineOutputDisplay)
+			{
+				((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
+			}
 		}
 
 		if(event == &exitEvent)
@@ -1039,7 +1044,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 
 			if(state->type == STATE_WITH_DEEP_HISTORY)
 			{
-#warning This will not work. A stack is needed to keep track of the most recently entered state with deep history. Then, any time a new state is entered, that top of said stack needs to have its history marker set. In most cases, it will be fine, but if the state with deep history has a transition to its own history, this way of doing it will fail.
+#warning This will not work in all cases. A stack is needed to keep track of the most recently entered state with deep history. Then, any time a new state is entered, that top of said stack needs to have its history marker set. In most cases, it will be fine, but if the state with deep history has a transition to its own history, this way of doing it will fail.
 				/* store child state that was active before starting transition sequence */
 //printf("   setting DEEP history for '%s' to '%s'   ", ((state_t*)(state->parent))->stateName, ((state_t*)(sm->mostRecentlyEnteredState))->stateName) ; fflush(stdout) ;
 				sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
@@ -1645,7 +1650,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 			{
 				if(sm->debugging_machineOutputDisplay)
 				{
-					((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
+//					((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
 				}
 			}
 #endif

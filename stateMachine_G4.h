@@ -159,6 +159,7 @@ typedef struct
 	stateMachine_displayEventInfo_t			debugging_internalEventDisplay ;
 	stateMachine_displayEventInfo_t			debugging_externalEventDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineOutputDisplay ;
+	stateMachine_displayMachineOutput_t		debugging_machineDebuggingDisplay ;
 #endif
 } stateMachine_t ;
 
@@ -337,6 +338,7 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 												void sm##_displayInternalEventInfo(	void* self, event_t* event) ;					\
 												void sm##_displayExternalEventInfo(	void* self, event_t* event) ;					\
 												void sm##_displayMachineOutput(		void* self) ;									\
+												void sm##_displayMachineDebugging(	void* self) ;									\
 												enum sm##_EVENTS																	\
 												{																					\
 													sm##SUBSTATE_NON_EVENT					= SUBSTATE_NON_EVENT,					\
@@ -406,17 +408,37 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 
 
 
-#define ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)	self->parent.debugging_machineOutputDisplay	= &sm##_displayMachineOutput ;
-#define ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_1(sm)	ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)
-#define ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()		ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
+#define ENABLE_MACHINE_OUTPUT_DISPLAY_2(sm)				self->parent.debugging_machineOutputDisplay	= &sm##_displayMachineOutput ;
+#define ENABLE_MACHINE_OUTPUT_DISPLAY_1(sm)				ENABLE_MACHINE_OUTPUT_DISPLAY_2(sm)
+#define ENABLE_MACHINE_OUTPUT_DISPLAY()					ENABLE_MACHINE_OUTPUT_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayMachineOutput(void* machine) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
-#define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_1(sm)	DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)
-#define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()		DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
+#define DEFINE_MACHINE_OUTPUT_DISPLAY_2(sm)				void sm##_displayMachineOutput(void* machine) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_MACHINE_OUTPUT_DISPLAY_1(sm)				DEFINE_MACHINE_OUTPUT_DISPLAY_2(sm)
+#define DEFINE_MACHINE_OUTPUT_DISPLAY()					DEFINE_MACHINE_OUTPUT_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define END_MACHINE_OUTPUT_DEBUGGING_DISPLAY()			(void)self ; }
+#define END_MACHINE_OUTPUT_DISPLAY()					(void)self ; }
 
-#define DISABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()		self->parent.debugging_machineOutputDisplay	= (stateMachine_displayMachineOutput_t)0
+#define DISABLE_MACHINE_OUTPUT_DISPLAY()				self->parent.debugging_machineOutputDisplay	= (stateMachine_displayMachineOutput_t)0
+
+#define DUMP_MACHINE_OUTPUT()							if(self->parent.debugging_machineOutputDisplay) { ((stateMachine_displayMachineOutput_t)(self->parent.debugging_machineOutputDisplay))(self) ; }
+
+
+
+
+
+#define ENABLE_MACHINE_DEBUGGING_DISPLAY_2(sm)			self->parent.debugging_machineDebuggingDisplay	= &sm##_displayMachineDebugging ;
+#define ENABLE_MACHINE_DEBUGGING_DISPLAY_1(sm)			ENABLE_MACHINE_DEBUGGING_DISPLAY_2(sm)
+#define ENABLE_MACHINE_DEBUGGING_DISPLAY()				ENABLE_MACHINE_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
+
+#define DEFINE_MACHINE_DEBUGGING_DISPLAY_2(sm)			void sm##_displayMachineDebugging(void* machine) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_MACHINE_DEBUGGING_DISPLAY_1(sm)			DEFINE_MACHINE_DEBUGGING_DISPLAY_2(sm)
+#define DEFINE_MACHINE_DEBUGGING_DISPLAY()				DEFINE_MACHINE_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
+
+#define END_MACHINE_DEBUGGING_DISPLAY()					(void)self ; }
+
+#define DISABLE_MACHINE_DEBUGGING_DISPLAY()				self->parent.debugging_machineDebuggingDisplay	= (stateMachine_displayMachineOutput_t)0
+
+#define DUMP_MACHINE_DEBUGGING_OUTPUT()					if(self->parent.debugging_machineDebuggingDisplay) { ((stateMachine_displayMachineOutput_t)(self->parent.debugging_machineDebuggingDisplay))(self) ; }
 
 #else
 
