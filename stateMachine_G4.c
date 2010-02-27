@@ -429,14 +429,14 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
-	printf("\tstateMachineSize         : %d\n", stateMachineSize) ; fflush(stdout) ;
-	printf("\teventQueueSize           : %d (%d events)\n", eventQueueSize, eventQueueDepth) ; fflush(stdout) ;
-	printf("\ttypesOfEventsToDeferSize : %d\n", typesOfEventsToDeferSize) ; fflush(stdout) ;
-	printf("\tdeferredEventQueueSize   : %d\n", deferredEventQueueSize) ; fflush(stdout) ;
-	printf("\thistoricalMarkerArraySize: %d\n", historicalMarkerArraySize) ; fflush(stdout) ;
-	printf("\tnumberOfTimerEvents      : %d\n", numberOfTimerEvents) ; fflush(stdout) ;
-	printf("\tnumberOfWatchEvents      : %d\n", numberOfWatchEvents) ; fflush(stdout) ;
-	printf("\tnumberOfMemoryPools      : %d\n", memoryRequirements->numberOfMemoryPools) ; fflush(stdout) ;
+//	printf("\tstateMachineSize         : %d\n", stateMachineSize) ; fflush(stdout) ;
+//	printf("\teventQueueSize           : %d (%d events)\n", eventQueueSize, eventQueueDepth) ; fflush(stdout) ;
+//	printf("\ttypesOfEventsToDeferSize : %d\n", typesOfEventsToDeferSize) ; fflush(stdout) ;
+//	printf("\tdeferredEventQueueSize   : %d\n", deferredEventQueueSize) ; fflush(stdout) ;
+//	printf("\thistoricalMarkerArraySize: %d\n", historicalMarkerArraySize) ; fflush(stdout) ;
+//	printf("\tnumberOfTimerEvents      : %d\n", numberOfTimerEvents) ; fflush(stdout) ;
+//	printf("\tnumberOfWatchEvents      : %d\n", numberOfWatchEvents) ; fflush(stdout) ;
+//	printf("\tnumberOfMemoryPools      : %d\n", memoryRequirements->numberOfMemoryPools) ; fflush(stdout) ;
 
 	for( i = 0 ; i < memoryRequirements->numberOfMemoryPools ; i++ )
 	{
@@ -445,7 +445,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		{
 			uint16_t bytesNeededForCurrentPool = memoryRequirements->eventMemoryPools[i].chunkSize * memoryRequirements->eventMemoryPools[i].numberOfChunks ;
 
-			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].chunkSize, memoryRequirements->eventMemoryPools[i].numberOfChunks) ; fflush(stdout) ;
+//			printf("\t\tbytes for pool %2d: %d (%d * %d)\n", i, bytesNeededForCurrentPool, memoryRequirements->eventMemoryPools[i].chunkSize, memoryRequirements->eventMemoryPools[i].numberOfChunks) ; fflush(stdout) ;
 
 			numberOfBytesNeeded += bytesNeededForCurrentPool ;
 
@@ -467,7 +467,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
-	printf("\tAllocating %d (0x%04X) total bytes\n", numberOfBytesNeeded, numberOfBytesNeeded) ; fflush(stdout) ;
+//	printf("\tAllocating %d (0x%04X) total bytes\n", numberOfBytesNeeded, numberOfBytesNeeded) ; fflush(stdout) ;
 
 	instance = hsm_malloc(numberOfBytesNeeded) ;
 
@@ -500,12 +500,12 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		instance->memoryPoolInfo					= memoryRequirements ;
 		instance->startOfEventMemoryPools			= (void*)(((char*)historicalMarkerArray) + historicalMarkerArraySize) ;
 
-		printf("\tinstance                         : %p\n", (void*)instance) ; fflush(stdout) ;
-		printf("\tinstance->eventQueue.Array       : %p\n", (void*)instance->eventQueue.Array) ; fflush(stdout) ;
-		printf("\tinstance->typesOfEventsToDefer   : %p\n", (void*)instance->typesOfEventsToDefer) ; fflush(stdout) ;
-		printf("\tinstance->deferredEventQueue     : %p\n", (void*)instance->deferredEventQueue.Array) ; fflush(stdout) ;
-		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ; fflush(stdout) ;
-		printf("\tinstance->startOfEventMemoryPools: %p\n", (void*)instance->startOfEventMemoryPools) ; fflush(stdout) ;
+//		printf("\tinstance                         : %p\n", (void*)instance) ; fflush(stdout) ;
+//		printf("\tinstance->eventQueue.Array       : %p\n", (void*)instance->eventQueue.Array) ; fflush(stdout) ;
+//		printf("\tinstance->typesOfEventsToDefer   : %p\n", (void*)instance->typesOfEventsToDefer) ; fflush(stdout) ;
+//		printf("\tinstance->deferredEventQueue     : %p\n", (void*)instance->deferredEventQueue.Array) ; fflush(stdout) ;
+//		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ; fflush(stdout) ;
+//		printf("\tinstance->startOfEventMemoryPools: %p\n", (void*)instance->startOfEventMemoryPools) ; fflush(stdout) ;
 
 		memoryPoolLocation = (uint8_t*)(instance->startOfEventMemoryPools) ;
 
@@ -513,7 +513,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		{
 			if(memoryRequirements->eventMemoryPools[i].chunkSize < 0xFFFF)
 			{
-				printf("\t\tevent pool %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
+//				printf("\t\tevent pool %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
 
 				memoryPoolLocation += instance->memoryPoolInfo->eventMemoryPools[i].numberOfChunks
 									* instance->memoryPoolInfo->eventMemoryPools[i].chunkSize ;
@@ -522,14 +522,14 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 			}
 		}
 
-		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ; fflush(stdout) ;
+//		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ; fflush(stdout) ;
 
 		if(numberOfTimerEvents)
 		{
 			instance->startOfTimerEvents = (void*)memoryPoolLocation ;
 		}
 
-		printf("\ttimer event memory               : %p\n", (void*)instance->startOfTimerEvents) ; fflush(stdout) ;
+//		printf("\ttimer event memory               : %p\n", (void*)instance->startOfTimerEvents) ; fflush(stdout) ;
 
 		if(numberOfTimerEvents)
 		{
@@ -537,7 +537,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 			for( i = 0 ; i < numberOfTimerEvents ; i++ )
 			{
-				printf("\t\talarm event %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
+//				printf("\t\talarm event %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
 
 				memoryPoolLocation += HSM_TIMER_EVENT_MEMORY_SIZE ;
 			}
@@ -550,7 +550,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 			instance->startOfWatchEvents = (void*)memoryPoolLocation ;
 		}
 
-		printf("\twatch event memory               : %p\n", (void*)instance->startOfWatchEvents) ; fflush(stdout) ;
+//		printf("\twatch event memory               : %p\n", (void*)instance->startOfWatchEvents) ; fflush(stdout) ;
 
 		if(numberOfWatchEvents)
 		{
@@ -564,7 +564,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 			}
 		}
 
-		printf("\tinstance last memory location    : %p\n", (void*)(((char*)instance) + numberOfBytesNeeded)) ; fflush(stdout) ;
+//		printf("\tinstance last memory location    : %p\n", (void*)(((char*)instance) + numberOfBytesNeeded)) ; fflush(stdout) ;
 
 		constructor(instance) ;
 	}
