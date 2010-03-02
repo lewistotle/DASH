@@ -759,7 +759,7 @@ bool hsm_publishEventToAll(				event_t* event)
 			 * to determine that at least one state machine accepted the event.
 			 */
 
-			someoneAcceptedEvent |= hsm_postEventToMachine(event, stateMachines[statetMachineIndex]) ;
+			someoneAcceptedEvent |= hsm_postEventToMachine(stateMachines[statetMachineIndex], event) ;
 		}
 	}
 
@@ -824,7 +824,7 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 			if(machine->requestsTickEvents)
 			{
-				hsm_postEventToMachine((event_t*)&tickEvent, machine) ;
+				hsm_postEventToMachine(machine, (event_t*)&tickEvent) ;
 			}
 
 			/* See if there is a time event pending for this state machine. If so, check to see if it's time */
@@ -880,7 +880,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 {
 	printf("Posting non event at %p to '%s'\n", (void*)timer, machine->instanceName) ; fflush(stdout) ;
 }
-							if(!hsm_postEventToMachine((event_t*)timer, machine))
+							if(!hsm_postEventToMachine(machine, (event_t*)timer))
 							{
 								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)timer)->eventType, machine->instanceName) ;
 								exit(0) ;
@@ -970,7 +970,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 
 							watch->triggered = true ;
 
-							if(!hsm_postEventToMachine((event_t*)watch, machine))
+							if(!hsm_postEventToMachine(machine, (event_t*)watch))
 							{
 								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)watch)->eventType, machine->instanceName) ;
 								exit(0) ;
@@ -1184,7 +1184,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 #if TRACING_ENABLED
 				printf("\t\t\tGetting event from queue\n") ; fflush(stdout) ;
 #endif
-				eventToProcess = eventQueue_remove(&sm->eventQueue) ; ;
+				eventToProcess = eventQueue_remove(&sm->eventQueue) ;
 
 #if 1//TRACING_ENABLED
 				if(sm->debugging_internalEventDisplay && hsm_isEventInternal(eventToProcess))

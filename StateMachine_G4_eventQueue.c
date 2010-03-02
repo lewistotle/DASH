@@ -262,7 +262,7 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 }
 
 
-bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm)
+bool hsm_postEventToMachine(			stateMachine_t* sm, event_t* event)
 {
 	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
 	{

@@ -117,10 +117,6 @@ typedef struct
 	void*									activeState ;
 	void*									nextState ;
 
-#if 0
-	struct timeval							entryTimeIntoCurrentState ;
-#endif
-
 	uint8_t									stateMachineInitialized ;
 	uint8_t									requestsDoEvents ;
 	uint8_t									requestsTickEvents ;
@@ -213,6 +209,12 @@ typedef enum STATE_MACHINE_STATE_RESPONSES	stateMachine_stateResponse_t ;
 typedef stateMachine_stateResponse_t (* stateMachine_callStateHandler_t)(stateMachine_t* self, event_t* event) __reentrant ;
 typedef stateMachine_stateResponse_t (* stateMachine_choiceStateHandler_t)(stateMachine_t* self) __reentrant ;
 
+/* A couple of helpers to deal with state machine memory and initialization. */
+
+typedef const machineMemoryPoolInto_t* (* stateMachine_memRequirements_t)(void) __reentrant ;
+typedef void (* stateMachine_constructor_t)(stateMachine_t* self) __reentrant ;
+typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
+
 
 
 typedef struct
@@ -245,12 +247,78 @@ typedef struct
 
 
 
-event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t eventSize) ;
+event_t* hsm_createNewEvent(						stateMachine_t* sm, eventType_t eventType, uint16_t eventSize) ;
+bool hsm_postEventToMachine(						stateMachine_t* sm, event_t* event) ;
+bool hsm_publishEventToAll(							event_t* event) ;
 
-void hsm_handleTick(	uint32_t microsecondsSinceLastHandled) ;
 
-bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm) ;
-bool hsm_publishEventToAll(				event_t* event) ;
+
+
+
+
+
+
+
+
+alarmEvent_t* hsm_createAlarm(						stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating) ;
+void hsm_resetTimeout(								stateMachine_t* machine) ;
+void hsm_deleteTimeout(								stateMachine_t* machine, uint16_t lineNumber) ;
+
+
+void hsm_setMachinePriority(						void* sm, stateMachinePriority_t priority) ;
+
+void* hsm_malloc(									uint16_t numberOfBytes) ;
+void hsm_free(										void* blockToFree) ;
+
+stateMachineWatch_t* hsm_registerWatchVariable(		stateMachine_t* machine, void* loc, size_t size) ;
+void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
+
+void addToDeferredTypeList(							stateMachine_t* sm, rawEventType_t eventTypeToDefer) ;
+bool isEventTypeDeferred(							stateMachine_t* sm, rawEventType_t eventTypeToCheck) ;
+void removeFromDeferredTypeList(					stateMachine_t* sm, rawEventType_t eventTypeToUnDefer) ;
+
+
+bool postEventToStateMachine(						stateMachine_t* sm, event_t* event) ;
+
+
+bool registerStateMachine(							stateMachine_t* sm, const char* smName) ;
+bool unregisterStateMachine(						stateMachine_t* sm) ;
+
+void iterateStateMachine(							stateMachine_t* sm) ;
+void iterateAllStateMachines(						void) ;
+
+
+stateMachine_t* allocateStateMachineMemory(			uint16_t stateMachineSizeInBytes, uint16_t historyArraySize, stateMachine_memRequirements_t getMemRequirements, stateMachine_constructor_t constructor) ;
+void deallocateStateMachineMemory(					stateMachine_t* instance) ;
+
+void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #define SECONDS(secs)	((double)((double)secs * (double)1000000.0 /* microseconds per second */))
 #define MINUTES(mins)	((double)(SECONDS(mins * (double)60.0 /* seconds per minute */)))
@@ -263,10 +331,6 @@ bool hsm_publishEventToAll(				event_t* event) ;
 #define ACTIVE			true
 #define NON_ACTIVE		false
 
-alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, uint32_t hours, uint32_t microseconds, bool repeating) ;
-void hsm_resetTimeout(			stateMachine_t* machine) ;
-void hsm_deleteTimeout(			stateMachine_t* machine, uint16_t lineNumber) ;
-
 #define SET_ALARM(eventType, duration, repeating)			hsm_createAlarm((stateMachine_t*)self, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
 
 #define ACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = true ; }
@@ -274,15 +338,6 @@ void hsm_deleteTimeout(			stateMachine_t* machine, uint16_t lineNumber) ;
 
 #define RESET_TIMEOUT()										hsm_resetTimeout((stateMachine_t*)self)
 #define DELETE_TIMEOUT(machine, lineNumber)					hsm_deleteTimeout((stateMachine_t*)machine, lineNumber)
-
-/* A couple of helpers to deal with state machine memory and initialization. */
-
-typedef const machineMemoryPoolInto_t* (* stateMachine_memRequirements_t)(void) __reentrant ;
-typedef void (* stateMachine_constructor_t)(stateMachine_t* self) __reentrant ;
-typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
-
-stateMachine_t* allocateStateMachineMemory(	uint16_t stateMachineSizeInBytes, uint16_t historyArraySize, stateMachine_memRequirements_t getMemRequirements, stateMachine_constructor_t constructor) ;
-void deallocateStateMachineMemory(			stateMachine_t* instance) ;
 
 
 
@@ -315,16 +370,6 @@ void deallocateStateMachineMemory(			stateMachine_t* instance) ;
 #define END_MEMORY_REQUIREMENTS_1(sm)			END_MEMORY_REQUIREMENTS_2(sm)
 #define END_MEMORY_REQUIREMENTS()				END_MEMORY_REQUIREMENTS_1(STATE_MACHINE_NAME)
 
-
-void hsm_setMachinePriority(void* sm, stateMachinePriority_t priority) ;
-
-void* hsm_malloc(								uint16_t numberOfBytes) ;
-void hsm_free(									void* blockToFree) ;
-
-
-
-
-bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 
 
 
@@ -698,9 +743,6 @@ typedef struct
 #define HAS_VALUE_OF(val)			val,				sizeof(uint32_t),	MATCHES_VALUE
 #define MATCHES_VARIABLE(var)		(void*)(&(var)),	sizeof(void*),		MATCHES_VARIABLE
 
-stateMachineWatch_t* hsm_registerWatchVariable(		stateMachine_t* machine, void* loc, size_t size) ;
-void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
-
 #define TRANSITION_WHEN(var, dest, act)				{																														\
 														ON_ENTRY(hsm_registerWatchVariable((stateMachine_t*)self, &var, sizeof(var))) ;										\
 														TRANSITION_ON_IF(SUBSTATE_WATCHED, &var == CAST_EVENT(stateMachineWatch_t)->watchVariableLocation, TO(dest), act) ;	\
@@ -778,13 +820,6 @@ void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 
 
 
-void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefer) ;
-bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck) ;
-void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer) ;
-
-
-bool postEventToStateMachine(		stateMachine_t* sm, event_t* event) ;
-
 
 #define REQUEST_DO_EVENTS()			if(hsm_getEventType(event) == SUBSTATE_ENTRY)									\
 									{																				\
@@ -806,29 +841,12 @@ bool postEventToStateMachine(		stateMachine_t* sm, event_t* event) ;
 									}
 
 
-void outputStateMachineDebugData_G4(stateMachine_t* sm) ;
-
-
-
-
-
-
-
-
-bool registerStateMachine(			stateMachine_t* sm, const char* smName) ;
-bool unregisterStateMachine(		stateMachine_t* sm) ;
-
-
-
 #define REGISTER_STATE_MACHINE(sm)				registerStateMachine(sm, #sm)
 #define UNREGISTER_STATE_MACHINE(sm)			unregisterStateMachine(sm)
 
 
 
 
-
-void iterateStateMachine(		stateMachine_t* sm) ;
-void iterateAllStateMachines(	void) ;
 
 #define ITERATE_SINGLE_STATE_MACHINE(machine)	iterateStateMachine(machine)
 #define ITERATE_ALL_STATE_MACHINES()			iterateAllStateMachines()
