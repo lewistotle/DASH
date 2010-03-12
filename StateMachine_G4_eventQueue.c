@@ -14,7 +14,7 @@
 
 
 
-bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
+bool hsm_internal_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
 {
 	eventType_t	eventType = hsm_getEventType(event) ;
 
@@ -38,7 +38,7 @@ bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
 
 
 
-bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
+bool hsm_internal_eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
 {
 	Q->Capacity	= maxEntriesInQueue ;
 	Q->Size		= 0 ;
@@ -50,13 +50,13 @@ bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_
 }
 
 
-uint8_t eventQueue_isEmpty(	eventQueue_t* Q)
+uint8_t hsm_internal_eventQueue_isEmpty(	eventQueue_t* Q)
 {
 	return Q->Size == 0 ;
 }
 
 
-uint8_t eventQueue_isFull(	eventQueue_t* Q)
+uint8_t hsm_internal_eventQueue_isFull(	eventQueue_t* Q)
 {
 	return Q->Size == Q->Capacity ;
 }
@@ -75,9 +75,9 @@ static eventQueueIndex_t nextLocationFromPoint(	eventQueue_t* Q, eventQueueIndex
 
 extern char*	eventTypes[] ;
 
-bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
+bool hsm_internal_eventQueue_insert(		eventQueue_t* Q, event_t* event)
 {
-	if(!eventQueue_isFull(Q))
+	if(!hsm_internal_eventQueue_isFull(Q))
 	{
 		Q->Size++ ;
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
@@ -113,12 +113,12 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 }
 
 
-event_t* eventQueue_remove(	eventQueue_t* Q)
+event_t* hsm_internal_eventQueue_remove(	eventQueue_t* Q)
 {
 #if 0
 	printf("\t\t\t\teventQueue_remove(): Q: %p\n", Q) ;
 #endif
-	if(!eventQueue_isEmpty(Q))
+	if(!hsm_internal_eventQueue_isEmpty(Q))
 	{
 		event_t* eventReceived = Q->Array[Q->Front] ;
 
@@ -142,7 +142,7 @@ event_t* eventQueue_remove(	eventQueue_t* Q)
 }
 
 
-void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefer)
+void addToDeferredTypeList(			stateMachine_t* sm, eventType_t eventTypeToDefer)
 {
 	if(sm->currentDepthOfEventsToDeferList < sm->maxDepthOfEventsToDeferList)
 	{
@@ -157,7 +157,7 @@ void addToDeferredTypeList(			stateMachine_t* sm, rawEventType_t eventTypeToDefe
 }
 
 
-bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck)
+bool isEventTypeDeferred(			stateMachine_t* sm, eventType_t eventTypeToCheck)
 {
 	eventQueueIndex_t	i ;
 
@@ -173,7 +173,7 @@ bool isEventTypeDeferred(			stateMachine_t* sm, rawEventType_t eventTypeToCheck)
 }
 
 
-void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToUnDefer)
+void removeFromDeferredTypeList(	stateMachine_t* sm, eventType_t eventTypeToUnDefer)
 {
 	if(sm->currentDepthOfEventsToDeferList > 0)
 	{
@@ -219,7 +219,7 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 			 * function. Yeah, that should never happen, but......
 			 */
 
-			currentEvent	= eventQueue_remove(&sm->deferredEventQueue) ;
+			currentEvent	= hsm_internal_eventQueue_remove(&sm->deferredEventQueue) ;
 			firstEvent		= currentEvent ;
 
 			while(currentEvent)
@@ -236,11 +236,11 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 				{
 //					printf("moving it to the normal queue.... ") ;
 
-					eventQueue_insert(&sm->eventQueue, currentEvent) ;
+					hsm_internal_eventQueue_insert(&sm->eventQueue, currentEvent) ;
 				}
 				else
 				{
-					eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
+					hsm_internal_eventQueue_insert(&sm->deferredEventQueue, currentEvent) ;
 				}
 
 				/* Get the next one and then check to see if it is the same as the
@@ -249,7 +249,7 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 				 * not done.
 				 */
 
-				currentEvent = eventQueue_remove(&sm->deferredEventQueue) ;
+				currentEvent = hsm_internal_eventQueue_remove(&sm->deferredEventQueue) ;
 
 				if(currentEvent == firstEvent)
 				{
@@ -268,12 +268,12 @@ bool hsm_postEventToMachine(			stateMachine_t* sm, event_t* event)
 	{
 //		printf("\nadding event of type %d to deferred queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
 
-		return eventQueue_insert(&sm->deferredEventQueue, event) ;
+		return hsm_internal_eventQueue_insert(&sm->deferredEventQueue, event) ;
 	}
 	else
 	{
 //		printf("\nadding event of type %d to normal queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
 
-		return eventQueue_insert(&sm->eventQueue, event) ;
+		return hsm_internal_eventQueue_insert(&sm->eventQueue, event) ;
 	}
 }

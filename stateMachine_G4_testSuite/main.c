@@ -154,23 +154,23 @@ void handleKeypress(uint8_t c)
 
 		if(target == bomb_0)
 		{
-			hsm_postEventToMachine((event_t*)event, bomb_0) ;
+			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
 		}
 		else if(target == bomb_1)
 		{
-			hsm_postEventToMachine((event_t*)event, bomb_1) ;
+			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
 		}
 		else if(target == bomb_2)
 		{
-			hsm_postEventToMachine((event_t*)event, bomb_2) ;
+			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
 		}
 		else if(target == calculator)
 		{
-			hsm_postEventToMachine((event_t*)event, calculator) ;
+			hsm_postEventToMachine(calculator, (event_t*)event) ;
 		}
 		else if(target == fourLevelTest)
 		{
-			hsm_postEventToMachine((event_t*)event, fourLevelTest) ;
+			hsm_postEventToMachine(fourLevelTest, (event_t*)event) ;
 		}
 		else if(target == 0)
 		{

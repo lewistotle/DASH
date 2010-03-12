@@ -222,7 +222,9 @@ typedef struct
 	const void*								parent ;				/* pointer to parent state */
 	const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
 	const stateMachine_callStateHandler_t	handler ;				/* pointer to the handler function */
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	const char*								stateName ;				/* DEBUGGING: name of this state */
+#endif
 } state_t ;
 
 
@@ -231,7 +233,9 @@ typedef struct
 	const void*								parent ;				/* pointer to parent state */
 	const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
 	const stateMachine_choiceStateHandler_t	handler ;				/* pointer to the handler function */
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	const char*								stateName ;				/* DEBUGGING: name of this state */
+#endif
 } choice_state_t ;
 
 
@@ -240,9 +244,71 @@ typedef struct
 	const void*								parent ;				/* pointer to parent state */
 	const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
 	const stateMachine_callStateHandler_t	handler ;				/* pointer to the handler function */
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	const char*								stateName ;				/* DEBUGGING: name of this state */
+#endif
 	const uint16_t							historyMarkerIndex ;	/* index into machine's history table */
 } state_with_history_t ;
+
+
+
+typedef struct
+{
+	event_t								parent ;
+
+	stateMachine_t*						machine ;
+	state_t*							state ;
+	uint16_t							lineNumber ; 				/* used when multiple TRANSITION_WHEN calls are in a state */
+
+	volatile void*						watchedVariableAddress ;
+	uint8_t								watchedVariableSizeInBytes ;
+} watchedVariableTransitionEvent_t ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -273,9 +339,9 @@ void hsm_free(										void* blockToFree) ;
 stateMachineWatch_t* hsm_registerWatchVariable(		stateMachine_t* machine, void* loc, size_t size) ;
 void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 
-void addToDeferredTypeList(							stateMachine_t* sm, rawEventType_t eventTypeToDefer) ;
-bool isEventTypeDeferred(							stateMachine_t* sm, rawEventType_t eventTypeToCheck) ;
-void removeFromDeferredTypeList(					stateMachine_t* sm, rawEventType_t eventTypeToUnDefer) ;
+void addToDeferredTypeList(							stateMachine_t* sm, eventType_t eventTypeToDefer) ;
+bool isEventTypeDeferred(							stateMachine_t* sm, eventType_t eventTypeToCheck) ;
+void removeFromDeferredTypeList(					stateMachine_t* sm, eventType_t eventTypeToUnDefer) ;
 
 
 bool postEventToStateMachine(						stateMachine_t* sm, event_t* event) ;
@@ -721,20 +787,6 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #endif
 
 
-
-
-
-typedef struct
-{
-	event_t								parent ;
-
-	stateMachine_t*						machine ;
-	state_t*							state ;
-	uint16_t							lineNumber ; 				/* used when multiple TRANSITION_WHEN calls are in a state */
-
-	volatile void*						watchedVariableAddress ;
-	uint8_t								watchedVariableSizeInBytes ;
-} watchedVariableTransitionEvent_t ;
 
 
 

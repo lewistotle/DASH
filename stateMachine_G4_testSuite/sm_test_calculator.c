@@ -84,7 +84,8 @@ STATE_MACHINE_CONSTRUCTOR()
 	SET_EVENT_NAMES(eventNames) ;
 	DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS() ;
 	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
-	ENABLE_MACHINE_OUTPUT_DEBUGGING_DISPLAY() ;
+	ENABLE_MACHINE_OUTPUT_DISPLAY() ;
+	ENABLE_MACHINE_DEBUGGING_DISPLAY() ;
 
 	self->signBeingEntered		= 1 ;
 	self->integerBeingEntered	= 0 ;
@@ -107,7 +108,7 @@ DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
 
-DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()
+DEFINE_MACHINE_OUTPUT_DISPLAY()
 {
 	char output[50] ;
 
@@ -122,7 +123,25 @@ DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()
 
 	printf("\n[%10s] ", output) ;
 }
-END_MACHINE_OUTPUT_DEBUGGING_DISPLAY()
+END_MACHINE_OUTPUT_DISPLAY()
+
+
+DEFINE_MACHINE_DEBUGGING_DISPLAY()
+{
+	char output[50] ;
+
+	sprintf(output, "% ld.%ld", (long int)(self->integerBeingEntered * self->signBeingEntered), (long int)(self->fractionBeingEntered)) ;
+
+	if(self->fractionBeingEntered == 0)
+	{
+		output[strchr(output, '.') - output] = 0 ;
+	}
+
+	output[10] = 0 ;
+
+	printf("\n[%10s] ", output) ;
+}
+END_MACHINE_DEBUGGING_DISPLAY()
 
 
 void addDigitToIntegralPortion(	calculatorMachine_t* sm, event_t* event)

@@ -482,8 +482,8 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 		memset((char*)instance, 0, numberOfBytesNeeded) ;
 
-		eventQueue_initialize(&instance->eventQueue, eventQueue, eventQueueDepth) ;
-		eventQueue_initialize(&instance->deferredEventQueue, deferredEventQueue, eventQueueDepth) ;
+		hsm_internal_eventQueue_initialize(&instance->eventQueue, eventQueue, eventQueueDepth) ;
+		hsm_internal_eventQueue_initialize(&instance->deferredEventQueue, deferredEventQueue, eventQueueDepth) ;
 
 		instance->maxDepthOfEventsToDeferList		= eventQueueDepth ;
 		instance->currentDepthOfEventsToDeferList	= 0 ;
@@ -1165,7 +1165,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 		#endif
 #endif
 
-		if((!eventQueue_isEmpty(&sm->eventQueue)) || (forceTransition))
+		if((!hsm_internal_eventQueue_isEmpty(&sm->eventQueue)) || (forceTransition))
 		{
 			event_t*						eventToProcess ;
 			state_t*						stateBeingProcessed	= sm->currentState ;
@@ -1184,7 +1184,7 @@ void iterateStateMachine(	stateMachine_t* sm)
 #if TRACING_ENABLED
 				printf("\t\t\tGetting event from queue\n") ; fflush(stdout) ;
 #endif
-				eventToProcess = eventQueue_remove(&sm->eventQueue) ;
+				eventToProcess = hsm_internal_eventQueue_remove(&sm->eventQueue) ;
 
 #if 1//TRACING_ENABLED
 				if(sm->debugging_internalEventDisplay && hsm_isEventInternal(eventToProcess))

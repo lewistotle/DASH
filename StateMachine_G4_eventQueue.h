@@ -12,15 +12,14 @@
 #include <stdbool.h>
 
 #ifndef config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES
-	#define configstateMachine_MAX_NUMBER_OF_EVENT_TYPES		100
+	#define configstateMachine_MAX_NUMBER_OF_EVENT_TYPES		256
 #endif
 
 #if config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES <= 256
-	typedef uint8_t	rawEventType_t ;
 	typedef uint8_t eventType_t ;
 	typedef uint8_t	eventQueueIndex_t ;
+	typedef uint8_t	eventListenerCount_t ;
 #elif config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES < 65536
-	typedef uint16_t	rawEventType_t ;
 	typedef struct
 	{
 		union
@@ -39,10 +38,15 @@
 #endif
 
 
-/* This is the basic event type structure. You may be wondering why
- * this is done as a struct since it has but a single element. Well,
- * the beauty of that is that different event types can be created
- * thusly:
+/* This is the basic event type structure. There are two elements of
+ * an event; the type and the listener count.
+ * The event type is simply a number indicating to the rest of the system
+ * what this event is.
+ * The listener count allows the garbage collection to work since it knows
+ * when a particular event is no longer needed in the system. As long as
+ * the listener count is greater than zero, the event will not be flushed.
+ * To create additional events, it is possible to, in effect, "subclass"
+ * an event thusly:
  *
  * 		typedef struct
  * 		{
@@ -57,13 +61,6 @@
  * having to know about all the additional data.
  */
 
-typedef uint8_t			eventListenerCount_t ;
-
-#define EVENT_SIZE_MASK					0xE0
-#define EVENT_REFERENCE_COUNT_MASK		0x1F
-
-#define hsm_getEventMemoryPool(evt)		((((event_t*)evt)->eventInfo & EVENT_SIZE_MASK) >> 5)
-#define hsm_getEventReferenceCount(evt)	(((event_t*)evt)->eventInfo & EVENT_REFERENCE_COUNT_MASK)
 
 typedef struct
 {
@@ -72,44 +69,27 @@ typedef struct
 } event_t ;
 
 
-
-#define hsm_getEventType(event)		(event->eventType)
-
-enum STATE_MACHINE_INTERNAL_EVENTS	{
-										SUBSTATE_LAST_USER_EVENTS			= 0x7F,
-										SUBSTATE_FIRST_GLOBAL_EVENT			= 0x80,
-										SUBSTATE_NON_EVENT					= 0x00,
-										SUBSTATE_ENTRY,
-										SUBSTATE_INITIAL_TRANSITION,
-										SUBSTATE_JUMP_TO_HISTORY_DEFAULT,
-										SUBSTATE_TICK,
-										SUBSTATE_TIMEOUT,
-										SUBSTATE_REPEATING_TIMER,
-										SUBSTATE_WATCHED,
-										SUBSTATE_DO,
-										SUBSTATE_EXIT,
-										SUBSTATE_TERMINATE,
-										SUBSTATE_LAST_INTERNAL_EVENT		= SUBSTATE_TERMINATE
-									} ;
-
-#define hsm_isEventInternal(event)	(event->eventType <= SUBSTATE_LAST_INTERNAL_EVENT ? true : false)
-#define hsm_isEventGlobal(event)	(event->eventType >= SUBSTATE_FIRST_GLOBAL_EVENT ? true : false)
-#define hsm_isEventUser(event)		((event->eventType > SUBSTATE_EXIT) && (event->eventType <= SUBSTATE_LAST_USER_EVENTS)) ? true : false)
-
-
-
-
-enum WATCH_VARIABLE_TYPE		{ UINT8 = 1, UINT16 = 2, UINT32 = 4 } ;
-
-typedef struct
-{
-	event_t						parent ;
-
-	bool						triggered ;
-	enum WATCH_VARIABLE_TYPE	size ;
-	void*						watchVariableLocation ;
-} stateMachineWatch_t ;
-
+/*
+ * One of the key features of hsm is that it supports a variety of timer
+ * events that can be used to trigger an action or transition after either
+ * a specific amount of time, or at a regular interval. The core of this
+ * capability is the timerEvent_t struct. This subclasses the base event_t
+ * structure and then adds some time periods to it.
+ *
+ * The first time period is the remaining time until the timer "fires."
+ * The second time period, while called original, is used in one of two
+ * ways depending on whether or not this particular timer event is repeating
+ * or not.
+ *
+ * The struct alartEvent_t subclasses timerEvent_t and adds an active flag
+ * to it. This allow for one-shots since once the timer runs out, the active
+ * flag is cleared and it won't fire again either from repeating or from the
+ * fact that the state machine hasn't processed the event yet.
+ *
+ * The struct timeoutEvent_t subclasses alarmEvent_t to add some information
+ * that allows the state machine engine to determine which timeout has just
+ * fired so that the correct action can happen.
+ */
 
 typedef struct
 {
@@ -121,6 +101,7 @@ typedef struct
 	uint32_t					originalHours ;				/* only 489,957 years, 5 months, 19 hours before wrapping */
 	uint32_t					originalMicroseconds ;
 } timerEvent_t ;
+
 
 typedef struct
 {
@@ -138,23 +119,52 @@ typedef struct
 	uint16_t					lineNumber ;
 } timeoutEvent_t ;
 
+/*
+ * HSM_TIMER_EVENT_MEMORY_SIZE is the size of the largest of the timer events
+ * that is used to allocate memory as well as determine if a particular event
+ * is a timer event.
+ */
+
 #define HSM_TIMER_EVENT_MEMORY_SIZE	sizeof(timeoutEvent_t)
 
+/*
+ * A simple macro used to determine if an event is a timer event or not.
+ */
+
+#define hsm_isEventAMachineTimeout(machine, event)	(((void*)event >= machine->startOfTimerEvents) && ((void*)event < (void*)(((char*)machine->startOfTimerEvents) + (machine->numberOfTimerEvents * HSM_TIMER_EVENT_MEMORY_SIZE))))
+
+
+
+
+/*
+ * HSM provides support for UML watch events. These trigger a transition when
+ * a variable is non-zero.
+ * In order to do this, I store the address of the variable in question along
+ * with the size, in bytes, of the variable in question. This allows for any
+ * arbitrary variable to be watched.
+ * The triggered member tells the state machine engine that the event has been
+ * sent already so it won't keep sending events while waiting for the machine
+ * to process the event.
+ */
+
+enum WATCH_VARIABLE_TYPE		{ UINT8 = 1, UINT16 = 2, UINT32 = 4 } ;
 
 typedef struct
 {
 	event_t						parent ;
 
-	uint32_t					uptime_hours_endTime ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
-	uint32_t					uptime_microseconds_endTime ;
-
-	void*						machine ;
-} stateMachineTimeout_t ;
-
-#define hsm_isEventAMachineTimeout(machine, event)	(((void*)event >= machine->startOfTimerEvents) && ((void*)event < (void*)(((char*)machine->startOfTimerEvents) + (machine->numberOfTimerEvents * sizeof(alarmEvent_t)))))
+	bool						triggered ;
+	enum WATCH_VARIABLE_TYPE	size ;
+	void*						watchVariableLocation ;
+} stateMachineWatch_t ;
 
 
-/* Now make up a simple queue that will be used to hold pointers to
+
+
+
+
+/*
+ * Now make up a simple queue that will be used to hold pointers to
  * all the events that need to be stored. By storing pointers to
  * events rather than the events themselves, multiple types of
  * events can be stored as described above. Also, this means that
@@ -181,7 +191,34 @@ typedef struct
 } eventTypeBitmask_t ;
 
 
-bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet) ;
+bool hsm_internal_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet) ;
+
+
+
+
+
+
+enum STATE_MACHINE_INTERNAL_EVENTS	{
+										SUBSTATE_LAST_USER_EVENTS			= 0x7F,
+										SUBSTATE_FIRST_GLOBAL_EVENT			= 0x80,
+										SUBSTATE_NON_EVENT					= 0x00,
+										SUBSTATE_ENTRY,
+										SUBSTATE_INITIAL_TRANSITION,
+										SUBSTATE_JUMP_TO_HISTORY_DEFAULT,
+										SUBSTATE_TICK,
+										SUBSTATE_TIMEOUT,
+										SUBSTATE_REPEATING_TIMER,
+										SUBSTATE_WATCHED,
+										SUBSTATE_DO,
+										SUBSTATE_EXIT,
+										SUBSTATE_TERMINATE,
+										SUBSTATE_LAST_INTERNAL_EVENT		= SUBSTATE_TERMINATE
+									} ;
+
+#define hsm_getEventType(event)		(((event_t*)event)->eventType)
+#define hsm_isEventInternal(event)	(((event_t*)event)->eventType <= SUBSTATE_LAST_INTERNAL_EVENT ? true : false)
+#define hsm_isEventGlobal(event)	(((event_t*)event)->eventType >= SUBSTATE_FIRST_GLOBAL_EVENT ? true : false)
+#define hsm_isEventUser(event)		((((event_t*)event)->eventType > SUBSTATE_EXIT) && (((event_t*)event)->eventType <= SUBSTATE_LAST_USER_EVENTS)) ? true : false)
 
 
 
@@ -193,16 +230,13 @@ bool hsm_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet) ;
 
 
 
+bool hsm_internal_eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue) ;
+
+uint8_t hsm_internal_eventQueue_isEmpty(	eventQueue_t* Q) ;
+uint8_t hsm_internal_eventQueue_isFull(	eventQueue_t* Q) ;
 
 
-
-bool eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue) ;
-
-uint8_t eventQueue_isEmpty(	eventQueue_t* Q) ;
-uint8_t eventQueue_isFull(	eventQueue_t* Q) ;
-
-
-bool eventQueue_insert(		eventQueue_t* Q, event_t* event) ;
-event_t* eventQueue_remove(	eventQueue_t* Q) ;
+bool hsm_internal_eventQueue_insert(		eventQueue_t* Q, event_t* event) ;
+event_t* hsm_internal_eventQueue_remove(	eventQueue_t* Q) ;
 
 #endif /* STATEMACHINE_G4_EVENTQUEUE_H_ */
