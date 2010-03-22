@@ -39,11 +39,6 @@ enum { REQUIRED_STATE_MACHINE_EVENTS } ;
 
 stateMachine_t*	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
 
-uint32_t	uptime_hours ;
-uint32_t	uptime_microseconds ;
-
-
-void iterateStateMachine(	stateMachine_t* sm) ;
 
 
 void* hsm_malloc(								uint16_t numberOfBytes)
@@ -767,7 +762,7 @@ bool hsm_publishEventToAll(				event_t* event)
 }
 
 
-void iterateAllStateMachines(	void)
+void hsm_iterateAllStateMachines(	void)
 {
 	uint8_t		statetMachineIndex ;
 
@@ -775,7 +770,7 @@ void iterateAllStateMachines(	void)
 	{
 		if(stateMachines[statetMachineIndex] != NULL)
 		{
-			iterateStateMachine(stateMachines[statetMachineIndex]) ;
+			hsm_iterateStateMachine(stateMachines[statetMachineIndex]) ;
 		}
 	}
 }
@@ -1124,7 +1119,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 }
 
 #define TRACING_ENABLED false
-void iterateStateMachine(	stateMachine_t* sm)
+void hsm_iterateStateMachine(	stateMachine_t* sm)
 {
 	stateMachine_stateResponse_t	action ;
 	bool							forceTransition	= false ;

@@ -66,27 +66,6 @@
 
 
 
-/* Now for the state machine definition itself. This is the core of it all.
- * Here is a brief description of what each field does:
- *
- * 		topState:						points to the topmost state in the machine
- * 		stateMachineName:				Debugging only. It holds the name of the machine
- * 		currentState:					What state the machine is in right now.
- * 		nextState:						Set by a state when a transition is about to happen
- * 		eventQueue:						A queue that holds all non-deferred events that come in
- *		maxDepthOfEventsToDeferList:	Holds the max number of event types that can be deferred
- *		currentDepthOfEventsToDeferList:Holds the current number of deferred event types
- *		typesOfEventsToDefer:			A simple array that holds the types of events to defer
- *		deferredEventQueue:				Any deferred event types that come in get put here temporarily
- *		stateMachineInitialized:		Has the machine been initialized yet?
- *		forceTransition:				Has a transition been triggered by the most recently active state?
- *
- * The currentState and nextState members are declared as void pointers since normal C doesn't
- * allow for forward declaration. Since keeping the code in the states themselves was a very
- * high priority, these had to be declared as void pointers since doing it the other way would
- * have made it necessary to cast self in all state functions which would have been ugly.
- */
-
 typedef uint8_t					stateMachinePriority_t ;
 
 typedef struct
@@ -108,11 +87,50 @@ typedef void (* stateMachine_destructorFunction_t)(		void* self) __reentrant ;
 typedef void (* stateMachine_displayEventInfo_t)(		void* self, event_t* event) __reentrant ;
 typedef void (* stateMachine_displayMachineOutput_t)(	void* self) __reentrant ;
 
+
+
+
+
+
+
+
+
+
+
+/* Now for the state machine definition itself. This is the core of it all.
+ * Here is a brief description of what each field does:
+ *
+ * 		topState:						points to the topmost state in the machine
+ * 		stateMachineName:				Debugging only. It holds the name of the machine
+ * 		currentState:					What state the machine is in right now.
+ * 		nextState:						Set by a state when a transition is about to happen
+ * 		eventQueue:						A queue that holds all non-deferred events that come in
+ *		maxDepthOfEventsToDeferList:	Holds the max number of event types that can be deferred
+ *		currentDepthOfEventsToDeferList:Holds the current number of deferred event types
+ *		typesOfEventsToDefer:			A simple array that holds the types of events to defer
+ *		deferredEventQueue:				Any deferred event types that come in get put here temporarily
+ *		stateMachineInitialized:		Has the machine been initialized yet?
+ *
+ * The currentState and nextState members are declared as void pointers since normal C doesn't
+ * allow for forward declaration. Since keeping the code in the states themselves was a very
+ * high priority, these had to be declared as void pointers since doing it the other way would
+ * have made it necessary to cast self in all state functions which would have been ugly.
+ */
+
 typedef struct
 {
+	/* topState hold a pointer to the topmost state in the machine. It is filled in at compile time */
 	__code void*							topState ;
-	const char*								stateMachineName ;
 
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	/* DEBUGGING only: This holds the name of the state machine that is printed out at various times */
+	const char*								stateMachineName ;
+#endif
+
+	/*
+	 * currentState is a pointer to the state that the machine is currently in. Note that this can
+	 * be a non-leaf state
+	 */
 	void*									currentState ;
 	void*									activeState ;
 	void*									nextState ;
@@ -309,6 +327,9 @@ typedef struct
 
 
 
+void* hsm_malloc(									uint16_t numberOfBytes) ;
+void hsm_free(										void* blockToFree) ;
+
 
 
 
@@ -333,9 +354,6 @@ void hsm_deleteTimeout(								stateMachine_t* machine, uint16_t lineNumber) ;
 
 void hsm_setMachinePriority(						void* sm, stateMachinePriority_t priority) ;
 
-void* hsm_malloc(									uint16_t numberOfBytes) ;
-void hsm_free(										void* blockToFree) ;
-
 stateMachineWatch_t* hsm_registerWatchVariable(		stateMachine_t* machine, void* loc, size_t size) ;
 void hsm_unregisterWatchVariable(					stateMachine_t* machine, void* loc) ;
 
@@ -350,8 +368,8 @@ bool postEventToStateMachine(						stateMachine_t* sm, event_t* event) ;
 bool registerStateMachine(							stateMachine_t* sm, const char* smName) ;
 bool unregisterStateMachine(						stateMachine_t* sm) ;
 
-void iterateStateMachine(							stateMachine_t* sm) ;
-void iterateAllStateMachines(						void) ;
+void hsm_iterateStateMachine(						stateMachine_t* sm) ;
+void hsm_iterateAllStateMachines(					void) ;
 
 
 stateMachine_t* allocateStateMachineMemory(			uint16_t stateMachineSizeInBytes, uint16_t historyArraySize, stateMachine_memRequirements_t getMemRequirements, stateMachine_constructor_t constructor) ;
@@ -719,6 +737,13 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 														break ;											\
 													}
 
+#define INITIAL_TRANS								case SUBSTATE_INITIAL_TRANSITION:					\
+													{
+														/* implementation goes here */
+#define INITIAL_TRANSITION_HANDLED						stateResponseCode = HANDLED ;					\
+														break ;											\
+													}
+
 #define EXIT										case SUBSTATE_EXIT:									\
 													{
 														/* implementation goes here */
@@ -900,8 +925,8 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 
-#define ITERATE_SINGLE_STATE_MACHINE(machine)	iterateStateMachine(machine)
-#define ITERATE_ALL_STATE_MACHINES()			iterateAllStateMachines()
+#define ITERATE_SINGLE_STATE_MACHINE(machine)	hsm_iterateStateMachine(machine)
+#define ITERATE_ALL_STATE_MACHINES()			hsm_iterateAllStateMachines()
 
 
 #if defined(__TS7800__) || defined(__cygwin__)
