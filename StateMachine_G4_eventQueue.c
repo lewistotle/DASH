@@ -266,13 +266,13 @@ bool hsm_postEventToMachine(			stateMachine_t* sm, event_t* event)
 {
 	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
 	{
-//		printf("\nadding event of type %d to deferred queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
+//		printf("\nadding event of type %d ('%s') to deferred queue of machine '%s'.... ", hsm_getEventType(event), sm->eventNames[hsm_getEventType(event)] ? sm->eventNames[hsm_getEventType(event)] : "unknown", sm->instanceName) ; fflush(stdout) ;
 
 		return hsm_internal_eventQueue_insert(&sm->deferredEventQueue, event) ;
 	}
 	else
 	{
-//		printf("\nadding event of type %d to normal queue of machine '%s'.... ", hsm_getEventType(event), sm->instanceName) ; fflush(stdout) ;
+//		printf("\nadding event of type %d ('%s') to normal queue of machine '%s'.... ", hsm_getEventType(event), sm->eventNames[hsm_getEventType(event)] ? sm->eventNames[hsm_getEventType(event)] : "unknown", sm->instanceName) ; fflush(stdout) ;
 
 		return hsm_internal_eventQueue_insert(&sm->eventQueue, event) ;
 	}
