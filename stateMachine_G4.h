@@ -11,10 +11,11 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #define configHSM_DEBUGGING_ENABLED					true
 #define configHSM_INTERNAL_DEBUGGING_ENABLED		true
-#define configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED	true
+#define configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED	1
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#include <stdio.h>
@@ -84,6 +85,7 @@ typedef struct
 
 typedef void (* stateMachine_destructorFunction_t)(		void* self) __reentrant ;
 
+typedef void (* stateMachine_displayStatusInfo_t)(		void* self, FILE* event) __reentrant ;
 typedef void (* stateMachine_displayEventInfo_t)(		void* self, event_t* event) __reentrant ;
 typedef void (* stateMachine_displayMachineOutput_t)(	void* self) __reentrant ;
 
@@ -91,7 +93,7 @@ typedef void (* stateMachine_displayMachineOutput_t)(	void* self) __reentrant ;
 
 
 
-
+void outputStateMachineStatus(	FILE* destination) ;
 
 
 
@@ -172,6 +174,7 @@ typedef struct
 	const char**							eventNames ;
 	stateMachine_displayEventInfo_t			debugging_internalEventDisplay ;
 	stateMachine_displayEventInfo_t			debugging_externalEventDisplay ;
+	stateMachine_displayStatusInfo_t		debugging_statusDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineOutputDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineDebuggingDisplay ;
 #endif
@@ -466,6 +469,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 												void sm##_destructor(				void* self) ;									\
 												void sm##_displayInternalEventInfo(	void* self, event_t* event) ;					\
 												void sm##_displayExternalEventInfo(	void* self, event_t* event) ;					\
+												void sm##_displayStatus(			void* self, FILE* file) ;						\
 												void sm##_displayMachineOutput(		void* self) ;									\
 												void sm##_displayMachineDebugging(	void* self) ;									\
 												enum sm##_EVENTS																	\
@@ -533,6 +537,20 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #define DISABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()		self->parent.debugging_externalEventDisplay	= (stateMachine_displayEventInfo_t)0
 
+
+
+
+#define ENABLE_STATUS_DISPLAY_2(sm)						self->parent.debugging_statusDisplay = &sm##_displayStatus ;
+#define ENABLE_STATUS_DISPLAY_1(sm)						ENABLE_STATUS_DISPLAY_2(sm)
+#define ENABLE_STATUS_DISPLAY()							ENABLE_STATUS_DISPLAY_1(STATE_MACHINE_NAME)
+
+#define DEFINE_STATUS_DISPLAY_2(sm)						void sm##_displayStatus(void* machine, FILE* file) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_STATUS_DISPLAY_1(sm)						DEFINE_STATUS_DISPLAY_2(sm)
+#define DEFINE_STATUS_DISPLAY()							DEFINE_STATUS_DISPLAY_1(STATE_MACHINE_NAME)
+
+#define END_STATUS_DISPLAY()							(void)file ; (void)self ; }
+
+#define DISABLE_STATUS_DISPLAY()						self->parent.statusDisplay	= (stateMachine_displayStatusInfo_t)0
 
 
 

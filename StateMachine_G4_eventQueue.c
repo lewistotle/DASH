@@ -91,6 +91,30 @@ bool hsm_internal_eventQueue_insert(		eventQueue_t* Q, event_t* event)
 	{
 		uint8_t		i ;
 		event_t**	eventPointer = (event_t**)(Q->Array) ;
+		FILE*		file = fopen("hsm_internal_eventQueue_insert_error", "a") ;
+
+		if(file)
+		{
+			fprintf(file, "\n\t\t\tEvent queue at %p FULL for %d\n", (void*)Q, event->eventType) ;
+			fprintf(file, "\t\t\t\tCapacity: %d\n", Q->Capacity) ;
+			fprintf(file, "\t\t\t\tFront   : %d\n", Q->Front) ;
+			fprintf(file, "\t\t\t\tRear    : %d\n", Q->Rear) ;
+			fprintf(file, "\t\t\t\tSize    : %d\n", Q->Size) ;
+			fprintf(file, "\t\t\t\tArray   : %p\n", (void*)(Q->Array)) ;
+
+			for( i = 0 ; i < Q->Capacity ; i++ )
+			{
+				fprintf(	file,
+							"\t\t\t\t\tevent %2d(%p): %p (%d)\n",
+							i,
+							(void*)(&eventPointer[i]),
+							(void*)(eventPointer[i]),
+							eventPointer[i]->eventType) ;
+			}
+
+			fflush(file) ;
+			fclose(file) ;
+		}
 
 		printf("\n\t\t\tEvent queue at %p FULL for %d\n", (void*)Q, event->eventType) ;
 		printf("\t\t\t\tCapacity: %d\n", Q->Capacity) ;

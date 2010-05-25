@@ -981,6 +981,30 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 }
 
 
+void outputStateMachineStatus(				FILE* destination)
+{
+	if(destination)
+	{
+		uint8_t	statetMachineIndex ;
+
+		for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+		{
+			if(stateMachines[statetMachineIndex] != NULL)
+			{
+				stateMachine_t*	machine = stateMachines[statetMachineIndex] ;
+
+				fprintf(destination, "\t%s:%s\n", machine->instanceName ? machine->instanceName : "<unknownMachineName>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknownStateName>") ;
+
+				if(stateMachines[statetMachineIndex]->debugging_statusDisplay)
+				{
+					((stateMachine_displayStatusInfo_t)(stateMachines[statetMachineIndex]->debugging_statusDisplay))(stateMachines[statetMachineIndex], destination) ;
+				}
+			}
+		}
+	}
+}
+
+
 stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
 {
 	stateMachine_stateResponse_t	response ;
