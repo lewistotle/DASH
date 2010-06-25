@@ -177,6 +177,10 @@ typedef struct
 	stateMachine_displayStatusInfo_t		debugging_statusDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineOutputDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineDebuggingDisplay ;
+
+	uint32_t								timeInCurrentState_Hours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t								timeInCurrentState_Microseconds ;
+
 #endif
 } stateMachine_t ;
 
@@ -951,9 +955,11 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 	#include <pthread.h>
 
 	extern pthread_mutex_t	hsm_mutex ;
+	extern int				criticalSectionLockAttempts ;
+	extern int				criticalSectionLockEntries ;
 
-	#define HSM_ENTER_CRITICAL_SECTION()		pthread_mutex_lock(&hsm_mutex)
-	#define HSM_EXIT_CRITICAL_SECTION()			pthread_mutex_unlock(&hsm_mutex)
+	#define HSM_ENTER_CRITICAL_SECTION()		criticalSectionLockAttempts++ ; pthread_mutex_lock(&hsm_mutex) ; criticalSectionLockEntries++ ;
+	#define HSM_EXIT_CRITICAL_SECTION()			criticalSectionLockEntries-- ; pthread_mutex_unlock(&hsm_mutex) ; criticalSectionLockAttempts-- ;
 #else
 	#error DEFINE THE CRITICAL SECTION MACROS
 #endif

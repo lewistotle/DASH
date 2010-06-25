@@ -815,6 +815,17 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 		if(machine != NULL)
 		{
+			machine->timeInCurrentState_Hours ;
+			machine->timeInCurrentState_Microseconds += microsecondsSinceLastHandled ;
+
+			if(machine->timeInCurrentState_Microseconds > (60UL * 60UL * 1000000UL))
+			{
+				/* must have wrapped around so reset it */
+
+				machine->timeInCurrentState_Hours++ ;
+				machine->timeInCurrentState_Microseconds = 0 ;
+			}
+
 			/* If this machine really wants to get TICK events, send them */
 
 			if(machine->requestsTickEvents)
@@ -1042,6 +1053,8 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 		{
 			sm->mostRecentlyEnteredState			= state ;
 			sm->currentStateHasInitialTransition	= false ;
+			sm->timeInCurrentState_Hours			= 0 ;
+			sm->timeInCurrentState_Microseconds		= 0 ;
 
 			if(		(state->parent)
 				&&	(((state_t*)(state->parent))->type == STATE_WITH_SHALLOW_HISTORY))
