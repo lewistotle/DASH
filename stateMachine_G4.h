@@ -89,7 +89,7 @@ typedef void (* stateMachine_displayStatusInfo_t)(		void* self, FILE* event) __r
 typedef void (* stateMachine_displayEventInfo_t)(		void* self, event_t* event) __reentrant ;
 typedef void (* stateMachine_displayMachineOutput_t)(	void* self) __reentrant ;
 
-
+typedef void (* stateMachine_fatalErrorFunction_t)(		void *self) __reentrant ;
 
 
 
@@ -142,6 +142,7 @@ typedef struct
 	uint8_t									requestsTickEvents ;
 
 	stateMachine_destructorFunction_t		destructor ;
+	stateMachine_fatalErrorFunction_t		fatalErrorHandler ;
 
 	stateMachinePriority_t					priority ;
 
@@ -471,6 +472,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 												uint16_t sm##_getHistoryArraySize(							void) ;					\
 												void sm##_constructor(				stateMachine_t* self) ;							\
 												void sm##_destructor(				void* self) ;									\
+												void sm##_fatalErrorHandler(		void* self) ;									\
 												void sm##_displayInternalEventInfo(	void* self, event_t* event) ;					\
 												void sm##_displayExternalEventInfo(	void* self, event_t* event) ;					\
 												void sm##_displayStatus(			void* self, FILE* file) ;						\
@@ -627,13 +629,16 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define DEFINE_STATE_MACHINE()					DEFINE_STATE_MACHINE_1(STATE_MACHINE_NAME)
 
 #define END_STATE_MACHINE_DEFINITION_2(sm)		void sm##_constructor2(	sm##Machine_t* self) ;																	\
+												void sm##_fatalErrorHandler2(	sm##Machine_t* self) ;															\
 												void sm##_destructor2(	sm##Machine_t* self) ;																	\
-												void sm##_destructor(	void* self) { sm##_destructor2((sm##Machine_t*)self) ; }						\
+												void sm##_fatalErrorHandler(	void* self) { sm##_fatalErrorHandler2((sm##Machine_t*)self) ; }					\
+												void sm##_destructor(	void* self) { sm##_destructor2((sm##Machine_t*)self) ; }								\
 												void sm##_constructor(	stateMachine_t* base)																	\
 												{																												\
 													base->topState				= (void*)&sm##_TOP ;															\
 													base->currentState			= (void*)&sm##_TOP ;															\
 													base->stateMachineName		= sm##_name ;																	\
+													base->fatalErrorHandler		= sm##_fatalErrorHandler ;														\
 													base->destructor			= sm##_destructor ;																\
 													sm##_constructor2((sm##Machine_t*)base) ;																	\
 												}																												\
@@ -711,6 +716,10 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define STATE_MACHINE_CONSTRUCTOR_2(sm)			void sm##_constructor2(	sm##Machine_t* self)
 #define STATE_MACHINE_CONSTRUCTOR_1(sm)			STATE_MACHINE_CONSTRUCTOR_2(sm)
 #define STATE_MACHINE_CONSTRUCTOR()				STATE_MACHINE_CONSTRUCTOR_1(STATE_MACHINE_NAME)
+
+#define STATE_MACHINE_FATAL_ERROR_HANDLER_2(sm)	void sm##_fatalErrorHandler2(	sm##Machine_t* self)
+#define STATE_MACHINE_FATAL_ERROR_HANDLER_1(sm)	STATE_MACHINE_FATAL_ERROR_HANDLER_2(sm)
+#define STATE_MACHINE_FATAL_ERROR_HANDLER()		STATE_MACHINE_FATAL_ERROR_HANDLER_1(STATE_MACHINE_NAME)
 
 #define STATE_MACHINE_DESTRUCTOR_2(sm)			void sm##_destructor2(	sm##Machine_t* self)
 #define STATE_MACHINE_DESTRUCTOR_1(sm)			STATE_MACHINE_DESTRUCTOR_2(sm)

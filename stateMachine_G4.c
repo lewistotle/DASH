@@ -815,7 +815,7 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 
 		if(machine != NULL)
 		{
-			machine->timeInCurrentState_Hours ;
+//			machine->timeInCurrentState_Hours ;
 			machine->timeInCurrentState_Microseconds += microsecondsSinceLastHandled ;
 
 			if(machine->timeInCurrentState_Microseconds > (60UL * 60UL * 1000000UL))
@@ -888,8 +888,34 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 }
 							if(!hsm_postEventToMachine(machine, (event_t*)timer))
 							{
-								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)timer)->eventType, machine->instanceName) ;
-								exit(0) ;
+								uint8_t	statetMachineShutdownIndex ;
+								FILE*	file = fopen("hsm_internal_eventQueue_insert_error", "a") ;
+
+								if(file)
+								{
+									time_t			rawtime ;
+									struct tm *		timeinfo ;
+									char			timeBuffer[50] ;
+
+									time(&rawtime) ;
+									timeinfo = localtime(&rawtime) ;
+
+									strftime(timeBuffer, 50, "%Y/%m/%d %H:%M:%S", timeinfo) ;
+
+									fprintf(file, "Event posting of type %d failed for machine '%s' at %s\n", ((event_t*)timer)->eventType, machine->instanceName, timeBuffer) ;
+									system("touch hsm_MIRA_output_enable") ;
+									outputStateMachineStatus(file) ;
+								}
+
+								for( statetMachineShutdownIndex = 0 ; statetMachineShutdownIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineShutdownIndex++ )
+								{
+									stateMachine_t*	errorMachine = stateMachines[statetMachineShutdownIndex] ;
+
+									if(errorMachine->fatalErrorHandler)
+									{
+										errorMachine->fatalErrorHandler(errorMachine) ;
+									}
+								}
 							}
 
 							if(((event_t*)timer)->eventType == SUBSTATE_TIMEOUT)
