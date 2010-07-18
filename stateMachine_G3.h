@@ -13,7 +13,7 @@
 #endif
 
 
-#ifdef __TS7800__
+#if defined(__TS7800__) || defined(__TMS320C28X__)
 	#define __reentrant
 #endif
 
@@ -161,13 +161,13 @@ static uint8_t					stateTimeoutForced ;
 																stateTimeoutForced		= false ;																			\
 																TIME_IN_STATE_ENTRY_HELPER() ;																				\
 																millisecondsInState		= 0 ;																				\
-																outputStateMachineDebugData_G3(currentState, SUBSTATE_ENTRY, currentStateName, millisecondsInState, stateTimeoutForced) ;		\
+																/*outputStateMachineDebugData_G3(currentState, SUBSTATE_ENTRY, currentStateName, millisecondsInState, stateTimeoutForced) ;*/		\
 																currentState(SUBSTATE_ENTRY) ;																				\
 																previousState = currentState ;																				\
 															}																												\
 															else if(stateTimeoutEnabled && (stateTimeoutForced || (millisecondsInState >= stateTimeoutPeriod)) && (!stateTimeoutProcessed))			\
 															{																												\
-																outputStateMachineDebugData_G3(currentState, SUBSTATE_TIMEOUT, currentStateName, millisecondsInState, stateTimeoutForced) ;		\
+																/*outputStateMachineDebugData_G3(currentState, SUBSTATE_TIMEOUT, currentStateName, millisecondsInState, stateTimeoutForced) ;*/		\
 																currentState(SUBSTATE_TIMEOUT) ;																			\
 																stateTimeoutForced = false ;																				\
 															}																												\
@@ -175,19 +175,19 @@ static uint8_t					stateTimeoutForced ;
 															{																												\
 																immediateChangePending = false ;																			\
 																TIME_IN_STATE_HELPER() ;																					\
-																outputStateMachineDebugData_G3(currentState, SUBSTATE_DO, currentStateName, millisecondsInState, stateTimeoutForced) ;			\
+																/*outputStateMachineDebugData_G3(currentState, SUBSTATE_DO, currentStateName, millisecondsInState, stateTimeoutForced) ;*/			\
 																currentState(SUBSTATE_DO) ;																					\
 															}																												\
 															else if(nextState != currentState)																				\
 															{																												\
-																outputStateMachineDebugData_G3(currentState, SUBSTATE_EXIT, currentStateName, millisecondsInState, stateTimeoutForced) ;		\
+																/*outputStateMachineDebugData_G3(currentState, SUBSTATE_EXIT, currentStateName, millisecondsInState, stateTimeoutForced) ;*/		\
 																currentState(SUBSTATE_EXIT) ;																				\
 																currentState = nextState ;																					\
 																stateRetryCount = 0 ;																						\
 															}																												\
 															if(immediateChangePending)																						\
 															{																												\
-																outputStateMachineDebugData_G3(currentState, IMMEDIATE_CHANGE_FLAG, currentStateName, millisecondsInState, stateTimeoutForced) ;\
+																/*outputStateMachineDebugData_G3(currentState, IMMEDIATE_CHANGE_FLAG, currentStateName, millisecondsInState, stateTimeoutForced) ;*/\
 															}																												\
 														} while(immediateChangePending) ;																					\
 														STATE_MACHINE_ITERATOR_SKIN_POST(	STATE_MACHINE_NAME)() ;															\
@@ -223,11 +223,11 @@ static uint8_t					stateTimeoutForced ;
 #define GET_STATE_GUTS(			sm, newStateName)	stFn##_##sm##_##newStateName
 
 #define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;					\
-													static call_state_type	callingState		= 0 ;						\
+													/*static call_state_type	callingState		= 0 ;*/						\
 													static call_state_type	previousState		= 0 ;						\
 													static call_state_type	currentState		= GET_STATE(newStateName) ;	\
-													static call_state_type	nextState			= GET_STATE(newStateName) ;	\
-													static char*			currentStateName	= "" # newStateName
+													static call_state_type	nextState			= GET_STATE(newStateName) /*;*/	\
+													/*static char*			currentStateName	= "" # newStateName*/
 
 #define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(uint8_t subState)
 
@@ -237,7 +237,7 @@ static uint8_t					stateTimeoutForced ;
 
 #define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(uint8_t subState) __reentrant				\
 													{																	\
-														currentStateName = "stFn_" #sm "_" #newStateName ;				\
+														/*currentStateName = "stFn_" #sm "_" #newStateName ;*/				\
 														if(subState > SUBSTATE_GET_INFO)								\
 														{
 															// state code goes here
@@ -254,18 +254,18 @@ static uint8_t					stateTimeoutForced ;
 
 
 
-#define CHANGE_STATE_TO(newState)					callingState = currentState ; nextState = &GET_STATE(newState) ;
+#define CHANGE_STATE_TO(newState)					/*callingState = currentState ;*/ nextState = &GET_STATE(newState) ;
 
 #if configSTATE_MACHINE_FORCE_IMMEDIATE_CHANGES_TO_QUEUED
-	#define IMMEDIATE_CHANGE_STATE_TO(newState)		callingState = currentState ; nextState = &GET_STATE(newState) ;
+	#define IMMEDIATE_CHANGE_STATE_TO(newState)		/*callingState = currentState ;*/ nextState = &GET_STATE(newState) ;
 #else
-	#define IMMEDIATE_CHANGE_STATE_TO(newState)		callingState = currentState ; nextState = &GET_STATE(newState) ; immediateChangePending = true ;
+	#define IMMEDIATE_CHANGE_STATE_TO(newState)		/*callingState = currentState ;*/ nextState = &GET_STATE(newState) ; immediateChangePending = true ;
 #endif
 
 #define RETRY_STATE(mx, bs)							stateRetryCount++ ;					\
 													if(stateRetryCount < mx)			\
 													{									\
-														previousState = callingState ;	\
+														/*previousState = callingState ;*/	\
 													}									\
 													else								\
 													{									\
