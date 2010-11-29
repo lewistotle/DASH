@@ -8,6 +8,11 @@
 #ifndef STATEMACHINE_G4_H_
 #define STATEMACHINE_G4_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -654,10 +659,17 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 #define DECLARE_STATE_MACHINE_VARIABLES()		typedef struct { stateMachine_t parent
-#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-												static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-												static const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
-												enum { sm##_historicalMarkerBase = __LINE__ }
+#ifdef __cplusplus
+	#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
+													static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+													static const state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
+													enum { sm##_historicalMarkerBase = __LINE__ }
+#else
+	#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
+													static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+													static const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
+													enum { sm##_historicalMarkerBase = __LINE__ }
+#endif
 #define END_STATE_MACHINE_VARIABLES_1(sm)		END_STATE_MACHINE_VARIABLES_2(sm)
 #define END_STATE_MACHINE_VARIABLES()			END_STATE_MACHINE_VARIABLES_1(STATE_MACHINE_NAME)
 
@@ -971,6 +983,10 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 	#define HSM_EXIT_CRITICAL_SECTION()			criticalSectionLockEntries-- ; pthread_mutex_unlock(&hsm_mutex) ; criticalSectionLockAttempts-- ;
 #else
 	#error DEFINE THE CRITICAL SECTION MACROS
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* STATEMACHINE_G4_H_ */
