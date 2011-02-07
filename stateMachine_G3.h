@@ -19,9 +19,9 @@
 
 
 #include <stdint.h>
-typedef uint8_t			substate_t ;
+typedef uint16_t			substate_t ;
 
-typedef void	(* call_state_type)(uint8_t subState) ;
+typedef void	(* call_state_type)(uint16_t subState) ;
 
 
 enum {
@@ -122,7 +122,7 @@ enum {
 	// Note that this function is not static. It should be defined once, and only once,
 	// somewhere in the code if this functionality is to be used.
 
-	void outputStateMachineDebugData_G3(	call_state_type state, unsigned char subState, char* stateName, unsigned long millisecondsInState, uint8_t stateTimeoutForced) ;
+	void outputStateMachineDebugData_G3(	call_state_type state, unsigned char subState, char* stateName, unsigned long millisecondsInState, uint16_t stateTimeoutForced) ;
 #else
 	#define outputStateMachineDebugData_G3(a, b, c, d, e)
 #endif
@@ -132,13 +132,13 @@ enum {
 
 #define ENUMERATE_STATES(			iterationModes)	iterationModes
 
-static uint8_t					stateMachineInitialized = false ;
+static uint16_t					stateMachineInitialized = false ;
 static uint16_t					stateRetryCount ;
-static uint8_t					stateTimeoutEnabled ;
-static uint8_t					stateTimeoutProcessed ;
-static uint8_t					immediateChangePending ;
+static uint16_t					stateTimeoutEnabled ;
+static uint16_t					stateTimeoutProcessed ;
+static uint16_t					immediateChangePending ;
 static millisecondTimerType		stateTimeoutPeriod ;
-static uint8_t					stateTimeoutForced ;
+static uint16_t					stateTimeoutForced ;
 
 
 #define END_ENUMERATE_STATES(		)				static void STATE_MACHINE_ITERATOR_SKIN(STATE_MACHINE_NAME)(void)														\
@@ -222,20 +222,20 @@ static uint8_t					stateTimeoutForced ;
 
 #define GET_STATE_GUTS(			sm, newStateName)	stFn##_##sm##_##newStateName
 
-#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint8_t subState) ;					\
+#define DECLARE_INITIAL_STATE(	newStateName)		static void GET_STATE(newStateName)(uint16_t subState) ;					\
 													/*static call_state_type	callingState		= 0 ;*/						\
 													static call_state_type	previousState		= 0 ;						\
 													static call_state_type	currentState		= GET_STATE(newStateName) ;	\
 													static call_state_type	nextState			= GET_STATE(newStateName) /*;*/	\
 													/*static char*			currentStateName	= "" # newStateName*/
 
-#define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(uint8_t subState)
+#define DECLARE_STATE(			newStateName)		static void GET_STATE(newStateName)(uint16_t subState)
 
 #define DEFINE_STATE(			newStateName)		DEFINE_STATE_SKIN(STATE_MACHINE_NAME, newStateName)
 
 #define DEFINE_STATE_SKIN(		sm, newStateName)	DEFINE_STATE_GUTS(sm, newStateName)
 
-#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(uint8_t subState) __reentrant				\
+#define DEFINE_STATE_GUTS( 		sm, newStateName)	static void GET_STATE(newStateName)(uint16_t subState) __reentrant				\
 													{																	\
 														/*currentStateName = "stFn_" #sm "_" #newStateName ;*/				\
 														if(subState > SUBSTATE_GET_INFO)								\
