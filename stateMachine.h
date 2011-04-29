@@ -4,7 +4,7 @@
 // A couple of states that all state machines MUST have. Others will be defined in the specific
 // instance of the state machine. The first two enums in each state machine must be the two below
 
-enum {	
+enum {
 		STATE_UNKNOWN,
 		STATE_INIT
 	 } ;
@@ -13,17 +13,19 @@ enum {
 		SUBSTATE_ENTRY,
 		SUBSTATE_DO,
 		SUBSTATE_TIMEOUT,
-		SUBSTATE_EXIT
+		SUBSTATE_EXIT,
+		SUBSTATE_GET_INFO,
+		IMMEDIATE_CHANGE_FLAG
 	 } ;
 
 
 // Normally putting a variable is a header file isn't done, but it's ok in this case
 // since each state machine will have it's own source file.
 
-static unsigned char	stateMachineID ;
-static unsigned char	previousState ;
-static unsigned char	currentState ;
-static unsigned char	nextState ;
+static uint16_t	stateMachineID ;
+static uint16_t	previousState ;
+static uint16_t	currentState ;
+static uint16_t	nextState ;
 
 
 
@@ -32,7 +34,7 @@ static unsigned char	nextState ;
 	// Note that this function is not static. It should be defined once, and only once,
 	// somewhere in the code if this functionality is to be used.
 
-	void outputStateMachineDebugData(	unsigned char machineID, unsigned char state, unsigned char subState) ;
+	void outputStateMachineDebugData(	uint16_t machineID, uint16_t state, uint16_t subState) ;
 #else
 	#define outputStateMachineDebugData(a, b, c)
 #endif
@@ -42,14 +44,15 @@ static unsigned char	nextState ;
 
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
 	#if		configSTATE_MACHINE_USE_SHORT_FOR_MILLISECOND_TIMER
-		typedef unsigned short	millisecondTimerType ;
+		typedef uint16_t	millisecondTimerType ;
 	#elif	configSTATE_MACHINE_USE_LONG_FOR_MILLISECOND_TIMER
-		typedef unsigned long	millisecondTimerType ;
+		typedef uint32_t	millisecondTimerType ;
+	
 	#else
 		#error No type given for millisecondInState variable
 	#endif
 
-	static millisecondTimerType	millisecondsInState ;
+	static millisecondTimerType					millisecondsInState ;
 
 	#define STATE_MACHINE_TIME_IN_STATE_ms		millisecondsInState
 
