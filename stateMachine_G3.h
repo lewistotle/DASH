@@ -51,9 +51,9 @@ enum {
 
 #if configSTATE_MACHINE_TIMEOUTS_ENABLED
 	#if		configSTATE_MACHINE_USE_SHORT_FOR_MILLISECOND_TIMER
-		typedef unsigned short	millisecondTimerType ;
+		typedef uint16_t	millisecondTimerType ;
 	#elif	configSTATE_MACHINE_USE_LONG_FOR_MILLISECOND_TIMER
-		typedef unsigned long	millisecondTimerType ;
+		typedef uint32_t	millisecondTimerType ;
 	#else
 		#error No type given for millisecondInState variable
 	#endif
