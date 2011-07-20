@@ -1257,6 +1257,21 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 #endif
 			}
 
+			// Did a deferred event manage to sneak into the queue? If so, move it to where it needs to be and try again.
+
+			if(isEventTypeDeferred(sm, hsm_getEventType(eventToProcess)))
+			{
+//				printf("\n\n\nProcessing a deferred event of type: %d, sm: %p\n\n\n", eventToProcess->eventType, sm) ; fflush(stdout) ;
+
+				// Put it into the deferred queue since that's really where it belongs
+
+				hsm_internal_eventQueue_insert(&sm->deferredEventQueue, eventToProcess) ;
+
+				// Try again and see if there are any non-deferred events to process this time around.
+
+				continue ;
+			}
+
 #if TRACING_ENABLED
 			printf("\t\tEvent type: %d\n", eventToProcess->eventType) ; fflush(stdout) ;
 #endif
