@@ -428,9 +428,11 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ACTIVE			true
 #define NON_ACTIVE		false
 
-#define SET_ALARM(eventType, duration, repeating)			hsm_createAlarm((stateMachine_t*)self, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
+#define CREATE_ALARM(eventType, duration, repeating)		hsm_createAlarm((stateMachine_t*)self, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
 
-#define ACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = true ; }
+#define SET_ALARM_PERIOD(alarm, duration)					if(alarm) { ((timerEvent_t*)alarm)->originalHours = (uint32_t)(((double)(duration)) / HOURS(1)) ; ((timerEvent_t*)alarm)->originalMicroseconds = (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */) ; }
+
+#define ACTIVATE_ALARM(alarm)								if(alarm) { ((timerEvent_t*)alarm)->remainingHours = ((timerEvent_t*)alarm)->originalHours ; ((timerEvent_t*)alarm)->remainingMicroseconds = ((timerEvent_t*)alarm)->originalMicroseconds ; ((alarmEvent_t*)alarm)->active = true ; }
 #define DEACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = false ; }
 
 #define RESET_TIMEOUT()										hsm_resetTimeout((stateMachine_t*)self)
@@ -875,26 +877,26 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 #define AFTER(timeout, act)							{																																																											\
-														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_TIMEOUT, timeout, NON_REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;		\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)CREATE_ALARM(SUBSTATE_TIMEOUT, timeout, NON_REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;		\
 														ON_EVENT_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->lineNumber == __LINE__, act) ;																																					\
 														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}
 
 #define TRANSITION_AFTER(timeout, dest, act)		{																																																											\
-														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_TIMEOUT, timeout, NON_REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;		\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)CREATE_ALARM(SUBSTATE_TIMEOUT, timeout, NON_REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;		\
 														TRANSITION_ON_IF(SUBSTATE_TIMEOUT, ((timeoutEvent_t*)event)->lineNumber == __LINE__, TO(dest), act) ;																																	\
 														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}
 
 
 #define EVERY(timeout, act)							{																																																											\
-														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)CREATE_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
 														ON_EVENT_IF(SUBSTATE_REPEATING_TIMER, ((timeoutEvent_t*)event)->lineNumber == __LINE__, ACTIVATE_ALARM((timeoutEvent_t*)event) ; act) ;																									\
 														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}
 
 #define TRANSITION_EVERY(timeout, dest, act)		{																																																											\
-														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)SET_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
+														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)CREATE_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
 														TRANSITION_ON_IF(SUBSTATE_REPEATING_TIMER, ((timeoutEvent_t*)event)->lineNumber == __LINE__, TO(dest), ACTIVATE_ALARM((timeoutEvent_t*)event) ; act) ;																									\
 														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}

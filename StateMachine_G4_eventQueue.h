@@ -11,6 +11,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#if defined(__TS7800__) || defined(__cygwin__)
+	#include <pthread.h>
+#endif
+
 #ifndef config_stateMachine_MAX_NUMBER_OF_EVENT_TYPES
 	#define configstateMachine_MAX_NUMBER_OF_EVENT_TYPES		256
 #endif
@@ -107,6 +111,8 @@ typedef struct
 {
 	timerEvent_t				parent ;
 
+	bool						repeating ;
+
 	bool						active ;
 } alarmEvent_t ;
 
@@ -178,9 +184,16 @@ typedef struct
 	eventQueueIndex_t	Rear ;
 	eventQueueIndex_t	Size ;
 	event_t**			Array ;
+#if defined(__TS7800__) || defined(__cygwin__)
+	pthread_mutex_t		mutex ;
+#endif
 } eventQueue_t ;
 
 
+#if defined(__TS7800__) || defined(__cygwin__)
+	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	pthread_mutex_lock(&(Q->mutex)) ;
+	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		pthread_mutex_unlock(&(Q->mutex)) ;
+#endif
 
 
 

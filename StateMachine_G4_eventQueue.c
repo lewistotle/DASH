@@ -40,11 +40,15 @@ bool hsm_internal_isEventInMask(	event_t* event, eventTypeBitmask_t* maskSet)
 
 bool hsm_internal_eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue)
 {
+	EVENT_QUEUE_ENTER_CRITICAL_SECTION() ;
+
 	Q->Capacity	= maxEntriesInQueue ;
 	Q->Size		= 0 ;
 	Q->Front	= 1 ;
 	Q->Rear		= 0 ;
 	Q->Array	= storage ;
+
+	EVENT_QUEUE_EXIT_CRITICAL_SECTION() ;
 
 	return true ;
 }
@@ -52,18 +56,36 @@ bool hsm_internal_eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eve
 
 uint8_t hsm_internal_eventQueue_isEmpty(	eventQueue_t* Q)
 {
-	return Q->Size == 0 ;
+	uint8_t	value ;
+
+	EVENT_QUEUE_ENTER_CRITICAL_SECTION() ;
+
+	value = (Q->Size == 0) ;
+
+	EVENT_QUEUE_EXIT_CRITICAL_SECTION() ;
+
+	return value ;
 }
 
 
 uint8_t hsm_internal_eventQueue_isFull(	eventQueue_t* Q)
 {
-	return Q->Size == Q->Capacity ;
+	uint8_t	value ;
+
+	EVENT_QUEUE_ENTER_CRITICAL_SECTION() ;
+
+	value = (Q->Size == Q->Capacity) ;
+
+	EVENT_QUEUE_EXIT_CRITICAL_SECTION() ;
+
+	return value ;
 }
 
 
 static eventQueueIndex_t nextLocationFromPoint(	eventQueue_t* Q, eventQueueIndex_t location)
 {
+	// This function MUST be called from within a critical section
+
 	if(++location == Q->Capacity)
 	{
 		location = 0 ;
@@ -79,9 +101,13 @@ bool hsm_internal_eventQueue_insert(		eventQueue_t* Q, event_t* event)
 {
 	if(!hsm_internal_eventQueue_isFull(Q))
 	{
+		EVENT_QUEUE_ENTER_CRITICAL_SECTION() ;
+
 		Q->Size++ ;
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 		Q->Array[Q->Rear] = event ;
+
+		EVENT_QUEUE_EXIT_CRITICAL_SECTION() ;
 
 		++event->eventListenerCount ;
 
@@ -144,18 +170,24 @@ event_t* hsm_internal_eventQueue_remove(	eventQueue_t* Q)
 #endif
 	if(!hsm_internal_eventQueue_isEmpty(Q))
 	{
-		event_t* eventReceived = Q->Array[Q->Front] ;
+		event_t* eventReceived ;
+
+		EVENT_QUEUE_ENTER_CRITICAL_SECTION() ;
+
+		eventReceived = Q->Array[Q->Front] ;
 
 		Q->Array[Q->Front] = 0 ;
+
+		Q->Size-- ;
+		Q->Front = nextLocationFromPoint(Q, Q->Front) ;
+
+		EVENT_QUEUE_EXIT_CRITICAL_SECTION() ;
 
 		--eventReceived->eventListenerCount ;
 
 #if 0
 		printf("\t\t\t\teventQueue_remove(): eventReceived: %p\n", eventReceived) ;
 #endif
-
-		Q->Size-- ;
-		Q->Front = nextLocationFromPoint(Q, Q->Front) ;
 
 		return eventReceived ;
 	}

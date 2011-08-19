@@ -147,7 +147,7 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 	}
 	else
 	{
-		printf("\t\tUnable to allocate event.\n") ; fflush(stdout) ;
+		printf("\t\tUnable to allocate event type %d of size %d for machine %s.\n", eventType, eventSize, sm->stateMachineName) ; fflush(stdout) ;
 
 		return (event_t*)0 ;
 	}
@@ -194,18 +194,10 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 				alarm->parent.parent.eventListenerCount	= 1 ;
 				alarm->parent.remainingHours			= hours ;
 				alarm->parent.remainingMicroseconds		= microseconds ;
+				alarm->parent.originalHours				= hours ;
+				alarm->parent.originalMicroseconds		= microseconds ;
+				alarm->repeating						= repeating ;
 				alarm->active							= false ;
-
-				if(repeating)
-				{
-					alarm->parent.originalHours			= hours ;
-					alarm->parent.originalMicroseconds	= microseconds ;
-				}
-				else
-				{
-					alarm->parent.originalHours			= 0 ;
-					alarm->parent.originalMicroseconds	= 0 ;
-				}
 #if 0
 				printf("(%p)alarm->parent.parent.eventType         : %d\n", (void*)alarm, alarm->parent.parent.eventType) ; fflush(stdout) ;
 				printf("(%p)alarm->parent.parent.eventListenerCount: %d\n", (void*)alarm, alarm->parent.parent.eventListenerCount) ; fflush(stdout) ;
@@ -213,6 +205,7 @@ alarmEvent_t* hsm_createAlarm(	stateMachine_t* machine, eventType_t eventType, u
 				printf("(%p)alarm->parent.remainingMicroseconds    : %ld\n", (void*)alarm, alarm->parent.remainingMicroseconds) ; fflush(stdout) ;
 				printf("(%p)alarm->parent.originalHours            : %ld\n", (void*)alarm, alarm->parent.originalHours) ; fflush(stdout) ;
 				printf("(%p)alarm->parent.originalMicroseconds     : %ld\n", (void*)alarm, alarm->parent.originalMicroseconds) ; fflush(stdout) ;
+				printf("(%p)alarm->repeating                       : %d\n", (void*)alarm, alarm->repeating) ; fflush(stdout) ;
 				printf("(%p)alarm->active                          : %d\n", (void*)alarm, alarm->active) ; fflush(stdout) ;
 #endif
 			}
@@ -930,12 +923,20 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 							}
 							else
 							{
+								/* No matter what, reset the alarm to it's original state. Even in the
+								 * case of a non-repeating alarm, I may want to re-use it later so this
+								 * will make sure it's in the proper state should the alarm be
+								 * activated again.
+								 */
+
+								timer->remainingHours			= timer->originalHours ;
+								timer->remainingMicroseconds	= timer->originalMicroseconds ;
+
 								/* If this is a repeating alarm, reset it for next time */
 
-								if((timer->originalHours) || (timer->originalMicroseconds))
+								if(((alarmEvent_t*)timer)->repeating)
 								{
-									timer->remainingHours			= timer->originalHours ;
-									timer->remainingMicroseconds	= timer->originalMicroseconds ;
+									((alarmEvent_t*)timer)->active	= true ;
 								}
 								else
 								{
@@ -1261,6 +1262,8 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 
 			if(isEventTypeDeferred(sm, hsm_getEventType(eventToProcess)))
 			{
+#warning Should look at whether or not these deferred events need to be put at the head of the queue
+
 //				printf("\n\n\nProcessing a deferred event of type: %d, sm: %p\n\n\n", eventToProcess->eventType, sm) ; fflush(stdout) ;
 
 				// Put it into the deferred queue since that's really where it belongs
