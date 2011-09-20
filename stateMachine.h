@@ -5,12 +5,12 @@
 // instance of the state machine. The first two enums in each state machine must be the two below
 
 enum {
-		STATE_UNKNOWN,
+		STATE_UNKNOWN = 0,
 		STATE_INIT
 	 } ;
 
 enum {
-		SUBSTATE_ENTRY,
+		SUBSTATE_ENTRY = 0,
 		SUBSTATE_DO,
 		SUBSTATE_TIMEOUT,
 		SUBSTATE_EXIT,
