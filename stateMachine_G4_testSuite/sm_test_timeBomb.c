@@ -32,6 +32,7 @@ DEFINE_STATE_MACHINE() ;
 	END_MEMORY_REQUIREMENTS()
 
 	DECLARE_STATE_MACHINE_VARIABLES() ;
+		uint8_t		finetime ;
 		uint8_t		timeout ;
 		uint8_t		codeBeingEntered ;
 		uint8_t		disarmCode ;
@@ -45,12 +46,37 @@ DEFINE_STATE_MACHINE() ;
 
 END_STATE_MACHINE_DEFINITION() ;
 
+void timebomb_displayInternalEventInfo( stateMachine_t* sm, event_t* event) ;
+void timebomb_displayEventInfo( stateMachine_t* sm, event_t* event) ;
 
 STATE_MACHINE_CONSTRUCTOR()
 {
+	static const char*	eventNames[] =	{	"UP",
+											"DOWN",
+											"ARM"
+										} ;
+
+	self->parent.eventNames				= eventNames ;
+	self->parent.printStateTransitions	= false ;
+	self->parent.eventDebuggingDisplay	= timebomb_displayEventInfo ;
+
+	self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
 	self->timeout			= config_tbINIT_TIMEOUT ;
 	self->codeBeingEntered	= 0 ;
-	self->disarmCode		= 0 ;
+	self->disarmCode		= 0x42 ;
+
+//	self->parent.requestsTickEvents = true ;
+
+	{
+		alarmEvent_t* alarm = self->parent.startOfTimerEvents ;
+
+		alarm->parent.eventType			= SUBSTATE_TIMER ;
+		alarm->active					= false ;
+		alarm->remainingHours			= 0 ;
+		alarm->remainingMicroseconds	= (1.0 / config_tbFINE_TICKS_PER_SECOND) * 1000000UL ;
+		alarm->repeatingHours			= 0 ;
+		alarm->repeatingMicroseconds	= (1.0 / config_tbFINE_TICKS_PER_SECOND) * 1000000UL ;
+	}
 }
 
 
@@ -60,30 +86,38 @@ STATE_MACHINE_DESTRUCTOR()
 }
 
 
-void updateDisplay(	uint8_t value)
+void timebomb_displayInternalEventInfo( stateMachine_t* sm, event_t* event)
 {
-	(void)value ;
+}
+
+void timebomb_displayEventInfo( stateMachine_t* sm, event_t* event)
+{
+	printf("\n<%s>%4s: ", sm->instanceName ? sm->instanceName : sm->stateMachineName ? sm->stateMachineName : "???", sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+}
+
+void displayTicks(	const char* instanceName, uint8_t value)
+{
+#if 0
+	printf("<%s:%2d> ", instanceName, value) ;
+#endif
 }
 
 
-void goBOOM(		void)
+void updateDisplay(	const char* instanceName, uint8_t value)
 {
+	printf("\n[%s:%d] ", instanceName, value) ;
+}
+
+
+void goBOOM(		const char* instanceName)
+{
+	printf("\n\n%s:BOOM!!!\n\n", instanceName) ;
 }
 
 
 DEFINE_TOP_STATE()
 {
 	INITIAL_TRANSITION(TO(setting), NO_ACTION) ;
-
-	HANDLE_STATE_EVENTS
-	{
-		EXIT
-		{
-			/* BOOM */
-		}
-		EXIT_HANDLED
-	}
-	HANDLE_STATE_EVENTS_DONE
 }
 END_DEFINE_STATE()
 
@@ -94,13 +128,25 @@ DEFINE_STATE(setting)
 
 	HANDLE_STATE_EVENTS
 	{
+		ENTER
+		{
+			alarmEvent_t* alarm = self->parent.startOfTimerEvents ;
+
+			alarm->active = false ;
+
+			self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
+			self->timeout			= config_tbINIT_TIMEOUT ;
+			self->codeBeingEntered	= 0 ;
+		}
+		ENTER_HANDLED
+
 		EVENT(UP)
 		{
 			if(self->timeout < 60)
 			{
 				self->timeout++ ;
 
-				updateDisplay(self->timeout) ;
+				updateDisplay(self->parent.instanceName, self->timeout) ;
 			}
 		}
 		EVENT_HANDLED
@@ -111,7 +157,13 @@ DEFINE_STATE(setting)
 			{
 				self->timeout-- ;
 
-				updateDisplay(self->timeout) ;
+				updateDisplay(self->parent.instanceName, self->timeout) ;
+			}
+			else
+			{
+				/* IMMEDIATE KABOOM!!! */
+
+				self->finetime = 0 ;
 			}
 		}
 		EVENT_HANDLED
@@ -123,7 +175,12 @@ END_DEFINE_STATE()
 
 DEFINE_STATE(timing)
 {
-	TRANSITION_ON_IF(ARM, self->codeBeingEntered == self->disarmCode, TO(setting), ACTION(updateDisplay(self->timeout))) ;
+	ON_ENTRY(alarmEvent_t* alarm = self->parent.startOfTimerEvents ; alarm->active = true) ;
+
+	TRANSITION_ON_IF(ARM,				self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(self->parent.instanceName, self->timeout))) ;
+	TRANSITION_ON_IF(SUBSTATE_TIMER,	self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
+
+	ON_EVENT(SUBSTATE_TIMER, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
 
 	HANDLE_STATE_EVENTS
 	{
@@ -139,14 +196,6 @@ DEFINE_STATE(timing)
 			self->codeBeingEntered <<= 1 ;
 		}
 		EVENT_HANDLED
-
-		EVENT(TICK)
-		{
-			self->timeout-- ;
-
-			TRANSITION_TO(isTimeToGoBoom, updateDisplay(self->timeout)) ;
-		}
-		EVENT_HANDLED
 	}
 	HANDLE_STATE_EVENTS_DONE
 }
@@ -154,7 +203,7 @@ END_DEFINE_STATE()
 
 
 DEFINE_CHOICE_PSEUDO_STATE(	isTimeToGoBoom,
-							IF(self->timeout == 0),				/* condition */
-							TO(STATE_MACHINE_EXIT), goBOOM(),	/* if true */
-							TO(timing), NO_ACTION) ;			/* if false */
+							IF(self->timeout == 0),														/* condition */
+							TO(STATE_MACHINE_EXIT),	goBOOM(self->parent.instanceName),					/* if true */
+							TO(timing),				self->finetime = config_tbFINE_TICKS_PER_SECOND) ;	/* if false */
 

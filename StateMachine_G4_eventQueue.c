@@ -83,8 +83,12 @@ bool eventQueue_insert(		eventQueue_t* Q, event_t* event)
 		Q->Size++ ;
 		Q->Rear = nextLocationFromPoint(Q, Q->Rear) ;
 		Q->Array[Q->Rear] = event ;
+
 #if 0
 		printf("\t\t\tPosting event type %s to %p\n", hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>", &Q->Array[Q->Rear]) ;
+#endif
+#if 0
+		printf("[%p]", &Q->Array[Q->Rear]) ;
 #endif
 		return true ;
 	}
@@ -232,12 +236,24 @@ void removeFromDeferredTypeList(	stateMachine_t* sm, rawEventType_t eventTypeToU
 
 bool hsm_postEventToMachine(			event_t* event, stateMachine_t* sm)
 {
-	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
+#if 1
+	if(sm->internalEventDebuggingDisplay && hsm_isEventInternal(event))
 	{
-		return eventQueue_insert(&sm->deferredEventQueue, event) ;
+		((stateMachine_displayEventInfo_t)(sm->internalEventDebuggingDisplay))(sm, event) ;
 	}
-	else
+
+	if(sm->eventDebuggingDisplay && !hsm_isEventInternal(event))
 	{
+		((stateMachine_displayEventInfo_t)(sm->eventDebuggingDisplay))(sm, event) ;
+	}
+#endif
+
+//	if(isEventTypeDeferred(sm, hsm_getEventType(event)))
+//	{
+//		return eventQueue_insert(&sm->deferredEventQueue, event) ;
+//	}
+//	else
+//	{
 		return eventQueue_insert(&sm->eventQueue, event) ;
-	}
+//	}
 }

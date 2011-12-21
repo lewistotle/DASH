@@ -38,96 +38,133 @@ void task_TIMER_init(		void) ;
 void task_TIMER_core(		void) ;
 void task_TIMER_shutdown(	void) ;
 
-stateMachine_t*	bomb ;
+stateMachine_t*	bomb_0 ;
+stateMachine_t*	bomb_1 ;
+stateMachine_t*	bomb_2 ;
 stateMachine_t*	calculator ;
 
-#if configENABLE_CALC_2
-	stateMachine_t*	calc2 ;
-#endif
+bool			ok = true ;
 
 void handleKeypress(uint8_t c)
 {
-	eventType_t	eventType = SUBSTATE_NON_EVENT ;
+	stateMachine_t*	target ;
+	eventType_t		eventType = SUBSTATE_NON_EVENT ;
 
-	if((c == 'c') || (c == 'C'))
+	switch(c)
 	{
-		eventType = CLEAR ;
-	}
-	else if(c == 0x1B)
-	{
-		eventType = CLEAR_ENTRY ;
-	}
-	else if(c == '0')
-	{
-		eventType = DIGIT_0 ;
-	}
-	else if((c >= '1') && (c <= '9'))
-	{
-		eventType = DIGIT_1_9 ;
-	}
-	else if(c == '.')
-	{
-		eventType = POINT ;
-	}
-	else if((c == '+') || (c == '-') || (c == '*') || (c == '/'))
-	{
-		eventType = OPERATION ;
-	}
-	else if((c == '='))
-	{
-		eventType = EQUALS ;
+		case 0x1B:	{ ok = false ;										break ; }
+
+		case 'q':
+		case 'Q':	{ target = calculator ;	eventType = CLEAR ;			break ; }
+		case 'w':
+		case 'W':	{ target = calculator ;	eventType = CLEAR_ENTRY ;	break ; }
+		case '0':	{ target = calculator ;	eventType = DIGIT_0 ;		break ; }
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':	{ target = calculator ;	eventType = DIGIT_1_9 ;		break ; }
+		case '.':	{ target = calculator ;	eventType = POINT ;			break ; }
+		case '+':
+		case '-':
+		case '*':
+		case '/':	{ target = calculator ;	eventType = OPERATION ;		break ; }
+		case '=':	{ target = calculator ;	eventType = EQUALS ;		break ; }
+
+		case 'i':
+		case 'I':	{ target = bomb_0 ;		eventType = UP ;			break ; }
+		case 'o':
+		case 'O':	{ target = bomb_0 ;		eventType = DOWN ;			break ; }
+		case 'p':
+		case 'P':	{ target = bomb_0 ;		eventType = ARM ;			break ; }
+
+		case 'j':
+		case 'J':	{ target = bomb_1 ;		eventType = UP ;			break ; }
+		case 'k':
+		case 'K':	{ target = bomb_1 ;		eventType = DOWN ;			break ; }
+		case 'l':
+		case 'L':	{ target = bomb_1 ;		eventType = ARM ;			break ; }
+
+		case 'n':
+		case 'N':	{ target = bomb_2 ;		eventType = UP ;			break ; }
+		case 'm':
+		case 'M':	{ target = bomb_2 ;		eventType = DOWN ;			break ; }
+		case ',':	{ target = bomb_2 ;		eventType = ARM ;			break ; }
 	}
 
 	if(eventType != SUBSTATE_NON_EVENT)
 	{
-#if configENABLE_CALC_2
-		static int	counter = 0 ;
-#endif
-		keyEvent_t*	event ;
-
-#if configENABLE_CALC_2
-		if(counter & 0x01)
+		if(target == calculator)
 		{
-			event = (keyEvent_t*)hsm_createNewEvent(calc2, eventType, sizeof(keyEvent_t)) ;
-		}
-		else
-		{
-#endif
-			event = (keyEvent_t*)hsm_createNewEvent(calculator, eventType, sizeof(keyEvent_t)) ;
-#if configENABLE_CALC_2
-		}
-#endif
+			keyEvent_t*	event ;
 
-		if(event)
-		{
-			event->key = c ;
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
 
-			printf(" %c: ", c) ;
-
-#if 1
-	#if configENABLE_CALC_2
-			if(counter & 0x01)
+			if(event)
 			{
-				hsm_postEventToMachine(event, calc2) ;
+				event->key = c ;
+
+				hsm_postEventToMachine((event_t*)event, calculator) ;
 			}
 			else
 			{
-	#endif
-				hsm_postEventToMachine((event_t*)event, calculator) ;
-	#if configENABLE_CALC_2
+				printf("UNABLE TO ALLOCATE EVENT\n") ;
 			}
-	#endif
-
-	#if configENABLE_CALC_EVENT_TOGGLING
-			counter++ ;
-	#endif
-#else
-			hsm_publishEventForAll(event) ;
-#endif
 		}
-		else
+		else if(target == bomb_0)
 		{
-			printf("UNABLE TO ALLOCATE EVENT\n") ;
+			keyEvent_t*	event ;
+
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
+
+			if(event)
+			{
+				event->key = c ;
+
+				hsm_postEventToMachine((event_t*)event, bomb_0) ;
+			}
+			else
+			{
+				printf("UNABLE TO ALLOCATE EVENT\n") ;
+			}
+		}
+		else if(target == bomb_1)
+		{
+			keyEvent_t*	event ;
+
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
+
+			if(event)
+			{
+				event->key = c ;
+
+				hsm_postEventToMachine((event_t*)event, bomb_1) ;
+			}
+			else
+			{
+				printf("UNABLE TO ALLOCATE EVENT\n") ;
+			}
+		}
+		else if(target == bomb_2)
+		{
+			keyEvent_t*	event ;
+
+			event = (keyEvent_t*)hsm_createNewEvent(target, eventType, sizeof(keyEvent_t)) ;
+
+			if(event)
+			{
+				event->key = c ;
+
+				hsm_postEventToMachine((event_t*)event, bomb_2) ;
+			}
+			else
+			{
+				printf("UNABLE TO ALLOCATE EVENT\n") ;
+			}
 		}
 	}
 }
@@ -138,20 +175,6 @@ void handleTimer(	void)
 }
 
 
-extern uint32_t	uptime_hours ;
-extern uint32_t	uptime_microseconds ;
-
-void handleTick(	void)
-{
-#if 0
-	tickEvent_t*	event = (tickEvent_t*)hsm_createNewEvent(GLOBAL, SUBSTATE_TICK, sizeof(tickEvent_t)) ;
-
-	event->uptime_hours_currentTime			= uptime_hours ;
-	event->uptime_microseconds_currentTime	= uptime_microseconds ;
-
-	hsm_publishEventForAll(event) ;
-#endif
-}
 
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
@@ -160,10 +183,11 @@ int main()
 void main(	void)
 #endif
 {
-	bool		ok				= true ;
 #if 0
 	static int	iterationMax	= 10 ;
 #endif
+
+	ok = true ;
 
 	puts("4th Generation state machine test started.") ;
 
@@ -172,13 +196,31 @@ void main(	void)
 
 	puts("Generating timebomb") ;
 
-	bomb = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+	bomb_0 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
 
-	if(bomb)
+	if(bomb_0)
 	{
-		puts("Registering timebomb") ;
+		puts("Registering bomb_0") ;
 
-		REGISTER_STATE_MACHINE(bomb) ;
+		REGISTER_STATE_MACHINE(bomb_0) ;
+	}
+
+	bomb_1 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+
+	if(bomb_1)
+	{
+		puts("Registering bomb_0") ;
+
+		REGISTER_STATE_MACHINE(bomb_1) ;
+	}
+
+	bomb_2 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+
+	if(bomb_2)
+	{
+		puts("Registering bomb_0") ;
+
+		REGISTER_STATE_MACHINE(bomb_2) ;
 	}
 
 	puts("Generating calculator") ;
@@ -247,13 +289,31 @@ void main(	void)
 		calculator = 0 ;
 	}
 
-	if(bomb)
+	if(bomb_2)
 	{
-		UNREGISTER_STATE_MACHINE(bomb) ;
+		UNREGISTER_STATE_MACHINE(bomb_2) ;
 
-		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb) ;
+		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb_2) ;
 
-		bomb = 0 ;
+		bomb_2 = 0 ;
+	}
+
+	if(bomb_1)
+	{
+		UNREGISTER_STATE_MACHINE(bomb_1) ;
+
+		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb_1) ;
+
+		bomb_1 = 0 ;
+	}
+
+	if(bomb_0)
+	{
+		UNREGISTER_STATE_MACHINE(bomb_0) ;
+
+		STATE_MACHINE_DESTROY_INSTANCE_OF(timeBomb, bomb_0) ;
+
+		bomb_0 = 0 ;
 	}
 
 	puts("\n4th Generation state machine test done.") ;

@@ -32,14 +32,23 @@
 
 
 #define config_CalcEVENT_QUEUE_DEPTH		16
+
 #define config_tbEVENT_QUEUE_DEPTH			16
-	#define config_tbINIT_TIMEOUT				30
+#define config_tbFINE_TICKS_PER_SECOND		10
+#define config_tbINIT_TIMEOUT				30
+
 #define config_toastEVENT_QUEUE_DEPTH		8
 
 
-#define configENABLE_CALC_2					false
-#define configENABLE_CALC_EVENT_TOGGLING	false
 
 
+#define configMAXIMUM_NUMBER_OF_STATE_MACHINES		5
+#define configMAXIMUM_NUMBER_OF_TIMEOUTS			50
+#define configMAXIMUM_NUMBER_OF_WATCH_VARIABLES		50
+#define configMAXIMUM_STATE_HIERARCHY_DEPTH			16
+
+#define configPRINT_RTC_EXECUTION_TIME		false
+
+#define configMICROSECONDS_PER_TICK			(1000)
 
 #endif /* _HAL_CONFIG_H_ */

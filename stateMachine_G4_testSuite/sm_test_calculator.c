@@ -5,6 +5,11 @@
  *      Author: jlewis
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
 #include "config.h"
 
 #include "stateMachine_G4.h"
@@ -32,7 +37,11 @@ DEFINE_STATE_MACHINE() ;
 	END_MEMORY_REQUIREMENTS()
 
 	DECLARE_STATE_MACHINE_VARIABLES() ;
-		uint32_t	result ;
+		int32_t		signBeingEntered ;
+		int32_t		integerBeingEntered ;
+		int32_t		fractionBeingEntered ;
+		float		operand1 ;
+		float		operand2 ;
 	END_STATE_MACHINE_VARIABLES() ;
 
 	ADD_SUB_STATE(on, PARENT_STATE(TOP)) ;
@@ -59,6 +68,8 @@ DEFINE_STATE_MACHINE() ;
 			ADD_SUB_STATE(frac2, PARENT_STATE(operand2)) ;
 END_STATE_MACHINE_DEFINITION() ;
 
+void calculator_displayEventInfo(	calculatorMachine_t* sm, event_t* event) ;
+void calculator_displayOutput(		calculatorMachine_t* sm, event_t* event) ;
 
 STATE_MACHINE_CONSTRUCTOR()
 {
@@ -72,15 +83,70 @@ STATE_MACHINE_CONSTRUCTOR()
 											"OFF"
 										} ;
 
-	self->parent.eventNames = eventNames ;
+	self->parent.eventNames				= eventNames ;
+	self->parent.printStateTransitions	= false ;
+	self->parent.eventDebuggingDisplay	= (void*)&calculator_displayEventInfo ;
+	self->parent.machineOutputDisplay	= (void*)&calculator_displayOutput ;
 
-	self->result = 0 ;
+	self->signBeingEntered		= 1 ;
+	self->integerBeingEntered	= 0 ;
+	self->fractionBeingEntered	= 0 ;
+	self->operand1				= 0.0 ;
+	self->operand2				= 0.0 ;
 }
 
 
 STATE_MACHINE_DESTRUCTOR()
 {
 	(void)self ;	/* Nothing to do here */
+}
+
+
+void calculator_displayEventInfo( calculatorMachine_t* sm, event_t* event)
+{
+	printf("%c: ", ((keyEvent_t*)event)->key) ;
+}
+
+
+void calculator_displayOutput( calculatorMachine_t* sm, event_t* event)
+{
+	char	output[50] ;
+
+	sprintf(output, "% ld.%ld", (long int)(sm->integerBeingEntered * sm->signBeingEntered), (long int)(sm->fractionBeingEntered)) ;
+
+	if(sm->fractionBeingEntered == 0)
+	{
+		output[strchr(output, '.') - output] = 0 ;
+	}
+
+	output[10] = 0 ;
+
+	printf("\n[%10s] ", output) ;
+}
+
+
+void addDigitToIntegralPortion(	calculatorMachine_t* sm, event_t* event)
+{
+	if(sm->integerBeingEntered < 100000000UL)
+	{
+		sm->integerBeingEntered	= (sm->integerBeingEntered * 10.0)
+								+ (CAST_EVENT(keyEvent_t)->key - '0') ;
+	}
+}
+
+
+void addDigitToFractionalPortion(	calculatorMachine_t* sm, event_t* event)
+{
+	sm->fractionBeingEntered	= (sm->fractionBeingEntered * 10.0)
+								+ (CAST_EVENT(keyEvent_t)->key - '0') ;
+}
+
+
+void clearEntry(					calculatorMachine_t* sm)
+{
+	sm->signBeingEntered		= 1 ;
+	sm->integerBeingEntered		= 0 ;
+	sm->fractionBeingEntered	= 0 ;
 }
 
 
@@ -120,19 +186,32 @@ DEFINE_STATE(begin)
 {
 	TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated1),			NO_ACTION) ;
 	TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int1),				addDigitToIntegralPortion(self, event)) ;
 	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
+
+	HANDLE_STATE_EVENTS
+	{
+		ENTER
+		{
+			clearEntry(self) ;
+			self->operand1	= 0.0 ;
+			self->operand2	= 0.0 ;
+		}
+		ENTER_HANDLED
+	}
+	HANDLE_STATE_EVENTS_DONE
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(negated1)
 {
+	ON_ENTRY(																					self->signBeingEntered *= -1) ;
 	TRANSITION_ON(CLEAR_ENTRY,											TO(begin),				NO_ACTION) ;
 	TRANSITION_ON(DIGIT_0,												TO(zero1),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int1),				addDigitToIntegralPortion(self, event)) ;
 	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
-	CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							NO_ACTION) ;
+	CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							self->signBeingEntered *= -1) ;
 }
 END_DEFINE_STATE()
 
@@ -148,7 +227,7 @@ END_DEFINE_STATE()
 DEFINE_STATE(zero1)
 {
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,											TO(int1),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int1),				addDigitToIntegralPortion(self, event)) ;
 	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
@@ -157,8 +236,8 @@ END_DEFINE_STATE()
 DEFINE_STATE(int1)
 {
 	TRANSITION_ON(POINT,												TO(frac1),				NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
+
+	ON_EVENT(DIGIT_1_9, addDigitToIntegralPortion(self, event)) ;
 }
 END_DEFINE_STATE()
 
@@ -166,8 +245,9 @@ END_DEFINE_STATE()
 DEFINE_STATE(frac1)
 {
 	CONSUME_EVENT(POINT,																		NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
+
+	ON_EVENT(DIGIT_0,	addDigitToFractionalPortion(self, event)) ;
+	ON_EVENT(DIGIT_1_9, addDigitToFractionalPortion(self, event)) ;
 }
 END_DEFINE_STATE()
 
@@ -181,48 +261,94 @@ END_DEFINE_STATE()
 DEFINE_STATE(opEntered)
 {
 	TRANSITION_ON_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),	TO(negated2),			NO_ACTION) ;
-	TRANSITION_ON(DIGIT_0,												TO(zero2),				NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
-	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_0,												TO(zero2),				clearEntry(self)) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int2),				clearEntry(self) ; addDigitToIntegralPortion(self, event)) ;
+	TRANSITION_ON(POINT,												TO(frac2),				clearEntry(self)) ;
+
+	HANDLE_STATE_EVENTS
+	{
+		ENTER
+		{
+			char	output[50] ;
+
+			sprintf(output,
+					"%ld.%ld",
+					(long int)(self->integerBeingEntered * self->signBeingEntered),
+					(long int)(self->fractionBeingEntered)) ;
+
+			self->operand1 = atof(output) ;
+		}
+		ENTER_HANDLED
+	}
+	HANDLE_STATE_EVENTS_DONE
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(negated2)
 {
-	TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			NO_ACTION) ;
+	ON_ENTRY(																					self->signBeingEntered *= -1) ;
+	TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			clearEntry(self)) ;
 	TRANSITION_ON(DIGIT_0,												TO(zero2),				NO_ACTION) ;
 	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
 	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
-	CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							NO_ACTION) ;
+	CONSUME_EVENT_IF(OPERATION,	IF(CAST_EVENT(keyEvent_t)->key == '-'),							self->signBeingEntered *= -1) ;
 }
 END_DEFINE_STATE()
 
 
-uint8_t doCalculation(	uint8_t type)
+uint8_t doCalculation(	calculatorMachine_t* sm, event_t* event)
 {
-	switch(type)
+	bool	success ;
+	char	output[50] ;
+	double	result ;
+
+	sprintf(output,
+			"%ld.%ld",
+			(long int)(sm->integerBeingEntered * sm->signBeingEntered),
+			(long int)(sm->fractionBeingEntered)) ;
+
+	sm->operand2 = atof(output) ;
+
+//	printf("   %f %c %f = ", sm->operand1, CAST_EVENT(keyEvent_t)->key, sm->operand2) ;
+
+	switch(CAST_EVENT(keyEvent_t)->key)
 	{
-		case '+': { return true ; }
-		case '-': { return true ; }
-		case '*': { return true ; }
-		case '/': { return true ; }
-		case '=': { return true ; }
-		default:  { return false ; }
+		case '+': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
+		case '-': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
+		case '*': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
+		case '/': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
+		case '=': { result = sm->operand1 + sm->operand2 ;	success = true ;	break ; }
+		default:  { success = false ; }
 	}
+
+	if(success)
+	{
+		sprintf(output, "%10f", result) ;
+
+//		printf("%f (%s)", result, output) ;
+
+		sm->signBeingEntered		= result >= 0 ? 1 : -1 ;
+		sm->integerBeingEntered		= abs(atoi(output)) ;
+		sm->fractionBeingEntered	= atoi(strchr(output, '.') + 1) ;
+	}
+
+//	printf("   %ld, %ld, %ld   ", sm->signBeingEntered, sm->fractionBeingEntered, sm->integerBeingEntered) ;
+
+	return success ;
 }
 
 
 DEFINE_STATE(operand2)
 {
-	TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			NO_ACTION) ;
+	TRANSITION_ON(CLEAR_ENTRY,											TO(opEntered),			clearEntry(self)) ;
 
 	HANDLE_STATE_EVENTS
 	{
 		EVENT(OPERATION)
 		EVENT(EQUALS)
 		{
-			uint8_t goodCalc = doCalculation(CAST_EVENT(keyEvent_t)->key) ;
+			uint8_t goodCalc = doCalculation(self, event) ;
 
 			if(goodCalc)
 			{
@@ -244,7 +370,7 @@ END_DEFINE_STATE()
 DEFINE_STATE(zero2)
 {
 	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	TRANSITION_ON(DIGIT_1_9,											TO(int2),				NO_ACTION) ;
+	TRANSITION_ON(DIGIT_1_9,											TO(int2),				addDigitToIntegralPortion(self, event)) ;
 	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
 }
 END_DEFINE_STATE()
@@ -253,8 +379,8 @@ END_DEFINE_STATE()
 DEFINE_STATE(int2)
 {
 	TRANSITION_ON(POINT,												TO(frac2),				NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
+
+	ON_EVENT(DIGIT_1_9, addDigitToIntegralPortion(self, event)) ;
 }
 END_DEFINE_STATE()
 
@@ -262,7 +388,8 @@ END_DEFINE_STATE()
 DEFINE_STATE(frac2)
 {
 	CONSUME_EVENT(POINT,																		NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_0,																		NO_ACTION) ;
-	CONSUME_EVENT(DIGIT_1_9,																	NO_ACTION) ;
+
+	ON_EVENT(DIGIT_0,	addDigitToFractionalPortion(self, event)) ;
+	ON_EVENT(DIGIT_1_9,	addDigitToFractionalPortion(self, event)) ;
 }
 END_DEFINE_STATE()

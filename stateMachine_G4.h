@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <sys/time.h>
 
 #include "stateMachine_G4_eventQueue.h"
 
@@ -95,18 +96,32 @@ typedef struct
 
 typedef struct
 {
+	event_t						parent ;
+
+	struct timeval				alarmTime ;
+	struct timeval				periodicity ;
+} timerEvent_t ;
+
+typedef struct
+{
 	__code void*					topState ;
 	const char*						stateMachineName ;
 
 	void*							currentState ;
 	void*							nextState ;
 
+	struct timeval					entryTimeIntoCurrentState ;
+
 	const char*						instanceName ;
 	const char**					eventNames ;
 
 	uint8_t							stateMachineInitialized ;
-
+	uint8_t							requestsTickEvents ;
 	uint8_t							currentStateHasInitialTransition ;
+	uint8_t							printStateTransitions ;
+	void*							internalEventDebuggingDisplay ;
+	void*							eventDebuggingDisplay ;
+	void*							machineOutputDisplay ;
 
 	stateMachinePriority_t			priority ;
 
@@ -123,6 +138,12 @@ typedef struct
 
 	const machineMemoryPoolInto_t*	memoryPoolInfo ;
 	void*							startOfEventMemoryPools ;
+
+	uint32_t						pad ;
+	uint32_t						pad2 ;
+	bool							anyTimerEventsActive ;
+	uint8_t							numberOfTimerEvents ;
+	void*							startOfTimerEvents ;
 } stateMachine_t ;
 
 
@@ -174,6 +195,8 @@ typedef enum STATE_MACHINE_STATE_RESPONSES	stateMachine_stateResponse_t ;
 
 typedef stateMachine_stateResponse_t (* stateMachine_callStateHandler_t)(stateMachine_t* self, event_t* event) __reentrant ;
 typedef stateMachine_stateResponse_t (* stateMachine_choiceStateHandler_t)(stateMachine_t* self) __reentrant ;
+typedef void (* stateMachine_displayEventInfo_t)(stateMachine_t* self, event_t* event) __reentrant ;
+typedef void (* stateMachine_displayMachineOutput_t)(stateMachine_t* self) __reentrant ;
 
 
 
@@ -221,7 +244,7 @@ typedef const machineMemoryPoolInto_t* (* stateMachine_memRequirements_t)(void) 
 typedef void (* stateMachine_constructor_t)(stateMachine_t* self) __reentrant ;
 typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
 
-stateMachine_t* allocateStateMachineMemory(	uint16_t historyArraySize, stateMachine_memRequirements_t getMemRequirements, stateMachine_constructor_t constructor) ;
+stateMachine_t* allocateStateMachineMemory(	uint16_t stateMachineSizeInBytes, uint16_t historyArraySize, stateMachine_memRequirements_t getMemRequirements, stateMachine_constructor_t constructor) ;
 void deallocateStateMachineMemory(			stateMachine_t* instance, stateMachine_destructor_t destructor) ;
 
 
@@ -280,7 +303,8 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 													sm##_SUBSTATE_ENTRY						= SUBSTATE_ENTRY,						\
 													sm##_SUBSTATE_INITIAL_TRANSITION		= SUBSTATE_INITIAL_TRANSITION,			\
 													sm##_SUBSTATE_JUMP_TO_HISTORY_DEFAULT	= SUBSTATE_JUMP_TO_HISTORY_DEFAULT,		\
-													sm##_SUBSTATE_TIMEOUT					= SUBSTATE_TIMEOUT,						\
+													sm##_SUBSTATE_TICK						= SUBSTATE_TICK,						\
+													sm##_SUBSTATE_TIMER						= SUBSTATE_TIMER,						\
 													sm##_SUBSTATE_WATCHED					= SUBSTATE_WATCHED,						\
 													sm##_SUBSTATE_DO						= SUBSTATE_DO,							\
 													sm##_SUBSTATE_EXIT						= SUBSTATE_EXIT,						\
@@ -405,7 +429,7 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 #define STATE_MACHINE_DESTRUCTOR_1(sm)			STATE_MACHINE_DESTRUCTOR_2(sm)
 #define STATE_MACHINE_DESTRUCTOR()				STATE_MACHINE_DESTRUCTOR_1(STATE_MACHINE_NAME)
 
-#define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	allocateStateMachineMemory(sm##_getHistoryArraySize(), sm##_getMemoryRequirements, sm##_constructor)
+#define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	allocateStateMachineMemory(sm##_getMachineSize(), sm##_getHistoryArraySize(), sm##_getMemoryRequirements, sm##_constructor)
 #define STATE_MACHINE_DESTROY_INSTANCE_OF(sm, inst)	deallocateStateMachineMemory(inst, sm##_destructor)
 
 #define DEFINE_TOP_STATE_2(sm)					static stateMachine_stateResponse_t sm##_TOP_handler(			sm##Machine_t* self, event_t* event) __reentrant
@@ -468,6 +492,8 @@ bool hsm_postEvent(stateMachine_t* sm, event_t* event) ;
 
 #define ON_ENTRY(act)							if(hsm_getEventType(event) == SUBSTATE_ENTRY)	{ act ; return HANDLED ; }
 #define ON_EXIT(act)							if(hsm_getEventType(event) == SUBSTATE_EXIT)	{ act ; return HANDLED ; }
+
+#define ON_EVENT(evt, act)						if(hsm_getEventType(event) == evt)				{ act ; stateResponseCode = HANDLED ; }
 
 #define END_DEFINE_STATE()						(void)self ; (void)event ; return stateResponseCode ; }
 

@@ -16,6 +16,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "config.h"
+
 #include "stateMachine_G4.h"
 
 
@@ -25,10 +27,6 @@
 #define MINIMAL_TRACING_ENABLED
 
 
-#define configMAXIMUM_NUMBER_OF_STATE_MACHINES		50
-#define configMAXIMUM_NUMBER_OF_TIMEOUTS			50
-#define configMAXIMUM_NUMBER_OF_WATCH_VARIABLES		50
-#define configMAXIMUM_STATE_HIERARCHY_DEPTH			16
 
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
 
@@ -146,14 +144,15 @@ event_t* hsm_createNewEvent(stateMachine_t* sm, eventType_t eventType, uint16_t 
 	}
 }
 
-stateMachine_t* allocateStateMachineMemory(		uint16_t historyArraySize,
+stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
+												uint16_t historyArraySize,
 												stateMachine_memRequirements_t getMemRequirements,
 												stateMachine_constructor_t constructor)
 {
 	uint8_t							i ;
 	const machineMemoryPoolInto_t*	memoryRequirements			= getMemRequirements() ;
 	uint16_t						eventQueueDepth				= memoryRequirements->eventQueueDepth ;
-	uint16_t						stateMachineSize			= sizeof(stateMachine_t) ;
+	uint16_t						stateMachineSize			= stateMachineSizeInBytes ;
 	uint16_t						eventQueueSize				= (eventQueueDepth * sizeof(event_t*)) ;
 	uint16_t						typesOfEventsToDeferSize	= (eventQueueDepth * sizeof(eventType_t*)) ;
 	uint16_t						deferredEventQueueSize		= (eventQueueDepth * sizeof(event_t*)) ;
@@ -214,6 +213,10 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t historyArraySize,
 
 	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
 
+	numberOfBytesNeeded += numberOfTimerEvents * sizeof(alarmEvent_t) ;
+
+	numberOfBytesNeeded = (numberOfBytesNeeded + 3) & 0xFFFCUL ;
+
 	printf("\tAllocating %d (0x%04X) total bytes\n", numberOfBytesNeeded, numberOfBytesNeeded) ;
 
 	instance = hsm_malloc(numberOfBytesNeeded) ;
@@ -237,9 +240,12 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t historyArraySize,
 		instance->typesOfEventsToDefer				= typesOfEventsToDefer ;
 
 		instance->numberOfHistoricalMarkers			= historyArraySize ;
-		instance->historicalMarkers					= historicalMarkerArray ;
-		instance->mostRecentlyEnteredState			= (void*)0 ;
-		instance->mostRecentlyExitedState			= (void*)0 ;
+		if(historyArraySize)
+		{
+			instance->historicalMarkers				= historicalMarkerArray ;
+			instance->mostRecentlyEnteredState		= (void*)0 ;
+			instance->mostRecentlyExitedState		= (void*)0 ;
+		}
 
 		instance->memoryPoolInfo					= memoryRequirements ;
 		instance->startOfEventMemoryPools			= (void*)(((char*)historicalMarkerArray) + historicalMarkerArraySize) ;
@@ -264,7 +270,25 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t historyArraySize,
 		}
 
 		printf("\tinstance->historicalMarkerArray  : %p\n", (void*)instance->historicalMarkers) ;
-		printf("\ttimer event memory               : %p\n", (void*)instance->historicalMarkers) ;
+
+		if(numberOfTimerEvents)
+		{
+			instance->startOfTimerEvents = (void*)memoryPoolLocation ;
+		}
+
+		printf("\ttimer event memory               : %p\n", (void*)instance->startOfTimerEvents) ;
+
+		if(numberOfTimerEvents)
+		{
+			instance->numberOfTimerEvents = numberOfTimerEvents ;
+
+			for( i = 0 ; i < numberOfTimerEvents ; i++ )
+			{
+				printf("\t\talarm event %2d start: %p\n", i, (void*)memoryPoolLocation) ;
+
+				memoryPoolLocation += sizeof(alarmEvent_t) ;
+			}
+		}
 
 		printf("\tinstance last memory location    : %p\n", (void*)(((char*)instance) + numberOfBytesNeeded)) ;
 
@@ -376,64 +400,20 @@ watchedVariableTransitionEvent_t* getNextWatchEventVariable(	stateMachine_t*	mac
 	return (watchedVariableTransitionEvent_t*)0 ;
 }
 
+int timeval_subtract(struct timeval* result, struct timeval* x, struct timeval* y) ;
+
 void iterateAllStateMachines(	void)
 {
+#if configPRINT_RTC_EXECUTION_TIME
+	struct timeval startTime ;
+	struct timeval endTime ;
+	struct timeval duration ;
+#endif
+
 	uint8_t		statetMachineIndex ;
 #if 0
 	uint8_t		timeoutIndex ;
 	uint8_t		watchVariableIndex ;
-
-	/* Go through the list of timeouts and send the appropriate signals if needed */
-
-	if(		(nextTimeout_hours > uptime_hours)
-		&&	(nextTimeout_microseconds > uptime_microseconds))
-	{
-		uint32_t	newNextTimeout_hours		= 0 ;
-		uint32_t	newNextTimeout_microseconds	= 0 ;
-
-		for( timeoutIndex = 0 ; timeoutIndex < configMAXIMUM_NUMBER_OF_TIMEOUTS ; timeoutIndex++ )
-		{
-			if(timeouts[timeoutIndex].machine)
-			{
-				if(		(timeouts[timeoutIndex].uptime_hours_endTime > nextTimeout_hours)
-					&&	(timeouts[timeoutIndex].uptime_microseconds_endTime > nextTimeout_microseconds))
-				{
-					/* timeout has occurred so send post the message to the appropriate machine */
-#if 0
-					stateMachineWatch_t*	watch = (stateMachineWatch_t*)hsm_createEvent(watches[watchVariableIndex].machine, SUBSTATE_WATCHED) ;
-
-					hsm_postEvent(watches[watchVariableIndex].machine, &watches[watchVariableIndex]) ;
-#endif
-					/* Now wipe out this timeout so it won't get checked again */
-
-					timeouts[timeoutIndex].uptime_hours_endTime			= 0 ;
-					timeouts[timeoutIndex].uptime_microseconds_endTime	= 0 ;
-					timeouts[timeoutIndex].machine						= 0 ;
-				}
-
-				/* Now figure out when the next timeout will be. Note the difference here between
-				 * the equals and greater than case. This really is needed or you could have a
-				 * case where the microseconds part was greater in the timeouts array than the one
-				 * in newNextTimeout_microseconds which could cause the hour to be reset when it
-				 * should not have been.
-				 */
-
-				if(timeouts[timeoutIndex].uptime_hours_endTime > newNextTimeout_hours)
-				{
-					newNextTimeout_hours		= timeouts[timeoutIndex].uptime_hours_endTime ;
-					newNextTimeout_microseconds	= timeouts[timeoutIndex].uptime_microseconds_endTime ;
-				}
-				else if(timeouts[timeoutIndex].uptime_hours_endTime == newNextTimeout_hours)
-				{
-					if(timeouts[timeoutIndex].uptime_microseconds_endTime > newNextTimeout_microseconds)
-					{
-						newNextTimeout_hours		= timeouts[timeoutIndex].uptime_hours_endTime ;
-						newNextTimeout_microseconds	= timeouts[timeoutIndex].uptime_microseconds_endTime ;
-					}
-				}
-			}
-		}
-	}
 
 	/* Go through the list of watch variables and send signals for any that have changed to true */
 
@@ -485,6 +465,11 @@ void iterateAllStateMachines(	void)
 		}
 	}
 #endif
+
+#if configPRINT_RTC_EXECUTION_TIME
+	gettimeofday(&startTime, NULL) ;
+#endif
+
 	/* Finally, iterate through all state machines to handle normal event processing */
 
 	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
@@ -508,6 +493,13 @@ void iterateAllStateMachines(	void)
 		}
 	}
 
+#if configPRINT_RTC_EXECUTION_TIME
+	gettimeofday(&endTime, NULL) ;
+
+	timeval_subtract(&duration, &endTime, &startTime) ;
+
+	printf("[%07ld]", duration.tv_usec) ;
+#endif
 }
 
 
@@ -517,18 +509,18 @@ char*					eventTypes[]			= {	"SUBSTATE_NON_EVENT",
 													"SUBSTATE_INITIAL_TRANSITION",
 													"SUBSTATE_JUMP_TO_HISTORY_DEFAULT",
 													"SUBSTATE_TICK",
-													"SUBSTATE_TIMEOUT",
+													"SUBSTATE_TIMER",
 													"SUBSTATE_WATCHED",
 													"SUBSTATE_DO",
 													"SUBSTATE_EXIT" } ;
 #endif
 #ifdef MINIMAL_TRACING_ENABLED
-char*					eventTypes[]			= { "NON",
+char*					eventTypes[]			= { "NO_EVENT",
 													"ENTRY",
 													"INIT",
 													"HIST_DEF",
 													"TICK",
-													"TIMEOUT",
+													"TIMER",
 													"WATCH",
 													"DO",
 													"EXIT" } ;
@@ -541,9 +533,88 @@ char*					responseTypes[]			= { "IGNORED",
 static const event_t	initialTransitionEvent	= { SUBSTATE_INITIAL_TRANSITION } ;
 static const event_t	jumpToHistoryEvent		= { SUBSTATE_JUMP_TO_HISTORY_DEFAULT } ;
 static const event_t	doEvent					= { SUBSTATE_DO } ;
+static const event_t	tickEvent				= { SUBSTATE_TICK } ;
 static const event_t	enterEvent				= { SUBSTATE_ENTRY } ;
 static const event_t	exitEvent				= { SUBSTATE_EXIT } ;
 
+void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
+{
+	uint8_t			statetMachineIndex ;
+
+	for( statetMachineIndex = 0 ; statetMachineIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineIndex++ )
+	{
+		stateMachine_t*	machine = stateMachines[statetMachineIndex] ;
+
+		if(machine != NULL)
+		{
+			/* If this machine really wants to get TICK events, send them */
+
+			if(machine->requestsTickEvents)
+			{
+				hsm_postEventToMachine((event_t*)&tickEvent, machine) ;
+			}
+
+			/* See if there is a time event pending for this state machine. If so, check to see if it's time */
+
+			if(machine->startOfTimerEvents)
+			{
+				uint8_t	alarmIndex ;
+
+				/* There is at least one timer set so figure out if it's time to fire off an alarm event
+				 * Now cycle through all the alarms for this machine and see if any of them are due.
+				 * If so, fire off the needed events and reset the alarms if needed.
+				 */
+
+				for( alarmIndex = 0 ; alarmIndex < machine->numberOfTimerEvents ; alarmIndex++ )
+				{
+					alarmEvent_t*	alarm = (alarmEvent_t*)(machine->startOfTimerEvents) ;
+
+					if(alarm->active)
+					{
+						alarm->remainingMicroseconds -= microsecondsSinceLastHandled ;
+
+						if(alarm->remainingMicroseconds > (60UL * 60UL * 1000000UL))
+						{
+							/* must have wrapped around so reset it */
+
+							alarm->remainingMicroseconds = 0 ;
+						}
+
+						if(alarm->remainingMicroseconds == 0)
+						{
+							if(alarm->remainingHours > 0)
+							{
+								--(alarm->remainingHours) ;
+
+								alarm->remainingMicroseconds = (60UL * 60UL * 1000000UL) ;
+							}
+							else if(alarm->remainingHours == 0)
+							{
+								/* Here's at least one. Fire off the event */
+
+								hsm_postEventToMachine((event_t*)alarm, machine) ;
+#if 0
+								printf("AIMING AT '%s'...FIRE!!!\n", machine->stateMachineName) ;
+#endif
+								/* If this is a repeating alarm, reset it for next time */
+
+								if((alarm->repeatingHours) || (alarm->repeatingMicroseconds))
+								{
+									alarm->remainingHours			= alarm->repeatingHours ;
+									alarm->remainingMicroseconds	= alarm->repeatingMicroseconds ;
+								}
+								else
+								{
+									alarm->active = false ;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
 {
@@ -558,7 +629,22 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 
 	if(state->type == CHOICE_PSUEDOSTATE)
 	{
-		response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
+		/* For choice pseudostates, only process the initial transition event.
+		 * This actually makes sense since a transition is guaranteed from one
+		 * of these.
+		 * If I call the handler for any events, then the entry and exit events
+		 * get either the true or fall condition action called 3 times; one for
+		 * entry, one for the initial transition and one for the exit event.
+		 */
+
+		if(event == &initialTransitionEvent)
+		{
+			response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
+		}
+		else
+		{
+			response = IGNORED ;
+		}
 	}
 	else
 	{
@@ -587,11 +673,19 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 		}
 
 #ifdef MINIMAL_TRACING_ENABLED
-		if(		(hsm_getEventType(event) != SUBSTATE_DO)
+#warning The check for the intiial transition being present won't work if there is an on_entry or on_exit handler since those return immediately thereby preventing the flag from being set.
+		if(		(sm->printStateTransitions)
+			&&	(hsm_getEventType(event) != SUBSTATE_DO)
 			&&	(!((hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) && (!sm->currentStateHasInitialTransition))))
 		{
 #if 0
 			printf("%s-%s;", &state->stateName[strlen(sm->stateMachineName) + 1], hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ; fflush(stdout) ;
+#elif 0
+			printf(	"<%s>%s;",
+					sm->instanceName,
+					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
+												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+			fflush(stdout) ;
 #else
 			printf(	"<%s>%s-%s;",
 					sm->instanceName,
@@ -1023,7 +1117,14 @@ void iterateStateMachine(	stateMachine_t* sm)
 #ifdef MINIMAL_TRACING_ENABLED
 			if(!forceTransition)
 			{
-				printf("\n") ;
+				if(sm->machineOutputDisplay)
+				{
+					((stateMachine_displayMachineOutput_t)(sm->machineOutputDisplay))(sm) ;
+				}
+				else
+				{
+//					printf("\n") ;
+				}
 			}
 #endif
 		}
