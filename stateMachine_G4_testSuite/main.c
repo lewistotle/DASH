@@ -27,7 +27,7 @@
 	#define EXIT_SUCCESS	0
 #endif
 
-#include "task_UART.h"
+//#include "task_UART.h"
 
 
 #include "stateMachine_G4.h"
