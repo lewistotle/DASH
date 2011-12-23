@@ -16,13 +16,15 @@
 #include <string.h>
 #include <stdio.h>
 
-#if defined(__TS7800__) || defined(__cygwin__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	#include <sys/time.h>
 	#include <unistd.h>
 	#include <termios.h>
 	#include <pthread.h>
 
 	pthread_mutex_t	hsm_mutex = PTHREAD_MUTEX_INITIALIZER ;
+	int				criticalSectionLockAttempts ;
+	int				criticalSectionLockEntries ;
 #elif defined(__AVR_ARCH__)
 	#define EXIT_SUCCESS	0
 #endif
@@ -180,7 +182,7 @@ void handleKeypress(uint8_t c)
 }
 
 
-#if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
 int main()
 #else
 void main(	void)
@@ -190,7 +192,9 @@ void main(	void)
 
 	puts("4th Generation state machine test started.") ;
 
+#if !defined(__linux__)
 	task_UART_init(0) ;
+#endif
 	task_TIMER_init() ;
 
 	bomb_0 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
@@ -232,7 +236,9 @@ void main(	void)
 
 	while(ok)
 	{
+#if !defined(__linux__)
 		task_UART_core(0) ;
+#endif
 		task_TIMER_core() ;
 
 		ITERATE_ALL_STATE_MACHINES() ;
@@ -240,7 +246,9 @@ void main(	void)
 		usleep(10000) ;
 	}
 
+#if !defined(__linux__)
 	task_UART_shutdown(0) ;
+#endif
 	task_TIMER_shutdown() ;
 
 	if(fourLevelTest)
@@ -290,7 +298,7 @@ void main(	void)
 
 	puts("\n4th Generation state machine test done.") ;
 
-#if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
 	return EXIT_SUCCESS ;
 #endif
 }

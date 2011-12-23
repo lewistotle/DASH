@@ -144,6 +144,11 @@ DEFINE_MACHINE_DEBUGGING_DISPLAY()
 END_MACHINE_DEBUGGING_DISPLAY()
 
 
+STATE_MACHINE_FATAL_ERROR_HANDLER()
+{
+}
+
+
 void addDigitToIntegralPortion(	calculatorMachine_t* sm, event_t* event)
 {
 	if(sm->integerBeingEntered < 100000000UL)

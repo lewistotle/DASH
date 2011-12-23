@@ -50,6 +50,11 @@ STATE_MACHINE_CONSTRUCTOR()
 }
 
 
+STATE_MACHINE_FATAL_ERROR_HANDLER()
+{
+}
+
+
 STATE_MACHINE_DESTRUCTOR()
 {
 	(void)self ;	/* Nothing to do here */

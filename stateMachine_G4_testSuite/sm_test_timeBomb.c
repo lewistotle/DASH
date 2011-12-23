@@ -70,7 +70,7 @@ STATE_MACHINE_CONSTRUCTOR()
 	self->timeout			= config_tbINIT_TIMEOUT ;
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
-	self->finetick			= SET_ALARM(FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
+	self->finetick			= CREATE_ALARM(FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
 
 	printf("Locating self->finetick at %p\n", (void*)self->finetick) ;
 }
@@ -111,6 +111,11 @@ DEFINE_MACHINE_DEBUGGING_DISPLAY()
 {
 }
 END_MACHINE_DEBUGGING_DISPLAY()
+
+
+STATE_MACHINE_FATAL_ERROR_HANDLER()
+{
+}
 
 
 void displayTicks(	const char* instanceName, uint8_t value)

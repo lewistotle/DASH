@@ -1,20 +1,20 @@
 CC				= gcc
-CFLAGS			= -O3 -I.. -g
-OUT_DIR			= __linux
+CFLAGS			= -O3 -I../../ -g
+OUT_DIR			= ./
 OBJS			= main.o projectSpecificHardwareInterface_cygwin_and_TS7800.o sm_test_calculator.o sm_test_fourLevelTest.o sm_test_timeBomb.o sm_test_toaster.o stateMachine_G4.o stateMachine_G4_eventQueue.o
 OUT_OBJS		= $(addprefix $(OUT_DIR)/,$(OBJS))
 
 
 dash			: $(OUT_OBJS)
-					$(CC) $(CFLAGS) $^ -o $@
+					$(CC) $(CFLAGS) -lpthread $^ -o $@
 
-$(OUT_DIR)/stateMachine_G4.o : ../stateMachine_G4.c
+$(OUT_DIR)/stateMachine_G4.o : ../../stateMachine_G4.c
 					$(CC) $(CFLAGS) -c $< -o $@
 
-$(OUT_DIR)/stateMachine_G4_eventQueue.o : ../stateMachine_G4_eventQueue.c
+$(OUT_DIR)/stateMachine_G4_eventQueue.o : ../../stateMachine_G4_eventQueue.c
 					$(CC) $(CFLAGS) -c $< -o $@
 
-$(OUT_DIR)/%.o	: %.c
+$(OUT_DIR)/%.o	: ../%.c
 					$(CC) $(CFLAGS) -c $< -o $@
 
 clean			:

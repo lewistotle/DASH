@@ -974,7 +974,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ITERATE_ALL_STATE_MACHINES()			hsm_iterateAllStateMachines()
 
 
-#if defined(__TS7800__) || defined(__cygwin__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	#include <pthread.h>
 
 	extern pthread_mutex_t	hsm_mutex ;

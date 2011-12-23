@@ -217,8 +217,8 @@ void task_UART_shutdown_projectSpecific(	unsigned char channelNumber)
 #endif
 
 
-extern uint32_t	uptime_hours ;
-extern uint32_t	uptime_microseconds ;
+uint32_t	uptime_hours ;
+uint32_t	uptime_microseconds ;
 
 void task_TIMER_init(		void)
 {
@@ -259,7 +259,7 @@ void task_TIMER_core(		void)
 
 void task_TIMER_shutdown(	void)
 {
-#if defined(__TS7800__) || defined(__cygwin__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	pthread_join(timer_threadHandle, &timer_threadStatus) ;
 #endif
 }

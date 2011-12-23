@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#if defined(__TS7800__) || defined(__cygwin__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	#include <pthread.h>
 #endif
 
@@ -184,13 +184,13 @@ typedef struct
 	eventQueueIndex_t	Rear ;
 	eventQueueIndex_t	Size ;
 	event_t**			Array ;
-#if defined(__TS7800__) || defined(__cygwin__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	pthread_mutex_t		mutex ;
 #endif
 } eventQueue_t ;
 
 
-#if defined(__TS7800__) || defined(__cygwin__)
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	pthread_mutex_lock(&(Q->mutex)) ;
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		pthread_mutex_unlock(&(Q->mutex)) ;
 #endif
