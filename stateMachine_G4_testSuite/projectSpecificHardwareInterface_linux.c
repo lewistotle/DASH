@@ -42,61 +42,6 @@ extern stateMachine_t*	calculator ;
 
 #define puts(s)		puts(s) ; fflush(stdout) ;
 
-static struct termios init_tio;
-struct termios tio;
-struct timeval tv;
-
-
-
-
-void init_keyboard()
-{
-    tcgetattr(0,&init_tio);
-    /* set up terminal */
-    memcpy(&tio,&init_tio,sizeof(struct termios));
-    tio.c_lflag &= ~(ICANON);
-    tcsetattr(0,TCSANOW,&tio);
-}
-
-
-void close_keyboard()
-{
-    /* back to initial terminal mode */
-    tcsetattr(0,TCSANOW,&init_tio);
-    tcsetattr(0,TCSANOW,&init_tio);
-}
-
-
-int kbhit()
-{
-    fd_set rfds;
-    /* do not wait */
-    FD_ZERO(&rfds);
-    FD_SET(0,&rfds);
-    tv.tv_usec = 0;
-    tv.tv_sec  = 0;
-    fflush(stdout) ;
-    fflush(stdin) ;
-    select(1,&rfds,NULL,NULL,&tv);
-    return (FD_ISSET(0,&rfds)?1:0);
-}
-
-
-int readkey()
-{
-    int ch;
-    struct termios tio;
-    /* set up terminal */
-    memcpy(&tio,&init_tio,sizeof(struct termios));
-    tio.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO,TCSANOW,&tio);
-    /* input key */
-    read(0,&ch,1);
-    /* back to initial terminal mode */
-    tcsetattr(0,TCSANOW,&init_tio);
-    return ch;
-}
-
 
 void handleKeypress(uint8_t c) ;
 void* charInput_thread(	void* threadID) ;
@@ -106,9 +51,11 @@ void*			charInput_threadStatus ;
 
 char	UARTtempBuffer[512] ;
 
-void task_UART_init_projectSpecific(	unsigned char channelNumber)
+void hal_UART_init_projectSpecific(	unsigned char channelNumber)
 {
 	int	rc ;
+
+	puts("charInput thread starting.") ;
 
 	rc = pthread_create(&charInput_threadHandle, NULL, charInput_thread, (void*)&charInput_threadStatus) ;
 
@@ -121,7 +68,7 @@ void task_UART_init_projectSpecific(	unsigned char channelNumber)
 }
 
 
-void task_UART_core_projectSpecific(	unsigned char channelNumber)
+void hal_UART_core_projectSpecific(	unsigned char channelNumber)
 {
 	/* Nothing to do here since it's all handled by charInput_thread */
 }
@@ -129,23 +76,36 @@ void task_UART_core_projectSpecific(	unsigned char channelNumber)
 
 void* charInput_thread(	void* threadID)
 {
-	char c = 0 ;
+	static struct termios	init_tio ;
+	struct termios			tio ;
+	char					characterRead ;
+	ssize_t 				ignored = 0 ;
 
 	puts("charInput thread started.") ;
 
-	init_keyboard() ;
+	// Set up the terminal so that it will buffer by character rather than by line and apply the change immediately
+
+    tcgetattr(0, &init_tio) ;
+
+    memcpy(&tio, &init_tio, sizeof(struct termios)) ;
+
+    tio.c_lflag &= ~(ICANON | ECHO) ;
+
+    tcsetattr(0, TCSANOW, &tio) ;
 
 	do
 	{
-		c = readkey() ;
+		ignored = read(0, &characterRead, 1) ;
 
-		handleKeypress(c) ;
-	} while(c != 0x1B) ;
+		handleKeypress(characterRead) ;
+	} while(characterRead != 0x1B) ;
 
 
 	puts("charInput thread exited.") ;
 
-	close_keyboard() ;
+    /* back to initial terminal mode */
+    tcsetattr(0, TCSANOW, &init_tio) ;
+    tcsetattr(0, TCSANOW, &init_tio) ;
 
 	pthread_exit((void*)threadID) ;
 
@@ -153,36 +113,65 @@ void* charInput_thread(	void* threadID)
 }
 
 
-bool task_UART_putchar_projectSpecific(						unsigned char channelNumber, char charToSend)
+bool hal_UART_putchar_projectSpecific(						unsigned char channelNumber, char charToSend)
 {
 	return putchar(charToSend) ;
 }
 
 
-void task_UART_puts_projectSpecific(						unsigned char channelNumber, const char* buffer)
+void hal_UART_puts_projectSpecific(							unsigned char channelNumber, const char* buffer)
 {
 	puts(buffer) ;
 }
 
 
-char task_UART_getchar_projectSpecific(						unsigned char channelNumber)
+char hal_UART_getchar_projectSpecific(						unsigned char channelNumber)
 {
 	return getchar() ;
 }
 
 
-char* task_UART_gets_projectSpecific(						unsigned char channelNumber, char* buffer, unsigned short maxBufferLength)
+void hal_UART_shutdown_projectSpecific(	unsigned char channelNumber)
 {
-	return gets(buffer) ;
-}
+	puts("charInput thread join pending.") ;
 
-
-void task_UART_shutdown_projectSpecific(	unsigned char channelNumber)
-{
 	pthread_join(charInput_threadHandle, &charInput_threadStatus) ;
+
+	puts("charInput thread join complete.") ;
 }
 
 
+bool hal_UART_isCharacterInReceiveBuffer_projectSpecific(		unsigned char channelNumber)
+{
+	return false ;
+}
+
+
+char hal_UART_getCharFromReceiveBuffer_projectSpecific(		unsigned char channelNumber)
+{
+	return 0 ;
+}
+
+
+void hal_UART_clearCharacterReceivedFlag_projectSpecific(		unsigned char channelNumber)
+{
+}
+
+
+void hal_UART_sendchar_projectSpecific(						unsigned char channelNumber, char charToSend)
+{
+}
+
+
+bool hal_UART_isTransmitterReadyForChar_projectSpecific(		unsigned char channelNumber)
+{
+	return true ;
+}
+
+
+void hal_UART_clearCharacterTransmittedFlag_projectSpecific(	unsigned char channelNumber)
+{
+}
 
 
 
@@ -220,22 +209,13 @@ void task_UART_shutdown_projectSpecific(	unsigned char channelNumber)
 uint32_t	uptime_hours ;
 uint32_t	uptime_microseconds ;
 
+static bool timerShouldRun = false ;
+
 void task_TIMER_init(		void)
 {
-#ifdef __c8051f040__
-	WDTCN = 0xDE ;	/* Disable the watchdog timer */
-	WDTCN = 0xAD ;
-	WDTCN = 0xFF ;	/* Disable any future ability to modify the watchdog timer */
-
-	prvSetupSystemClock() ;
-	gpio_init() ;
-	pwm_init(ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL) ;
-	prvSetupTimerInterrupt() ;
-	task_UART_init(0) ;
-
-	portENABLE_INTERRUPTS() ;
-#else
 	int				rc ;
+
+	timerShouldRun = true ;
 
 	rc = pthread_create(&timer_threadHandle, NULL, timer_thread, (void*)&timer_threadStatus) ;
 
@@ -246,9 +226,10 @@ void task_TIMER_init(		void)
 		exit(EXIT_FAILURE) ;
 	}
 
+	puts("timer thread started.") ;
+
 	uptime_hours		= 0 ;
 	uptime_microseconds	= 0 ;
-#endif
 }
 
 
@@ -259,9 +240,13 @@ void task_TIMER_core(		void)
 
 void task_TIMER_shutdown(	void)
 {
-#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
+	timerShouldRun = false ;
+
+	puts("timer thread join pending.") ;
+
 	pthread_join(timer_threadHandle, &timer_threadStatus) ;
-#endif
+
+	puts("timer thread join complete.") ;
 }
 
 
@@ -319,7 +304,7 @@ void* timer_thread(	void* threadID)
 
 	gettimeofday(&lastTickTime, NULL) ;
 
-	while(true)
+	while(timerShouldRun)
 	{
 		struct timeval	currentTime ;
 		struct timeval	timeSinceLastCheck ;

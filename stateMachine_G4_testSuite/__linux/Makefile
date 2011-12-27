@@ -1,12 +1,15 @@
 CC				= gcc
-CFLAGS			= -O3 -I../../ -g
+CFLAGS			= -O3 -Wall -I. -I../../ -I../../HAL -DUSING_NEWLIB -nostdlib -Lnewlib -g
 OUT_DIR			= ./
-OBJS			= main.o projectSpecificHardwareInterface_cygwin_and_TS7800.o sm_test_calculator.o sm_test_fourLevelTest.o sm_test_timeBomb.o sm_test_toaster.o stateMachine_G4.o stateMachine_G4_eventQueue.o
+OBJS			= main.o projectSpecificHardwareInterface_linux.o sm_test_calculator.o sm_test_fourLevelTest.o sm_test_timeBomb.o sm_test_toaster.o stateMachine_G4.o stateMachine_G4_eventQueue.o hal_UART.o
 OUT_OBJS		= $(addprefix $(OUT_DIR)/,$(OBJS))
 
 
 dash			: $(OUT_OBJS)
 					$(CC) $(CFLAGS) -lpthread $^ -o $@
+
+$(OUT_DIR)/hal_UART.o : ../../HAL/hal_UART.c
+					$(CC) $(CFLAGS) -c $< -o $@
 
 $(OUT_DIR)/stateMachine_G4.o : ../../stateMachine_G4.c
 					$(CC) $(CFLAGS) -c $< -o $@
