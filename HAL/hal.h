@@ -126,31 +126,7 @@ void				hal_GPIO_pinLevel_ISR(						void) ;
 void				hal_GPIO_pinLevelChange_ISR(				void) ;
 
 
-
-
-
-
-
-
-bool	hal_UART_init(											uint8_t channelNumber) ;
-void	hal_UART_core(											uint8_t channelNumber) ;
-bool	hal_UART_puts(											uint8_t channelNumber, const char* stringToSend) ;
-bool	hal_UART_putchar(										uint8_t channelNumber, uint8_t charToSend) ;
-bool	hal_UART_hasCharBeenSent(								uint8_t channelNumber) ;
-bool	hal_UART_hasCharBeenReceived(							uint8_t channelNumber) ;
-uint8_t	hal_UART_getchar(										uint8_t channelNumber) ;
-void	hal_UART_shutdown(										uint8_t channelNumber) ;
-
-bool	hal_UART_init_projectSpecific(							uint8_t channelNumber) ;
-bool	hal_UART_isTransmitterReadyForChar_projectSpecific(		uint8_t channelNumber) ;
-bool	hal_UART_sendchar_projectSpecific(						uint8_t channelNumber, uint8_t charToSend) ;
-bool	hal_UART_hasCharBeenSent_projectSpecific(				uint8_t channelNumber) ;
-void	hal_UART_clearCharacterTransmittedFlag_projectSpecific(	uint8_t channelNumber) ;
-bool	hal_UART_isCharacterInReceiveBuffer_projectSpecific(	uint8_t channelNumber) ;
-uint8_t	hal_UART_getchar_projectSpecific(						uint8_t channelNumber) ;
-void	hal_UART_clearCharacterReceivedFlag_projectSpecific(	uint8_t channelNumber) ;
-void	hal_UART_shutdown_projectSpecific(						uint8_t channelNumber) ;
-
+#include "hal_UART.h"
 
 
 

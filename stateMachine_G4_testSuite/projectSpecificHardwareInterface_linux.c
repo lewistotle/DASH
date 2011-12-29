@@ -169,6 +169,12 @@ bool hal_UART_isTransmitterReadyForChar_projectSpecific(		unsigned char channelN
 }
 
 
+bool	hal_UART_hasCharBeenSent_projectSpecific(				uint8_t channelNumber)
+{
+	return false ;
+}
+
+
 void hal_UART_clearCharacterTransmittedFlag_projectSpecific(	unsigned char channelNumber)
 {
 }

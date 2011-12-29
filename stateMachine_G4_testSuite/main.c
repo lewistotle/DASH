@@ -29,9 +29,8 @@
 	#define EXIT_SUCCESS	0
 #endif
 
-//#include "task_UART.h"
 
-
+#include "hal.h"
 #include "stateMachine_G4.h"
 #include "sm_globalEvents.h"
 #include "sm_test_timeBomb.h"
@@ -160,11 +159,11 @@ void handleKeypress(uint8_t c)
 		}
 		else if(target == bomb_1)
 		{
-			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
+			hsm_postEventToMachine(bomb_1, (event_t*)event) ;
 		}
 		else if(target == bomb_2)
 		{
-			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
+			hsm_postEventToMachine(bomb_2, (event_t*)event) ;
 		}
 		else if(target == calculator)
 		{
@@ -182,20 +181,50 @@ void handleKeypress(uint8_t c)
 }
 
 
+#define UART_0_RECEIVE_BUFFER_SIZE	100
+#define UART_0_TRANSMIT_BUFFER_SIZE	1000
+
+static bool		UART_0_initializedFlag = false ;
+static uint8_t	UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE] ;
+static uint8_t	UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE] ;
+
+static hal_UART_info_t	UART_0_struct =	{	0,							/* channel number */
+											&UART_0_initializedFlag,	/* initialized flag */
+											UART_0_receiveBuffer,
+											UART_0_RECEIVE_BUFFER_SIZE,
+											UART_0_transmitBuffer,
+											UART_0_TRANSMIT_BUFFER_SIZE,
+											hal_UART_init_projectSpecific,
+											hal_UART_core_projectSpecific,
+											hal_UART_isTransmitterReadyForChar_projectSpecific,
+											hal_UART_sendchar_projectSpecific,
+											hal_UART_hasCharBeenSent_projectSpecific,
+											hal_UART_clearCharacterTransmittedFlag_projectSpecific,
+											hal_UART_isCharacterInReceiveBuffer_projectSpecific,
+											hal_UART_getchar_projectSpecific,
+											hal_UART_clearCharacterReceivedFlag_projectSpecific,
+											hal_UART_shutdown_projectSpecific,
+											NULL						/* device specific data */
+										} ;
+
+hal_UART_info_t* UART_0 = &UART_0_struct ;
+
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
-int main()
+	#ifdef USING_NEWLIB
+		int _start()
+	#else
+		int main()
+	#endif
 #else
 void main(	void)
 #endif
 {
 	ok = true ;
 
-	puts("4th Generation state machine test started.") ;
+	puts("DASH test started.") ;
 
-#if !defined(__linux__)
-	task_UART_init(0) ;
-#endif
 	task_TIMER_init() ;
+	hal_UART_init(UART_0) ;
 
 	bomb_0 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
 
@@ -236,19 +265,20 @@ void main(	void)
 
 	while(ok)
 	{
-#if !defined(__linux__)
-		task_UART_core(0) ;
-#endif
+		hal_UART_core(UART_0) ;
 		task_TIMER_core() ;
 
 		ITERATE_ALL_STATE_MACHINES() ;
+
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
 		fflush(stdout) ;
 		usleep(10000) ;
+#endif
 	}
 
-#if !defined(__linux__)
-	task_UART_shutdown(0) ;
-#endif
+	puts("DONE with state machines") ;
+
+	hal_UART_shutdown(UART_0) ;
 	task_TIMER_shutdown() ;
 
 	if(fourLevelTest)
@@ -296,9 +326,12 @@ void main(	void)
 		bomb_0 = 0 ;
 	}
 
-	puts("\n4th Generation state machine test done.") ;
+	puts("\nDASH test done.") ;
 
-#if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
+#if defined(__linux__)
+	exit(0) ;
+#endif
+#if defined(__TS7800__) || defined(__cygwin__) || defined(__AVR_ARCH__)
 	return EXIT_SUCCESS ;
 #endif
 }

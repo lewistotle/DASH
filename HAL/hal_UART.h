@@ -1,100 +1,60 @@
 #ifndef _DASH_HAL_UART_H_
 #define _DASH_HAL_UART_H_
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-//#define DEBUG_PRINT_ENABLED
+/*
+ * UART
+ */
 
-#if FreeRTOS_ENABLED
-	void task_UART(	void *pvParameters) ;
-#endif
+typedef struct
+{
+	uint8_t		channelNumber ;
+	bool*		initialized ;
+	uint8_t*	receiveBuffer ;
+	uint16_t	receiveBufferSize ;
+	uint8_t*	transmitBuffer ;
+	uint16_t	transmitBufferSize ;
+	bool		(*init_projectSpecific)								(uint8_t channelNumber) ;
+	void		(*core_projectSpecific)								(uint8_t channelNumber) ;
+	bool		(*isTransmitterReadyForChar_projectSpecific)		(uint8_t channelNumber) ;
+	bool		(*sendchar_projectSpecific)							(uint8_t channelNumber, uint8_t charToSend) ;
+	bool		(*hasCharBeenSent_projectSpecific)					(uint8_t channelNumber) ;
+	void		(*clearCharacterTransmittedFlag_projectSpecific)	(uint8_t channelNumber) ;
+	bool		(*isCharacterInReceiveBuffer_projectSpecific)		(uint8_t channelNumber) ;
+	uint8_t		(*getchar_projectSpecific)							(uint8_t channelNumber) ;
+	void		(*clearCharacterReceivedFlag_projectSpecific)		(uint8_t channelNumber) ;
+	void		(*shutdown_projectSpecific)							(uint8_t channelNumber) ;
+	void*		deviceSpecificData ;
+} hal_UART_info_t ;
 
-#define	include_task_UART_init			true
-#define	include_task_UART_core			true
-#define	include_task_UART_shutdown		false
+bool		hal_UART_init(											hal_UART_info_t* hal_UART_info) ;
+void		hal_UART_core(											hal_UART_info_t* hal_UART_info) ;
+bool		hal_UART_puts(											hal_UART_info_t* hal_UART_info, const uint8_t* stringToSend) ;
+bool		hal_UART_putchar(										hal_UART_info_t* hal_UART_info, uint8_t charToSend) ;
+bool		hal_UART_hasCharBeenSent(								hal_UART_info_t* hal_UART_info) ;
+bool		hal_UART_hasCharBeenReceived(							hal_UART_info_t* hal_UART_info) ;
+uint8_t		hal_UART_getchar(										hal_UART_info_t* hal_UART_info) ;
+bool		hal_UART_isLineReady(									hal_UART_info_t* hal_UART_info) ;
+uint8_t*	hal_UART_gets(											hal_UART_info_t* hal_UART_info, uint8_t* destination, uint16_t maxBufferLength) ;
+void		hal_UART_shutdown(										hal_UART_info_t* hal_UART_info) ;
 
-#ifndef include_task_UART_init
-	#define	include_task_UART_init			true
-#endif
-#ifndef include_task_UART_core
-	#define	include_task_UART_core			true
-#endif
-#ifndef include_task_UART_shutdown
-	#define	include_task_UART_shutdown		false
-#endif
-
-#if include_task_UART_init
-	void task_UART_init(	unsigned char channelNumber) ;
-#else
-	#define task_UART_init(	n)
-#endif
-
-#if include_task_UART_core
-	void task_UART_core(	unsigned char channelNumber) ;
-	void task_CMD_process(unsigned char channelNumber);
-#else
-	#define task_UART_core(	n)
-#endif
-
-#if include_task_UART_shutdown
-	void task_UART_shutdown(	unsigned char channelNumber) ;
-#else
-	#define task_UART_shutdown(	n)
-#endif
-
-#ifndef configUART_ENABLED
-	#define configUART_ENABLED
-#endif
-
-extern void ServiceDog(void);
-
-extern char UARTtempBuffer[] ;
-
-#ifdef configUART_ENABLED
-	bool task_UART_putchar(		unsigned char channelNumber, char charToSend) ;
-	void task_UART_puts(		unsigned char channelNumber, const char* buffer) ;
-
-	char task_UART_getchar(		unsigned char channelNumber) ;
-	char* task_UART_gets(		unsigned char channelNumber, char* destination, unsigned short maxBufferLength) ;
-
-	bool task_UART_isLineReady(	unsigned char channelNumber) ;
-	bool task_CMD_compare(char * cmd, unsigned char index);
-	uint16_t task_CMD_parse(char* cmd, unsigned char index);
-
-#else
-	#define task_UART_putchar(		a, b)		true
-	#define task_UART_puts(			a, b)
-	#define task_UART_getchar(		a)			0x00
-	#define task_UART_gets(			a, b, c)
-	#define task_UART_isLineReady(	a)			false
-#endif
-
-#ifdef DEBUG_PRINT_ENABLED
-	#define DEBUG_PRINT_0(format)					{ sprintf(UARTtempBuffer, format) ;						task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_1(format, a)				{ sprintf(UARTtempBuffer, format, a) ;					task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_2(format, a, b)				{ sprintf(UARTtempBuffer, format, a, b) ;				task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_3(format, a, b, c)			{ sprintf(UARTtempBuffer, format, a, b, c) ;			task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_4(format, a, b, c, d)		{ sprintf(UARTtempBuffer, format, a, b, c, d) ;			task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_5(format, a, b, c, d, e)	{ sprintf(UARTtempBuffer, format, a, b, c, d, e) ;		task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_6(format, a, b, c, d, e, f)	{ sprintf(UARTtempBuffer, format, a, b, c, d, e, f) ;	task_UART_puts(0, UARTtempBuffer) ; }
-	#define DEBUG_PRINT_CAN(header, packet)			{ task_UART_puts(0, header) ;							task_CAN_dumpPacket(&packet) ;		}
-	void	DEBUG_PRINT_TIME(char* header, char* format, char* trailer) ;
-#else
-	#define DEBUG_PRINT_0(format)
-	#define DEBUG_PRINT_1(format, a)
-	#define DEBUG_PRINT_2(format, a, b)
-	#define DEBUG_PRINT_3(format, a, b, c)
-	#define DEBUG_PRINT_4(format, a, b, c, d)
-	#define DEBUG_PRINT_5(format, a, b, c, d, e)
-	#define DEBUG_PRINT_6(format, a, b, c, d, e, f)
-
-	#define DEBUG_PRINT_CAN(header, packet)
-
-	void	DEBUG_PRINT_TIME(char* header, char* format, char* trailer) ;
-#endif
+bool		hal_UART_init_projectSpecific(							uint8_t channelNumber) ;
+void		hal_UART_core_projectSpecific(							uint8_t channelNumber) ;
+bool		hal_UART_isTransmitterReadyForChar_projectSpecific(		uint8_t channelNumber) ;
+bool		hal_UART_sendchar_projectSpecific(						uint8_t channelNumber, uint8_t charToSend) ;
+bool		hal_UART_hasCharBeenSent_projectSpecific(				uint8_t channelNumber) ;
+void		hal_UART_clearCharacterTransmittedFlag_projectSpecific(	uint8_t channelNumber) ;
+bool		hal_UART_isCharacterInReceiveBuffer_projectSpecific(	uint8_t channelNumber) ;
+uint8_t		hal_UART_getchar_projectSpecific(						uint8_t channelNumber) ;
+void		hal_UART_clearCharacterReceivedFlag_projectSpecific(	uint8_t channelNumber) ;
+void		hal_UART_shutdown_projectSpecific(						uint8_t channelNumber) ;
 
 #ifdef __cplusplus
 }

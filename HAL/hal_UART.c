@@ -7,12 +7,6 @@
 #include <time.h>
 
 
-char	UARTtempBuffer[HAL_UART_TRANSMIT_BUFFER_SIZE] ;
-char* command_str;
-uint16_t data0 ;
-uint16_t data1 ;
-//static char rxbuffer[20];
-
 typedef struct
 {
 	uint16_t	Capacity ;
@@ -92,8 +86,10 @@ void hal_UART(void *pvParameters)
 #endif
 
 
-bool hal_UART_init(	uint8_t channelNumber)
+bool hal_UART_init(	hal_UART_info_t* hal_UART_info)
 {
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	static bool	UART_1initialized = false ;
 
 	bool returnValue = false ;
@@ -130,8 +126,10 @@ bool hal_UART_init(	uint8_t channelNumber)
 
 // MUST NOT TAKE LONGER THAN 750 uS TO EXECUTE EACH ITERATION
 
-void hal_UART_core(	uint8_t channelNumber)
+void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 {
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	if(channelNumber < HAL_UART_NUMBER_OF_UARTS)
 	{
 		QUEUE_TYPE*	Q ;
@@ -181,13 +179,17 @@ void hal_UART_core(	uint8_t channelNumber)
 }
 
 
-void hal_UART_shutdown(	uint8_t channelNumber)
+void hal_UART_shutdown(	hal_UART_info_t* hal_UART_info)
 {
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	hal_UART_shutdown_projectSpecific(channelNumber) ;
 }
 
-bool hal_UART_putchar(	uint8_t channelNumber, uint8_t charToSend)
+bool hal_UART_putchar(	hal_UART_info_t* hal_UART_info, uint8_t charToSend)
 {
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	if(channelNumber < HAL_UART_NUMBER_OF_UARTS)
 	{
 		QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
@@ -208,8 +210,10 @@ bool hal_UART_putchar(	uint8_t channelNumber, uint8_t charToSend)
 }
 
 
-bool hal_UART_puts(	uint8_t channelNumber, const char* stringToSend)
+bool hal_UART_puts(	hal_UART_info_t* hal_UART_info, const uint8_t* stringToSend)
 {
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	bool returnValue = false ;
 
 	if(channelNumber < HAL_UART_NUMBER_OF_UARTS)
@@ -220,13 +224,13 @@ bool hal_UART_puts(	uint8_t channelNumber, const char* stringToSend)
 		{
 			if((*myBuffer) == '\n')
 			{
-				if(!hal_UART_putchar(channelNumber, '\r'))
+				if(!hal_UART_putchar(hal_UART_info, '\r'))
 				{
 					break ;
 				}
 			}
 
-			if(!hal_UART_putchar(channelNumber, *myBuffer++))
+			if(!hal_UART_putchar(hal_UART_info, *myBuffer++))
 			{
 				break ;
 			}
@@ -239,7 +243,7 @@ bool hal_UART_puts(	uint8_t channelNumber, const char* stringToSend)
 }
 
 
-uint8_t hal_UART_getchar(	uint8_t channelNumber)
+uint8_t hal_UART_getchar(	hal_UART_info_t* hal_UART_info)
 {
 #if RECEIVE_ENABLED
 	if(channelNumber < HAL_UART_NUMBER_OF_UARTS)
@@ -262,9 +266,11 @@ uint8_t hal_UART_getchar(	uint8_t channelNumber)
 }
 
 
-char* hal_UART_gets(	uint8_t channelNumber, char* destination, unsigned short maxBufferLength)
+uint8_t* hal_UART_gets(	hal_UART_info_t* hal_UART_info, uint8_t* destination, uint16_t maxBufferLength)
 {
 #if RECEIVE_ENABLED
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	char* buffer = NULL ;
 
 	if(channelNumber < HAL_UART_NUMBER_OF_UARTS)
@@ -308,9 +314,11 @@ char* hal_UART_gets(	uint8_t channelNumber, char* destination, unsigned short ma
 }
 
 
-bool hal_UART_isLineReady(	uint8_t channelNumber)
+bool hal_UART_isLineReady(	hal_UART_info_t* hal_UART_info)
 {
 #if RECEIVE_ENABLED
+	uint8_t	channelNumber = hal_UART_info->channelNumber ;
+
 	return lineReady[channelNumber] ;
 #else
 	return false ;

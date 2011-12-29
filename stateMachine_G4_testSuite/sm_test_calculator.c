@@ -85,7 +85,7 @@ STATE_MACHINE_CONSTRUCTOR()
 	DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS() ;
 	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
 	ENABLE_MACHINE_OUTPUT_DISPLAY() ;
-	ENABLE_MACHINE_DEBUGGING_DISPLAY() ;
+	DISABLE_MACHINE_DEBUGGING_DISPLAY() ;
 
 	self->signBeingEntered		= 1 ;
 	self->integerBeingEntered	= 0 ;
@@ -149,20 +149,24 @@ STATE_MACHINE_FATAL_ERROR_HANDLER()
 }
 
 
-void addDigitToIntegralPortion(	calculatorMachine_t* sm, event_t* event)
+void addDigitToIntegralPortion(	calculatorMachine_t* self, event_t* event)
 {
-	if(sm->integerBeingEntered < 100000000UL)
+	if(self->integerBeingEntered < 100000000UL)
 	{
-		sm->integerBeingEntered	= (sm->integerBeingEntered * 10.0)
-								+ (CAST_EVENT(keyEvent_t)->key - '0') ;
+		self->integerBeingEntered	= (self->integerBeingEntered * 10.0)
+									+ (CAST_EVENT(keyEvent_t)->key - '0') ;
 	}
+
+	DUMP_MACHINE_OUTPUT() ;
 }
 
 
-void addDigitToFractionalPortion(	calculatorMachine_t* sm, event_t* event)
+void addDigitToFractionalPortion(	calculatorMachine_t* self, event_t* event)
 {
-	sm->fractionBeingEntered	= (sm->fractionBeingEntered * 10.0)
+	self->fractionBeingEntered	= (self->fractionBeingEntered * 10.0)
 								+ (CAST_EVENT(keyEvent_t)->key - '0') ;
+
+	DUMP_MACHINE_OUTPUT() ;
 }
 
 
