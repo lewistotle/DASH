@@ -111,9 +111,17 @@ typedef struct
 {
 	timerEvent_t				parent ;
 
+#ifdef __c8051f040__
+	uint8_t						repeating ;
+#else
 	bool						repeating ;
+#endif
 
+#ifdef __c8051f040__
+	uint8_t						active ;
+#else
 	bool						active ;
+#endif
 } alarmEvent_t ;
 
 
@@ -159,7 +167,11 @@ typedef struct
 {
 	event_t						parent ;
 
+#ifdef __c8051f040__
+	uint8_t						triggered ;
+#else
 	bool						triggered ;
+#endif
 	enum WATCH_VARIABLE_TYPE	size ;
 	void*						watchVariableLocation ;
 } stateMachineWatch_t ;
@@ -193,6 +205,11 @@ typedef struct
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	pthread_mutex_lock(&(Q->mutex)) ;
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		pthread_mutex_unlock(&(Q->mutex)) ;
+#else
+	#warning Implement these.
+
+	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()
+	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()
 #endif
 
 
@@ -246,7 +263,7 @@ enum STATE_MACHINE_INTERNAL_EVENTS	{
 bool hsm_internal_eventQueue_initialize(	eventQueue_t* Q, event_t** storage, eventQueueIndex_t maxEntriesInQueue) ;
 
 uint8_t hsm_internal_eventQueue_isEmpty(	eventQueue_t* Q) ;
-uint8_t hsm_internal_eventQueue_isFull(	eventQueue_t* Q) ;
+uint8_t hsm_internal_eventQueue_isFull(		eventQueue_t* Q) ;
 
 
 bool hsm_internal_eventQueue_insert(		eventQueue_t* Q, event_t* event) ;

@@ -15,8 +15,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <sys/time.h>
 
 #include "stateMachine_G4.h"
+
+#ifdef __c8051f040__
+	#define fflush(	unused)
+	#define exit(	unused)
+#endif
 
 #if configHSM_INTERNAL_DEBUGGING_ENABLED
 	#define TRACING_ENABLED					false
@@ -506,7 +512,11 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 				memoryPoolLocation += instance->memoryPoolInfo->eventMemoryPools[i].numberOfChunks
 									* instance->memoryPoolInfo->eventMemoryPools[i].chunkSize ;
 
+#ifdef __c8051f040__
+				memoryPoolLocation = (uint8_t far*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+#else
 				memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+#endif
 			}
 		}
 
@@ -531,8 +541,11 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 			}
 		}
 
+#ifdef __c8051f040__
+		memoryPoolLocation = (uint8_t far*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+#else
 		memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
-
+#endif
 		if(numberOfWatchEvents)
 		{
 			instance->startOfWatchEvents = (void*)memoryPoolLocation ;
@@ -879,6 +892,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 {
 	printf("Posting non event at %p to '%s'\n", (void*)timer, machine->instanceName) ; fflush(stdout) ;
 }
+#if !defined(__c8051f040__) && !defined(__AVR__)
 							if(!hsm_postEventToMachine(machine, (event_t*)timer))
 							{
 								uint8_t	statetMachineShutdownIndex ;
@@ -910,7 +924,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 									}
 								}
 							}
-
+#endif
 							if(((event_t*)timer)->eventType == SUBSTATE_TIMEOUT)
 							{
 								/*
@@ -1019,6 +1033,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 }
 
 
+#ifndef __c8051f040__
 void outputStateMachineStatus(				FILE* destination)
 {
 	if(destination)
@@ -1041,7 +1056,7 @@ void outputStateMachineStatus(				FILE* destination)
 		}
 	}
 }
-
+#endif
 
 stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state, event_t* event)
 {

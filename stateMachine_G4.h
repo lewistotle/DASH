@@ -90,7 +90,11 @@ typedef struct
 
 typedef void (* stateMachine_destructorFunction_t)(		void* self) __reentrant ;
 
+#ifdef __c8051f040__
+typedef void (* stateMachine_displayStatusInfo_t)(		void* self, void* event) __reentrant ;
+#else
 typedef void (* stateMachine_displayStatusInfo_t)(		void* self, FILE* event) __reentrant ;
+#endif
 typedef void (* stateMachine_displayEventInfo_t)(		void* self, event_t* event) __reentrant ;
 typedef void (* stateMachine_displayMachineOutput_t)(	void* self) __reentrant ;
 
@@ -98,7 +102,7 @@ typedef void (* stateMachine_fatalErrorFunction_t)(		void *self) __reentrant ;
 
 
 
-void outputStateMachineStatus(	FILE* destination) ;
+//void outputStateMachineStatus(	FILE* destination) ;
 
 
 
@@ -480,9 +484,9 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 												void sm##_constructor(				stateMachine_t* self) ;							\
 												void sm##_destructor(				void* self) ;									\
 												void sm##_fatalErrorHandler(		void* self) ;									\
-												void sm##_displayInternalEventInfo(	void* self, event_t* event) ;					\
-												void sm##_displayExternalEventInfo(	void* self, event_t* event) ;					\
-												void sm##_displayStatus(			void* self, FILE* file) ;						\
+												void sm##_displayInternalEventInfo(	void* self, event_t* event) __reentrant ;					\
+												void sm##_displayExternalEventInfo(	void* self, event_t* event) __reentrant ;					\
+												void sm##_displayStatus(			void* self, void* file) ;						\
 												void sm##_displayMachineOutput(		void* self) ;									\
 												void sm##_displayMachineDebugging(	void* self) ;									\
 												enum sm##_EVENTS																	\
@@ -983,6 +987,16 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 	#define HSM_ENTER_CRITICAL_SECTION()		criticalSectionLockAttempts++ ; pthread_mutex_lock(&hsm_mutex) ; criticalSectionLockEntries++ ;
 	#define HSM_EXIT_CRITICAL_SECTION()			criticalSectionLockEntries-- ; pthread_mutex_unlock(&hsm_mutex) ; criticalSectionLockAttempts-- ;
+#elif defined(__c8051f040__)
+	#warning Implement these
+
+	#define HSM_ENTER_CRITICAL_SECTION()
+	#define HSM_EXIT_CRITICAL_SECTION()
+#elif defined(__AVR__)
+	#warning Implement these
+
+	#define HSM_ENTER_CRITICAL_SECTION()
+	#define HSM_EXIT_CRITICAL_SECTION()
 #else
 	#error DEFINE THE CRITICAL SECTION MACROS
 #endif

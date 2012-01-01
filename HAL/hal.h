@@ -74,6 +74,14 @@ extern "C"
 
 	#define portDISABLE_INTERRUPTS()		DINT
 	#define portENABLE_INTERRUPTS()			EINT ; ERTM
+#elif defined(__AVR__)
+	#warning Implement these
+
+	#define portENTER_CRITICAL()
+	#define portEXIT_CRITICAL()
+
+	#define portDISABLE_INTERRUPTS()		DINT
+	#define portENABLE_INTERRUPTS()			EINT ; ERTM
 #else
 	#error dashHAL
 #endif
