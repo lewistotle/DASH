@@ -16,29 +16,62 @@
 #include <unistd.h>
 #include <termios.h>
 
-
-#include "config.h"
-#include "stateMachine_G4.h"
-
-#include "sm_globalEvents.h"
-#include "sm_test_timeBomb.h"
-#include "sm_test_calculator.h"
+#include "hal.h"
+#include "hal_UART.h"
 
 
 
 
+#define configMICROSECONDS_PER_TICK                    (1000)
 
 
 
 
+#define UART_0_RECEIVE_BUFFER_SIZE	100
+#define UART_0_TRANSMIT_BUFFER_SIZE	1000
+
+static bool		UART_0_initializedFlag	= false ;
+static bool		UART_0_lineReadyFlag	= false ;
+static uint8_t	UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE + 1] ;
+static uint8_t	UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE + 1] ;
+
+static hal_UART_queue_t	UART_0_transmitQueue =	{
+													UART_0_transmitBuffer,
+													UART_0_TRANSMIT_BUFFER_SIZE,
+													0,
+													1,
+													0
+												} ;
+
+static hal_UART_queue_t	UART_0_receiveQueue =	{
+													UART_0_receiveBuffer,
+													UART_0_RECEIVE_BUFFER_SIZE,
+													0,
+													1,
+													0
+												} ;
+
+static hal_UART_info_t	UART_0_struct =	{	0,							/* channel number */
+											&UART_0_initializedFlag,	/* initialized flag */
+											&UART_0_lineReadyFlag,
+											&UART_0_transmitQueue,
+											&UART_0_receiveQueue,
+											hal_UART_init_projectSpecific,
+											hal_UART_core_projectSpecific,
+											hal_UART_isTransmitterReadyForChar_projectSpecific,
+											hal_UART_sendchar_projectSpecific,
+											hal_UART_hasCharBeenSent_projectSpecific,
+											hal_UART_clearCharacterTransmittedFlag_projectSpecific,
+											hal_UART_isCharacterInReceiveBuffer_projectSpecific,
+											hal_UART_getchar_projectSpecific,
+											hal_UART_clearCharacterReceivedFlag_projectSpecific,
+											hal_UART_shutdown_projectSpecific,
+											NULL						/* device specific data */
+										} ;
+
+hal_UART_info_t* UART_0 = &UART_0_struct ;
 
 
-
-
-
-
-extern stateMachine_t*	bomb ;
-extern stateMachine_t*	calculator ;
 
 #define puts(s)		puts(s) ; fflush(stdout) ;
 
@@ -51,7 +84,7 @@ void*			charInput_threadStatus ;
 
 char	UARTtempBuffer[512] ;
 
-void hal_UART_init_projectSpecific(	unsigned char channelNumber)
+bool hal_UART_init_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
 {
 	int	rc ;
 
@@ -65,10 +98,12 @@ void hal_UART_init_projectSpecific(	unsigned char channelNumber)
 
 		exit(EXIT_FAILURE) ;
 	}
+
+	return true ;
 }
 
 
-void hal_UART_core_projectSpecific(	unsigned char channelNumber)
+void hal_UART_core_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
 {
 	/* Nothing to do here since it's all handled by charInput_thread */
 }
@@ -113,25 +148,47 @@ void* charInput_thread(	void* threadID)
 }
 
 
-bool hal_UART_putchar_projectSpecific(						unsigned char channelNumber, char charToSend)
+bool hal_UART_isTransmitterReadyForChar_projectSpecific(		struct hal_UART_info_ps_t* hal_UART_info)
+{
+	return true ;
+}
+
+
+bool hal_UART_sendchar_projectSpecific(							struct hal_UART_info_ps_t* hal_UART_info, uint8_t charToSend)
 {
 	return putchar(charToSend) ;
 }
 
 
-void hal_UART_puts_projectSpecific(							unsigned char channelNumber, const char* buffer)
+bool	hal_UART_hasCharBeenSent_projectSpecific(				struct hal_UART_info_ps_t* hal_UART_info)
 {
-	puts(buffer) ;
+	return true ;
 }
 
 
-char hal_UART_getchar_projectSpecific(						unsigned char channelNumber)
+void hal_UART_clearCharacterTransmittedFlag_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+{
+}
+
+
+bool hal_UART_isCharacterInReceiveBuffer_projectSpecific(		struct hal_UART_info_ps_t* hal_UART_info)
+{
+	return false ;
+}
+
+
+uint8_t hal_UART_getchar_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info)
 {
 	return getchar() ;
 }
 
 
-void hal_UART_shutdown_projectSpecific(	unsigned char channelNumber)
+void hal_UART_clearCharacterReceivedFlag_projectSpecific(		struct hal_UART_info_ps_t* hal_UART_info)
+{
+}
+
+
+void hal_UART_shutdown_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
 {
 	puts("charInput thread join pending.") ;
 
@@ -141,75 +198,22 @@ void hal_UART_shutdown_projectSpecific(	unsigned char channelNumber)
 }
 
 
-bool hal_UART_isCharacterInReceiveBuffer_projectSpecific(		unsigned char channelNumber)
-{
-	return false ;
-}
-
-
-char hal_UART_getCharFromReceiveBuffer_projectSpecific(		unsigned char channelNumber)
-{
-	return 0 ;
-}
-
-
-void hal_UART_clearCharacterReceivedFlag_projectSpecific(		unsigned char channelNumber)
-{
-}
-
-
-void hal_UART_sendchar_projectSpecific(						unsigned char channelNumber, char charToSend)
-{
-}
-
-
-bool hal_UART_isTransmitterReadyForChar_projectSpecific(		unsigned char channelNumber)
-{
-	return true ;
-}
-
-
-bool	hal_UART_hasCharBeenSent_projectSpecific(				uint8_t channelNumber)
-{
-	return false ;
-}
-
-
-void hal_UART_clearCharacterTransmittedFlag_projectSpecific(	unsigned char channelNumber)
-{
-}
 
 
 
 
 
+#include <pthread.h>
+#include <unistd.h>
 
+void* charInput_thread(	void* threadID) ;
+void* timer_thread(		void* threadID) ;
 
-#ifdef __c8051f040__
-	#include "config.h"
-	#include "HardwareAbstractionLayer.h"
-	#include "ioMapping.h"
-	#include "gpio.h"
-	#include "pwm.h"
-	#include "task_UART.h"
+pthread_t		timer_threadHandle ;
+void*			timer_threadStatus ;
 
-	static void prvSetupSystemClock(	void ) ;
-	static void prvSetupTimerInterrupt(	void ) ;
-
-	static volatile bool		timeForTickProcessing ;				/* set in an ISR so volatile is needed */
-#else
-	#include <pthread.h>
-	#include <unistd.h>
-
-	void* charInput_thread(	void* threadID) ;
-	void* timer_thread(		void* threadID) ;
-
-	pthread_t		timer_threadHandle ;
-	void*			timer_threadStatus ;
-
-	void handleTimer(		void) ;
-	void hsm_handleTick(	uint32_t microsecondsSinceLastHandled) ;
-#endif
+void handleTimer(		void) ;
+void hsm_handleTick(	uint32_t microsecondsSinceLastHandled) ;
 
 
 uint32_t	uptime_hours ;
@@ -352,4 +356,3 @@ void* timer_thread(	void* threadID)
 
 	return NULL ;
 }
-

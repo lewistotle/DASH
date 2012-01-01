@@ -39,6 +39,14 @@
 
 
 
+extern hal_UART_info_t* UART_0 ;
+
+
+
+#ifdef __c8051f040__
+	static bool timeForTickProcessing = false ;
+#endif
+
 void task_TIMER_init(		void) ;
 void task_TIMER_core(		void) ;
 void task_TIMER_shutdown(	void) ;
@@ -53,6 +61,7 @@ static bool ok = true ;
 
 void handleKeypress(uint8_t c)
 {
+#if 0
 	stateMachine_t*	target ;
 	eventType_t		eventType = SUBSTATE_NON_EVENT ;
 
@@ -102,23 +111,23 @@ void handleKeypress(uint8_t c)
 		case '=':	{ target = calculator ;		eventType = EQUALS ;		break ; }
 
 		case 'a':
-		case 'A':	{ target = fourLevelTest ;	eventType = A ;				break ; }
+		case 'A':	{ target = fourLevelTest ;	eventType = A_ ;			break ; }
 		case 'b':
-		case 'B':	{ target = fourLevelTest ;	eventType = B ;				break ; }
+		case 'B':	{ target = fourLevelTest ;	eventType = B_ ;			break ; }
 		case 'c':
-		case 'C':	{ target = fourLevelTest ;	eventType = C ;				break ; }
+		case 'C':	{ target = fourLevelTest ;	eventType = C_ ;			break ; }
 		case 'd':
-		case 'D':	{ target = fourLevelTest ;	eventType = D ;				break ; }
+		case 'D':	{ target = fourLevelTest ;	eventType = D_ ;			break ; }
 		case 'e':
-		case 'E':	{ target = fourLevelTest ;	eventType = E ;				break ; }
+		case 'E':	{ target = fourLevelTest ;	eventType = E_ ;			break ; }
 		case 'f':
-		case 'F':	{ target = fourLevelTest ;	eventType = F ;				break ; }
+		case 'F':	{ target = fourLevelTest ;	eventType = F_ ;			break ; }
 		case 'g':
-		case 'G':	{ target = fourLevelTest ;	eventType = G ;				break ; }
+		case 'G':	{ target = fourLevelTest ;	eventType = G_ ;			break ; }
 		case 'h':
-		case 'H':	{ target = fourLevelTest ;	eventType = H ;				break ; }
+		case 'H':	{ target = fourLevelTest ;	eventType = H_ ;			break ; }
 		case 'u':
-		case 'U':	{ target = fourLevelTest ;	eventType = U ;				break ; }
+		case 'U':	{ target = fourLevelTest ;	eventType = U_ ;			break ; }
 
 		case 't':
 		case 'T':	{ target = 0 ;				eventType = ARMAGEDDON ;	break ; }
@@ -178,36 +187,9 @@ void handleKeypress(uint8_t c)
 			hsm_publishEventToAll((event_t*)event) ;
 		}
 	}
+#endif
 }
 
-
-#define UART_0_RECEIVE_BUFFER_SIZE	100
-#define UART_0_TRANSMIT_BUFFER_SIZE	1000
-
-static bool		UART_0_initializedFlag = false ;
-static uint8_t	UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE] ;
-static uint8_t	UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE] ;
-
-static hal_UART_info_t	UART_0_struct =	{	0,							/* channel number */
-											&UART_0_initializedFlag,	/* initialized flag */
-											UART_0_receiveBuffer,
-											UART_0_RECEIVE_BUFFER_SIZE,
-											UART_0_transmitBuffer,
-											UART_0_TRANSMIT_BUFFER_SIZE,
-											hal_UART_init_projectSpecific,
-											hal_UART_core_projectSpecific,
-											hal_UART_isTransmitterReadyForChar_projectSpecific,
-											hal_UART_sendchar_projectSpecific,
-											hal_UART_hasCharBeenSent_projectSpecific,
-											hal_UART_clearCharacterTransmittedFlag_projectSpecific,
-											hal_UART_isCharacterInReceiveBuffer_projectSpecific,
-											hal_UART_getchar_projectSpecific,
-											hal_UART_clearCharacterReceivedFlag_projectSpecific,
-											hal_UART_shutdown_projectSpecific,
-											NULL						/* device specific data */
-										} ;
-
-hal_UART_info_t* UART_0 = &UART_0_struct ;
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
 	#ifdef USING_NEWLIB
@@ -222,7 +204,7 @@ void main(	void)
 	ok = true ;
 
 	puts("DASH test started.") ;
-
+/*
 	task_TIMER_init() ;
 	hal_UART_init(UART_0) ;
 
@@ -325,7 +307,7 @@ void main(	void)
 
 		bomb_0 = 0 ;
 	}
-
+*/
 	puts("\nDASH test done.") ;
 
 #if defined(__linux__)

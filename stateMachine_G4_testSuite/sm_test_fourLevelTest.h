@@ -12,15 +12,15 @@
 
 DECLARE_STATE_MACHINE_EVENTS(fourLevelTest)
 
-	A,
-	B,
-	C,
-	D,
-	E,
-	F,
-	G,
-	H,
-	U
+	A_,
+	B_,
+	C_,
+	D_,
+	E_,
+	F_,
+	G_,
+	H_,
+	U_
 
 END_STATE_MACHINE_EVENTS(fourLevelTest)
 

@@ -1,9 +1,301 @@
-#include "config.h"
-#include "gpio.h"
-#include "ioMapping.h"
-#include "HardwareAbstractionLayer.h"
 
-#include "task_UART.h"
+#include "hal.h"
+#include "hal_UART.h"
+#include <C8051F040.h>
+
+#ifndef NULL
+	#define NULL	((void*)0)
+#endif
+
+#define UART_0_RECEIVE_BUFFER_SIZE	10
+#define UART_0_TRANSMIT_BUFFER_SIZE	100
+
+static xdata uint8_t	UART_0_initializedFlag	= false ;
+static xdata uint8_t	UART_0_lineReadyFlag	= false ;
+static xdata uint8_t	UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE + 1] ;
+static xdata uint8_t	UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE + 1] ;
+
+static xdata hal_UART_queue_t	UART_0_transmitQueue =	{
+													UART_0_transmitBuffer,
+													UART_0_TRANSMIT_BUFFER_SIZE,
+													0,
+													1,
+													0
+												} ;
+
+static xdata hal_UART_queue_t	UART_0_receiveQueue =	{
+													UART_0_receiveBuffer,
+													UART_0_RECEIVE_BUFFER_SIZE,
+													0,
+													1,
+													0
+												} ;
+
+static xdata hal_UART_info_t	UART_0_struct =	{	0,							/* channel number */
+											&UART_0_initializedFlag,	/* initialized flag */
+											&UART_0_lineReadyFlag,
+											&UART_0_transmitQueue,
+											&UART_0_receiveQueue,
+											hal_UART_init_projectSpecific,
+											hal_UART_core_projectSpecific,
+											hal_UART_isTransmitterReadyForChar_projectSpecific,
+											hal_UART_sendchar_projectSpecific,
+											hal_UART_hasCharBeenSent_projectSpecific,
+											hal_UART_clearCharacterTransmittedFlag_projectSpecific,
+											hal_UART_isCharacterInReceiveBuffer_projectSpecific,
+											hal_UART_getchar_projectSpecific,
+											hal_UART_clearCharacterReceivedFlag_projectSpecific,
+											hal_UART_shutdown_projectSpecific,
+											NULL						/* device specific data */
+										} ;
+
+hal_UART_info_t* UART_0 = &UART_0_struct ;
+
+
+
+/* Constants required to setup the serial control register. */
+#define ser8_BIT_MODE			( ( unsigned char ) 0x40 )
+#define serRX_ENABLE			( ( unsigned char ) 0x10 )
+
+/* Constants to setup the timer used to generate the baud rate. */
+#define serCLOCK_DIV_48			( ( unsigned char ) 0x03 )
+#define serUSE_PRESCALED_CLOCK	( ( unsigned char ) 0x10 )
+#define ser8BIT_WITH_RELOAD		( ( unsigned char ) 0x20 )
+#define serSMOD					( ( unsigned char ) 0x10 )
+
+#define BAUDRATE		115200			// Baud rate of UART in bps
+#define SYSTEMCLOCK		22118400L		// SYSTEMCLOCK = System clock frequency in Hz
+
+
+#define NUMBER_OF_UARTS			1
+#define TRANSMIT_BUFFER_SIZE	10
+#define RECEIVE_BUFFER_SIZE		10
+
+xdata char	UARTtempBuffer[TRANSMIT_BUFFER_SIZE] ;
+
+void UART0_Init(void) ;
+void UART1_Init(void) ;
+
+static unsigned char	transmitBuffer[NUMBER_OF_UARTS][TRANSMIT_BUFFER_SIZE + 1] ;
+static unsigned char	receiveBuffer[NUMBER_OF_UARTS][RECEIVE_BUFFER_SIZE + 1] ;
+
+static hal_UART_queue_t		transmitBuffers[NUMBER_OF_UARTS] ;
+static hal_UART_queue_t		receiveBuffers[NUMBER_OF_UARTS] ;
+
+static uint8_t			charSent[NUMBER_OF_UARTS] ;
+static uint8_t			lineReady[NUMBER_OF_UARTS] ;
+
+void putchar(char c)
+{
+	if(c == '\n')
+	{
+//		hal_UART_putchar(0, '\r') ;
+	}
+
+//	hal_UART_putchar(0, c) ;
+}
+
+bool hal_UART_init_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+{
+	portSET_REGISTER_GROUP(TIMER01_PAGE)
+	{
+		/* Set timer one for desired mode of operation. */
+		TMOD &= 0x08 ;
+		TMOD |= ser8BIT_WITH_RELOAD ;
+		SSTA0 |= serSMOD ;
+		CKCON |= 0x10 ;
+
+		/* Set the reload and start values for the time. */
+		TL1 = ( unsigned char ) 0xB2 ;	// B8 = 9600 BAUD on unmoded eval boards, B2 = 9615 on 24MHz systems
+		TH1 = ( unsigned char ) 0xB2 ;
+
+		SCON = ser8_BIT_MODE | serRX_ENABLE ;	/* Setup the control register for standard n, 8, 1 - variable baud rate. */
+
+		TR1 = 1 ;							/* Start the timer. */
+	}
+	portRESTORE_REGISTER_GROUP()
+
+	if(hal_UART_info->channelNumber == 0)
+	{
+		UART0_Init() ;
+	}
+	else if(hal_UART_info->channelNumber == 1)
+	{
+		UART1_Init() ;
+	}
+
+	return true ;
+}
+
+// MUST NOT TAKE LONGER THAN 750 uS TO EXECUTE EACH ITERATION
+
+void hal_UART_core_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+{
+}
+
+
+bool		hal_UART_isTransmitterReadyForChar_projectSpecific(		struct hal_UART_info_ps_t* hal_UART_info)
+{
+	bool	returnValue ;
+
+	if(charSent[hal_UART_info->channelNumber] == true)
+	{
+		returnValue = (TI0 == 1) ;
+	}
+	else
+	{
+		returnValue = true ;
+	}
+
+	return returnValue ;
+}
+
+
+bool		hal_UART_sendchar_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info, uint8_t charToSend)
+{
+	SBUF0 = charToSend ;
+
+	charSent[hal_UART_info->channelNumber] = true ;
+}
+
+
+bool		hal_UART_hasCharBeenSent_projectSpecific(				struct hal_UART_info_ps_t* hal_UART_info)
+{
+	#warning	is this function ever used anywhere?
+	return (charSent[hal_UART_info->channelNumber] == true) ? TI0 : false ;
+}
+
+
+void		hal_UART_clearCharacterTransmittedFlag_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+{
+	charSent[hal_UART_info->channelNumber] = false ;
+
+	TI0 = 0 ;
+}
+
+
+bool		hal_UART_isCharacterInReceiveBuffer_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+{
+	return RI0 ;
+}
+
+
+uint8_t		hal_UART_getchar_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info)
+{
+	return SBUF0 ;
+}
+
+
+void		hal_UART_clearCharacterReceivedFlag_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+{
+	RI0 = 0 ;
+}
+
+
+void		hal_UART_shutdown_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info)
+{
+}
+
+
+void UART0_Init(void)
+{
+	  char SFRPAGE_SAVE;
+
+	   SFRPAGE_SAVE = SFRPAGE;             // Preserve SFRPAGE
+
+	   SFRPAGE = UART0_PAGE;
+
+	   SCON0 = 0x52;                       // 8-bit variable baud rate;
+	                                       // 9th bit ignored; RX enabled
+	                                       // clear all flags
+	   SSTA0 = 0x10;                       // Clear all flags; enable baud rate
+	                                       // doubler (not relevant for these
+	                                       // timers);
+	                                       // Use Timer1 as RX and TX baud rate
+	                                       // source;
+	//   ES0 = 1;
+	//   IP |= 0x10;
+	   SFRPAGE = SFRPAGE_SAVE;
+/*
+	transmitReadIndex[0]	= 0 ;
+	transmitWriteIndex[0]	= 0 ;
+
+	portSET_REGISTER_GROUP(UART0_PAGE)
+	{
+		SCON0 = 0x52 ;	// 8-bit variable baud rate;
+						// 9th bit ignored; RX enabled
+						// set the TI0 flag so it looks like a character has been sent.
+		SSTA0 = 0x10 ;	// Clear all flags; enable baud rate
+						// doubler (not relevant for these timers);
+						// Use Timer1 as RX and TX baud rate source;
+//		ES0 = 1 ;		// enable the interrupt for this UART
+//		IP |= 0x10;
+	}
+	portRESTORE_REGISTER_GROUP()
+*/
+}
+
+
+void UART1_Init(void)
+{
+	portSET_REGISTER_GROUP(UART1_PAGE)
+	{
+		SCON1 = 0x10 ;	// 8-bit variable baud rate;
+						// 9th bit ignored; RX enabled
+						// clear all flags
+//		ES1 = 1 ;		// enable the interrupt for this UART
+//		IP |= 0x10;
+	}
+	portRESTORE_REGISTER_GROUP()
+}
+
+#if 0
+void putchar(char c)
+{
+	if(c == '\n')
+	{
+		hal_UART_putchar(0, '\r') ;
+	}
+
+	hal_UART_putchar(0, c) ;
+}
+#endif
+
+
+
+
+void task_TIMER_init(		void)
+{
+}
+
+
+void task_TIMER_core(		void)
+{
+}
+
+
+void task_TIMER_shutdown(	void)
+{
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
+
 
 #define FIFTY_PERCENT_DUTY_CYCLE	((uint16_t)(256.0 * 0.50))
 
@@ -238,378 +530,6 @@ unsigned char pwm_getDutyCycleAsPercentage_projectSpecific(	unsigned char channe
 }
 
 
-/* Constants required to setup the serial control register. */
-#define ser8_BIT_MODE			( ( unsigned char ) 0x40 )
-#define serRX_ENABLE			( ( unsigned char ) 0x10 )
-
-/* Constants to setup the timer used to generate the baud rate. */
-#define serCLOCK_DIV_48			( ( unsigned char ) 0x03 )
-#define serUSE_PRESCALED_CLOCK	( ( unsigned char ) 0x10 )
-#define ser8BIT_WITH_RELOAD		( ( unsigned char ) 0x20 )
-#define serSMOD					( ( unsigned char ) 0x10 )
-
-#define BAUDRATE		115200			// Baud rate of UART in bps
-#define SYSTEMCLOCK		22118400L		// SYSTEMCLOCK = System clock frequency in Hz
-
-
-#define NUMBER_OF_UARTS			1
-#define TRANSMIT_BUFFER_SIZE	1100
-#define RECEIVE_BUFFER_SIZE		10
-
-char	UARTtempBuffer[TRANSMIT_BUFFER_SIZE] ;
-
-void UART0_Init(void) ;
-void UART1_Init(void) ;
-
-typedef struct
-{
-	uint16_t	Capacity ;
-	uint16_t	Front ;
-	uint16_t	Rear ;
-	uint16_t	Size ;
-	unsigned char*	Array ;
-} QUEUE_TYPE ;
-
-unsigned char IsEmpty(QUEUE_TYPE* Q)
-{
-	return Q->Size == 0 ;
-}
-
-unsigned char IsFull(QUEUE_TYPE* Q)
-{
-	return Q->Size == Q->Capacity ;
-}
-
-static unsigned short Succ(unsigned short Value, QUEUE_TYPE* Q)
-{
-	if(++Value == Q->Capacity)
-	{
-		Value = 0 ;
-	}
-
-	return Value ;
-}
-
-static unsigned char	transmitBuffer[NUMBER_OF_UARTS][TRANSMIT_BUFFER_SIZE + 1] ;
-static unsigned char	receiveBuffer[NUMBER_OF_UARTS][RECEIVE_BUFFER_SIZE + 1] ;
-
-static QUEUE_TYPE		transmitBuffers[NUMBER_OF_UARTS] ;
-static QUEUE_TYPE		receiveBuffers[NUMBER_OF_UARTS] ;
-
-static uint8_t			charSent[NUMBER_OF_UARTS] ;
-static uint8_t			lineReady[NUMBER_OF_UARTS] ;
-
-#if FreeRTOS_ENABLED
-void task_UART(void *pvParameters)
-{
-	/* The parameters are not used. */
-	(void)pvParameters ;
-
-	task_UART_init() ;
-
-	while(1)
-	{
-		task_UART_core() ;
-
-		vTaskDelay(1000) ;
-	}
-}
-#endif
-
-
-#ifdef include_task_UART_init
-void task_UART_init_projectSpecific(	unsigned char channelNumber)
-{
-	static bool	timer1initialized = false ;
-
-	QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
-
-	Q->Capacity	= TRANSMIT_BUFFER_SIZE ;
-	Q->Size		= 0 ;
-	Q->Front	= 1 ;
-	Q->Rear		= 0 ;
-	Q->Array	= transmitBuffer[0] ;
-
-	Q = &receiveBuffers[channelNumber] ;
-
-	Q->Capacity	= RECEIVE_BUFFER_SIZE ;
-	Q->Size		= 0 ;
-	Q->Front	= 1 ;
-	Q->Rear		= 0 ;
-	Q->Array	= receiveBuffer[0] ;
-
-	charSent[channelNumber]		= false ;
-	lineReady[channelNumber]	= false ;
-
-	if(!timer1initialized)
-	{
-		timer1initialized = true ;
-
-		portSET_REGISTER_GROUP(TIMER01_PAGE)
-		{
-			/* Set timer one for desired mode of operation. */
-			TMOD &= 0x08 ;
-			TMOD |= ser8BIT_WITH_RELOAD ;
-			SSTA0 |= serSMOD ;
-			CKCON |= 0x10 ;
-
-			/* Set the reload and start values for the time. */
-			TL1 = ( unsigned char ) 0xB2 ;	// B8 = 9600 BAUD on unmoded eval boards, B2 = 9615 on 24MHz systems
-			TH1 = ( unsigned char ) 0xB2 ;
-
-			SCON = ser8_BIT_MODE | serRX_ENABLE ;	/* Setup the control register for standard n, 8, 1 - variable baud rate. */
-
-			TR1 = 1 ;							/* Start the timer. */
-		}
-		portRESTORE_REGISTER_GROUP()
-	}
-
-	if(channelNumber == 0)
-	{
-		UART0_Init() ;
-	}
-	else if(channelNumber == 1)
-	{
-		UART1_Init() ;
-	}
-}
-#endif
-
-// MUST NOT TAKE LONGER THAN 750 uS TO EXECUTE EACH ITERATION
-static int countdown = 5 ;
-
-#ifdef include_task_UART_core
-void task_UART_core_projectSpecific(	unsigned char channelNumber)
-{
-	if(channelNumber < NUMBER_OF_UARTS)
-	{
-		portSET_REGISTER_GROUP(UART0_PAGE)
-		{
-			QUEUE_TYPE*	Q = &receiveBuffers[channelNumber] ;
-
-			if(RI0)
-			{
-				if(!IsFull(Q))
-				{
-					char	charReceived = SBUF0 ;
-
-					Q->Size++ ;
-					Q->Rear = Succ(Q->Rear, Q) ;
-					Q->Array[Q->Rear] = charReceived ;
-
-					if(charReceived == '\n')
-					{
-						lineReady[channelNumber] = true ;
-					}
-				}
-
-				RI0 = 0 ;
-			}
-
-			Q = &transmitBuffers[channelNumber] ;
-
-			if(charSent[channelNumber] == true)
-			{
-				charSent[channelNumber] = false ;
-
-				// wait for previous character to finish
-
-				while(TI0 == 0) { /* empty loop */} ;
-			}
-
-			if(!IsEmpty(Q))
-			{
-				unsigned char byteToSend = Q->Array[Q->Front] ;
-
-				Q->Size-- ;
-				Q->Front = Succ(Q->Front, Q) ;
-
-				TI0 = 0 ;	// clear it and send the next character
-
-				SBUF0 = byteToSend ;
-
-				charSent[channelNumber] = true ;
-			}
-		}
-		portRESTORE_REGISTER_GROUP()
-	}
-}
-#endif
-
-bool task_UART_putchar_projectSpecific(	unsigned char channelNumber, char charToSend)
-{
-	task_UART_core(0) ;
-
-	portDISABLE_INTERRUPTS() ;
-
-	if(channelNumber < NUMBER_OF_UARTS)
-	{
-		QUEUE_TYPE*	Q = &transmitBuffers[channelNumber] ;
-
-		if(!IsFull(Q))
-		{
-			Q->Size++ ;
-			Q->Rear = Succ(Q->Rear, Q) ;
-			Q->Array[Q->Rear] = charToSend ;
-
-			portENABLE_INTERRUPTS() ;
-
-			return true ;
-		}
-	}
-
-	portENABLE_INTERRUPTS() ;
-
-	// If I get here, something didn't work so return failure
-
-	return false ;
-}
-
-
-void task_UART_puts_projectSpecific(	unsigned char channelNumber, const char *buffer)
-{
-	if(channelNumber < NUMBER_OF_UARTS)
-	{
-		unsigned char* myBuffer = buffer ;
-
-		while(*myBuffer)
-		{
-			if((*myBuffer) == '\n')
-			{
-				if(!task_UART_putchar(channelNumber, '\r'))
-				{
-					break ;
-				}
-			}
-
-			if(!task_UART_putchar(channelNumber, *myBuffer++))
-			{
-				break ;
-			}
-		}
-	}
-}
-
-
-char task_UART_getchar_projectSpecific(	unsigned char channelNumber)
-{
-	if(channelNumber < NUMBER_OF_UARTS)
-	{
-		QUEUE_TYPE*	Q = &receiveBuffers[channelNumber] ;
-
-		if(!IsEmpty(Q))
-		{
-			unsigned char byteReceived = Q->Array[Q->Front] ;
-
-			Q->Size-- ;
-			Q->Front = Succ(Q->Front, Q) ;
-
-			return byteReceived ;
-		}
-	}
-
-	return -1 ;
-}
-
-
-char* task_UART_gets_projectSpecific(	unsigned char channelNumber, char* buffer, unsigned short maxBufferLength)
-{
-	if(channelNumber < NUMBER_OF_UARTS)
-	{
-		unsigned short charsReturned = 0 ;
-
-		while(charsReturned < maxBufferLength)
-		{
-			char latestCharInBuffer = task_UART_getchar(channelNumber) ;
-
-			if(latestCharInBuffer <= 0)	// break on a NULL or a -1
-			{
-				break ;
-			}
-			else if(latestCharInBuffer == '\r')	// Skip carriage returns
-			{
-				continue ;
-			}
-
-			buffer[charsReturned] = latestCharInBuffer ;
-
-			charsReturned++ ;
-		}
-	}
-
-	return 0 ;
-}
-
-
-bool task_UART_isLineReady(	unsigned char channelNumber)
-{
-	return lineReady[channelNumber] ;
-}
-
-
-void UART0_Init(void)
-{
-	  char SFRPAGE_SAVE;
-
-	   SFRPAGE_SAVE = SFRPAGE;             // Preserve SFRPAGE
-
-	   SFRPAGE = UART0_PAGE;
-
-	   SCON0 = 0x52;                       // 8-bit variable baud rate;
-	                                       // 9th bit ignored; RX enabled
-	                                       // clear all flags
-	   SSTA0 = 0x10;                       // Clear all flags; enable baud rate
-	                                       // doubler (not relevant for these
-	                                       // timers);
-	                                       // Use Timer1 as RX and TX baud rate
-	                                       // source;
-	//   ES0 = 1;
-	//   IP |= 0x10;
-	   SFRPAGE = SFRPAGE_SAVE;
-/*
-	transmitReadIndex[0]	= 0 ;
-	transmitWriteIndex[0]	= 0 ;
-
-	portSET_REGISTER_GROUP(UART0_PAGE)
-	{
-		SCON0 = 0x52 ;	// 8-bit variable baud rate;
-						// 9th bit ignored; RX enabled
-						// set the TI0 flag so it looks like a character has been sent.
-		SSTA0 = 0x10 ;	// Clear all flags; enable baud rate
-						// doubler (not relevant for these timers);
-						// Use Timer1 as RX and TX baud rate source;
-//		ES0 = 1 ;		// enable the interrupt for this UART
-//		IP |= 0x10;
-	}
-	portRESTORE_REGISTER_GROUP()
-*/
-}
-
-
-void UART1_Init(void)
-{
-	portSET_REGISTER_GROUP(UART1_PAGE)
-	{
-		SCON1 = 0x10 ;	// 8-bit variable baud rate;
-						// 9th bit ignored; RX enabled
-						// clear all flags
-//		ES1 = 1 ;		// enable the interrupt for this UART
-//		IP |= 0x10;
-	}
-	portRESTORE_REGISTER_GROUP()
-}
-
-
-void putchar(char c)
-{
-	if(c == '\n')
-	{
-		task_UART_putchar(0, '\r') ;
-	}
-
-	task_UART_putchar(0, c) ;
-}
-
 
 
 
@@ -697,7 +617,7 @@ const unsigned char ucHighCaptureByte = ( unsigned char ) 0xFF ;//( ulCaptureVal
 	SFRPAGE = ucOriginalSFRPage;
 }
 
-
+#define configNUMBER_OF_TICK_COUNTERS 8
 /*-----------------------------------------------------------*/
 
 unsigned short*	tickCounterToIncrement[configNUMBER_OF_TICK_COUNTERS] ;
@@ -746,3 +666,4 @@ void vTimer2ISR( void ) interrupt 5
 }
 
 
+#endif

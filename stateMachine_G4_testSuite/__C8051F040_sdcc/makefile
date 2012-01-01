@@ -1,50 +1,31 @@
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
+OUTFILE			= dash_sdcc
+CC			= sdcc
+CFLAGS			= -c -D__c8051f040__ -pedantic --model-large -I. -I../../ -I../../HAL
+OUT_DIR			= .
+OBJS			= main.rel stateMachine_G4.rel stateMachine_G4_eventQueue.rel
 
--include ../makefile.init
+OUT_OBJS		= $(addprefix $(OUT_DIR)/,$(OBJS))
 
-RM := rm -rf
 
-# All of the sources participating in the build are defined here
--include sources.mk
--include subdir.mk
--include _SoftwareLibraries/stateMachines_G4/subdir.mk
--include _SoftwareLibraries/HAL/subdir.mk
--include objects.mk
+$(OUTFILE)		: $(OUT_OBJS)
+					$(CC) --model-large --xram-size 4096 -MM --xram-loc 0x100  *.rel -o $@
+					cp dash_sdcc /home/dolphinage/public_html/dash/
 
-ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(C_DEPS)),)
--include $(C_DEPS)
-endif
-endif
+$(OUT_DIR)/hal_UART.rel : ../../HAL/hal_UART.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
--include ../makefile.defs
+$(OUT_DIR)/stateMachine_G4.rel : ../../stateMachine_G4.c ../../HAL/*.h 
+					$(CC) $(CFLAGS) -c $< -o $@
 
-# Add inputs and outputs from these tool invocations to the build variables 
+$(OUT_DIR)/stateMachine_G4_eventQueue.rel : ../../stateMachine_G4_eventQueue.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
-# All Target
-all: stateMachine_G4_testSuite.hex
+$(OUT_DIR)/main.rel	: ../main.c ../projectSpecificHardwareInterface_C8051F040.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
-# Tool invocations
-stateMachine_G4_testSuite.hex: $(RELS) $(USER_OBJS)
-	@echo 'Building target: $@'
-	@echo 'Invoking: SDCC Linker'
-	sdcc --model-large  -o"stateMachine_G4_testSuite.hex" $(RELS) $(USER_OBJS) $(LIBS)
-	@echo 'Finished building target: $@'
-	@echo ' '
-	$(MAKE) --no-print-directory post-build
+$(OUT_DIR)/%.rel	: ../%.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
-# Other Targets
-clean:
-	-$(RM) $(C_DEPS)$(RELS)$(EXECUTABLES) stateMachine_G4_testSuite.hex
-	-@echo ' '
+clean			:
+					rm -rf $(OUTFILE) $(OUT_DIR)/*.rel $(OUT_DIR)/*.asm $(OUT_DIR)/*.lst $(OUT_DIR)/*.sym $(OUT_DIR)/dash_sdcc.* $(OUT_DIR)/*.rst
 
-post-build:
-	-../../../FlashUtilCL/bin/FlashUtilCL.exe downloadUSB -R ./stateMachine_G4_testSuite.hex EC300019758
-	-@echo ' '
-
-.PHONY: all clean dependents
-.SECONDARY: post-build
-
--include ../makefile.targets

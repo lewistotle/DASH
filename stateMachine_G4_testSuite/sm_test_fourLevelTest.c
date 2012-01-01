@@ -34,7 +34,11 @@ DEFINE_STATE_MACHINE() ;
 	END_MEMORY_REQUIREMENTS()
 
 	DECLARE_STATE_MACHINE_VARIABLES() ;
+#ifdef __c8051f040__
+		uint8_t	foo ;
+#else
 		bool	foo ;
+#endif
 	END_STATE_MACHINE_VARIABLES() ;
 
 	ADD_SUB_STATE(s, PARENT_STATE(TOP)) ;
@@ -116,9 +120,9 @@ DEFINE_STATE(s)
 {
 	INITIAL_TRANSITION(					s11, 		NO_ACTION) ;
 
-	ON_EVENT_IF(		U,	self->foo,				self->foo = 0) ;
+	ON_EVENT_IF(		U_,	self->foo,				self->foo = 0) ;
 
-	TRANSITION_ON(		E,				s11,		NO_ACTION) ;
+	TRANSITION_ON(		E_,				s11,		NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -127,22 +131,22 @@ DEFINE_STATE(s1)
 {
 	INITIAL_TRANSITION(					s11, 		NO_ACTION) ;
 
-	TRANSITION_ON(		A,				SELF(),		NO_ACTION) ;
-	TRANSITION_ON(		B,				s11,		NO_ACTION) ;
-	TRANSITION_ON(		C,				s2,			NO_ACTION) ;
-	TRANSITION_ON_IF(	D,	!self->foo,	s,			self->foo = 1) ;
-	TRANSITION_ON(		F,				s211,		NO_ACTION) ;
+	TRANSITION_ON(		A_,				SELF(),		NO_ACTION) ;
+	TRANSITION_ON(		B_,				s11,		NO_ACTION) ;
+	TRANSITION_ON(		C_,				s2,			NO_ACTION) ;
+	TRANSITION_ON_IF(	D_,	!self->foo,	s,			self->foo = 1) ;
+	TRANSITION_ON(		F_,				s211,		NO_ACTION) ;
 
-	CONSUME_EVENT(		U,							NO_ACTION) ;
+	CONSUME_EVENT(		U_,							NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(s11)
 {
-	TRANSITION_ON_IF(	D,	self->foo,	s1,			self->foo = 0) ;
-	TRANSITION_ON(		G,				s211,		NO_ACTION) ;
-	TRANSITION_ON(		H,				s,			NO_ACTION) ;
+	TRANSITION_ON_IF(	D_,	self->foo,	s1,			self->foo = 0) ;
+	TRANSITION_ON(		G_,				s211,		NO_ACTION) ;
+	TRANSITION_ON(		H_,				s,			NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
@@ -151,10 +155,10 @@ DEFINE_STATE(s2)
 {
 	INITIAL_TRANSITION(					s211,		NO_ACTION) ;
 
-	TRANSITION_ON(		C,				s1,			NO_ACTION) ;
-	TRANSITION_ON(		F,				s11,		NO_ACTION) ;
+	TRANSITION_ON(		C_,				s1,			NO_ACTION) ;
+	TRANSITION_ON(		F_,				s11,		NO_ACTION) ;
 
-	ON_EVENT_IF(		U,	!self->foo,				self->foo = 1) ;
+	ON_EVENT_IF(		U_,	!self->foo,				self->foo = 1) ;
 }
 END_DEFINE_STATE()
 
@@ -163,17 +167,17 @@ DEFINE_STATE(s21)
 {
 	INITIAL_TRANSITION(					s211,		NO_ACTION) ;
 
-	TRANSITION_ON(		A,				SELF(),		NO_ACTION) ;
-	TRANSITION_ON(		B,				s211,		NO_ACTION) ;
-	TRANSITION_ON(		G,				s11,		NO_ACTION) ;
+	TRANSITION_ON(		A_,				SELF(),		NO_ACTION) ;
+	TRANSITION_ON(		B_,				s211,		NO_ACTION) ;
+	TRANSITION_ON(		G_,				s11,		NO_ACTION) ;
 }
 END_DEFINE_STATE()
 
 
 DEFINE_STATE(s211)
 {
-	TRANSITION_ON(		D,				s21,		NO_ACTION) ;
-	TRANSITION_ON(		H,				s,			NO_ACTION) ;
+	TRANSITION_ON(		D_,				s21,		NO_ACTION) ;
+	TRANSITION_ON(		H_,				s,			NO_ACTION) ;
 
 	TRANSITION_WHEN(	self->foo,		s1,			NO_ACTION) ;
 }

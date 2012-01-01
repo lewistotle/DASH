@@ -1,73 +1,25 @@
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
--include ../makefile.init
-
-RM := rm -rf
-
-# All of the sources participating in the build are defined here
--include sources.mk
--include subdir.mk
--include _SoftwareLibraries/stateMachines_G4/subdir.mk
--include objects.mk
-
-ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(C_DEPS)),)
--include $(C_DEPS)
-endif
-ifneq ($(strip $(ASM_DEPS)),)
--include $(ASM_DEPS)
-endif
-ifneq ($(strip $(S_DEPS)),)
--include $(S_DEPS)
-endif
-ifneq ($(strip $(S_UPPER_DEPS)),)
--include $(S_UPPER_DEPS)
-endif
-endif
-
--include ../makefile.defs
-
-# Add inputs and outputs from these tool invocations to the build variables 
-LSS += \
-stateMachine_G4_testSuite.lss \
-
-SIZEDUMMY += \
-sizedummy \
+CC				= avr-gcc
+CFLAGS			= -I. -I../../ -I../../HAL -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields -mmcu=atmega8515 -DF_CPU=1000000UL -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c 
+OUT_DIR			= ./
+OBJS			= main.o projectSpecificHardwareInterface_linux.o sm_test_calculator.o sm_test_fourLevelTest.o sm_test_timeBomb.o sm_test_toaster.o stateMachine_G4.o stateMachine_G4_eventQueue.o hal_UART.o
+OUT_OBJS		= $(addprefix $(OUT_DIR)/,$(OBJS))
 
 
-# All Target
-all: stateMachine_G4_testSuite.elf secondary-outputs
+dash_avr		: $(OUT_OBJS)
+					$(CC) $(CFLAGS) *.o -o $@
 
-# Tool invocations
-stateMachine_G4_testSuite.elf: $(OBJS) $(USER_OBJS)
-	@echo 'Building target: $@'
-	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,stateMachine_G4_testSuite.map -mmcu=atmega16 -o"stateMachine_G4_testSuite.elf" $(OBJS) $(USER_OBJS) $(LIBS)
-	@echo 'Finished building target: $@'
-	@echo ' '
+$(OUT_DIR)/hal_UART.o : ../../HAL/hal_UART.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
-stateMachine_G4_testSuite.lss: stateMachine_G4_testSuite.elf
-	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S stateMachine_G4_testSuite.elf  >"stateMachine_G4_testSuite.lss"
-	@echo 'Finished building: $@'
-	@echo ' '
+$(OUT_DIR)/stateMachine_G4.o : ../../stateMachine_G4.c ../../HAL/*.h 
+					$(CC) $(CFLAGS) -c $< -o $@
 
-sizedummy: stateMachine_G4_testSuite.elf
-	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega16 stateMachine_G4_testSuite.elf
-	@echo 'Finished building: $@'
-	@echo ' '
+$(OUT_DIR)/stateMachine_G4_eventQueue.o : ../../stateMachine_G4_eventQueue.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
-# Other Targets
-clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(ASM_DEPS)$(ELFS)$(LSS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS) stateMachine_G4_testSuite.elf
-	-@echo ' '
+$(OUT_DIR)/%.o	: ../%.c ../../HAL/*.h
+					$(CC) $(CFLAGS) -c $< -o $@
 
-secondary-outputs: $(LSS) $(SIZEDUMMY)
+clean			:
+					rm -rf dash_linux $(OUT_DIR)/*.o
 
-.PHONY: all clean dependents
-.SECONDARY:
-
--include ../makefile.targets
