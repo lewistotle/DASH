@@ -26,6 +26,10 @@ extern "C"
 	#include <stdio.h>
 #endif
 
+#ifndef configMAXIMUM_STATE_HIERARCHY_DEPTH
+	#define configMAXIMUM_STATE_HIERARCHY_DEPTH		64
+#endif
+
 #include "stateMachine_G4_eventQueue.h"
 
 /* Eclipse, while being a really awesome editor, does have to be told about
@@ -46,14 +50,25 @@ extern "C"
  */
 
 #ifdef __c8051f040__
-	#define CALLSTATEHANDLER_CAST(c)	(c)
-	#define VOID_CAST(v)				(v)
+	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
+	#define VOID_CAST(v)				(void*)(v)
+
+	typedef void						FILE ;
+	typedef float						sm_float_t ;
+	#define const_state_t				static state_t
+	#define const_state_with_history_t	static state_with_history_t
 #else
 	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
 	#define VOID_CAST(v)				(const void*)(v)
 	#define __reentrant
 	#define __code
+
+	typedef double						sm_float_t ;
+	#define const_state_t				static const state_t
+	#define const_state_with_history_t	static const state_with_history_t
 #endif
+
+
 
 /* Now make typecasts for all the variable types. This will let me change
  * the number of bits that something might need later on without having
@@ -131,7 +146,7 @@ void outputStateMachineStatus(	FILE* destination) ;
 typedef struct
 {
 	/* topState hold a pointer to the topmost state in the machine. It is filled in at compile time */
-	__code void*							topState ;
+	const void*								topState ;
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	/* DEBUGGING only: This holds the name of the state machine that is printed out at various times */
@@ -161,6 +176,9 @@ typedef struct
 	eventType_t*							typesOfEventsToDefer ;
 	eventQueue_t							deferredEventQueue ;
 
+	void*									sourceHierarchy[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
+	void*									targetHierarchy[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
+
 	uint16_t								numberOfHistoricalMarkers ;
 	void**									historicalMarkers ;
 	void*									mostRecentlyEnteredState ;	/* Used for deep history */
@@ -175,11 +193,12 @@ typedef struct
 	uint8_t									numberOfWatchEvents ;
 	void*									startOfWatchEvents ;
 
+	uint8_t									currentStateHasInitialTransition ;
+
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	/* The following are used for debugging only and can be removed for production code. */
 
 	uint8_t									printStateTransitions ;
-	uint8_t									currentStateHasInitialTransition ;
 	const char*								instanceName ;
 	const char**							eventNames ;
 	stateMachine_displayEventInfo_t			debugging_internalEventDisplay ;
@@ -332,18 +351,6 @@ typedef struct
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 void* hsm_malloc(									uint16_t numberOfBytes) ;
 void hsm_free(										void* blockToFree) ;
 
@@ -421,10 +428,10 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 
-#define SECONDS(secs)	((double)((double)secs * (double)1000000.0 /* microseconds per second */))
-#define MINUTES(mins)	((double)(SECONDS(mins * (double)60.0 /* seconds per minute */)))
-#define HOURS(hrs)		((double)(MINUTES(hrs  * (double)60.0 /* minutes per hour */)))
-#define DAYS(days)		((double)(HOURS(  days * (double)24.0 /* hours per day */)))
+#define SECONDS(secs)	((sm_float_t)((sm_float_t)secs * (sm_float_t)1000000.0 /* microseconds per second */))
+#define MINUTES(mins)	((sm_float_t)(SECONDS(mins * (sm_float_t)60.0 /* seconds per minute */)))
+#define HOURS(hrs)		((sm_float_t)(MINUTES(hrs  * (sm_float_t)60.0 /* minutes per hour */)))
+#define DAYS(days)		((sm_float_t)(HOURS(  days * (sm_float_t)24.0 /* hours per day */)))
 
 #define REPEATING		true
 #define NON_REPEATING	false
@@ -432,9 +439,9 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ACTIVE			true
 #define NON_ACTIVE		false
 
-#define CREATE_ALARM(eventType, duration, repeating)		hsm_createAlarm((stateMachine_t*)self, eventType, (uint32_t)(((double)(duration)) / HOURS(1)), (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */), repeating)
+#define CREATE_ALARM(eventType, duration, repeating)		hsm_createAlarm((stateMachine_t*)self, eventType, (uint32_t)(((sm_float_t)(duration)) / HOURS(1)), (uint32_t)((sm_float_t)(((sm_float_t)(duration)) - ((sm_float_t)(((sm_float_t)(duration)) / HOURS(1)))) + (sm_float_t)0.5 /* round to the nearest microsecond */), repeating)
 
-#define SET_ALARM_PERIOD(alarm, duration)					if(alarm) { ((timerEvent_t*)alarm)->originalHours = (uint32_t)(((double)(duration)) / HOURS(1)) ; ((timerEvent_t*)alarm)->originalMicroseconds = (uint32_t)((double)(((double)(duration)) - ((double)(((double)(duration)) / HOURS(1)))) + (double)0.5 /* round to the nearest microsecond */) ; }
+#define SET_ALARM_PERIOD(alarm, duration)					if(alarm) { ((timerEvent_t*)alarm)->originalHours = (uint32_t)(((sm_float_t)(duration)) / HOURS(1)) ; ((timerEvent_t*)alarm)->originalMicroseconds = (uint32_t)((sm_float_t)(((sm_float_t)(duration)) - ((sm_float_t)(((sm_float_t)(duration)) / HOURS(1)))) + (sm_float_t)0.5 /* round to the nearest microsecond */) ; }
 
 #define ACTIVATE_ALARM(alarm)								if(alarm) { ((timerEvent_t*)alarm)->remainingHours = ((timerEvent_t*)alarm)->originalHours ; ((timerEvent_t*)alarm)->remainingMicroseconds = ((timerEvent_t*)alarm)->originalMicroseconds ; ((alarmEvent_t*)alarm)->active = true ; }
 #define DEACTIVATE_ALARM(alarm)								if(alarm) { ((alarmEvent_t*)alarm)->active = false ; }
@@ -629,6 +636,13 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #define END_MACHINE_OUTPUT_DEBUGGING_DISPLAY()			(void)self ; }
 
+#define ENABLE_MACHINE_OUTPUT_DISPLAY()
+
+#define ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
+#define DISABLE_MACHINE_DEBUGGING_DISPLAY()
+
+#define DUMP_MACHINE_OUTPUT()
+
 #endif
 
 
@@ -639,23 +653,42 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define DEFINE_STATE_MACHINE_1(sm)				DEFINE_STATE_MACHINE_2(sm)
 #define DEFINE_STATE_MACHINE()					DEFINE_STATE_MACHINE_1(STATE_MACHINE_NAME)
 
-#define END_STATE_MACHINE_DEFINITION_2(sm)		void sm##_constructor2(	sm##Machine_t* self) ;																	\
-												void sm##_fatalErrorHandler2(	sm##Machine_t* self) ;															\
-												void sm##_destructor2(	sm##Machine_t* self) ;																	\
-												void sm##_fatalErrorHandler(	void* self) { sm##_fatalErrorHandler2((sm##Machine_t*)self) ; }					\
-												void sm##_destructor(	void* self) { sm##_destructor2((sm##Machine_t*)self) ; }								\
-												void sm##_constructor(	stateMachine_t* base)																	\
-												{																												\
-													base->topState				= (void*)&sm##_TOP ;															\
-													base->currentState			= (void*)&sm##_TOP ;															\
-													base->stateMachineName		= sm##_name ;																	\
-													base->fatalErrorHandler		= sm##_fatalErrorHandler ;														\
-													base->destructor			= sm##_destructor ;																\
-													sm##_constructor2((sm##Machine_t*)base) ;																	\
-												}																												\
-												uint16_t sm##_getHistoryArraySize(	void) { return __LINE__ - sm##_historicalMarkerBase ; }						\
-												uint16_t sm##_getMachineSize(		void) { return sizeof(sm##Machine_t) ; }									\
-												uint16_t sm##_getMachineSize(		void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#define END_STATE_MACHINE_DEFINITION_2(sm)		void sm##_constructor2(	sm##Machine_t* self) ;																	\
+													void sm##_fatalErrorHandler2(	sm##Machine_t* self) ;															\
+													void sm##_destructor2(	sm##Machine_t* self) ;																	\
+													void sm##_fatalErrorHandler(	void* self) { sm##_fatalErrorHandler2((sm##Machine_t*)self) ; }					\
+													void sm##_destructor(	void* self) { sm##_destructor2((sm##Machine_t*)self) ; }								\
+													void sm##_constructor(	stateMachine_t* base)																	\
+													{																												\
+														base->topState				= (void*)&sm##_TOP ;															\
+														base->currentState			= (void*)&sm##_TOP ;															\
+														base->stateMachineName		= sm##_name ;																	\
+														base->fatalErrorHandler		= sm##_fatalErrorHandler ;														\
+														base->destructor			= sm##_destructor ;																\
+														sm##_constructor2((sm##Machine_t*)base) ;																	\
+													}																												\
+													uint16_t sm##_getHistoryArraySize(	void) { return __LINE__ - sm##_historicalMarkerBase ; }						\
+													uint16_t sm##_getMachineSize(		void) { return sizeof(sm##Machine_t) ; }									\
+													uint16_t sm##_getMachineSize(		void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+#else
+	#define END_STATE_MACHINE_DEFINITION_2(sm)		void sm##_constructor2(	sm##Machine_t* self) ;																	\
+													void sm##_fatalErrorHandler2(	sm##Machine_t* self) ;															\
+													void sm##_destructor2(	sm##Machine_t* self) ;																	\
+													void sm##_fatalErrorHandler(	void* self) { sm##_fatalErrorHandler2((sm##Machine_t*)self) ; }					\
+													void sm##_destructor(	void* self) { sm##_destructor2((sm##Machine_t*)self) ; }								\
+													void sm##_constructor(	stateMachine_t* base)																	\
+													{																												\
+														base->topState				= (void*)&sm##_TOP ;															\
+														base->currentState			= (void*)&sm##_TOP ;															\
+														base->fatalErrorHandler		= sm##_fatalErrorHandler ;														\
+														base->destructor			= sm##_destructor ;																\
+														sm##_constructor2((sm##Machine_t*)base) ;																	\
+													}																												\
+													uint16_t sm##_getHistoryArraySize(	void) { return __LINE__ - sm##_historicalMarkerBase ; }						\
+													uint16_t sm##_getMachineSize(		void) { return sizeof(sm##Machine_t) ; }									\
+													uint16_t sm##_getMachineSize(		void) /* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+#endif
 #define END_STATE_MACHINE_DEFINITION_1(sm)		END_STATE_MACHINE_DEFINITION_2(sm)
 #define END_STATE_MACHINE_DEFINITION()			END_STATE_MACHINE_DEFINITION_1(STATE_MACHINE_NAME)
 
@@ -665,16 +698,30 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 #define DECLARE_STATE_MACHINE_VARIABLES()		typedef struct { stateMachine_t parent
-#ifdef __cplusplus
-	#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-													static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-													static const state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
-													enum { sm##_historicalMarkerBase = __LINE__ }
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#ifdef __cplusplus
+		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
+														enum { sm##_historicalMarkerBase = __LINE__ }
+	#else
+		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+														const_state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
+														enum { sm##_historicalMarkerBase = __LINE__ }
+	#endif
 #else
-	#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-													static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-													static const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
-													enum { sm##_historicalMarkerBase = __LINE__ }
+	#ifdef __cplusplus
+		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;		\
+														enum { sm##_historicalMarkerBase = __LINE__ }
+	#else
+		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+														const_state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;		\
+														enum { sm##_historicalMarkerBase = __LINE__ }
+	#endif
 #endif
 #define END_STATE_MACHINE_VARIABLES_1(sm)		END_STATE_MACHINE_VARIABLES_2(sm)
 #define END_STATE_MACHINE_VARIABLES()			END_STATE_MACHINE_VARIABLES_1(STATE_MACHINE_NAME)
@@ -692,24 +739,44 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 
-#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-												static const state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+#else
+	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler) }
+#endif
 #define ADD_SUB_STATE_1(sm, ps, ss)				ADD_SUB_STATE_2(sm, ps, ss)
 #define ADD_SUB_STATE(ss, ps)					ADD_SUB_STATE_1(STATE_MACHINE_NAME, ps, ss)
 
-#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
-												static const state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
+													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+#else
+	#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
+													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler) }
+#endif
 #define ADD_CHOICE_PSEUDO_STATE_1(sm, ps, ss)	ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)
 #define ADD_CHOICE_PSEUDO_STATE(ss, ps)			ADD_CHOICE_PSEUDO_STATE_1(STATE_MACHINE_NAME, ps, ss)
 
 
-#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-															static const state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+#else
+	#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), __LINE__ - sm##_historicalMarkerBase }
+#endif
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(sm, ps, ss)	ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY(ss, ps)			ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(STATE_MACHINE_NAME, ps, ss)
 
-#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-															static const state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+#else
+	#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), __LINE__ - sm##_historicalMarkerBase }
+#endif
 #define ADD_SUB_STATE_WITH_DEEP_HISTORY_1(sm, ps, ss)		ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)
 #define ADD_SUB_STATE_WITH_DEEP_HISTORY(ss, ps)				ADD_SUB_STATE_WITH_DEEP_HISTORY_1(STATE_MACHINE_NAME, ps, ss)
 
@@ -988,10 +1055,21 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 	#define HSM_ENTER_CRITICAL_SECTION()		criticalSectionLockAttempts++ ; pthread_mutex_lock(&hsm_mutex) ; criticalSectionLockEntries++ ;
 	#define HSM_EXIT_CRITICAL_SECTION()			criticalSectionLockEntries-- ; pthread_mutex_unlock(&hsm_mutex) ; criticalSectionLockAttempts-- ;
 #elif defined(__c8051f040__)
-	#warning Implement these
+	#include <C8051F040.h>
 
-	#define HSM_ENTER_CRITICAL_SECTION()
-	#define HSM_EXIT_CRITICAL_SECTION()
+	#define HSM_ENTER_CRITICAL_SECTION()		__asm		\
+												push	ACC	\
+												push	IE	\
+												__endasm;	\
+												EA = 0;
+	#define HSM_EXIT_CRITICAL_SECTION()			__asm			\
+												pop		ACC		\
+												__endasm;		\
+												ACC &= 0x80;	\
+												IE |= ACC;		\
+												__asm			\
+												pop		ACC		\
+												__endasm;
 #elif defined(__AVR__)
 	#define HSM_ENTER_CRITICAL_SECTION()		{ uint8_t sreg = SREG ; cli()
 	#define HSM_EXIT_CRITICAL_SECTION()			SREG = sreg ; }

@@ -109,7 +109,7 @@ void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 #if RECEIVE_ENABLED
 		Q = hal_UART_info->receiveQueue ;
 
-		if(hal_UART_isCharacterInReceiveBuffer_projectSpecific(hal_UART_info))
+		if(hal_UART_isReceiveReady_projectSpecific(hal_UART_info))
 		{
 			if(!IsFull(Q))
 			{
@@ -136,7 +136,7 @@ void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 		Q = &(UART_internals->transmitQueue) ;
 
 		if(		(!IsEmpty(Q))
-			&&	((!UART_internals->atLeastOneCharacterHasBeenSent) || (UART_internals->atLeastOneCharacterHasBeenSent && hal_UART_isTransmitterReadyForChar_projectSpecific(hal_UART_info)) )
+			&&	((!UART_internals->atLeastOneCharacterHasBeenSent) || (UART_internals->atLeastOneCharacterHasBeenSent && hal_UART_isTransmitterReady_projectSpecific(hal_UART_info)) )
 			)
 		{
 			uint8_t byteToSend = Q->Array[Q->Front] ;
@@ -144,7 +144,7 @@ void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 			Q->Size-- ;
 			Q->Front = Succ(Q->Front, Q) ;
 
-			hal_UART_clearCharacterTransmittedFlag_projectSpecific(hal_UART_info) ;	// clear it and send the next character
+			hal_UART_clearSentFlag_projectSpecific(hal_UART_info) ;	// clear it and send the next character
 
 			hal_UART_sendchar_projectSpecific(hal_UART_info, byteToSend) ;
 		}
@@ -216,7 +216,7 @@ bool		hal_UART_hasCharBeenSent(								hal_UART_info_t* hal_UART_info)
 
 bool		hal_UART_hasCharBeenReceived(							hal_UART_info_t* hal_UART_info)
 {
-	return hal_UART_isCharacterInReceiveBuffer_projectSpecific(hal_UART_info) ;
+	return hal_UART_isReceiveReady_projectSpecific(hal_UART_info) ;
 }
 
 

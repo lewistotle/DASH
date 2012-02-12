@@ -115,9 +115,9 @@ bool hsm_internal_eventQueue_insert(		eventQueue_t* Q, event_t* event)
 	}
 	else
 	{
+#if !defined(__c8051f040__) && !defined(__AVR__)
 		uint8_t		i ;
 		event_t**	eventPointer = (event_t**)(Q->Array) ;
-#if !defined(__c8051f040__) && !defined(__AVR__)
 		FILE*		file = fopen("hsm_internal_eventQueue_insert_error", "a") ;
 
 		if(file)

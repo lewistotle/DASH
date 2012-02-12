@@ -115,6 +115,7 @@ END_MACHINE_DEBUGGING_DISPLAY()
 
 STATE_MACHINE_FATAL_ERROR_HANDLER()
 {
+	(void)self ;
 }
 
 
@@ -122,6 +123,9 @@ void displayTicks(	const char* instanceName, uint8_t value)
 {
 #if 0
 	printf("<%s:%2d> ", instanceName, value) ;
+#else
+	(void)instanceName ;
+	(void)value ;
 #endif
 }
 

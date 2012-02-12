@@ -205,6 +205,22 @@ typedef struct
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__)
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	pthread_mutex_lock(&(Q->mutex)) ;
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		pthread_mutex_unlock(&(Q->mutex)) ;
+#elif defined(__c8051f040__)
+	#include <C8051F040.h>
+
+	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()		__asm		\
+														push	ACC	\
+														push	IE	\
+														__endasm;	\
+														EA = 0;
+	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()			__asm			\
+														pop		ACC		\
+														__endasm;		\
+														ACC &= 0x80;	\
+														IE |= ACC;		\
+														__asm			\
+														pop		ACC		\
+														__endasm;
 #else
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{ uint8_t sreg = SREG ; cli()
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		SREG = sreg ; }

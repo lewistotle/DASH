@@ -15,13 +15,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <sys/time.h>
+
+#ifndef __c8051f040__
+	#include <sys/time.h>
+
+	#define __xdata
+#endif
 
 #include "stateMachine_G4.h"
 
 #ifdef __c8051f040__
+	#define __XDATA	__xdata
+
 	#define fflush(	unused)
 	#define exit(	unused)
+#else
+	#define __XDATA
 #endif
 
 #if configHSM_INTERNAL_DEBUGGING_ENABLED
@@ -36,14 +45,9 @@
 	#define configMAXIMUM_NUMBER_OF_STATE_MACHINES		32
 #endif
 
-#ifndef configMAXIMUM_STATE_HIERARCHY_DEPTH
-	#define configMAXIMUM_STATE_HIERARCHY_DEPTH			64
-#endif
-
-
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
 
-stateMachine_t*	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
+stateMachine_t* __XDATA	stateMachines[configMAXIMUM_NUMBER_OF_STATE_MACHINES] ;
 
 
 
@@ -513,7 +517,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 									* instance->memoryPoolInfo->eventMemoryPools[i].chunkSize ;
 
 #ifdef __c8051f040__
-				memoryPoolLocation = (uint8_t far*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+				memoryPoolLocation = (uint8_t __XDATA*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
 #else
 				memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
 #endif
@@ -542,7 +546,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 		}
 
 #ifdef __c8051f040__
-		memoryPoolLocation = (uint8_t far*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+		memoryPoolLocation = (uint8_t __XDATA*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
 #else
 		memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
 #endif
@@ -783,7 +787,7 @@ void hsm_iterateAllStateMachines(	void)
 
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-char*					eventTypes[]			= { "NO_EVENT",
+char* __XDATA			eventTypes[]			= { "NO_EVENT",
 													"ENTRY",
 													"INIT",
 													"HIST_DEF",
@@ -795,7 +799,7 @@ char*					eventTypes[]			= { "NO_EVENT",
 													"EXIT",
 													"TERMINATE"} ;
 
-char*					responseTypes[]			= { "IGNORED",
+char* __XDATA			responseTypes[]			= { "IGNORED",
 													"HANDLED",
 													"TRANSITION",
 													"TRANSITION_TO_HISTORY",
@@ -1118,7 +1122,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 
 			if(state->type == STATE_WITH_DEEP_HISTORY)
 			{
-#warning This will not work in all cases. A stack is needed to keep track of the most recently entered state with deep history. Then, any time a new state is entered, that top of said stack needs to have its history marker set. In most cases, it will be fine, but if the state with deep history has a transition to its own history, this way of doing it will fail.
+//#warning This will not work in all cases. A stack is needed to keep track of the most recently entered state with deep history. Then, any time a new state is entered, that top of said stack needs to have its history marker set. In most cases, it will be fine, but if the state with deep history has a transition to its own history, this way of doing it will fail.
 				/* store child state that was active before starting transition sequence */
 //printf("   setting DEEP history for '%s' to '%s'   ", ((state_t*)(state->parent))->stateName, ((state_t*)(sm->mostRecentlyEnteredState))->stateName) ; fflush(stdout) ;
 				sm->historicalMarkers[((state_with_history_t*)state)->historyMarkerIndex] = sm->mostRecentlyEnteredState ;
@@ -1146,11 +1150,20 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 			fflush(stdout) ;
 #else
-			printf(	"%s-%s;",
-					&state->stateName[strlen(sm->stateMachineName) + 1],
-					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
-												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
-			fflush(stdout) ;
+			// I go through this trouble to avoid a "pointer target lost const qualifier" warning in SDCC
+
+			const char*	myName ;
+
+			if(hsm_isEventInternal(event))
+			{
+				myName = eventTypes[hsm_getEventType(event)] ;
+			}
+			else
+			{
+				myName = sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>" ;
+			}
+
+			printf("%s-%s;", &state->stateName[strlen(sm->stateMachineName) + 1], myName) ; fflush(stdout) ;
 #endif
 
 			if(		(strncmp(&state->stateName[strlen(sm->stateMachineName) + 1], "TOP", 3) == 0)
@@ -1211,7 +1224,7 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 	#endif
 #endif
 
-#warning put in basic sanity checking for sm, sm->currentState, sm->nextState, etc.
+//#warning put in basic sanity checking for sm, sm->currentState, sm->nextState, etc.
 
 	/* First of all, is the machine initialized? If not, take care of that. */
 
@@ -1277,7 +1290,7 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 
 			if(isEventTypeDeferred(sm, hsm_getEventType(eventToProcess)))
 			{
-#warning Should look at whether or not these deferred events need to be put at the head of the queue
+//#warning Should look at whether or not these deferred events need to be put at the head of the queue
 
 //				printf("\n\n\nProcessing a deferred event of type: %d, sm: %p\n\n\n", eventToProcess->eventType, sm) ; fflush(stdout) ;
 
@@ -1348,14 +1361,14 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 					printf("\t\t\t\t\t\t\tIGNORED so trying event on parent: %s\n", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>") ; fflush(stdout) ;
 #endif
 				}
+#if TRACING_ENABLED
 				else if(action == TRANSITION_TO_HISTORY)
 				{
-#if TRACING_ENABLED
 					printf("    TRANSITION_TO_HISTORY: %s->%s    ", stateBeingProcessed ? stateBeingProcessed->stateName : "<root>", sm->currentState ? ((state_t*)(sm->currentState))->stateName : "<current>") ; fflush(stdout) ;
-#endif
 
 					break ;
 				}
+#endif
 				else
 				{
 #if TRACING_ENABLED
@@ -1552,9 +1565,9 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 				}
 				else
 				{
-					state_t*	sourceHierarchy[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
+					state_t**	sourceHierarchy = (state_t**)(sm->sourceHierarchy) ;//[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
+					state_t**	targetHierarchy = (state_t**)(sm->targetHierarchy) ;//[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
 					uint8_t		sourceIndex ;
-					state_t*	targetHierarchy[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
 					uint8_t		targetIndex ;
 					state_t*	LCA ;
 					uint8_t		entryIndex ;
@@ -1741,7 +1754,7 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 			{
 				if(sm->debugging_machineOutputDisplay)
 				{
-//					((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
+					((stateMachine_displayMachineOutput_t)(sm->debugging_machineOutputDisplay))(sm) ;
 				}
 			}
 #endif

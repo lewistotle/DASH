@@ -21,6 +21,9 @@
 	#include <termios.h>
 	#include <pthread.h>
 
+	#if !defined(__TS7800__)
+		pthread_mutex_t	hal_mutex = PTHREAD_MUTEX_INITIALIZER ;
+	#endif
 	pthread_mutex_t	hsm_mutex = PTHREAD_MUTEX_INITIALIZER ;
 	int				criticalSectionLockAttempts ;
 	int				criticalSectionLockEntries ;
@@ -41,6 +44,12 @@
 #define	includeFourLevelTest	1
 
 #ifdef __c8051f040__
+	#undef	numberOfTimeBombs
+	#define	numberOfTimeBombs		1
+
+	#undef	includeTimeBombs
+	#define	includeTimeBombs		1
+
 	#undef	includeCalculator
 	#define	includeCalculator		0
 
@@ -64,7 +73,7 @@
 #include "hal_UART.h"
 #include "stateMachine_G4.h"
 #include "sm_globalEvents.h"
-#if includeCalculator
+#if includeTimeBombs
 	#include "sm_test_timeBomb.h"
 #endif
 #if includeCalculator
@@ -205,7 +214,7 @@ void main(	void)
 	}
 #endif
 #if includeTimeBombs
-	#if numberOfTimeBombs >= 1
+	#if numberOfTimeBombs >= 3
 		if(bomb_2)
 		{
 			UNREGISTER_STATE_MACHINE(bomb_2) ;
@@ -225,7 +234,7 @@ void main(	void)
 			bomb_1 = 0 ;
 		}
 	#endif
-	#if numberOfTimeBombs >= 3
+	#if numberOfTimeBombs >= 1
 		if(bomb_0)
 		{
 			UNREGISTER_STATE_MACHINE(bomb_0) ;
@@ -373,7 +382,7 @@ void handleKeypress(uint8_t c)
 		}
 #if includeTimeBombs
 	#if numberOfTimeBombs >= 1
-		elseif(target == bomb_0)
+		else if(target == bomb_0)
 		{
 			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
 		}

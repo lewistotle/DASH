@@ -1,4 +1,5 @@
 
+#include <stdint.h>
 #include "hal.h"
 #include "hal_UART.h"
 #include <C8051F040.h>
@@ -7,47 +8,177 @@
 	#define NULL	((void*)0)
 #endif
 
+
+bool hal_init_projectSpecific(			void)
+{
+	WDTCN = 0xDE ;	// Disable the watchdog timer
+	WDTCN = 0xAD ;
+	WDTCN = 0xFF ;	// Disable any future ability to modify the watchdog timer
+
+	return true ;
+}
+
+
+
+bool hal_clock_init_projectSpecific(	void)
+{
+	portSET_REGISTER_GROUP(CONFIG_PAGE)
+	{
+		int n ;
+
+		// Start external oscillator: 22.1 MHz crystal
+		// system clock is 22.1 / 2 = 11.05 MHz
+		// set to 0x67 for running SYSCLK at full speed rather than /2
+
+		OSCXCN = 0x77 ;
+
+		// delay about 1ms
+
+		for( n = 0 ; n < 255 ; n++ ) ;
+
+		// wait for oscillator to stabilize
+
+		while((OSCXCN & 0x80) == 0) ;
+
+		// switch to external oscillator
+
+		CLKSEL |= 0x01 ;
+
+		// Turn off the internal oscillator to save a little power
+
+		OSCICN = 0xC2 ;
+	}
+	portRESTORE_REGISTER_GROUP()
+
+	return true ;
+}
+
+
+/* Constants required to setup timer 2 to produce the RTOS tick. */
+#define configCPU_CLOCK_HZ				( ( unsigned long ) 11050000 )
+#define configTICK_RATE_HZ				( ( unsigned long ) 1000 )
+#define portCLOCK_DIVISOR				( ( unsigned long ) 12 )
+#define portMAX_TIMER_VALUE				( ( unsigned long ) 0xffff )
+
+bool hal_timer_init_projectSpecific(	void)
+{
+	/* Constants calculated to give the required timer capture values. */
+	const unsigned long ulTicksPerSecond	= configCPU_CLOCK_HZ / portCLOCK_DIVISOR;
+	const unsigned long ulCaptureTime		= ulTicksPerSecond / configTICK_RATE_HZ;
+	const unsigned long ulCaptureValue		= portMAX_TIMER_VALUE - ulCaptureTime;
+	const unsigned char ucLowCaptureByte	= ( unsigned char ) ( ulCaptureValue & ( unsigned long ) 0xff );
+	const unsigned char ucHighCaptureByte	= ( unsigned char ) ( ulCaptureValue >> ( unsigned long ) 8 );
+
+	/* NOTE:  This uses a timer only present on 8052 architecture. */
+
+	/* Remember the current SFR page so we can restore it at the end of the function. */
+
+	portSET_REGISTER_GROUP(0)
+	{
+		/* TMR2CF can be left in its default state. */
+		TMR2CF = ( unsigned char ) 0;
+
+		/* Setup the overflow reload value. */
+		RCAP2L = ucLowCaptureByte;
+		RCAP2H = ucHighCaptureByte;
+
+		/* The initial load is performed manually. */
+		TMR2L = ucLowCaptureByte;
+		TMR2H = ucHighCaptureByte;
+
+		/* Enable the timer 2 interrupts. */
+		IE |= 0x20 ;
+
+		/* Interrupts are disabled when this is called so the timer can be started here. */
+		TMR2CN |= 0x04 ;
+	}
+	portRESTORE_REGISTER_GROUP()
+
+	return true ;
+}
+
+
+#pragma save
+#pragma nooverlay
+void hal_timer_ISR( void ) __interrupt(5)
+{
+	taskSwitcherTickHook() ;
+
+	portSET_REGISTER_GROUP(CONFIG_PAGE)
+	{
+		P5 = 1 ;
+		P5 = 0 ;
+	}
+	portRESTORE_REGISTER_GROUP()
+
+	portCLEAR_INTERRUPT_FLAG() ;
+}
+#pragma restore
+
+
+bool hal_gpio_init_projectSpecific(		void)
+{
+	portSET_REGISTER_GROUP(CONFIG_PAGE)
+	{
+		XBR0	 = 0x00 ;	// Start with a clean slate
+		XBR1	 = 0x00 ;
+		XBR2	 = 0x00 ;
+		XBR3	 = 0x00 ;
+
+		XBR0	|= 0x04 ;	// Route UART0 to P0.0-P0.1
+
+		P0MDOUT |= 0x01 ;	// Set TX0 (P0.0) to push-pull
+
+		P4MDOUT	|= 0xFF ;	// Set LCD drive pins to push-pull
+		P5MDOUT	|= 0xFF ;	// Set state machine debug pins to push-pull
+		P6MDOUT	|= 0xFF ;	// Set general purpose debug pins to push-pull
+
+		P4		 = 0x00 ;	// Set all debugging pins to low
+		P5		 = 0x00 ;
+		P6		 = 0x00 ;
+
+		XBR2	|= 0x40 ;	// Enable Crossbar/low ports and turn on global weak pullups
+	}
+	portRESTORE_REGISTER_GROUP()
+
+	return true ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #define UART_0_RECEIVE_BUFFER_SIZE	10
 #define UART_0_TRANSMIT_BUFFER_SIZE	100
 
-static xdata uint8_t	UART_0_initializedFlag	= false ;
-static xdata uint8_t	UART_0_lineReadyFlag	= false ;
-static xdata uint8_t	UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE + 1] ;
-static xdata uint8_t	UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE + 1] ;
-
-static xdata hal_UART_queue_t	UART_0_transmitQueue =	{
-													UART_0_transmitBuffer,
-													UART_0_TRANSMIT_BUFFER_SIZE,
-													0,
-													1,
-													0
-												} ;
-
-static xdata hal_UART_queue_t	UART_0_receiveQueue =	{
-													UART_0_receiveBuffer,
-													UART_0_RECEIVE_BUFFER_SIZE,
-													0,
-													1,
-													0
-												} ;
-
-static xdata hal_UART_info_t	UART_0_struct =	{	0,							/* channel number */
-											&UART_0_initializedFlag,	/* initialized flag */
-											&UART_0_lineReadyFlag,
-											&UART_0_transmitQueue,
-											&UART_0_receiveQueue,
-											hal_UART_init_projectSpecific,
-											hal_UART_core_projectSpecific,
-											hal_UART_isTransmitterReadyForChar_projectSpecific,
-											hal_UART_sendchar_projectSpecific,
-											hal_UART_hasCharBeenSent_projectSpecific,
-											hal_UART_clearCharacterTransmittedFlag_projectSpecific,
-											hal_UART_isCharacterInReceiveBuffer_projectSpecific,
-											hal_UART_getchar_projectSpecific,
-											hal_UART_clearCharacterReceivedFlag_projectSpecific,
-											hal_UART_shutdown_projectSpecific,
-											NULL						/* device specific data */
-										} ;
+static __xdata uint8_t					UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE + 1] ;
+static __xdata uint8_t					UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE + 1] ;
+static hal_UART_info_internal_t __xdata	UART_0_struct ;
 
 hal_UART_info_t* UART_0 = &UART_0_struct ;
 
@@ -58,45 +189,35 @@ hal_UART_info_t* UART_0 = &UART_0_struct ;
 #define serRX_ENABLE			( ( unsigned char ) 0x10 )
 
 /* Constants to setup the timer used to generate the baud rate. */
-#define serCLOCK_DIV_48			( ( unsigned char ) 0x03 )
-#define serUSE_PRESCALED_CLOCK	( ( unsigned char ) 0x10 )
 #define ser8BIT_WITH_RELOAD		( ( unsigned char ) 0x20 )
 #define serSMOD					( ( unsigned char ) 0x10 )
 
-#define BAUDRATE		115200			// Baud rate of UART in bps
-#define SYSTEMCLOCK		22118400L		// SYSTEMCLOCK = System clock frequency in Hz
-
-
-#define NUMBER_OF_UARTS			1
-#define TRANSMIT_BUFFER_SIZE	10
-#define RECEIVE_BUFFER_SIZE		10
-
-xdata char	UARTtempBuffer[TRANSMIT_BUFFER_SIZE] ;
-
-void UART0_Init(void) ;
-void UART1_Init(void) ;
-
-static unsigned char	transmitBuffer[NUMBER_OF_UARTS][TRANSMIT_BUFFER_SIZE + 1] ;
-static unsigned char	receiveBuffer[NUMBER_OF_UARTS][RECEIVE_BUFFER_SIZE + 1] ;
-
-static hal_UART_queue_t		transmitBuffers[NUMBER_OF_UARTS] ;
-static hal_UART_queue_t		receiveBuffers[NUMBER_OF_UARTS] ;
-
-static uint8_t			charSent[NUMBER_OF_UARTS] ;
-static uint8_t			lineReady[NUMBER_OF_UARTS] ;
 
 void putchar(char c)
 {
 	if(c == '\n')
 	{
-//		hal_UART_putchar(0, '\r') ;
+		hal_UART_putchar(&UART_0_struct, '\r') ;
 	}
 
-//	hal_UART_putchar(0, c) ;
+	hal_UART_putchar(&UART_0_struct, c) ;
 }
 
-bool hal_UART_init_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+bool hal_UART_init_projectSpecific(								hal_UART_info_t* hal_UART_info)
 {
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+
+	if(hal_UART_info)
+	{
+		UART_internals->channelNumber					= 0 ;
+
+		UART_internals->transmitQueue.Array				= UART_0_transmitBuffer ;
+		UART_internals->transmitQueue.Capacity			= UART_0_TRANSMIT_BUFFER_SIZE ;
+
+		UART_internals->receiveQueue.Array				= UART_0_receiveBuffer ;
+		UART_internals->receiveQueue.Capacity			= UART_0_RECEIVE_BUFFER_SIZE ;
+	}
+
 	portSET_REGISTER_GROUP(TIMER01_PAGE)
 	{
 		/* Set timer one for desired mode of operation. */
@@ -106,8 +227,8 @@ bool hal_UART_init_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
 		CKCON |= 0x10 ;
 
 		/* Set the reload and start values for the time. */
-		TL1 = ( unsigned char ) 0xB2 ;	// B8 = 9600 BAUD on unmoded eval boards, B2 = 9615 on 24MHz systems
-		TH1 = ( unsigned char ) 0xB2 ;
+		TL1 = ( unsigned char ) 0xB8 ;	// B8 = 9600 BAUD on unmoded eval boards, B2 = 9615 on 24MHz systems
+		TH1 = ( unsigned char ) 0xB8 ;
 
 		SCON = ser8_BIT_MODE | serRX_ENABLE ;	/* Setup the control register for standard n, 8, 1 - variable baud rate. */
 
@@ -115,30 +236,36 @@ bool hal_UART_init_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
 	}
 	portRESTORE_REGISTER_GROUP()
 
-	if(hal_UART_info->channelNumber == 0)
+	portSET_REGISTER_GROUP(UART0_PAGE)
 	{
-		UART0_Init() ;
+		// 8-bit variable baud rate; 9th bit ignored; RX enabled, clear all flags
+
+		SCON0 = 0x52 ;
+
+		// Clear all flags; enable baud rate, doubler (not relevant for these
+		// timers); Use Timer1 as RX and TX baud rate source
+
+		SSTA0 = 0x10 ;
 	}
-	else if(hal_UART_info->channelNumber == 1)
-	{
-		UART1_Init() ;
-	}
+	portRESTORE_REGISTER_GROUP()
 
 	return true ;
 }
 
 // MUST NOT TAKE LONGER THAN 750 uS TO EXECUTE EACH ITERATION
 
-void hal_UART_core_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
+void hal_UART_core_projectSpecific(								hal_UART_info_t* hal_UART_info)
 {
+	(void)hal_UART_info ;
 }
 
 
-bool		hal_UART_isTransmitterReadyForChar_projectSpecific(		struct hal_UART_info_ps_t* hal_UART_info)
+bool hal_UART_isTransmitterReady_projectSpecific(				hal_UART_info_t* hal_UART_info)
 {
-	bool	returnValue ;
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+	bool						returnValue ;
 
-	if(charSent[hal_UART_info->channelNumber] == true)
+	if(UART_internals->atLeastOneCharacterHasBeenSent)
 	{
 		returnValue = (TI0 == 1) ;
 	}
@@ -151,519 +278,98 @@ bool		hal_UART_isTransmitterReadyForChar_projectSpecific(		struct hal_UART_info_
 }
 
 
-bool		hal_UART_sendchar_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info, uint8_t charToSend)
+bool hal_UART_sendchar_projectSpecific(							hal_UART_info_t* hal_UART_info, uint8_t charToSend)
 {
-	SBUF0 = charToSend ;
-
-	charSent[hal_UART_info->channelNumber] = true ;
-}
-
-
-bool		hal_UART_hasCharBeenSent_projectSpecific(				struct hal_UART_info_ps_t* hal_UART_info)
-{
-	#warning	is this function ever used anywhere?
-	return (charSent[hal_UART_info->channelNumber] == true) ? TI0 : false ;
-}
-
-
-void		hal_UART_clearCharacterTransmittedFlag_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
-{
-	charSent[hal_UART_info->channelNumber] = false ;
-
-	TI0 = 0 ;
-}
-
-
-bool		hal_UART_isCharacterInReceiveBuffer_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
-{
-	return RI0 ;
-}
-
-
-uint8_t		hal_UART_getchar_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info)
-{
-	return SBUF0 ;
-}
-
-
-void		hal_UART_clearCharacterReceivedFlag_projectSpecific(	struct hal_UART_info_ps_t* hal_UART_info)
-{
-	RI0 = 0 ;
-}
-
-
-void		hal_UART_shutdown_projectSpecific(						struct hal_UART_info_ps_t* hal_UART_info)
-{
-}
-
-
-void UART0_Init(void)
-{
-	  char SFRPAGE_SAVE;
-
-	   SFRPAGE_SAVE = SFRPAGE;             // Preserve SFRPAGE
-
-	   SFRPAGE = UART0_PAGE;
-
-	   SCON0 = 0x52;                       // 8-bit variable baud rate;
-	                                       // 9th bit ignored; RX enabled
-	                                       // clear all flags
-	   SSTA0 = 0x10;                       // Clear all flags; enable baud rate
-	                                       // doubler (not relevant for these
-	                                       // timers);
-	                                       // Use Timer1 as RX and TX baud rate
-	                                       // source;
-	//   ES0 = 1;
-	//   IP |= 0x10;
-	   SFRPAGE = SFRPAGE_SAVE;
-/*
-	transmitReadIndex[0]	= 0 ;
-	transmitWriteIndex[0]	= 0 ;
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
 
 	portSET_REGISTER_GROUP(UART0_PAGE)
 	{
-		SCON0 = 0x52 ;	// 8-bit variable baud rate;
-						// 9th bit ignored; RX enabled
-						// set the TI0 flag so it looks like a character has been sent.
-		SSTA0 = 0x10 ;	// Clear all flags; enable baud rate
-						// doubler (not relevant for these timers);
-						// Use Timer1 as RX and TX baud rate source;
-//		ES0 = 1 ;		// enable the interrupt for this UART
-//		IP |= 0x10;
+		SBUF0 = charToSend ;
 	}
 	portRESTORE_REGISTER_GROUP()
-*/
+
+	UART_internals->atLeastOneCharacterHasBeenSent = true ;
+
+	return true ;
 }
 
 
-void UART1_Init(void)
+bool	hal_UART_hasCharBeenSent_projectSpecific(				hal_UART_info_t* hal_UART_info)
 {
-	portSET_REGISTER_GROUP(UART1_PAGE)
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+	bool						value ;
+
+	portSET_REGISTER_GROUP(UART0_PAGE)
 	{
-		SCON1 = 0x10 ;	// 8-bit variable baud rate;
-						// 9th bit ignored; RX enabled
-						// clear all flags
-//		ES1 = 1 ;		// enable the interrupt for this UART
-//		IP |= 0x10;
+		value = TI0 ;
+	}
+	portRESTORE_REGISTER_GROUP()
+
+	return UART_internals->atLeastOneCharacterHasBeenSent ? value : false ;
+}
+
+
+void hal_UART_clearSentFlag_projectSpecific(					hal_UART_info_t* hal_UART_info)
+{
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+
+	UART_internals->atLeastOneCharacterHasBeenSent = false ;
+
+	portSET_REGISTER_GROUP(UART0_PAGE)
+	{
+		TI0 = 0 ;
 	}
 	portRESTORE_REGISTER_GROUP()
 }
 
-#if 0
-void putchar(char c)
+
+bool hal_UART_isReceiveReady_projectSpecific(					hal_UART_info_t* hal_UART_info)
 {
-	if(c == '\n')
+	uint8_t	value ;
+
+	(void)hal_UART_info ;
+
+	portSET_REGISTER_GROUP(UART0_PAGE)
 	{
-		hal_UART_putchar(0, '\r') ;
+		value = RI0 ;
 	}
+	portRESTORE_REGISTER_GROUP()
 
-	hal_UART_putchar(0, c) ;
-}
-#endif
-
-
-
-
-void task_TIMER_init(		void)
-{
+	return value ;
 }
 
 
-void task_TIMER_core(		void)
+uint8_t hal_UART_getchar_projectSpecific(						hal_UART_info_t* hal_UART_info)
 {
-}
+	uint8_t	value ;
 
+	(void)hal_UART_info ;
 
-void task_TIMER_shutdown(	void)
-{
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#if 0
-
-
-#define FIFTY_PERCENT_DUTY_CYCLE	((uint16_t)(256.0 * 0.50))
-
-/*
- * projectSpecificHardwareInterface.c
- *
- *  Created on: Feb 27, 2009
- *      Author: John Lewis
- */
-
-void gpio_init_projectSpecific(	void)
-{
-	char SFRPAGE_SAVE ;
-
-	SFRPAGE_SAVE = SFRPAGE ;
-
-	SFRPAGE	 = SPI0_PAGE ;
-		SPI0CN	 = 0x00 ;	// Set the SPI module into 3 pin mode so NSS doesn't get assigned to a pin in the crossbar setup below
-
-	SFRPAGE	 = CONFIG_PAGE ;
-		XBR0	 = 0x00 ;	// Start with a clean slate
-		XBR1	 = 0x00 ;
-		XBR2	 = 0x00 ;
-		XBR3	 = 0x00 ;
-
-		XBR0	|= 0x04 ;	// Route UART0 to P0.0-P0.1
-		XBR0	|= 0x02 ;	// Route SPI0 to P0.2-P0.4
-		XBR0	|= 0x01 ;	// Route SMB0 to P0.5-P0.6
-		XBR2	|= 0x04 ;	// Route UART1 to P0.7-P1.0
-		XBR0	|= 0x30 ;	// Route CEXn to P1.1-P1.6
-		XBR0	|= 0x80 ;	// Route CP0 to P1.7
-		XBR3	|= 0x08 ;	// Route CP2 to P2.0
-		XBR1	|= 0x04 ;	// Route INT0# to P2.1
-		XBR1	|= 0x20 ;	// Route T2 from P2.2
-		XBR3	|= 0x01 ;	// Route T3 to P2.3
-
-		P0MDOUT |= 0x01 ;	// Set TX0 (P0.0) to push-pull
-
-		P1MDOUT	|= 0x02 ;	// Set CEX0 (P1.1) to push-pull
-		P1MDOUT	|= 0x04 ;	// Set CEX1 (P1.2) to push-pull
-		P1MDOUT	|= 0x08 ;	// Set CEX2 (P1.3) to push-pull
-		P1MDOUT	|= 0x10 ;	// Set CEX3 (P1.4) to push-pull
-		P1MDOUT	|= 0x20 ;	// Set CEX4 (P1.5) to push-pull
-		P1MDOUT |= 0x40 ;	// Set CEX5 (P1.6) to push-pull
-
-		P1MDOUT |= 0x80 ;	// Set TX1 (P1.7) to push-pull
-		P2MDOUT	&= ~0x02 ;	// Set INT0# (P2.1) to be a digital input
-		P2MDOUT	&= ~0x04 ;	// Set T2 (P2.2) to be a digital input
-		P2MDOUT	|= 0x08 ;	// Set P2.3 to be the Timer3 output pin
-
-		P3MDIN	 = 0x00 ;	// Configure as analog inputs. This forces the weak pullup for these pins to be disconnected
-		P3MDOUT	 = 0x00 ;	// Force the output driver for these pins to open drain output mode
-		P3		 = 0xFF ;	// Force the input driver for these pins to high impedance
-
-		XBR3	|= 0x80 ;	// Configure CAN TX pin (CTX) as push-pull digital output
-
-		P4MDOUT	|= 0xFF ;	// Set LCD drive pins to push-pull
-		P5MDOUT	|= 0xFF ;	// Set state machine debug pins to push-pull
-		P6MDOUT	|= 0xFF ;	// Set general purpose debug pins to push-pull
-
-		P4		 = 0x00 ;	// Set all debugging pins to low
-		P5		 = 0x00 ;
-		P6		 = 0x00 ;
-
-		P2MDIN	&= 0x0F ;	// set comparator analog inputs up as per Section 17.1.5 of the C8050F040 manual
-		P2MDOUT	&= 0x0F ;
-		P2		|= 0xF0 ;
-
-//		gpio_setToOutput(ioMapping_POWER_ONn) ;
-//		gpio_setToOutput(ioMapping_BOOTSTRAP_SHUTDOWNn) ;
-
-		XBR2	|= 0x40 ;	// Enable Crossbar/low ports and turn on global weak pullups
-	SFRPAGE	 = SFRPAGE_SAVE ;
-}
-
-
-void pwm_init_projectSpecific(								unsigned char channelNumber)
-{
-	// This function configures the PCA time base, and sets up 8-bit PWM output
-	// mode for Module 0 (CEX0 pin).
-	//
-	// The frequency of the PWM signal generated at the CEX0 pin is equal to the
-	// PCA main timebase frequency divided by 256.
-	//
-	// The PCA time base in this example is configured to use SYSCLK, and SYSCLK
-	// is set up to use the internal oscillator running at 24.5 MHz.  Therefore,
-	// the frequency of the PWM signal will be 24.5 MHz / 256 = 95.7 kHz.
-	// Using different PCA clock sources or a different processor clock will
-	// result in a different frequency for the PWM signal.
-	//
-	//    -------------------------------------------------------------------------
-	//    How "8-Bit PWM Mode" Works:
-	//
-	//       The PCA's 8-bit PWM Mode works by setting an output pin low every
-	//    time the main PCA counter low byte (PCA0L) overflows, and then setting
-	//    the pin high whenever a specific match condition is met.
-	//
-	//    Upon a PCA0L overflow (PCA0L incrementing from 0xFF to 0x00), two things
-	//    happen:
-	//
-	//    1) The CEXn pin will be set low.
-	//    2) The contents of the PCA0CPHn register for the module are copied into
-	//       the PCA0CPLn register for the module.
-	//
-	//    When the PCA0L register increments and matches the PCA0CPLn register for
-	//    the selected module, the CEXn pin will be set high, except when the
-	//    ECOMn bit in PCA0CPMn is cleared to '0'.  By varying the value of the
-	//    PCA0CPHn register, the duty cycle of the waveform can also be varied.
-	//
-	//    When ECOMn = '1', the duty cycle of the PWM waveform is:
-	//
-	//       8-bit PWM Duty Cycle = (256 - PCA0CPLn) / 256
-	//
-	//    To set the duty cycle to 100%, a value of 0x00 should be loaded into the
-	//    PCA0CPHn register for the module Not surebeing used (with ECOMn set to '1').
-	//    When the value of PCA0CPLn is equal to 0x00, the pin will never be
-	//    set low.
-	//
-	//    To set the duty cycle to 0%, the ECOMn bit in the PCA0CPMn register
-	//    should be cleared to 0.  This prevents the PCA0CPLn match from occuring,
-	//    which results in the pin never being set high.
-	//    -------------------------------------------------------------------------
-	//
-
-		static bool	initialized ;
-		char		SFRPAGE_save = SFRPAGE ;	// Save current SFR Page
-
-		SFRPAGE = PCA0_PAGE ;
-
-		if(!initialized)
-		{
-			PCA0CN = 0x00 ;				// Stop counter; clear all flags
-			PCA0MD = 0x08 ;				// Use SYSCLK as time base
-
-			PCA0CPM0 = 0x00 ;			// Module 0 = Off
-			PCA0CPH0 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-
-			PCA0CPM0 = 0x00 ;			// Module 1 = Off
-			PCA0CPH1 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-
-			PCA0CPM0 = 0x00 ;			// Module 2 = Off
-			PCA0CPH2 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-
-			PCA0CPM0 = 0x00 ;			// Module 3 = Off
-			PCA0CPH3 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-
-			PCA0CPM0 = 0x00 ;			// Module 4 = Off
-			PCA0CPH4 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-
-			PCA0CPM0 = 0x00 ;			// Module 5 = Off
-			PCA0CPH5 = 0x00 ;			// Configure initial PWM duty cycle = 100%. This will result in a continuously high output which, since it's active low, will disable any output.
-		}
-
-		// If this is the 50% duty cycle fixed channel, go ahead and get it started
-		// All other channels are initialized when their duty cycle changes. That
-		// lets me properly turn them off if 0% is specified.
-
-		if(channelNumber == ioMapping_PWM_TO_TICK_SYNCHRONIZER_CHANNEL)
-		{
-			// Set one channel at a constant 50% duty cycle. This will be fed into Timer2
-			// so that I can keep all the state transitions, etc., that occur on a tick
-			// boundary synchronized with the PWM output. This makes debugging a little easier
-
-			PWM_B50_MODE		= 0x42 ;						// Module 1 = 8-bit PWM mode
-			PWM_B50_HIGH_BYTE	= FIFTY_PERCENT_DUTY_CYCLE ;	// Configure initial PWM duty cycle = 50%
-		}
-
-		if(!initialized)
-		{
-			initialized = true ;
-
-			CR = 1 ;					// Start PCA counter
-		}
-
-		SFRPAGE = SFRPAGE_save ;
-}
-
-
-void pwm_incrementDutyCycle_projectSpecific(				unsigned char channelNumber)
-{
-	(void)channelNumber ;	// unused at this time
-}
-
-
-void pwm_decrementDutyCycle_projectSpecific(				unsigned char channelNumber)
-{
-	(void)channelNumber ;	// unused at this time
-}
-
-
-uint8_t pwm_getDutyCycle_projectSpecific(					unsigned char channelNumber)
-{
-	(void)channelNumber ;	// unused at this time
-
-	return 0 ;
-}
-
-
-void pwm_setDutyCycle_projectSpecific(						unsigned char channelNumber, uint8_t newDutyCycle)
-{
-	(void)channelNumber ;	// unused at this time
-	(void)newDutyCycle ;	// unused at this time
-}
-
-
-void pwm_adjustDutyCycle_projectSpecific(					unsigned char channelNumber, int8_t dutyCycleAdjustment)
-{
-	(void)channelNumber ;		// unused at this time
-	(void)dutyCycleAdjustment ;	// unused at this time
-}
-
-
-void pwm_setDutyCycleAsPercentage_projectSpecific(			unsigned char channelNumber, unsigned char newDutyCycle)
-{
-	(void)channelNumber ;		// unused at this time
-	(void)newDutyCycle ;		// unused at this time
-}
-
-
-unsigned char pwm_getDutyCycleAsPercentage_projectSpecific(	unsigned char channelNumber)
-{
-	unsigned short	currentPercentage	= 0 ;
-	unsigned short	divisor				= (((unsigned short)255 * (unsigned short)255) / (unsigned short)100) ;
-
-	(void)channelNumber ;		// unused at this time
-
-	currentPercentage *= 255 ;
-	currentPercentage += (divisor / 2) ; // to round up to the next percentage
-	currentPercentage /= divisor ;
-
-	return (unsigned char)0 ;//min(currentPercentage, 100) ;
-}
-
-
-
-
-
-
-
-#define configCPU_CLOCK_HZ			( ( unsigned long ) 11050000 )
-#define configTICK_RATE_HZ			( ( unsigned long ) 1000 )
-#define configCLOCK_SPEED_FINE_TUNE ( ( unsigned long ) 100 )
-#define configUSE_16_BIT_TICKS		1
-
-/* Constants required to setup timer 2 to produce the RTOS tick. */
-#define portCLOCK_DIVISOR				( ( unsigned long ) 12 )
-#define portMAX_TIMER_VALUE				( ( unsigned long ) 0xffff )
-#define portENABLE_TIMER				( ( unsigned char ) 0x06 )
-#define portTIMER_2_INTERRUPT_ENABLE	( ( unsigned char ) 0x20 )
-
-#define portTICK_RATE_MS			( ( unsigned long ) 1000 / configTICK_RATE_HZ )
-
-
-static void prvSetupSystemClock( void )
-{
-	int n ;							// local variable used in delay FOR loop.
-	SFRPAGE = CONFIG_PAGE ;			// switch to config page to config oscillator
-
-	OSCXCN = 0x77 ;					// start external oscillator; 24 MHz Crystal
-									// system clock is 24 MHz / 2 = 12 MHz
-									// set to 0x67 for running SYSCLK @ full speed rather than / 2
-
-	for( n = 0 ; n < 255 ; n++ ) ;	// delay about 1ms
-	while((OSCXCN & 0x80) == 0) ;	// wait for oscillator to stabilize
-
-	CLKSEL |= 0x01 ;				// switch to external oscillator
-
-	OSCICN = 0xC2 ;					// Turn off the internal oscillator to save a little power
-}
-
-
-static void prvSetupTimerInterrupt( void )
-{
-unsigned char ucOriginalSFRPage;
-
-/* Constants calculated to give the required timer capture values. */
-const unsigned long ulTicksPerSecond = configCPU_CLOCK_HZ / portCLOCK_DIVISOR;
-const unsigned long ulCaptureTime = ulTicksPerSecond / configTICK_RATE_HZ;
-const unsigned long ulCaptureValue = portMAX_TIMER_VALUE - ulCaptureTime;
-const unsigned char ucLowCaptureByte = ( unsigned char ) 0xD1 ;//( ulCaptureValue & ( unsigned long ) 0xff );
-const unsigned char ucHighCaptureByte = ( unsigned char ) 0xFF ;//( ulCaptureValue >> ( unsigned long ) 8 );
-
-	/* NOTE:  This uses a timer only present on 8052 architecture. */
-
-	/* Remember the current SFR page so we can restore it at the end of the function. */
-	ucOriginalSFRPage = SFRPAGE;
-	SFRPAGE = 0;
-
-	/* TMR2CF can be left in its default state. */
-	TMR2CF = ( unsigned char ) 0;
-
-	/* Setup the overflow reload value. */
-	RCAP2L = ucLowCaptureByte;
-	RCAP2H = ucHighCaptureByte;
-
-	/* The initial load is performed manually. */
-	TMR2L = ucLowCaptureByte;
-	TMR2H = ucHighCaptureByte;
-
-	/* Enable the timer 2 interrupts. */
-	IE |= portTIMER_2_INTERRUPT_ENABLE;
-
-	/* Interrupts are disabled when this is called so the timer can be started here. */
-	TMR2CN = portENABLE_TIMER ;
-
-#if 1
-	SFRPAGE	= 1 ;
-	TMR3CF	= 0x0A ;
-
-	RCAP3L	= 0xCE ;	// 120kHz on boost boards
-	RCAP3H	= 0xFF ;	// 120kHz on boost boards
-
-	TMR3L	= 0xF0 ;
-	TMR3H	= 0xFF ;
-	TMR3CN	= 0x04 ;
-#endif
-
-	/* Restore the original SFR page. */
-	SFRPAGE = ucOriginalSFRPage;
-}
-
-#define configNUMBER_OF_TICK_COUNTERS 8
-/*-----------------------------------------------------------*/
-
-unsigned short*	tickCounterToIncrement[configNUMBER_OF_TICK_COUNTERS] ;
-
-void addTickCounter(							unsigned short* pointerToIncrement)
-{
-	unsigned char i ;
-
-	for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
+	portSET_REGISTER_GROUP(UART0_PAGE)
 	{
-		// If this pointer has already been added, bail now
-
-		if(tickCounterToIncrement[i] == pointerToIncrement)
-		{
-			break ;
-		}
-
-		if(tickCounterToIncrement[i] == 0)
-		{
-			tickCounterToIncrement[i] = pointerToIncrement ;
-
-			break ;
-		}
+		value = SBUF0 ;
 	}
+	portRESTORE_REGISTER_GROUP()
+
+	return value ;
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
-//Interrupt Service Routines
-////////////////////////////////////////////////////////////////////////////////
-void vTimer2ISR( void ) interrupt 5
+void hal_UART_clearReceivedFlag_projectSpecific(				hal_UART_info_t* hal_UART_info)
 {
-	unsigned char i ;
+	(void)hal_UART_info ;
 
-	for( i = 0 ; i < configNUMBER_OF_TICK_COUNTERS ; i++ )
+	portSET_REGISTER_GROUP(UART0_PAGE)
 	{
-		if(tickCounterToIncrement[i])
-		{
-			*tickCounterToIncrement[i] += 1 ;
-		}
+		RI0 = 0 ;
 	}
-
-	taskSwitcherTickHook() ;
-
-	portCLEAR_INTERRUPT_FLAG() ;
+	portRESTORE_REGISTER_GROUP()
 }
 
 
-#endif
+void hal_UART_shutdown_projectSpecific(							hal_UART_info_t* hal_UART_info)
+{
+	(void)hal_UART_info ;
+}
+
+

@@ -52,13 +52,13 @@ void		hal_UART_shutdown(										hal_UART_info_t* hal_UART_info) ;
 
 bool		hal_UART_init_projectSpecific(							hal_UART_info_t* hal_UART_info) ;
 void		hal_UART_core_projectSpecific(							hal_UART_info_t* hal_UART_info) ;
-bool		hal_UART_isTransmitterReadyForChar_projectSpecific(		hal_UART_info_t* hal_UART_info) ;
+bool		hal_UART_isTransmitterReady_projectSpecific(			hal_UART_info_t* hal_UART_info) ;
 bool		hal_UART_sendchar_projectSpecific(						hal_UART_info_t* hal_UART_info, uint8_t charToSend) ;
 bool		hal_UART_hasCharBeenSent_projectSpecific(				hal_UART_info_t* hal_UART_info) ;
-void		hal_UART_clearCharacterTransmittedFlag_projectSpecific(	hal_UART_info_t* hal_UART_info) ;
-bool		hal_UART_isCharacterInReceiveBuffer_projectSpecific(	hal_UART_info_t* hal_UART_info) ;
+void		hal_UART_clearSentFlag_projectSpecific(					hal_UART_info_t* hal_UART_info) ;
+bool		hal_UART_isReceiveReady_projectSpecific(				hal_UART_info_t* hal_UART_info) ;
 uint8_t		hal_UART_getchar_projectSpecific(						hal_UART_info_t* hal_UART_info) ;
-void		hal_UART_clearCharacterReceivedFlag_projectSpecific(	hal_UART_info_t* hal_UART_info) ;
+void		hal_UART_clearReceivedFlag_projectSpecific(				hal_UART_info_t* hal_UART_info) ;
 void		hal_UART_shutdown_projectSpecific(						hal_UART_info_t* hal_UART_info) ;
 
 #ifdef __cplusplus
