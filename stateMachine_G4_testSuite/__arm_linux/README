@@ -1,0 +1,7 @@
+To get the cross compiler used for this build, do the following:
+
+     tar xzf cross.tgz
+     rm cross.tgz
+
+Then you should be ready to go...
+

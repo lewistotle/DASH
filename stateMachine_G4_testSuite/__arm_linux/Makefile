@@ -1,4 +1,4 @@
-PATH			:= $(PATH):/home/dolphinage/homes/jlewis/development/cross/arm-none-linux-gnueabi/bin/
+PATH			:= $(PATH):./cross/arm-none-linux-gnueabi/bin/
 OUTFILE			= dash_arm
 CC			= arm-none-linux-gnueabi-gcc
 CFLAGS			= -O3 -Wall -I. -I../../ -I../../HAL -g -static -mcpu=arm9
@@ -9,7 +9,7 @@ OUT_OBJS		= $(addprefix $(OUT_DIR)/,$(OBJS))
 
 $(OUTFILE)		: $(OUT_OBJS)
 					$(CC) $(CFLAGS) -pthread *.o -o $@
-					cp dash_arm /home/dolphinage/public_html/dash/
+					cp dash_arm /var/www
 
 $(OUT_DIR)/hal_UART.o : ../../HAL/hal_UART.c ../../HAL/*.h
 					$(CC) $(CFLAGS) -c $< -o $@
