@@ -206,10 +206,8 @@ typedef struct
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	pthread_mutex_lock(&(Q->mutex)) ;
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		pthread_mutex_unlock(&(Q->mutex)) ;
 #else
-	#warning Implement these.
-
-	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()
-	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()
+	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{ uint8_t sreg = SREG ; cli()
+	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		SREG = sreg ; }
 #endif
 
 

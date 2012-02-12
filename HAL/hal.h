@@ -75,13 +75,14 @@ extern "C"
 	#define portDISABLE_INTERRUPTS()		DINT
 	#define portENABLE_INTERRUPTS()			EINT ; ERTM
 #elif defined(__AVR__)
-	#warning Implement these
+	#include <avr/common.h>
+	#include <avr/interrupt.h>
 
-	#define portENTER_CRITICAL()
-	#define portEXIT_CRITICAL()
+	#define portENTER_CRITICAL()			{ uint8_t sreg = SREG ; cli()
+	#define portEXIT_CRITICAL()				SREG = sreg ; }
 
-	#define portDISABLE_INTERRUPTS()		DINT
-	#define portENABLE_INTERRUPTS()			EINT ; ERTM
+	#define portDISABLE_INTERRUPTS()		cli()
+	#define portENABLE_INTERRUPTS()			sei()
 #else
 	#error dashHAL
 #endif
@@ -106,12 +107,38 @@ extern "C"
 
 
 
-bool hal_SYSTEM_clockInit_projectSpecific(						void) ;
-bool hal_SYSTEM_systemTimerInit_projectSpecific(				void) ;
-void hal_SYSTEM_systemTimerTick_ISR(							void) ;
+
+bool hal_init(							void) ;
+bool hal_clock_init(					void) ;
+bool hal_timer_init(					void) ;
+bool hal_gpio_init(						void) ;
+
+
+bool hal_init_projectSpecific(			void) ;
+bool hal_clock_init_projectSpecific(	void) ;
+bool hal_timer_init_projectSpecific(	void) ;
+bool hal_gpio_init_projectSpecific(		void) ;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
 
 typedef uint8_t pinID_t ;
 enum { GPIO_LOW = 0, GPIO_HIGH, GPIO_FLOAT, GPIO_UNDEFINED } ;
@@ -137,7 +164,7 @@ void				hal_GPIO_pinLevelChange_ISR(				void) ;
 #include "hal_UART.h"
 
 
-
+#endif
 
 
 

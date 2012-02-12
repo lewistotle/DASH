@@ -102,7 +102,7 @@ typedef void (* stateMachine_fatalErrorFunction_t)(		void *self) __reentrant ;
 
 
 
-//void outputStateMachineStatus(	FILE* destination) ;
+void outputStateMachineStatus(	FILE* destination) ;
 
 
 
@@ -993,10 +993,8 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 	#define HSM_ENTER_CRITICAL_SECTION()
 	#define HSM_EXIT_CRITICAL_SECTION()
 #elif defined(__AVR__)
-	#warning Implement these
-
-	#define HSM_ENTER_CRITICAL_SECTION()
-	#define HSM_EXIT_CRITICAL_SECTION()
+	#define HSM_ENTER_CRITICAL_SECTION()		{ uint8_t sreg = SREG ; cli()
+	#define HSM_EXIT_CRITICAL_SECTION()			SREG = sreg ; }
 #else
 	#error DEFINE THE CRITICAL SECTION MACROS
 #endif

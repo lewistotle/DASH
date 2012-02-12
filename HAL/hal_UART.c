@@ -4,24 +4,26 @@
 #include "hal_UART_config.h"
 
 #include <stdio.h>
-#include <time.h>
+//#include <time.h>
+
+#define RECEIVE_ENABLED false
 
 #ifndef RECEIVE_ENABLED
 	#define RECEIVE_ENABLED	1
 #endif
 
 
-uint8_t IsEmpty(hal_UART_queue_t* Q)
+bool IsEmpty(hal_UART_queue_t* Q)
 {
 	return Q->Size == 0 ;
 }
 
-uint8_t IsFull(hal_UART_queue_t* Q)
+bool IsFull(hal_UART_queue_t* Q)
 {
 	return Q->Size == Q->Capacity ;
 }
 
-static unsigned short Succ(unsigned short Value, hal_UART_queue_t* Q)
+static int16_t Succ(int16_t Value, hal_UART_queue_t* Q)
 {
 	if(++Value == Q->Capacity)
 	{
@@ -52,39 +54,57 @@ void hal_UART(void *pvParameters)
 
 bool hal_UART_init(	hal_UART_info_t* hal_UART_info)
 {
-	if(!*hal_UART_info->initialized)
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+
+	if(hal_UART_init_projectSpecific(hal_UART_info))
 	{
 		hal_UART_queue_t*	Q ;
 
-		Q = hal_UART_info->transmitQueue ;
+		UART_internals->initialized						= true ;
+		UART_internals->atLeastOneCharacterHasBeenSent	= false ;
+		UART_internals->lineReady						= false ;
 
-		Q->Size		= 0 ;
-		Q->Front	= 1 ;
-		Q->Rear		= 0 ;
+#if 1
+#warning FIX THIS!!!
+#else
+		if(UART_internals->transmitQueue.Array)
+		{
+			Q = &(UART_internals->transmitQueue) ;
 
-#if RECEIVE_ENABLED
-		Q = hal_UART_info->receiveQueue ;
+			Q->Size		= 0 ;
+			Q->Front	= 1 ;
+			Q->Rear		= 0 ;
+		}
+		else
+		{
+			// This is an error condition. I can't let things move forward with the UART
+			// if there isn't a transmit buffer. It's not fatal to the program, though,
+			// so just mark the UART is not initialized and move on.
 
-		Q->Size		= 0 ;
-		Q->Front	= 1 ;
-		Q->Rear		= 0 ;
-
-		hal_UART_info->lineReady = false ;
+			UART_internals->initialized = false ;
+		}
 #endif
+		Q = &(UART_internals->receiveQueue) ;
 
-		*hal_UART_info->initialized = hal_UART_init_projectSpecific(hal_UART_info) ;
+		Q->Size		= 0 ;
+		Q->Front	= 1 ;
+		Q->Rear		= 0 ;
 	}
 
-	return *hal_UART_info->initialized ;
+	return UART_internals->initialized ;
 }
 
 // MUST NOT TAKE LONGER THAN 750 uS TO EXECUTE EACH ITERATION
 
 void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 {
-	if(hal_UART_info->channelNumber < HAL_UART_NUMBER_OF_UARTS)
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+
+	if(UART_internals->initialized)
 	{
 		hal_UART_queue_t*	Q ;
+
+		hal_UART_core_projectSpecific(hal_UART_info) ;
 
 #if RECEIVE_ENABLED
 		Q = hal_UART_info->receiveQueue ;
@@ -112,9 +132,12 @@ void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 			hal_UART_clearCharacterReceivedFlag_projectSpecific(hal_UART_info) ;
 		}
 #endif
-		Q = hal_UART_info->transmitQueue ;
 
-		if((!IsEmpty(Q)) && (hal_UART_isTransmitterReadyForChar_projectSpecific(hal_UART_info)))
+		Q = &(UART_internals->transmitQueue) ;
+
+		if(		(!IsEmpty(Q))
+			&&	((!UART_internals->atLeastOneCharacterHasBeenSent) || (UART_internals->atLeastOneCharacterHasBeenSent && hal_UART_isTransmitterReadyForChar_projectSpecific(hal_UART_info)) )
+			)
 		{
 			uint8_t byteToSend = Q->Array[Q->Front] ;
 
@@ -129,11 +152,12 @@ void hal_UART_core(	hal_UART_info_t* hal_UART_info)
 }
 
 
-bool hal_UART_puts(	hal_UART_info_t* hal_UART_info, const uint8_t* stringToSend)
+bool hal_UART_puts(	hal_UART_info_t* hal_UART_info, const char* stringToSend)
 {
-	bool returnValue = false ;
+	hal_UART_info_internal_t*	UART_internals	= (hal_UART_info_internal_t*)hal_UART_info ;
+	bool						returnValue		= false ;
 
-	if(hal_UART_info->channelNumber < HAL_UART_NUMBER_OF_UARTS)
+	if(UART_internals->initialized)
 	{
 		uint8_t* myBuffer = (uint8_t*)stringToSend ;
 
@@ -162,9 +186,11 @@ bool hal_UART_puts(	hal_UART_info_t* hal_UART_info, const uint8_t* stringToSend)
 
 bool hal_UART_putchar(	hal_UART_info_t* hal_UART_info, uint8_t charToSend)
 {
-	if(hal_UART_info->channelNumber < HAL_UART_NUMBER_OF_UARTS)
+	hal_UART_info_internal_t*	UART_internals = (hal_UART_info_internal_t*)hal_UART_info ;
+
+	if(UART_internals->initialized)
 	{
-		hal_UART_queue_t*	Q = hal_UART_info->transmitQueue ;
+		hal_UART_queue_t*	Q = &(UART_internals->transmitQueue) ;
 
 		if(!IsFull(Q))
 		{
@@ -196,6 +222,8 @@ bool		hal_UART_hasCharBeenReceived(							hal_UART_info_t* hal_UART_info)
 
 uint8_t hal_UART_getchar(	hal_UART_info_t* hal_UART_info)
 {
+	(void)hal_UART_info ;
+
 #if RECEIVE_ENABLED
 	if(hal_UART_info->channelNumber < HAL_UART_NUMBER_OF_UARTS)
 	{
@@ -219,6 +247,8 @@ uint8_t hal_UART_getchar(	hal_UART_info_t* hal_UART_info)
 
 bool hal_UART_isLineReady(	hal_UART_info_t* hal_UART_info)
 {
+	(void)hal_UART_info ;
+
 #if RECEIVE_ENABLED
 	return *hal_UART_info->lineReady ;
 #else
@@ -227,8 +257,12 @@ bool hal_UART_isLineReady(	hal_UART_info_t* hal_UART_info)
 }
 
 
-uint8_t* hal_UART_gets(	hal_UART_info_t* hal_UART_info, uint8_t* destination, uint16_t maxBufferLength)
+char* hal_UART_gets(	hal_UART_info_t* hal_UART_info, uint8_t* destination, uint16_t maxBufferLength)
 {
+	(void)hal_UART_info ;
+	(void)destination ;
+	(void)maxBufferLength ;
+
 #if RECEIVE_ENABLED
 	uint8_t* buffer = NULL ;
 
@@ -257,7 +291,7 @@ uint8_t* hal_UART_gets(	hal_UART_info_t* hal_UART_info, uint8_t* destination, ui
 
 				*hal_UART_info->lineReady = false ;
 
-				return buffer ;
+				return (char*)buffer ;	// cast to retain compatibility with the stdc function gets()
 			}
 
 			destination[charsReturned] = latestCharInBuffer ;
