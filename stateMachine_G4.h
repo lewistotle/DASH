@@ -705,9 +705,23 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
 														enum { sm##_historicalMarkerBase = __LINE__ }
 	#else
+
+		typedef stateMachine_stateResponse_t (* stateMachine_callStateHandler_top_t)(stateMachine_t* self, event_t* event) __reentrant ;
+
+		typedef struct
+		{
+			const void*								parent ;				/* pointer to parent state */
+			const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
+			__xdata stateMachine_callStateHandler_top_t*	handler ;				/* pointer to the handler function */
+		#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+			const char*								stateName ;				/* DEBUGGING: name of this state */
+		#endif
+		} state_top_t ;
+
 		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-														const_state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
+														stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+														__xdata stateMachine_callStateHandler_top_t *	sm##_TOP_handler_address = (__xdata stateMachine_callStateHandler_top_t*)&sm##_TOP_handler ;										\
+														__xdata state_top_t sm##_TOP = { (void*)0, 0, (__xdata stateMachine_callStateHandler_top_t*)(&sm##_TOP_handler_address), NULL } ;			\
 														enum { sm##_historicalMarkerBase = __LINE__ }
 	#endif
 #else
