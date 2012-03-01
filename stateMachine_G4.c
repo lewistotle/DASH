@@ -1,3 +1,6 @@
+#include "hal.h"
+#include "hal_UART.h"
+#include <C8051F040.h>
 /*
  ============================================================================
  Name        : StateMachine_G4.c
@@ -42,7 +45,7 @@
 #endif
 
 #ifndef configMAXIMUM_NUMBER_OF_STATE_MACHINES
-	#define configMAXIMUM_NUMBER_OF_STATE_MACHINES		32
+	#define configMAXIMUM_NUMBER_OF_STATE_MACHINES		8
 #endif
 
 enum { REQUIRED_STATE_MACHINE_EVENTS } ;
@@ -889,17 +892,17 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 						{
 							/* Here's at least one. Fire off the event */
 
-#if 0
-							printf("AIMING %p (%d) AT '%s' in state '%s' ... FIRE!!! (machine %d @ %p)\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName, ((state_t*)(machine->currentState))->stateName, statetMachineIndex, (void*)machine) ;
+#if 1
+							printf("AIMING %p (%d) AT '%s::%s'...FIRE!!!\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName ? machine->instanceName : "<unknown>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknown>") ;
 #endif
 if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 {
 	printf("Posting non event at %p to '%s'\n", (void*)timer, machine->instanceName) ; fflush(stdout) ;
 }
-#if !defined(__c8051f040__) && !defined(__AVR__)
 							if(!hsm_postEventToMachine(machine, (event_t*)timer))
 							{
 								uint8_t	statetMachineShutdownIndex ;
+#if !defined(__c8051f040__) && !defined(__AVR__)
 								FILE*	file = fopen("hsm_internal_eventQueue_insert_error", "a") ;
 
 								if(file)
@@ -917,6 +920,8 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 									system("touch hsm_MIRA_output_enable") ;
 									outputStateMachineStatus(file) ;
 								}
+#endif
+								printf("AIMING %p (%d) AT '%s::%s'...FAIL!!!\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName ? machine->instanceName : "<unknown>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknown>") ;
 
 								for( statetMachineShutdownIndex = 0 ; statetMachineShutdownIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineShutdownIndex++ )
 								{
@@ -928,7 +933,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 									}
 								}
 							}
-#endif
+
 							if(((event_t*)timer)->eventType == SUBSTATE_TIMEOUT)
 							{
 								/*
@@ -1086,6 +1091,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 		if(event == &initialTransitionEvent)
 		{
 			sm->activeState = state ;
+
 			response = ((stateMachine_choiceStateHandler_t)(state->handler))(sm) ;
 		}
 		else
@@ -1134,22 +1140,6 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 			&&	(hsm_getEventType(event) != SUBSTATE_DO)
 			&&	(!((hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION) && (!sm->currentStateHasInitialTransition))))
 		{
-#if 0
-			printf("%s-%s;", &state->stateName[strlen(sm->stateMachineName) + 1], hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ; fflush(stdout) ;
-#elif 0
-			printf(	"<%s>%s;",
-					sm->instanceName,
-					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
-												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
-			fflush(stdout) ;
-#elif 0
-			printf(	"<%s>%s-%s;",
-					sm->instanceName,
-					&state->stateName[strlen(sm->stateMachineName) + 1],
-					hsm_isEventInternal(event)	? eventTypes[hsm_getEventType(event)]
-												: sm->eventNames ? sm->eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
-			fflush(stdout) ;
-#else
 			// I go through this trouble to avoid a "pointer target lost const qualifier" warning in SDCC
 
 			const char*	myName ;
@@ -1164,7 +1154,6 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 			}
 
 			printf("%s-%s;", &state->stateName[strlen(sm->stateMachineName) + 1], myName) ; fflush(stdout) ;
-#endif
 
 			if(		(strncmp(&state->stateName[strlen(sm->stateMachineName) + 1], "TOP", 3) == 0)
 				&&	(hsm_getEventType(event) == SUBSTATE_INITIAL_TRANSITION))
@@ -1175,6 +1164,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 #endif
 
 		sm->activeState = state ;
+
 		response = ((stateMachine_callStateHandler_t)(state->handler))(sm, event) ;
 
 		if(		(sm->printStateTransitions)

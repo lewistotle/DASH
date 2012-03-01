@@ -55,7 +55,7 @@ extern "C"
 
 	typedef void						FILE ;
 	typedef float						sm_float_t ;
-	#define const_state_t				static state_t
+	#define const_state_t				static __xdata state_t
 	#define const_state_with_history_t	static state_with_history_t
 #else
 	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
@@ -273,39 +273,43 @@ typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
 
 typedef struct
 {
-	const void*								parent ;				/* pointer to parent state */
-	const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
-#ifdef __c8051f040__
-	const stateMachine_callStateHandler_t*	handler ;				/* pointer to the handler function */
-#else
-	const stateMachine_callStateHandler_t	handler ;				/* pointer to the handler function */
-#endif
+	const void*									parent ;				/* pointer to parent state */
+	const enum STATE_MACHINE_STATE_TYPES		type ;					/* what type of state is this? */
+	stateMachine_callStateHandler_t				handler ;				/* pointer to the handler function */
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	const char*								stateName ;				/* DEBUGGING: name of this state */
+	const char*									stateName ;				/* DEBUGGING: name of this state */
 #endif
 } state_t ;
 
 
 typedef struct
 {
-	const void*								parent ;				/* pointer to parent state */
-	const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
-	const stateMachine_choiceStateHandler_t	handler ;				/* pointer to the handler function */
+	const void*									parent ;				/* pointer to parent state */
+	const enum STATE_MACHINE_STATE_TYPES		type ;					/* what type of state is this? */
+#ifdef __c8051f040__
+	const stateMachine_choiceStateHandler_t*	handler ;				/* pointer to the handler function */
+#else
+	const stateMachine_choiceStateHandler_t		handler ;				/* pointer to the handler function */
+#endif
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	const char*								stateName ;				/* DEBUGGING: name of this state */
+	const char*									stateName ;				/* DEBUGGING: name of this state */
 #endif
 } choice_state_t ;
 
 
 typedef struct
 {
-	const void*								parent ;				/* pointer to parent state */
-	const enum STATE_MACHINE_STATE_TYPES	type ;					/* what type of state is this? */
-	const stateMachine_callStateHandler_t	handler ;				/* pointer to the handler function */
-#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	const char*								stateName ;				/* DEBUGGING: name of this state */
+	const void*									parent ;				/* pointer to parent state */
+	const enum STATE_MACHINE_STATE_TYPES		type ;					/* what type of state is this? */
+#ifdef __c8051f040__
+	const stateMachine_callStateHandler_t*		handler ;				/* pointer to the handler function */
+#else
+	const stateMachine_callStateHandler_t		handler ;				/* pointer to the handler function */
 #endif
-	const uint16_t							historyMarkerIndex ;	/* index into machine's history table */
+#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
+	const char*									stateName ;				/* DEBUGGING: name of this state */
+#endif
+	const uint16_t								historyMarkerIndex ;	/* index into machine's history table */
 } state_with_history_t ;
 
 
@@ -700,32 +704,49 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 
-
 #define DECLARE_STATE_MACHINE_VARIABLES()		typedef struct { stateMachine_t parent
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __cplusplus
-		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;		\
+		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																	\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;											\
+														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;							\
 														enum { sm##_historicalMarkerBase = __LINE__ }
 	#else
-		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-														stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-														__xdata const stateMachine_callStateHandler_t *	sm##_TOP_handler_address = (__xdata stateMachine_callStateHandler_t*)&sm##_TOP_handler ;										\
-														__xdata const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler_address), NULL } ;			\
-														enum { sm##_historicalMarkerBase = __LINE__ }
+		#ifdef __c8051f040__
+			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
+															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;												\
+															static stateMachine_stateResponse_t sm##_TOP_helper(stateMachine_t* self, event_t* event) __reentrant											\
+															{																																				\
+																return sm##_TOP_handler((sm##Machine_t*)self, event) ;																						\
+															}																																				\
+															__xdata state_t sm##_TOP = { NULL, 0, sm##_TOP_helper, #sm "_TOP" } ;																			\
+															enum { sm##_historicalMarkerBase = __LINE__ }
+		#else
+			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
+															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;												\
+															__xdata state_t sm##_TOP = { NULL, 0, sm##_TOP_handler, #sm "_TOP" } ;																			\
+															enum { sm##_historicalMarkerBase = __LINE__ }
+		#endif
 	#endif
 #else
 	#ifdef __cplusplus
-		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;		\
+		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																	\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;											\
+														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;										\
 														enum { sm##_historicalMarkerBase = __LINE__ }
 	#else
-		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																							\
-														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-														const_state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;		\
-														enum { sm##_historicalMarkerBase = __LINE__ }
+		#ifdef __c8051f040__
+			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
+															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;												\
+															__xdata const stateMachine_callStateHandler_t *	sm##_TOP_handler_address = (__xdata stateMachine_callStateHandler_t*)&sm##_TOP_handler ;		\
+															__xdata const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler_address) } ;											\
+															enum { sm##_historicalMarkerBase = __LINE__ }
+		#else
+			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
+															static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
+															const_state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;															\
+															enum { sm##_historicalMarkerBase = __LINE__ }
+		#endif
 	#endif
 #endif
 #define END_STATE_MACHINE_VARIABLES_1(sm)		END_STATE_MACHINE_VARIABLES_2(sm)
@@ -740,23 +761,37 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 
-
-
-
-
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+	#ifdef __c8051f040__
+		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
+														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant											\
+														{																																					\
+															return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																						\
+														}																																					\
+														__xdata state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, sm##_##ss##_helper, #sm "_" #ss }
+	#else
+		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
+														const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+	#endif
 #else
-	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;											\
 													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler) }
 #endif
 #define ADD_SUB_STATE_1(sm, ps, ss)				ADD_SUB_STATE_2(sm, ps, ss)
 #define ADD_SUB_STATE(ss, ps)					ADD_SUB_STATE_1(STATE_MACHINE_NAME, ps, ss)
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
-													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+	#ifdef __c8051f040__
+		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
+														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant											\
+														{																																					\
+															return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																						\
+														}																																					\
+														__xdata state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, sm##_##ss##_helper, #sm "_" #ss }
+	#else
+		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
+														const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
+	#endif
 #else
 	#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
 													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler) }
@@ -766,8 +801,17 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+	#ifdef __c8051f040__
+		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;							\
+																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant								\
+																	{																																		\
+																		return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																			\
+																	}																																		\
+																	__xdata state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY, sm##_##ss##_helper, #sm "_" #ss }
+	#else
+		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																	const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+	#endif
 #else
 	#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
 																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), __LINE__ - sm##_historicalMarkerBase }
@@ -776,8 +820,17 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY(ss, ps)			ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(STATE_MACHINE_NAME, ps, ss)
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
-																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+	#ifdef __c8051f040__
+		#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;							\
+																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant								\
+																	{																																		\
+																		return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																			\
+																	}																																		\
+																	__xdata state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY, sm##_##ss##_helper, #sm "_" #ss }
+	#else
+		#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+																	const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
+	#endif
 #else
 	#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
 																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), __LINE__ - sm##_historicalMarkerBase }
@@ -967,7 +1020,8 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #define EVERY(timeout, act)							{																																																											\
 														ON_ENTRY({timeoutEvent_t* timeoutForState = (timeoutEvent_t*)CREATE_ALARM(SUBSTATE_REPEATING_TIMER, timeout, REPEATING) ; if(timeoutForState) { ACTIVATE_ALARM(timeoutForState) ; timeoutForState->lineNumber = __LINE__ ; } }) ;	\
-														ON_EVENT_IF(SUBSTATE_REPEATING_TIMER, ((timeoutEvent_t*)event)->lineNumber == __LINE__, ACTIVATE_ALARM((timeoutEvent_t*)event) ; act) ;																									\
+														/*ON_EVENT_IF(SUBSTATE_REPEATING_TIMER, ((timeoutEvent_t*)event)->lineNumber == __LINE__, act ; ) ;*/ \
+														ON_EVENT(SUBSTATE_REPEATING_TIMER, act ; ) ; \
 														ON_EXIT(DELETE_TIMEOUT(self, __LINE__)) ;																																																\
 													}
 
