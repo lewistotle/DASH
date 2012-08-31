@@ -85,7 +85,7 @@
 
 #if includeTimeBombs
 	#if numberOfTimeBombs >= 1
-		stateMachine_t*	bomb_0 ;
+		stateMachine_t __xdata*	bomb_0 ;
 	#endif
 	#if numberOfTimeBombs >= 2
 		stateMachine_t*	bomb_1 ;
@@ -102,9 +102,12 @@
 #endif
 
 static volatile	bool	ok						= true ;
-static volatile	bool	timeForTickProcessing	= false ;
 
 extern hal_UART_info_t* UART_0 ;
+
+
+void handleKeypress(uint8_t c) ;
+
 
 #if defined(__TS7800__) || defined(__cygwin__) || defined(__linux__) || defined(__AVR_ARCH__)
 	#ifdef USING_NEWLIB
@@ -122,14 +125,15 @@ void main(	void)
 	hal_gpio_init() ;
 	hal_UART_init(UART_0) ;
 
-	hal_UART_puts(UART_0, "\nHello World.\n") ;
+	hal_UART_puts(UART_0, "\n\n") ;
 
 	ok = true ;
 	puts("DASH test started.") ;
+	printf("Registering state machines\n") ;
 
 #if includeTimeBombs
 	#if numberOfTimeBombs >= 1
-		bomb_0 = STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
+		bomb_0 = (stateMachine_t __xdata*)STATE_MACHINE_CREATE_INSTANCE_OF(timeBomb) ;
 
 		if(bomb_0)
 		{
@@ -170,28 +174,59 @@ void main(	void)
 	}
 #endif
 
-	puts("Iterating state machines") ;
+	puts("Iterating state machines\n") ;
 
 	portENABLE_INTERRUPTS() ;
 
 	while(ok)
 	{
-		if(timeForTickProcessing)
+		if(hal_timer_is_time_for_tick_processing())
 		{
-			timeForTickProcessing = false ;
-
 			hal_UART_core(UART_0) ;
 
-#if includeTimeBombs || includeCalculator || includeFourLevelTest
-			ITERATE_ALL_STATE_MACHINES() ;
+			if(hal_UART_hasCharBeenReceived(UART_0))
+			{
+				handleKeypress(hal_UART_getchar(UART_0)) ;
+			}
+
+#if includeTimeBombs
+	#if numberOfTimeBombs >= 1
+			if(bomb_0)
+			{
+				ITERATE_SINGLE_STATE_MACHINE(bomb_0) ;
+			}
+	#endif
+	#if numberOfTimeBombs >= 2
+			if(bomb_1)
+			{
+				ITERATE_SINGLE_STATE_MACHINE(bomb_1) ;
+			}
+	#endif
+	#if numberOfTimeBombs >= 3
+			if(bomb_2)
+			{
+				ITERATE_SINGLE_STATE_MACHINE(bomb_2) ;
+			}
+	#endif
 #endif
+#if includeCalculator
+			if(calculator)
+			{
+				ITERATE_SINGLE_STATE_MACHINE(calculator) ;
+			}
+#endif
+#if includeFourLevelTest
+			if(fourLevelTest)
+			{
+				REGISTER_STATE_MACHINE(fourLevelTest) ;
+			}
+#endif
+
+			hal_timer_tick_procesed() ;
 		}
 	}
 
 	puts("DONE with state machines") ;
-
-	hal_UART_shutdown(UART_0) ;
-//	task_TIMER_shutdown() ;
 
 #if includeFourLevelTest
 	if(fourLevelTest)
@@ -245,6 +280,12 @@ void main(	void)
 		}
 	#endif
 #endif
+
+	hal_UART_shutdown(UART_0) ;
+	hal_gpio_shutdown() ;
+	hal_timer_shutdown() ;
+	hal_clock_shutdown() ;
+	hal_shutdown() ;
 
 	puts("\nDASH test done.") ;
 
@@ -336,7 +377,7 @@ void handleKeypress(uint8_t c)
 		case 't':
 		case 'T':	{ target = 0 ;				eventType = ARMAGEDDON ;	break ; }
 
-		default:	{ target = 0 ;				eventType = ARMAGEDDON ;	break ; }
+//		default:	{ target = 0 ;				eventType = ARMAGEDDON ;	break ; }
 	}
 
 	if(eventType != SUBSTATE_NON_EVENT)
@@ -384,6 +425,7 @@ void handleKeypress(uint8_t c)
 	#if numberOfTimeBombs >= 1
 		else if(target == bomb_0)
 		{
+			printf("\nPosting '%c' to bomb0\n", c) ;
 			hsm_postEventToMachine(bomb_0, (event_t*)event) ;
 		}
 	#endif

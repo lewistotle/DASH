@@ -83,6 +83,12 @@ extern "C"
 
 	#define portDISABLE_INTERRUPTS()		cli()
 	#define portENABLE_INTERRUPTS()			sei()
+#elif defined(__MINGW__)
+	#define portENTER_CRITICAL()			{
+	#define portEXIT_CRITICAL()				}
+
+	#define portDISABLE_INTERRUPTS()
+	#define portENABLE_INTERRUPTS()
 #else
 	#error dashHAL
 #endif
@@ -108,17 +114,34 @@ extern "C"
 
 
 
-bool hal_init(							void) ;
-bool hal_clock_init(					void) ;
-bool hal_timer_init(					void) ;
-bool hal_gpio_init(						void) ;
+bool hal_init(								void) ;
+bool hal_clock_init(						void) ;
+bool hal_timer_init(						void) ;
+bool hal_gpio_init(							void) ;
+
+bool hal_timer_is_time_for_tick_processing(	void) ;
+void hal_timer_tick_procesed(				void) ;
+
+bool hal_gpio_shutdown(						void) ;
+bool hal_timer_shutdown(					void) ;
+bool hal_clock_shutdown(					void) ;
+bool hal_shutdown(							void) ;
 
 
-bool hal_init_projectSpecific(			void) ;
-bool hal_clock_init_projectSpecific(	void) ;
-bool hal_timer_init_projectSpecific(	void) ;
-bool hal_gpio_init_projectSpecific(		void) ;
 
+
+bool hal_init_projectSpecific(								void) ;
+bool hal_clock_init_projectSpecific(						void) ;
+bool hal_timer_init_projectSpecific(						void) ;
+bool hal_gpio_init_projectSpecific(							void) ;
+
+bool hal_timer_is_time_for_tick_processing_projectSpecific(	void) ;
+void hal_timer_tick_procesed_projectSpecific(				void) ;
+
+bool hal_gpio_shutdown_projectSpecific(						void) ;
+bool hal_timer_shutdown_projectSpecific(					void) ;
+bool hal_clock_shutdown_projectSpecific(					void) ;
+bool hal_shutdown_projectSpecific(							void) ;
 
 
 

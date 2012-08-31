@@ -25,6 +25,12 @@ bool hal_init_projectSpecific(			void)
 }
 
 
+bool hal_shutdown_projectSpecific(			void)
+{
+	return true ;
+}
+
+
 #define configMICROSECONDS_PER_TICK                    (1000)
 
 void* timer_thread(		void* threadID) ;
@@ -40,8 +46,15 @@ uint32_t	uptime_microseconds ;
 
 static bool timerShouldRun = false ;
 
+static volatile	bool	timeForTickProcessing	= false ;
 
 bool hal_clock_init_projectSpecific(	void)
+{
+	return true ;
+}
+
+
+bool hal_clock_shutdown_projectSpecific(	void)
 {
 	return true ;
 }
@@ -51,7 +64,8 @@ bool hal_timer_init_projectSpecific(	void)
 {
 	int				rc ;
 
-	timerShouldRun = true ;
+	timeForTickProcessing	= false ;
+	timerShouldRun			= true ;
 
 	rc = pthread_create(&timer_threadHandle, NULL, timer_thread, (void*)&timer_threadStatus) ;
 
@@ -71,13 +85,28 @@ bool hal_timer_init_projectSpecific(	void)
 }
 
 
-
-void task_TIMER_core(		void)
+bool hal_timer_is_time_for_tick_processing_projectSpecific(	void)
 {
+	if(timeForTickProcessing)
+	{
+		return true ;
+	}
+	else
+	{
+		usleep(1) ;
+
+		return false ;
+	}
 }
 
 
-void task_TIMER_shutdown(	void)
+void hal_timer_tick_procesed_projectSpecific(				void)
+{
+	timeForTickProcessing = false ;
+}
+
+
+bool hal_timer_shutdown_projectSpecific(	void)
 {
 	timerShouldRun = false ;
 
@@ -86,6 +115,8 @@ void task_TIMER_shutdown(	void)
 	pthread_join(timer_threadHandle, &timer_threadStatus) ;
 
 	puts("timer thread join complete.") ;
+
+	return true ;
 }
 
 
@@ -168,6 +199,8 @@ void* timer_thread(	void* threadID)
 		}
 
 		usleep(configMICROSECONDS_PER_TICK) ;
+
+		timeForTickProcessing = true ;
 	}
 
 	puts("timer thread exited.") ;
@@ -183,6 +216,11 @@ bool hal_gpio_init_projectSpecific(		void)
 	return true ;
 }
 
+
+bool hal_gpio_shutdown_projectSpecific(		void)
+{
+	return true ;
+}
 
 void* charInput_thread(	void* threadID) ;
 

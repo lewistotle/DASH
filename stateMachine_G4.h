@@ -57,10 +57,29 @@ extern "C"
 	typedef float						sm_float_t ;
 	#define const_state_t				static __xdata state_t
 	#define const_state_with_history_t	static state_with_history_t
+	#define REENTRANT
+#elif defined(__linux__)
+	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
+	#define VOID_CAST(v)				(const void*)(v)
+	#define REENTRANT
+	#define __code
+
+	typedef double						sm_float_t ;
+	#define const_state_t				static const state_t
+	#define const_state_with_history_t	static const state_with_history_t
+#elif defined(__MINGW__)
+	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
+	#define VOID_CAST(v)				(const void*)(v)
+	#define REENTRANT
+	#define __code
+
+	typedef double						sm_float_t ;
+	#define const_state_t				static const state_t
+	#define const_state_with_history_t	static const state_with_history_t
 #else
 	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
 	#define VOID_CAST(v)				(const void*)(v)
-	#define __reentrant
+	#define REENTRANT					__reentrant
 	#define __code
 
 	typedef double						sm_float_t ;
@@ -103,17 +122,17 @@ typedef struct
 } machineMemoryPoolInto_t ;
 
 
-typedef void (* stateMachine_destructorFunction_t)(		void* self) __reentrant ;
+typedef void (* stateMachine_destructorFunction_t)(		void* self) REENTRANT ;
 
 #ifdef __c8051f040__
-typedef void (* stateMachine_displayStatusInfo_t)(		void* self, void* event) __reentrant ;
+typedef void (* stateMachine_displayStatusInfo_t)(		void* self, void* event) REENTRANT ;
 #else
-typedef void (* stateMachine_displayStatusInfo_t)(		void* self, FILE* event) __reentrant ;
+typedef void (* stateMachine_displayStatusInfo_t)(		void* self, FILE* event) REENTRANT ;
 #endif
-typedef void (* stateMachine_displayEventInfo_t)(		void* self, event_t* event) __reentrant ;
-typedef void (* stateMachine_displayMachineOutput_t)(	void* self) __reentrant ;
+typedef void (* stateMachine_displayEventInfo_t)(		void* self, event_t* event) REENTRANT ;
+typedef void (* stateMachine_displayMachineOutput_t)(	void* self) REENTRANT ;
 
-typedef void (* stateMachine_fatalErrorFunction_t)(		void *self) __reentrant ;
+typedef void (* stateMachine_fatalErrorFunction_t)(		void *self) REENTRANT ;
 
 
 
@@ -127,7 +146,8 @@ void outputStateMachineStatus(	FILE* destination) ;
  * Here is a brief description of what each field does:
  *
  * 		topState:						points to the topmost state in the machine
- * 		stateMachineName:				Debugging only. It holds the name of the machine
+ * 		stateMachineName:				Debugging only. It holds the name of this machine instance
+ *										(defaults to machine type but can be overridden)
  * 		currentState:					What state the machine is in right now.
  * 		nextState:						Set by a state when a transition is about to happen
  * 		eventQueue:						A queue that holds all non-deferred events that come in
@@ -199,7 +219,6 @@ typedef struct
 	/* The following are used for debugging only and can be removed for production code. */
 
 	uint8_t									printStateTransitions ;
-	const char*								instanceName ;
 	const char**							eventNames ;
 	stateMachine_displayEventInfo_t			debugging_internalEventDisplay ;
 	stateMachine_displayEventInfo_t			debugging_externalEventDisplay ;
@@ -260,14 +279,14 @@ enum STATE_MACHINE_STATE_RESPONSES { IGNORED, HANDLED, TRANSITION, TRANSITION_TO
 
 typedef enum STATE_MACHINE_STATE_RESPONSES	stateMachine_stateResponse_t ;
 
-typedef stateMachine_stateResponse_t (* stateMachine_callStateHandler_t)(stateMachine_t* self, event_t* event) __reentrant ;
-typedef stateMachine_stateResponse_t (* stateMachine_choiceStateHandler_t)(stateMachine_t* self) __reentrant ;
+typedef stateMachine_stateResponse_t (* stateMachine_callStateHandler_t)(stateMachine_t* self, event_t* event) REENTRANT ;
+typedef stateMachine_stateResponse_t (* stateMachine_choiceStateHandler_t)(stateMachine_t* self) REENTRANT ;
 
 /* A couple of helpers to deal with state machine memory and initialization. */
 
-typedef const machineMemoryPoolInto_t* (* stateMachine_memRequirements_t)(void) __reentrant ;
-typedef void (* stateMachine_constructor_t)(stateMachine_t* self) __reentrant ;
-typedef void (* stateMachine_destructor_t)(stateMachine_t* self) __reentrant ;
+typedef const machineMemoryPoolInto_t* (* stateMachine_memRequirements_t)(void) REENTRANT ;
+typedef void (* stateMachine_constructor_t)(stateMachine_t* self) REENTRANT ;
+typedef void (* stateMachine_destructor_t)(stateMachine_t* self) REENTRANT ;
 
 
 
@@ -499,8 +518,8 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 												void sm##_constructor(				stateMachine_t* self) ;							\
 												void sm##_destructor(				void* self) ;									\
 												void sm##_fatalErrorHandler(		void* self) ;									\
-												void sm##_displayInternalEventInfo(	void* self, event_t* event) __reentrant ;					\
-												void sm##_displayExternalEventInfo(	void* self, event_t* event) __reentrant ;					\
+												void sm##_displayInternalEventInfo(	void* self, event_t* event) REENTRANT ;					\
+												void sm##_displayExternalEventInfo(	void* self, event_t* event) REENTRANT ;					\
 												void sm##_displayStatus(			void* self, void* file) ;						\
 												void sm##_displayMachineOutput(		void* self) ;									\
 												void sm##_displayMachineDebugging(	void* self) ;									\
@@ -546,7 +565,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ENABLE_INTERNAL_EVENT_DEBUGGING_DISPLAY_1(sm)	ENABLE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)
 #define ENABLE_INTERNAL_EVENT_DEBUGGING_DISPLAY()		ENABLE_INTERNAL_EVENT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayInternalEventInfo(void* machine, event_t* event) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayInternalEventInfo(void* machine, event_t* event) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ;
 #define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_1(sm)	DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)
 #define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY()		DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
@@ -561,7 +580,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_1(sm)	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)
 #define ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()		ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayExternalEventInfo(void* machine, event_t* event) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayExternalEventInfo(void* machine, event_t* event) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ;
 #define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_1(sm)	DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)
 #define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()		DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
@@ -576,7 +595,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ENABLE_STATUS_DISPLAY_1(sm)						ENABLE_STATUS_DISPLAY_2(sm)
 #define ENABLE_STATUS_DISPLAY()							ENABLE_STATUS_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define DEFINE_STATUS_DISPLAY_2(sm)						void sm##_displayStatus(void* machine, FILE* file) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_STATUS_DISPLAY_2(sm)						void sm##_displayStatus(void* machine, FILE* file) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ;
 #define DEFINE_STATUS_DISPLAY_1(sm)						DEFINE_STATUS_DISPLAY_2(sm)
 #define DEFINE_STATUS_DISPLAY()							DEFINE_STATUS_DISPLAY_1(STATE_MACHINE_NAME)
 
@@ -591,7 +610,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ENABLE_MACHINE_OUTPUT_DISPLAY_1(sm)				ENABLE_MACHINE_OUTPUT_DISPLAY_2(sm)
 #define ENABLE_MACHINE_OUTPUT_DISPLAY()					ENABLE_MACHINE_OUTPUT_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define DEFINE_MACHINE_OUTPUT_DISPLAY_2(sm)				void sm##_displayMachineOutput(void* machine) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_MACHINE_OUTPUT_DISPLAY_2(sm)				void sm##_displayMachineOutput(void* machine) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ;
 #define DEFINE_MACHINE_OUTPUT_DISPLAY_1(sm)				DEFINE_MACHINE_OUTPUT_DISPLAY_2(sm)
 #define DEFINE_MACHINE_OUTPUT_DISPLAY()					DEFINE_MACHINE_OUTPUT_DISPLAY_1(STATE_MACHINE_NAME)
 
@@ -609,7 +628,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ENABLE_MACHINE_DEBUGGING_DISPLAY_1(sm)			ENABLE_MACHINE_DEBUGGING_DISPLAY_2(sm)
 #define ENABLE_MACHINE_DEBUGGING_DISPLAY()				ENABLE_MACHINE_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
-#define DEFINE_MACHINE_DEBUGGING_DISPLAY_2(sm)			void sm##_displayMachineDebugging(void* machine) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ;
+#define DEFINE_MACHINE_DEBUGGING_DISPLAY_2(sm)			void sm##_displayMachineDebugging(void* machine) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ;
 #define DEFINE_MACHINE_DEBUGGING_DISPLAY_1(sm)			DEFINE_MACHINE_DEBUGGING_DISPLAY_2(sm)
 #define DEFINE_MACHINE_DEBUGGING_DISPLAY()				DEFINE_MACHINE_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
@@ -626,19 +645,19 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define ENABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS()
 #define DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS()
 
-#define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayInternalEventInfo(void* machine, event_t* event) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ; if(false)
+#define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayInternalEventInfo(void* machine, event_t* event) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ; if(false)
 #define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_1(sm)	DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)
 #define DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY()		DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
 #define END_INTERNAL_EVENT_DEBUGGING_DISPLAY()			(void)event ; (void)self ; }
 
-#define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayExternalEventInfo(void* machine, event_t* event) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ; if(false)
+#define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayExternalEventInfo(void* machine, event_t* event) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ; if(false)
 #define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_1(sm)	DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_2(sm)
 #define DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()		DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
 #define END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()			(void)event ; (void)self ; }
 
-#define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayMachineOutput(void* machine) __reentrant { sm##Machine_t* self = (sm##Machine_t*)machine ; if(false)
+#define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)	void sm##_displayMachineOutput(void* machine) REENTRANT { sm##Machine_t* self = (sm##Machine_t*)machine ; if(false)
 #define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_1(sm)	DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_2(sm)
 #define DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY()		DEFINE_MACHINE_OUTPUT_DEBUGGING_DISPLAY_1(STATE_MACHINE_NAME)
 
@@ -708,14 +727,14 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __cplusplus
 		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																	\
-														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;											\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;											\
 														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;							\
 														enum { sm##_historicalMarkerBase = __LINE__ }
 	#else
 		#ifdef __c8051f040__
 			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
-															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;												\
-															static stateMachine_stateResponse_t sm##_TOP_helper(stateMachine_t* self, event_t* event) __reentrant											\
+															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;												\
+															static stateMachine_stateResponse_t sm##_TOP_helper(stateMachine_t* self, event_t* event) REENTRANT											\
 															{																																				\
 																return sm##_TOP_handler((sm##Machine_t*)self, event) ;																						\
 															}																																				\
@@ -723,27 +742,27 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 															enum { sm##_historicalMarkerBase = __LINE__ }
 		#else
 			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
-															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;												\
-															__xdata state_t sm##_TOP = { NULL, 0, sm##_TOP_handler, #sm "_TOP" } ;																			\
+															static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;												\
+															const state_t sm##_TOP = { NULL, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler), #sm "_TOP" } ;																			\
 															enum { sm##_historicalMarkerBase = __LINE__ }
 		#endif
 	#endif
 #else
 	#ifdef __cplusplus
 		#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																	\
-														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;											\
+														static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;											\
 														const_state_t sm##_TOP = { (void*)0, (STATE_MACHINE_STATE_TYPES)0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;										\
 														enum { sm##_historicalMarkerBase = __LINE__ }
 	#else
 		#ifdef __c8051f040__
 			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
-															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;												\
+															stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;												\
 															__xdata const stateMachine_callStateHandler_t *	sm##_TOP_handler_address = (__xdata stateMachine_callStateHandler_t*)&sm##_TOP_handler ;		\
 															__xdata const state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler_address) } ;											\
 															enum { sm##_historicalMarkerBase = __LINE__ }
 		#else
 			#define END_STATE_MACHINE_VARIABLES_2(sm)		} sm##Machine_t ;																																\
-															static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
+															static stateMachine_stateResponse_t sm##_TOP_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;										\
 															const_state_t sm##_TOP = { (void*)0, 0, CALLSTATEHANDLER_CAST(&sm##_TOP_handler) } ;															\
 															enum { sm##_historicalMarkerBase = __LINE__ }
 		#endif
@@ -763,18 +782,18 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
-		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
-														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant											\
+		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;										\
+														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT											\
 														{																																					\
 															return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																						\
 														}																																					\
 														__xdata state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, sm##_##ss##_helper, #sm "_" #ss }
 	#else
-		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
+		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;										\
 														const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
 	#endif
 #else
-	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;											\
+	#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;											\
 													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), NORMAL_STATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler) }
 #endif
 #define ADD_SUB_STATE_1(sm, ps, ss)				ADD_SUB_STATE_2(sm, ps, ss)
@@ -782,18 +801,18 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
-		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;										\
-														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant											\
+		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;										\
+														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT											\
 														{																																					\
 															return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																						\
 														}																																					\
 														__xdata state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, sm##_##ss##_helper, #sm "_" #ss }
 	#else
-		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
+		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) REENTRANT ;	\
 														const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss }
 	#endif
 #else
-	#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) __reentrant ;	\
+	#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) REENTRANT ;	\
 													const_state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, CALLSTATEHANDLER_CAST(&sm##_##ss##_handler) }
 #endif
 #define ADD_CHOICE_PSEUDO_STATE_1(sm, ps, ss)	ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)
@@ -802,18 +821,18 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
-		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;							\
-																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant								\
+		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;							\
+																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT								\
 																	{																																		\
 																		return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																			\
 																	}																																		\
 																	__xdata state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY, sm##_##ss##_helper, #sm "_" #ss }
 	#else
-		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;	\
 																	const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
 	#endif
 #else
-	#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+	#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;	\
 																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_SHALLOW_HISTORY,	CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), __LINE__ - sm##_historicalMarkerBase }
 #endif
 #define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_1(sm, ps, ss)	ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)
@@ -821,18 +840,18 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
-		#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;							\
-																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) __reentrant								\
+		#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;							\
+																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT								\
 																	{																																		\
 																		return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																			\
 																	}																																		\
 																	__xdata state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY, sm##_##ss##_helper, #sm "_" #ss }
 	#else
-		#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+		#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;	\
 																	const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), #sm "_" #ss, __LINE__ - sm##_historicalMarkerBase }
 	#endif
 #else
-	#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) __reentrant ;	\
+	#define ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)		static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;	\
 																const_state_with_history_t sm##_##ss = { VOID_CAST(&sm##_##ps), STATE_WITH_DEEP_HISTORY,		CALLSTATEHANDLER_CAST(&sm##_##ss##_handler), __LINE__ - sm##_historicalMarkerBase }
 #endif
 #define ADD_SUB_STATE_WITH_DEEP_HISTORY_1(sm, ps, ss)		ADD_SUB_STATE_WITH_DEEP_HISTORY_2(sm, ps, ss)
@@ -871,16 +890,16 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #define STATE_MACHINE_CREATE_INSTANCE_OF(sm)	allocateStateMachineMemory(sm##_getMachineSize(), sm##_getHistoryArraySize(), sm##_getMemoryRequirements, sm##_constructor)
 #define STATE_MACHINE_DESTROY_INSTANCE_OF(inst)	deallocateStateMachineMemory(inst)
 
-#define DEFINE_TOP_STATE_2(sm)					static stateMachine_stateResponse_t sm##_TOP_handler(			sm##Machine_t* self, event_t* event) __reentrant
+#define DEFINE_TOP_STATE_2(sm)					static stateMachine_stateResponse_t sm##_TOP_handler(			sm##Machine_t* self, event_t* event) REENTRANT
 #define DEFINE_TOP_STATE_1(sm)					DEFINE_TOP_STATE_2(sm)
 #define DEFINE_TOP_STATE()						DEFINE_TOP_STATE_1(STATE_MACHINE_NAME) { stateMachine_stateResponse_t stateResponseCode = IGNORED ;
-#define DEFINE_STATE_2(sm, state)				static stateMachine_stateResponse_t sm##_##state##_handler(	sm##Machine_t* self, event_t* event) __reentrant
+#define DEFINE_STATE_2(sm, state)				static stateMachine_stateResponse_t sm##_##state##_handler(	sm##Machine_t* self, event_t* event) REENTRANT
 #define DEFINE_STATE_1(sm, state)				DEFINE_STATE_2(sm, state)
 #define DEFINE_STATE(state)						DEFINE_STATE_1(STATE_MACHINE_NAME, state) { stateMachine_stateResponse_t stateResponseCode = IGNORED ;
 
 
 #define DEFINE_CHOICE_PSEUDO_STATE_2(sm, state, cndtn, trueDest, trueAct, falseDest, falseAct)													\
-												static stateMachine_stateResponse_t sm##_##state##_handler(	sm##Machine_t* self) __reentrant	\
+												static stateMachine_stateResponse_t sm##_##state##_handler(	sm##Machine_t* self) REENTRANT	\
 												{																								\
 													stateMachine_stateResponse_t stateResponseCode = TRANSITION ;								\
 																																				\
@@ -896,7 +915,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 													}																							\
 																																				\
 													return stateResponseCode ;																			\
-												} static stateMachine_stateResponse_t sm##_##state##_handler(	sm##Machine_t* self) __reentrant	/* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
+												} static stateMachine_stateResponse_t sm##_##state##_handler(	sm##Machine_t* self) REENTRANT	/* duplicate prototype to prevent compiler warning about semicolon outside of function or typedef */
 #define DEFINE_CHOICE_PSEUDO_STATE_1(sm, state, cndtn, trueDest, trueAct, falseDest, falseAct)	DEFINE_CHOICE_PSEUDO_STATE_2(sm, state, cndtn, trueDest, trueAct, falseDest, falseAct)
 #define DEFINE_CHOICE_PSEUDO_STATE(state, cndtn, trueDest, trueAct, falseDest, falseAct)		DEFINE_CHOICE_PSEUDO_STATE_1(STATE_MACHINE_NAME, state, cndtn, trueDest, trueAct, falseDest, falseAct)
 
@@ -1132,6 +1151,9 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #elif defined(__AVR__)
 	#define HSM_ENTER_CRITICAL_SECTION()		{ uint8_t sreg = SREG ; cli()
 	#define HSM_EXIT_CRITICAL_SECTION()			SREG = sreg ; }
+#elif defined(__MINGW__)
+	#define HSM_ENTER_CRITICAL_SECTION()		{
+	#define HSM_EXIT_CRITICAL_SECTION()			}
 #else
 	#error DEFINE THE CRITICAL SECTION MACROS
 #endif

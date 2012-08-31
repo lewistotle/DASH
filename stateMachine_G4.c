@@ -1,6 +1,5 @@
 #include "hal.h"
 #include "hal_UART.h"
-#include <C8051F040.h>
 /*
  ============================================================================
  Name        : StateMachine_G4.c
@@ -23,6 +22,8 @@
 	#include <sys/time.h>
 
 	#define __xdata
+#else
+	#include <C8051F040.h>
 #endif
 
 #include "stateMachine_G4.h"
@@ -285,7 +286,7 @@ void hsm_resetTimeout(		stateMachine_t* machine)
 	/* Now go through the timer event area looking for the current timeout */
 
 #if TRACING_ENABLED
-	printf("\n\tResetting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ;
+	printf("\n\tResetting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->stateMachineName) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
@@ -335,7 +336,7 @@ void hsm_deleteTimeout(		stateMachine_t* machine, uint16_t lineNumber)
 	/* Now go through the timer event area and grab the next open slot */
 
 #if TRACING_ENABLED
-	printf("\tDeleting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->instanceName) ; fflush(stdout) ;
+	printf("\tDeleting timeout in state '%s' for machine '%s'\n", ((state_t*)(machine->currentState))->stateName, machine->stateMachineName) ; fflush(stdout) ;
 #endif
 
 	for( i = 0 ; i < machine->numberOfTimerEvents ; i++ )
@@ -470,7 +471,9 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 //	printf("\tAllocating %d (0x%04X) total bytes\n", numberOfBytesNeeded, numberOfBytesNeeded) ; fflush(stdout) ;
 
-	instance = hsm_malloc(numberOfBytesNeeded) ;
+#warning   FIX THIS ALLOCATION ISSUE!!!!   (change the loops to generate offsets after which compute the final allocation size and then allocate the memory and adjust all the offsets by the beginning address of the block)
+
+	instance = hsm_malloc(numberOfBytesNeeded + 1000) ;
 
 	if(instance)
 	{
@@ -566,7 +569,7 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 
 			for( i = 0 ; i < numberOfWatchEvents ; i++ )
 			{
-				printf("\t\twatch event %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
+//				printf("\t\twatch event %2d start: %p\n", i, (void*)memoryPoolLocation) ; fflush(stdout) ;
 
 				memoryPoolLocation += sizeof(stateMachineWatch_t) ;
 			}
@@ -604,9 +607,9 @@ bool registerStateMachine(			stateMachine_t* sm, const char* smName)
 			{
 				stateMachines[statetMachineIndex] = sm ;
 
-				sm->instanceName = smName ;
+				sm->stateMachineName = smName ;
 
-				printf("Registered state machine %d as '%s'\n", statetMachineIndex, sm->instanceName) ;
+				printf("Registered state machine %d as '%s'\n", statetMachineIndex, sm->stateMachineName) ;
 
 				return true ;
 			}
@@ -892,12 +895,12 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled)
 						{
 							/* Here's at least one. Fire off the event */
 
-#if 1
-							printf("AIMING %p (%d) AT '%s::%s'...FIRE!!!\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName ? machine->instanceName : "<unknown>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknown>") ;
+#if 0
+							printf("AIMING %p (%d) AT '%s::%s'...FIRE!!!\n", (void*)timer, ((event_t*)timer)->eventType, machine->stateMachineName ? machine->stateMachineName : "<unknown>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknown>") ;
 #endif
 if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 {
-	printf("Posting non event at %p to '%s'\n", (void*)timer, machine->instanceName) ; fflush(stdout) ;
+	printf("Posting non event at %p to '%s'\n", (void*)timer, machine->stateMachineName) ; fflush(stdout) ;
 }
 							if(!hsm_postEventToMachine(machine, (event_t*)timer))
 							{
@@ -916,12 +919,12 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 
 									strftime(timeBuffer, 50, "%Y/%m/%d %H:%M:%S", timeinfo) ;
 
-									fprintf(file, "Event posting of type %d failed for machine '%s' at %s\n", ((event_t*)timer)->eventType, machine->instanceName, timeBuffer) ;
-									system("touch hsm_MIRA_output_enable") ;
+									fprintf(file, "Event posting of type %d failed for machine '%s' at %s\n", ((event_t*)timer)->eventType, machine->stateMachineName, timeBuffer) ;
+									int ignoreMe = system("touch hsm_MIRA_output_enable") ; ignoreMe = 0 ;
 									outputStateMachineStatus(file) ;
 								}
 #endif
-								printf("AIMING %p (%d) AT '%s::%s'...FAIL!!!\n", (void*)timer, ((event_t*)timer)->eventType, machine->instanceName ? machine->instanceName : "<unknown>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknown>") ;
+								printf("AIMING %p (%d) AT '%s::%s'...FAIL!!!\n", (void*)timer, ((event_t*)timer)->eventType, machine->stateMachineName ? machine->stateMachineName : "<unknown>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknown>") ;
 
 								for( statetMachineShutdownIndex = 0 ; statetMachineShutdownIndex < configMAXIMUM_NUMBER_OF_STATE_MACHINES ; statetMachineShutdownIndex++ )
 								{
@@ -1028,7 +1031,7 @@ if(((event_t*)timer)->eventType == SUBSTATE_NON_EVENT)
 
 							if(!hsm_postEventToMachine(machine, (event_t*)watch))
 							{
-								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)watch)->eventType, machine->instanceName) ;
+								printf("Event posting of type %d failed for machine '%s'\n", ((event_t*)watch)->eventType, machine->stateMachineName) ;
 								exit(0) ;
 							}
 						}
@@ -1055,7 +1058,7 @@ void outputStateMachineStatus(				FILE* destination)
 			{
 				stateMachine_t*	machine = stateMachines[statetMachineIndex] ;
 
-				fprintf(destination, "\t%s:%s\n", machine->instanceName ? machine->instanceName : "<unknownMachineName>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknownStateName>") ;
+				fprintf(destination, "\t%s:%s\n", machine->stateMachineName ? machine->stateMachineName : "<unknownMachineName>", ((state_t*)(machine->currentState))->stateName ? ((state_t*)(machine->currentState))->stateName : "<unknownStateName>") ;
 
 				if(stateMachines[statetMachineIndex]->debugging_statusDisplay)
 				{
@@ -1074,7 +1077,7 @@ stateMachine_stateResponse_t callStateHandler(stateMachine_t* sm, state_t* state
 #if TRACING_ENABLED
 	if(hsm_getEventType(event) != SUBSTATE_DO)
 	{
-		printf("\n\t\t\tCalling state '%s' in machine '%s', event: %s, ", state->stateName, sm->instanceName, hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>") ; fflush(stdout) ;
+		printf("\n\t\t\tCalling state '%s' in machine '%s', event: %s, ", state->stateName, sm->stateMachineName, hsm_isEventInternal(event) ? eventTypes[hsm_getEventType(event)] : "<USER_EVENT>") ; fflush(stdout) ;
 	}
 #endif
 
@@ -1266,12 +1269,12 @@ void hsm_iterateStateMachine(	stateMachine_t* sm)
 #if 1//TRACING_ENABLED
 				if(sm->debugging_internalEventDisplay && hsm_isEventInternal(eventToProcess))
 				{
-					((stateMachine_displayEventInfo_t)(sm->debugging_internalEventDisplay))(sm, eventToProcess) ;
+//					((stateMachine_displayEventInfo_t)(sm->debugging_internalEventDisplay))(sm, eventToProcess) ;
 				}
 
 				if(sm->debugging_externalEventDisplay && !hsm_isEventInternal(eventToProcess))
 				{
-					((stateMachine_displayEventInfo_t)(sm->debugging_externalEventDisplay))(sm, eventToProcess) ;
+//					((stateMachine_displayEventInfo_t)(sm->debugging_externalEventDisplay))(sm, eventToProcess) ;
 				}
 #endif
 			}

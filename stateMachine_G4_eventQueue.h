@@ -221,6 +221,9 @@ typedef struct
 														__asm			\
 														pop		ACC		\
 														__endasm;
+#elif defined(__MINGW__)
+	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{
+	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		}
 #else
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{ uint8_t sreg = SREG ; cli()
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		SREG = sreg ; }

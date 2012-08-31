@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "config.h"
 
@@ -18,6 +19,8 @@
 
 
 #define STATE_MACHINE_NAME timeBomb
+
+#define MAX_RETURNED_STRING_LENGTH	(100)
 
 DEFINE_STATE_MACHINE() ;
 	DECLARE_MEMORY_REQUIREMENTS()
@@ -34,6 +37,8 @@ DEFINE_STATE_MACHINE() ;
 	END_MEMORY_REQUIREMENTS()
 
 	DECLARE_STATE_MACHINE_VARIABLES() ;
+		char			machineOutputBuffer[MAX_RETURNED_STRING_LENGTH + 1] ;
+
 		uint8_t			finetime ;
 		uint8_t			timeout ;
 		uint8_t			codeBeingEntered ;
@@ -53,7 +58,8 @@ END_STATE_MACHINE_DEFINITION() ;
 
 STATE_MACHINE_CONSTRUCTOR()
 {
-	static const char*	eventNames[] =	{	"UP",
+	static const char*	eventNames[] =	{
+											"UP",
 											"DOWN",
 											"ARM",
 											"FINETICK"
@@ -62,15 +68,17 @@ STATE_MACHINE_CONSTRUCTOR()
 	SET_EVENT_NAMES(eventNames) ;
 	DISABLE_DEBUGGING_OUTPUT_FOR_TRANSITIONS() ;
 	DISABLE_INTERNAL_EVENT_DEBUGGING_DISPLAY() ;
-	ENABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
+	DISABLE_EXTERNAL_EVENT_DEBUGGING_DISPLAY() ;
 	ENABLE_MACHINE_OUTPUT_DISPLAY() ;
-	ENABLE_MACHINE_DEBUGGING_DISPLAY() ;
+	DISABLE_MACHINE_DEBUGGING_DISPLAY() ;
 
 	self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
 	self->timeout			= config_tbINIT_TIMEOUT ;
 	self->codeBeingEntered	= 0 ;
 	self->disarmCode		= 0x42 ;
 	self->finetick			= CREATE_ALARM(FINETICK, SECONDS(1.0 / config_tbFINE_TICKS_PER_SECOND), REPEATING) ;
+
+	memset(self->machineOutputBuffer, 0, MAX_RETURNED_STRING_LENGTH + 1) ;
 
 	printf("Locating self->finetick at %p\n", (void*)self->finetick) ;
 }
@@ -84,7 +92,7 @@ STATE_MACHINE_DESTRUCTOR()
 
 DEFINE_INTERNAL_EVENT_DEBUGGING_DISPLAY()
 {
-	printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+	printf("\n<%s>%4s: ", ((stateMachine_t*)self)->stateMachineName ? ((stateMachine_t*)self)->stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 }
 END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
@@ -95,7 +103,7 @@ DEFINE_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 	if(event->eventType != FINETICK)
 #endif
 	{
-		printf("\n<%s>%4s: ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
+		printf("\n<%s>%4s: ", ((stateMachine_t*)self)->stateMachineName ? ((stateMachine_t*)self)->stateMachineName : "???", self->parent.eventNames ? self->parent.eventNames[hsm_getEventType(event) - SUBSTATE_LAST_INTERNAL_EVENT - 1] : "<USER_EVENT>") ;
 	}
 }
 END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
@@ -103,6 +111,23 @@ END_EXTERNAL_EVENT_DEBUGGING_DISPLAY()
 
 DEFINE_MACHINE_OUTPUT_DISPLAY()
 {
+	if(strlen(self->machineOutputBuffer) > 0)
+	{
+		char* myBuffer = self->machineOutputBuffer ;
+
+		while(*myBuffer)
+		{
+			putchar(*myBuffer) ;
+
+			++myBuffer ;
+		}
+
+		putchar('\n') ;
+
+		fflush(stdout) ;
+
+		memset(self->machineOutputBuffer, 0, MAX_RETURNED_STRING_LENGTH + 1) ;
+	}
 }
 END_MACHINE_OUTPUT_DISPLAY()
 
@@ -132,7 +157,11 @@ void displayTicks(	const char* instanceName, uint8_t value)
 
 void updateDisplay(	const char* instanceName, uint8_t value)
 {
+	(void)instanceName ;
+	(void)value ;
 	printf("\n[%s: time to BOOM: %2d] ", instanceName, value) ;
+
+	fflush(stdout) ;
 }
 
 
@@ -141,14 +170,48 @@ void goBOOM(		const char* instanceName)
 	printf("\n\n\n%s:BOOM!!!\n\n", instanceName) ;
 }
 
+#include "hal.h"
+#include "hal_UART.h"
+#ifdef __c8051f040__
+	#include <C8051F040.h>
+#endif
 
 DEFINE_TOP_STATE()
 {
 	INITIAL_TRANSITION(TO(setting), NO_ACTION) ;
 
-//	EVERY(SECONDS(1), printf(" [TICK_%s] ", self->parent.instanceName ? self->parent.instanceName : self->parent.stateMachineName ? self->parent.stateMachineName : "???")) ;
+	TRANSITION_ON(ARMAGEDDON,		TO(setting),	ACTION(goBOOM(((stateMachine_t*)self)->stateMachineName))) ;
 
-	TRANSITION_ON(ARMAGEDDON,		TO(setting),	ACTION(goBOOM(self->parent.instanceName))) ;
+	HANDLE_STATE_EVENTS
+	{
+		ENTER
+		{
+			sprintf(self->machineOutputBuffer, "Entered TOP") ; DUMP_MACHINE_OUTPUT() ;
+		}
+		ENTER_HANDLED
+
+		EVENT(ARM)
+		{
+#ifdef __c8051f040__
+			portSET_REGISTER_GROUP(CONFIG_PAGE)
+			{
+				P5 = 1 ;
+				P5 = 0 ;
+			}
+			portRESTORE_REGISTER_GROUP()
+#else
+			sprintf(self->machineOutputBuffer, "ARMED!!!") ; DUMP_MACHINE_OUTPUT() ;
+#endif
+		}
+		EVENT_HANDLED
+
+		EXIT
+		{
+			sprintf(self->machineOutputBuffer, "Leaving TOP") ; DUMP_MACHINE_OUTPUT() ;
+		}
+		EXIT_HANDLED
+	}
+	HANDLE_STATE_EVENTS_DONE
 }
 END_DEFINE_STATE()
 
@@ -156,7 +219,6 @@ END_DEFINE_STATE()
 DEFINE_STATE(setting)
 {
 	TRANSITION_ON(ARM,				TO(timing),		ACTION(self->codeBeingEntered = 0)) ;
-//	TRANSITION_AFTER(SECONDS(5),	TO(timing),		ACTION(self->codeBeingEntered = 0)) ;
 
 	HANDLE_STATE_EVENTS
 	{
@@ -167,6 +229,15 @@ DEFINE_STATE(setting)
 			self->finetime			= config_tbFINE_TICKS_PER_SECOND ;
 			self->timeout			= config_tbINIT_TIMEOUT ;
 			self->codeBeingEntered	= 0 ;
+
+#ifdef __c8051f040__
+			portSET_REGISTER_GROUP(CONFIG_PAGE)
+			{
+				P5 = 2 ;
+				P5 = 0 ;
+			}
+			portRESTORE_REGISTER_GROUP()
+#endif
 		}
 		ENTER_HANDLED
 
@@ -178,7 +249,7 @@ DEFINE_STATE(setting)
 			{
 				self->timeout++ ;
 
-				updateDisplay(self->parent.instanceName, self->timeout) ;
+				updateDisplay(((stateMachine_t*)self)->stateMachineName, self->timeout) ;
 			}
 		}
 		EVENT_HANDLED
@@ -191,7 +262,7 @@ DEFINE_STATE(setting)
 			{
 				self->timeout-- ;
 
-				updateDisplay(self->parent.instanceName, self->timeout) ;
+				updateDisplay(((stateMachine_t*)self)->stateMachineName, self->timeout) ;
 			}
 			else
 			{
@@ -211,10 +282,10 @@ DEFINE_STATE(timing)
 {
 	ON_ENTRY(ACTIVATE_ALARM(self->finetick)) ;
 
-	ON_EVENT(FINETICK, --self->finetime ; displayTicks(self->parent.instanceName, self->finetime)) ;
+	ON_EVENT(FINETICK, --self->finetime ; displayTicks(((stateMachine_t*)self)->stateMachineName, self->finetime)) ;
 
-	TRANSITION_ON_IF(ARM,		self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(self->parent.instanceName, self->timeout))) ;
-	TRANSITION_ON_IF(FINETICK,	self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(self->parent.instanceName, self->timeout))) ;
+	TRANSITION_ON_IF(ARM,		self->codeBeingEntered == self->disarmCode,	TO(setting),		ACTION(updateDisplay(((stateMachine_t*)self)->stateMachineName, self->timeout))) ;
+	TRANSITION_ON_IF(FINETICK,	self->finetime == 0,						TO(isTimeToGoBoom),	ACTION(--(self->timeout) ; updateDisplay(((stateMachine_t*)self)->stateMachineName, self->timeout))) ;
 
 	HANDLE_STATE_EVENTS
 	{
@@ -238,6 +309,6 @@ END_DEFINE_STATE()
 
 DEFINE_CHOICE_PSEUDO_STATE(	isTimeToGoBoom,
 							IF(self->timeout == 0),														/* condition */
-							TO(STATE_MACHINE_EXIT),	goBOOM(self->parent.instanceName),					/* if true */
+							TO(STATE_MACHINE_EXIT),	goBOOM(((stateMachine_t*)self)->stateMachineName),	/* if true */
 							TO(timing),				self->finetime = config_tbFINE_TICKS_PER_SECOND) ;	/* if false */
 
