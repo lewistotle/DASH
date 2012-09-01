@@ -1,8 +1,24 @@
-/*
- * StateMachine_G4.h
+/**
+ * @file	dash.h
+ * @author  John Lewis <dash@lewistotle.net>
+ * @version 1.0
  *
- *  Created on: Nov 27, 2009
- *      Author: jlewis
+ * @section LICENSE
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details at
+ * http://www.gnu.org/copyleft/gpl.html
+ *
+ * @section DESCRIPTION
+ *
+ * This is the core of all dash functions.
  */
 
 #ifndef STATEMACHINE_G4_H_
@@ -21,10 +37,6 @@ extern "C"
 #define configHSM_DEBUGGING_ENABLED					true
 #define configHSM_INTERNAL_DEBUGGING_ENABLED		true
 #define configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED	1
-
-#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	#include <stdio.h>
-#endif
 
 #ifndef configMAXIMUM_STATE_HIERARCHY_DEPTH
 	#define configMAXIMUM_STATE_HIERARCHY_DEPTH		64
@@ -58,7 +70,18 @@ extern "C"
 	#define const_state_t				static __xdata state_t
 	#define const_state_with_history_t	static state_with_history_t
 	#define REENTRANT
+
+	#define fflush(a)
 #elif defined(__linux__)
+	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
+	#define VOID_CAST(v)				(const void*)(v)
+	#define REENTRANT
+	#define __code
+
+	typedef double						sm_float_t ;
+	#define const_state_t				static const state_t
+	#define const_state_with_history_t	static const state_with_history_t
+#elif defined(__AVR__)
 	#define CALLSTATEHANDLER_CAST(c)	(stateMachine_callStateHandler_t)(c)
 	#define VOID_CAST(v)				(const void*)(v)
 	#define REENTRANT
@@ -142,20 +165,8 @@ void outputStateMachineStatus(	FILE* destination) ;
 
 
 
-/* Now for the state machine definition itself. This is the core of it all.
- * Here is a brief description of what each field does:
- *
- * 		topState:						points to the topmost state in the machine
- * 		stateMachineName:				Debugging only. It holds the name of this machine instance
- *										(defaults to machine type but can be overridden)
- * 		currentState:					What state the machine is in right now.
- * 		nextState:						Set by a state when a transition is about to happen
- * 		eventQueue:						A queue that holds all non-deferred events that come in
- *		maxDepthOfEventsToDeferList:	Holds the max number of event types that can be deferred
- *		currentDepthOfEventsToDeferList:Holds the current number of deferred event types
- *		typesOfEventsToDefer:			A simple array that holds the types of events to defer
- *		deferredEventQueue:				Any deferred event types that come in get put here temporarily
- *		stateMachineInitialized:		Has the machine been initialized yet?
+/**
+ * @brief	Now for the state machine definition itself. This is the core of it all.
  *
  * The currentState and nextState members are declared as void pointers since normal C doesn't
  * allow for forward declaration. Since keeping the code in the states themselves was a very
@@ -165,23 +176,17 @@ void outputStateMachineStatus(	FILE* destination) ;
 
 typedef struct
 {
-	/* topState hold a pointer to the topmost state in the machine. It is filled in at compile time */
-	const void*								topState ;
-
-#if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	/* DEBUGGING only: This holds the name of the state machine that is printed out at various times */
-	const char*								stateMachineName ;
-#endif
+	const void*								topState ;								/*!< holds a pointer to the topmost state in the machine. It is filled in at compile time */
 
 	/*
 	 * currentState is a pointer to the state that the machine is currently in. Note that this can
 	 * be a non-leaf state
 	 */
-	void*									currentState ;
-	void*									activeState ;
-	void*									nextState ;
+	void*									currentState ;							/*!< What state the machine is in right now */
+	void*									activeState ;							/*!< I forget what this one does at the moment. */
+	void*									nextState ;								/*!< Set by a state when a transition is about to happen */
 
-	uint8_t									stateMachineInitialized ;
+	uint8_t									stateMachineInitialized ;				/*!< Has the machine been initialized yet? */
 	uint8_t									requestsDoEvents ;
 	uint8_t									requestsTickEvents ;
 
@@ -190,11 +195,11 @@ typedef struct
 
 	stateMachinePriority_t					priority ;
 
-	eventQueue_t							eventQueue ;
-	eventQueueIndex_t						maxDepthOfEventsToDeferList ;
-	eventQueueIndex_t						currentDepthOfEventsToDeferList ;
-	eventType_t*							typesOfEventsToDefer ;
-	eventQueue_t							deferredEventQueue ;
+	eventQueue_t							eventQueue ;							/*!< A queue that holds all non-deferred events that come in */
+	eventQueueIndex_t						maxDepthOfEventsToDeferList ;			/*!< Holds the max number of event types that can be deferred */
+	eventQueueIndex_t						currentDepthOfEventsToDeferList ;		/*!< Holds the current number of deferred event types */
+	eventType_t*							typesOfEventsToDefer ;					/*!< A simple array that holds the types of events to defer */
+	eventQueue_t							deferredEventQueue ;					/*!< Any deferred event types that come in get put here temporarily */
 
 	void*									sourceHierarchy[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
 	void*									targetHierarchy[configMAXIMUM_STATE_HIERARCHY_DEPTH] ;
@@ -215,8 +220,11 @@ typedef struct
 
 	uint8_t									currentStateHasInitialTransition ;
 
+	uint32_t								timeInCurrentState_Hours ;	/* only 489,957 years, 5 months, 19 hours before wrapping */
+	uint32_t								timeInCurrentState_Microseconds ;
+
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
-	/* The following are used for debugging only and can be removed for production code. */
+	const char*								stateMachineName ;						/*!< DEBUGGING only: This holds the name of the state machine that is printed out at various times (defaults to machine type but can be overridden) */
 
 	uint8_t									printStateTransitions ;
 	const char**							eventNames ;
@@ -225,9 +233,6 @@ typedef struct
 	stateMachine_displayStatusInfo_t		debugging_statusDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineOutputDisplay ;
 	stateMachine_displayMachineOutput_t		debugging_machineDebuggingDisplay ;
-
-	uint32_t								timeInCurrentState_Hours ;			/* only 489,957 years, 5 months, 19 hours before wrapping */
-	uint32_t								timeInCurrentState_Microseconds ;
 
 #endif
 } stateMachine_t ;
@@ -275,9 +280,9 @@ enum STATE_MACHINE_STATE_TYPES	{
  * along the way.
  */
 
-enum STATE_MACHINE_STATE_RESPONSES { IGNORED, HANDLED, TRANSITION, TRANSITION_TO_HISTORY, TRANSITION_TO_SELF } ;
+//enum STATE_MACHINE_STATE_RESPONSES { IGNORED, HANDLED, TRANSITION, TRANSITION_TO_HISTORY, TRANSITION_TO_SELF } ;
 
-typedef enum STATE_MACHINE_STATE_RESPONSES	stateMachine_stateResponse_t ;
+typedef enum { IGNORED, HANDLED, TRANSITION, TRANSITION_TO_HISTORY, TRANSITION_TO_SELF }	stateMachine_stateResponse_t ;
 
 typedef stateMachine_stateResponse_t (* stateMachine_callStateHandler_t)(stateMachine_t* self, event_t* event) REENTRANT ;
 typedef stateMachine_stateResponse_t (* stateMachine_choiceStateHandler_t)(stateMachine_t* self) REENTRANT ;
@@ -783,7 +788,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
 		#define ADD_SUB_STATE_2(sm, ps, ss)				static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;										\
-														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT											\
+														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT												\
 														{																																					\
 															return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																						\
 														}																																					\
@@ -801,10 +806,11 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
-		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;										\
-														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT											\
+		#define ADD_CHOICE_PSEUDO_STATE_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self) REENTRANT ;														\
+														static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT												\
 														{																																					\
-															return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																						\
+															(void)event ;																																	\
+															return sm##_##ss##_handler((sm##Machine_t*)self) ;																								\
 														}																																					\
 														__xdata state_t sm##_##ss = { VOID_CAST(&sm##_##ps), CHOICE_PSUEDOSTATE, sm##_##ss##_helper, #sm "_" #ss }
 	#else
@@ -822,7 +828,7 @@ void hsm_handleTick(								uint32_t microsecondsSinceLastHandled) ;
 #if configHSM_MACHINE_LEVEL_DEBUGGING_ENABLED
 	#ifdef __c8051f040__
 		#define ADD_SUB_STATE_WITH_SHALLOW_HISTORY_2(sm, ps, ss)	static stateMachine_stateResponse_t sm##_##ss##_handler(	sm##Machine_t* self, event_t* event) REENTRANT ;							\
-																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT								\
+																	static stateMachine_stateResponse_t sm##_##ss##_helper(stateMachine_t* self, event_t* event) REENTRANT									\
 																	{																																		\
 																		return sm##_##ss##_handler((sm##Machine_t*)self, event) ;																			\
 																	}																																		\

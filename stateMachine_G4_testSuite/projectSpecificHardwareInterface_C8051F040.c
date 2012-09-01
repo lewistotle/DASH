@@ -19,6 +19,13 @@ bool hal_init_projectSpecific(			void)
 }
 
 
+bool hal_shutdown_projectSpecific(			void)
+{
+	return true ;
+}
+
+
+static volatile bool	timerShouldRun	= false ;
 
 bool hal_clock_init_projectSpecific(	void)
 {
@@ -50,6 +57,12 @@ bool hal_clock_init_projectSpecific(	void)
 	}
 	portRESTORE_REGISTER_GROUP()
 
+	return true ;
+}
+
+
+bool hal_clock_shutdown_projectSpecific(	void)
+{
 	return true ;
 }
 
@@ -98,6 +111,25 @@ bool hal_timer_init_projectSpecific(	void)
 }
 
 
+bool hal_timer_is_time_for_tick_processing_projectSpecific(	void)
+{
+	if(timeForTickProcessing)
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
+
+void hal_timer_tick_procesed_projectSpecific(				void)
+{
+	timeForTickProcessing = false ;
+}
+
+
 #pragma save
 #pragma nooverlay
 void hal_timer_ISR( void ) __interrupt(5)
@@ -114,6 +146,14 @@ void hal_timer_ISR( void ) __interrupt(5)
 	portCLEAR_INTERRUPT_FLAG() ;
 }
 #pragma restore
+
+
+bool hal_timer_shutdown_projectSpecific(	void)
+{
+	timerShouldRun = false ;
+
+	return true ;
+}
 
 
 bool hal_gpio_init_projectSpecific(		void)
@@ -145,6 +185,10 @@ bool hal_gpio_init_projectSpecific(		void)
 }
 
 
+bool hal_gpio_shutdown_projectSpecific(		void)
+{
+	return true ;
+}
 
 
 

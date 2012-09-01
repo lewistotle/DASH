@@ -329,7 +329,7 @@ uint8_t doCalculation(	calculatorMachine_t* sm, event_t* event)
 {
 	bool	success ;
 	char	output[50] ;
-	float	result ;
+	double	result ;
 
 	sprintf(output,
 			"%ld.%ld",

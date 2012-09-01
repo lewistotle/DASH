@@ -224,6 +224,11 @@ typedef struct
 #elif defined(__MINGW__)
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		}
+#elif defined(__AVR__)
+	#warning FIX THIS!!!
+
+	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{
+	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		}
 #else
 	#define EVENT_QUEUE_ENTER_CRITICAL_SECTION()	{ uint8_t sreg = SREG ; cli()
 	#define EVENT_QUEUE_EXIT_CRITICAL_SECTION()		SREG = sreg ; }

@@ -467,6 +467,8 @@ void handleKeypress(uint8_t c)
 
 
 #ifdef __c8051f040__
+static volatile	bool	timeForTickProcessing	= false ;
+
 void taskSwitcherTickHook(	void)
 {
 	timeForTickProcessing = true ;

@@ -18,9 +18,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifndef __c8051f040__
+#ifdef __linux__
 	#include <sys/time.h>
+#endif
 
+#ifndef __c8051f040__
 	#define __xdata
 #else
 	#include <C8051F040.h>
@@ -522,8 +524,8 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 				memoryPoolLocation += instance->memoryPoolInfo->eventMemoryPools[i].numberOfChunks
 									* instance->memoryPoolInfo->eventMemoryPools[i].chunkSize ;
 
-#ifdef __c8051f040__
-				memoryPoolLocation = (uint8_t __XDATA*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+#if defined(__c8051f040__) || defined(__AVR__)
+				memoryPoolLocation = (uint8_t __XDATA*)(((uint16_t)(memoryPoolLocation + 3)) & 0xFFFCU) ;
 #else
 				memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
 #endif
@@ -551,8 +553,8 @@ stateMachine_t* allocateStateMachineMemory(		uint16_t stateMachineSizeInBytes,
 			}
 		}
 
-#ifdef __c8051f040__
-		memoryPoolLocation = (uint8_t __XDATA*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
+#if defined(__c8051f040__) || defined(__AVR__)
+		memoryPoolLocation = (uint8_t __XDATA*)(((uint16_t)(memoryPoolLocation + 3)) & 0xFFFCU) ;
 #else
 		memoryPoolLocation = (uint8_t*)(((uint32_t)(memoryPoolLocation + 3)) & 0xFFFFFFFCUL) ;
 #endif

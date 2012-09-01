@@ -26,5 +26,5 @@ $(OUT_DIR)/%.rel	: ../%.c ../../stateMachine_G4.h ../../stateMachine_G4_eventQue
 				$(CC) $(CFLAGS) -c -o"$@" "$<"
 
 clean :
-				rm -rf dash_linux $(OUT_DIR)/*.rel $(OUT_DIR)/*.asm $(OUT_DIR)/*.hex $(OUT_DIR)/*.lnk $(OUT_DIR)/*.lst $(OUT_DIR)/*.map $(OUT_DIR)/*.mem $(OUT_DIR)/*.rst $(OUT_DIR)/*.sym
+				rm -rf dash_linux $(OUT_DIR)/*.rel $(OUT_DIR)/*.asm $(OUT_DIR)/*.hex $(OUT_DIR)/*.lk $(OUT_DIR)/*.lnk $(OUT_DIR)/*.lst $(OUT_DIR)/*.map $(OUT_DIR)/*.mem $(OUT_DIR)/*.rst $(OUT_DIR)/*.sym
 

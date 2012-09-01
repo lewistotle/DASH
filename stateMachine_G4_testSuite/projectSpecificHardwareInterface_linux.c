@@ -44,8 +44,7 @@ void hsm_handleTick(	uint32_t microsecondsSinceLastHandled) ;
 uint32_t	uptime_hours ;
 uint32_t	uptime_microseconds ;
 
-static bool timerShouldRun = false ;
-
+static volatile bool	timerShouldRun			= false ;
 static volatile	bool	timeForTickProcessing	= false ;
 
 bool hal_clock_init_projectSpecific(	void)
@@ -228,7 +227,7 @@ void* charInput_thread(	void* threadID) ;
 #define UART_0_TRANSMIT_BUFFER_SIZE	100
 
 static __xdata uint8_t					UART_0_transmitBuffer[	UART_0_TRANSMIT_BUFFER_SIZE + 1] ;
-static __xdata uint8_t					UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE + 1] ;
+static __xdata uint8_t					UART_0_receiveBuffer[	UART_0_RECEIVE_BUFFER_SIZE  + 1] ;
 static hal_UART_info_internal_t __xdata	UART_0_struct ;
 
 hal_UART_info_t* UART_0 = &UART_0_struct ;
