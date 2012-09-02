@@ -13,6 +13,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <stdio.h>
+#include "conio.h"
 
 #include "hal.h"
 #include "hal_UART.h"
@@ -283,38 +284,20 @@ void hal_UART_core_projectSpecific(	hal_UART_info_t* hal_UART_info)
 
 void* charInput_thread(	void* threadID)
 {
-//	static struct termios	init_tio ;
-//	struct termios			tio ;
-//	char					characterRead ;
-//	ssize_t 				ignored = 0 ;
-//
-//	puts("charInput thread started.") ;
-//
-//	// Set up the terminal so that it will buffer by character rather than by line and apply the change immediately
-//
-//    tcgetattr(0, &init_tio) ;
-//
-//    memcpy(&tio, &init_tio, sizeof(struct termios)) ;
-//
-//    tio.c_lflag &= ~(ICANON | ECHO) ;
-//
-//    tcsetattr(0, TCSANOW, &tio) ;
-//
-//	do
-//	{
-//		ignored = read(0, &characterRead, 1) ;
-//
-//		handleKeypress(characterRead) ;
-//	} while(characterRead != 0x1B) ;
-//
-//
-//	puts("charInput thread exited.") ;
-//
-//    /* back to initial terminal mode */
-//    tcsetattr(0, TCSANOW, &init_tio) ;
-//    tcsetattr(0, TCSANOW, &init_tio) ;
-//
-//	pthread_exit((void*)threadID) ;
+	char characterRead ;
+
+	puts("charInput thread started.") ;
+
+	do
+	{
+		characterRead = getch() ;
+
+		handleKeypress(characterRead) ;
+	} while(characterRead != 0x1B) ;
+
+	puts("charInput thread exited.") ;
+
+	pthread_exit((void*)threadID) ;
 
 	return NULL ;
 }
